@@ -411,14 +411,14 @@ body {
 .nav-icon {
   font-family: FontAwesome;
   text-align: center;
-  font-size: 14px;
-  width: 14px;
+  font-size: 30px;
+  width: 30px;
   height: 14px;
   padding: 5px 7px;
   position: relative;
   cursor: pointer;
   float: left;
-  top: 37px;
+  top: 28px;
 }
 .main-nav-link {
   font-family: 'Open Sans', "Microsoft Yahei";

@@ -3,18 +3,48 @@
 <head>
   <meta charset="utf-8">
   
-  <title>about | Hanks Home</title>
+  <title>利用ADB 来进行无线调试 | Hanks Home</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="happy code">
-<meta property="og:type" content="website">
-<meta property="og:title" content="about">
-<meta property="og:url" content="http://hanks.xyz/about/index.html">
+  <meta name="description" content="通过wifi连接进行 adb 调试, 也是插件 AndroidWiFiADB 的原理
+前提: 电脑和手机在同一局域网下
+
+adb connect 命令1adb connect &amp;lt;host&amp;gt;[:&amp;lt;port&amp;gt;]
+
+通过USB线连接电脑
+
+查看 adb 连接的设备列表
+
+
+1234$ adb devices -lList of devices attached005deabe19">
+<meta property="og:type" content="article">
+<meta property="og:title" content="利用ADB 来进行无线调试">
+<meta property="og:url" content="http://hanks.xyz/2015/11/01/adb-wifi/index.html">
 <meta property="og:site_name" content="Hanks Home">
-<meta property="og:description" content="happy code">
-<meta property="og:updated_time" content="2015-12-01T15:58:04.889Z">
+<meta property="og:description" content="通过wifi连接进行 adb 调试, 也是插件 AndroidWiFiADB 的原理
+前提: 电脑和手机在同一局域网下
+
+adb connect 命令1adb connect &amp;lt;host&amp;gt;[:&amp;lt;port&amp;gt;]
+
+通过USB线连接电脑
+
+查看 adb 连接的设备列表
+
+
+1234$ adb devices -lList of devices attached005deabe19">
+<meta property="og:updated_time" content="2015-12-02T08:33:27.929Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="about">
-<meta name="twitter:description" content="happy code">
+<meta name="twitter:title" content="利用ADB 来进行无线调试">
+<meta name="twitter:description" content="通过wifi连接进行 adb 调试, 也是插件 AndroidWiFiADB 的原理
+前提: 电脑和手机在同一局域网下
+
+adb connect 命令1adb connect &amp;lt;host&amp;gt;[:&amp;lt;port&amp;gt;]
+
+通过USB线连接电脑
+
+查看 adb 连接的设备列表
+
+
+1234$ adb devices -lList of devices attached005deabe19">
   
   
     <link rel="icon" href="/favicon.png">
@@ -154,10 +184,10 @@
   
 </aside>
         
-        <section id="main"><article id="page-undefined" class="article article-type-page" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-adb-wifi" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/about/index.html" class="article-date">
-  <time datetime="2015-12-01T15:45:02.000Z" itemprop="datePublished">2015-12-01</time>
+    <a href="/2015/11/01/adb-wifi/" class="article-date">
+  <time datetime="2015-11-01T14:28:34.000Z" itemprop="datePublished">2015-11-01</time>
 </a>
     
   </div>
@@ -168,7 +198,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      about
+      利用ADB 来进行无线调试
     </h1>
   
 
@@ -176,13 +206,46 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <blockquote>
+<p>通过wifi连接进行 adb 调试, 也是插件 <strong><a href="https://github.com/pedrovgs/AndroidWiFiADB" target="_blank" rel="external">AndroidWiFiADB</a></strong> 的原理</p>
+<p>前提: 电脑和手机在同一局域网下</p>
+</blockquote>
+<h3 id="adb_connect_命令">adb connect 命令</h3><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">adb connect &lt;host&gt;[<span class="symbol">:&lt;port&gt;</span>]</span><br></pre></td></tr></table></figure>
+<ol>
+<li><p>通过USB线连接电脑</p>
+</li>
+<li><p>查看 <code>adb</code> 连接的设备列表</p>
+</li>
+</ol>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ adb devices -l</span><br><span class="line"></span><br><span class="line">List of devices attached</span><br><span class="line"><span class="number">005</span>deabe1919a90b       device <span class="string">usb:</span><span class="number">1</span>-<span class="number">2</span> <span class="string">product:</span>occam <span class="string">model:</span>Nexus_4 <span class="string">device:</span>mako</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<ol>
+<li>重置 TCP端口</li>
+</ol>
+<figure class="highlight elm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ adb tcpip <span class="number">5555</span></span><br><span class="line"></span><br><span class="line"><span class="title">restarting</span> <span class="keyword">in</span> <span class="type">TCP</span> mode <span class="foreign"><span class="keyword">port</span>: 5555</span></span><br></pre></td></tr></table></figure>
+<ol>
+<li>查看手机设备的 ip</li>
+</ol>
+<p>设置 -&gt; wifi -&gt; 高级设置, 查看手机在局域网的 ip<br>我的是 192.168.1.230</p>
+<ol>
+<li><code>adb</code>连接手机</li>
+</ol>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ adb connect <span class="number">192.168</span><span class="number">.1</span><span class="number">.230</span></span><br><span class="line"></span><br><span class="line">connected to <span class="number">192.168</span><span class="number">.1</span><span class="number">.230</span>:<span class="number">5555</span></span><br></pre></td></tr></table></figure>
+<ol>
+<li>断开USB数据线, 验证adb连接是否断开</li>
+</ol>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ adb devices -l</span><br><span class="line">List of devices attached</span><br><span class="line"><span class="number">192.168</span><span class="number">.1</span><span class="number">.230</span>:<span class="number">5555</span>     device product:occam model:Nexus_4 device:mako</span><br></pre></td></tr></table></figure>
+<p>现在可以执行各种adb 命令了, 当然包括安装调试apk,查看log等等</p>
+<p>相关链接:<br><a href="http://adbshell.com/commands/adb-connect" target="_blank" rel="external">adb shell- adb conntect</a><br><a href="https://github.com/pedrovgs/AndroidWiFiADB" target="_blank" rel="external">AndroidWiFiADB</a><br><a href="https://github.com/Bob1993/adbwifi/blob/master/adbwifi.sh" target="_blank" rel="external">adbwifi(shell脚本)</a><br><a href="http://developer.android.com/intl/zh-cn/tools/help/adb.html#directingcommands" target="_blank" rel="external">Android Debug Bridge</a></p>
+
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://hanks.xyz/about/index.html" data-id="cihonrlmm00008y05yghyvpzf" class="article-share-link">Share</a>
+      <a data-url="http://hanks.xyz/2015/11/01/adb-wifi/" data-id="cihonrlna00058y053gyef809" class="article-share-link">Share</a>
       
       
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
+
     </footer>
   
   
@@ -191,7 +254,7 @@
   
 <section id="comments">
     <!-- 多说分享框 -->
-    <div class="ds-share flat" data-thread-key="/about/index.html" data-title="about" data-images="此处请替换为分享时显示的图片的链接地址" data-content="about" data-url="http://hanks.xyz//about/index.html">
+    <div class="ds-share flat" data-thread-key="/2015/11/01/adb-wifi/" data-title="利用ADB 来进行无线调试" data-images="此处请替换为分享时显示的图片的链接地址" data-content="利用ADB 来进行无线调试" data-url="http://hanks.xyz//2015/11/01/adb-wifi/">
     <div class="ds-share-inline">
       <ul  class="ds-share-icons-16">
 
@@ -206,7 +269,7 @@
     </div>
    </div>
     <!-- 多说评论框 start -->
-   	<div class="ds-thread" data-thread-key="/about/index.html" data-title="about" data-url="http://hanks.xyz//about/index.html"></div>
+   	<div class="ds-thread" data-thread-key="/2015/11/01/adb-wifi/" data-title="利用ADB 来进行无线调试" data-url="http://hanks.xyz//2015/11/01/adb-wifi/"></div>
    <!-- 多说评论框 end -->
    <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
    <script type="text/javascript">

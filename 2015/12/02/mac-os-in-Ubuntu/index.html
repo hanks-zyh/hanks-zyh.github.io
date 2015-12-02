@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Ubuntu 安装 OS X 10.11  虚拟机 | Hanks Home</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="看到论坛里有人在windows平台上面利用 VirtualBox 成功安装了 OS X 10.11,(我的是Ubuntu 14.04)于是尝试一下虚拟机装mac,既然 VirtualBox 有linux版, 于是尝试在Ubuntu下装mac os虚拟机.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Ubuntu 安装 OS X 10.11  虚拟机">
+<meta property="og:url" content="http://hanks.xyz/2015/12/02/mac-os-in-Ubuntu/index.html">
+<meta property="og:site_name" content="Hanks Home">
+<meta property="og:description" content="看到论坛里有人在windows平台上面利用 VirtualBox 成功安装了 OS X 10.11,(我的是Ubuntu 14.04)于是尝试一下虚拟机装mac,既然 VirtualBox 有linux版, 于是尝试在Ubuntu下装mac os虚拟机.">
+<meta property="og:image" content="https://dn-coding-net-production-pp.qbox.me/44703706-0ca7-4163-89ff-968e8962c57f.png">
+<meta property="og:image" content="https://dn-coding-net-production-pp.qbox.me/1f97a9c1-09b0-428a-aac9-60a098b78d6c.png">
+<meta property="og:image" content="https://dn-coding-net-production-pp.qbox.me/2adabc19-197d-46b4-a960-0203a6c7fd52.png">
+<meta property="og:image" content="https://dn-coding-net-production-pp.qbox.me/2ba64c95-f5f1-4e66-b878-5bdc6d873c6e.png">
+<meta property="og:image" content="https://dn-coding-net-production-pp.qbox.me/9d66a4d0-b141-4920-bde4-2a89d0afcc15.png">
+<meta property="og:image" content="https://dn-coding-net-production-pp.qbox.me/255e709e-3416-4e89-80a8-30c10768332b.png">
+<meta property="og:image" content="https://dn-coding-net-production-pp.qbox.me/ba9d827a-41dd-4f8c-8ae9-1467907024e4.png">
+<meta property="og:image" content="https://dn-coding-net-production-pp.qbox.me/a256c81f-0820-4b8d-bd0a-e55eca3b4d05.png">
+<meta property="og:image" content="https://dn-coding-net-production-pp.qbox.me/f3c72d29-4966-46b4-99cc-faad0d7af4f3.png">
+<meta property="og:image" content="https://dn-coding-net-production-pp.qbox.me/9cf7a273-c89d-4715-b0c4-62e76a228faa.png">
+<meta property="og:updated_time" content="2015-12-02T16:52:31.155Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Ubuntu 安装 OS X 10.11  虚拟机">
+<meta name="twitter:description" content="看到论坛里有人在windows平台上面利用 VirtualBox 成功安装了 OS X 10.11,(我的是Ubuntu 14.04)于是尝试一下虚拟机装mac,既然 VirtualBox 有linux版, 于是尝试在Ubuntu下装mac os虚拟机.">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <!-- <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600' rel='stylesheet' type='text/css'> -->
+  <!-- <link href="//fonts.googleapis.com/css?family=Source+Code+Pro:400,700" rel="stylesheet" type="text/css"> -->
+  <link href="//fonts.useso.com/css?family=Source+Code+Pro:400,700" rel="stylesheet" type="text/css">
+  <link href='//fonts.useso.com/css?family=Open+Sans:300,600' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo">Hanks Home</a>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" href="/about/index.html">About</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        <div id="search-form-wrap">
+          <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://hanks.xyz"></form>
+        </div>
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+        
+        
+          <a id="nav-github-link" class="nav-icon" href="https://github.com/hanks-zyh" title="Fork me on GitHub"></a>
+        
+      </nav>
+    </div>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/about/index.html" class="mobile-nav-link">About</a>
+  
+  <div id="search-form-wrap-mobile">
+    <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://hanks.xyz"></form>
+  </div>
+</nav>
+      <div class="outer">
+        
+          <aside id="sidebar">
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">十二月 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">十一月 2015</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/1970/01/">一月 1970</a><span class="archive-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2015/12/02/mac-os-in-Ubuntu/">Ubuntu 安装 OS X 10.11  虚拟机</a>
+          </li>
+        
+          <li>
+            <a href="/2015/12/01/ReactiveX/">ReactiveX</a>
+          </li>
+        
+          <li>
+            <a href="/2015/11/21/Rx/">使用RxJava 提升用户体验</a>
+          </li>
+        
+          <li>
+            <a href="/2015/11/02/capture/">抓包工具整理</a>
+          </li>
+        
+          <li>
+            <a href="/2015/11/01/adb-wifi/">利用ADB 来进行无线调试</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/">Android</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Rx/">Rx</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RxJava/">RxJava</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ubuntu/">Ubuntu</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac-os/">mac os</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/virtualBox/">virtualBox</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/必备知识/">必备知识</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Android/" style="font-size: 10px;">Android</a> <a href="/tags/Rx/" style="font-size: 10px;">Rx</a> <a href="/tags/RxJava/" style="font-size: 10px;">RxJava</a> <a href="/tags/Ubuntu/" style="font-size: 10px;">Ubuntu</a> <a href="/tags/mac-os/" style="font-size: 10px;">mac os</a> <a href="/tags/virtualBox/" style="font-size: 10px;">virtualBox</a> <a href="/tags/必备知识/" style="font-size: 10px;">必备知识</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">links</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="http://kiya.space">kiya-z</a>
+          </li>
+        
+          <li>
+            <a href="http://hexo.io">Hexo</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+        <section id="main"><article id="post-mac-os-in-Ubuntu" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/12/02/mac-os-in-Ubuntu/" class="article-date">
+  <time datetime="2015-12-02T15:50:26.000Z" itemprop="datePublished">2015-12-02</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Ubuntu 安装 OS X 10.11  虚拟机
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>看到<a href="http://bbs.feng.com/read-htm-tid-9908410.html" target="_blank" rel="external">论坛</a>里有人在windows平台上面利用 <code>VirtualBox</code> 成功安装了 <code>OS X 10.11</code>,(我的是Ubuntu 14.04)于是尝试一下虚拟机装mac,既然 <code>VirtualBox</code> 有linux版, 于是尝试在Ubuntu下装mac os虚拟机.<br><a id="more"></a></p>
+<h3 id="下载_VirtualBox">下载 <code>VirtualBox</code></h3><p>到 <a href="https://www.virtualbox.org/wiki/Downloads" target="_blank" rel="external">VirtualBox 官网</a>下载, 我已经安装过了,版本是 5.0.8, 最新的 5.0.10</p>
+<h3 id="下载_mac_os_虚拟机文件">下载 mac os 虚拟机文件</h3><p>到这个论坛里下载安装好的<a href="http://bbs.feng.com/read-htm-tid-9908410.html" target="_blank" rel="external">OS X 10.11 El Capitan GM by TechReviews.vmdk</a></p>
+<h3 id="添加虚拟机">添加虚拟机</h3><p> 打开 <code>VirtualBox</code>, 新建mac os 虚拟机, <strong>需要记住自己填写的名字</strong>,下面需要用命令更改配置<br>我分配了8G内存, 虚拟硬盘使用刚才下载的<br> <img src="https://dn-coding-net-production-pp.qbox.me/44703706-0ca7-4163-89ff-968e8962c57f.png" alt="图片"><br>注意设置<code>启动顺序</code>,和<code>芯片组</code><br> <img src="https://dn-coding-net-production-pp.qbox.me/1f97a9c1-09b0-428a-aac9-60a098b78d6c.png" alt="图片"><br>设置<code>显存</code>为128MB<br> <img src="https://dn-coding-net-production-pp.qbox.me/2adabc19-197d-46b4-a960-0203a6c7fd52.png" alt="图片"></p>
+<h3 id="更改配置">更改配置</h3><p>输入以下命令,注意使用的 <code>VboxManage</code> 命令</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">VBoxManage modifyvm <span class="string">"OSXElCapitan"</span>  --cpuidset <span class="number">00000001</span> <span class="number">000306</span>a9 <span class="number">04100800</span> <span class="number">7f</span>bae3ff bfebfbff</span><br><span class="line">VBoxManage setextradata <span class="string">"OSXElCapitan"</span>  <span class="string">"VBoxInternal/Devices/efi/0/Config/DmiSystemProduct"</span> <span class="string">"MacBookPro11,3"</span></span><br><span class="line">VBoxManage setextradata <span class="string">"OSXElCapitan"</span>  <span class="string">"VBoxInternal/Devices/efi/0/Config/DmiSystemVersion"</span> <span class="string">"1.0"</span></span><br><span class="line">VBoxManage setextradata <span class="string">"OSXElCapitan"</span>  <span class="string">"VBoxInternal/Devices/efi/0/Config/DmiBoardProduct"</span> <span class="string">"Iloveapple"</span></span><br><span class="line">VBoxManage setextradata <span class="string">"OSXElCapitan"</span>  <span class="string">"VBoxInternal/Devices/smc/0/Config/DeviceKey"</span> <span class="string">"ourhardworkbythesewordsguardedpleasedontsteal(c)AppleComputerInc"</span></span><br><span class="line">VBoxManage setextradata <span class="string">"OSXElCapitan"</span>  <span class="string">"VBoxInternal/Devices/smc/0/Config/GetKeyFromRealSMC"</span> <span class="number">1</span></span><br></pre></td></tr></table></figure>
+<p>如需要更改 虚拟机分辨率 1440×900 输入命令如下：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">VBoxManage setextradata <span class="string">"OSXYosemite"</span> <span class="string">"VBoxInternal2/EfiGopMode"</span> <span class="number">4</span></span><br></pre></td></tr></table></figure></p>
+<p>其中数字表示如下, 虚拟机默认分辨率值是 2 – 1024×768</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">0</span> – <span class="number">640</span>×<span class="number">480</span></span><br><span class="line"><span class="number">1</span> – <span class="number">800</span>×<span class="number">600</span></span><br><span class="line"><span class="number">2</span> – <span class="number">1024</span>×<span class="number">768</span></span><br><span class="line"><span class="number">3</span> – <span class="number">1280</span>×<span class="number">1024</span></span><br><span class="line"><span class="number">4</span> – <span class="number">1440</span>×<span class="number">900</span></span><br></pre></td></tr></table></figure>
+<h3 id="启动虚拟机">启动虚拟机</h3><ol>
+<li>关闭 VirtualBOX</li>
+<li>重新正常启动 VirtualBOX, 及启动 OSXYosemite 虚拟机文件</li>
+<li>进行一些系统设置</li>
+</ol>
+<p> <img src="https://dn-coding-net-production-pp.qbox.me/2ba64c95-f5f1-4e66-b878-5bdc6d873c6e.png" alt="图片"></p>
+<p> <img src="https://dn-coding-net-production-pp.qbox.me/9d66a4d0-b141-4920-bde4-2a89d0afcc15.png" alt="图片"></p>
+<p> <img src="https://dn-coding-net-production-pp.qbox.me/255e709e-3416-4e89-80a8-30c10768332b.png" alt="图片"></p>
+<p> <img src="https://dn-coding-net-production-pp.qbox.me/ba9d827a-41dd-4f8c-8ae9-1467907024e4.png" alt="图片"></p>
+<p> <img src="https://dn-coding-net-production-pp.qbox.me/a256c81f-0820-4b8d-bd0a-e55eca3b4d05.png" alt="图片"></p>
+<p> <img src="https://dn-coding-net-production-pp.qbox.me/f3c72d29-4966-46b4-99cc-faad0d7af4f3.png" alt="图片"></p>
+<p> <img src="https://dn-coding-net-production-pp.qbox.me/9cf7a273-c89d-4715-b0c4-62e76a228faa.png" alt="图片"></p>
+<h3 id="安装_xcode_7">安装 xcode 7</h3><p>下载xcode</p>
+<hr>
+<p>参考链接:<br><br><a href="http://bbs.feng.com/read-htm-tid-9908410.html" target="_blank" rel="external">http://bbs.feng.com/read-htm-tid-9908410.html</a><br><br><a href="http://bbs.feng.com/read-htm-tid-8474315.html" target="_blank" rel="external">http://bbs.feng.com/read-htm-tid-8474315.html</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://hanks.xyz/2015/12/02/mac-os-in-Ubuntu/" data-id="cihp2c55p0001nc05cxzq248x" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Ubuntu/">Ubuntu</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mac-os/">mac os</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/virtualBox/">virtualBox</a></li></ul>
+
+    </footer>
+  
+  
+</article>
+
+  
+<section id="comments">
+    <!-- 多说分享框 -->
+    <div class="ds-share flat" data-thread-key="/2015/12/02/mac-os-in-Ubuntu/" data-title="Ubuntu 安装 OS X 10.11  虚拟机" data-images="此处请替换为分享时显示的图片的链接地址" data-content="Ubuntu 安装 OS X 10.11  虚拟机" data-url="http://hanks.xyz//2015/12/02/mac-os-in-Ubuntu/">
+    <div class="ds-share-inline">
+      <ul  class="ds-share-icons-16">
+
+      	<li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+        <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+        <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+        <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+        <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+      </ul>
+      <div class="ds-share-icons-more">
+      </div>
+    </div>
+   </div>
+    <!-- 多说评论框 start -->
+   	<div class="ds-thread" data-thread-key="/2015/12/02/mac-os-in-Ubuntu/" data-title="Ubuntu 安装 OS X 10.11  虚拟机" data-url="http://hanks.xyz//2015/12/02/mac-os-in-Ubuntu/"></div>
+   <!-- 多说评论框 end -->
+   <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+   <script type="text/javascript">
+   var duoshuoQuery = {short_name:"hanks-zyh"};
+   	(function() {
+   		var ds = document.createElement('script');
+   		ds.type = 'text/javascript';ds.async = true;
+   		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+   		ds.charset = 'UTF-8';
+   		(document.getElementsByTagName('head')[0]
+   		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+   	})();
+   	</script>
+   <!-- 多说公共JS代码 end -->
+</section>
+
+</section>
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2015 Hanks<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    
+
+<script src="/js/jquery.min.js" type="text/javascript"></script>
+<script src="/js/jquery.scrollLoading.js" type="text/javascript"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+  <script src="/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+
+
+<script src="/js/script.js" type="text/javascript"></script>
+
+  </div>
+</body>
+</html>

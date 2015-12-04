@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>hdu 题目1421 搬寝室（DP） | Hanks.xyz</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description">
+<meta property="og:type" content="article">
+<meta property="og:title" content="hdu 题目1421 搬寝室（DP）">
+<meta property="og:url" content="http://hanks.xyz/2013/08/13/hdu_题目1421_搬寝室（DP）/index.html">
+<meta property="og:site_name" content="Hanks.xyz">
+<meta property="og:description">
+<meta property="og:updated_time" content="2015-12-04T17:20:04.308Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="hdu 题目1421 搬寝室（DP）">
+<meta name="twitter:description">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <!-- <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600' rel='stylesheet' type='text/css'> -->
+  <!-- <link href="//fonts.googleapis.com/css?family=Source+Code+Pro:400,700" rel="stylesheet" type="text/css"> -->
+  <link href="//fonts.useso.com/css?family=Source+Code+Pro:400,700" rel="stylesheet" type="text/css">
+  <link href='//fonts.useso.com/css?family=Open+Sans:300,600' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo">Hanks.xyz</a>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">首页</a>
+        
+          <a class="main-nav-link" href="/archives">归档</a>
+        
+          <a class="main-nav-link" href="/about/index.html">关于</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        <div id="search-form-wrap">
+          <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://hanks.xyz"></form>
+        </div>
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+        
+        
+          <a id="nav-github-link" class="nav-icon" href="https://github.com/hanks-zyh" title="Fork me on GitHub"></a>
+        
+      </nav>
+    </div>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/" class="mobile-nav-link">首页</a>
+  
+    <a href="/archives" class="mobile-nav-link">归档</a>
+  
+    <a href="/about/index.html" class="mobile-nav-link">关于</a>
+  
+  <div id="search-form-wrap-mobile">
+    <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://hanks.xyz"></form>
+  </div>
+</nav>
+      <div class="outer">
+        
+        <section id="main"><article id="post-hdu_题目1421_搬寝室（DP）" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2013/08/13/hdu_题目1421_搬寝室（DP）/" class="article-date">
+  <time datetime="2013-08-13T15:24:00.000Z" itemprop="datePublished">2013-08-13</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      hdu 题目1421 搬寝室（DP）
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+<p></p>
+<h1 style="color:rgb(26,92,200); text-align:center; font-family:'Times New Roman'">
+搬寝室</h1>
+<span style="font-family:'Times New Roman'; font-size:14px"><strong><span style="font-family:Arial; font-size:12px; color:green">Time Limit: 2000/1000 MS (Java/Others)&nbsp;&nbsp;&nbsp;&nbsp;Memory Limit: 65536/32768 K (Java/Others)<br>
+Total Submission(s): 13141&nbsp;&nbsp;&nbsp;&nbsp;Accepted Submission(s): 4441<br>
+</span></strong></span><br style="font-family:'Times New Roman'; font-size:14px">
+<br style="font-family:'Times New Roman'; font-size:14px">
+<div class="panel_title" align="left" style="height:38px; background-color:transparent; padding:0px 14px; color:rgb(124,169,237); font-size:18px; font-family:Arial; font-weight:bold">
+Problem Description</div>
+<div class="panel_content" style="height:auto; margin:0px; padding:0px 20px; font-size:14px; font-family:'Times New Roman'">
+搬寝室是很累的,xhd深有体会.时间追述2006年7月9号,那天xhd迫于无奈要从27号楼搬到3号楼,因为10号要封楼了.看着寝室里的n件物品,xhd开始发呆,因为n是一个小于2000的整数,实在是太多了,于是xhd决定随便搬2*k件过去就行了.但还是会很累,因为2*k也不小是一个不大于n的整数.幸运的是xhd根据多年的搬东西的经验发现每搬一次的疲劳度是和左右手的物品的重量差的平方成正比(这里补充一句,xhd每次搬两件东西,左手一件右手一件).例如xhd左手拿重量为3的物品,右手拿重量为6的物品,则他搬完这次的疲劳度为(6-3)^2
+ = 9.现在可怜的xhd希望知道搬完这2*k件物品后的最佳状态是怎样的(也就是最低的疲劳度),请告诉他吧.</div>
+<div class="panel_bottom" style="height:auto; margin:0px; font-family:'Times New Roman'; font-size:14px">
+&nbsp;</div>
+<br style="font-family:'Times New Roman'; font-size:14px">
+<div class="panel_title" align="left" style="height:38px; background-color:transparent; padding:0px 14px; color:rgb(124,169,237); font-size:18px; font-family:Arial; font-weight:bold">
+Input</div>
+<div class="panel_content" style="height:auto; margin:0px; padding:0px 20px; font-size:14px; font-family:'Times New Roman'">
+每组输入数据有两行,第一行有两个数n,k(2&lt;=2*k&lt;=n&lt;2000).第二行有n个整数分别表示n件物品的重量(重量是一个小于2^15的正整数).</div>
+<div class="panel_bottom" style="height:auto; margin:0px; font-family:'Times New Roman'; font-size:14px">
+&nbsp;</div>
+<br style="font-family:'Times New Roman'; font-size:14px">
+<div class="panel_title" align="left" style="height:38px; background-color:transparent; padding:0px 14px; color:rgb(124,169,237); font-size:18px; font-family:Arial; font-weight:bold">
+Output</div>
+<div class="panel_content" style="height:auto; margin:0px; padding:0px 20px; font-size:14px; font-family:'Times New Roman'">
+对应每组输入数据,输出数据只有一个表示他的最少的疲劳度,每个一行.</div>
+<div class="panel_bottom" style="height:auto; margin:0px; font-family:'Times New Roman'; font-size:14px">
+&nbsp;</div>
+<br style="font-family:'Times New Roman'; font-size:14px">
+<div class="panel_title" align="left" style="height:38px; background-color:transparent; padding:0px 14px; color:rgb(124,169,237); font-size:18px; font-family:Arial; font-weight:bold">
+Sample Input</div>
+<div class="panel_content" style="height:auto; margin:0px; padding:0px 20px; font-size:14px; font-family:'Times New Roman'">
+<pre style="margin-top:0px; margin-bottom:0px"><div style="font-family:'Courier New',Courier,monospace">2 1
+1 3</div></pre>
+</div>
+<div class="panel_bottom" style="height:auto; margin:0px; font-family:'Times New Roman'; font-size:14px">
+&nbsp;</div>
+<br style="font-family:'Times New Roman'; font-size:14px">
+<div class="panel_title" align="left" style="height:38px; background-color:transparent; padding:0px 14px; color:rgb(124,169,237); font-size:18px; font-family:Arial; font-weight:bold">
+Sample Output</div>
+<div class="panel_content" style="height:auto; margin:0px; padding:0px 20px; font-size:14px; font-family:'Times New Roman'">
+<pre style="margin-top:0px; margin-bottom:0px"><div style="font-family:'Courier New',Courier,monospace">4</div></pre>
+</div>
+<div class="panel_bottom" style="height:auto; margin:0px; font-family:'Times New Roman'; font-size:14px">
+&nbsp;</div>
+<div><br>
+</div>
+<span style="font-size:18px">根据题目的要求，每次提的两个物品重量差越小越好，是不是每次提的物品一定是重量相邻的物品呢？<br>
+</span>
+<p></p>
+<p><span style="font-size:18px">证明：假设四个从小到大的数：a、b、c、d，只需证明以下表达式成立即可：<br>
+(a-b)^2&#43;(c-d)^2&lt; (a-c)^2&#43;(b-d)^2<br>
+(a-b)^2&#43;(c-d)^2&lt; (a-d)^2&#43;(b-c)^2<br>
+</span></p>
+<p><span style="font-size:18px">从最简单的情况考虑：<br>
+2个物品选一对，结论显然<br>
+</span></p>
+<p><span style="font-size:18px">3个物品选一对，…<br>
+</span></p>
+<p><span style="font-size:18px">4个物品选一对？（如何利用前面的知识）<br>
+</span></p>
+<p><span style="font-size:18px">n个物品选一对，…<br>
+</span></p>
+<p><span style="font-size:18px">n个物品选二对，…<br>
+</span></p>
+<p><span style="font-size:18px">最终问题：n个物品选k对，如何？（n&gt;=2k）</span><br>
+</p>
+<p><span style="color:rgb(0,0,255); font-family:simsun; line-height:21px; background-color:rgb(243,248,251)"><span style="font-size:18px"><strong>1.先排序，</strong></span></span></p>
+<p><span style="color:rgb(0,0,255); font-family:simsun; line-height:21px; background-color:rgb(243,248,251)"><span style="font-size:18px"><strong>2.假设从n-1个中选取k对是最少得，那么从n个中选取k对，可以这样分析 对n-1个数 再在末尾增加一个数，那么这个数可能被选中成为k对中其中一对，可能不被选中，如果不被选中，那么从n个中选取k对就相当于从n-1个中选取k对，如果被选中，之前证明了选中的数必须是连续的两个才能事最小，那就相当于从n-2个数中选取k-1对加最后两个数成为。</strong></span></span></p>
+<p><span style="font-size:18px"><strong><span style="color:rgb(0,0,255); font-family:simsun; line-height:21px; background-color:rgb(243,248,251)">3。状态转移方程就为</span><span style="word-wrap:normal; word-break:normal; line-height:21px; font-family:simsun; background-color:rgb(243,248,251)">dp</span><span style="color:rgb(0,0,255); font-family:simsun; line-height:21px; background-color:rgb(243,248,251)"><span style="color:#FF00FF; word-wrap:normal; word-break:normal">[</span></span><span style="word-wrap:normal; word-break:normal; line-height:21px; font-family:simsun; background-color:rgb(243,248,251)">i</span><span style="color:rgb(0,0,255); font-family:simsun; line-height:21px; background-color:rgb(243,248,251)"><span style="color:#FF00FF; word-wrap:normal; word-break:normal">][</span></span><span style="word-wrap:normal; word-break:normal; line-height:21px; font-family:simsun; background-color:rgb(243,248,251)">j</span><span style="color:rgb(0,0,255); font-family:simsun; line-height:21px; background-color:rgb(243,248,251)"><span style="color:#FF00FF; word-wrap:normal; word-break:normal">]=</span></span><span style="word-wrap:normal; word-break:normal; line-height:21px; font-family:simsun; background-color:rgb(243,248,251)">min</span><span style="color:rgb(0,0,255); font-family:simsun; line-height:21px; background-color:rgb(243,248,251)"><span style="color:#FF00FF; word-wrap:normal; word-break:normal">(</span></span><span style="word-wrap:normal; word-break:normal; line-height:21px; font-family:simsun; background-color:rgb(243,248,251)">dp</span><span style="color:rgb(0,0,255); font-family:simsun; line-height:21px; background-color:rgb(243,248,251)"><span style="color:#FF00FF; word-wrap:normal; word-break:normal">[</span></span><span style="word-wrap:normal; word-break:normal; line-height:21px; font-family:simsun; background-color:rgb(243,248,251)">i</span><span style="color:rgb(0,0,255); font-family:simsun; line-height:21px; background-color:rgb(243,248,251)"><span style="color:#FF00FF; word-wrap:normal; word-break:normal">-</span></span><span style="color:rgb(204,51,0); word-wrap:normal; word-break:normal; line-height:21px; font-family:simsun; background-color:rgb(243,248,251)">1</span><span style="color:rgb(0,0,255); font-family:simsun; line-height:21px; background-color:rgb(243,248,251)"><span style="color:#FF00FF; word-wrap:normal; word-break:normal">][</span></span><span style="word-wrap:normal; word-break:normal; line-height:21px; font-family:simsun; background-color:rgb(243,248,251)">j</span><span style="color:rgb(0,0,255); font-family:simsun; line-height:21px; background-color:rgb(243,248,251)"><span style="color:#FF00FF; word-wrap:normal; word-break:normal">],</span></span><span style="word-wrap:normal; word-break:normal; line-height:21px; font-family:simsun; background-color:rgb(243,248,251)">dp</span><span style="color:rgb(0,0,255); font-family:simsun; line-height:21px; background-color:rgb(243,248,251)"><span style="color:#FF00FF; word-wrap:normal; word-break:normal">[</span></span><span style="word-wrap:normal; word-break:normal; line-height:21px; font-family:simsun; background-color:rgb(243,248,251)">i</span><span style="color:rgb(0,0,255); font-family:simsun; line-height:21px; background-color:rgb(243,248,251)"><span style="color:#FF00FF; word-wrap:normal; word-break:normal">-</span></span><span style="color:rgb(204,51,0); word-wrap:normal; word-break:normal; line-height:21px; font-family:simsun; background-color:rgb(243,248,251)">2</span><span style="color:rgb(0,0,255); font-family:simsun; line-height:21px; background-color:rgb(243,248,251)"><span style="color:#FF00FF; word-wrap:normal; word-break:normal">][</span></span><span style="word-wrap:normal; word-break:normal; line-height:21px; font-family:simsun; background-color:rgb(243,248,251)">j</span><span style="color:rgb(0,0,255); font-family:simsun; line-height:21px; background-color:rgb(243,248,251)"><span style="color:#FF00FF; word-wrap:normal; word-break:normal">-</span></span><span style="color:rgb(204,51,0); word-wrap:normal; word-break:normal; line-height:21px; font-family:simsun; background-color:rgb(243,248,251)">1</span><span style="color:rgb(0,0,255); font-family:simsun; line-height:21px; background-color:rgb(243,248,251)"><span style="color:#FF00FF; word-wrap:normal; word-break:normal">]&#43;(</span></span><span style="word-wrap:normal; word-break:normal; line-height:21px; font-family:simsun; background-color:rgb(243,248,251)">a</span><span style="color:rgb(0,0,255); font-family:simsun; line-height:21px; background-color:rgb(243,248,251)"><span style="color:#FF00FF; word-wrap:normal; word-break:normal">[</span></span><span style="word-wrap:normal; word-break:normal; line-height:21px; font-family:simsun; background-color:rgb(243,248,251)">i</span><span style="color:rgb(0,0,255); font-family:simsun; line-height:21px; background-color:rgb(243,248,251)"><span style="color:#FF00FF; word-wrap:normal; word-break:normal">-</span></span><span style="color:rgb(204,51,0); word-wrap:normal; word-break:normal; line-height:21px; font-family:simsun; background-color:rgb(243,248,251)">1</span><span style="color:rgb(0,0,255); font-family:simsun; line-height:21px; background-color:rgb(243,248,251)"><span style="color:#FF00FF; word-wrap:normal; word-break:normal">]-</span></span><span style="word-wrap:normal; word-break:normal; line-height:21px; font-family:simsun; background-color:rgb(243,248,251)">a</span><span style="color:rgb(0,0,255); font-family:simsun; line-height:21px; background-color:rgb(243,248,251)"><span style="color:#FF00FF; word-wrap:normal; word-break:normal">[</span></span><span style="word-wrap:normal; word-break:normal; line-height:21px; font-family:simsun; background-color:rgb(243,248,251)">i</span><span style="color:rgb(0,0,255); font-family:simsun; line-height:21px; background-color:rgb(243,248,251)"><span style="color:#FF00FF; word-wrap:normal; word-break:normal">])*(</span></span><span style="word-wrap:normal; word-break:normal; line-height:21px; font-family:simsun; background-color:rgb(243,248,251)">a</span><span style="color:rgb(0,0,255); font-family:simsun; line-height:21px; background-color:rgb(243,248,251)"><span style="color:#FF00FF; word-wrap:normal; word-break:normal">[</span></span><span style="word-wrap:normal; word-break:normal; line-height:21px; font-family:simsun; background-color:rgb(243,248,251)">i</span><span style="color:rgb(0,0,255); font-family:simsun; line-height:21px; background-color:rgb(243,248,251)"><span style="color:#FF00FF; word-wrap:normal; word-break:normal">-</span></span><span style="color:rgb(204,51,0); word-wrap:normal; word-break:normal; line-height:21px; font-family:simsun; background-color:rgb(243,248,251)">1</span><span style="color:rgb(0,0,255); font-family:simsun; line-height:21px; background-color:rgb(243,248,251)"><span style="color:#FF00FF; word-wrap:normal; word-break:normal">]-</span></span><span style="word-wrap:normal; word-break:normal; line-height:21px; font-family:simsun; background-color:rgb(243,248,251)">a</span><span style="color:rgb(0,0,255); font-family:simsun; line-height:21px; background-color:rgb(243,248,251)"><span style="color:#FF00FF; word-wrap:normal; word-break:normal">[</span></span><span style="word-wrap:normal; word-break:normal; line-height:21px; font-family:simsun; background-color:rgb(243,248,251)">i</span><span style="color:rgb(0,0,255); font-family:simsun; line-height:21px; background-color:rgb(243,248,251)"><span style="color:rgb(255,0,255); word-wrap:normal; word-break:normal">]));</span></span></strong></span></p>
+<p><br>
+</p>
+<p><pre name="code" class="cpp">#define MIN(a,b) (a)&gt;(b)?(b):(a)
+#include&lt;iostream&gt;
+#include&lt;stdio.h&gt;
+#include&lt;algorithm&gt;
+#include&lt;string.h&gt;
+using namespace std;
+
+int a[2002];
+int dp[3][2002]; 
+
+int main()
+{
+    int n,k,i,j,min;
+    while(scanf(&quot;%d%d&quot;,&amp;n,&amp;k)!=EOF){
+        for(i=1;i&lt;=n;i++) scanf(&quot;%d&quot;,&amp;a[i]);
+        a[0]=0;
+        sort(a,a+n+1);
+        memset(dp,0,sizeof(dp));
+        
+        for(i=2; i&lt;=n; i++){
+            for(j=1; j&lt;=k &amp;&amp; j*2&lt;=i;j++){
+                if(j*2==i) dp[i%3][j] = dp[(i-2)%3][j-1] + (a[i]-a[i-1])*(a[i]-a[i-1]);
+                else dp[i%3][j] = MIN(dp[(i-1)%3][j], dp[(i-2)%3][j-1] + (a[i]-a[i-1])*(a[i]-a[i-1])) ;
+            }    
+        } 
+        printf(&quot;%d\n&quot;,dp[n%3][k]);
+    }
+    return 0;
+}</pre><br>
+<br>
+</p>
+<p><br>
+</p>
+<p><br>
+</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://hanks.xyz/2013/08/13/hdu_题目1421_搬寝室（DP）/" data-id="cihryjm1t003qk405ydrh1kjc" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  
+  
+</article>
+
+  
+<section id="comments">
+    <!-- 多说分享框 -->
+    <div class="ds-share flat" data-thread-key="/2013/08/13/hdu_题目1421_搬寝室（DP）/" data-title="hdu 题目1421 搬寝室（DP）" data-images="此处请替换为分享时显示的图片的链接地址" data-content="hdu 题目1421 搬寝室（DP）" data-url="http://hanks.xyz//2013/08/13/hdu_题目1421_搬寝室（DP）/">
+    <div class="ds-share-inline">
+      <ul  class="ds-share-icons-16">
+
+      	<li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+        <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+        <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+        <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+        <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+      </ul>
+      <div class="ds-share-icons-more">
+      </div>
+    </div>
+   </div>
+    <!-- 多说评论框 start -->
+   	<div class="ds-thread" data-thread-key="/2013/08/13/hdu_题目1421_搬寝室（DP）/" data-title="hdu 题目1421 搬寝室（DP）" data-url="http://hanks.xyz//2013/08/13/hdu_题目1421_搬寝室（DP）/"></div>
+   <!-- 多说评论框 end -->
+   <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+   <script type="text/javascript">
+   var duoshuoQuery = {short_name:"hanks-zyh"};
+   	(function() {
+   		var ds = document.createElement('script');
+   		ds.type = 'text/javascript';ds.async = true;
+   		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+   		ds.charset = 'UTF-8';
+   		(document.getElementsByTagName('head')[0]
+   		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+   	})();
+   	</script>
+   <!-- 多说公共JS代码 end -->
+</section>
+
+</section>
+      </div>
+      <footer id="footer">
+  
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      &copy; 2015 Hanks<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+  </br>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    
+
+<script src="/js/jquery.min.js" type="text/javascript"></script>
+<script src="/js/jquery.scrollLoading.js" type="text/javascript"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+  <script src="/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+
+
+<script src="/js/script.js" type="text/javascript"></script>
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>源码分析--AsyncTask | Hanks.xyz</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description">
+<meta property="og:type" content="article">
+<meta property="og:title" content="源码分析--AsyncTask">
+<meta property="og:url" content="http://hanks.xyz/2015/02/03/源码分析--AsyncTask/index.html">
+<meta property="og:site_name" content="Hanks.xyz">
+<meta property="og:description">
+<meta property="og:image" content="http://img.blog.csdn.net/20150203210913888?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvaHB1X3p5aA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:updated_time" content="2015-12-04T17:20:04.336Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="源码分析--AsyncTask">
+<meta name="twitter:description">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <!-- <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600' rel='stylesheet' type='text/css'> -->
+  <!-- <link href="//fonts.googleapis.com/css?family=Source+Code+Pro:400,700" rel="stylesheet" type="text/css"> -->
+  <link href="//fonts.useso.com/css?family=Source+Code+Pro:400,700" rel="stylesheet" type="text/css">
+  <link href='//fonts.useso.com/css?family=Open+Sans:300,600' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo">Hanks.xyz</a>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">首页</a>
+        
+          <a class="main-nav-link" href="/archives">归档</a>
+        
+          <a class="main-nav-link" href="/about/index.html">关于</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        <div id="search-form-wrap">
+          <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://hanks.xyz"></form>
+        </div>
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+        
+        
+          <a id="nav-github-link" class="nav-icon" href="https://github.com/hanks-zyh" title="Fork me on GitHub"></a>
+        
+      </nav>
+    </div>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/" class="mobile-nav-link">首页</a>
+  
+    <a href="/archives" class="mobile-nav-link">归档</a>
+  
+    <a href="/about/index.html" class="mobile-nav-link">关于</a>
+  
+  <div id="search-form-wrap-mobile">
+    <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://hanks.xyz"></form>
+  </div>
+</nav>
+      <div class="outer">
+        
+        <section id="main"><article id="post-源码分析--AsyncTask" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/02/03/源码分析--AsyncTask/" class="article-date">
+  <time datetime="2015-02-03T14:09:00.000Z" itemprop="datePublished">2015-02-03</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      源码分析--AsyncTask
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+<p>查看文档</p>
+<p></p>
+<p>AsyncTask enables proper and easy use of the UI thread. This class allows to perform background operations and publish results on the UI thread without having to manipulate threads and/or handlers.</p>
+<p><span style="font-family:KaiTi_GB2312"><span style="font-size:14px"><span style="color:rgb(51,51,51); line-height:22px">AsyncTask使适当的和易用的用户界面线程。</span><span style="color:rgb(51,51,51); line-height:22px">这个类</span><span style="color:rgb(51,51,51); line-height:22px">允许执行</span><span style="color:rgb(51,51,51); line-height:22px">后台操作</span><span style="color:rgb(51,51,51); line-height:22px">，</span><span style="color:rgb(51,51,51); line-height:22px">在UI线程上</span><span style="color:rgb(51,51,51); line-height:22px">发布的结果</span><span style="color:rgb(51,51,51); line-height:22px">而无需操纵</span><span style="color:rgb(51,51,51); line-height:22px">线程和</span><span style="color:rgb(51,51,51); line-height:22px">/</span><span style="color:rgb(51,51,51); line-height:22px">或处理程序</span><span style="color:rgb(51,51,51); line-height:22px">。</span></span></span><br>
+</p>
+<p>AsyncTask is designed to be a helper class around <code><a target="_blank" href="">Thread</a></code> and<code><a target="_blank" href="">Handler</a></code> and does not constitute a generic threading framework. AsyncTasks
+ should ideally be used for<span style="color:#ff0000">short operations </span>(<em>a few seconds at the most.</em>) If you need to keep threads running for long periods of time, it is highly recommended you use the various APIs provided by the<code>java.util.concurrent</code>
+ package such as <code><a target="_blank" href="">Executor</a></code>,<code><a target="_blank" href="">ThreadPoolExecutor</a></code> and
+<code><a target="_blank" href="">FutureTask</a></code>.</p>
+<p><span style="font-family:KaiTi_GB2312"><span style="font-size:14px"><span style="color:rgb(51,51,51); line-height:22px">AsyncTask被设计成Thread和Handler的一个辅助类，不构成一个通用的线程框架。</span><span style="color:rgb(51,51,51); line-height:22px">asynctasks</span><span style="color:rgb(51,51,51); line-height:22px">应</span><span style="color:rgb(51,51,51); line-height:22px">用于</span><span style="color:rgb(51,51,51); line-height:22px">短操作</span><span style="color:rgb(51,51,51); line-height:22px">（最多</span><span style="color:rgb(51,51,51); line-height:22px">几秒钟）</span><span style="color:rgb(51,51,51); line-height:22px">如果</span><span style="color:rgb(51,51,51); line-height:22px">你需要保持</span><span style="color:rgb(51,51,51); line-height:22px">线程</span><span style="color:rgb(51,51,51); line-height:22px">长时间运行的</span><span style="color:rgb(51,51,51); line-height:22px">，</span><span style="color:rgb(51,51,51); line-height:22px">高度</span><span style="color:rgb(51,51,51); line-height:22px">推荐</span><span style="color:rgb(51,51,51); line-height:22px">你使用</span><span style="color:rgb(51,51,51); line-height:22px">各种</span><span style="color:rgb(51,51,51); line-height:22px">的</span><span style="color:rgb(51,51,51); line-height:22px">java.util.concurrent包</span><span style="color:rgb(51,51,51); line-height:22px">提供</span><span style="color:rgb(51,51,51); line-height:22px">如</span><span style="color:rgb(51,51,51); line-height:22px">执行</span><span style="color:rgb(51,51,51); line-height:22px"></span>&nbsp;<code><a target="_blank" href="">Executor</a></code>,&nbsp;<code><a target="_blank" href="">ThreadPoolExecutor</a></code><span style="color:rgb(51,51,51); line-height:22px"></span><span style="color:rgb(51,51,51); line-height:22px">和</span><code><a target="_blank" href="">FutureTask</a></code>.<span style="color:rgb(51,51,51); line-height:22px"></span><span style="color:rgb(51,51,51); line-height:22px">。</span></span></span><br>
+</p>
+<p>An asynchronous task is defined by a computation that runs on a background thread and whose result is published on the UI thread. An asynchronous task is defined by 3 generic types, called<code>Params</code>,
+<code>Progress</code> and <code>Result</code>, and 4 steps, called<code>onPreExecute</code>,
+<code>doInBackground</code>, <code>onProgressUpdate</code> and<code>onPostExecute</code>.</p>
+<p><span style="font-family:KaiTi_GB2312"><span style="font-size:14px"><span class="high-light-bg" style="background-color:yellow; color:rgb(51,51,51); line-height:22px"></span>一个异步任务的耗时计算运行是在后台线程，其执行结果在UI线程。一个异步任务由3个泛型类型定义，称为&nbsp;<code>Params</code>,&nbsp;<code>Progress</code>&nbsp;和&nbsp;<span style="font-family:monospace">Result</span>，和4个步骤，称为它的</span></span></p>
+<p><span style="font-family:KaiTi_GB2312"><span style="font-family:monospace"><span style="font-size:14px">onPreExecute</span></span></span></p>
+<p><span style="font-family:KaiTi_GB2312"><span style="font-family:monospace"><span style="font-size:14px">doInBackground</span></span></span></p>
+<p><span style="font-family:KaiTi_GB2312"><span style="font-size:14px"><code>onProgressUpdate</code>&nbsp;</span></span></p>
+<p><span style="font-family:KaiTi_GB2312"><span style="font-family:monospace"><span style="font-size:14px">onPostExecute</span></span></span><br>
+</p>
+<div class="special reference">
+<h3>文档给我们提供的例子</h3>
+</div>
+<pre class="prettyprint"> private class DownloadFilesTask extends AsyncTask&lt;URL, Integer, Long&gt; {
+     protected Long doInBackground(URL... urls) {
+         int count = urls.length;
+         long totalSize = 0;
+         for (int i = 0; i &lt; count; i&#43;&#43;) {
+             totalSize &#43;= Downloader.downloadFile(urls[i]);
+             publishProgress((int) ((i / (float) count) * 100));
+             // Escape early if cancel() is called
+             if (isCancelled()) break;
+         }
+         return totalSize;
+     }
+
+     protected void onProgressUpdate(Integer... progress) {
+         setProgressPercent(progress[0]);
+     }
+
+     protected void onPostExecute(Long result) {
+         showDialog(&quot;Downloaded &quot; &#43; result &#43; &quot; bytes&quot;);
+     }
+ }
+ </pre>
+<p>Once created, a task is executed very simply:</p>
+<pre class="prettyprint"> new DownloadFilesTask().execute(url1, url2, url3);
+ </pre>
+<div>好了从文档我们可以对AsyncTask类有了一个大概的了解，我们看一下他的结构</div>
+<div><img src="http://img.blog.csdn.net/20150203210913888?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvaHB1X3p5aA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt=""></div>
+<p>具体看一下上面提到的4个方法</p>
+<p></p>
+<pre code_snippet_id="596990" snippet_file_name="blog_20150203_1_5845569" name="code" class="java">//Runs on the UI thread before doInBackground. 运行在UI线程，在doInBackground之前执行
+onPreExecute
+
+//Override this method to perform a computation on a background thread.  重写该方法来实现在一个后台线程中耗时操作
+//The specified parameters are the parameters passed to execute by the caller of this task.  该方法的参数是又task执行execute方法时传递进来的参数
+//This method can call publishProgress to publish updates on the UI thread. 该方法会调用publishProgress去在子线程更新UI
+doInBackground
+
+//Runs on the UI thread after doInBackground. The specified result is the value returned by doInBackground. 运行在UI线程，在doInBackground之后执行，result是doInBackgroud方法返回的
+//This method won&#39;t be invoked if the task was cancelled. 如果task被取消了将不会执行该方法
+onPostExecute
+
+//Runs on the UI thread after publishProgress is invoked.  运行在UI线程，在publishProgress之后执行
+//The specified values are the values passed to publishProgress.//values 是由publicProgress传递过来的
+onProgressUpdate(Void... values) 
+
+//Runs on the UI thread after cancel(boolean) is invoked and doInBackground(Object []) has finished. 运行在UI线程，在doInBackground执行完毕后被调用
+ onCancelled</pre><br>
+<p></p>
+<p>我写的一个小例子，从网络下载一张图片，下载过程中更新进度条，下载完成后隐藏进度条，显示图片</p>
+<p></p>
+<pre code_snippet_id="596990" snippet_file_name="blog_20150203_2_465843" name="code" class="java">public class MainActivity extends Activity {
+
+    private Context   context;
+    private ImageView iv;
+    private Handler   handler;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        context = this;
+        iv = (ImageView) findViewById(R.id.iv);
+        new GetImageTask().execute(&quot;http://p18.qhimg.com/bdr/__85/d/_open360/1217xiaoqingxin/3.jpg&quot;);
+    }
+
+    private ProgressDialog dialog;
+
+    class GetImageTask extends AsyncTask&lt;String, Integer, File&gt; {
+        @Override
+        protected void onPreExecute() {
+
+            dialog = new ProgressDialog(context);
+            dialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+            dialog.show();
+            super.onPreExecute();
+        }
+
+        @Override
+        protected File doInBackground(String... params) {
+
+            try {
+                File file = new File(context.getCacheDir() + &quot;/img.jpg&quot;);
+
+                HttpClient client = new DefaultHttpClient();
+                HttpResponse response = client.execute(new HttpGet(params[0]));
+                HttpEntity entity = response.getEntity();
+                long lenghtOfFile = entity.getContentLength();
+                InputStream is = entity.getContent();
+                FileOutputStream fos = new FileOutputStream(file);
+                // 计算文件长度
+                long total = 0;
+                byte[] buffer = new byte[2014];
+                int len = 0;
+                while ((len = is.read(buffer)) != -1) {
+                    fos.write(buffer, 0, len);
+                    total += len;
+                    publishProgress((int) (total * 100.0f / lenghtOfFile));
+                }
+                fos.flush();
+                fos.close();
+                is.close();
+
+                return file;
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onProgressUpdate(Integer... values) {
+            super.onProgressUpdate(values);
+            dialog.setProgress(values[0]);
+        }
+
+        @Override
+        protected void onCancelled(File result) {
+            super.onCancelled(result);
+        }
+
+        @Override
+        protected void onCancelled() {
+            super.onCancelled();
+        }
+
+        @Override
+        protected void onPostExecute(File result) {
+            super.onPostExecute(result);
+            if (dialog != null &amp;&amp; dialog.isShowing()) {
+                dialog.dismiss();
+            }
+            iv.setImageBitmap(BitmapFactory.decodeFile(result.getAbsolutePath()));
+        }
+
+    }
+
+}</pre><br>
+<br>
+<p></p>
+<p>分析AsyncTask，我们从构造方法入手</p>
+<p></p>
+<pre code_snippet_id="596990" snippet_file_name="blog_20150203_3_3581991" name="code" class="java">    /**
+     * Creates a new asynchronous task. This constructor must be invoked on the UI thread.
+     */
+    public AsyncTask() {
+        mWorker = new WorkerRunnable&lt;Params, Result&gt;() {//这里创建了一个WorkerRunnable，他是一个实现了Callable接口的抽象类
+            public Result call() throws Exception {
+                mTaskInvoked.set(true);
+                //设置为后台进程
+                Process.setThreadPriority(Process.THREAD_PRIORITY_BACKGROUND);
+                //noinspection unchecked
+                return postResult(doInBackground(mParams)); //这里执行了doInBackground方法
+            }
+        };
+        //创建一个FutureTask（实现了Runnable接口），将上面的Callable对象传递进来，会在FutureTask的run方法中调用Callable的call()方法，所以doInBackground是后台线程执行的
+        mFuture = new FutureTask&lt;Result&gt;(mWorker) {
+            @Override
+            protected void done() {
+                try {
+                    postResultIfNotInvoked(get());
+                } catch (InterruptedException e) {
+                    android.util.Log.w(LOG_TAG, e);
+                } catch (ExecutionException e) {
+                    throw new RuntimeException(&quot;An error occured while executing doInBackground()&quot;,
+                            e.getCause());
+                } catch (CancellationException e) {
+                    postResultIfNotInvoked(null);
+                }
+            }
+        };
+    }</pre>创建一个FutureTask（实现了Runnable接口），将上面的Callable对象传递进来，会在FutureTask的run方法中调用Callable的call()方法，所以doInBackground是后台线程执行的，我们继续看postResult
+<p></p>
+<p></p>
+<pre code_snippet_id="596990" snippet_file_name="blog_20150203_4_4921017" name="code" class="java">private Result postResult(Result result) {
+        @SuppressWarnings(&quot;unchecked&quot;)
+        Message message = sHandler.obtainMessage(MESSAGE_POST_RESULT,
+                new AsyncTaskResult&lt;Result&gt;(this, result));
+        message.sendToTarget();
+        return result;
+    }</pre>结合sHandler，发送了一个Message
+<p></p>
+<p></p>
+<pre code_snippet_id="596990" snippet_file_name="blog_20150203_5_4939484" name="code" class="java"> private static final InternalHandler sHandler = new InternalHandler();</pre><pre code_snippet_id="596990" snippet_file_name="blog_20150203_6_4675326" name="code" class="java">    private static class InternalHandler extends Handler {
+        @SuppressWarnings({&quot;unchecked&quot;, &quot;RawUseOfParameterizedType&quot;})
+        @Override
+        public void handleMessage(Message msg) {
+            AsyncTaskResult result = (AsyncTaskResult) msg.obj;
+            switch (msg.what) { //下面是在UI线程的了
+                case MESSAGE_POST_RESULT: //调用finish
+                    // There is only one result
+                    result.mTask.finish(result.mData[0]);
+                    break;
+                case MESSAGE_POST_PROGRESS: //回调onProgressUpdate
+                    result.mTask.onProgressUpdate(result.mData);
+                    break;
+            }
+        }</pre>finish()方法
+<p></p>
+<p></p>
+<pre code_snippet_id="596990" snippet_file_name="blog_20150203_7_1554249" name="code" class="java">  private void finish(Result result) {
+        if (isCancelled()) {
+            onCancelled(result);  //回调 onCancelled(result)
+        } else {
+            onPostExecute(result); //回调  onPostExecute(result);上面Handler是UI线程了
+        }
+        mStatus = Status.FINISHED; //把状态置为FINISHED
+    }</pre>再看看publishProgress，同样时Handler
+<p></p>
+<p></p>
+<pre code_snippet_id="596990" snippet_file_name="blog_20150203_8_4113990" name="code" class="java"> protected final void publishProgress(Progress... values) {
+        if (!isCancelled()) {
+            sHandler.obtainMessage(MESSAGE_POST_PROGRESS,
+                    new AsyncTaskResult&lt;Progress&gt;(this, values)).sendToTarget();
+        }
+    }</pre>好吧，这几个方法的执行时间大概算是了解了
+<p></p>
+<p><br>
+</p>
+<p>下面看AsyncTask的execute()方法</p>
+<p></p>
+<pre code_snippet_id="596990" snippet_file_name="blog_20150203_9_1864966" name="code" class="java"> /**
+     * Executes the task with the specified parameters. The task returns
+     * itself (this) so that the caller can keep a reference to it.
+     * 
+     * Note: this function schedules the task on a queue for a single background 
+     * thread or pool of threads depending on the platform version.  When first
+     * introduced, AsyncTasks were executed serially on a single background thread.
+     * Starting with {@link android.os.Build.VERSION_CODES#DONUT}, this was changed
+     * to a pool of threads allowing multiple tasks to operate in parallel. Starting
+     * {@link android.os.Build.VERSION_CODES#HONEYCOMB}, tasks are back to being
+     * executed on a single thread to avoid common application errors caused
+     * by parallel execution.  If you truly want parallel execution, you can use
+     * the {@link #executeOnExecutor} version of this method
+     * with {@link #THREAD_POOL_EXECUTOR}; however, see commentary there for warnings
+     * on its use.
+     * &lt;p&gt;This method must be invoked on the UI thread.
+     * @param params The parameters of the task.
+     * @return This instance of AsyncTask.
+     * @throws IllegalStateException If {@link #getStatus()} returns either
+     *         {@link AsyncTask.Status#RUNNING} or {@link AsyncTask.Status#FINISHED}.
+     * @see #executeOnExecutor(java.util.concurrent.Executor, Object[])
+     * @see #execute(Runnable)
+     *注意：这个函数让任务是以单线程队列方式或线程池队列方式运行，依赖于平台版本而有所不同。AasyncTask首次引入时，这个函数会让任务以后台单线程串行方式执行     *从android.os.Build.VERSION_CODES.DONUT（android 1.6）开始，它让允许任务在线程池中多任务并行执行。但在 android.os.Build.VERSION_CODES.HONEYCOMB           *（android 3.0）之后，它又回去了，变成了单线程执行的模式，原因是多线程并行执行容易引发问题。 如果你真想并行执行任务，你可以使用另外一个版本：             *使用THREAD_POOL_EXECUTOR参数的executeOnExecutor方法，但要注意使用警告提示
+     */
+    public final AsyncTask&lt;Params, Progress, Result&gt; execute(Params... params) {
+        return executeOnExecutor(sDefaultExecutor, params);
+    }</pre>executeOnExecutor<br>
+<p></p>
+<p></p>
+<pre code_snippet_id="596990" snippet_file_name="blog_20150203_10_728756" name="code" class="java">    /**
+     * Executes the task with the specified parameters. The task returns
+     * itself (this) so that the caller can keep a reference to it.
+     * 
+     * &lt;p&gt;This method is typically used with {@link #THREAD_POOL_EXECUTOR} to
+     * allow multiple tasks to run in parallel on a pool of threads managed by
+     * AsyncTask, however you can also use your own {@link Executor} for custom
+     * behavior.
+     * 
+     * &lt;p&gt;&lt;em&gt;Warning:&lt;/em&gt; Allowing multiple tasks to run in parallel from
+     * a thread pool is generally &lt;em&gt;not&lt;/em&gt; what one wants, because the order
+     * of their operation is not defined.  For example, if these tasks are used
+     * to modify any state in common (such as writing a file due to a button click),
+     * there are no guarantees on the order of the modifications.
+     * Without careful work it is possible in rare cases for the newer version
+     * of the data to be over-written by an older one, leading to obscure data
+     * loss and stability issues.  Such changes are best
+     * executed in serial; to guarantee such work is serialized regardless of
+     * platform version you can use this function with {@link #SERIAL_EXECUTOR}.
+     *
+     * &lt;p&gt;This method must be invoked on the UI thread.
+     *
+     * @param exec The executor to use.  {@link #THREAD_POOL_EXECUTOR} is available as a
+     *              convenient process-wide thread pool for tasks that are loosely coupled.
+     * @param params The parameters of the task.
+     *
+     * @return This instance of AsyncTask.
+     *
+     * @throws IllegalStateException If {@link #getStatus()} returns either
+     *         {@link AsyncTask.Status#RUNNING} or {@link AsyncTask.Status#FINISHED}.
+     *
+     * @see #execute(Object[])
+     */
+    public final AsyncTask&lt;Params, Progress, Result&gt; executeOnExecutor(Executor exec,
+            Params... params) {
+        if (mStatus != Status.PENDING) { //首先判断AsyncTask的状态，首次默认的是PENDING
+            switch (mStatus) {
+                case RUNNING: //如果当前时RUNNING，也就是正在执行会抛出下面的异常
+                    throw new IllegalStateException(&quot;Cannot execute task:&quot;
+                            + &quot; the task is already running.&quot;);
+                case FINISHED://如果状态为FINISHED，也就是说已经执行完了，会抛下面的异常
+                    throw new IllegalStateException(&quot;Cannot execute task:&quot;
+                            + &quot; the task has already been executed &quot;
+                            + &quot;(a task can be executed only once)&quot;);
+            }
+        }
+
+        mStatus = Status.RUNNING; //状态置为RUNNING
+
+        onPreExecute(); //调用该方法还是属于UI线程
+
+        mWorker.mParams = params;//传递参数
+        exec.execute(mFuture);
+
+        return this;
+    }</pre><strong><span style="font-size:14px; color:#cc0000">上面的方法可以看出，</span></strong>
+<p></p>
+<p><strong><span style="font-size:14px; color:#cc0000">1. 一个正在执行的AsyncTask任务，再次调用execute方法会抛&nbsp;Cannot execute task:&nbsp;the task is already running异常，</span></strong><br>
+</p>
+<p><strong><span style="font-size:14px; color:#cc0000">2.一个执行过的<strong><span style="font-size:14px; color:#cc0000">AsyncTask任务，再次调用execute方法会抛&nbsp;Cannot execute task: the task has already been executed (a task can be executed only once异常，</span></strong></span></strong></p>
+<p><br>
+</p>
+<p>我们继续往下看， 最终调用了 exec.execute(mFuture); &nbsp;</p>
+<p>从execute()方法中看出参数exec即一个名为&nbsp;sDefaultExecutor的变量，&nbsp;</p>
+<p></p>
+<pre code_snippet_id="596990" snippet_file_name="blog_20150203_11_8205947" name="code" class="java">  private static volatile Executor sDefaultExecutor = SERIAL_EXECUTOR;</pre><pre code_snippet_id="596990" snippet_file_name="blog_20150203_12_9511953" name="code" class="java"> public static final Executor SERIAL_EXECUTOR = new SerialExecutor();</pre>即 exec是一个SerialExecutor类，它里面的execute方法
+<p></p>
+<p></p>
+<pre code_snippet_id="596990" snippet_file_name="blog_20150203_13_5344101" name="code" class="java"> private static class SerialExecutor implements Executor {
+        final ArrayDeque&lt;Runnable&gt; mTasks = new ArrayDeque&lt;Runnable&gt;(); //创建了一个队列
+        Runnable mActive;
+       //会执行下面的方法
+        public synchronized void execute(final Runnable r) {
+            mTasks.offer(new Runnable() {  //向队列中添加一个Runnable
+                public void run() {
+                    try {
+                        r.run(); 
+                    } finally {
+                        scheduleNext();
+                    }
+                }
+            });
+            if (mActive == null) {
+                scheduleNext();
+            }
+        }
+&lt;span style=&quot;white-space:pre&quot;&gt;	&lt;/span&gt;//从队列中取出一个Runnable对象赋值为mActive,再调用THREAD_POOL_EXECUTOR.execute(mActive);
+        protected synchronized void scheduleNext() {
+            if ((mActive = mTasks.poll()) != null) {
+                THREAD_POOL_EXECUTOR.execute(mActive);
+            }
+        }
+    }</pre><br>
+线程池，
+<p></p>
+<p></p>
+<pre code_snippet_id="596990" snippet_file_name="blog_20150203_14_3443740" name="code" class="java">    /**
+     * An {@link Executor} that can be used to execute tasks in parallel.
+     */
+    public static final Executor THREAD_POOL_EXECUTOR
+            = new ThreadPoolExecutor(CORE_POOL_SIZE, MAXIMUM_POOL_SIZE, KEEP_ALIVE,
+                    TimeUnit.SECONDS, sPoolWorkQueue, sThreadFactory);</pre>线程池的初始化&nbsp;<br>
+<pre code_snippet_id="596990" snippet_file_name="blog_20150203_15_5654817" name="code" class="java">    private static final int CPU_COUNT = Runtime.getRuntime().availableProcessors(); //CPU_COUNT进程数
+    private static final int CORE_POOL_SIZE = CPU_COUNT + 1; //核心线程数=CPU_COUNT数+1
+    private static final int MAXIMUM_POOL_SIZCPU_COUNT= CPU_COUNT * 2 + 1; 
+    private static final int KEEP_ALIVE = 1;</pre><br>
+<p>AsyncTask的版本不同，实现原理不同</p>
+<p>详细区别&nbsp;<a target="_blank" href="http://blog.csdn.net/pipisky2006/article/details/8535454">http://blog.csdn.net/pipisky2006/article/details/8535454</a></p>
+<p></p>
+<p><br>
+</p>
+<p><br>
+</p>
+<p><br>
+</p>
+<p><br>
+</p>
+<p><br>
+</p>
+<br>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://hanks.xyz/2015/02/03/源码分析--AsyncTask/" data-id="cihryjlwq000xk405ngo23rw4" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  
+  
+</article>
+
+  
+<section id="comments">
+    <!-- 多说分享框 -->
+    <div class="ds-share flat" data-thread-key="/2015/02/03/源码分析--AsyncTask/" data-title="源码分析--AsyncTask" data-images="此处请替换为分享时显示的图片的链接地址" data-content="源码分析--AsyncTask" data-url="http://hanks.xyz//2015/02/03/源码分析--AsyncTask/">
+    <div class="ds-share-inline">
+      <ul  class="ds-share-icons-16">
+
+      	<li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+        <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+        <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+        <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+        <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+      </ul>
+      <div class="ds-share-icons-more">
+      </div>
+    </div>
+   </div>
+    <!-- 多说评论框 start -->
+   	<div class="ds-thread" data-thread-key="/2015/02/03/源码分析--AsyncTask/" data-title="源码分析--AsyncTask" data-url="http://hanks.xyz//2015/02/03/源码分析--AsyncTask/"></div>
+   <!-- 多说评论框 end -->
+   <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+   <script type="text/javascript">
+   var duoshuoQuery = {short_name:"hanks-zyh"};
+   	(function() {
+   		var ds = document.createElement('script');
+   		ds.type = 'text/javascript';ds.async = true;
+   		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+   		ds.charset = 'UTF-8';
+   		(document.getElementsByTagName('head')[0]
+   		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+   	})();
+   	</script>
+   <!-- 多说公共JS代码 end -->
+</section>
+
+</section>
+      </div>
+      <footer id="footer">
+  
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      &copy; 2015 Hanks<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+  </br>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    
+
+<script src="/js/jquery.min.js" type="text/javascript"></script>
+<script src="/js/jquery.scrollLoading.js" type="text/javascript"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+  <script src="/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+
+
+<script src="/js/script.js" type="text/javascript"></script>
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>hdu 题目1233 还是畅通工程 （Prime算法） | Hanks.xyz</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description">
+<meta property="og:type" content="article">
+<meta property="og:title" content="hdu 题目1233 还是畅通工程 （Prime算法）">
+<meta property="og:url" content="http://hanks.xyz/2013/08/05/hdu_题目1233_还是畅通工程_（Prime算法）/index.html">
+<meta property="og:site_name" content="Hanks.xyz">
+<meta property="og:description">
+<meta property="og:updated_time" content="2015-12-04T17:20:04.308Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="hdu 题目1233 还是畅通工程 （Prime算法）">
+<meta name="twitter:description">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <!-- <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600' rel='stylesheet' type='text/css'> -->
+  <!-- <link href="//fonts.googleapis.com/css?family=Source+Code+Pro:400,700" rel="stylesheet" type="text/css"> -->
+  <link href="//fonts.useso.com/css?family=Source+Code+Pro:400,700" rel="stylesheet" type="text/css">
+  <link href='//fonts.useso.com/css?family=Open+Sans:300,600' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo">Hanks.xyz</a>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">首页</a>
+        
+          <a class="main-nav-link" href="/archives">归档</a>
+        
+          <a class="main-nav-link" href="/about/index.html">关于</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        <div id="search-form-wrap">
+          <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://hanks.xyz"></form>
+        </div>
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+        
+        
+          <a id="nav-github-link" class="nav-icon" href="https://github.com/hanks-zyh" title="Fork me on GitHub"></a>
+        
+      </nav>
+    </div>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/" class="mobile-nav-link">首页</a>
+  
+    <a href="/archives" class="mobile-nav-link">归档</a>
+  
+    <a href="/about/index.html" class="mobile-nav-link">关于</a>
+  
+  <div id="search-form-wrap-mobile">
+    <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://hanks.xyz"></form>
+  </div>
+</nav>
+      <div class="outer">
+        
+        <section id="main"><article id="post-hdu_题目1233_还是畅通工程_（Prime算法）" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2013/08/05/hdu_题目1233_还是畅通工程_（Prime算法）/" class="article-date">
+  <time datetime="2013-08-05T04:08:00.000Z" itemprop="datePublished">2013-08-05</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      hdu 题目1233 还是畅通工程 （Prime算法）
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+<h1 align="center" style="color:#1a5cc8">还是畅通工程</h1>
+<p align="center"><span size="&#43;0"><strong><span style="font-family:Arial; font-size:12px; color:green; font-weight:bold">Time Limit: 4000/2000 MS (Java/Others)&nbsp;&nbsp;&nbsp;&nbsp;Memory Limit: 65536/32768 K (Java/Others)<br>
+Total Submission(s): 20006&nbsp;&nbsp;&nbsp;&nbsp;Accepted Submission(s): 8874<br>
+</span></strong></span><br>
+<br>
+</p>
+<div class="panel_title" align="left">Problem Description</div>
+<div class="panel_content">某省调查乡村交通状况，得到的统计表中列出了任意两村庄间的距离。省政府“畅通工程”的目标是使全省任何两个村庄间都可以实现公路交通（但不一定有直接的公路相连，只要能间接通过公路可达即可），并要求铺设的公路总长度为最小。请计算最小的公路总长度。<br>
+</div>
+<div class="panel_bottom">&nbsp;<br>
+</div>
+<div class="panel_title" align="left">Input</div>
+<div class="panel_content">测试输入包含若干测试用例。每个测试用例的第1行给出村庄数目N ( &lt; 100 )；随后的N(N-1)/2行对应村庄间的距离，每行给出一对正整数，分别是两个村庄的编号，以及此两村庄间的距离。为简单起见，村庄从1到N编号。<br>
+当N为0时，输入结束，该用例不被处理。<br>
+</div>
+<div class="panel_bottom">&nbsp;<br>
+</div>
+<div class="panel_title" align="left">Output</div>
+<div class="panel_content">对每个测试用例，在1行里输出最小的公路总长度。<br>
+</div>
+<div class="panel_bottom">&nbsp;<br>
+</div>
+<div class="panel_title" align="left">Sample Input</div>
+<div class="panel_content">
+<pre><div style="font-family:Courier New,Courier,monospace">3
+1 2 1
+1 3 2
+2 3 4
+4
+1 2 1
+1 3 4
+1 4 1
+2 3 3
+2 4 2
+3 4 5
+0</div><div style="font-family:Courier New,Courier,monospace">
+&nbsp;</div></pre>
+</div>
+<div class="panel_title" align="left">Sample Output</div>
+<div class="panel_content">
+<pre><div style="font-family:Courier New,Courier,monospace">3
+5
+
+</div></pre>
+</div>
+<p>&nbsp;</p>
+<h2 class="title content-title">最小生成树——Prim和Kruskal算法</h2>
+<div id="content" class="content mod-cs-content text-content clearfix">
+<p></p>
+<p>先从其它网站上转载了点算法：</p>
+<p></p>
+<p>&nbsp;&nbsp;&nbsp; 这里讨论的是无向图的最小生成树，有向图的最小生成树算法比较复杂，如果感兴趣可以参看清华大学的《信息学奥林</p>
+<p></p>
+<p>匹克竞赛指导－图论的算法与程序设计》。</p>
+<p></p>
+<p>所谓最小生成树，就是给定一个无向图，挑选若干条边，连成一个树行图（无圈），使得所选边的权至和最小。</p>
+<p></p>
+<p></p>
+<p>一下算法中，n是点数，e是边数。</p>
+<p></p>
+<p>1.Prim</p>
+<p></p>
+<p>初始时任选一点s为树根，每次选出一条权最小的边[i,j]，使得点i在树中，点j不在树中，将j和[i,j]加入树中，重复n-1次</p>
+<p></p>
+<p>求出最小生成树。</p>
+<p></p>
+<p></p>
+<p>我们用二叉堆来提高效率。二叉堆中存储边，初始时二叉堆中存储与s关联的边，每次取出一个权最小的边[i,j]，删除</p>
+<p></p>
+<p>[i,j]，同时将与j关联的边放入二叉堆中，注意判重。</p>
+<p></p>
+<p></p>
+<p>因为所有边只放入和取出二叉堆一次，所以算法复杂度是(eloge)。</p>
+<p></p>
+<p>2.Kruskal</p>
+<p></p>
+<p></p>
+<p>从所有边中找到一个最小的边，且将改变放入后不会生成圈，重复n-1次后求出最小生成树。</p>
+<p></p>
+<p></p>
+<p>我们首先将所有边排序，然后从小到大判断，如果不产生圈就加入树中，当加入n-1条边时停止。</p>
+<p></p>
+<p></p>
+<p>为了判断是否组成圈，我们要用到并查集，相关知识可以在本站或任一本竞赛书中找到，这里不赘述。</p>
+<p></p>
+<p></p>
+<p>算法复杂度是(eloge&#43;eα)，α是做一次并查集的复杂度，可以认为是常数。</p>
+<p></p>
+<p>两种算法同样优秀。</p>
+</div>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<pre class="cpp" name="code">/*
+	2013/08/04 11:03
+	author : zyh
+*/
+
+#define N  101
+#include &lt;iostream&gt;
+#include &lt;stdio.h&gt;
+
+using namespace std;
+
+int city[N][N],road[N];//road 存放当前集合所包含的顶点
+bool visit[N];
+
+int sum,n;
+
+void Min(int count) 
+{
+	
+ 	int i,j,last,m;
+	m = 999999;
+ 	for(i=1; i&lt;=count; i++)//在road的顶点内所连接的边寻找最小边
+ 	{	
+ 		for(j=1;j&lt;=n;j++)
+		{
+	 		if(!visit[j] &amp;&amp;  m&gt;city[road[i]][j]  &amp;&amp; city[road[i]][j] != 0)
+	 		{
+	 			last = j;// 标记最小边和 下标
+				m = city[road[i]][j];
+	 		}	
+		} 
+ 	}
+ //	printf(&quot;min=%d,index=%d\n&quot;,m,last);
+	sum += m;
+	road[++count] = last;
+	visit[last] = 1;
+}
+
+void Prim()
+{
+	int i;	
+	for(i=1;i&lt;=n;i++) visit[i] = 0;
+	road[1] = 1;//从第一个城市开始 
+	int count = 1;
+	visit[1] = 1;
+	while(count&lt;n)
+	{
+		Min(count);
+		count++;
+	}
+}
+
+int main()
+{
+	int i,j,a,b,c;
+	while(scanf(&quot;%d&quot;,&amp;n),n)
+	{
+		for(i=1;i&lt;= n*(n-1)/2;i++)
+		{
+			scanf(&quot;%d%d%d&quot;,&amp;a,&amp;b,&amp;c);
+			city[a][b] = city[b][a] = c; 
+		}
+//		for(i=1;i&lt;=n;i++)
+//		{
+//			for(j=1;j&lt;=n;j++)
+//			printf(&quot;%d &quot;,city[i][j]);
+//				printf(&quot;\n&quot;);
+//		}		
+		sum = 0;
+		Prim();
+		printf(&quot;%d\n&quot;,sum);
+	}
+	return 0;
+}
+
+</pre>
+<p><br>
+&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://hanks.xyz/2013/08/05/hdu_题目1233_还是畅通工程_（Prime算法）/" data-id="cihryjm2i0042k405f20bmxna" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  
+  
+</article>
+
+  
+<section id="comments">
+    <!-- 多说分享框 -->
+    <div class="ds-share flat" data-thread-key="/2013/08/05/hdu_题目1233_还是畅通工程_（Prime算法）/" data-title="hdu 题目1233 还是畅通工程 （Prime算法）" data-images="此处请替换为分享时显示的图片的链接地址" data-content="hdu 题目1233 还是畅通工程 （Prime算法）" data-url="http://hanks.xyz//2013/08/05/hdu_题目1233_还是畅通工程_（Prime算法）/">
+    <div class="ds-share-inline">
+      <ul  class="ds-share-icons-16">
+
+      	<li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+        <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+        <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+        <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+        <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+      </ul>
+      <div class="ds-share-icons-more">
+      </div>
+    </div>
+   </div>
+    <!-- 多说评论框 start -->
+   	<div class="ds-thread" data-thread-key="/2013/08/05/hdu_题目1233_还是畅通工程_（Prime算法）/" data-title="hdu 题目1233 还是畅通工程 （Prime算法）" data-url="http://hanks.xyz//2013/08/05/hdu_题目1233_还是畅通工程_（Prime算法）/"></div>
+   <!-- 多说评论框 end -->
+   <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+   <script type="text/javascript">
+   var duoshuoQuery = {short_name:"hanks-zyh"};
+   	(function() {
+   		var ds = document.createElement('script');
+   		ds.type = 'text/javascript';ds.async = true;
+   		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+   		ds.charset = 'UTF-8';
+   		(document.getElementsByTagName('head')[0]
+   		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+   	})();
+   	</script>
+   <!-- 多说公共JS代码 end -->
+</section>
+
+</section>
+      </div>
+      <footer id="footer">
+  
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      &copy; 2015 Hanks<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+  </br>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    
+
+<script src="/js/jquery.min.js" type="text/javascript"></script>
+<script src="/js/jquery.scrollLoading.js" type="text/javascript"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+  <script src="/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+
+
+<script src="/js/script.js" type="text/javascript"></script>
+
+  </div>
+</body>
+</html>

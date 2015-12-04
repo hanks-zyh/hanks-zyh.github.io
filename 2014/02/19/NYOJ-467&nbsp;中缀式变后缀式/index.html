@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>NYOJ-467&amp;nbsp;中缀式变后缀式 | Hanks.xyz</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description">
+<meta property="og:type" content="article">
+<meta property="og:title" content="NYOJ-467&nbsp;中缀式变后缀式">
+<meta property="og:url" content="http://hanks.xyz/2014/02/19/NYOJ-467&nbsp;中缀式变后缀式/index.html">
+<meta property="og:site_name" content="Hanks.xyz">
+<meta property="og:description">
+<meta property="og:updated_time" content="2015-12-04T17:20:04.312Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="NYOJ-467&nbsp;中缀式变后缀式">
+<meta name="twitter:description">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <!-- <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600' rel='stylesheet' type='text/css'> -->
+  <!-- <link href="//fonts.googleapis.com/css?family=Source+Code+Pro:400,700" rel="stylesheet" type="text/css"> -->
+  <link href="//fonts.useso.com/css?family=Source+Code+Pro:400,700" rel="stylesheet" type="text/css">
+  <link href='//fonts.useso.com/css?family=Open+Sans:300,600' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo">Hanks.xyz</a>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">首页</a>
+        
+          <a class="main-nav-link" href="/archives">归档</a>
+        
+          <a class="main-nav-link" href="/about/index.html">关于</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        <div id="search-form-wrap">
+          <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://hanks.xyz"></form>
+        </div>
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+        
+        
+          <a id="nav-github-link" class="nav-icon" href="https://github.com/hanks-zyh" title="Fork me on GitHub"></a>
+        
+      </nav>
+    </div>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/" class="mobile-nav-link">首页</a>
+  
+    <a href="/archives" class="mobile-nav-link">归档</a>
+  
+    <a href="/about/index.html" class="mobile-nav-link">关于</a>
+  
+  <div id="search-form-wrap-mobile">
+    <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://hanks.xyz"></form>
+  </div>
+</nav>
+      <div class="outer">
+        
+        <section id="main"><article id="post-NYOJ-467&amp;nbsp;中缀式变后缀式" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/02/19/NYOJ-467&nbsp;中缀式变后缀式/" class="article-date">
+  <time datetime="2014-02-19T11:17:00.000Z" itemprop="datePublished">2014-02-19</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      NYOJ-467&amp;nbsp;中缀式变后缀式
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+<div id="sina_keyword_ad_area2" class="articalContent  ">
+			<div style="WiDoWs: 2; TexT-TrAnsForM: none; BACKGroUnD-CoLor: rgb(255,255,255); FonT-VAriAnT: normal; FonT-sTYLe: normal; TexT-inDenT: 0px; FonT-FAMiLY: Tahoma, Arial, sans-serif, simsun; WHiTe-spACe: normal; orpHAns: 2; LeTTer-spACinG: normal; CoLor: rgb(70,70,70); FonT-siZe: 14px; FonT-WeiGHT: normal; WorD-spACinG: 0px; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px">
+<h2 style="TexT-ALiGn: center; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; FonT-FAMiLY: 微软雅黑, 黑体; CoLor: rgb(113,32,21); FonT-siZe: 18px; pADDinG-Top: 0px">
+中缀式变后缀式</h2>
+<div style="TexT-ALiGn: center">
+时间限制：<span style="CoLor: rgb(113,32,21)">1000</span><span>&nbsp;<wbr></span>ms
+&nbsp;<wbr>|&nbsp;<wbr> 内存限制：<span style="CoLor: rgb(113,32,21)">65535</span><span>&nbsp;<wbr></span>KB</div>
+<div style="TexT-ALiGn: center">难度：<span style="CoLor: rgb(113,32,21)">3</span></div>
+</div>
+<div style="WiDoWs: 2; TexT-TrAnsForM: none; BACKGroUnD-CoLor: rgb(255,255,255); TexT-inDenT: 0px; FonT: 13px/19px Tahoma, Arial, sans-serif, simsun; WHiTe-spACe: normal; orpHAns: 2; LeTTer-spACinG: normal; CoLor: rgb(70,70,70); CLeAr: both; WorD-spACinG: 0px; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px"></div>
+<dl style="pADDinG-BoTToM: 0px; WiDoWs: 2; TexT-TrAnsForM: none; BACKGroUnD-CoLor: rgb(255,255,255); FonT-VAriAnT: normal; FonT-sTYLe: normal; TexT-inDenT: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; FonT-FAMiLY: Tahoma, Arial, sans-serif, simsun; WHiTe-spACe: normal; orpHAns: 2; LeTTer-spACinG: normal; CoLor: rgb(70,70,70); FonT-siZe: 14px; FonT-WeiGHT: normal; WorD-spACinG: 0px; pADDinG-Top: 0px; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px">
+<dt style="pADDinG-BoTToM: 0px; MArGin: 1em 0px 0.2em; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: rgb(113,32,21); FonT-siZe: 16px; FonT-WeiGHT: bold; pADDinG-Top: 0px">
+描述</dt>
+<dd style="pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; pADDinG-Top: 0px">
+人们的日常习惯是把算术表达式写成中缀式，但对于机器来说更“习惯于”后缀式，关于算术表达式的中缀式和后缀式的论述一般的数据结构书都有相关内容可供参看，这里不再赘述，现在你的任务是将中缀式变为后缀式。</dd>
+<dd>
+<div style="CLeAr: both"></div>
+<dl style="pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; pADDinG-Top: 0px">
+<dt style="pADDinG-BoTToM: 0px; MArGin: 1em 0px 0.2em; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: rgb(113,32,21); FonT-siZe: 16px; FonT-WeiGHT: bold; pADDinG-Top: 0px">
+输入</dt>
+<dd style="pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; pADDinG-Top: 0px">
+第一行输入一个整数n，共有n组测试数据（n&lt;10)。<br>
+每组测试数据只有一行，是一个长度不超过1000的字符串，表示这个运算式的中缀式，每个运算式都是以“=”结束。这个表达式里只包含+-*/与小括号这几种符号。其中小括号可以嵌套使用。数据保证输入的操作数中不会出现负数。<br>
+
+数据保证除数不会为0</dd>
+<dt style="pADDinG-BoTToM: 0px; MArGin: 1em 0px 0.2em; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: rgb(113,32,21); FonT-siZe: 16px; FonT-WeiGHT: bold; pADDinG-Top: 0px">
+输出</dt>
+<dd style="pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; pADDinG-Top: 0px">
+每组都输出该组中缀式相应的后缀式，要求相邻的操作数操作符用空格隔开。</dd>
+<dt style="pADDinG-BoTToM: 0px; MArGin: 1em 0px 0.2em; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: rgb(113,32,21); FonT-siZe: 16px; FonT-WeiGHT: bold; pADDinG-Top: 0px">
+样例输入</dt>
+<dd style="pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; pADDinG-Top: 0px">
+<pre style="BorDer-BoTToM: rgb(204,204,204) 1px solid; BorDer-LeFT: rgb(204,204,204) 1px solid; pADDinG-BoTToM: 5px; Line-HeiGHT: 1.5em; BACKGroUnD-CoLor: rgb(239,239,239); MArGin: 0px; Min-HeiGHT: 20px; pADDinG-LeFT: 10px; pADDinG-riGHT: 10px; FonT-FAMiLY: Consolas, 'Courier new', 'DejaVu sans Mono', 'Droid sans Mono', monospace; BorDer-Top: rgb(204,204,204) 1px solid; BorDer-riGHT: rgb(204,204,204) 1px solid; pADDinG-Top: 5px">
+2
+1.000+2/4=
+((1+2)*5+1)/4=
+</pre></dd>
+<dt style="pADDinG-BoTToM: 0px; MArGin: 1em 0px 0.2em; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: rgb(113,32,21); FonT-siZe: 16px; FonT-WeiGHT: bold; pADDinG-Top: 0px">
+样例输出</dt>
+<dd style="pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; pADDinG-Top: 0px">
+<pre style="BorDer-BoTToM: rgb(204,204,204) 1px solid; BorDer-LeFT: rgb(204,204,204) 1px solid; pADDinG-BoTToM: 5px; Line-HeiGHT: 1.5em; BACKGroUnD-CoLor: rgb(239,239,239); MArGin: 0px; Min-HeiGHT: 20px; pADDinG-LeFT: 10px; pADDinG-riGHT: 10px; FonT-FAMiLY: Consolas, 'Courier new', 'DejaVu sans Mono', 'Droid sans Mono', monospace; BorDer-Top: rgb(204,204,204) 1px solid; BorDer-riGHT: rgb(204,204,204) 1px solid; pADDinG-Top: 5px">
+1.000 2 4 / + =
+1 2 + 5 * 1 + 4 / =
+</pre></dd>
+</dl>
+</dd>
+</dl>
+<p style="pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; pADDinG-Top: 0px">
+&nbsp;<wbr></p>
+<p style="pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; pADDinG-Top: 0px">
+<font color="#464646" face="Tahoma">做题时在输出空格花了些时间</font></p>
+<p style="pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; pADDinG-Top: 0px">
+#define TRUE 1<br>
+#define FALSE 0<br>
+#define STACK_INIT_SIZE 10002</p>
+<p style="pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; pADDinG-Top: 0px">
+#include "iostream"<br>
+#include "cstdlib"<br>
+#include "cstdio"<br>
+#include "cstring"</p>
+<p style="pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; pADDinG-Top: 0px">
+using namespace std;</p>
+<p style="pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; pADDinG-Top: 0px">
+typedef int Status;&nbsp;<wbr>&nbsp;<wbr>//Status 相当于
+int<br>
+typedef struct Stack1&nbsp;<wbr>//运算符栈<br>
+{<br>
+&nbsp;<wbr>char * base;<br>
+&nbsp;<wbr>char * top;<br>
+}SqStack1;</p>
+<p style="pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; pADDinG-Top: 0px">
+<br>
+//运算符栈操作<br>
+void&nbsp;<wbr> InitStack1(SqStack1
+&amp;S)&nbsp;<wbr>//创建一个空栈<br>
+{</p>
+<p style="pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; pADDinG-Top: 0px">
+&nbsp;<wbr>S.base = (char *)malloc(sizeof(char) *
+STACK_INIT_SIZE);<br>
+&nbsp;<wbr>S.top = S.base;<br>
+}<br>
+Status Stack1Empty(SqStack1 S)//判断是否为空<br>
+{<br>
+&nbsp;<wbr>if(S.top == S.base)&nbsp;<wbr>return
+TRUE;<br>
+&nbsp;<wbr>else return FALSE;<br>
+}<br>
+void Push1(SqStack1 &amp;S,char e )//插入元素e为新的栈顶元素<br>
+{<br>
+&nbsp;<wbr>* S.top++ = e;<br>
+}<br>
+void Pop1(SqStack1 &amp;S,char &amp;e)//出栈<br>
+{<br>
+&nbsp;<wbr>e = * --S.top ;<br>
+}<br>
+char GetTop1(SqStack1 S)<br>
+{<br>
+&nbsp;<wbr>return *(S.top-1);<br>
+}<br>
+void TraverseStack1(SqStack1 S)//输出当前顺序表<br>
+{<br>
+&nbsp;<wbr>char * p = S.base;<br>
+&nbsp;<wbr>cout&lt;&lt;"运算栈中的元素为：";<br>
+&nbsp;<wbr>while( p != S.top&nbsp;<wbr> )<br>
+&nbsp;<wbr>{<br>
+&nbsp;<wbr>&nbsp;<wbr>cout&lt;&lt;*p&lt;&lt;"
+";<br>
+&nbsp;<wbr>&nbsp;<wbr>p++;<br>
+&nbsp;<wbr>}&nbsp;<wbr><br>
+&nbsp;<wbr>cout&lt;&lt;endl;<br>
+}</p>
+<p style="pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; pADDinG-Top: 0px">
+Status In(char ch)//判断ch是否为运算符<br>
+{<br>
+&nbsp;<wbr>if(ch == '+' || ch == '('|| ch == '-' || ch ==
+'*' || ch == '/' || ch == ')'&nbsp;<wbr> || ch == '=')
+return TRUE;<br>
+&nbsp;<wbr>else return FALSE;<br>
+}</p>
+<p style="pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; pADDinG-Top: 0px">
+<br>
+void In_to_Ne(char s[1002], char p[1002],int
+&amp;l)&nbsp;<wbr><br>
+{<br>
+&nbsp;<wbr>char c,ch;<br>
+&nbsp;<wbr>Stack1 S;&nbsp;<wbr>&nbsp;<wbr>
+InitStack1(S);<br>
+&nbsp;<wbr>int i,k, len;<br>
+&nbsp;<wbr>k = 0;<br>
+&nbsp;<wbr>len = strlen(s);<br>
+&nbsp;<wbr>for(i = 0; i&lt; len ; ++i)<br>
+&nbsp;<wbr>{<br>
+&nbsp;<wbr>&nbsp;<wbr>c =s[i];<br>
+&nbsp;<wbr>//&nbsp;<wbr>printf("c = %c\n",c);<br>
+&nbsp;<wbr>&nbsp;<wbr>if( !In(c) )<br>
+&nbsp;<wbr>&nbsp;<wbr>{<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>while(!In(c)
+){&nbsp;<wbr><br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+p[k++] = c;<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+c = s[++i];<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+}&nbsp;<wbr><br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>p[k++] = '
+';<br>
+&nbsp;<wbr>&nbsp;<wbr>}//操作数<br>
+&nbsp;<wbr>&nbsp;<wbr>if( Stack1Empty(S)
+)&nbsp;<wbr>Push1(S,c);<br>
+&nbsp;<wbr>&nbsp;<wbr>else if( c == '('
+)&nbsp;<wbr> Push1(S,c);<br>
+&nbsp;<wbr>&nbsp;<wbr>else if(c ==
+')'&nbsp;<wbr> )<br>
+&nbsp;<wbr>&nbsp;<wbr>{<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>while(
+GetTop1(S)!= '(')<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>{<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>Pop1(S,ch);p[k++]
+= ch; p[k++] =' ';<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>}<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>Pop1(S,ch);
+//将（出栈<br>
+&nbsp;<wbr>&nbsp;<wbr>}&nbsp;<wbr>//将栈顶元素弹出并放到p&nbsp;<wbr><br>
+
+&nbsp;<wbr>&nbsp;<wbr>else if( (c == '+' || c=='-'
+)&amp;&amp;(GetTop1(S)=='(' ) )&nbsp;<wbr>&nbsp;<wbr>
+Push1(S,c);<br>
+&nbsp;<wbr>&nbsp;<wbr>else if( (c == '+' || c=='-'
+)&amp;&amp;(GetTop1(S) =='+' ||GetTop1(S)=='-'||GetTop1(S)=='*'
+||GetTop1(S)=='/' ) ) {&nbsp;<wbr>
+Pop1(S,ch);&nbsp;<wbr> p[k++] = ch; p[k++] ='
+';&nbsp;<wbr> i = i-1;&nbsp;<wbr>
+}&nbsp;<wbr>//将栈顶元素弹出并放到p<br>
+&nbsp;<wbr>&nbsp;<wbr>else if( (c == '*' || c=='/'
+)&amp;&amp;(GetTop1(S) =='+' ||GetTop1(S)=='-'|| GetTop1(S)=='(' )
+)&nbsp;<wbr>&nbsp;<wbr> Push1(S,c);<br>
+&nbsp;<wbr>&nbsp;<wbr>else if( (c == '*' || c=='/'
+)&amp;&amp;(GetTop1(S) =='*' ||GetTop1(S)=='/')
+)&nbsp;<wbr>&nbsp;<wbr> {&nbsp;<wbr>
+Pop1(S,ch);&nbsp;<wbr> p[k++] = ch; p[k++] =' '; i =
+i-1;&nbsp;<wbr> }&nbsp;<wbr>//将栈顶元素弹出并放到p<br>
+&nbsp;<wbr>//&nbsp;<wbr>TraverseStack1(S);<br>
+&nbsp;<wbr>}</p>
+<p style="pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; pADDinG-Top: 0px">
+&nbsp;<wbr>while(!Stack1Empty(S) )<br>
+&nbsp;<wbr>{<br>
+&nbsp;<wbr>&nbsp;<wbr>Pop1(S,ch);&nbsp;<wbr>
+p[k++] = ch; p[k++] =' ';<br>
+&nbsp;<wbr>}<br>
+&nbsp;<wbr>l = k;<br>
+&nbsp;<wbr>return ;<br>
+}<br>
+<br>
+int main()<br>
+{<br>
+&nbsp;<wbr>char s[1002], p[1002];<br>
+&nbsp;<wbr>int n,i,len;<br>
+&nbsp;<wbr>scanf("%d",&amp;n);<br>
+&nbsp;<wbr>while(n--)<br>
+&nbsp;<wbr>{<br>
+&nbsp;<wbr>&nbsp;<wbr>scanf("%s",s);<br>
+&nbsp;<wbr>&nbsp;<wbr>In_to_Ne( s, p,len);<br>
+&nbsp;<wbr>&nbsp;<wbr>for(i =0; i<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>printf("%c",p[i]);<br>
+
+&nbsp;<wbr>&nbsp;<wbr>printf("=\n");<br>
+&nbsp;<wbr>}<br>
+&nbsp;<wbr>return 0;<br>
+}&nbsp;<wbr>&nbsp;<wbr></p>							
+		</div>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://hanks.xyz/2014/02/19/NYOJ-467&nbsp;中缀式变后缀式/" data-id="cihryjm560065k405but2kfh9" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  
+  
+</article>
+
+  
+<section id="comments">
+    <!-- 多说分享框 -->
+    <div class="ds-share flat" data-thread-key="/2014/02/19/NYOJ-467&nbsp;中缀式变后缀式/" data-title="NYOJ-467&nbsp;中缀式变后缀式" data-images="此处请替换为分享时显示的图片的链接地址" data-content="NYOJ-467&nbsp;中缀式变后缀式" data-url="http://hanks.xyz//2014/02/19/NYOJ-467&nbsp;中缀式变后缀式/">
+    <div class="ds-share-inline">
+      <ul  class="ds-share-icons-16">
+
+      	<li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+        <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+        <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+        <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+        <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+      </ul>
+      <div class="ds-share-icons-more">
+      </div>
+    </div>
+   </div>
+    <!-- 多说评论框 start -->
+   	<div class="ds-thread" data-thread-key="/2014/02/19/NYOJ-467&nbsp;中缀式变后缀式/" data-title="NYOJ-467&nbsp;中缀式变后缀式" data-url="http://hanks.xyz//2014/02/19/NYOJ-467&nbsp;中缀式变后缀式/"></div>
+   <!-- 多说评论框 end -->
+   <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+   <script type="text/javascript">
+   var duoshuoQuery = {short_name:"hanks-zyh"};
+   	(function() {
+   		var ds = document.createElement('script');
+   		ds.type = 'text/javascript';ds.async = true;
+   		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+   		ds.charset = 'UTF-8';
+   		(document.getElementsByTagName('head')[0]
+   		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+   	})();
+   	</script>
+   <!-- 多说公共JS代码 end -->
+</section>
+
+</section>
+      </div>
+      <footer id="footer">
+  
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      &copy; 2015 Hanks<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+  </br>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    
+
+<script src="/js/jquery.min.js" type="text/javascript"></script>
+<script src="/js/jquery.scrollLoading.js" type="text/javascript"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+  <script src="/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+
+
+<script src="/js/script.js" type="text/javascript"></script>
+
+  </div>
+</body>
+</html>

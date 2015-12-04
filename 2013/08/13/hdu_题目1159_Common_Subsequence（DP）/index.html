@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>hdu 题目1159 Common Subsequence（DP） | Hanks.xyz</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description">
+<meta property="og:type" content="article">
+<meta property="og:title" content="hdu 题目1159 Common Subsequence（DP）">
+<meta property="og:url" content="http://hanks.xyz/2013/08/13/hdu_题目1159_Common_Subsequence（DP）/index.html">
+<meta property="og:site_name" content="Hanks.xyz">
+<meta property="og:description">
+<meta property="og:image" content="http://p.blog.csdn.net/images/p_blog_csdn_net/hhygcy/EntryImages/20090302/lcs_1.PNG">
+<meta property="og:image" content="http://p.blog.csdn.net/images/p_blog_csdn_net/hhygcy/EntryImages/20090302/lcs_2.PNG">
+<meta property="og:updated_time" content="2015-12-04T17:20:04.308Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="hdu 题目1159 Common Subsequence（DP）">
+<meta name="twitter:description">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <!-- <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600' rel='stylesheet' type='text/css'> -->
+  <!-- <link href="//fonts.googleapis.com/css?family=Source+Code+Pro:400,700" rel="stylesheet" type="text/css"> -->
+  <link href="//fonts.useso.com/css?family=Source+Code+Pro:400,700" rel="stylesheet" type="text/css">
+  <link href='//fonts.useso.com/css?family=Open+Sans:300,600' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo">Hanks.xyz</a>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">首页</a>
+        
+          <a class="main-nav-link" href="/archives">归档</a>
+        
+          <a class="main-nav-link" href="/about/index.html">关于</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        <div id="search-form-wrap">
+          <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://hanks.xyz"></form>
+        </div>
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+        
+        
+          <a id="nav-github-link" class="nav-icon" href="https://github.com/hanks-zyh" title="Fork me on GitHub"></a>
+        
+      </nav>
+    </div>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/" class="mobile-nav-link">首页</a>
+  
+    <a href="/archives" class="mobile-nav-link">归档</a>
+  
+    <a href="/about/index.html" class="mobile-nav-link">关于</a>
+  
+  <div id="search-form-wrap-mobile">
+    <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://hanks.xyz"></form>
+  </div>
+</nav>
+      <div class="outer">
+        
+        <section id="main"><article id="post-hdu_题目1159_Common_Subsequence（DP）" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2013/08/13/hdu_题目1159_Common_Subsequence（DP）/" class="article-date">
+  <time datetime="2013-08-13T15:17:00.000Z" itemprop="datePublished">2013-08-13</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      hdu 题目1159 Common Subsequence（DP）
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+<p></p>
+<h1 style="color:rgb(26,92,200); text-align:center; font-family:'Times New Roman'">
+Common Subsequence</h1>
+<span style="font-family:'Times New Roman'; font-size:14px"><strong><span style="font-family:Arial; font-size:12px; color:green">Time Limit: 2000/1000 MS (Java/Others)&nbsp;&nbsp;&nbsp;&nbsp;Memory Limit: 65536/32768 K (Java/Others)<br>
+Total Submission(s): 17779&nbsp;&nbsp;&nbsp;&nbsp;Accepted Submission(s): 7485<br>
+</span></strong></span><br style="font-family:'Times New Roman'; font-size:14px">
+<br style="font-family:'Times New Roman'; font-size:14px">
+<div class="panel_title" align="left" style="height:38px; background-color:transparent; padding:0px 14px; color:rgb(124,169,237); font-size:18px; font-family:Arial; font-weight:bold">
+Problem Description</div>
+<div class="panel_content" style="height:auto; margin:0px; padding:0px 20px; font-size:14px; font-family:'Times New Roman'">
+A subsequence of a given sequence is the given sequence with some elements (possible none) left out. Given a sequence X = &lt;x1, x2, ..., xm&gt; another sequence Z = &lt;z1, z2, ..., zk&gt; is a subsequence of X if there exists a strictly increasing sequence &lt;i1, i2,
+ ..., ik&gt; of indices of X such that for all j = 1,2,...,k, xij = zj. For example, Z = &lt;a, b, f, c&gt; is a subsequence of X = &lt;a, b, c, f, b, c&gt; with index sequence &lt;1, 2, 4, 6&gt;. Given two sequences X and Y the problem is to find the length of the maximum-length
+ common subsequence of X and Y.&nbsp;<br>
+The program input is from a text file. Each data set in the file contains two strings representing the given sequences. The sequences are separated by any number of white spaces. The input data are correct. For each set of data the program prints on the standard
+ output the length of the maximum-length common subsequence from the beginning of a separate line.&nbsp;<br>
+</div>
+<div class="panel_bottom" style="height:auto; margin:0px; font-family:'Times New Roman'; font-size:14px">
+&nbsp;</div>
+<br style="font-family:'Times New Roman'; font-size:14px">
+<div class="panel_title" align="left" style="height:38px; background-color:transparent; padding:0px 14px; color:rgb(124,169,237); font-size:18px; font-family:Arial; font-weight:bold">
+Sample Input</div>
+<div class="panel_content" style="height:auto; margin:0px; padding:0px 20px; font-size:14px; font-family:'Times New Roman'">
+<pre style="margin-top:0px; margin-bottom:0px"><div style="font-family:'Courier New',Courier,monospace">abcfbc abfcab
+programming contest 
+abcd mnp</div></pre>
+</div>
+<div class="panel_bottom" style="height:auto; margin:0px; font-family:'Times New Roman'; font-size:14px">
+&nbsp;</div>
+<br style="font-family:'Times New Roman'; font-size:14px">
+<div class="panel_title" align="left" style="height:38px; background-color:transparent; padding:0px 14px; color:rgb(124,169,237); font-size:18px; font-family:Arial; font-weight:bold">
+Sample Output</div>
+<div class="panel_content" style="height:auto; margin:0px; padding:0px 20px; font-size:14px; font-family:'Times New Roman'">
+<pre style="margin-top:0px; margin-bottom:0px"><div style="font-family:'Courier New',Courier,monospace">4
+2
+0</div></pre>
+</div>
+<div class="panel_bottom" style="height:auto; margin:0px; font-family:'Times New Roman'; font-size:14px">
+&nbsp;</div>
+<div><br>
+</div>
+百度转帖
+<p></p>
+<p></p>
+<p style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px">
+<strong><span style="font-size:14px"><span style="font-family:宋体">动态规划法</span></span></strong></p>
+<p style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px; text-indent:21pt">
+<span style="font-family:宋体"><span style="font-size:14px">经常会遇到复杂问题不能简单地分解成几个子问题，而会分解出一系列的子问题。简单地采用把大问题分解成子问题，并综合子问题的解导出大问题的解的方法，问题求解耗时会按问题规模呈幂级数增加。</span></span></p>
+<p style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px">
+<span style="font-family:宋体"><span style="font-size:14px">为了节约重复求相同子问题的时间，引入一个数组，不管它们是否对最终解有用，把所有子问题的解存于该数组中，这就是动态规划法所采用的基本方法。</span></span></p>
+<p style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px">
+<span style="font-family:宋体"></span></p>
+<p style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px">
+<span style="font-family:宋体"><span style="font-size:14px"></span></span></p>
+<p style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px">
+<span style="font-family:宋体">【问题】&nbsp;</span><span style="font-family:宋体">求两字符序列的最长公共字符子序列</span></p>
+<p style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px">
+<span style="font-family:宋体">问题描述：字符序列的子序列是指从给定字符序列中随意地（不一定连续）去掉若干个字符（可能一个也不去掉）后所形成的字符序列。令给定的字符序列X=</span><span style="font-family:宋体">“x0</span><span style="font-family:宋体">，x1</span><span style="font-family:宋体">，…，xm-1”，序列Y=</span><span style="font-family:宋体">“y0</span><span style="font-family:宋体">，y1</span><span style="font-family:宋体">，…，yk-1”是X</span><span style="font-family:宋体">的子序列，存在X</span><span style="font-family:宋体">的一个严&#26684;递增下标序列&lt;i0</span><span style="font-family:宋体">，i1</span><span style="font-family:宋体">，…，ik-1&gt;</span><span style="font-family:宋体">，使得对所有的j=0</span><span style="font-family:宋体">，1</span><span style="font-family:宋体">，…，k-1</span><span style="font-family:宋体">，有xij=yj</span><span style="font-family:宋体">。例如，X=</span><span style="font-family:宋体">“ABCBDAB</span><span style="font-family:宋体">”，Y=</span><span style="font-family:宋体">“BCDB</span><span style="font-family:宋体">”是X</span><span style="font-family:宋体">的一个子序列。</span></p>
+<p style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px">
+<span style="font-family:宋体">考虑最长公共子序列问题如何分解成子问题，设A=</span><span style="font-family:宋体">“a0</span><span style="font-family:宋体">，a1</span><span style="font-family:宋体">，…，am-1”，B=</span><span style="font-family:宋体">“b0</span><span style="font-family:宋体">，b1</span><span style="font-family:宋体">，…，bm-1”，并Z=</span><span style="font-family:宋体">“z0</span><span style="font-family:宋体">，z1</span><span style="font-family:宋体">，…，zk-1”为它们的最长公共子序列。不难证明有以下性质：</span></p>
+<p style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px">
+<span style="font-family:宋体">（1</span><span style="font-family:宋体">）&nbsp;</span><span style="font-family:宋体">如果am-1=bn-1</span><span style="font-family:宋体">，则zk-1=am-1=bn-1</span><span style="font-family:宋体">，且“z0</span><span style="font-family:宋体">，z1</span><span style="font-family:宋体">，…，zk-2”是“a0</span><span style="font-family:宋体">，a1</span><span style="font-family:宋体">，…，am-2”和“b0</span><span style="font-family:宋体">，b1</span><span style="font-family:宋体">，…，bn-2”的一个最长公共子序列；</span></p>
+<p style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px">
+<span style="font-family:宋体">（2</span><span style="font-family:宋体">）&nbsp;</span><span style="font-family:宋体">如果am-1!=bn-1</span><span style="font-family:宋体">，则若zk-1!=am-1</span><span style="font-family:宋体">，蕴涵“z0</span><span style="font-family:宋体">，z1</span><span style="font-family:宋体">，…，zk-1”是“a0</span><span style="font-family:宋体">，a1</span><span style="font-family:宋体">，…，am-2”和“b0</span><span style="font-family:宋体">，b1</span><span style="font-family:宋体">，…，bn-1”的一个最长公共子序列；</span></p>
+<p style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px">
+<span style="font-family:宋体">（3</span><span style="font-family:宋体">）&nbsp;</span><span style="font-family:宋体">如果am-1!=bn-1</span><span style="font-family:宋体">，则若zk-1!=bn-1</span><span style="font-family:宋体">，蕴涵“z0</span><span style="font-family:宋体">，z1</span><span style="font-family:宋体">，…，zk-1”是“a0</span><span style="font-family:宋体">，a1</span><span style="font-family:宋体">，…，am-1”和“b0</span><span style="font-family:宋体">，b1</span><span style="font-family:宋体">，…，bn-2”的一个最长公共子序列。</span></p>
+<p style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px">
+<span style="font-family:宋体">这样，在找A</span><span style="font-family:宋体">和B</span><span style="font-family:宋体">的公共子序列时，如有am-1=bn-1</span><span style="font-family:宋体">，则进一步解决一个子问题，找“a0</span><span style="font-family:宋体">，a1</span><span style="font-family:宋体">，…，am-2”和“b0</span><span style="font-family:宋体">，b1</span><span style="font-family:宋体">，…，bm-2”的一个最长公共子序列；如果am-1!=bn-1</span><span style="font-family:宋体">，则要解决两个子问题，找出“a0</span><span style="font-family:宋体">，a1</span><span style="font-family:宋体">，…，am-2”和“b0</span><span style="font-family:宋体">，b1</span><span style="font-family:宋体">，…，bn-1”的一个最长公共子序列和找出“a0</span><span style="font-family:宋体">，a1</span><span style="font-family:宋体">，…，am-1”和“b0</span><span style="font-family:宋体">，b1</span><span style="font-family:宋体">，…，bn-2”的一个最长公共子序列，再取两者中较长者作为A</span><span style="font-family:宋体">和B</span><span style="font-family:宋体">的最长公共子序列。</span></p>
+<p style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px">
+&nbsp;</p>
+<p style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px">
+&nbsp;</p>
+<p style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px">
+<span style="font-family:宋体">求解：</span></p>
+<p style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px">
+</p>
+<p style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px">
+<span style="font-family:宋体">引进一个二维数组c[][]，用c[i][j]记录X[i]与Y[j] 的LCS 的长度，b[i][j]记录c[i][j]是通过哪一个子问题的&#20540;求得的，以决定搜索的方向。<br>
+我们是自底向上进行递推计算，那么在计算c[i,j]之前，c[i-1][j-1]，c[i-1][j]与c[i][j-1]均已计算出来。此时我们根据X[i] = Y[j]还是X[i] != Y[j]，就可以计算出c[i][j]。</span></p>
+<p style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px">
+<span style="font-family:宋体">问题的递归式写成：</span></p>
+<p style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px">
+<span style="font-family:宋体"><br>
+</span></p>
+<p style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px">
+</p>
+<p style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px">
+<img src="http://p.blog.csdn.net/images/p_blog_csdn_net/hhygcy/EntryImages/20090302/lcs_1.PNG" alt="recursive formula" width="412" height="72" style="border:none; max-width:100%"></p>
+<p style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px">
+回溯输出最长公共子序列过程：</p>
+<p style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px">
+<img src="http://p.blog.csdn.net/images/p_blog_csdn_net/hhygcy/EntryImages/20090302/lcs_2.PNG" alt="flow" width="374" height="384" style="border:none; max-width:100%"></p>
+<p style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px">
+&nbsp;</p>
+<p style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px">
+算法分析：<br>
+由于每次调用至少向上或向左（或向上向左同时）移动一步，故最多调用(m &#43; n)次就会遇到i = 0或j = 0的情况，此时开始返回。返回时与递归调用时方向相反，步数相同，故算法时间复杂度为Θ(m &#43; n)。</p>
+<p style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px">
+&nbsp;</p>
+<br>
+<p><br>
+</p>
+<p><br>
+</p>
+<p><br>
+</p>
+<p><pre name="code" class="cpp">#include &lt;stdio.h&gt;
+#include &lt;string.h&gt;
+#define N 10005
+int c[N][N];
+int main()
+{
+    int m,n,i,j;
+    char x[N],y[N];
+    while(scanf(&quot;%s%s&quot;,x,y)!=EOF){    
+        for(i=0;i&lt;strlen(x);i++) c[i][0]=0; //边界行和列
+        for(i=0;i&lt;strlen(y);i++) c[0][i]=0;
+        
+        for(i=1;i&lt;=strlen(x);i++){            
+            for(j=1;j&lt;=strlen(y);j++){
+                if(x[i-1]==y[j-1]) c[i][j] = c[i-1][j-1]+1;  //x[i] == y[j] ; 最长公共子序列+1；
+                else c[i][j] = c[i-1][j] &gt; c[i][j-1] ? c[i-1][j] : c[i][j-1];
+            }           
+        }     
+
+        printf(&quot;%d\n&quot;,c[i-1][j-1]);
+    }
+    return 0;
+} 
+/*
+cnblogs belong
+abcfbc abfcab
+programming contest 
+abcd mnp
+*/</pre><br>
+<br>
+</p>
+<p><br>
+</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://hanks.xyz/2013/08/13/hdu_题目1159_Common_Subsequence（DP）/" data-id="cihryjm2l0045k4050g2kn9cg" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  
+  
+</article>
+
+  
+<section id="comments">
+    <!-- 多说分享框 -->
+    <div class="ds-share flat" data-thread-key="/2013/08/13/hdu_题目1159_Common_Subsequence（DP）/" data-title="hdu 题目1159 Common Subsequence（DP）" data-images="此处请替换为分享时显示的图片的链接地址" data-content="hdu 题目1159 Common Subsequence（DP）" data-url="http://hanks.xyz//2013/08/13/hdu_题目1159_Common_Subsequence（DP）/">
+    <div class="ds-share-inline">
+      <ul  class="ds-share-icons-16">
+
+      	<li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+        <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+        <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+        <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+        <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+      </ul>
+      <div class="ds-share-icons-more">
+      </div>
+    </div>
+   </div>
+    <!-- 多说评论框 start -->
+   	<div class="ds-thread" data-thread-key="/2013/08/13/hdu_题目1159_Common_Subsequence（DP）/" data-title="hdu 题目1159 Common Subsequence（DP）" data-url="http://hanks.xyz//2013/08/13/hdu_题目1159_Common_Subsequence（DP）/"></div>
+   <!-- 多说评论框 end -->
+   <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+   <script type="text/javascript">
+   var duoshuoQuery = {short_name:"hanks-zyh"};
+   	(function() {
+   		var ds = document.createElement('script');
+   		ds.type = 'text/javascript';ds.async = true;
+   		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+   		ds.charset = 'UTF-8';
+   		(document.getElementsByTagName('head')[0]
+   		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+   	})();
+   	</script>
+   <!-- 多说公共JS代码 end -->
+</section>
+
+</section>
+      </div>
+      <footer id="footer">
+  
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      &copy; 2015 Hanks<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+  </br>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    
+
+<script src="/js/jquery.min.js" type="text/javascript"></script>
+<script src="/js/jquery.scrollLoading.js" type="text/javascript"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+  <script src="/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+
+
+<script src="/js/script.js" type="text/javascript"></script>
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>从一个activity跳转到另一个activity，利用intent传递数据 | Hanks.xyz</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description">
+<meta property="og:type" content="article">
+<meta property="og:title" content="从一个activity跳转到另一个activity，利用intent传递数据">
+<meta property="og:url" content="http://hanks.xyz/2013/11/30/从一个activity跳转到另一个activity，利用intent传递数据/index.html">
+<meta property="og:site_name" content="Hanks.xyz">
+<meta property="og:description">
+<meta property="og:updated_time" content="2015-12-04T17:20:04.320Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="从一个activity跳转到另一个activity，利用intent传递数据">
+<meta name="twitter:description">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <!-- <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600' rel='stylesheet' type='text/css'> -->
+  <!-- <link href="//fonts.googleapis.com/css?family=Source+Code+Pro:400,700" rel="stylesheet" type="text/css"> -->
+  <link href="//fonts.useso.com/css?family=Source+Code+Pro:400,700" rel="stylesheet" type="text/css">
+  <link href='//fonts.useso.com/css?family=Open+Sans:300,600' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo">Hanks.xyz</a>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">首页</a>
+        
+          <a class="main-nav-link" href="/archives">归档</a>
+        
+          <a class="main-nav-link" href="/about/index.html">关于</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        <div id="search-form-wrap">
+          <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://hanks.xyz"></form>
+        </div>
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+        
+        
+          <a id="nav-github-link" class="nav-icon" href="https://github.com/hanks-zyh" title="Fork me on GitHub"></a>
+        
+      </nav>
+    </div>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/" class="mobile-nav-link">首页</a>
+  
+    <a href="/archives" class="mobile-nav-link">归档</a>
+  
+    <a href="/about/index.html" class="mobile-nav-link">关于</a>
+  
+  <div id="search-form-wrap-mobile">
+    <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://hanks.xyz"></form>
+  </div>
+</nav>
+      <div class="outer">
+        
+        <section id="main"><article id="post-从一个activity跳转到另一个activity，利用intent传递数据" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2013/11/30/从一个activity跳转到另一个activity，利用intent传递数据/" class="article-date">
+  <time datetime="2013-11-30T03:14:00.000Z" itemprop="datePublished">2013-11-30</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      从一个activity跳转到另一个activity，利用intent传递数据
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+<p style="color:rgb(54,46,43); font-family:Arial; font-size:14px; line-height:26px">
+描述：点击activity 02中的按钮，使页面跳转到 otherActivity 并将activity02 中的数据传给 otherActivity，并显示</p>
+<p style="color:rgb(54,46,43); font-family:Arial; font-size:14px; line-height:26px">
+第一个activity</p>
+<p style="color:rgb(54,46,43); font-family:Arial; font-size:14px; line-height:26px">
+</p>
+<div class="dp-highlighter bg_java" style="font-family:Consolas,'Courier New',Courier,mono,serif; background-color:rgb(231,229,220); width:693px; overflow:auto; padding-top:1px; color:rgb(54,46,43); line-height:26px; margin:18px 0px!important">
+<div class="bar" style="padding-left:45px">
+<div class="tools" style="padding:3px 8px 10px 10px; font-size:9px; line-height:normal; font-family:Verdana,Geneva,Arial,Helvetica,sans-serif; color:silver; background-color:rgb(248,248,248); border-left-width:3px; border-left-style:solid; border-left-color:rgb(108,226,108)">
+<strong>[java]</strong>&nbsp;<a target="_blank" href="http://blog.csdn.net/kidd888/article/details/7901880#" class="ViewSource" title="view plain" style="color:rgb(160,160,160); text-decoration:none; background-color:inherit; border:none; padding:1px; margin:0px 10px 0px 0px; font-size:9px; display:inline-block; width:16px; height:16px; text-indent:-2000px">view
+ plain</a><a target="_blank" href="http://blog.csdn.net/kidd888/article/details/7901880#" class="CopyToClipboard" title="copy" style="color:rgb(160,160,160); text-decoration:none; background-color:inherit; border:none; padding:1px; margin:0px 10px 0px 0px; font-size:9px; display:inline-block; width:16px; height:16px; text-indent:-2000px">copy</a>
+<div style="position:absolute; left:564px; top:593px; width:18px; height:18px; z-index:99">
+</div>
+</div>
+</div>
+<ol start="1" class="dp-j" style="padding:0px; border:none; list-style-position:initial; background-color:rgb(255,255,255); color:rgb(92,92,92); margin:0px 0px 1px 45px!important">
+<li class="alt" style="border-style:none none none solid; border-left-width:3px; border-left-color:rgb(108,226,108); list-style:decimal-leading-zero outside; color:inherit; line-height:18px; margin:0px!important; padding:0px 3px 0px 10px!important">
+<span style="margin:0px; padding:0px; border:none; color:black; background-color:inherit"><span class="comment" style="margin:0px; padding:0px; border:none; color:rgb(0,130,0); background-color:inherit">/**</span>&nbsp;</span></li><li style="border-style:none none none solid; border-left-width:3px; border-left-color:rgb(108,226,108); list-style:decimal-leading-zero outside; background-color:rgb(248,248,248); line-height:18px; margin:0px!important; padding:0px 3px 0px 10px!important">
+<span style="margin:0px; padding:0px; border:none; color:black; background-color:inherit"><span class="comment" style="margin:0px; padding:0px; border:none; color:rgb(0,130,0); background-color:inherit">&nbsp;*&nbsp;这个Activity是应用程序启动只有运行的第一个Activity，在这个Activity当中有一个按钮</span>&nbsp;</span></li><li class="alt" style="border-style:none none none solid; border-left-width:3px; border-left-color:rgb(108,226,108); list-style:decimal-leading-zero outside; color:inherit; line-height:18px; margin:0px!important; padding:0px 3px 0px 10px!important">
+<span style="margin:0px; padding:0px; border:none; color:black; background-color:inherit"><span class="comment" style="margin:0px; padding:0px; border:none; color:rgb(0,130,0); background-color:inherit">&nbsp;*&nbsp;</span>&nbsp;</span></li><li style="border-style:none none none solid; border-left-width:3px; border-left-color:rgb(108,226,108); list-style:decimal-leading-zero outside; background-color:rgb(248,248,248); line-height:18px; margin:0px!important; padding:0px 3px 0px 10px!important">
+<span style="margin:0px; padding:0px; border:none; color:black; background-color:inherit"><span class="comment" style="margin:0px; padding:0px; border:none; color:rgb(0,130,0); background-color:inherit">&nbsp;*</span>&nbsp;</span></li><li class="alt" style="border-style:none none none solid; border-left-width:3px; border-left-color:rgb(108,226,108); list-style:decimal-leading-zero outside; color:inherit; line-height:18px; margin:0px!important; padding:0px 3px 0px 10px!important">
+<span style="margin:0px; padding:0px; border:none; color:black; background-color:inherit"><span class="comment" style="margin:0px; padding:0px; border:none; color:rgb(0,130,0); background-color:inherit">&nbsp;*/</span><span style="margin:0px; padding:0px; border:none; background-color:inherit">&nbsp;&nbsp;</span></span></li><li style="border-style:none none none solid; border-left-width:3px; border-left-color:rgb(108,226,108); list-style:decimal-leading-zero outside; background-color:rgb(248,248,248); line-height:18px; margin:0px!important; padding:0px 3px 0px 10px!important">
+<span style="margin:0px; padding:0px; border:none; color:black; background-color:inherit"><span class="keyword" style="margin:0px; padding:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">public</span><span style="margin:0px; padding:0px; border:none; background-color:inherit">&nbsp;</span><span class="keyword" style="margin:0px; padding:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">class</span><span style="margin:0px; padding:0px; border:none; background-color:inherit">&nbsp;Activity02&nbsp;</span><span class="keyword" style="margin:0px; padding:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">extends</span><span style="margin:0px; padding:0px; border:none; background-color:inherit">&nbsp;Activity&nbsp;{&nbsp;&nbsp;</span></span></li><li class="alt" style="border-style:none none none solid; border-left-width:3px; border-left-color:rgb(108,226,108); list-style:decimal-leading-zero outside; color:inherit; line-height:18px; margin:0px!important; padding:0px 3px 0px 10px!important">
+<span style="margin:0px; padding:0px; border:none; color:black; background-color:inherit">&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment" style="margin:0px; padding:0px; border:none; color:rgb(0,130,0); background-color:inherit">/**&nbsp;Called&nbsp;when&nbsp;the&nbsp;activity&nbsp;is&nbsp;first&nbsp;created.&nbsp;*/</span><span style="margin:0px; padding:0px; border:none; background-color:inherit">&nbsp;&nbsp;</span></span></li><li style="border-style:none none none solid; border-left-width:3px; border-left-color:rgb(108,226,108); list-style:decimal-leading-zero outside; background-color:rgb(248,248,248); line-height:18px; margin:0px!important; padding:0px 3px 0px 10px!important">
+<span style="margin:0px; padding:0px; border:none; color:black; background-color:inherit">&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment" style="margin:0px; padding:0px; border:none; color:rgb(0,130,0); background-color:inherit">//代表按钮对象的引用</span><span style="margin:0px; padding:0px; border:none; background-color:inherit">&nbsp;&nbsp;</span></span></li><li class="alt" style="border-style:none none none solid; border-left-width:3px; border-left-color:rgb(108,226,108); list-style:decimal-leading-zero outside; color:inherit; line-height:18px; margin:0px!important; padding:0px 3px 0px 10px!important">
+<span style="margin:0px; padding:0px; border:none; color:black; background-color:inherit">&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword" style="margin:0px; padding:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">private</span><span style="margin:0px; padding:0px; border:none; background-color:inherit">&nbsp;Button&nbsp;myButton&nbsp;=&nbsp;</span><span class="keyword" style="margin:0px; padding:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">null</span><span style="margin:0px; padding:0px; border:none; background-color:inherit">;&nbsp;&nbsp;</span></span></li><li style="border-style:none none none solid; border-left-width:3px; border-left-color:rgb(108,226,108); list-style:decimal-leading-zero outside; background-color:rgb(248,248,248); line-height:18px; margin:0px!important; padding:0px 3px 0px 10px!important">
+<span style="margin:0px; padding:0px; border:none; color:black; background-color:inherit">&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment" style="margin:0px; padding:0px; border:none; color:rgb(0,130,0); background-color:inherit">//复写父类当中的onCreate方法，Activity第一次运行时会调用这个方法</span><span style="margin:0px; padding:0px; border:none; background-color:inherit">&nbsp;&nbsp;</span></span></li><li class="alt" style="border-style:none none none solid; border-left-width:3px; border-left-color:rgb(108,226,108); list-style:decimal-leading-zero outside; color:inherit; line-height:18px; margin:0px!important; padding:0px 3px 0px 10px!important">
+<span style="margin:0px; padding:0px; border:none; color:black; background-color:inherit">&nbsp;&nbsp;&nbsp;&nbsp;<span class="annotation" style="margin:0px; padding:0px; border:none; color:rgb(100,100,100); background-color:inherit">@Override</span><span style="margin:0px; padding:0px; border:none; background-color:inherit">&nbsp;&nbsp;</span></span></li><li style="border-style:none none none solid; border-left-width:3px; border-left-color:rgb(108,226,108); list-style:decimal-leading-zero outside; background-color:rgb(248,248,248); line-height:18px; margin:0px!important; padding:0px 3px 0px 10px!important">
+<span style="margin:0px; padding:0px; border:none; color:black; background-color:inherit">&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword" style="margin:0px; padding:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">public</span><span style="margin:0px; padding:0px; border:none; background-color:inherit">&nbsp;</span><span class="keyword" style="margin:0px; padding:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">void</span><span style="margin:0px; padding:0px; border:none; background-color:inherit">&nbsp;onCreate(Bundle&nbsp;savedInstanceState)&nbsp;{&nbsp;&nbsp;</span></span></li><li class="alt" style="border-style:none none none solid; border-left-width:3px; border-left-color:rgb(108,226,108); list-style:decimal-leading-zero outside; color:inherit; line-height:18px; margin:0px!important; padding:0px 3px 0px 10px!important">
+<span style="margin:0px; padding:0px; border:none; color:black; background-color:inherit">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword" style="margin:0px; padding:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">super</span><span style="margin:0px; padding:0px; border:none; background-color:inherit">.onCreate(savedInstanceState);&nbsp;&nbsp;</span></span></li><li style="border-style:none none none solid; border-left-width:3px; border-left-color:rgb(108,226,108); list-style:decimal-leading-zero outside; background-color:rgb(248,248,248); line-height:18px; margin:0px!important; padding:0px 3px 0px 10px!important">
+<span style="margin:0px; padding:0px; border:none; color:black; background-color:inherit">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment" style="margin:0px; padding:0px; border:none; color:rgb(0,130,0); background-color:inherit">//为Activity设置布局管理文件&nbsp;</span><span style="margin:0px; padding:0px; border:none; background-color:inherit">&nbsp;&nbsp;</span></span></li><li class="alt" style="border-style:none none none solid; border-left-width:3px; border-left-color:rgb(108,226,108); list-style:decimal-leading-zero outside; color:inherit; line-height:18px; margin:0px!important; padding:0px 3px 0px 10px!important">
+<span style="margin:0px; padding:0px; border:none; color:black; background-color:inherit">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;setContentView(R.layout.main);&nbsp;&nbsp;</span></li><li style="border-style:none none none solid; border-left-width:3px; border-left-color:rgb(108,226,108); list-style:decimal-leading-zero outside; background-color:rgb(248,248,248); line-height:18px; margin:0px!important; padding:0px 3px 0px 10px!important">
+<span style="margin:0px; padding:0px; border:none; color:black; background-color:inherit">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment" style="margin:0px; padding:0px; border:none; color:rgb(0,130,0); background-color:inherit">//以下两行代码是根据控件的ID来得到控件对象</span><span style="margin:0px; padding:0px; border:none; background-color:inherit">&nbsp;&nbsp;</span></span></li><li class="alt" style="border-style:none none none solid; border-left-width:3px; border-left-color:rgb(108,226,108); list-style:decimal-leading-zero outside; color:inherit; line-height:18px; margin:0px!important; padding:0px 3px 0px 10px!important">
+<span style="margin:0px; padding:0px; border:none; color:black; background-color:inherit">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;myButton&nbsp;=&nbsp;(Button)findViewById(R.id.myButton);&nbsp;&nbsp;</span></li><li style="border-style:none none none solid; border-left-width:3px; border-left-color:rgb(108,226,108); list-style:decimal-leading-zero outside; background-color:rgb(248,248,248); line-height:18px; margin:0px!important; padding:0px 3px 0px 10px!important">
+<span style="margin:0px; padding:0px; border:none; color:black; background-color:inherit">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment" style="margin:0px; padding:0px; border:none; color:rgb(0,130,0); background-color:inherit">//为按钮对象设置监听器对象</span><span style="margin:0px; padding:0px; border:none; background-color:inherit">&nbsp;&nbsp;</span></span></li><li class="alt" style="border-style:none none none solid; border-left-width:3px; border-left-color:rgb(108,226,108); list-style:decimal-leading-zero outside; color:inherit; line-height:18px; margin:0px!important; padding:0px 3px 0px 10px!important">
+<span style="margin:0px; padding:0px; border:none; color:black; background-color:inherit">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;myButton.setOnClickListener(<span class="keyword" style="margin:0px; padding:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">new</span><span style="margin:0px; padding:0px; border:none; background-color:inherit">&nbsp;MyButtonListener());&nbsp;&nbsp;</span></span></li><li style="border-style:none none none solid; border-left-width:3px; border-left-color:rgb(108,226,108); list-style:decimal-leading-zero outside; background-color:rgb(248,248,248); line-height:18px; margin:0px!important; padding:0px 3px 0px 10px!important">
+<span style="margin:0px; padding:0px; border:none; color:black; background-color:inherit">&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li class="alt" style="border-style:none none none solid; border-left-width:3px; border-left-color:rgb(108,226,108); list-style:decimal-leading-zero outside; color:inherit; line-height:18px; margin:0px!important; padding:0px 3px 0px 10px!important">
+<span style="margin:0px; padding:0px; border:none; color:black; background-color:inherit">&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment" style="margin:0px; padding:0px; border:none; color:rgb(0,130,0); background-color:inherit">//以下是一个内部类，这个内部类的对象是一个监听器（如果大家对监听器不是很熟悉，可以参考设计模式当中的观察者模式）</span><span style="margin:0px; padding:0px; border:none; background-color:inherit">&nbsp;&nbsp;</span></span></li><li style="border-style:none none none solid; border-left-width:3px; border-left-color:rgb(108,226,108); list-style:decimal-leading-zero outside; background-color:rgb(248,248,248); line-height:18px; margin:0px!important; padding:0px 3px 0px 10px!important">
+<span style="margin:0px; padding:0px; border:none; color:black; background-color:inherit">&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword" style="margin:0px; padding:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">class</span><span style="margin:0px; padding:0px; border:none; background-color:inherit">&nbsp;MyButtonListener&nbsp;</span><span class="keyword" style="margin:0px; padding:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">implements</span><span style="margin:0px; padding:0px; border:none; background-color:inherit">&nbsp;OnClickListener{&nbsp;&nbsp;</span></span></li><li class="alt" style="border-style:none none none solid; border-left-width:3px; border-left-color:rgb(108,226,108); list-style:decimal-leading-zero outside; color:inherit; line-height:18px; margin:0px!important; padding:0px 3px 0px 10px!important">
+<span style="margin:0px; padding:0px; border:none; color:black; background-color:inherit">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment" style="margin:0px; padding:0px; border:none; color:rgb(0,130,0); background-color:inherit">//生成该类的对象，并将其注册到控件上。如果该控件被用户按下，就会执行onClick方法&nbsp;</span><span style="margin:0px; padding:0px; border:none; background-color:inherit">&nbsp;&nbsp;</span></span></li><li style="border-style:none none none solid; border-left-width:3px; border-left-color:rgb(108,226,108); list-style:decimal-leading-zero outside; background-color:rgb(248,248,248); line-height:18px; margin:0px!important; padding:0px 3px 0px 10px!important">
+<span style="margin:0px; padding:0px; border:none; color:black; background-color:inherit">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="annotation" style="margin:0px; padding:0px; border:none; color:rgb(100,100,100); background-color:inherit">@Override</span><span style="margin:0px; padding:0px; border:none; background-color:inherit">&nbsp;&nbsp;</span></span></li><li class="alt" style="border-style:none none none solid; border-left-width:3px; border-left-color:rgb(108,226,108); list-style:decimal-leading-zero outside; color:inherit; line-height:18px; margin:0px!important; padding:0px 3px 0px 10px!important">
+<span style="margin:0px; padding:0px; border:none; color:black; background-color:inherit">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword" style="margin:0px; padding:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">public</span><span style="margin:0px; padding:0px; border:none; background-color:inherit">&nbsp;</span><span class="keyword" style="margin:0px; padding:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">void</span><span style="margin:0px; padding:0px; border:none; background-color:inherit">&nbsp;onClick(View&nbsp;v)&nbsp;{&nbsp;&nbsp;</span></span></li><li style="border-style:none none none solid; border-left-width:3px; border-left-color:rgb(108,226,108); list-style:decimal-leading-zero outside; background-color:rgb(248,248,248); line-height:18px; margin:0px!important; padding:0px 3px 0px 10px!important">
+<span style="margin:0px; padding:0px; border:none; color:black; background-color:inherit">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment" style="margin:0px; padding:0px; border:none; color:rgb(0,130,0); background-color:inherit">//生成一个Intent对象</span><span style="margin:0px; padding:0px; border:none; background-color:inherit">&nbsp;&nbsp;</span></span></li><li class="alt" style="border-style:none none none solid; border-left-width:3px; border-left-color:rgb(108,226,108); list-style:decimal-leading-zero outside; color:inherit; line-height:18px; margin:0px!important; padding:0px 3px 0px 10px!important">
+<span style="margin:0px; padding:0px; border:none; color:black; background-color:inherit">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Intent&nbsp;intent&nbsp;=&nbsp;<span class="keyword" style="margin:0px; padding:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">new</span><span style="margin:0px; padding:0px; border:none; background-color:inherit">&nbsp;Intent();&nbsp;&nbsp;</span></span></li><li style="border-style:none none none solid; border-left-width:3px; border-left-color:rgb(108,226,108); list-style:decimal-leading-zero outside; background-color:rgb(248,248,248); line-height:18px; margin:0px!important; padding:0px 3px 0px 10px!important">
+<span style="margin:0px; padding:0px; border:none; color:black; background-color:inherit">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment" style="margin:0px; padding:0px; border:none; color:rgb(0,130,0); background-color:inherit">//在Intent对象当中添加一个键&#20540;对</span><span style="margin:0px; padding:0px; border:none; background-color:inherit">&nbsp;&nbsp;</span></span></li><li class="alt" style="border-style:none none none solid; border-left-width:3px; border-left-color:rgb(108,226,108); list-style:decimal-leading-zero outside; color:inherit; line-height:18px; margin:0px!important; padding:0px 3px 0px 10px!important">
+<span style="margin:0px; padding:0px; border:none; color:black; background-color:inherit">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;intent.putExtra(<span class="string" style="margin:0px; padding:0px; border:none; color:blue; background-color:inherit">&quot;testIntent&quot;</span><span style="margin:0px; padding:0px; border:none; background-color:inherit">,&nbsp;</span><span class="string" style="margin:0px; padding:0px; border:none; color:blue; background-color:inherit">&quot;123&quot;</span><span style="margin:0px; padding:0px; border:none; background-color:inherit">);&nbsp;&nbsp;</span></span></li><li style="border-style:none none none solid; border-left-width:3px; border-left-color:rgb(108,226,108); list-style:decimal-leading-zero outside; background-color:rgb(248,248,248); line-height:18px; margin:0px!important; padding:0px 3px 0px 10px!important">
+<span style="margin:0px; padding:0px; border:none; color:black; background-color:inherit">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment" style="margin:0px; padding:0px; border:none; color:rgb(0,130,0); background-color:inherit">//设置Intent对象要启动的Activity</span><span style="margin:0px; padding:0px; border:none; background-color:inherit">&nbsp;&nbsp;</span></span></li><li class="alt" style="border-style:none none none solid; border-left-width:3px; border-left-color:rgb(108,226,108); list-style:decimal-leading-zero outside; color:inherit; line-height:18px; margin:0px!important; padding:0px 3px 0px 10px!important">
+<span style="margin:0px; padding:0px; border:none; color:black; background-color:inherit">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;intent.setClass(Activity02.<span class="keyword" style="margin:0px; padding:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">this</span><span style="margin:0px; padding:0px; border:none; background-color:inherit">,&nbsp;OtherActivity.</span><span class="keyword" style="margin:0px; padding:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">class</span><span style="margin:0px; padding:0px; border:none; background-color:inherit">);&nbsp;&nbsp;</span></span></li><li style="border-style:none none none solid; border-left-width:3px; border-left-color:rgb(108,226,108); list-style:decimal-leading-zero outside; background-color:rgb(248,248,248); line-height:18px; margin:0px!important; padding:0px 3px 0px 10px!important">
+<span style="margin:0px; padding:0px; border:none; color:black; background-color:inherit">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment" style="margin:0px; padding:0px; border:none; color:rgb(0,130,0); background-color:inherit">//通过Intent对象启动另外一个Activity</span><span style="margin:0px; padding:0px; border:none; background-color:inherit">&nbsp;&nbsp;</span></span></li><li class="alt" style="border-style:none none none solid; border-left-width:3px; border-left-color:rgb(108,226,108); list-style:decimal-leading-zero outside; color:inherit; line-height:18px; margin:0px!important; padding:0px 3px 0px 10px!important">
+<span style="margin:0px; padding:0px; border:none; color:black; background-color:inherit">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Activity02.<span class="keyword" style="margin:0px; padding:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">this</span><span style="margin:0px; padding:0px; border:none; background-color:inherit">.startActivity(intent);&nbsp;&nbsp;</span></span></li><li style="border-style:none none none solid; border-left-width:3px; border-left-color:rgb(108,226,108); list-style:decimal-leading-zero outside; background-color:rgb(248,248,248); line-height:18px; margin:0px!important; padding:0px 3px 0px 10px!important">
+<span style="margin:0px; padding:0px; border:none; color:black; background-color:inherit">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment" style="margin:0px; padding:0px; border:none; color:rgb(0,130,0); background-color:inherit">/**以下的4行代码将启动发送短信的Activity，详细的情况会在以后的课程当中进行介绍</span>&nbsp;</span></li><li class="alt" style="border-style:none none none solid; border-left-width:3px; border-left-color:rgb(108,226,108); list-style:decimal-leading-zero outside; color:inherit; line-height:18px; margin:0px!important; padding:0px 3px 0px 10px!important">
+<span style="margin:0px; padding:0px; border:none; color:black; background-color:inherit"><span class="comment" style="margin:0px; padding:0px; border:none; color:rgb(0,130,0); background-color:inherit">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Uri&nbsp;uri&nbsp;=&nbsp;Uri.parse(&quot;smsto://0800000123&quot;);&nbsp;&nbsp;&nbsp;&nbsp;</span>&nbsp;</span></li><li style="border-style:none none none solid; border-left-width:3px; border-left-color:rgb(108,226,108); list-style:decimal-leading-zero outside; background-color:rgb(248,248,248); line-height:18px; margin:0px!important; padding:0px 3px 0px 10px!important">
+<span style="margin:0px; padding:0px; border:none; color:black; background-color:inherit"><span class="comment" style="margin:0px; padding:0px; border:none; color:rgb(0,130,0); background-color:inherit">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Intent&nbsp;intent&nbsp;=&nbsp;new&nbsp;Intent(Intent.ACTION_SENDTO,&nbsp;uri);&nbsp;&nbsp;&nbsp;&nbsp;</span>&nbsp;</span></li><li class="alt" style="border-style:none none none solid; border-left-width:3px; border-left-color:rgb(108,226,108); list-style:decimal-leading-zero outside; color:inherit; line-height:18px; margin:0px!important; padding:0px 3px 0px 10px!important">
+<span style="margin:0px; padding:0px; border:none; color:black; background-color:inherit"><span class="comment" style="margin:0px; padding:0px; border:none; color:rgb(0,130,0); background-color:inherit">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;intent.putExtra(&quot;sms_body&quot;,&nbsp;&quot;The&nbsp;SMS&nbsp;text&quot;);&nbsp;&nbsp;&nbsp;&nbsp;</span>&nbsp;</span></li><li style="border-style:none none none solid; border-left-width:3px; border-left-color:rgb(108,226,108); list-style:decimal-leading-zero outside; background-color:rgb(248,248,248); line-height:18px; margin:0px!important; padding:0px 3px 0px 10px!important">
+<span style="margin:0px; padding:0px; border:none; color:black; background-color:inherit"><span class="comment" style="margin:0px; padding:0px; border:none; color:rgb(0,130,0); background-color:inherit">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;startActivity(intent);</span>&nbsp;</span></li><li class="alt" style="border-style:none none none solid; border-left-width:3px; border-left-color:rgb(108,226,108); list-style:decimal-leading-zero outside; color:inherit; line-height:18px; margin:0px!important; padding:0px 3px 0px 10px!important">
+<span style="margin:0px; padding:0px; border:none; color:black; background-color:inherit"><span class="comment" style="margin:0px; padding:0px; border:none; color:rgb(0,130,0); background-color:inherit">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</span><span style="margin:0px; padding:0px; border:none; background-color:inherit">&nbsp;&nbsp;</span></span></li><li style="border-style:none none none solid; border-left-width:3px; border-left-color:rgb(108,226,108); list-style:decimal-leading-zero outside; background-color:rgb(248,248,248); line-height:18px; margin:0px!important; padding:0px 3px 0px 10px!important">
+<span style="margin:0px; padding:0px; border:none; color:black; background-color:inherit">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li class="alt" style="border-style:none none none solid; border-left-width:3px; border-left-color:rgb(108,226,108); list-style:decimal-leading-zero outside; color:inherit; line-height:18px; margin:0px!important; padding:0px 3px 0px 10px!important">
+<span style="margin:0px; padding:0px; border:none; color:black; background-color:inherit">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li style="border-style:none none none solid; border-left-width:3px; border-left-color:rgb(108,226,108); list-style:decimal-leading-zero outside; background-color:rgb(248,248,248); line-height:18px; margin:0px!important; padding:0px 3px 0px 10px!important">
+<span style="margin:0px; padding:0px; border:none; color:black; background-color:inherit">&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li class="alt" style="border-style:none none none solid; border-left-width:3px; border-left-color:rgb(108,226,108); list-style:decimal-leading-zero outside; color:inherit; line-height:18px; margin:0px!important; padding:0px 3px 0px 10px!important">
+<span style="margin:0px; padding:0px; border:none; color:black; background-color:inherit">}&nbsp;&nbsp;</span></li></ol>
+</div>
+<p style="color:rgb(54,46,43); font-family:Arial; font-size:14px; line-height:26px">
+</p>
+<p style="color:rgb(54,46,43); font-family:Arial; font-size:14px; line-height:26px">
+<br>
+</p>
+<span style="color:rgb(54,46,43); font-family:Arial; font-size:14px; line-height:26px">第二个activity</span><br style="color:rgb(54,46,43); font-family:Arial; font-size:14px; line-height:26px">
+<div class="dp-highlighter bg_java" style="font-family:Consolas,'Courier New',Courier,mono,serif; background-color:rgb(231,229,220); width:693px; overflow:auto; padding-top:1px; color:rgb(54,46,43); line-height:26px; margin:18px 0px!important">
+<div class="bar" style="padding-left:45px">
+<div class="tools" style="padding:3px 8px 10px 10px; font-size:9px; line-height:normal; font-family:Verdana,Geneva,Arial,Helvetica,sans-serif; color:silver; background-color:rgb(248,248,248); border-left-width:3px; border-left-style:solid; border-left-color:rgb(108,226,108)">
+<strong>[java]</strong>&nbsp;<a target="_blank" href="http://blog.csdn.net/kidd888/article/details/7901880#" class="ViewSource" title="view plain" style="color:rgb(160,160,160); text-decoration:none; background-color:inherit; border:none; padding:1px; margin:0px 10px 0px 0px; font-size:9px; display:inline-block; width:16px; height:16px; text-indent:-2000px">view
+ plain</a><a target="_blank" href="http://blog.csdn.net/kidd888/article/details/7901880#" class="CopyToClipboard" title="copy" style="color:rgb(160,160,160); text-decoration:none; background-color:inherit; border:none; padding:1px; margin:0px 10px 0px 0px; font-size:9px; display:inline-block; width:16px; height:16px; text-indent:-2000px">copy</a>
+<div style="position:absolute; left:564px; top:1520px; width:18px; height:18px; z-index:99">
+</div>
+</div>
+</div>
+<ol start="1" class="dp-j" style="padding:0px; border:none; list-style-position:initial; background-color:rgb(255,255,255); color:rgb(92,92,92); margin:0px 0px 1px 45px!important">
+<li class="alt" style="border-style:none none none solid; border-left-width:3px; border-left-color:rgb(108,226,108); list-style:decimal-leading-zero outside; color:inherit; line-height:18px; margin:0px!important; padding:0px 3px 0px 10px!important">
+<span style="margin:0px; padding:0px; border:none; color:black; background-color:inherit"><span class="keyword" style="margin:0px; padding:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">public</span><span style="margin:0px; padding:0px; border:none; background-color:inherit">&nbsp;</span><span class="keyword" style="margin:0px; padding:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">class</span><span style="margin:0px; padding:0px; border:none; background-color:inherit">&nbsp;OtherActivity&nbsp;</span><span class="keyword" style="margin:0px; padding:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">extends</span><span style="margin:0px; padding:0px; border:none; background-color:inherit">&nbsp;Activity{&nbsp;&nbsp;</span></span></li><li style="border-style:none none none solid; border-left-width:3px; border-left-color:rgb(108,226,108); list-style:decimal-leading-zero outside; background-color:rgb(248,248,248); line-height:18px; margin:0px!important; padding:0px 3px 0px 10px!important">
+<span style="margin:0px; padding:0px; border:none; color:black; background-color:inherit">&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword" style="margin:0px; padding:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">private</span><span style="margin:0px; padding:0px; border:none; background-color:inherit">&nbsp;TextView&nbsp;myTextView&nbsp;=&nbsp;</span><span class="keyword" style="margin:0px; padding:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">null</span><span style="margin:0px; padding:0px; border:none; background-color:inherit">;&nbsp;&nbsp;</span></span></li><li class="alt" style="border-style:none none none solid; border-left-width:3px; border-left-color:rgb(108,226,108); list-style:decimal-leading-zero outside; color:inherit; line-height:18px; margin:0px!important; padding:0px 3px 0px 10px!important">
+<span style="margin:0px; padding:0px; border:none; color:black; background-color:inherit">&nbsp;&nbsp;&nbsp;&nbsp;<span class="annotation" style="margin:0px; padding:0px; border:none; color:rgb(100,100,100); background-color:inherit">@Override</span><span style="margin:0px; padding:0px; border:none; background-color:inherit">&nbsp;&nbsp;</span></span></li><li style="border-style:none none none solid; border-left-width:3px; border-left-color:rgb(108,226,108); list-style:decimal-leading-zero outside; background-color:rgb(248,248,248); line-height:18px; margin:0px!important; padding:0px 3px 0px 10px!important">
+<span style="margin:0px; padding:0px; border:none; color:black; background-color:inherit">&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword" style="margin:0px; padding:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">protected</span><span style="margin:0px; padding:0px; border:none; background-color:inherit">&nbsp;</span><span class="keyword" style="margin:0px; padding:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">void</span><span style="margin:0px; padding:0px; border:none; background-color:inherit">&nbsp;onCreate(Bundle&nbsp;savedInstanceState)&nbsp;{&nbsp;&nbsp;</span></span></li><li class="alt" style="border-style:none none none solid; border-left-width:3px; border-left-color:rgb(108,226,108); list-style:decimal-leading-zero outside; color:inherit; line-height:18px; margin:0px!important; padding:0px 3px 0px 10px!important">
+<span style="margin:0px; padding:0px; border:none; color:black; background-color:inherit">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment" style="margin:0px; padding:0px; border:none; color:rgb(0,130,0); background-color:inherit">//&nbsp;TODO&nbsp;Auto-generated&nbsp;method&nbsp;stub</span><span style="margin:0px; padding:0px; border:none; background-color:inherit">&nbsp;&nbsp;</span></span></li><li style="border-style:none none none solid; border-left-width:3px; border-left-color:rgb(108,226,108); list-style:decimal-leading-zero outside; background-color:rgb(248,248,248); line-height:18px; margin:0px!important; padding:0px 3px 0px 10px!important">
+<span style="margin:0px; padding:0px; border:none; color:black; background-color:inherit">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword" style="margin:0px; padding:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">super</span><span style="margin:0px; padding:0px; border:none; background-color:inherit">.onCreate(savedInstanceState);&nbsp;&nbsp;</span></span></li><li class="alt" style="border-style:none none none solid; border-left-width:3px; border-left-color:rgb(108,226,108); list-style:decimal-leading-zero outside; color:inherit; line-height:18px; margin:0px!important; padding:0px 3px 0px 10px!important">
+<span style="margin:0px; padding:0px; border:none; color:black; background-color:inherit">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;setContentView(R.layout.other);&nbsp;&nbsp;</span></li><li style="border-style:none none none solid; border-left-width:3px; border-left-color:rgb(108,226,108); list-style:decimal-leading-zero outside; background-color:rgb(248,248,248); line-height:18px; margin:0px!important; padding:0px 3px 0px 10px!important">
+<span style="margin:0px; padding:0px; border:none; color:black; background-color:inherit">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment" style="margin:0px; padding:0px; border:none; color:rgb(0,130,0); background-color:inherit">//取得从上一个Activity当中传递过来的Intent对象</span><span style="margin:0px; padding:0px; border:none; background-color:inherit">&nbsp;&nbsp;</span></span></li><li class="alt" style="border-style:none none none solid; border-left-width:3px; border-left-color:rgb(108,226,108); list-style:decimal-leading-zero outside; color:inherit; line-height:18px; margin:0px!important; padding:0px 3px 0px 10px!important">
+<span style="margin:0px; padding:0px; border:none; color:black; background-color:inherit">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Intent&nbsp;intent&nbsp;=&nbsp;getIntent();&nbsp;&nbsp;</span></li><li style="border-style:none none none solid; border-left-width:3px; border-left-color:rgb(108,226,108); list-style:decimal-leading-zero outside; background-color:rgb(248,248,248); line-height:18px; margin:0px!important; padding:0px 3px 0px 10px!important">
+<span style="margin:0px; padding:0px; border:none; color:black; background-color:inherit">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment" style="margin:0px; padding:0px; border:none; color:rgb(0,130,0); background-color:inherit">//从Intent当中根据key取得value</span><span style="margin:0px; padding:0px; border:none; background-color:inherit">&nbsp;&nbsp;</span></span></li><li class="alt" style="border-style:none none none solid; border-left-width:3px; border-left-color:rgb(108,226,108); list-style:decimal-leading-zero outside; color:inherit; line-height:18px; margin:0px!important; padding:0px 3px 0px 10px!important">
+<span style="margin:0px; padding:0px; border:none; color:black; background-color:inherit">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;String&nbsp;value&nbsp;=&nbsp;intent.getStringExtra(<span class="string" style="margin:0px; padding:0px; border:none; color:blue; background-color:inherit">&quot;testIntent&quot;</span><span style="margin:0px; padding:0px; border:none; background-color:inherit">);&nbsp;&nbsp;</span></span></li><li style="border-style:none none none solid; border-left-width:3px; border-left-color:rgb(108,226,108); list-style:decimal-leading-zero outside; background-color:rgb(248,248,248); line-height:18px; margin:0px!important; padding:0px 3px 0px 10px!important">
+<span style="margin:0px; padding:0px; border:none; color:black; background-color:inherit">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment" style="margin:0px; padding:0px; border:none; color:rgb(0,130,0); background-color:inherit">//根据控件的ID得到响应的控件对象</span><span style="margin:0px; padding:0px; border:none; background-color:inherit">&nbsp;&nbsp;</span></span></li><li class="alt" style="border-style:none none none solid; border-left-width:3px; border-left-color:rgb(108,226,108); list-style:decimal-leading-zero outside; color:inherit; line-height:18px; margin:0px!important; padding:0px 3px 0px 10px!important">
+<span style="margin:0px; padding:0px; border:none; color:black; background-color:inherit">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;myTextView&nbsp;=&nbsp;(TextView)findViewById(R.id.myTextView);&nbsp;&nbsp;</span></li><li style="border-style:none none none solid; border-left-width:3px; border-left-color:rgb(108,226,108); list-style:decimal-leading-zero outside; background-color:rgb(248,248,248); line-height:18px; margin:0px!important; padding:0px 3px 0px 10px!important">
+<span style="margin:0px; padding:0px; border:none; color:black; background-color:inherit">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment" style="margin:0px; padding:0px; border:none; color:rgb(0,130,0); background-color:inherit">//为控件设置Text&#20540;</span><span style="margin:0px; padding:0px; border:none; background-color:inherit">&nbsp;&nbsp;</span></span></li><li class="alt" style="border-style:none none none solid; border-left-width:3px; border-left-color:rgb(108,226,108); list-style:decimal-leading-zero outside; color:inherit; line-height:18px; margin:0px!important; padding:0px 3px 0px 10px!important">
+<span style="margin:0px; padding:0px; border:none; color:black; background-color:inherit">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;myTextView.setText(value);&nbsp;&nbsp;</span></li><li style="border-style:none none none solid; border-left-width:3px; border-left-color:rgb(108,226,108); list-style:decimal-leading-zero outside; background-color:rgb(248,248,248); line-height:18px; margin:0px!important; padding:0px 3px 0px 10px!important">
+<span style="margin:0px; padding:0px; border:none; color:black; background-color:inherit">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class="alt" style="border-style:none none none solid; border-left-width:3px; border-left-color:rgb(108,226,108); list-style:decimal-leading-zero outside; color:inherit; line-height:18px; margin:0px!important; padding:0px 3px 0px 10px!important">
+<span style="margin:0px; padding:0px; border:none; color:black; background-color:inherit">&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li style="border-style:none none none solid; border-left-width:3px; border-left-color:rgb(108,226,108); list-style:decimal-leading-zero outside; background-color:rgb(248,248,248); line-height:18px; margin:0px!important; padding:0px 3px 0px 10px!important">
+<span style="margin:0px; padding:0px; border:none; color:black; background-color:inherit">&nbsp;&nbsp;</span></li><li class="alt" style="border-style:none none none solid; border-left-width:3px; border-left-color:rgb(108,226,108); list-style:decimal-leading-zero outside; color:inherit; line-height:18px; margin:0px!important; padding:0px 3px 0px 10px!important">
+<span style="margin:0px; padding:0px; border:none; color:black; background-color:inherit">}&nbsp;&nbsp;</span></li><li></li></ol>
+</div>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://hanks.xyz/2013/11/30/从一个activity跳转到另一个activity，利用intent传递数据/" data-id="cihryjlz40027k4052xm8azz9" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  
+  
+</article>
+
+  
+<section id="comments">
+    <!-- 多说分享框 -->
+    <div class="ds-share flat" data-thread-key="/2013/11/30/从一个activity跳转到另一个activity，利用intent传递数据/" data-title="从一个activity跳转到另一个activity，利用intent传递数据" data-images="此处请替换为分享时显示的图片的链接地址" data-content="从一个activity跳转到另一个activity，利用intent传递数据" data-url="http://hanks.xyz//2013/11/30/从一个activity跳转到另一个activity，利用intent传递数据/">
+    <div class="ds-share-inline">
+      <ul  class="ds-share-icons-16">
+
+      	<li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+        <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+        <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+        <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+        <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+      </ul>
+      <div class="ds-share-icons-more">
+      </div>
+    </div>
+   </div>
+    <!-- 多说评论框 start -->
+   	<div class="ds-thread" data-thread-key="/2013/11/30/从一个activity跳转到另一个activity，利用intent传递数据/" data-title="从一个activity跳转到另一个activity，利用intent传递数据" data-url="http://hanks.xyz//2013/11/30/从一个activity跳转到另一个activity，利用intent传递数据/"></div>
+   <!-- 多说评论框 end -->
+   <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+   <script type="text/javascript">
+   var duoshuoQuery = {short_name:"hanks-zyh"};
+   	(function() {
+   		var ds = document.createElement('script');
+   		ds.type = 'text/javascript';ds.async = true;
+   		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+   		ds.charset = 'UTF-8';
+   		(document.getElementsByTagName('head')[0]
+   		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+   	})();
+   	</script>
+   <!-- 多说公共JS代码 end -->
+</section>
+
+</section>
+      </div>
+      <footer id="footer">
+  
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      &copy; 2015 Hanks<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+  </br>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    
+
+<script src="/js/jquery.min.js" type="text/javascript"></script>
+<script src="/js/jquery.scrollLoading.js" type="text/javascript"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+  <script src="/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+
+
+<script src="/js/script.js" type="text/javascript"></script>
+
+  </div>
+</body>
+</html>

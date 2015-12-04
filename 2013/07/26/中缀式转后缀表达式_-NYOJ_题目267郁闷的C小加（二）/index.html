@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>中缀式转后缀表达式 -NYOJ 题目267郁闷的C小加（二） | Hanks.xyz</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description">
+<meta property="og:type" content="article">
+<meta property="og:title" content="中缀式转后缀表达式 -NYOJ 题目267郁闷的C小加（二）">
+<meta property="og:url" content="http://hanks.xyz/2013/07/26/中缀式转后缀表达式_-NYOJ_题目267郁闷的C小加（二）/index.html">
+<meta property="og:site_name" content="Hanks.xyz">
+<meta property="og:description">
+<meta property="og:image" content="http://img.my.csdn.net/uploads/201209/20/1348146428_8057.png">
+<meta property="og:image" content="http://img.my.csdn.net/uploads/201209/20/1348146721_9861.png">
+<meta property="og:image" content="http://img.my.csdn.net/uploads/201209/20/1348147044_5952.png">
+<meta property="og:image" content="http://img.my.csdn.net/uploads/201209/20/1348147265_9645.png">
+<meta property="og:image" content="http://img.my.csdn.net/uploads/201209/20/1348147424_4303.png">
+<meta property="og:image" content="http://img.my.csdn.net/uploads/201209/20/1348147826_1174.png">
+<meta property="og:image" content="http://img.my.csdn.net/uploads/201209/20/1348147993_7462.png">
+<meta property="og:image" content="http://img.my.csdn.net/uploads/201209/20/1348148087_4361.png">
+<meta property="og:image" content="http://img.my.csdn.net/uploads/201209/20/1348148276_3639.png">
+<meta property="og:updated_time" content="2015-12-04T17:20:04.336Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="中缀式转后缀表达式 -NYOJ 题目267郁闷的C小加（二）">
+<meta name="twitter:description">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <!-- <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600' rel='stylesheet' type='text/css'> -->
+  <!-- <link href="//fonts.googleapis.com/css?family=Source+Code+Pro:400,700" rel="stylesheet" type="text/css"> -->
+  <link href="//fonts.useso.com/css?family=Source+Code+Pro:400,700" rel="stylesheet" type="text/css">
+  <link href='//fonts.useso.com/css?family=Open+Sans:300,600' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo">Hanks.xyz</a>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">首页</a>
+        
+          <a class="main-nav-link" href="/archives">归档</a>
+        
+          <a class="main-nav-link" href="/about/index.html">关于</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        <div id="search-form-wrap">
+          <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://hanks.xyz"></form>
+        </div>
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+        
+        
+          <a id="nav-github-link" class="nav-icon" href="https://github.com/hanks-zyh" title="Fork me on GitHub"></a>
+        
+      </nav>
+    </div>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/" class="mobile-nav-link">首页</a>
+  
+    <a href="/archives" class="mobile-nav-link">归档</a>
+  
+    <a href="/about/index.html" class="mobile-nav-link">关于</a>
+  
+  <div id="search-form-wrap-mobile">
+    <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://hanks.xyz"></form>
+  </div>
+</nav>
+      <div class="outer">
+        
+        <section id="main"><article id="post-中缀式转后缀表达式_-NYOJ_题目267郁闷的C小加（二）" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2013/07/26/中缀式转后缀表达式_-NYOJ_题目267郁闷的C小加（二）/" class="article-date">
+  <time datetime="2013-07-26T11:08:00.000Z" itemprop="datePublished">2013-07-26</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      中缀式转后缀表达式 -NYOJ 题目267郁闷的C小加（二）
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+<div>
+<h2>郁闷的C小加（二）</h2>
+<div>时间限制：<span id="problem[time_limit]">1000</span> ms &nbsp;|&nbsp; 内存限制：<span id="problem[memory_limit]">65535</span> KB</div>
+<div>难度：4</div>
+</div>
+<dl><dt>描述 </dt><dd>
+<p>聪明的你帮助C小加解决了中缀表达式到后缀表达式的转换（详情请参考“郁闷的C小加（一）”），C小加很高兴。但C小加是个爱思考的人，他又想通过这种方法计算一个表达式的&#20540;。即先把表达式转换为后缀表达式，再求&#20540;。这时又要考虑操作数是小数和多位数的情况。</p>
+<dl><dt>输入 </dt><dd>第一行输入一个整数T，共有T组测试数据（T&lt;10)。<br>
+每组测试数据只有一行，是一个长度不超过1000的字符串，表示这个运算式，每个运算式都是以“=”结束。这个表达式里只包含&#43;-*/与小括号这几种符号。其中小括号可以嵌套使用。数据保证输入的操作数中不会出现负数并且小于1000000。<br>
+数据保证除数不会为0。<br>
+</dd><dt>输出 </dt><dd>对于每组测试数据输出结果包括两行，先输出转换后的后缀表达式，再输出计算结果，结果保留两位小数。两组测试数据之间用一个空行隔开。 </dd><dt>样例输入 </dt><dd>
+<pre id="sample_input">21&#43;2=</pre>
+</dd><dd>
+<pre>(19&#43;21)*3-4/5=</pre>
+</dd><dt>样例输出 </dt><dd>
+<pre id="sample_output">12&#43;=</pre>
+</dd><dd>
+<pre>3.00</pre>
+</dd><dd>
+<pre>&nbsp;</pre>
+</dd><dd>
+<pre>1921&#43;3*45/-=</pre>
+</dd><dd>
+<pre>119.20</pre>
+</dd></dl>
+</dd></dl>
+<dl>
+<p>本题用到的技巧：</p>
+<p><span style="font-size:18px">1.#include&lt;stack&gt; 其中第一好了栈以及其操作，简化了代码</span></p>
+<p><span style="font-size:18px">2.atof函数 </span></p>
+<div class="para"><span style="font-size:18px">功 能: 把字符串转换成浮点数</span>
+<div class="para"><span style="font-size:18px">表头文件 #include &lt;stdlib.h&gt;</span></div>
+</div>
+<div class="para"><span style="font-size:18px">名字来源:ascii to floating point numbers 的缩写</span></div>
+<div class="para"><span style="font-size:18px">用 法: double atof(const char *nptr);</span></div>
+<div class="para"><span style="font-size:18px">程序例:</span></div>
+<div class="para"><pre class="cpp" name="code">#include &lt;stdlib.h&gt; 
+#include &lt;stdio.h&gt; 
+int main() 
+{   
+	float f;   
+ 	char *str = &quot;12345.67&quot;;   
+	f = atof(str);   
+	printf(&quot;string = %s float = %f\n&quot;, str, f);   
+	return 0; 
+} 
+
+
+</pre></div>
+<div class="nodoubt-module">
+<div>
+<div id="highlighter_136268" class="syntaxhighlighter  cpp ie"><span style="font-size:18px">相关函数
+</span><a href="http://baike.baidu.com/view/653935.htm" target="_blank"><span style="font-size:18px">atoi</span></a><span style="font-size:18px">，</span><a href="http://baike.baidu.com/view/653934.htm" target="_blank"><span style="font-size:18px">atol</span></a><span style="font-size:18px">，</span><a href="http://baike.baidu.com/view/1876981.htm" target="_blank"><span style="font-size:18px">strtod</span></a><span style="font-size:18px">，</span><a href="http://baike.baidu.com/view/1874375.htm" target="_blank"><span style="font-size:18px">strtol</span></a><span style="font-size:18px">，</span><a href="http://baike.baidu.com/view/1526542.htm" target="_blank"><span style="font-size:18px">strtoul</span></a></div>
+</div>
+</div>
+<p><span style="font-size:18px">3.sscanf函数 提取一个字符串中的各个类型的数据，分类提取很方便</span></p>
+<p>&nbsp;</p>
+<p>WA了数十次，一开始我以为是情况没考虑完，停了几天后忽然想到是不是后缀表达式煤球正确</p>
+<p>然后找了 中缀表达式转后缀的方法：</p>
+<h3 style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+1）规则</h3>
+<p style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+<span style="font-size:18px"><span style="color:#ff0000">中缀表达式<span style="font-family:Arial">a &#43; b*c &#43; (d * e &#43; f) * g，其转换成后缀表达式则为a b c * &#43; d e * f&nbsp;<wbr> &#43; g * &#43;。</span></span></span></p>
+<p style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+<span style="font-size:18px; color:#ff0000">转换过程需要用到栈，具体过程如下：</span></p>
+<p style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+<span style="font-size:18px; color:#ff0000">1）如果遇到操作数，我们就直接将其输出。</span></p>
+<p style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+<span style="font-size:18px; color:#ff0000">2）如果遇到操作符，则我们将其放入到栈中，遇到左括号时我们也将其放入栈中。</span></p>
+<p style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+<span style="font-size:18px"><span style="color:#ff0000">3）如果遇到一个右括号，则将栈元素弹出，将弹出的操作符输出直到遇到左括号为止。<strong>注意，左括号只弹出并不输出。</strong></span></span></p>
+<p style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+<span style="font-size:18px"><span style="color:#ff0000">4）如果遇到任何其他的操作符，如（“&#43;”， “*”，“（”）等，<strong>从栈中弹出元素直到遇到发现更低优先级的元素(或者栈为空)为止</strong>。弹出完这些元素后，才将遇到的操作符压入到栈中。<strong>有一点需要注意，只有在遇到&quot; ) &quot;的情况下我们才弹出&quot; ( &quot;，其他情况我们都不会弹出&quot; ( &quot;。也就是说这种操作，&quot; &#43; &quot;的优先级最低，&quot; ( &quot;优先级最高。</strong></span></span></p>
+<p style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+<span style="font-size:18px; color:#ff0000">5）如果我们读到了输入的末尾，则将栈中所有元素依次弹出。</span></p>
+<p style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+&nbsp;<wbr></p>
+<h3 style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+2）实例</h3>
+<p style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+规则很多，还是用实例比较容易说清楚整个过程。以上面的转换为例，输入为a &#43; b * c &#43; (d * e &#43; f)*g，处理过程如下：</p>
+<p style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+1）首先读到a，直接输出。</p>
+<p style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+2）读到“&#43;”，将其放入到栈中。</p>
+<p style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+3）读到b，直接输出。</p>
+<p style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+此时栈和输出的情况如下：</p>
+<p style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+<img title="中缀表达式转换为后缀表达式" alt="" src="http://img.my.csdn.net/uploads/201209/20/1348146428_8057.png" style="border-bottom:medium none; border-left:medium none; max-width:100%; border-top:medium none; border-right:medium none"></p>
+<p style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+&nbsp;<wbr></p>
+<p style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+4）读到“*”，因为栈顶元素&quot;&#43;&quot;优先级比&quot; * &quot; 低，所以将&quot; * &quot;直接压入栈中。</p>
+<p style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+5）读到c，直接输出。</p>
+<p style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+此时栈和输出情况如下：</p>
+<p style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+<img title="中缀表达式转换为后缀表达式" alt="" src="http://img.my.csdn.net/uploads/201209/20/1348146721_9861.png" style="border-bottom:medium none; border-left:medium none; max-width:100%; border-top:medium none; border-right:medium none"></p>
+<p style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+&nbsp;<wbr></p>
+<p style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+6）读到&quot; &#43; &quot;，因为栈顶元素&quot; * &quot;的优先级比它高，所以弹出&quot; * &quot;并输出， 同理，栈中下一个元素&quot; &#43; &quot;优先级与读到的操作符&quot; &#43; &quot;一样，所以也要弹出并输出。然后再将读到的&quot; &#43; &quot;压入栈中。</p>
+<p style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+此时栈和输出情况如下：</p>
+<p style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+<img title="中缀表达式转换为后缀表达式" alt="" src="http://img.my.csdn.net/uploads/201209/20/1348147044_5952.png" style="border-bottom:medium none; border-left:medium none; max-width:100%; border-top:medium none; border-right:medium none"></p>
+<p style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+&nbsp;<wbr></p>
+<p style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+7）下一个读到的为&quot;(&quot;，它优先级最高，所以直接放入到栈中。</p>
+<p style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+8）读到d，将其直接输出。</p>
+<p style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+此时栈和输出情况如下：</p>
+<p style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+<img title="中缀表达式转换为后缀表达式" alt="" src="http://img.my.csdn.net/uploads/201209/20/1348147265_9645.png" style="border-bottom:medium none; border-left:medium none; max-width:100%; border-top:medium none; border-right:medium none"></p>
+<p style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+&nbsp;<wbr></p>
+<p style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+9）读到&quot; * &quot;，由于只有遇到&quot; ) &quot;的时候左括号&quot;(&quot;才会弹出，所以&quot; * &quot;直接压入栈中。</p>
+<p style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+10）读到e，直接输出。</p>
+<p style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+此时栈和输出情况如下：</p>
+<p style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+<img title="中缀表达式转换为后缀表达式" alt="" src="http://img.my.csdn.net/uploads/201209/20/1348147424_4303.png" style="border-bottom:medium none; border-left:medium none; max-width:100%; border-top:medium none; border-right:medium none"></p>
+<p style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+&nbsp;<wbr></p>
+<p style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+11）读到&quot; &#43; &quot;，弹出&quot; * &quot;并输出，然后将&quot;&#43;&quot;压入栈中。</p>
+<p style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+12）读到f，直接输出。</p>
+<p style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+此时栈和输出情况：</p>
+<p style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+&nbsp;<wbr><img title="中缀表达式转换为后缀表达式" alt="" src="http://img.my.csdn.net/uploads/201209/20/1348147826_1174.png" style="border-bottom:medium none; border-left:medium none; max-width:100%; border-top:medium none; border-right:medium none"></p>
+<p style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+&nbsp;<wbr></p>
+<p style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+13）接下来读到“）”，则直接将栈中元素弹出并输出直到遇到&quot;(&quot;为止。这里右括号前只有一个操作符&quot;&#43;&quot;被弹出并输出。</p>
+<p style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+<img title="中缀表达式转换为后缀表达式" alt="" src="http://img.my.csdn.net/uploads/201209/20/1348147993_7462.png" style="border-bottom:medium none; border-left:medium none; max-width:100%; border-top:medium none; border-right:medium none"></p>
+<p style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+&nbsp;<wbr></p>
+<p style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+14）读到&quot; * &quot;，压入栈中。读到g，直接输出。</p>
+<p style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+<img title="中缀表达式转换为后缀表达式" alt="" src="http://img.my.csdn.net/uploads/201209/20/1348148087_4361.png" style="border-bottom:medium none; border-left:medium none; max-width:100%; border-top:medium none; border-right:medium none"></p>
+<p style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+&nbsp;<wbr></p>
+<p style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+15）此时输入数据已经读到末尾，栈中还有两个操作符“*”和&quot; &#43; &quot;，直接弹出并输出。</p>
+<p style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+<img title="中缀表达式转换为后缀表达式" alt="" src="http://img.my.csdn.net/uploads/201209/20/1348148276_3639.png" style="border-bottom:medium none; border-left:medium none; max-width:100%; border-top:medium none; border-right:medium none"></p>
+<p style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+至此整个转换过程完成。程序实现代码后续再补充了。</p>
+<p style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+&nbsp;<wbr></p>
+<h3 style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+&nbsp;<wbr>3）转换的另一种方法</h3>
+<p style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+1)先按照运算符的优先级对中缀表达式加括号，变成<span style="font-size:14px"><span style="font-family:Arial">( ( a&#43;(b*c) ) &#43; ( ((d*e)&#43;f) *g ) )</span></span></p>
+<p style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+2)将运算符移到括号的后面，变成<span style="font-size:14px"><span style="font-family:Arial">((a(bc)*)&#43;(((de)*f)&#43;g)*)&#43;</span></span></p>
+<p style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+3)去掉括号，得到<span style="font-size:14px"><span style="font-family:Arial">abc*&#43;de*f&#43;g*&#43;</span></span></p>
+<p>&nbsp;</p>
+<p>计算就好说了，根据后缀表达式，遇到运算符则弹出两个操作数，计算后压栈，最后栈顶元素为计算结果</p>
+</dl>
+<dl>
+<p>代码：</p>
+<pre class="cpp" name="code">#include &lt;iostream&gt;
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;string.h&gt;
+#include &lt;algorithm&gt;
+#include &lt;iomanip&gt;
+#include &lt;stack&gt;
+
+using namespace std;
+ 
+
+int In(char e)
+{
+	if(e=='(' || e==')' || e=='+' || e=='-' || e=='*' || e=='/') return 1;
+	else return 0;
+}
+int cmp(char c)
+{
+	switch(c)
+	{
+		case '+':
+		case '-': return 1;
+		case '*':
+		case '/': return 2;
+		default : return 0;	
+	}	
+}
+double calculate(char op,double k1,double k2)
+{
+	double k;
+	switch (op)
+	{
+		case '+': k = k1+k2; break;
+		case '-': k = k1-k2; break;
+		case '*': k = k1*k2; break;
+		case '/': k = k1/k2; break;
+	}
+	return k;
+}
+
+/*
+20
+(2.6)-(1.666)=
+1+2=
+(19+21)*3-4/5=
+
+*/
+
+void change(char str[])
+{
+	int t,i,k,m;
+	char e,buf[1002],op,s[1002];
+	double kk,k1,k2;
+	stack &lt;char&gt; S1;
+	stack &lt;double&gt; S2;
+	k=0;
+	S1.push('=');
+	for(i=0;i&lt;strlen(str)-1;++i) //最后一位是 = 
+	{
+			if( In(str[i])  )
+			{				
+				switch(str[i])
+				{
+					case '(': S1.push(str[i]); break;
+					case ')': //遇到右括号， 
+						while(S1.top()!='(')//弹出栈元素输出 直到 （，
+						{
+							s[k++]=S1.top();
+							k1 = S2.top(); S2.pop();
+							k2 = S2.top(); S2.pop();
+							S2.push(calculate(S1.top(),k2,k1));
+							S1.pop();	
+						}
+						if(S1.top()=='(')//弹出（不输出
+						{
+							S1.pop();	
+						} 
+
+						break;
+					default :
+						while(cmp(str[i])&lt;=cmp(S1.top()))
+						{
+							s[k++]=S1.top();
+							k1 = S2.top(); S2.pop();
+							k2 = S2.top(); S2.pop();
+							S2.push(calculate(S1.top(),k2,k1));
+							S1.pop();	
+						}
+						S1.push(str[i]);
+						break;
+				}//switch
+			}//if
+			else{
+
+				sscanf(str+i,&quot;%[^=()+*/-]&quot;,buf); //操作数 
+				for(m=0;m&lt;strlen(buf);m++) s[k++]=buf[m];
+				//printf(&quot;%s&quot;,buf);
+				i += strlen(buf)-1;
+				kk = atof(buf);
+				//printf(&quot;k = %lf\n&quot;,k);
+				S2.push(kk);
+
+			}
+
+			
+		}//for
+		while(!S1.empty())
+		{
+			if(S1.top()!='(' &amp;&amp; S1.top()!='=')
+			{
+				s[k++]=S1.top();
+				k1 = S2.top(); S2.pop();
+				k2 = S2.top(); S2.pop();
+				S2.push(calculate(S1.top(),k2,k1));
+			}
+				
+			S1.pop();
+		}
+
+		for(i=0;i&lt;k;i++) printf(&quot;%c&quot;,s[i]);
+		printf(&quot;=\n&quot;);
+		printf(&quot;%.2lf\n&quot;,S2.top());		
+} 
+int main()
+{
+	int t,i;
+	char e,str[1002],buf[1002],op;
+	double k,k1,k2;
+		
+	scanf(&quot;%d&quot;,&amp;t); getchar();
+	while(t--)
+	{
+		
+		gets(str); 
+		//puts(str);
+		change(str);
+		
+		if(t&gt;0) printf(&quot;\n&quot;);
+	}
+
+	return 0;
+}
+/*
+20
+1+2=
+(19+21)*3-4/5=
+
+*/
+        
+</pre>
+<p><br>
+注意：中缀表达式转为后缀表达式的方法。。。。。。</p>
+</dl>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://hanks.xyz/2013/07/26/中缀式转后缀表达式_-NYOJ_题目267郁闷的C小加（二）/" data-id="cihryjlzc002dk4052tcy2lz6" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  
+  
+</article>
+
+  
+<section id="comments">
+    <!-- 多说分享框 -->
+    <div class="ds-share flat" data-thread-key="/2013/07/26/中缀式转后缀表达式_-NYOJ_题目267郁闷的C小加（二）/" data-title="中缀式转后缀表达式 -NYOJ 题目267郁闷的C小加（二）" data-images="此处请替换为分享时显示的图片的链接地址" data-content="中缀式转后缀表达式 -NYOJ 题目267郁闷的C小加（二）" data-url="http://hanks.xyz//2013/07/26/中缀式转后缀表达式_-NYOJ_题目267郁闷的C小加（二）/">
+    <div class="ds-share-inline">
+      <ul  class="ds-share-icons-16">
+
+      	<li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+        <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+        <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+        <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+        <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+      </ul>
+      <div class="ds-share-icons-more">
+      </div>
+    </div>
+   </div>
+    <!-- 多说评论框 start -->
+   	<div class="ds-thread" data-thread-key="/2013/07/26/中缀式转后缀表达式_-NYOJ_题目267郁闷的C小加（二）/" data-title="中缀式转后缀表达式 -NYOJ 题目267郁闷的C小加（二）" data-url="http://hanks.xyz//2013/07/26/中缀式转后缀表达式_-NYOJ_题目267郁闷的C小加（二）/"></div>
+   <!-- 多说评论框 end -->
+   <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+   <script type="text/javascript">
+   var duoshuoQuery = {short_name:"hanks-zyh"};
+   	(function() {
+   		var ds = document.createElement('script');
+   		ds.type = 'text/javascript';ds.async = true;
+   		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+   		ds.charset = 'UTF-8';
+   		(document.getElementsByTagName('head')[0]
+   		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+   	})();
+   	</script>
+   <!-- 多说公共JS代码 end -->
+</section>
+
+</section>
+      </div>
+      <footer id="footer">
+  
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      &copy; 2015 Hanks<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+  </br>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    
+
+<script src="/js/jquery.min.js" type="text/javascript"></script>
+<script src="/js/jquery.scrollLoading.js" type="text/javascript"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+  <script src="/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+
+
+<script src="/js/script.js" type="text/javascript"></script>
+
+  </div>
+</body>
+</html>

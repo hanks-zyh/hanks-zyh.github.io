@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>顺序栈 | Hanks.xyz</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description">
+<meta property="og:type" content="article">
+<meta property="og:title" content="顺序栈">
+<meta property="og:url" content="http://hanks.xyz/2014/02/19/顺序栈/index.html">
+<meta property="og:site_name" content="Hanks.xyz">
+<meta property="og:description">
+<meta property="og:updated_time" content="2015-12-04T17:20:04.328Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="顺序栈">
+<meta name="twitter:description">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <!-- <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600' rel='stylesheet' type='text/css'> -->
+  <!-- <link href="//fonts.googleapis.com/css?family=Source+Code+Pro:400,700" rel="stylesheet" type="text/css"> -->
+  <link href="//fonts.useso.com/css?family=Source+Code+Pro:400,700" rel="stylesheet" type="text/css">
+  <link href='//fonts.useso.com/css?family=Open+Sans:300,600' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo">Hanks.xyz</a>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">首页</a>
+        
+          <a class="main-nav-link" href="/archives">归档</a>
+        
+          <a class="main-nav-link" href="/about/index.html">关于</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        <div id="search-form-wrap">
+          <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://hanks.xyz"></form>
+        </div>
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+        
+        
+          <a id="nav-github-link" class="nav-icon" href="https://github.com/hanks-zyh" title="Fork me on GitHub"></a>
+        
+      </nav>
+    </div>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/" class="mobile-nav-link">首页</a>
+  
+    <a href="/archives" class="mobile-nav-link">归档</a>
+  
+    <a href="/about/index.html" class="mobile-nav-link">关于</a>
+  
+  <div id="search-form-wrap-mobile">
+    <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://hanks.xyz"></form>
+  </div>
+</nav>
+      <div class="outer">
+        
+        <section id="main"><article id="post-顺序栈" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/02/19/顺序栈/" class="article-date">
+  <time datetime="2014-02-19T11:16:00.000Z" itemprop="datePublished">2014-02-19</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      顺序栈
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+<div id="sina_keyword_ad_area2" class="articalContent  ">
+			<p>#define OK 1<br>
+#define ERROR 0<br>
+#define TRUE 1<br>
+#define FALSE 0<br>
+#define INFEASIBLE -2<br>
+#define OVERFLOW -1<br>
+#define STACK_INIT_SIZE 15<br>
+#define STACK_INCREMENT 10</p>
+<p>#include<br>
+#include</p>
+<p>using namespace std;</p>
+<p>typedef int Status;&nbsp;<wbr>&nbsp;<wbr>//Status
+相当于 int</p>
+<p>typedef struct Stack<br>
+{<br>
+&nbsp;<wbr>int * base;<br>
+&nbsp;<wbr>int * top;<br>
+&nbsp;<wbr>int stacksize;<br>
+}SqStack;&nbsp;<wbr></p>
+<p>//***********************函数的声明*****************************</p>
+<p>void&nbsp;<wbr> InitStack(SqStack
+&amp;S)&nbsp;<wbr>//创建一个空栈<br>
+{</p>
+<p>&nbsp;<wbr>S.base = (int *)malloc(sizeof(int) *
+STACK_INIT_SIZE);<br>
+&nbsp;<wbr>if(!S.base )
+exit(OVERFLOW);&nbsp;<wbr>//存储分配失败<br>
+&nbsp;<wbr>S.top = S.base;<br>
+&nbsp;<wbr>S.stacksize = STACK_INIT_SIZE;</p>
+<p>&nbsp;<wbr>int len;<br>
+&nbsp;<wbr>int * p = S.base;<br>
+&nbsp;<wbr>cout&lt;&lt;"请输入初始栈的元素个数:";<br>
+&nbsp;<wbr>cin&gt;&gt;len;</p>
+<p>
+&nbsp;<wbr>cout&lt;&lt;"请输入"&lt;&lt;len&lt;&lt;"个元素，以空格隔开：";<br>
+
+&nbsp;<wbr>while(len--) cin &gt;&gt; *p ++;</p>
+<p>&nbsp;<wbr>S.top = p;</p>
+<p>&nbsp;<wbr>return ;<br>
+}<br>
+Status StackEmpty(SqStack S)//判断是否为空<br>
+{<br>
+&nbsp;<wbr>if(S.top == S.base)<br>
+&nbsp;<wbr>{<br>
+&nbsp;<wbr>&nbsp;<wbr>cout&lt;&lt;"栈为空！"&lt;&lt;endl;<br>
+
+&nbsp;<wbr>&nbsp;<wbr>return OK;<br>
+&nbsp;<wbr>}<br>
+&nbsp;<wbr>else return ERROR;<br>
+}<br>
+void PrintStack(SqStack S)//输出当前顺序表<br>
+{<br>
+&nbsp;<wbr>int * p = S.base ;<br>
+&nbsp;<wbr>cout&lt;&lt;"栈中的元素为：";<br>
+&nbsp;<wbr>while( p != S.top )<br>
+&nbsp;<wbr>&nbsp;<wbr>cout&lt;&lt;*p ++&lt;&lt;"
+";<br>
+&nbsp;<wbr>cout&lt;&lt;endl;<br>
+}<br>
+void Push(SqStack &amp;S )//插入元素e为新的栈顶元素<br>
+{<br>
+&nbsp;<wbr>int e;<br>
+&nbsp;<wbr>cout&lt;&lt;"请输入要入栈的元素：";<br>
+&nbsp;<wbr>cin&gt;&gt;e;</p>
+<p>&nbsp;<wbr>if(S.top - S.base == S.stacksize )<br>
+&nbsp;<wbr>{<br>
+&nbsp;<wbr>&nbsp;<wbr>S.base = (int *)realloc(S.base
+, sizeof(int)* (S.stacksize +
+STACK_INCREMENT));&nbsp;<wbr><br>
+&nbsp;<wbr>&nbsp;<wbr>if(!S.base) exit(OVERFLOW);</p>
+<p>&nbsp;<wbr>&nbsp;<wbr>S.top = S.base
++S.stacksize;<br>
+&nbsp;<wbr>&nbsp;<wbr>S.stacksize +=
+STACK_INCREMENT;<br>
+&nbsp;<wbr>}<br>
+&nbsp;<wbr>* S.top++ = e;<br>
+}<br>
+void Pop(SqStack &amp;S)//出栈，出栈元素为e<br>
+{<br>
+&nbsp;<wbr>if(StackEmpty(S)) return ;<br>
+&nbsp;<wbr>cout&lt;&lt;"出栈成功!出栈元素为"&lt;&lt;*
+--S.top&lt;&lt;endl;<br>
+}<br>
+void StackLength(SqStack S)//返回栈的长度<br>
+{&nbsp;<wbr><br>
+&nbsp;<wbr>cout&lt;&lt;"栈的长度为："
+&lt;&lt;S.top-S.base&lt;&lt;endl;<br>
+}<br>
+void GetTop(SqStack S)<br>
+{<br>
+&nbsp;<wbr>if(StackEmpty(S)) return;<br>
+&nbsp;<wbr>cout&lt;&lt;"栈顶元素为："&lt;&lt;
+*(S.top-1)&lt;&lt;endl;<br>
+}</p>
+<p>//***********************主函数*****************************<br>
+int main(void)<br>
+{<br>
+&nbsp;<wbr>SqStack S;//定义一个栈<br>
+&nbsp;<wbr>int door = 1,init = 0,num;</p>
+<p>&nbsp;<wbr>while( door )<br>
+&nbsp;<wbr>{&nbsp;<wbr><br>
+&nbsp;<wbr>&nbsp;<wbr>printf("*****************************************************************\n");<br>
+
+&nbsp;<wbr>&nbsp;<wbr>printf("&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+如要对栈进行操作，请输入各项前面相应的数字\n");<br>
+&nbsp;<wbr>&nbsp;<wbr>printf("&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+************************************\n");<br>
+&nbsp;<wbr>&nbsp;<wbr>printf("&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+|&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+1、初始化栈&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+|\n");<br>
+&nbsp;<wbr>&nbsp;<wbr>printf("&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+|&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+2、入栈&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+|\n");<br>
+&nbsp;<wbr>&nbsp;<wbr>printf("&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+|&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+3、出栈&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+|\n");<br>
+&nbsp;<wbr>&nbsp;<wbr>printf("&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+|&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+4、查看当前栈&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+|\n");<br>
+&nbsp;<wbr>&nbsp;<wbr>printf("&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+|&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+5、查看栈长度&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+|\n");<br>
+&nbsp;<wbr>&nbsp;<wbr>printf("&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+|&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+6、查看栈顶的元素&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+|\n");<br>
+&nbsp;<wbr>&nbsp;<wbr>printf("&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+|&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+0、退出&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+|\n");<br>
+&nbsp;<wbr>&nbsp;<wbr>printf("&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+************************************\n");<br>
+&nbsp;<wbr>&nbsp;<wbr>cout&lt;&lt;"
+请输入数字进行操作：";<br>
+&nbsp;<wbr>&nbsp;<wbr>cin&gt;&gt;num;<br>
+&nbsp;<wbr>&nbsp;<wbr>if(num==0||num==1||num==2||num==3||num==4||num==5||num==6)<br>
+
+&nbsp;<wbr>&nbsp;<wbr>{<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>switch(num)<br>
+
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>{<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>case
+0:&nbsp;<wbr>door = 0;&nbsp;<wbr>break;<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>case
+1:&nbsp;<wbr>InitStack(S);&nbsp;<wbr>init =
+1;&nbsp;<wbr>break;<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>case
+2:<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>if(init){&nbsp;<wbr>Push(S);&nbsp;<wbr>break;}<br>
+
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>cout&lt;&lt;"请先对顺序表进行初始化！"&lt;&lt;endl;break;<br>
+
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>case
+3:&nbsp;<wbr><br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>if(init){Pop(S);
+&nbsp;<wbr>break;}<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>cout&lt;&lt;"
+请先对顺序表进行初始化！"&lt;&lt;endl;break;<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>case
+4:&nbsp;<wbr><br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>if(init){&nbsp;<wbr>PrintStack(S);&nbsp;<wbr>break;&nbsp;<wbr>}<br>
+
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>cout&lt;&lt;"
+请先对顺序表进行初始化！"&lt;&lt;endl;break;<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>case
+5:&nbsp;<wbr><br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>if(init){&nbsp;<wbr>StackLength(S);&nbsp;<wbr>break;}<br>
+
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>cout&lt;&lt;"
+请先对顺序表进行初始化！"&lt;&lt;endl;break;<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>case
+6:&nbsp;<wbr><br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>if(init){&nbsp;<wbr>GetTop(S);&nbsp;<wbr>break;}<br>
+
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>cout&lt;&lt;"
+请先对顺序表进行初始化！"&lt;&lt;endl;break;<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>}<br>
+&nbsp;<wbr>&nbsp;<wbr>}<br>
+&nbsp;<wbr>&nbsp;<wbr>else<br>
+&nbsp;<wbr>&nbsp;<wbr>{&nbsp;<wbr>cout&lt;&lt;"输入不正确请重新输入！"&lt;&lt;endl;&nbsp;<wbr>continue;&nbsp;<wbr>}<br>
+
+&nbsp;<wbr>}<br>
+&nbsp;<wbr>return 0;<br>
+}</p>
+<p><br>
+&nbsp;<wbr><br></p>							
+		</div>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://hanks.xyz/2014/02/19/顺序栈/" data-id="cihryjlu00005k405wl36wio3" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  
+  
+</article>
+
+  
+<section id="comments">
+    <!-- 多说分享框 -->
+    <div class="ds-share flat" data-thread-key="/2014/02/19/顺序栈/" data-title="顺序栈" data-images="此处请替换为分享时显示的图片的链接地址" data-content="顺序栈" data-url="http://hanks.xyz//2014/02/19/顺序栈/">
+    <div class="ds-share-inline">
+      <ul  class="ds-share-icons-16">
+
+      	<li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+        <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+        <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+        <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+        <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+      </ul>
+      <div class="ds-share-icons-more">
+      </div>
+    </div>
+   </div>
+    <!-- 多说评论框 start -->
+   	<div class="ds-thread" data-thread-key="/2014/02/19/顺序栈/" data-title="顺序栈" data-url="http://hanks.xyz//2014/02/19/顺序栈/"></div>
+   <!-- 多说评论框 end -->
+   <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+   <script type="text/javascript">
+   var duoshuoQuery = {short_name:"hanks-zyh"};
+   	(function() {
+   		var ds = document.createElement('script');
+   		ds.type = 'text/javascript';ds.async = true;
+   		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+   		ds.charset = 'UTF-8';
+   		(document.getElementsByTagName('head')[0]
+   		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+   	})();
+   	</script>
+   <!-- 多说公共JS代码 end -->
+</section>
+
+</section>
+      </div>
+      <footer id="footer">
+  
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      &copy; 2015 Hanks<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+  </br>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    
+
+<script src="/js/jquery.min.js" type="text/javascript"></script>
+<script src="/js/jquery.scrollLoading.js" type="text/javascript"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+  <script src="/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+
+
+<script src="/js/script.js" type="text/javascript"></script>
+
+  </div>
+</body>
+</html>

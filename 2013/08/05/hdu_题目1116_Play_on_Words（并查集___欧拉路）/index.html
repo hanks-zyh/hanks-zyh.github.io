@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>hdu 题目1116 Play on Words（并查集 + 欧拉路） | Hanks.xyz</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description">
+<meta property="og:type" content="article">
+<meta property="og:title" content="hdu 题目1116 Play on Words（并查集 + 欧拉路）">
+<meta property="og:url" content="http://hanks.xyz/2013/08/05/hdu_题目1116_Play_on_Words（并查集___欧拉路）/index.html">
+<meta property="og:site_name" content="Hanks.xyz">
+<meta property="og:description">
+<meta property="og:image" content="http://img.blog.csdn.net/20130805233541468">
+<meta property="og:updated_time" content="2015-12-04T17:20:04.308Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="hdu 题目1116 Play on Words（并查集 + 欧拉路）">
+<meta name="twitter:description">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <!-- <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600' rel='stylesheet' type='text/css'> -->
+  <!-- <link href="//fonts.googleapis.com/css?family=Source+Code+Pro:400,700" rel="stylesheet" type="text/css"> -->
+  <link href="//fonts.useso.com/css?family=Source+Code+Pro:400,700" rel="stylesheet" type="text/css">
+  <link href='//fonts.useso.com/css?family=Open+Sans:300,600' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo">Hanks.xyz</a>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">首页</a>
+        
+          <a class="main-nav-link" href="/archives">归档</a>
+        
+          <a class="main-nav-link" href="/about/index.html">关于</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        <div id="search-form-wrap">
+          <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://hanks.xyz"></form>
+        </div>
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+        
+        
+          <a id="nav-github-link" class="nav-icon" href="https://github.com/hanks-zyh" title="Fork me on GitHub"></a>
+        
+      </nav>
+    </div>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/" class="mobile-nav-link">首页</a>
+  
+    <a href="/archives" class="mobile-nav-link">归档</a>
+  
+    <a href="/about/index.html" class="mobile-nav-link">关于</a>
+  
+  <div id="search-form-wrap-mobile">
+    <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://hanks.xyz"></form>
+  </div>
+</nav>
+      <div class="outer">
+        
+        <section id="main"><article id="post-hdu_题目1116_Play_on_Words（并查集___欧拉路）" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2013/08/05/hdu_题目1116_Play_on_Words（并查集___欧拉路）/" class="article-date">
+  <time datetime="2013-08-05T15:42:00.000Z" itemprop="datePublished">2013-08-05</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      hdu 题目1116 Play on Words（并查集 + 欧拉路）
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+<p></p>
+<h1 style="color:rgb(26,92,200); text-align:center; font-family:'Times New Roman'">
+Play on Words</h1>
+<span style="font-family:'Times New Roman'; font-size:14px"><strong><span style="font-family:Arial; font-size:12px; color:green">Time Limit: 10000/5000 MS (Java/Others)&nbsp;&nbsp;&nbsp;&nbsp;Memory Limit: 65536/32768 K (Java/Others)<br>
+Total Submission(s): 4142&nbsp;&nbsp;&nbsp;&nbsp;Accepted Submission(s): 1337<br>
+</span></strong></span><br style="font-family:'Times New Roman'; font-size:14px">
+<br style="font-family:'Times New Roman'; font-size:14px">
+<div class="panel_title" align="left" style="height:38px; background-color:transparent; padding:0px 14px; color:rgb(124,169,237); font-size:18px; font-family:Arial; font-weight:bold">
+Problem Description</div>
+<div class="panel_content" style="height:auto; margin:0px; padding:0px 20px; font-size:14px; font-family:'Times New Roman'">
+Some of the secret doors contain a very interesting word puzzle. The team of archaeologists has to solve it to open that doors. Because there is no other way to open the doors, the puzzle is very important for us.&nbsp;<br>
+<br>
+There is a large number of magnetic plates on every door. Every plate has one word written on it. The plates must be arranged into a sequence in such a way that every word begins with the same letter as the previous word ends. For example, the word ``acm''
+ can be followed by the word ``motorola''. Your task is to write a computer program that will read the list of words and determine whether it is possible to arrange all of the plates in a sequence (according to the given rule) and consequently to open the door.&nbsp;<br>
+</div>
+<div class="panel_bottom" style="height:auto; margin:0px; font-family:'Times New Roman'; font-size:14px">
+&nbsp;</div>
+<br style="font-family:'Times New Roman'; font-size:14px">
+<div class="panel_title" align="left" style="height:38px; background-color:transparent; padding:0px 14px; color:rgb(124,169,237); font-size:18px; font-family:Arial; font-weight:bold">
+Input</div>
+<div class="panel_content" style="height:auto; margin:0px; padding:0px 20px; font-size:14px; font-family:'Times New Roman'">
+The input consists of T test cases. The number of them (T) is given on the first line of the input file. Each test case begins with a line containing a single integer number Nthat indicates the number of plates (1 &lt;= N &lt;= 100000). Then exactly Nlines follow,
+ each containing a single word. Each word contains at least two and at most 1000 lowercase characters, that means only letters 'a' through 'z' will appear in the word. The same word may appear several times in the list.&nbsp;<br>
+</div>
+<div class="panel_bottom" style="height:auto; margin:0px; font-family:'Times New Roman'; font-size:14px">
+&nbsp;</div>
+<br style="font-family:'Times New Roman'; font-size:14px">
+<div class="panel_title" align="left" style="height:38px; background-color:transparent; padding:0px 14px; color:rgb(124,169,237); font-size:18px; font-family:Arial; font-weight:bold">
+Output</div>
+<div class="panel_content" style="height:auto; margin:0px; padding:0px 20px; font-size:14px; font-family:'Times New Roman'">
+Your program has to determine whether it is possible to arrange all the plates in a sequence such that the first letter of each word is equal to the last letter of the previous word. All the plates from the list must be used, each exactly once. The words mentioned
+ several times must be used that number of times.&nbsp;<br>
+If there exists such an ordering of plates, your program should print the sentence &quot;Ordering is possible.&quot;. Otherwise, output the sentence &quot;The door cannot be opened.&quot;.&nbsp;<br>
+</div>
+<div class="panel_bottom" style="height:auto; margin:0px; font-family:'Times New Roman'; font-size:14px">
+&nbsp;</div>
+<br style="font-family:'Times New Roman'; font-size:14px">
+<div class="panel_title" align="left" style="height:38px; background-color:transparent; padding:0px 14px; color:rgb(124,169,237); font-size:18px; font-family:Arial; font-weight:bold">
+Sample Input</div>
+<div class="panel_content" style="height:auto; margin:0px; padding:0px 20px; font-size:14px; font-family:'Times New Roman'">
+<pre style="margin-top:0px; margin-bottom:0px"><div style="font-family:'Courier New',Courier,monospace">3
+2
+acm
+ibm
+3
+acm
+malform
+mouse
+2
+ok
+ok</div></pre>
+</div>
+<div class="panel_bottom" style="height:auto; margin:0px; font-family:'Times New Roman'; font-size:14px">
+&nbsp;</div>
+<br style="font-family:'Times New Roman'; font-size:14px">
+<div class="panel_title" align="left" style="height:38px; background-color:transparent; padding:0px 14px; color:rgb(124,169,237); font-size:18px; font-family:Arial; font-weight:bold">
+Sample Output</div>
+<div class="panel_content" style="height:auto; margin:0px; padding:0px 20px; font-size:14px; font-family:'Times New Roman'">
+<pre style="margin-top:0px; margin-bottom:0px"><div style="font-family:'Courier New',Courier,monospace">The door cannot be opened.
+Ordering is possible.
+The door cannot be opened.</div></pre>
+</div>
+<div class="panel_bottom" style="height:auto; margin:0px; font-family:'Times New Roman'; font-size:14px">
+&nbsp;<br>
+<br>
+<div class="panel_bottom"><strong><span style="font-size:18px">第一次用深搜做的，提交之后出现&nbsp;<span style="color:rgb(0,128,0)">Runtime Error</span><span style="color:rgb(0,128,0)">(STACK_OVERFLOW)</span></span></strong></div>
+<div class="panel_bottom"><span style="color:rgb(0,128,0)">&nbsp;</span><strong><span style="font-size:18px">然后看到可以使用<span style="color:rgb(51,255,51)">#pragma comment(linker, &quot;/STACK:102400000,102400000&quot;)</span>来解决栈溢出，加了之后然后提交，结果超时了</span></strong></div>
+<div class="panel_bottom"><strong><span style="font-size:18px">一下是超时代码：</span></strong></div>
+<div class="panel_bottom">&nbsp;</div>
+<div class="panel_bottom">等我改进。。。。。</div>
+<p>&nbsp;</p>
+<pre class="cpp" name="code">/*　　超时了、、、、
+2013/08/04 16:02
+author :zyh
+*/
+
+#define N 100003
+#include &lt;iostream&gt;
+#include &lt;stdio.h&gt;
+#include &lt;string.h&gt;
+#pragma comment(linker, &quot;/STACK:102400000,102400000&quot;)//解决 STACK＿Overflow
+
+using namespace std;
+
+char a[N][3];
+char s[1002];
+bool visit[N];
+int sign,n;
+
+void DFS(int i,int num)
+{
+	if(sign || num == n) return;
+//	printf(&quot;i=%d,num=%d,a=%c\n&quot;,i,num,a[i][1]);
+	visit[i] = 1;	num++;
+	int j,flag = 0;
+	for(j=0; j&lt;n; j++)
+	{
+		if(j!= i &amp;&amp; !visit[j] &amp;&amp; a[i][1] == a[j][0] )  //找头 和第i行尾相同的 
+		{
+	//		printf(&quot;j=%d,a=%c\n&quot;,j,a[j][0]);
+				flag = 1;
+				DFS(j,num);		
+		}	
+	}
+	if(!flag &amp;&amp; num == n ) //没有找到与末尾相同的，但是是序列最后一个结点 
+	{
+		sign = 1; return;
+	}
+	else {
+		visit[i] = 0;	
+		return;	
+	}
+}
+
+int main()
+{
+	int i,t;
+
+	scanf(&quot;%d&quot;,&amp;t);
+	while(t--)
+	{
+		scanf(&quot;%d&quot;,&amp;n);
+		getchar();
+		for(i=0;i&lt;n;i++)
+		{
+			gets(s);
+			a[i][0] = s[0];
+			a[i][1] = s[strlen(s)-1];
+		}	
+	//	for(i=0;i&lt;n;i++) printf(&quot;%d : %c %c\n&quot;,i,a[i][0],a[i][1]);
+		sign = 0;
+		for(i=0;i&lt;n;i++) visit[i] = 0;
+		
+		for(i=0;i&lt;n;i++)	DFS(i,0); 	
+		
+		if(sign) printf(&quot;Ordering is possible.\n&quot;);
+		else printf(&quot;The door cannot be opened.\n&quot;);
+	}
+	return 0;
+}</pre>
+<p><br>
+&nbsp;</p>
+<p>&nbsp;</p>
+</div>
+<br>
+<p></p>
+<p><strong><span style="font-family:KaiTi_GB2312; font-size:18px">欧拉回路<br>
+1、欧拉路：在无孤立顶点的图中，若存在一条路，经过图中每条边一次且仅一次，则称此路为欧拉路。如下图（左）中存在一条从顶点1到顶点6的欧拉路。后面的例题（一笔画问题）本质上就是判断一个图是否存在欧拉路。<br>
+2、欧拉回路：在无孤立顶点的图中，若存在一条路，经过图中每条边一次且仅一次，且回到原来位置，则称此路为欧拉回路。如下图（右）中任意两个顶点之间都存在欧拉回路。著名的柯&#23612;斯堡七桥问题（图论起源）本质上就是讨论一个图的欧拉回路问题。<br>
+3、欧拉图：存在欧拉回路的图，称为欧拉图，图（右）所示的图就是一个欧拉图。</span></strong><br>
+</p>
+<p><img src="http://img.blog.csdn.net/20130805233541468" alt=""><br>
+</p>
+<p><strong><span style="font-family:KaiTi_GB2312; font-size:18px">定理1：存在欧拉路的条件：图是连通的，且存在0个或2个奇点。如果存在2个奇点，则欧拉路一定是从一个奇点出发，以另一个奇点结束。<br>
+定理2：存在欧拉回路的条件：图是连通的，且不存在奇点。</span></strong></p>
+<p><strong><span style="font-family:KaiTi_GB2312; font-size:18px"><br>
+6、哈密尔顿图：在无孤立顶点的连通图中，若存在一条路，经过图中每个顶点一次且仅一次，则称此图为哈密尔顿图。<br>
+7、哈密尔顿环：是一条沿着图的n条边环行的路径，它访问每一个顶点一次且仅一次，并且返回到它的开始位置。</span></strong><br>
+<br>
+<br>
+</p>
+<p><strong><span style="font-size:18px; color:#ff9900"><br>
+</span></strong></p>
+<p><strong><span style="font-size:18px; color:#ff9900">1.首先建立并查集，判断是否是一个根（是否有孤立顶点），首先必须满足一个根结点</span></strong></p>
+<p><strong><span style="font-size:18px; color:#ff9900">2.判断各个点的入度和出度， 入度和出度 都为0 或1，欧拉路</span></strong></p>
+<p><strong><span style="font-size:18px; color:#ff9900">3.中间结点的入度必须等于出度</span></strong></p>
+<p><br>
+</p>
+<p>code：</p>
+<p></p>
+<pre name="code" class="cpp">/*Problem : 1116 ( Play on Words )     Judge Status : Accepted
+RunId : 8840032    Language : C++    Author : 18236887539
+Code Render Status : Rendered By HDOJ C++ Code Render Version 0.01 Beta*/</pre><pre name="code" class="cpp">#define N 30
+#include&lt;iostream&gt;
+#include&lt;stdio.h&gt;
+#include&lt;string.h&gt;
+using namespace std;
+
+int father[N],in[N],out[N];
+bool visit[N];
+
+int find(int x)
+{
+    while( father[x] != x)
+     x = father[x];
+    return x;
+}
+
+int main()
+{
+    int i,t,n,a,b;
+    char s[1002];
+    scanf(&quot;%d&quot;,&amp;t);
+    while(t--)
+    {
+        for(i=0;i&lt;N;i++)
+        {
+            father[i] = i;
+            in[i] = out[i] = visit[i] = 0;
+        }
+        scanf(&quot;%d&quot;,&amp;n);
+        getchar();
+        while(n--)
+        {
+            gets(s);
+            a = s[0]-'a';
+            b = s[strlen(s)-1]-'a';
+            in[b]++;
+            out[a]++;
+            father[a] = father[b] = find(a);
+            visit[a] = visit[b] = 1;
+        }
+        
+        int cnt=0;
+        for(i=0;i&lt;N;i++)
+        {
+            if(visit[i] &amp;&amp; father[i]==i ) cnt++;
+        }
+        
+        if(cnt&gt;1)//根节点个数大于1，不满足 
+        {
+            printf(&quot;The door cannot be opened.\n&quot;);
+            continue;
+        }
+        
+        int mid,front,rear;
+        mid = front = rear = 0;
+        
+        for(i=0;i&lt;N;i++)
+        {
+            if(visit[i] &amp;&amp; in[i]!=out[i])//没有存的略过， 入度等于出度的 略过 
+            {
+                if( out[i]+1 == in[i] ) rear++;
+                else if(out[i] == in[i]+1) front++;
+                else mid++;
+            }
+        }
+    //    printf(&quot;mid=%d,f=%d,r=%d\n&quot;,mid,front,rear);
+        if(mid&gt;0)  
+        {
+            printf(&quot;The door cannot be opened.\n&quot;);
+            continue;
+        }
+        if( (front==1&amp;&amp;rear==1) ||( front==0&amp;&amp;rear==0))
+        {
+            printf(&quot;Ordering is possible.\n&quot;);
+            continue;
+        }
+        else     printf(&quot;The door cannot be opened.\n&quot;);                    
+    }
+    return 0;
+}</pre><br>
+<br>
+<p></p>
+<p><br>
+</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://hanks.xyz/2013/08/05/hdu_题目1116_Play_on_Words（并查集___欧拉路）/" data-id="cihryjm2m0046k405yoxg4k3x" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  
+  
+</article>
+
+  
+<section id="comments">
+    <!-- 多说分享框 -->
+    <div class="ds-share flat" data-thread-key="/2013/08/05/hdu_题目1116_Play_on_Words（并查集___欧拉路）/" data-title="hdu 题目1116 Play on Words（并查集 + 欧拉路）" data-images="此处请替换为分享时显示的图片的链接地址" data-content="hdu 题目1116 Play on Words（并查集 + 欧拉路）" data-url="http://hanks.xyz//2013/08/05/hdu_题目1116_Play_on_Words（并查集___欧拉路）/">
+    <div class="ds-share-inline">
+      <ul  class="ds-share-icons-16">
+
+      	<li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+        <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+        <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+        <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+        <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+      </ul>
+      <div class="ds-share-icons-more">
+      </div>
+    </div>
+   </div>
+    <!-- 多说评论框 start -->
+   	<div class="ds-thread" data-thread-key="/2013/08/05/hdu_题目1116_Play_on_Words（并查集___欧拉路）/" data-title="hdu 题目1116 Play on Words（并查集 + 欧拉路）" data-url="http://hanks.xyz//2013/08/05/hdu_题目1116_Play_on_Words（并查集___欧拉路）/"></div>
+   <!-- 多说评论框 end -->
+   <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+   <script type="text/javascript">
+   var duoshuoQuery = {short_name:"hanks-zyh"};
+   	(function() {
+   		var ds = document.createElement('script');
+   		ds.type = 'text/javascript';ds.async = true;
+   		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+   		ds.charset = 'UTF-8';
+   		(document.getElementsByTagName('head')[0]
+   		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+   	})();
+   	</script>
+   <!-- 多说公共JS代码 end -->
+</section>
+
+</section>
+      </div>
+      <footer id="footer">
+  
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      &copy; 2015 Hanks<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+  </br>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    
+
+<script src="/js/jquery.min.js" type="text/javascript"></script>
+<script src="/js/jquery.scrollLoading.js" type="text/javascript"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+  <script src="/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+
+
+<script src="/js/script.js" type="text/javascript"></script>
+
+  </div>
+</body>
+</html>

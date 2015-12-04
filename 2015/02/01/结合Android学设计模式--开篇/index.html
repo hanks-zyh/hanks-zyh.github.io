@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>结合Android学设计模式--开篇 | Hanks.xyz</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description">
+<meta property="og:type" content="article">
+<meta property="og:title" content="结合Android学设计模式--开篇">
+<meta property="og:url" content="http://hanks.xyz/2015/02/01/结合Android学设计模式--开篇/index.html">
+<meta property="og:site_name" content="Hanks.xyz">
+<meta property="og:description">
+<meta property="og:updated_time" content="2015-12-04T17:20:04.324Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="结合Android学设计模式--开篇">
+<meta name="twitter:description">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <!-- <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600' rel='stylesheet' type='text/css'> -->
+  <!-- <link href="//fonts.googleapis.com/css?family=Source+Code+Pro:400,700" rel="stylesheet" type="text/css"> -->
+  <link href="//fonts.useso.com/css?family=Source+Code+Pro:400,700" rel="stylesheet" type="text/css">
+  <link href='//fonts.useso.com/css?family=Open+Sans:300,600' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo">Hanks.xyz</a>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">首页</a>
+        
+          <a class="main-nav-link" href="/archives">归档</a>
+        
+          <a class="main-nav-link" href="/about/index.html">关于</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        <div id="search-form-wrap">
+          <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://hanks.xyz"></form>
+        </div>
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+        
+        
+          <a id="nav-github-link" class="nav-icon" href="https://github.com/hanks-zyh" title="Fork me on GitHub"></a>
+        
+      </nav>
+    </div>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/" class="mobile-nav-link">首页</a>
+  
+    <a href="/archives" class="mobile-nav-link">归档</a>
+  
+    <a href="/about/index.html" class="mobile-nav-link">关于</a>
+  
+  <div id="search-form-wrap-mobile">
+    <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://hanks.xyz"></form>
+  </div>
+</nav>
+      <div class="outer">
+        
+        <section id="main"><article id="post-结合Android学设计模式--开篇" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/02/01/结合Android学设计模式--开篇/" class="article-date">
+  <time datetime="2015-02-01T05:49:00.000Z" itemprop="datePublished">2015-02-01</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      结合Android学设计模式--开篇
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+<p>&nbsp; &nbsp;&nbsp;<span style="white-space:pre"><span style="color:#ff0000">设计模式（Design pattern）</span>是一套被反复使用、多数人知晓的、经过分类编目的、代码设计经验的总结。使用设计模式是<span style="color:#ff0000"><u>为了可重用代码、让代码更容易被他人理解、保证代码可靠性</u></span>。 毫无疑问，设计模式于己于他人于系统都是多赢的，设计模式使代码编制真正工程化，设计模式是软件工程的基石脉络，如同大厦的结构一样。</span></p>
+<p><span style="white-space:pre"></span>以上是设计模式的定义，在开发过程中多多少少也接触了一些设计模式，在Android系统源码可以看出中也应用了大量的设计模式，自己也模仿着将设计模式应用到开发中，下面对设计模式作大概介绍，参考资料 ：Java<span style="font-family:宋体">设计模式（疯狂</span><span style="font-family:Calibri">Java</span><span style="font-family:宋体">联盟版）</span></p>
+<p><span style="font-family:宋体">&nbsp; &nbsp;java设计模式有23种，大体分3类</span></p>
+<p><span style="font-family:宋体"></span></p>
+<p><strong><span style="font-size:18px">创建型模式</span></strong><br>
+&nbsp;工厂方法（FactoryMethod）&nbsp;<br>
+&nbsp;抽象工厂（AbstractFactory）<br>
+&nbsp;建造者模式（Builder）&nbsp;<br>
+&nbsp;单态模式（Singleton）&nbsp;<br>
+&nbsp;原型模式（Prototype）&nbsp;<br>
+<strong><span style="font-size:18px">结构型模式</span></strong><br>
+&nbsp;适配器模式（Adapter）&nbsp;<br>
+&nbsp;桥接模式（Bridge）&nbsp;<br>
+&nbsp;组合模式（Composite）&nbsp;<br>
+&nbsp;装饰模式（Decorator）&nbsp;<br>
+&nbsp;外观模式（Facade）&nbsp;<br>
+&nbsp;享元模式（Flyweight）&nbsp;<br>
+&nbsp;代理模式（Proxy）&nbsp;<br>
+<strong><span style="font-size:18px">行为型模式&nbsp;</span></strong><br>
+&nbsp;责任链模式（Chain of Responsibility）&nbsp;<br>
+&nbsp;命令模式（Command）&nbsp;<br>
+&nbsp;解释器模式（Interpreter）&nbsp;<br>
+&nbsp;迭代器模式（Iterator）&nbsp;<br>
+&nbsp;中介者模式（Mediator）&nbsp;<br>
+&nbsp;备忘录模式（Memento）&nbsp;<br>
+&nbsp;观察者模式（Observer）&nbsp;<br>
+&nbsp;状态模式（State）&nbsp;<br>
+&nbsp;策略模式（Strategy）&nbsp;<br>
+&nbsp;模板方法（TemplateMethod）&nbsp;<br>
+&nbsp;访问者模式（Visitor）&nbsp;</p>
+<p><br>
+</p>
+<p>下面来自网络一篇关于设计模式的比较有意思的介绍，引用过来</p>
+<p>---------</p>
+<p>一般来说，常用的设计模式有以下八种：单例、工厂、观察者、代理、命令、适配器、合成、访问者<br>
+<br>
+单例模式：目的是为了让系统中只有一个调用对象，缺点是单例使其他程序过分依赖它，而且不同单例运行在不同进程中，使得维护困难；<br>
+工厂模式：生产固定的一些东西，如抽象类，缺点是产品修改麻烦；如喜欢动作片和爱情片的人分别向服务器发出同一个请求，就可以得到他们想看的影片集，相当于不同对象进行同一请求，需求均得到满足。<br>
+观察者模式：就是多个对象对一个对象进行监控，如缓存；<br>
+代理模式：自己的事交给别人去做，分别返回结果即可，如异步线程；<br>
+命令模式：调用对象与作用对象之间分离，由中间件来协调两者之间的工作，如控制器；<br>
+适配器模式：将一个接口变成用户所需要的接口，如baseadapter可以适配listview和spinner，因为它们有相同的接口<br>
+合成模式：将一对多的关系转换成一对整体的关系，如listview与适配器；<br>
+访问者模式：对不同的对象采取不同的处理，如instanceof。<br>
+<br>
+<br>
+<br>
+<strong>创建型模式</strong><br>
+<br>
+1、FACTORY—追MM少不了请吃饭了，麦当劳的鸡翅和肯德基的鸡翅都是MM爱吃的东西，虽然口味有所不同，但不管你带MM去麦当劳或肯德基，只管向服务员说“来四个鸡翅”就行了。麦当劳和肯德基就是生产鸡翅的Factory<br>
+<em>工厂模式</em>：客户类和工厂类分开。消费者任何时候需要某种产品，只需向工厂请求即可。消费者无须修改就可以接纳新产品。<strong>缺点</strong>是当产品修改时，工厂类也要做相应的修改。如：如何创建及如何向客户端提供。<br>
+<br>
+2、BUILDER—MM最爱听的就是“我爱你”这句话了，见到不同地方的MM,要能够用她们的方言跟她说这句话哦，我有一个多种语言翻译机，上面每种语言都有一个按键，见到MM我只要按对应的键，它就能够用相应的语言说出“我爱你”这句话了，国外的MM也可以轻松搞掂，这就是我的“我爱你”builder。（这一定比美军在伊拉克用的翻译机好卖）<br>
+<em>建造模式</em>：将产品的内部表象和产品的生成过程分割开来，从而使一个建造过程生成具有不同的内部表象的产品对象。建造模式使得产品内部表象可以独立的变化，客户不必知道产品内部组成的细节。建造模式可以强制实行一种分步骤进行的建造过程。<br>
+<br>
+3、FACTORY METHOD—请MM去麦当劳吃汉堡，不同的MM有不同的口味，要每个都记住是一件烦人的事情，我一般采用Factory Method模式，带着MM到服务员那儿，说“要一个汉堡”，具体要什么样的汉堡呢，让MM直接跟服务员说就行了。<br>
+<em>工厂方法模式</em>：核心工厂类不再负责所有产品的创建，而是将具体创建的工作交给子类去做，成为一个抽象工厂角色，仅负责给出具体工厂类必须实现的接口，而不接触哪一个产品类应当被实例化这种细节。<br>
+<br>
+4、PROTOTYPE—跟MM用QQ聊天，一定要说些深情的话语了，我搜集了好多肉麻的情话，需要时只要copy出来放到QQ里面就行了，这就是我的情话prototype了。（100块钱一份，你要不要）<br>
+<em>原始模型模式</em>：通过给出一个原型对象来指明所要创建的对象的类型，然后用复制这个原型对象的方法创建出更多同类型的对象。原始模型模式允许动态的增加或减少产品类，产品类不需要非得有任何事先确定的等级结构，原始模型模式适用于任何的等级结构。<strong>缺点</strong>是每一个类都必须配备一个克隆方法。<br>
+<br>
+5、SINGLETON—俺有6个漂亮的老婆，她们的老公都是我，我就是我们家里的老公Sigleton，她们只要说道“老公”，都是指的同一个人，那就是我(刚才做了个梦啦，哪有这么好的事)<br>
+<em>单例模式</em>：单例模式确保某一个类只有一个实例，而且自行实例化并向整个系统提供这个实例单例模式。单例模式只应在有真正的“单一实例”的需求时才可使用。<br>
+<br>
+<strong>结构型模式</strong><br>
+<br>
+6、ADAPTER—在朋友聚会上碰到了一个美女Sarah，从香港来的，可我不会说粤语，她不会说普通话，只好求助于我的朋友kent了，他作为我和Sarah之间的Adapter，让我和Sarah可以相互交谈了(也不知道他会不会耍我)<br>
+<em>适配器（变压器）模式</em>：把一个类的接口变换成客户端所期待的另一种接口，从而使原本因接口原因不匹配而无法一起工作的两个类能够一起工作。适配类可以根据参数返还一个合适的实例给客户端。<br>
+<br>
+7、BRIDGE—早上碰到MM，要说早上好，晚上碰到MM，要说晚上好；碰到MM穿了件新衣服，要说你的衣服好漂亮哦，碰到MM新做的发型，要说你的头发好漂亮哦。不要问我“早上碰到MM新做了个发型怎么说”这种问题，自己用BRIDGE组合一下不就行了<br>
+<em>桥梁模式</em>：将抽象化与实现化脱耦，使得二者可以独立的变化，也就是说将他们之间的强关联变成弱关联，也就是指在一个软件系统的抽象化和实现化之间使用组合/聚合关系而不是继承关系，从而使两者可以独立的变化。<br>
+<br>
+8、COMPOSITE—Mary今天过生日。“我过生日，你要送我一件&#31036;物。”“嗯，好吧，去商店，你自己挑。”“这件T恤挺漂亮，买，这条裙子好看，买，这个包也不错，买。”“喂，买了三件了呀，我只答应送一件&#31036;物的哦。”“什么呀，T恤加裙子加包包，正好配成一套呀，MM，麻烦你包起来。”“……”，MM都会用Composite模式了，你会了没有？<br>
+<em>合成模式</em>：合成模式将对象组织到树结构中，可以用来描述整体与部分的关系。合成模式就是一个处理对象的树结构的模式。合成模式把部分与整体的关系用树结构表示出来。合成模式使得客户端把一个个单独的成分对象和由他们复合而成的合成对象同等看待。<br>
+<br>
+9、DECORATOR—Mary过完轮到Sarly过生日，还是不要叫她自己挑了，不然这个月伙食费肯定玩完，拿出我去年在华山顶上照的照片，在背面写上“最好的的&#31036;物，就是爱你的Fita”，再到街上&#31036;品店买了个像框（卖&#31036;品的MM也很漂亮哦），再找隔壁搞美术设计的Mike设计了一个漂亮的盒子装起来……，我们都是Decorator，最终都在修饰我这个人呀，怎么样，看懂了吗？<br>
+<em>装饰模式</em>：装饰模式以对客户端透明的方式扩展对象的功能，是继承关系的一个替代方案，提供比继承更多的灵活性。动态给一个对象增加功能，这些功能可以再动态的撤消。增加由一些基本功能的排列组合而产生的非常大量的功能。<br>
+<br>
+10、FACADE—我有一个专业的Nikon相机，我就喜欢自己手动调光圈、快门，这样照出来的照片才专业，但MM可不懂这些，教了半天也不会。幸好相机有Facade设计模式，把相机调整到自动档，只要对准目标按快门就行了，一切由相机自动调整，这样MM也可以用这个相机给我拍张照片了。<br>
+<br>
+<em>门面模式</em>：外部与一个子系统的通信必须通过一个统一的门面对象进行。门面模式提供一个高层次的接口，使得子系统更易于使用。每一个子系统只有一个门面类，而且此门面类只有一个实例，也就是说它是一个单例模式。但整个系统可以有多个门面类。<br>
+<br>
+11、FLYWEIGHT—每天跟MM发短信，手指都累死了，最近买了个新手机，可以把一些常用的句子存在手机里，要用的时候，直接拿出来，在前面加上MM的名字就可以发送了，再不用一个字一个字敲了。共享的句子就是Flyweight，MM的名字就是提取出来的外部特征，根据上下文情况使用。<br>
+<br>
+<em>享元模式</em>：FLYWEIGHT在拳击比赛中指最轻量级。享元模式以共享的方式高效的支持大量的细粒度对象。享元模式能做到共享的关键是区分内蕴状态和外蕴状态。内蕴状态存储在享元内部，不会随环境的改变而有所不同。外蕴状态是随环境的改变而改变的。外蕴状态不能影响内蕴状态，它们是相互独立的。将可以共享的状态和不可以共享的状态从常规类中区分开来，将不可以共享的状态从类里剔除出去。客户端不可以直接创建被共享的对象，而应当使用一个工厂对象负责创建被共享的对象。享元模式大幅度的降低内存中对象的数量。<br>
+<br>
+12、PROXY—跟MM在网上聊天，一开头总是“hi,你好”,“你从哪儿来呀？”“你多大了？”“身高多少呀？”这些话，真烦人，写个程序做为我的Proxy吧，凡是接收到这些话都设置好了自动的回答，接收到其他的话时再通知我回答，怎么样，酷吧。<em><br>
+代理模式</em>：代理模式给某一个对象提供一个代理对象，并由代理对象控制对源对象的引用。代理就是一个人或一个机构代表另一个人或者一个机构采取行动。某些情况下，客户不想或者不能够直接引用一个对象，代理对象可以在客户和目标对象直接起到中介的作用。客户端分辨不出代理主题对象与真实主题对象。代理模式可以并不知道真正的被代理对象，而仅仅持有一个被代理对象的接口，这时候代理对象不能够创建被代理对象，被代理对象必须有系统的其他角色代为创建并传入。<br>
+<br>
+<strong>行为模式</strong><br>
+<br>
+13、CHAIN OF RESPONSIBLEITY—晚上去上英语课，为了好开溜坐到了最后一排，哇，前面坐了好几个漂亮的MM哎，找张纸条，写上“Hi,可以做我的女朋友吗？如果不愿意请向前传”，纸条就一个接一个的传上去了，糟糕，传到第一排的MM把纸条传给老师了，听说是个老处女呀，快跑!<br>
+<em>责任链模式</em>：在责任链模式中，很多对象由每一个对象对其下家的引用而接起来形成一条链。请求在这个链上传递，直到链上的某一个对象决定处理此请求。客户并不知道链上的哪一个对象最终处理这个请求，系统可以在不影响客户端的情况下动态的重新组织链和分配责任。处理者有两个选择：承担责任或者把责任推给下家。一个请求可以最终不被任何接收端对象所接受。<br>
+<br>
+14、COMMAND—俺有一个MM家里管得特别严，没法见面，只好借助于她弟弟在我们俩之间传送信息，她对我有什么指示，就写一张纸条让她弟弟带给我。这不，她弟弟又传送过来一个COMMAND，为了感谢他，我请他吃了碗杂酱面，哪知道他说：“我同时给我姐姐三个男朋友送COMMAND，就数你最小气，才请我吃面。”，:-(<br>
+<em>命令模式</em>：命令模式把一个请求或者操作封装到一个对象中。命令模式把发出命令的责任和执行命令的责任分割开，委派给不同的对象。命令模式允许请求的一方和发送的一方独立开来，使得请求的一方不必知道接收请求的一方的接口，更不必知道请求是怎么被接收，以及操作是否执行，何时被执行以及是怎么被执行的。系统支持命令的撤消。<br>
+<br>
+15、INTERPRETER—俺有一个《泡MM真经》，上面有各种泡MM的攻略，比如说去吃西餐的步骤、去看电影的方法等等，跟MM约会时，只要做一个Interpreter，照着上面的脚本执行就可以了。<br>
+<em>解释器模式</em>：给定一个语言后，解释器模式可以定义出其文法的一种表示，并同时提供一个解释器。客户端可以使用这个解释器来解释这个语言中的句子。解释器模式将描述怎样在有了一个简单的文法后，使用模式设计解释这些语句。在解释器模式里面提到的语言是指任何解释器对象能够解释的任何组合。在解释器模式中需要定义一个代表文法的命令类的等级结构，也就是一系列的组合规则。每一个命令对象都有一个解释方法，代表对命令对象的解释。命令对象的等级结构中的对象的任何排列组合都是一个语言。<br>
+<br>
+16、ITERATOR—我爱上了Mary，不顾一切的向她求婚。<br>
+Mary：“想要我跟你结婚，得答应我的条件”<br>
+我：“什么条件我都答应，你说吧”<br>
+Mary：“我看上了那个一克拉的钻石”<br>
+我：“我买，我买，还有吗？”<br>
+Mary：“我看上了湖边的那栋别墅”<br>
+我：“我买，我买，还有吗？”<br>
+Mary：“你的小弟弟必须要有50cm长”<br>
+我脑袋嗡的一声，坐在椅子上，一咬牙：“我剪，我剪，还有吗？”<br>
+……<br>
+<em>迭代子模式</em>：迭代子模式可以顺序访问一个聚集中的元素而不必暴露聚集的内部表象。多个对象聚在一起形成的总体称之为聚集，聚集对象是能够包容一组对象的容器对象。迭代子模式将迭代逻辑封装到一个独立的子对象中，从而与聚集本身隔开。迭代子模式简化了聚集的界面。每一个聚集对象都可以有一个或一个以上的迭代子对象，每一个迭代子的迭代状态可以是彼此独立的。迭代算法可以独立于聚集角色变化。<br>
+<br>
+17、MEDIATOR—四个MM打麻将，相互之间谁应该给谁多少钱算不清楚了，幸亏当时我在旁边，按照各自的筹码数算钱，赚了钱的从我这里拿，赔了钱的也付给我，一切就OK啦，俺得到了四个MM的电话。<br>
+<em>调停者模式</em>：调停者模式包装了一系列对象相互作用的方式，使得这些对象不必相互明显作用。从而使他们可以松散偶合。当某些对象之间的作用发生改变时，不会立即影响其他的一些对象之间的作用。保证这些作用可以彼此独立的变化。调停者模式将多对多的相互作用转化为一对多的相互作用。调停者模式将对象的行为和协作抽象化，把对象在小尺度的行为上与其他对象的相互作用分开处理。<br>
+<br>
+18、MEMENTO—同时跟几个MM聊天时，一定要记清楚刚才跟MM说了些什么话，不然MM发现了会不高兴的哦，幸亏我有个备忘录，刚才与哪个MM说了什么话我都拷贝一份放到备忘录里面保存，这样可以随时察看以前的记录啦。<br>
+<em>备忘录模式</em>：备忘录对象是一个用来存储另外一个对象内部状态的快照的对象。备忘录模式的用意是在不破坏封装的条件下，将一个对象的状态捉住，并外部化，存储起来，从而可以在将来合适的时候把这个对象还原到存储起来的状态。<br>
+<br>
+19、OBSERVER—想知道咱们公司最新MM情报吗？加入公司的MM情报邮件组就行了，tom负责搜集情报，他发现的新情报不用一个一个通知我们，直接发布给邮件组，我们作为订阅者（观察者）就可以及时收到情报啦<br>
+<em>观察者模式</em>：观察者模式定义了一种一队多的依赖关系，让多个观察者对象同时监听某一个主题对象。这个主题对象在状态上发生变化时，会通知所有观察者对象，使他们能够自动更新自己。<br>
+<br>
+20、STATE—跟MM交往时，一定要注意她的状态哦，在不同的状态时她的行为会有不同，比如你约她今天晚上去看电影，对你没兴趣的MM就会说“有事情啦”，对你不讨厌但还没喜欢上的MM就会说“好啊，不过可以带上我同事么？”，已经喜欢上你的MM就会说“几点钟？看完电影再去泡吧怎么样？”，当然你看电影过程中表现良好的话，也可以把MM的状态从不讨厌不喜欢变成喜欢哦。<br>
+<em>状态模式</em>：状态模式允许一个对象在其内部状态改变的时候改变行为。这个对象看上去象是改变了它的类一样。状态模式把所研究的对象的行为包装在不同的状态对象里，每一个状态对象都属于一个抽象状态类的一个子类。状态模式的意图是让一个对象在其内部状态改变的时候，其行为也随之改变。状态模式需要对每一个系统可能取得的状态创立一个状态类的子类。当系统的状态变化时，系统便改变所选的子类。<br>
+<br>
+21、STRATEGY—跟不同类型的MM约会，要用不同的策略，有的请电影比较好，有的则去吃小吃效果不错，有的去海边浪漫最合适，单目的都是为了得到MM的芳心，我的追MM锦囊中有好多Strategy哦。<br>
+<em>策略模式</em>：策略模式针对一组算法，将每一个算法封装到具有共同接口的独立的类中，从而使得它们可以相互替换。策略模式使得算法可以在不影响到客户端的情况下发生变化。策略模式把行为和环境分开。环境类负责维持和查询行为类，各种算法在具体的策略类中提供。由于算法和环境独立开来，算法的增减，修改都不会影响到环境和客户端。<br>
+<br>
+22、TEMPLATE METHOD——看过《如何说服女生上床》这部经典文章吗？女生从认识到上床的不变的步骤分为巧遇、打破僵局、展开追求、接吻、前戏、动手、爱抚、进去八大步骤(Template method)，但每个步骤针对不同的情况，都有不一样的做法，这就要看你随机应变啦(具体实现)；<br>
+<em>模板方法模式</em>：模板方法模式准备一个抽象类，将部分逻辑以具体方法以及具体构造子的形式实现，然后声明一些抽象方法来迫使子类实现剩余的逻辑。不同的子类可以以不同的方式实现这些抽象方法，从而对剩余的逻辑有不同的实现。先制定一个顶级逻辑框架，而将逻辑的细节留给具体的子类去实现。<br>
+<br>
+23、VISITOR—情人节到了，要给每个MM送一束鲜花和一张卡片，可是每个MM送的花都要针对她个人的特点，每张卡片也要根据个人的特点来挑，我一个人哪搞得清楚，还是找花店老板和&#31036;品店老板做一下Visitor，让花店老板根据MM的特点选一束花，让&#31036;品店老板也根据每个人特点选一张卡，这样就轻松多了；<br>
+<em>访问者模式</em>：访问者模式的目的是封装一些施加于某种数据结构元素之上的操作。一旦这些操作需要修改的话，接受这个操作的数据结构可以保持不变。访问者模式适用于数据结构相对未定的系统，它把数据结构和作用于结构上的操作之间的耦合解脱开，使得操作集合可以相对自由的演化。访问者模式使得增加新的操作变的很容易，就是增加一个新的访问者类。访问者模式将有关的行为集中到一个访问者对象中，而不是分散到一个个的节点类中。当使用访问者模式时，要将尽可能多的对象浏览逻辑放在访问者类中，而不是放到它的子类中。访问者模式可以跨过几个类的等级结构访问属于不同的等级结构的成员类。</p>
+<p>文章原地址：http://mobile.51cto.com/ahot-418968.htm</p>
+<p><br>
+</p>
+<p>上面简单介绍有助于我们理解设计模式，<span style="font-family:宋体">作为开发者，学习设计模式是必须的，既有利于优化自己的代码，也能帮助我们在查看别的的源代码时更好更快的理解代码</span></p>
+<p>下面就开始学习设计模式之旅----</p>
+<div style="top:2983px">
+<p><br>
+</p>
+<p><br>
+</p>
+<p><br>
+</p>
+</div>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://hanks.xyz/2015/02/01/结合Android学设计模式--开篇/" data-id="cihryjlvm000rk405zs9rnx2r" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  
+  
+</article>
+
+  
+<section id="comments">
+    <!-- 多说分享框 -->
+    <div class="ds-share flat" data-thread-key="/2015/02/01/结合Android学设计模式--开篇/" data-title="结合Android学设计模式--开篇" data-images="此处请替换为分享时显示的图片的链接地址" data-content="结合Android学设计模式--开篇" data-url="http://hanks.xyz//2015/02/01/结合Android学设计模式--开篇/">
+    <div class="ds-share-inline">
+      <ul  class="ds-share-icons-16">
+
+      	<li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+        <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+        <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+        <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+        <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+      </ul>
+      <div class="ds-share-icons-more">
+      </div>
+    </div>
+   </div>
+    <!-- 多说评论框 start -->
+   	<div class="ds-thread" data-thread-key="/2015/02/01/结合Android学设计模式--开篇/" data-title="结合Android学设计模式--开篇" data-url="http://hanks.xyz//2015/02/01/结合Android学设计模式--开篇/"></div>
+   <!-- 多说评论框 end -->
+   <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+   <script type="text/javascript">
+   var duoshuoQuery = {short_name:"hanks-zyh"};
+   	(function() {
+   		var ds = document.createElement('script');
+   		ds.type = 'text/javascript';ds.async = true;
+   		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+   		ds.charset = 'UTF-8';
+   		(document.getElementsByTagName('head')[0]
+   		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+   	})();
+   	</script>
+   <!-- 多说公共JS代码 end -->
+</section>
+
+</section>
+      </div>
+      <footer id="footer">
+  
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      &copy; 2015 Hanks<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+  </br>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    
+
+<script src="/js/jquery.min.js" type="text/javascript"></script>
+<script src="/js/jquery.scrollLoading.js" type="text/javascript"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+  <script src="/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+
+
+<script src="/js/script.js" type="text/javascript"></script>
+
+  </div>
+</body>
+</html>

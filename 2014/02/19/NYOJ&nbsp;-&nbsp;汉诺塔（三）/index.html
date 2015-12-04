@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>NYOJ&amp;nbsp;-&amp;nbsp;汉诺塔（三） | Hanks.xyz</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description">
+<meta property="og:type" content="article">
+<meta property="og:title" content="NYOJ&nbsp;-&nbsp;汉诺塔（三）">
+<meta property="og:url" content="http://hanks.xyz/2014/02/19/NYOJ&nbsp;-&nbsp;汉诺塔（三）/index.html">
+<meta property="og:site_name" content="Hanks.xyz">
+<meta property="og:description">
+<meta property="og:updated_time" content="2015-12-04T17:20:04.312Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="NYOJ&nbsp;-&nbsp;汉诺塔（三）">
+<meta name="twitter:description">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <!-- <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600' rel='stylesheet' type='text/css'> -->
+  <!-- <link href="//fonts.googleapis.com/css?family=Source+Code+Pro:400,700" rel="stylesheet" type="text/css"> -->
+  <link href="//fonts.useso.com/css?family=Source+Code+Pro:400,700" rel="stylesheet" type="text/css">
+  <link href='//fonts.useso.com/css?family=Open+Sans:300,600' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo">Hanks.xyz</a>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">首页</a>
+        
+          <a class="main-nav-link" href="/archives">归档</a>
+        
+          <a class="main-nav-link" href="/about/index.html">关于</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        <div id="search-form-wrap">
+          <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://hanks.xyz"></form>
+        </div>
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+        
+        
+          <a id="nav-github-link" class="nav-icon" href="https://github.com/hanks-zyh" title="Fork me on GitHub"></a>
+        
+      </nav>
+    </div>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/" class="mobile-nav-link">首页</a>
+  
+    <a href="/archives" class="mobile-nav-link">归档</a>
+  
+    <a href="/about/index.html" class="mobile-nav-link">关于</a>
+  
+  <div id="search-form-wrap-mobile">
+    <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://hanks.xyz"></form>
+  </div>
+</nav>
+      <div class="outer">
+        
+        <section id="main"><article id="post-NYOJ&amp;nbsp;-&amp;nbsp;汉诺塔（三）" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/02/19/NYOJ&nbsp;-&nbsp;汉诺塔（三）/" class="article-date">
+  <time datetime="2014-02-19T11:17:00.000Z" itemprop="datePublished">2014-02-19</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      NYOJ&amp;nbsp;-&amp;nbsp;汉诺塔（三）
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+<div id="sina_keyword_ad_area2" class="articalContent  ">
+			<a href="http://acm.nyist.net/JudgeOnline/problem.php?pid=93" target="_blank">93 汉诺塔（三）</a>
+<div style="">定义一个栈一维数组，包含3个栈，代表3个柱子，依次执行指令</div>
+<div style="">第一次提交时，注释什么多余的语句没删除，每个栈开的长度大了，提交结果 内存 <font color="#FF0000">972</font></div>
+<div style="">然后将神马多余的都删除，栈长度改的正合适，提交结果 内存 <font color="#ED1C24">308</font></div>
+<div style=""><font color="#0719FC">[code]</font></div>
+<div style="">
+<div><font color="#ED1C24">&nbsp;<wbr></font></div>
+<div>#define TRUE 1</div>
+<div>#define FALSE 0</div>
+<div>#define STACK_INIT_SIZE 66</div>
+<div>#include "iostream"</div>
+<div>#include "cstdlib"</div>
+<div>#include "cstdio"</div>
+<div>#include "cstring"</div>
+<div>using namespace std;</div>
+<div>typedef int Status; //Status 相当于 int</div>
+<div>typedef int ElemType;</div>
+<div>typedef struct Stack</div>
+<div>{</div>
+<div>ElemType * base, * top;</div>
+<div>}SqStack;</div>
+<div>void &nbsp;<wbr>InitStack(SqStack &amp;S)
+//创建一个空栈</div>
+<div>{</div>
+<div><br></div>
+<div>S.base = (ElemType *)malloc(sizeof(ElemType) *
+STACK_INIT_SIZE);</div>
+<div>S.top = S.base;</div>
+<div>}</div>
+<div>Status StackEmpty(SqStack S)//判断是否为空</div>
+<div>{</div>
+<div>if(S.top == S.base) return TRUE;</div>
+<div>else return FALSE;</div>
+<div>}</div>
+<div>void Push(SqStack &amp;S,ElemType e
+)//插入元素e为新的栈顶元素</div>
+<div>{</div>
+<div>* S.top++ = e;</div>
+<div>}</div>
+<div>void Pop(SqStack &amp;S,ElemType
+&amp;e)//出栈</div>
+<div>{</div>
+<div>e = * --S.top;</div>
+<div>}</div>
+<div>ElemType GetTop(SqStack S)</div>
+<div>{</div>
+<div>return *(S.top-1);</div>
+<div>}</div>
+<div><br></div>
+<div>int main()</div>
+<div>{</div>
+<div>int n;</div>
+<div>scanf("%d",&amp;n);</div>
+<div>while(n--){</div>
+<div>int p,q;</div>
+<div>scanf("%d%d",&amp;p,&amp;q);</div>
+<div>SqStack S[3];//定义3个栈,代表3个柱子</div>
+<div>InitStack(S[0]); InitStack(S[1]); InitStack(S[2]);</div>
+<div>for(int i=p; i&gt;=1; i--)
+Push(S[0],i);//第一步，初始化1柱上的金片</div>
+<div>int flag = 1;</div>
+<div>int a,b,e;</div>
+<div>for(int i=0; i&lt;q; i++)//Q条指令</div>
+<div>{</div>
+<div>
+scanf("%d%d",&amp;a,&amp;b);//从a柱到b柱</div>
+<div>if(StackEmpty(S[a-1])) &nbsp;<wbr>{ flag = 0;
+break;}</div>
+<div>else Pop(S[a-1],e);&nbsp;<wbr></div>
+<div>if(!StackEmpty(S[b-1]) &amp;&amp;
+e&gt;GetTop(S[b-1])) &nbsp;<wbr>{ flag = 0;
+break;}</div>
+<div>else Push(S[b-1],e);</div>
+<div>}</div>
+<div>if(flag) printf("legal\n");</div>
+<div>else printf("illegal\n");</div>
+<div>}</div>
+<div>return 0;</div>
+<div>} &nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr></div>
+</div>
+<div style=""><font color="#010EFB">[\code]</font></div>							
+		</div>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://hanks.xyz/2014/02/19/NYOJ&nbsp;-&nbsp;汉诺塔（三）/" data-id="cihryjm570066k405xfd28k7d" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  
+  
+</article>
+
+  
+<section id="comments">
+    <!-- 多说分享框 -->
+    <div class="ds-share flat" data-thread-key="/2014/02/19/NYOJ&nbsp;-&nbsp;汉诺塔（三）/" data-title="NYOJ&nbsp;-&nbsp;汉诺塔（三）" data-images="此处请替换为分享时显示的图片的链接地址" data-content="NYOJ&nbsp;-&nbsp;汉诺塔（三）" data-url="http://hanks.xyz//2014/02/19/NYOJ&nbsp;-&nbsp;汉诺塔（三）/">
+    <div class="ds-share-inline">
+      <ul  class="ds-share-icons-16">
+
+      	<li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+        <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+        <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+        <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+        <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+      </ul>
+      <div class="ds-share-icons-more">
+      </div>
+    </div>
+   </div>
+    <!-- 多说评论框 start -->
+   	<div class="ds-thread" data-thread-key="/2014/02/19/NYOJ&nbsp;-&nbsp;汉诺塔（三）/" data-title="NYOJ&nbsp;-&nbsp;汉诺塔（三）" data-url="http://hanks.xyz//2014/02/19/NYOJ&nbsp;-&nbsp;汉诺塔（三）/"></div>
+   <!-- 多说评论框 end -->
+   <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+   <script type="text/javascript">
+   var duoshuoQuery = {short_name:"hanks-zyh"};
+   	(function() {
+   		var ds = document.createElement('script');
+   		ds.type = 'text/javascript';ds.async = true;
+   		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+   		ds.charset = 'UTF-8';
+   		(document.getElementsByTagName('head')[0]
+   		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+   	})();
+   	</script>
+   <!-- 多说公共JS代码 end -->
+</section>
+
+</section>
+      </div>
+      <footer id="footer">
+  
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      &copy; 2015 Hanks<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+  </br>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    
+
+<script src="/js/jquery.min.js" type="text/javascript"></script>
+<script src="/js/jquery.scrollLoading.js" type="text/javascript"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+  <script src="/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+
+
+<script src="/js/script.js" type="text/javascript"></script>
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>八皇后 | Hanks.xyz</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description">
+<meta property="og:type" content="article">
+<meta property="og:title" content="八皇后">
+<meta property="og:url" content="http://hanks.xyz/2014/02/09/八皇后/index.html">
+<meta property="og:site_name" content="Hanks.xyz">
+<meta property="og:description">
+<meta property="og:updated_time" content="2015-12-04T17:20:04.320Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="八皇后">
+<meta name="twitter:description">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <!-- <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600' rel='stylesheet' type='text/css'> -->
+  <!-- <link href="//fonts.googleapis.com/css?family=Source+Code+Pro:400,700" rel="stylesheet" type="text/css"> -->
+  <link href="//fonts.useso.com/css?family=Source+Code+Pro:400,700" rel="stylesheet" type="text/css">
+  <link href='//fonts.useso.com/css?family=Open+Sans:300,600' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo">Hanks.xyz</a>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">首页</a>
+        
+          <a class="main-nav-link" href="/archives">归档</a>
+        
+          <a class="main-nav-link" href="/about/index.html">关于</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        <div id="search-form-wrap">
+          <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://hanks.xyz"></form>
+        </div>
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+        
+        
+          <a id="nav-github-link" class="nav-icon" href="https://github.com/hanks-zyh" title="Fork me on GitHub"></a>
+        
+      </nav>
+    </div>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/" class="mobile-nav-link">首页</a>
+  
+    <a href="/archives" class="mobile-nav-link">归档</a>
+  
+    <a href="/about/index.html" class="mobile-nav-link">关于</a>
+  
+  <div id="search-form-wrap-mobile">
+    <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://hanks.xyz"></form>
+  </div>
+</nav>
+      <div class="outer">
+        
+        <section id="main"><article id="post-八皇后" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/02/09/八皇后/" class="article-date">
+  <time datetime="2014-02-09T04:23:00.000Z" itemprop="datePublished">2014-02-09</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      八皇后
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+<p><br>
+</p>
+<p></p>
+<pre code_snippet_id="181095" snippet_file_name="blog_20140209_1_4014466" name="code" class="cpp">/***************************
+# Queen 八皇后问题 ：递归实现 
+
+1. 从第一行开始递归
+2. 然后枚举当前行中的每一列，
+3. 如果可以放置皇后，则递归放置下一行
+4. 当放置到第8行时，说明8个皇后全部安全放置，输出
+ 
+# time：2014-2-9 11:03:20 
+# Time: MS   Memory: K
+# Author: zyh
+***************************/ 
+
+#include&lt;stdio.h&gt;
+
+int n,cnt; // n: 棋盘的行列数；  cnt: 可以放置的 种数 
+
+/*
+	int row : 当前行
+	int col : 当前列 
+	int (*chess)[8] : 当前棋盘数组 
+*/
+bool place(int row,int col, int (*chess)[8]){
+	
+	// 判断同一列是否已经有皇后 
+	for(int i = 0; i &lt; row; i++)
+		if(chess[i][col]) return 0;
+	
+	// 判断同一斜线对角线是否已经有皇后
+	for(int i = row-1,j = 1; i &gt;= 0; i--,j++)
+		if( (col-j&gt;=0 &amp;&amp; chess[i][col-j]) || (col+j&lt;8 &amp;&amp; chess[i][col+j])) return 0;
+	
+	return 1;
+}
+
+/*
+	int r : 当前行
+	int (*chess)[8] ：棋盘数组 
+*/
+void eightQueen(int r,int (*chess)[8] )
+{		
+	// 放置到第8行时输出	
+	if(r == 8){
+		printf(&quot;\n第%d种：\n&quot;,cnt++);
+		for(int i = 0; i &lt; n; i++){
+			for(int j = 0; j &lt; n; j++)
+				printf(&quot;%d &quot;,chess[i][j]);
+			putchar('\n');
+		}
+		return;
+	}
+	
+	//枚举当前行的每一列 
+	for(int i = 0; i &lt; n; i++){
+		//如果可以放，继续递归下一行 
+		if( place(r,i,chess)) {
+			chess[r][i] = 1;
+			eightQueen(r+1,chess);
+			chess[r][i] = 0; 
+		}
+	}
+} 
+int main()
+{
+	int chess[8][8]={0};
+	n = 8; cnt = 1;
+	eightQueen(0,chess);
+	return 0; 
+}</pre><br>
+<br>
+<p></p>
+<p><br>
+</p>
+<p><br>
+</p>
+<p></p>
+<pre code_snippet_id="181095" snippet_file_name="blog_20140209_2_7041427" name="code" class="cpp">/***************************
+# Queen 八皇后问题 ：回溯
+ 
+用一维数组来表示八个皇后的位置 X[8]; 
+X[i] 代表第i个皇后所在的列（第i个皇后在第i行，不用考虑在同一行的约束） 
+1. 第i个皇后 与 第 j 个皇后 同一列： x[i] == x[j];
+2. 第i个皇后 与 第 j 个皇后 同一斜线： x[i]+i == x[j]+j || x[i]-i == x[j]-j ;  
+	即 abs(i-j) == abs(x[i]-x[j]) 
+# time：2014-02-09 13:25:03 
+# Author: zyh
+***************************/ 
+#include&lt;stdlib.h&gt; 
+#include&lt;stdio.h&gt;
+
+int n,cnt; // n: 棋盘的行列数；  cnt: 可以放置的 种数 
+int x[10];
+
+//cur: 开始放置第cur个皇后 
+void dfs(int cur){
+	
+	//得到一种解法，cnt++ 
+	if(cur==8){
+		cnt ++;
+		return;
+	}
+	
+	//枚举每一列 
+	for(int i=0; i&lt;n; i++){
+		x[cur] = i; 
+		int ok = 1;
+		//与前面放置的 cur-1个皇后比较，看是否可以放置 
+		for(int j=0; j&lt;cur; j++){
+			if(x[cur]==x[j] || abs(cur-j) == abs(x[cur]-x[j])) {ok = 0;break;}
+		} 
+		if(ok) dfs(cur+1);
+	}
+} 
+int main()
+{
+	n = 8;
+	cnt = 0;
+	dfs(0); 
+	printf(&quot;共有 %d 种解法.\n&quot;,cnt); //92种 
+	return 0; 
+}</pre><br>
+<br>
+<p></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://hanks.xyz/2014/02/09/八皇后/" data-id="cihryjlyu0022k405592rhjh4" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  
+  
+</article>
+
+  
+<section id="comments">
+    <!-- 多说分享框 -->
+    <div class="ds-share flat" data-thread-key="/2014/02/09/八皇后/" data-title="八皇后" data-images="此处请替换为分享时显示的图片的链接地址" data-content="八皇后" data-url="http://hanks.xyz//2014/02/09/八皇后/">
+    <div class="ds-share-inline">
+      <ul  class="ds-share-icons-16">
+
+      	<li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+        <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+        <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+        <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+        <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+      </ul>
+      <div class="ds-share-icons-more">
+      </div>
+    </div>
+   </div>
+    <!-- 多说评论框 start -->
+   	<div class="ds-thread" data-thread-key="/2014/02/09/八皇后/" data-title="八皇后" data-url="http://hanks.xyz//2014/02/09/八皇后/"></div>
+   <!-- 多说评论框 end -->
+   <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+   <script type="text/javascript">
+   var duoshuoQuery = {short_name:"hanks-zyh"};
+   	(function() {
+   		var ds = document.createElement('script');
+   		ds.type = 'text/javascript';ds.async = true;
+   		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+   		ds.charset = 'UTF-8';
+   		(document.getElementsByTagName('head')[0]
+   		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+   	})();
+   	</script>
+   <!-- 多说公共JS代码 end -->
+</section>
+
+</section>
+      </div>
+      <footer id="footer">
+  
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      &copy; 2015 Hanks<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+  </br>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    
+
+<script src="/js/jquery.min.js" type="text/javascript"></script>
+<script src="/js/jquery.scrollLoading.js" type="text/javascript"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+  <script src="/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+
+
+<script src="/js/script.js" type="text/javascript"></script>
+
+  </div>
+</body>
+</html>

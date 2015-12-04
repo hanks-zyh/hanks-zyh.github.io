@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>两个十字链表相加 | Hanks.xyz</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description">
+<meta property="og:type" content="article">
+<meta property="og:title" content="两个十字链表相加">
+<meta property="og:url" content="http://hanks.xyz/2014/02/19/两个十字链表相加/index.html">
+<meta property="og:site_name" content="Hanks.xyz">
+<meta property="og:description">
+<meta property="og:updated_time" content="2015-12-04T17:20:04.328Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="两个十字链表相加">
+<meta name="twitter:description">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <!-- <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600' rel='stylesheet' type='text/css'> -->
+  <!-- <link href="//fonts.googleapis.com/css?family=Source+Code+Pro:400,700" rel="stylesheet" type="text/css"> -->
+  <link href="//fonts.useso.com/css?family=Source+Code+Pro:400,700" rel="stylesheet" type="text/css">
+  <link href='//fonts.useso.com/css?family=Open+Sans:300,600' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo">Hanks.xyz</a>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">首页</a>
+        
+          <a class="main-nav-link" href="/archives">归档</a>
+        
+          <a class="main-nav-link" href="/about/index.html">关于</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        <div id="search-form-wrap">
+          <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://hanks.xyz"></form>
+        </div>
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+        
+        
+          <a id="nav-github-link" class="nav-icon" href="https://github.com/hanks-zyh" title="Fork me on GitHub"></a>
+        
+      </nav>
+    </div>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/" class="mobile-nav-link">首页</a>
+  
+    <a href="/archives" class="mobile-nav-link">归档</a>
+  
+    <a href="/about/index.html" class="mobile-nav-link">关于</a>
+  
+  <div id="search-form-wrap-mobile">
+    <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://hanks.xyz"></form>
+  </div>
+</nav>
+      <div class="outer">
+        
+        <section id="main"><article id="post-两个十字链表相加" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/02/19/两个十字链表相加/" class="article-date">
+  <time datetime="2014-02-19T11:17:00.000Z" itemprop="datePublished">2014-02-19</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      两个十字链表相加
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+<div id="sina_keyword_ad_area2" class="articalContent  ">
+			<p>#define OVERFLOW -1</p>
+<p>//------------稀疏矩阵的十字链表存储表示--------------<br>
+typedef struct OLNode{<br>
+&nbsp;<wbr>int
+i,j;&nbsp;<wbr>&nbsp;<wbr>//该非零元的行和列下标<br>
+&nbsp;<wbr>int
+e;&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>//非零元<br>
+&nbsp;<wbr>struct OLNode * right, *
+down;&nbsp;<wbr>// right指向该非零元所在行的右边的非零元，down指向下面的非零元<br>
+}OLNode, * OLink;<br>
+typedef struct {<br>
+&nbsp;<wbr>OLink * rhead, *
+chead;&nbsp;<wbr>//rhead指向一个一维数组，里面存放每个行链表的头结点；chead指向一个一维数组，里面存放每个列链表的头结点<br>
+
+&nbsp;<wbr>int
+mu,nu,tu;&nbsp;<wbr>&nbsp;<wbr>//稀疏矩阵的行数，列数，非零元个数<br>
+
+}CrossList;</p>
+<p>#include "iostream"<br>
+#include "cstdio"<br>
+#include "cstdlib"</p>
+<p>void CreateSMatrix_OL( CrossList &amp;M )<br>
+{&nbsp;<wbr> //创建稀疏矩阵M;用十字链表存储<br>
+&nbsp;<wbr>printf("----------请依次输入稀疏矩阵M的&nbsp;<wbr>
+行数、列数、非零元个数 （空格隔开）---------\n");<br>
+&nbsp;<wbr>scanf("%d%d%d",&amp;M.mu, &amp;M.nu, &amp;M.tu
+);&nbsp;<wbr>//输入M的行数、列数、非零元个数<br>
+&nbsp;<wbr>if( !(M.rhead = (OLink *)malloc( (M.mu+1) *
+sizeof(OLink)
+)))&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+exit(OVERFLOW);&nbsp;<wbr>//给rhead分配一个一维数组，失败则退出程序<br>
+&nbsp;<wbr>if( !(M.chead = (OLink *)malloc( (M.nu+1) *
+sizeof(OLink)
+)))&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+exit(OVERFLOW);&nbsp;<wbr>//给chead分配一个一维数组，失败则退出程序<br>
+&nbsp;<wbr><br>
+&nbsp;<wbr>int x;<br>
+&nbsp;<wbr>for(x =1 ; x &lt;= M.mu; x++) M.rhead[x] =
+NULL;&nbsp;<wbr>//初始化rhead指向的一维数组个元素都为空，即每个行链表都为空<br>
+&nbsp;<wbr>for(x =1 ; x &lt;= M.nu; x++) M.chead[x] =
+NULL;</p>
+<p>&nbsp;<wbr>int i,j,e;<br>
+&nbsp;<wbr>OLNode * p,* q;<br>
+&nbsp;<wbr>int cnt_e;//用来统计非零元个数<br>
+&nbsp;<wbr>printf("--------下面输入%d行，每行三个数：
+行标&nbsp;<wbr>&nbsp;<wbr> 列标&nbsp;<wbr>
+元素的值（空格隔开）--------\n",M.mu);<br>
+&nbsp;<wbr>for(cnt_e = 1; cnt_e &lt;= M.tu ; cnt_e++){<br>
+&nbsp;<wbr>&nbsp;<wbr>scanf("%d%d%d",&amp;i,&amp;j,&amp;e);<br>
+
+&nbsp;<wbr>&nbsp;<wbr>if( !(p = (OLNode
+*)malloc(sizeof(OLNode) )))&nbsp;<wbr>
+exit(OVERFLOW);&nbsp;<wbr>//分配一个临时结点，存放新接受的非零元<br>
+&nbsp;<wbr>&nbsp;<wbr>p-&gt;i = i; p-&gt;j =
+j;&nbsp;<wbr> p-&gt;e = e;</p>
+<p>&nbsp;<wbr>&nbsp;<wbr>if( M.rhead[i] == NULL ||
+M.rhead[i]-&gt;j &gt; j) { p-&gt;right = M.rhead[i]; M.rhead[i] =
+p;}<br>
+&nbsp;<wbr>&nbsp;<wbr>else{&nbsp;<wbr>//寻找新非零元在航标中的插入位置<br>
+
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>for( q =
+M.rhead[i] ; (q-&gt;right)&amp;&amp;(q-&gt;right-&gt;j &lt; j); q =
+q-&gt;right )&nbsp;<wbr>&nbsp;<wbr>;
+//循环到合适位置，这是个空循环<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>p-&gt;right =
+q-&gt;right;&nbsp;<wbr>q-&gt;right =
+p;&nbsp;<wbr>//完成行插入<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr><br>
+&nbsp;<wbr>&nbsp;<wbr>}//else</p>
+<p>&nbsp;<wbr>&nbsp;<wbr>if( M.chead[j] == NULL ||
+M.chead[j]-&gt;i &gt; i) { p-&gt;down = M.chead[j]; M.chead[j] =
+p;}<br>
+&nbsp;<wbr>&nbsp;<wbr>else{&nbsp;<wbr>//寻找新非零元在列标中的插入位置<br>
+
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>for( q =
+M.chead[j] ; (q-&gt;down)&amp;&amp;(q-&gt;down-&gt;i &lt; i); q =
+q-&gt;down ) ;&nbsp;<wbr> //循环到合适位置，这是个空循环<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>p-&gt;down =
+q-&gt;down;&nbsp;<wbr>q-&gt;down =
+p;&nbsp;<wbr>//完成列插入<br>
+&nbsp;<wbr>&nbsp;<wbr>}//else<br>
+&nbsp;<wbr>}//for<br>
+&nbsp;<wbr>return;<br>
+&nbsp;<wbr>}<br>
+void PrintSMatrix_OL( CrossList M )<br>
+{<br>
+&nbsp;<wbr>OLNode * pr;<br>
+&nbsp;<wbr>int cnt_r,cnt_c;//控制行和列<br>
+&nbsp;<wbr>printf("---------------------------- 稀疏矩阵
+------------------------\n");<br>
+&nbsp;<wbr>for( cnt_r =1; cnt_r &lt;= M.mu; cnt_r++
+){&nbsp;<wbr> //控制行<br>
+&nbsp;<wbr>&nbsp;<wbr>pr =
+M.rhead[cnt_r];&nbsp;<wbr>//pr指向每一行的链表<br>
+&nbsp;<wbr>&nbsp;<wbr>for( cnt_c = 1; cnt_c&lt;= M.nu
+;cnt_c++){ //控制咧<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>if( NULL ==
+pr )&nbsp;<wbr> printf("=
+",0);&nbsp;<wbr>//该行是空行<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>else
+{//不是空行<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>if(cnt_c
+== pr-&gt;j ) { printf("= ",pr-&gt;e); pr = pr-&gt;right;}<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>else
+printf("= ",0);<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>}//else<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>//pr =
+M.rhead[cnt_r];<br>
+&nbsp;<wbr>&nbsp;<wbr>}//for<br>
+&nbsp;<wbr>&nbsp;<wbr>printf("\n");<br>
+&nbsp;<wbr>}//for<br>
+&nbsp;<wbr>return;<br>
+}</p>
+<p><br></p>
+<p>void AddSMatrix_OL(CrossList M1,CrossList M2,CrossList
+&amp;M)<br>
+{<br>
+&nbsp;<wbr>//创建空稀疏矩阵M<br>
+&nbsp;<wbr>M.mu = M1.mu;&nbsp;<wbr> M.nu =
+M1.nu;&nbsp;<wbr>&nbsp;<wbr> M.tu = 0;<br>
+&nbsp;<wbr>if( !(M.rhead = (OLink *)malloc( (M.mu+1) *
+sizeof(OLink)
+)))&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+exit(OVERFLOW);&nbsp;<wbr>//给rhead分配一个一维数组，失败则退出程序<br>
+&nbsp;<wbr>if( !(M.chead = (OLink *)malloc( (M.nu+1) *
+sizeof(OLink)
+)))&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+exit(OVERFLOW);&nbsp;<wbr>//给chead分配一个一维数组，失败则退出程序<br>
+&nbsp;<wbr>int x;<br>
+&nbsp;<wbr>for( x =1 ; x &lt;= M.mu; x++) M.rhead[x] =
+NULL;&nbsp;<wbr>//初始化rhead指向的一维数组个元素都为空，即每个行链表都为空<br>
+&nbsp;<wbr>for( x =1 ; x &lt;= M.nu; x++) M.chead[x] =
+NULL;</p>
+<p>&nbsp;<wbr>//相加<br>
+&nbsp;<wbr>int i,j,e,cnt_r;<br>
+&nbsp;<wbr>OLNode * p1,*p2,*p,*q;<br>
+&nbsp;<wbr>for( cnt_r=1; cnt_r&lt;=M.mu; cnt_r++) //
+按行的顺序相加<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+{<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+p1=M1.rhead[cnt_r];&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+// p1指向矩阵M1的第i行的第1个结点<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+p2=M2.rhead[cnt_r];&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+// p2指向矩阵N2的第i行的第1个结点<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+while(p1&amp;&amp;p2)&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+// p1和p2均不空<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+{<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+if(p1-&gt;j &lt; p2-&gt;j) // 矩阵M当前结点的列小于矩阵N当前结点的列<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+{<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+if( !(p = (OLNode *)malloc(sizeof(OLNode) )))&nbsp;<wbr>
+exit(OVERFLOW);&nbsp;<wbr>//分配一个临时结点，存放新接受的非零元<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+i = p1-&gt;i;&nbsp;<wbr>&nbsp;<wbr> j =
+p1-&gt;j;&nbsp;<wbr>&nbsp;<wbr> e = p1-&gt;e;<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+p-&gt;i =
+i;&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+p-&gt;j =
+j;&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+p-&gt;e= e;// 给结点赋值<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr><br>
+
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+//p结点插入M<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+if( M.rhead[i] == NULL || M.rhead[i]-&gt;j &gt; j) { p-&gt;right =
+M.rhead[i]; M.rhead[i] = p;}<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>else{&nbsp;<wbr>//寻找新非零元在航标中的插入位置<br>
+
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>for(
+q = M.rhead[i] ; (q-&gt;right)&amp;&amp;(q-&gt;right-&gt;j &lt; j);
+q = q-&gt;right )&nbsp;<wbr>&nbsp;<wbr>;
+//循环到合适位置，这是个空循环<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>p-&gt;right
+= q-&gt;right;&nbsp;<wbr>q-&gt;right =
+p;&nbsp;<wbr>//完成行插入<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr><br>
+
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>}//else<br>
+
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>if(
+M.chead[j] == NULL || M.chead[j]-&gt;i &gt; i) { p-&gt;down =
+M.chead[j]; M.chead[j] = p;}<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>else{&nbsp;<wbr>//寻找新非零元在列标中的插入位置<br>
+
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>for(
+q = M.chead[j] ; (q-&gt;down)&amp;&amp;(q-&gt;down-&gt;i &lt; i); q
+= q-&gt;down ) ;&nbsp;<wbr> //循环到合适位置，这是个空循环<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>p-&gt;down
+= q-&gt;down;&nbsp;<wbr>q-&gt;down =
+p;&nbsp;<wbr>//完成列插入<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>}//else</p>
+<p>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>M.tu++;&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+// 非零元素数加1<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>p1
+= p1-&gt;right;</p>
+<p>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+}<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+else if(p1-&gt;j &gt; p2-&gt;j )// 矩阵M当前结点的列大于矩阵N当前结点的列<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+{<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+if( !(p = (OLNode *)malloc(sizeof(OLNode) )))&nbsp;<wbr>
+exit(OVERFLOW);&nbsp;<wbr>//分配一个临时结点，存放新接受的非零元<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+i = p2-&gt;i;&nbsp;<wbr>&nbsp;<wbr> j =
+p2-&gt;j;&nbsp;<wbr>&nbsp;<wbr> e = p2-&gt;e;<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+p-&gt;i =
+i;&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+p-&gt;j =
+j;&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+p-&gt;e= e;// 给结点赋值</p>
+<p>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+if( M.rhead[i] == NULL || M.rhead[i]-&gt;j &gt; j) { p-&gt;right =
+M.rhead[i]; M.rhead[i] = p;}<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>else{&nbsp;<wbr>//寻找新非零元在航标中的插入位置<br>
+
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>for(
+q = M.rhead[i] ; (q-&gt;right)&amp;&amp;(q-&gt;right-&gt;j &lt; j);
+q = q-&gt;right )&nbsp;<wbr>&nbsp;<wbr>;
+//循环到合适位置，这是个空循环<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>p-&gt;right
+= q-&gt;right;&nbsp;<wbr>q-&gt;right =
+p;&nbsp;<wbr>//完成行插入<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>}//else<br>
+
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>if(
+M.chead[j] == NULL || M.chead[j]-&gt;i &gt; i) { p-&gt;down =
+M.chead[j]; M.chead[j] = p;}<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>else{&nbsp;<wbr>//寻找新非零元在列标中的插入位置<br>
+
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>for(
+q = M.chead[j] ; (q-&gt;down)&amp;&amp;(q-&gt;down-&gt;i &lt; i); q
+= q-&gt;down ) ;&nbsp;<wbr> //循环到合适位置，这是个空循环<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>p-&gt;down
+= q-&gt;down;&nbsp;<wbr>q-&gt;down =
+p;&nbsp;<wbr>//完成列插入<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>}//else</p>
+<p>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>M.tu++;&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+// 非零元素数加1<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+p2=p2-&gt;right; // p2指针向右移<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+}<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr><br>
+
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+else if(p1-&gt;e + p2-&gt;e)&nbsp;<wbr> //
+矩阵M、N当前结点的列相等且两元素之和不为0<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+{<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+if( !(p = (OLNode *)malloc(sizeof(OLNode) )))&nbsp;<wbr>
+exit(OVERFLOW);&nbsp;<wbr>//分配一个临时结点，存放新接受的非零元<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+i = p1-&gt;i;&nbsp;<wbr>&nbsp;<wbr> j =
+p1-&gt;j;&nbsp;<wbr>&nbsp;<wbr> e = p1-&gt;e
++p2-&gt;e;<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+p-&gt;i =
+i;&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+p-&gt;j =
+j;&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+p-&gt;e= e;// 给结点赋值</p>
+<p>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+if( M.rhead[i] == NULL || M.rhead[i]-&gt;j &gt; j) { p-&gt;right =
+M.rhead[i]; M.rhead[i] = p;}<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>else{&nbsp;<wbr>//寻找新非零元在航标中的插入位置<br>
+
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>for(
+q = M.rhead[i] ; (q-&gt;right)&amp;&amp;(q-&gt;right-&gt;j &lt; j);
+q = q-&gt;right )&nbsp;<wbr>&nbsp;<wbr>;
+//循环到合适位置，这是个空循环<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>p-&gt;right
+= q-&gt;right;&nbsp;<wbr>q-&gt;right =
+p;&nbsp;<wbr>//完成行插入&nbsp;<wbr><br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>}//else<br>
+
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>if(
+M.chead[j] == NULL || M.chead[j]-&gt;i &gt; i) { p-&gt;down =
+M.chead[j]; M.chead[j] = p;}<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>else{&nbsp;<wbr>//寻找新非零元在列标中的插入位置<br>
+
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>for(
+q = M.chead[j] ; (q-&gt;down)&amp;&amp;(q-&gt;down-&gt;i &lt; i); q
+= q-&gt;down ) ;&nbsp;<wbr> //循环到合适位置，这是个空循环<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>p-&gt;down
+= q-&gt;down;&nbsp;<wbr>q-&gt;down =
+p;&nbsp;<wbr>//完成列插入<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>}//else</p>
+<p>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+p1 = p1-&gt;right; // p1指针向右移<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+p2 = p2-&gt;right; // p2指针向右移<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+M.tu++; // 非零元素数加1<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+}<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+else&nbsp;<wbr> {// 矩阵M、N当前结点的列相等且两元素之和为0<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+p1=p1-&gt;right; // p1指针向右移<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+p2=p2-&gt;right; // p2指针向右移<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+}</p>
+<p>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+}//while<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr><br>
+&nbsp;<wbr>&nbsp;<wbr> while(p1) //
+将矩阵M该行的剩余元素插入矩阵Q<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+{<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+&nbsp;<wbr> if( !(p = (OLNode *)malloc(sizeof(OLNode)
+)))&nbsp;<wbr>
+exit(OVERFLOW);&nbsp;<wbr>//分配一个临时结点，存放新接受的非零元<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr><br>
+
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+i = p1-&gt;i;&nbsp;<wbr>&nbsp;<wbr> j =
+p1-&gt;j;&nbsp;<wbr>&nbsp;<wbr> e = p1-&gt;e ;<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+p-&gt;i =
+i;&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+p-&gt;j =
+j;&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+p-&gt;e= e;// 给结点赋值</p>
+<p>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+if( M.rhead[i] == NULL || M.rhead[i]-&gt;j &gt; j) { p-&gt;right =
+M.rhead[i]; M.rhead[i] = p;}<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+&nbsp;<wbr>else{&nbsp;<wbr>//寻找新非零元在航标中的插入位置<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>for(
+q = M.rhead[i] ; (q-&gt;right)&amp;&amp;(q-&gt;right-&gt;j &lt; j);
+q = q-&gt;right )&nbsp;<wbr>&nbsp;<wbr>;
+//循环到合适位置，这是个空循环<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>p-&gt;right
+= q-&gt;right;&nbsp;<wbr>q-&gt;right =
+p;&nbsp;<wbr>//完成行插入&nbsp;<wbr><br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>}//else<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>if(
+M.chead[j] == NULL || M.chead[j]-&gt;i &gt; i) { p-&gt;down =
+M.chead[j]; M.chead[j] = p;}<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>else{&nbsp;<wbr>//寻找新非零元在列标中的插入位置<br>
+
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>for(
+q = M.chead[j] ; (q-&gt;down)&amp;&amp;(q-&gt;down-&gt;i &lt; i); q
+= q-&gt;down ) ;&nbsp;<wbr> //循环到合适位置，这是个空循环<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>p-&gt;down
+= q-&gt;down;&nbsp;<wbr>q-&gt;down =
+p;&nbsp;<wbr>//完成列插入<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>}//else<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+p1 = p1-&gt;right; // p1指针向右移<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>M.tu++; //
+非零元素数加1<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+}<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+while(p2) // 将矩阵N该行的剩余元素插入矩阵Q<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+{<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+if( !(p = (OLNode *)malloc(sizeof(OLNode) )))&nbsp;<wbr>
+exit(OVERFLOW);&nbsp;<wbr>//分配一个临时结点，存放新接受的非零元<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+i = p2-&gt;i;&nbsp;<wbr>&nbsp;<wbr>j =
+p2-&gt;j;&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+e = p2-&gt;e;<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+p-&gt;i =
+i;&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+p-&gt;j =
+j;&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+p-&gt;e= e;// 给结点赋值</p>
+<p>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+if( M.rhead[i] == NULL || M.rhead[i]-&gt;j &gt; j) { p-&gt;right =
+M.rhead[i]; M.rhead[i] = p;}<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>else{&nbsp;<wbr>//寻找新非零元在航标中的插入位置<br>
+
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>for(
+q = M.rhead[i] ; (q-&gt;right)&amp;&amp;(q-&gt;right-&gt;j &lt; j);
+q = q-&gt;right )&nbsp;<wbr>&nbsp;<wbr>;
+//循环到合适位置，这是个空循环<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>p-&gt;right
+= q-&gt;right;&nbsp;<wbr>q-&gt;right =
+p;&nbsp;<wbr>//完成行插入&nbsp;<wbr><br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>}//else<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>if(
+M.chead[j] == NULL || M.chead[j]-&gt;i &gt; i) { p-&gt;down =
+M.chead[j]; M.chead[j] = p;}<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>else{&nbsp;<wbr>//寻找新非零元在列标中的插入位置<br>
+
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>for(
+q = M.chead[j] ; (q-&gt;down)&amp;&amp;(q-&gt;down-&gt;i &lt; i); q
+= q-&gt;down ) ;&nbsp;<wbr> //循环到合适位置，这是个空循环<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>p-&gt;down
+= q-&gt;down;&nbsp;<wbr>q-&gt;down =
+p;&nbsp;<wbr>//完成列插入<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>}//else<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+p2=p2-&gt;right; // p1指针向右移<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> M.tu++; //
+非零元素数加1&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr><br>
+
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+} //while<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+}//for<br>
+&nbsp;<wbr><br>
+&nbsp;<wbr>return;<br>
+}<br>
+int main ()<br>
+{<br>
+&nbsp;<wbr>//freopen("Debug\\input.txt", "r", stdin);<br>
+//&nbsp;<wbr>freopen("Debug\\output.txt", "w", stdout);</p>
+<p>&nbsp;<wbr>CrossList
+M1,M2,M;&nbsp;<wbr>//定义一个稀疏矩阵M<br>
+&nbsp;<wbr>CreateSMatrix_OL(M1);&nbsp;<wbr>//创建稀疏矩阵M;用十字链表存储<br>
+
+&nbsp;<wbr>PrintSMatrix_OL(M1);</p>
+<p>
+&nbsp;<wbr>CreateSMatrix_OL(M2);&nbsp;<wbr>//创建稀疏矩阵M;用十字链表存储<br>
+
+&nbsp;<wbr>PrintSMatrix_OL(M2);</p>
+<p>
+&nbsp;<wbr>AddSMatrix_OL(M1,M2,M);&nbsp;<wbr>//&nbsp;<wbr>稀疏矩阵M1,M2相加结果为M<br>
+
+&nbsp;<wbr>PrintSMatrix_OL(M);<br>
+&nbsp;<wbr><br>
+&nbsp;<wbr>system("pause");<br>
+&nbsp;<wbr>return 0;<br>
+}<br></p>							
+		</div>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://hanks.xyz/2014/02/19/两个十字链表相加/" data-id="cihryjlzi002ek405devqsuwp" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  
+  
+</article>
+
+  
+<section id="comments">
+    <!-- 多说分享框 -->
+    <div class="ds-share flat" data-thread-key="/2014/02/19/两个十字链表相加/" data-title="两个十字链表相加" data-images="此处请替换为分享时显示的图片的链接地址" data-content="两个十字链表相加" data-url="http://hanks.xyz//2014/02/19/两个十字链表相加/">
+    <div class="ds-share-inline">
+      <ul  class="ds-share-icons-16">
+
+      	<li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+        <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+        <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+        <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+        <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+      </ul>
+      <div class="ds-share-icons-more">
+      </div>
+    </div>
+   </div>
+    <!-- 多说评论框 start -->
+   	<div class="ds-thread" data-thread-key="/2014/02/19/两个十字链表相加/" data-title="两个十字链表相加" data-url="http://hanks.xyz//2014/02/19/两个十字链表相加/"></div>
+   <!-- 多说评论框 end -->
+   <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+   <script type="text/javascript">
+   var duoshuoQuery = {short_name:"hanks-zyh"};
+   	(function() {
+   		var ds = document.createElement('script');
+   		ds.type = 'text/javascript';ds.async = true;
+   		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+   		ds.charset = 'UTF-8';
+   		(document.getElementsByTagName('head')[0]
+   		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+   	})();
+   	</script>
+   <!-- 多说公共JS代码 end -->
+</section>
+
+</section>
+      </div>
+      <footer id="footer">
+  
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      &copy; 2015 Hanks<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+  </br>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    
+
+<script src="/js/jquery.min.js" type="text/javascript"></script>
+<script src="/js/jquery.scrollLoading.js" type="text/javascript"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+  <script src="/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+
+
+<script src="/js/script.js" type="text/javascript"></script>
+
+  </div>
+</body>
+</html>

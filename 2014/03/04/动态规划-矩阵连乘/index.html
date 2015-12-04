@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>动态规划-矩阵连乘 | Hanks.xyz</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description">
+<meta property="og:type" content="article">
+<meta property="og:title" content="动态规划-矩阵连乘">
+<meta property="og:url" content="http://hanks.xyz/2014/03/04/动态规划-矩阵连乘/index.html">
+<meta property="og:site_name" content="Hanks.xyz">
+<meta property="og:description">
+<meta property="og:image" content="http://img.blog.csdn.net/20140304203120937">
+<meta property="og:image" content="http://img.blog.csdn.net/20140304201607390">
+<meta property="og:image" content="http://img.blog.csdn.net/20140304202903750">
+<meta property="og:updated_time" content="2015-12-04T17:20:04.324Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="动态规划-矩阵连乘">
+<meta name="twitter:description">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <!-- <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600' rel='stylesheet' type='text/css'> -->
+  <!-- <link href="//fonts.googleapis.com/css?family=Source+Code+Pro:400,700" rel="stylesheet" type="text/css"> -->
+  <link href="//fonts.useso.com/css?family=Source+Code+Pro:400,700" rel="stylesheet" type="text/css">
+  <link href='//fonts.useso.com/css?family=Open+Sans:300,600' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo">Hanks.xyz</a>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">首页</a>
+        
+          <a class="main-nav-link" href="/archives">归档</a>
+        
+          <a class="main-nav-link" href="/about/index.html">关于</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        <div id="search-form-wrap">
+          <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://hanks.xyz"></form>
+        </div>
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+        
+        
+          <a id="nav-github-link" class="nav-icon" href="https://github.com/hanks-zyh" title="Fork me on GitHub"></a>
+        
+      </nav>
+    </div>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/" class="mobile-nav-link">首页</a>
+  
+    <a href="/archives" class="mobile-nav-link">归档</a>
+  
+    <a href="/about/index.html" class="mobile-nav-link">关于</a>
+  
+  <div id="search-form-wrap-mobile">
+    <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://hanks.xyz"></form>
+  </div>
+</nav>
+      <div class="outer">
+        
+        <section id="main"><article id="post-动态规划-矩阵连乘" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/03/04/动态规划-矩阵连乘/" class="article-date">
+  <time datetime="2014-03-04T12:33:00.000Z" itemprop="datePublished">2014-03-04</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      动态规划-矩阵连乘
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+<p><span style="font-size:24px">特征：计算<span style="color:#ff0000">A[i:j]的最优次序</span>所包含的计算矩阵子链<span style="color:#ff0000"> A[i:k]和A[k&#43;1:j]的次序也是最优的</span>。<br>
+</span></p>
+<p><img src="http://img.blog.csdn.net/20140304203120937" width="564" height="436" alt=""></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p><span style="font-size:24px">如计算 A1*A2*A3*A4*A5*A6</span></p>
+<p><img src="http://img.blog.csdn.net/20140304201607390" alt=""></p>
+<p>&nbsp;</p>
+<p><img src="http://img.blog.csdn.net/20140304202903750" alt=""></p>
+<p>&nbsp;</p>
+<pre code_snippet_id="217450" snippet_file_name="blog_20140304_1_2568125" class="cpp" name="code">/**
+int [] p 存放各个矩阵的列 
+int [][] m  所需要的最少数乘次数m[i,j] 1≤i≤j≤n, 最后乘法次数为 m[1][n]; 
+int [][] s  s[i][j]:存放的值为相对于m[i][j] 的断开位置 
+*/
+void matrixChain(int [] p, int [][] m, int [][] s)
+{
+	
+      for (int i = 1; i &lt;= n; i++) m[i][i] = 0; //自身相乘，次数为0 
+      
+	  for (int r = 2; r &lt;= n; r++) //先计算2个矩阵相乘次数，然后3个，4个... 
+      
+         for (int i = 1; i &lt;= n-r+1; i++) { //  
+            int j=i+r-1; //当前矩阵总个数 
+            m[i][j] = m[i+1][j]+ p[i-1]*p[i]*p[j]; //m[i][j]初始化为 从i分割 ，实际还加了m[i][i],为0 
+            s[i][j] = i; //从i分割 
+            for (int k = i+1; k &lt; j; k++) { //枚举每个位置 为分割点 
+               int t = m[i][k] + m[k+1][j] + p[i-1]*p[k]*p[j];
+               if (t &lt; m[i][j]) {
+                 m[i][j] = t;
+                 s[i][j] = k;}
+               }
+            }
+   }</pre>
+<p><br>
+&nbsp;</p>
+<p>&nbsp;</p>
+<p>下面这种方法在 书上叫 备忘录 ；</p>
+<p>这种方法是自顶向下的</p>
+<p>&nbsp;</p>
+<pre code_snippet_id="217450" snippet_file_name="blog_20140304_2_343278" class="cpp" name="code">int lookupChain(int i,int j){
+	
+	if(m[i][j]&gt;0) return m[i][j];
+	if(i==j) return 0;
+	m[i][j] = lookupChain(i+1,j) + p[i-1]*p[i]*p[j];
+	for(int k=i+1; k&lt;j; k++){
+		int t = lookupChain(i,k) + lookupChain(k+1,j) + p[i-1]*p[k]*p[j]; 
+		if(t&lt;m[i][j]) m[i][j] = t;
+	}
+	return m[i][j];
+}</pre>
+<p><br>
+&nbsp;</p>
+<p>&nbsp;</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://hanks.xyz/2014/03/04/动态规划-矩阵连乘/" data-id="cihryjlyo001xk4057x92ix1r" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  
+  
+</article>
+
+  
+<section id="comments">
+    <!-- 多说分享框 -->
+    <div class="ds-share flat" data-thread-key="/2014/03/04/动态规划-矩阵连乘/" data-title="动态规划-矩阵连乘" data-images="此处请替换为分享时显示的图片的链接地址" data-content="动态规划-矩阵连乘" data-url="http://hanks.xyz//2014/03/04/动态规划-矩阵连乘/">
+    <div class="ds-share-inline">
+      <ul  class="ds-share-icons-16">
+
+      	<li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+        <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+        <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+        <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+        <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+      </ul>
+      <div class="ds-share-icons-more">
+      </div>
+    </div>
+   </div>
+    <!-- 多说评论框 start -->
+   	<div class="ds-thread" data-thread-key="/2014/03/04/动态规划-矩阵连乘/" data-title="动态规划-矩阵连乘" data-url="http://hanks.xyz//2014/03/04/动态规划-矩阵连乘/"></div>
+   <!-- 多说评论框 end -->
+   <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+   <script type="text/javascript">
+   var duoshuoQuery = {short_name:"hanks-zyh"};
+   	(function() {
+   		var ds = document.createElement('script');
+   		ds.type = 'text/javascript';ds.async = true;
+   		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+   		ds.charset = 'UTF-8';
+   		(document.getElementsByTagName('head')[0]
+   		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+   	})();
+   	</script>
+   <!-- 多说公共JS代码 end -->
+</section>
+
+</section>
+      </div>
+      <footer id="footer">
+  
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      &copy; 2015 Hanks<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+  </br>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    
+
+<script src="/js/jquery.min.js" type="text/javascript"></script>
+<script src="/js/jquery.scrollLoading.js" type="text/javascript"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+  <script src="/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+
+
+<script src="/js/script.js" type="text/javascript"></script>
+
+  </div>
+</body>
+</html>

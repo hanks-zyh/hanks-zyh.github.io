@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>NYOJ 题目 55 懒省事的小明（priority_queue） | Hanks.xyz</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description">
+<meta property="og:type" content="article">
+<meta property="og:title" content="NYOJ 题目 55 懒省事的小明（priority_queue）">
+<meta property="og:url" content="http://hanks.xyz/2013/08/22/NYOJ_题目_55_懒省事的小明（priority_queue）/index.html">
+<meta property="og:site_name" content="Hanks.xyz">
+<meta property="og:description">
+<meta property="og:updated_time" content="2015-12-04T17:20:04.316Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="NYOJ 题目 55 懒省事的小明（priority_queue）">
+<meta name="twitter:description">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <!-- <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600' rel='stylesheet' type='text/css'> -->
+  <!-- <link href="//fonts.googleapis.com/css?family=Source+Code+Pro:400,700" rel="stylesheet" type="text/css"> -->
+  <link href="//fonts.useso.com/css?family=Source+Code+Pro:400,700" rel="stylesheet" type="text/css">
+  <link href='//fonts.useso.com/css?family=Open+Sans:300,600' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo">Hanks.xyz</a>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">首页</a>
+        
+          <a class="main-nav-link" href="/archives">归档</a>
+        
+          <a class="main-nav-link" href="/about/index.html">关于</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        <div id="search-form-wrap">
+          <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://hanks.xyz"></form>
+        </div>
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+        
+        
+          <a id="nav-github-link" class="nav-icon" href="https://github.com/hanks-zyh" title="Fork me on GitHub"></a>
+        
+      </nav>
+    </div>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/" class="mobile-nav-link">首页</a>
+  
+    <a href="/archives" class="mobile-nav-link">归档</a>
+  
+    <a href="/about/index.html" class="mobile-nav-link">关于</a>
+  
+  <div id="search-form-wrap-mobile">
+    <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://hanks.xyz"></form>
+  </div>
+</nav>
+      <div class="outer">
+        
+        <section id="main"><article id="post-NYOJ_题目_55_懒省事的小明（priority_queue）" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2013/08/22/NYOJ_题目_55_懒省事的小明（priority_queue）/" class="article-date">
+  <time datetime="2013-08-22T02:25:00.000Z" itemprop="datePublished">2013-08-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      NYOJ 题目 55 懒省事的小明（priority_queue）
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+<h4 class="problem-display"></h4>
+<h2 class="problem-display" align="center"><span style="color:#3366ff">懒省事的小明</span></h2>
+<div class="problem-ins" align="center"><span style="color:#009900">时间限制：<span id="problem[time_limit]" class="editable highlight">3000</span> ms &nbsp;|&nbsp; 内存限制：<span id="problem[memory_limit]" class="editable highlight">65535</span> KB</span></div>
+<div class="problem-ins" align="center"><span style="color:#009900">难度：<span class="editable highlight">3</span></span></div>
+<div class="clr"></div>
+<dl class="problem-display"><dt>描述 </dt><dd>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 小明很想吃果子，正好果园果子熟了。在果园里，小明已经将所有的果子打了下来，而且按果子的不同种类分成了不同的堆。小明决定把所有的果子合成一堆。 因为小明比较懒，为了省力气，小明开始想点子了:<br>
+　　每一次合并，小明可以把两堆果子合并到一起，消耗的体力等于两堆果子的重量之和。可以看出，所有的果子经过n-1次合并之后，就只剩下一堆了。小明在合并果子时总共消耗的体力等于每次合并所耗体力之和。<br>
+　　因为还要花大力气把这些果子搬回家，所以小明在合并果子时要尽可能地节省体力。假定每个果子重量都为1，并且已知果子的种类数和每种果子的数目，你的任务是设计出合并的次序方案，使小明耗费的体力最少，并输出这个最小的体力耗费&#20540;。<br>
+　　例如有3种果子，数目依次为1，2，9。可以先将1、2堆合并，新堆数目为3，耗费体力为3。接着，将新堆与原先的第三堆合并，又得到新的堆，数目为12，耗费体力为12。所以小明总共耗费体力=3&#43;12=15。可以证明15为最小的体力耗费&#20540;。
+<div class="clr"></div>
+<dl class="others"><dt>输入 </dt><dd>第一行输入整数N(0&lt;N&lt;=10)表示测试数据组数。接下来每组测试数据输入包括两行，第一行是一个整数n(1&lt;＝n&lt;=12000)，表示果子的种类数。第二行包含n个整数，用空&#26684;分隔，第i个整数ai(1&lt;＝ai&lt;=20000)是第i种果子的数目。</dd><dt>输出 </dt><dd>每组测试数据输出包括一行，这一行只包含一个整数，也就是最小的体力耗费&#20540;。 </dd><dt>样例输入 </dt><dd>
+<pre id="sample_input">1
+3 
+1 2 9</pre>
+</dd><dt>样例输出 </dt><dd>
+<pre id="sample_output">15</pre>
+</dd></dl>
+</dd></dl>
+<p></p>
+<dl></dl>
+<p>&nbsp;</p>
+<p>优先队列的使用，，，</p>
+<pre class="cpp" name="code">/***************************
+# 2013-8-22 10:10:52 
+# Time: 152MS   Memory: 440K
+# Author: zyh
+# Status: Accepted
+***************************/ 
+/*
+采用优先队列priority_queue，采用struct重载比较方法，每次取头两个最小的元素，
+再将和插进队列。直到队列只剩下一个元素，最后别忘了清空队列。
+*/
+#include&lt;iostream&gt;
+#include&lt;stdio.h&gt;
+#include&lt;string.h&gt;
+#include&lt;stdlib.h&gt;
+#include&lt;algorithm&gt;
+#include&lt;queue&gt;
+#include&lt;vector&gt;
+using namespace std;
+
+struct CMP{ //自己定义优先级 
+	bool operator() (const long long &amp;a,const long long &amp;b){
+		return a&gt;b;
+	} 	
+};
+priority_queue &lt;long long ,vector&lt;long long&gt;,CMP&gt; Q; 
+
+
+
+void solve(){
+	long long  sum=0; //int型 WA 
+	int q1,q2,m;
+	while(Q.size()&gt;1){
+		q1 = Q.top(); Q.pop();
+		q2 = Q.top(); Q.pop(); 
+		m = q1+q2;
+		sum+= m;
+		Q.push(m);
+	}
+	Q.pop();
+	printf(&quot;%lld\n&quot;,sum);
+} 
+
+int main()
+{
+	int n,m,c;
+	scanf(&quot;%d&quot;,&amp;n);
+	while(n--)
+	{
+		scanf(&quot;%d&quot;,&amp;m);
+		while(m--) {
+			scanf(&quot;%d&quot;,&amp;c);
+			Q.push(c);
+		} 
+		solve();
+	}
+	return 0;
+} </pre>
+<p><br>
+&nbsp;</p>
+<p>&nbsp;</p>
+<pre class="cpp" name="code"> /***************************
+# 2013-8-22 10:10:52 
+# Time: 136MS   Memory: 440K
+# Author: zyh
+# Status: Accepted
+***************************/ 
+
+#include&lt;iostream&gt;
+#include&lt;stdio.h&gt;
+#include&lt;string.h&gt;
+#include&lt;stdlib.h&gt;
+#include&lt;algorithm&gt;
+#include&lt;queue&gt;
+using namespace std;
+
+priority_queue &lt;long long ,vector&lt;long long&gt;,greater&lt;long long&gt; &gt; Q; //优先队列，值小的元素优先 
+
+void solve(){
+	long long  sum=0; //int型 WA 
+	int q1,q2,m;
+	while(Q.size()&gt;1){
+		q1 = Q.top(); Q.pop();
+		q2 = Q.top(); Q.pop(); 
+		m = q1+q2;
+		sum+= m;
+		Q.push(m);
+	}
+	Q.pop();
+	printf(&quot;%lld\n&quot;,sum);
+} 
+
+int main()
+{
+	int n,m,c;
+	scanf(&quot;%d&quot;,&amp;n);
+	while(n--)
+	{
+		scanf(&quot;%d&quot;,&amp;m);
+		while(m--) {
+			scanf(&quot;%d&quot;,&amp;c);
+			Q.push(c);
+		} 
+		solve();
+	}
+	return 0;
+} </pre>
+<p><br>
+&nbsp;</p>
+<p>&nbsp;</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://hanks.xyz/2013/08/22/NYOJ_题目_55_懒省事的小明（priority_queue）/" data-id="cihryjm4c005kk4054n8rvuta" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  
+  
+</article>
+
+  
+<section id="comments">
+    <!-- 多说分享框 -->
+    <div class="ds-share flat" data-thread-key="/2013/08/22/NYOJ_题目_55_懒省事的小明（priority_queue）/" data-title="NYOJ 题目 55 懒省事的小明（priority_queue）" data-images="此处请替换为分享时显示的图片的链接地址" data-content="NYOJ 题目 55 懒省事的小明（priority_queue）" data-url="http://hanks.xyz//2013/08/22/NYOJ_题目_55_懒省事的小明（priority_queue）/">
+    <div class="ds-share-inline">
+      <ul  class="ds-share-icons-16">
+
+      	<li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+        <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+        <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+        <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+        <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+      </ul>
+      <div class="ds-share-icons-more">
+      </div>
+    </div>
+   </div>
+    <!-- 多说评论框 start -->
+   	<div class="ds-thread" data-thread-key="/2013/08/22/NYOJ_题目_55_懒省事的小明（priority_queue）/" data-title="NYOJ 题目 55 懒省事的小明（priority_queue）" data-url="http://hanks.xyz//2013/08/22/NYOJ_题目_55_懒省事的小明（priority_queue）/"></div>
+   <!-- 多说评论框 end -->
+   <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+   <script type="text/javascript">
+   var duoshuoQuery = {short_name:"hanks-zyh"};
+   	(function() {
+   		var ds = document.createElement('script');
+   		ds.type = 'text/javascript';ds.async = true;
+   		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+   		ds.charset = 'UTF-8';
+   		(document.getElementsByTagName('head')[0]
+   		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+   	})();
+   	</script>
+   <!-- 多说公共JS代码 end -->
+</section>
+
+</section>
+      </div>
+      <footer id="footer">
+  
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      &copy; 2015 Hanks<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+  </br>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    
+
+<script src="/js/jquery.min.js" type="text/javascript"></script>
+<script src="/js/jquery.scrollLoading.js" type="text/javascript"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+  <script src="/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+
+
+<script src="/js/script.js" type="text/javascript"></script>
+
+  </div>
+</body>
+</html>

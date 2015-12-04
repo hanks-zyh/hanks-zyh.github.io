@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>NYOJ 题目23 取石子（一），hdu 题目1846 Brave Game 巴什博奕（Bash Game） | Hanks.xyz</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description">
+<meta property="og:type" content="article">
+<meta property="og:title" content="NYOJ 题目23 取石子（一），hdu 题目1846 Brave Game 巴什博奕（Bash Game）">
+<meta property="og:url" content="http://hanks.xyz/2013/08/25/NYOJ_题目23_取石子（一），hdu_题目1846_Brave_Game_巴什博奕（Bash_Game）/index.html">
+<meta property="og:site_name" content="Hanks.xyz">
+<meta property="og:description">
+<meta property="og:updated_time" content="2015-12-04T17:20:04.316Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="NYOJ 题目23 取石子（一），hdu 题目1846 Brave Game 巴什博奕（Bash Game）">
+<meta name="twitter:description">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <!-- <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600' rel='stylesheet' type='text/css'> -->
+  <!-- <link href="//fonts.googleapis.com/css?family=Source+Code+Pro:400,700" rel="stylesheet" type="text/css"> -->
+  <link href="//fonts.useso.com/css?family=Source+Code+Pro:400,700" rel="stylesheet" type="text/css">
+  <link href='//fonts.useso.com/css?family=Open+Sans:300,600' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo">Hanks.xyz</a>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">首页</a>
+        
+          <a class="main-nav-link" href="/archives">归档</a>
+        
+          <a class="main-nav-link" href="/about/index.html">关于</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        <div id="search-form-wrap">
+          <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://hanks.xyz"></form>
+        </div>
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+        
+        
+          <a id="nav-github-link" class="nav-icon" href="https://github.com/hanks-zyh" title="Fork me on GitHub"></a>
+        
+      </nav>
+    </div>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/" class="mobile-nav-link">首页</a>
+  
+    <a href="/archives" class="mobile-nav-link">归档</a>
+  
+    <a href="/about/index.html" class="mobile-nav-link">关于</a>
+  
+  <div id="search-form-wrap-mobile">
+    <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://hanks.xyz"></form>
+  </div>
+</nav>
+      <div class="outer">
+        
+        <section id="main"><article id="post-NYOJ_题目23_取石子（一），hdu_题目1846_Brave_Game_巴什博奕（Bash_Game）" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2013/08/25/NYOJ_题目23_取石子（一），hdu_题目1846_Brave_Game_巴什博奕（Bash_Game）/" class="article-date">
+  <time datetime="2013-08-25T10:06:00.000Z" itemprop="datePublished">2013-08-25</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      NYOJ 题目23 取石子（一），hdu 题目1846 Brave Game 巴什博奕（Bash Game）
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+<p><br>
+</p>
+<p></p>
+<div class="problem-display" style="font-size:14px; color:rgb(70,70,70); font-family:Tahoma,Arial,sans-serif,simsun">
+<h2 style="margin:0px; padding:0px; font-size:18px; text-align:center; color:rgb(113,32,21); font-family:微软雅黑,黑体">
+取石子（一）</h2>
+<div class="problem-ins" style="text-align:center">时间限制：<span class="editable highlight" id="problem[time_limit]" style="color:rgb(113,32,21)">3000</span>&nbsp;ms &nbsp;|&nbsp; 内存限制：<span class="editable highlight" id="problem[memory_limit]" style="color:rgb(113,32,21)">65535</span>&nbsp;KB</div>
+<div class="problem-ins" style="text-align:center">难度：<span class="editable highlight" style="color:rgb(113,32,21)">2</span></div>
+</div>
+<div class="clr" style="clear:both; color:rgb(70,70,70); font-family:Tahoma,Arial,sans-serif,simsun; font-size:13px; line-height:19px">
+</div>
+<dl class="problem-display" style="margin:0px; padding:0px; font-size:14px; color:rgb(70,70,70); font-family:Tahoma,Arial,sans-serif,simsun">
+<dt style="margin:1em 0px 0.2em; padding:0px; color:rgb(113,32,21); font-size:16px; font-weight:bold">
+描述</dt><dd style="margin:0px; padding:0px">一天，TT在寝室闲着无聊，和同寝的人玩起了取石子游戏，而由于条件有限，他/她们是用旺仔小馒头当作石子。游戏的规则是这样的。设有一堆石子，数量为N（1&lt;=N&lt;=1000000），两个人轮番取出其中的若干个，每次最多取M个（1&lt;=M&lt;=1000000），最先把石子取完者胜利。我们知道，TT和他/她的室友都十分的聪明，那么如果是TT先取，他/她会取得游戏的胜利么？
+<div class="clr" style="clear:both"></div>
+<dl class="others" style="margin:0px; padding:0px"><dt style="margin:1em 0px 0.2em; padding:0px; color:rgb(113,32,21); font-size:16px; font-weight:bold">
+输入</dt><dd style="margin:0px; padding:0px">第一行是一个正整数n表示有n组测试数据<br>
+输入有不到1000组数据，每组数据一行，有两个数N和M,之间用空&#26684;分隔。</dd><dt style="margin:1em 0px 0.2em; padding:0px; color:rgb(113,32,21); font-size:16px; font-weight:bold">
+输出</dt><dd style="margin:0px; padding:0px">对于每组数据，输出一行。如果先取的TT可以赢得游戏，则输出“Win”，否则输出“Lose”（引号不用输出）</dd><dt style="margin:1em 0px 0.2em; padding:0px; color:rgb(113,32,21); font-size:16px; font-weight:bold">
+样例输入</dt><dd style="margin:0px; padding:0px">
+<pre id="sample_input" style="margin-top:0px; margin-bottom:0px; padding:5px 10px; font-family:Consolas,'Courier New','DejaVu Sans Mono','Droid Sans Mono',monospace; background-color:rgb(239,239,239); border:1px solid rgb(204,204,204); min-height:20px; line-height:1.5em">2
+1000 1
+1 100</pre>
+</dd><dt style="margin:1em 0px 0.2em; padding:0px; color:rgb(113,32,21); font-size:16px; font-weight:bold">
+样例输出</dt><dd style="margin:0px; padding:0px">
+<pre id="sample_output" style="margin-top:0px; margin-bottom:0px; padding:5px 10px; font-family:Consolas,'Courier New','DejaVu Sans Mono','Droid Sans Mono',monospace; background-color:rgb(239,239,239); border:1px solid rgb(204,204,204); min-height:20px; line-height:1.5em">Lose
+Win</pre>
+</dd></dl>
+</dd></dl>
+<br>
+<p></p>
+<p><br>
+</p>
+<p><pre name="code" class="cpp"> 
+#include&lt;stdio.h&gt;
+int main()
+{
+	int t,m,n;
+	scanf(&quot;%d&quot;,&amp;t);
+	while(t--)
+	{
+		scanf(&quot;%d%d&quot;,&amp;n,&amp;m);
+		if(n%(m+1)!=0)
+		printf(&quot;Win\n&quot;);
+		else
+		printf(&quot;Lose\n&quot;);
+	}
+	return 0;
+}
+        </pre></p>
+<p><br>
+</p>
+<p><br>
+</p>
+<h1 style="text-align:center; color:rgb(26,92,200)">Brave Game</h1>
+<span size="&#43;0" style=""></span>
+<div style="text-align:center"><span style="color:green; font-family:Arial; font-weight:bold">Time Limit: 1000/1000 MS (Java/Others)&nbsp;&nbsp;&nbsp;&nbsp;Memory Limit: 32768/32768 K (Java/Others)</span></div>
+<strong></strong>
+<div style="text-align:center"><span style="color:green; font-family:Arial">Total Submission(s): 4852&nbsp;&nbsp;&nbsp;&nbsp;Accepted Submission(s): 3198</span></div>
+<br>
+<br>
+<div class="panel_title" align="left">Problem Description</div>
+<div class="panel_content">十年前读大学的时候，中国每年都要从国外引进一些电影大片，其中有一部电影就叫《勇敢者的游戏》（英文名称：Zathura），一直到现在，我依然对于电影中的部分电脑特技印象深刻。<br>
+今天，大家选择上机考试，就是一种勇敢（brave）的选择；这个短学期，我们讲的是博弈（game）专题；所以，大家现在玩的也是“勇敢者的游戏”，这也是我命名这个题目的原因。<br>
+当然，除了“勇敢”，我还希望看到“诚信”，无论考试成绩如何，希望看到的都是一个真实的结果，我也相信大家一定能做到的~<br>
+<br>
+各位勇敢者要玩的第一个游戏是什么呢？很简单，它是这样定义的：<br>
+1、&nbsp;&nbsp;本游戏是一个二人游戏;<br>
+2、&nbsp;&nbsp;有一堆石子一共有n个；<br>
+3、&nbsp;&nbsp;两人轮流进行;<br>
+4、&nbsp;&nbsp;每走一步可以取走1…m个石子；<br>
+5、&nbsp;&nbsp;最先取光石子的一方为胜；<br>
+<br>
+如果游戏的双方使用的都是最优策略，请输出哪个人能赢。<br>
+</div>
+<div class="panel_bottom">&nbsp;</div>
+<br>
+<div class="panel_title" align="left">Input</div>
+<div class="panel_content">输入数据首先包含一个正整数C(C&lt;=100)，表示有C组测试数据。<br>
+每组测试数据占一行，包含两个整数n和m（1&lt;=n,m&lt;=1000），n和m的含义见题目描述。<br>
+</div>
+<div class="panel_bottom">&nbsp;</div>
+<br>
+<div class="panel_title" align="left">Output</div>
+<div class="panel_content">如果先走的人能赢，请输出“first”，否则请输出“second”，每个实例的输出占一行。</div>
+<div class="panel_bottom">&nbsp;</div>
+<br>
+<div class="panel_title" align="left">Sample Input</div>
+<div class="panel_content">
+<pre><div style="font-family:Courier New,Courier,monospace">2
+23 2
+4 3</div></pre>
+</div>
+<div class="panel_bottom">&nbsp;</div>
+<br>
+<div class="panel_title" align="left">Sample Output</div>
+<div class="panel_content">
+<pre><div style="font-family:Courier New,Courier,monospace">first
+second</div></pre>
+</div>
+<div class="panel_bottom">&nbsp;</div>
+<br>
+<pre name="code" class="cpp">/***************************
+# 2013-8-23 16:58:15 
+# Time: MS   Memory: KB
+# Author: zyh
+# Status: Accepted
+***************************/ 
+
+#include&lt;stdio.h&gt;
+int main()
+{
+    int n,m,c;
+    scanf(&quot;%d&quot;,&amp;c);
+    while(c--)
+    {
+        scanf(&quot;%d%d&quot;,&amp;n,&amp;m);
+        printf(&quot;%s\n&quot;,n%(m+1)?&quot;first&quot;:&quot;second&quot;); 
+    }
+    return 0;
+} </pre><br>
+<br>
+<br>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://hanks.xyz/2013/08/25/NYOJ_题目23_取石子（一），hdu_题目1846_Brave_Game_巴什博奕（Bash_Game）/" data-id="cihryjm4r005uk405ednhnrb6" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  
+  
+</article>
+
+  
+<section id="comments">
+    <!-- 多说分享框 -->
+    <div class="ds-share flat" data-thread-key="/2013/08/25/NYOJ_题目23_取石子（一），hdu_题目1846_Brave_Game_巴什博奕（Bash_Game）/" data-title="NYOJ 题目23 取石子（一），hdu 题目1846 Brave Game 巴什博奕（Bash Game）" data-images="此处请替换为分享时显示的图片的链接地址" data-content="NYOJ 题目23 取石子（一），hdu 题目1846 Brave Game 巴什博奕（Bash Game）" data-url="http://hanks.xyz//2013/08/25/NYOJ_题目23_取石子（一），hdu_题目1846_Brave_Game_巴什博奕（Bash_Game）/">
+    <div class="ds-share-inline">
+      <ul  class="ds-share-icons-16">
+
+      	<li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+        <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+        <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+        <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+        <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+      </ul>
+      <div class="ds-share-icons-more">
+      </div>
+    </div>
+   </div>
+    <!-- 多说评论框 start -->
+   	<div class="ds-thread" data-thread-key="/2013/08/25/NYOJ_题目23_取石子（一），hdu_题目1846_Brave_Game_巴什博奕（Bash_Game）/" data-title="NYOJ 题目23 取石子（一），hdu 题目1846 Brave Game 巴什博奕（Bash Game）" data-url="http://hanks.xyz//2013/08/25/NYOJ_题目23_取石子（一），hdu_题目1846_Brave_Game_巴什博奕（Bash_Game）/"></div>
+   <!-- 多说评论框 end -->
+   <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+   <script type="text/javascript">
+   var duoshuoQuery = {short_name:"hanks-zyh"};
+   	(function() {
+   		var ds = document.createElement('script');
+   		ds.type = 'text/javascript';ds.async = true;
+   		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+   		ds.charset = 'UTF-8';
+   		(document.getElementsByTagName('head')[0]
+   		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+   	})();
+   	</script>
+   <!-- 多说公共JS代码 end -->
+</section>
+
+</section>
+      </div>
+      <footer id="footer">
+  
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      &copy; 2015 Hanks<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+  </br>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    
+
+<script src="/js/jquery.min.js" type="text/javascript"></script>
+<script src="/js/jquery.scrollLoading.js" type="text/javascript"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+  <script src="/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+
+
+<script src="/js/script.js" type="text/javascript"></script>
+
+  </div>
+</body>
+</html>

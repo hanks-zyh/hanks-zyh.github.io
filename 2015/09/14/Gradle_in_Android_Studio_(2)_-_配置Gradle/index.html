@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Gradle in Android Studio (2) - 配置Gradle | Hanks.xyz</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Gradle in Android Studio (2) - 配置Gradle">
+<meta property="og:url" content="http://hanks.xyz/2015/09/14/Gradle_in_Android_Studio_(2)_-_配置Gradle/index.html">
+<meta property="og:site_name" content="Hanks.xyz">
+<meta property="og:description">
+<meta property="og:image" content="http://img.blog.csdn.net/20150914213623929">
+<meta property="og:image" content="http://img.blog.csdn.net/20150914213847039">
+<meta property="og:image" content="http://img.blog.csdn.net/20150914213913163">
+<meta property="og:updated_time" content="2015-12-04T17:20:04.304Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Gradle in Android Studio (2) - 配置Gradle">
+<meta name="twitter:description">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <!-- <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600' rel='stylesheet' type='text/css'> -->
+  <!-- <link href="//fonts.googleapis.com/css?family=Source+Code+Pro:400,700" rel="stylesheet" type="text/css"> -->
+  <link href="//fonts.useso.com/css?family=Source+Code+Pro:400,700" rel="stylesheet" type="text/css">
+  <link href='//fonts.useso.com/css?family=Open+Sans:300,600' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo">Hanks.xyz</a>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">首页</a>
+        
+          <a class="main-nav-link" href="/archives">归档</a>
+        
+          <a class="main-nav-link" href="/about/index.html">关于</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        <div id="search-form-wrap">
+          <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://hanks.xyz"></form>
+        </div>
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+        
+        
+          <a id="nav-github-link" class="nav-icon" href="https://github.com/hanks-zyh" title="Fork me on GitHub"></a>
+        
+      </nav>
+    </div>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/" class="mobile-nav-link">首页</a>
+  
+    <a href="/archives" class="mobile-nav-link">归档</a>
+  
+    <a href="/about/index.html" class="mobile-nav-link">关于</a>
+  
+  <div id="search-form-wrap-mobile">
+    <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://hanks.xyz"></form>
+  </div>
+</nav>
+      <div class="outer">
+        
+        <section id="main"><article id="post-Gradle_in_Android_Studio_(2)_-_配置Gradle" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/09/14/Gradle_in_Android_Studio_(2)_-_配置Gradle/" class="article-date">
+  <time datetime="2015-09-14T13:41:00.000Z" itemprop="datePublished">2015-09-14</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Gradle in Android Studio (2) - 配置Gradle
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>#配置Gradle</p>
+<blockquote>
+<p>来自<a href="https://developer.android.com/intl/zh-cn/tools/building/configuring-gradle.html#workBuildVariants" target="_blank" rel="external">AndroidDevelopers</a></p>
+<p>转载请注明出处 :  <a href="http://blog.csdn.net/hpu_zyh/article/details/48447255" target="_blank" rel="external">http://blog.csdn.net/hpu_zyh/article/details/48447255</a><br><a href="http://blog.csdn.net/hpu_zyh" target="_blank" rel="external">博客主页</a>  |   <a href="http://www.jianshu.com/users/3e9f552e6ba7" target="_blank" rel="external">简书</a>  |  <a href="http://www.zhihu.com/people/yuhan-zhang-36" target="_blank" rel="external">知乎</a>  |  <a href="http://weibo.com/u/2359002991" target="_blank" rel="external">微博</a>  |  <a href="https://github.com/hanks-zyh" target="_blank" rel="external">github</a></p>
+</blockquote>
+<p>##建立基本配置<br>Android Studio创建的<code>project</code>包含一个顶级构建文件(build.gradle), 并且每个<code>module</code>都包含一个构建文件(build.gradle)。他们是纯文本文件,使用<strong>Groovy</strong>的语法来配置构建,使用Android的Gradle插件生成。在大多数情况下，你只需要修改<code>module</code>下的<code>build.gradle</code>。例如，在BuildSystemExample项目中的<code>module</code>的<code>build.gradle</code>如下所示：<br><figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">apply plugin: <span class="string">'com.android.application'</span></span><br><span class="line"></span><br><span class="line">android &#123;</span><br><span class="line">    compileSdkVersion <span class="number">19</span></span><br><span class="line">    buildToolsVersion <span class="string">"19.0.0"</span></span><br><span class="line"></span><br><span class="line">    defaultConfig &#123;</span><br><span class="line">        minSdkVersion <span class="number">8</span></span><br><span class="line">        targetSdkVersion <span class="number">19</span></span><br><span class="line">        versionCode <span class="number">1</span></span><br><span class="line">        versionName <span class="string">"1.0"</span></span><br><span class="line">    &#125;</span><br><span class="line">    buildTypes &#123;</span><br><span class="line">        release &#123;</span><br><span class="line">            minifyEnabled <span class="keyword">true</span></span><br><span class="line">            proguardFiles getDefaultProguardFile(<span class="string">'proguard-android.txt'</span>), <span class="string">'proguard-rules.pro'</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">dependencies</span> &#123;</span><br><span class="line">    <span class="keyword">compile</span> <span class="keyword">project</span>(<span class="string">":lib"</span>)</span><br><span class="line">    <span class="keyword">compile</span> <span class="string">'com.android.support:appcompat-v7:19.0.1'</span></span><br><span class="line">    <span class="keyword">compile</span> <span class="keyword">fileTree</span>(dir: <span class="string">'libs'</span>, <span class="keyword">include</span>: [<span class="string">'*.jar'</span>])</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><code>apply plugin: &#39;com.android.application&#39;</code>表示将<code>Android plugin for Gradle</code>应用到编译。这增加了Android的特定的构建任务，以顶级的构建任务，使得<code>Android {...}</code>提供给指定的Android特定的构建选项元素。</p>
+<p><code>android {...}</code>配置所有的Android特定的构建选项：</p>
+<ul>
+<li><code>compileSdkVersion</code> 用来编译的sdk的版本。</li>
+<li><code>buildToolsVersion</code> 使用什么版本的编译工具。使用<code>SDK Manager</code>安装多个版本的编译工具。</li>
+</ul>
+<blockquote>
+<p>注：请始终使用其主要版本号 &gt;= 您的编译目标和目标SDK的构建工具版本。</p>
+</blockquote>
+<ul>
+<li><code>defaultConfig</code>配置的清单文件（AndroidManifest.xml）的一些设置。<code>defaultConfig</code>的配置将覆盖<code>AndroidManifest.xml</code>中的设置。<br><code>defaultConfig</code>元素指定的配置适用于所有的版本(<strong>build variants</strong>)，除非一个<code>build variants</code>的配置将覆盖一些值。</li>
+<li><code>buildTypes</code>元素控制如何构建和打包应用程序。默认情况下，构建系统定义了两种版本类型：<code>debug</code>和<code>release</code>。<code>debug</code>类型包括debug标示，并且使用debug key密钥来进行签名。<code>release</code>类型默认情况下没有签名。在这个例子中，<code>release</code>版本使用<code>ProGuard</code>。</li>
+<li><code>dependenceies</code>元素在<code>android</code>元素之外，Android的元素之后。此元素为依赖模块。后面章节介绍。</li>
+</ul>
+<blockquote>
+<p>注意：当<code>build.gradle</code>文件有改动时，Android Studio需要同步构建配置。点击Android Studio黄色通知栏上的<code>SyncNow</code>。</p>
+</blockquote>
+<p><img src="http://img.blog.csdn.net/20150914213623929" alt="这里写图片描述"></p>
+<p>##声明依赖</p>
+<p>在这个例子中的<code>app</code>module声明了三个依赖：</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"><span class="keyword">dependencies</span> &#123;</span><br><span class="line">    <span class="comment">// Module dependency</span></span><br><span class="line">    <span class="keyword">compile</span> <span class="keyword">project</span>(<span class="string">":lib"</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Remote binary dependency</span></span><br><span class="line">    <span class="keyword">compile</span> <span class="string">'com.android.support:appcompat-v7:19.0.1'</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// Local binary dependency</span></span><br><span class="line">    <span class="keyword">compile</span> <span class="keyword">fileTree</span>(dir: <span class="string">'libs'</span>, <span class="keyword">include</span>: [<span class="string">'*.jar'</span>])</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>每个这些相关性进行说明。构建系统将所有编译依赖于编译类路径，并将它们包含在最终方案。</p>
+<p>###模块依赖<br><code>app</code>模块依赖<code>lib</code>模块, <code>compile project(&quot;:lib&quot;)</code> 声明了BuildSystemExample对lib模块的依赖关系。当您生成应用程序模块，构建系统装配，包括lib模块。</p>
+<p>###远程库依赖<br>该<code>app</code>程序和<code>lib</code>模块从Android支持库都使用<code>ActionBarActivity</code>类，所以这些模块依赖于它。<br>编译<code>com.android.support:appcompat-v7:19.0.1</code>通过指定的Maven声明对<code>Android Support Library</code>的19.0.1版本的依赖。 如果你的SDK安装没有这个包，下载并使用SDK管理器进行安装。</p>
+<p>AndroidStudio为默认使用Maven的中央仓库项目。 （该配置被包括在顶层构建文件）。</p>
+<p>###本地库依赖</p>
+<p>如果您有需要本地库依赖模块，JAR文件，这些依赖关系复制到<code>&lt;moduleName&gt;/libs</code>中。<br><code>compile fileTree(dir: &#39;libs&#39;, include: [&#39;*.jar&#39;])</code>告诉构建系统依赖  <code>app/libs</code>的所有JAR文件，应该包含在编译类路径，并在最后的封装。</p>
+<p>详细信息，请参见<a href="http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html" target="_blank" rel="external"> Dependency Management Basics</a>用户指南中。</p>
+<p>##运行ProGuard</p>
+<p>构建系统可以在构建过程中运行ProGuard混淆你的类。在BuildSystemExample，修改生成文件的应用程序模块运行的ProGuard的发布版本：<br><figure class="highlight lasso"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">...</span></span><br><span class="line">android &#123;</span><br><span class="line">    <span class="attribute">...</span></span><br><span class="line">    buildTypes &#123;</span><br><span class="line">        release &#123;</span><br><span class="line">            minifyEnabled <span class="literal">true</span></span><br><span class="line">            proguardFiles getDefaultProguardFile(<span class="string">'proguard-android.txt'</span>), <span class="string">'proguard-rules.pro'</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="attribute">...</span></span><br></pre></td></tr></table></figure></p>
+<p><code>getDefaultProguardFile(&#39;proguard-android.txt&#39;)</code>获得从Android SDK安装的默认ProGuard的设置。 AndroidStudio 增加了模块特定的规则文件proguard-rules.pro的模块，在这里你可以添加自定义的ProGuard规则的根源。</p>
+<p>##对包装标识应用程序ID</p>
+<p>构建系统的<code>applicationID</code>属性是用来唯一标识应用程序包进行发布。应用程序ID设置在build.gradle文件的Andr​​oid的部分。<br><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">apply</span> plugin: <span class="string">'com.android.application'</span></span><br><span class="line"></span><br><span class="line">   android &#123;</span><br><span class="line">       <span class="title">compileSdkVersion</span> <span class="number">19</span></span><br><span class="line">       buildToolsVersion <span class="string">"19.1"</span></span><br><span class="line"></span><br><span class="line">   defaultConfig &#123;</span><br><span class="line">       <span class="title">applicationId</span> <span class="string">"com.example.my.app"</span></span><br><span class="line">       minSdkVersion <span class="number">15</span></span><br><span class="line">       targetSdkVersion <span class="number">19</span></span><br><span class="line">       versionCode <span class="number">1</span></span><br><span class="line">       versionName <span class="string">"1.0"</span></span><br><span class="line">   &#125;</span><br><span class="line">   ...</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>注意：的applicationID仅指定在build.gradle文件，而不是在AndroidManifest.xml文件。</p>
+</blockquote>
+<p>当使用<code>build variants</code>，构建系统为每个<code>product flavors</code>指定的build types生成不同的后缀ID。<br> <figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">productFlavors</span> &#123;</span><br><span class="line">     <span class="title">pro</span> &#123;</span><br><span class="line">         <span class="title">applicationId</span> = <span class="string">"com.example.my.pkg.pro"</span></span><br><span class="line">     &#125;</span><br><span class="line">     free &#123;</span><br><span class="line">         <span class="title">applicationId</span> = <span class="string">"com.example.my.pkg.free"</span></span><br><span class="line">     &#125;</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> buildTypes &#123;</span><br><span class="line">     <span class="title">debug</span> &#123;</span><br><span class="line">         <span class="title">applicationIdSuffix</span> <span class="string">".debug"</span></span><br><span class="line">     &#125;</span><br><span class="line"> &#125;</span><br><span class="line"> ....</span><br></pre></td></tr></table></figure></p>
+<p>包名必须在manifest文件中指定。这是用在你的源代码来引用您的<code>R</code>文件，并解决任何相关<code>activity</code> <code>service</code>的注册。<br><figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span>=<span class="string">"com.example.app"</span>&gt;</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>注意：如果有多个清单（例如，<code>product flavors</code>为某个build type配置了不同的manifest），包名是可选的体现。如果在这些清单规定，包的名称必须与在清单在<code>src/main/</code>文件夹中指定的包名。</p>
+</blockquote>
+<p>有关构建文件详细信息，请参阅<a href="http://blog.csdn.net/hpu_zyh/article/details/48447081" target="_blank" rel="external">构建系统</a>概述。</p>
+<p>##配置签名设置</p>
+<p><code>debug</code>和<code>release</code>版本不同的应用程序是否能够在安全设备，以及如何将APK进行签名进行调试。构建系统签署的调试版本使用已知的凭据，以避免密码提示在构建时默认密钥和证书。构建系统没有签字的发行版，除非你明确地定义了签约配置此版本。如果您还没有<code>release</code>版本的key，你可以生成一个,参考<a href="https://developer.android.com/tools/publishing/app-signing.html" target="_blank" rel="external">Signing your Applications</a>。</p>
+<p>##使用<strong>build variants</strong><br>本节将介绍 构建系统帮助你从一个单一的项目中创建不同的版本。如果你有一个演示版本,有付费版本，你要在<code>Google Paly</code>针对不同的设备分发多个APK,这个很有用。</p>
+<p>构建系统使用 <code>product flavors</code>来创建的不同的产品版本。您的应用程序的每一个产品版本可以有不同的功能或设备的要求。构建系统还使用<code>build type</code>构建和打包不同的设置到不同的版本。每个<code>product flavor</code>和<code>build type</code>组合形成一个构建变量。编译系统会生成不同的APK版本。</p>
+<p>###<strong>Build variants</strong></p>
+<p>这个例子项目包括两个默认生成（debug和release）和两个类型（demo和full）的。要了解有关构建变种高级应用的详细信息，请参阅<a href="#">构建系统</a>概述。</p>
+<p>####<strong>Product flavors</strong></p>
+<p>要创建您的应用程序不同的产品版本：</p>
+<ol>
+<li>在<code>build.gradle</code>文件中定义<code>product flavors</code></li>
+<li>为每个<code>flavors</code>添加不同的设置。</li>
+<li>添加香精的具体来源，您的项目。</li>
+</ol>
+<figure class="highlight lasso"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">...</span></span><br><span class="line">android &#123;</span><br><span class="line">    <span class="attribute">...</span></span><br><span class="line">    defaultConfig &#123; <span class="attribute">...</span> &#125;</span><br><span class="line">    signingConfigs &#123; <span class="attribute">...</span> &#125;</span><br><span class="line">    buildTypes &#123; <span class="attribute">...</span> &#125;</span><br><span class="line">    productFlavors &#123;</span><br><span class="line">        demo &#123;</span><br><span class="line">            applicationId <span class="string">"com.buildsystemexample.app.demo"</span></span><br><span class="line">            versionName <span class="string">"1.0-demo"</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="literal">full</span> &#123;</span><br><span class="line">            applicationId <span class="string">"com.buildsystemexample.app.full"</span></span><br><span class="line">            versionName <span class="string">"1.0-full"</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="attribute">...</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>注意：要在多APK支持分发您的应用程序到<strong>Google Play</strong>，分配相同的包名称为所有变体，并给每个变体的不同VERSIONCODE。要分发您的应用程序在谷歌播放单独的应用程序的不同变种，指定不同的包名给每个变量。</p>
+</blockquote>
+<p>##针对每个<code>flavor</code>添加其他目录</p>
+<p>现在，您创建源文件夹，并添加一个SecondActivity每个味道。要创建演示味源目录结构：</p>
+<ol>
+<li>在项目面板中，展开<code>BuildSystemExample</code>，然后展开应用程序目录。</li>
+<li>右键单击src目录下的应用程序，并选择  <strong>New &gt; Directory</strong>.。<br>创建demo作为新目录的名称，然后单击确定。<br>类似地，创建以下目录：</li>
+</ol>
+<ul>
+<li>app/src/demo/java</li>
+<li>app/src/demo/res</li>
+<li>app/src/demo/res/layout</li>
+<li>app/src/demo/res/values<br>由此产生的目录结构如下图1所示。<br><img src="http://img.blog.csdn.net/20150914213847039" alt="这里写图片描述"></li>
+</ul>
+<p>####添加一个新的活动，各味</p>
+<p>要SecondActivity添加到<code>demo</code>flavors：</p>
+<ol>
+<li>创建一个新的Activity。</li>
+<li>选择<strong>Blank Activity</strong>，然后单击<strong>Next</strong>。</li>
+<li>输入<code>SecondActivity</code>作为该Activity的名称。</li>
+<li>输入<code>com.buildsystemexample.app</code>作为包名，然后单击<strong>Finish</strong>。</li>
+<li>右键单击<em>app/src/demo</em>的java目录，并选择<strong>New&gt; Package</strong>。</li>
+<li>输入<code>com.buildsystemexample.app</code>作为包名，然后单击<strong>OK</strong>。</li>
+<li>拖动<code>SecondActivity</code>到 <em>app/src/demo/java</em>下。</li>
+<li><p>接受默认值，然后单击<strong>Refactor</strong>。<br>要增加对SecondActivity布局和一个字符串资源到<code>demo</code> flavors：</p>
+</li>
+<li><p>从 <em> app/src/main/res/layout</em>拖动<code>activity_second.xml</code>到<em>app/src/demo/res/layout</em>。</p>
+</li>
+<li>接受出现的窗口中的默认值，然后单击<strong>OK</strong>。</li>
+<li>复制的strings.xml从应用程序/ src目录/主/ RES到应用程序/ src目录/演示/资源。</li>
+<li>取代的strings.xml具有以下的新副本的内容：<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="pi">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">resources</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">string</span> <span class="attribute">name</span>=<span class="value">"hello_world"</span>&gt;</span>Demo version only.<span class="tag">&lt;/<span class="title">string</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">resources</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>现在，通过复制demo的源码来创建<code>full</code> flavors：</p>
+<ol>
+<li>在项目面板中，右键点击下应用程序/ src目录demo目录，然后选择复制。</li>
+<li>在src /目录下用鼠标右键单击下的应用程序/然后选择粘贴。</li>
+<li>在出现的窗口中，输入“满”作为新的名称，然后单击确定。</li>
+<li>具有下列下的src /全速/ RES /值替换strings.xml中的内容：<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="pi">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">resources</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">string</span> <span class="attribute">name</span>=<span class="value">"hello_world"</span>&gt;</span>This is the full version!<span class="tag">&lt;/<span class="title">string</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">resources</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<blockquote>
+<p>注：从这一点上，可以独立开发SecondActivity内部各的味道。例如，你可以在韵味十足的增加更多的功能到这个活动。</p>
+</blockquote>
+<p>检查设置的<code>product flavors</code>生效,打开Android studio的<strong>Build Variants</strong>面板,如下图<br><img src="http://img.blog.csdn.net/20150914213913163" alt="这里写图片描述"></p>
+<p>图2.构建变体面板。</p>
+<p>####从<strong>MainActivity</strong>启动一个<code>flavor-specific</code>Activity</p>
+<p>由于香味比活度（SecondActivity）有两种口味相同的包名称和活动名称，你可以从主活动，这是通用于所有的口味启动它。要修改的主要活动：</p>
+<ol>
+<li><p>编辑<code>activity_main.xml</code>并添加一个按钮：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">LinearLayout</span> <span class="attribute">...</span>&gt;</span></span><br><span class="line">    ...</span><br><span class="line">    <span class="tag">&lt;<span class="title">Button</span></span><br><span class="line">        <span class="attribute">android:id</span>=<span class="value">"@+id/button2"</span></span><br><span class="line">        <span class="attribute">android:layout_width</span>=<span class="value">"wrap_content"</span></span><br><span class="line">        <span class="attribute">android:layout_height</span>=<span class="value">"wrap_content"</span></span><br><span class="line">        <span class="attribute">android:text</span>=<span class="value">"@string/button2"</span></span><br><span class="line">        <span class="attribute">android:onClick</span>=<span class="value">"onButton2Clicked"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">LinearLayout</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>下面的代码添加到<code>MainActivity</code>的<code>onButton2Clicked</code>方法：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onButton2Clicked</span><span class="params">(View view)</span> </span>&#123;</span><br><span class="line">    Intent intent = <span class="keyword">new</span> Intent(<span class="keyword">this</span>, SecondActivity.<span class="keyword">class</span>);</span><br><span class="line">    startActivity(intent);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>编辑应用程序的<code>Manifest</code>文件引用<code>SecondActivity</code>：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">manifest</span> <span class="attribute">...</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">application</span> <span class="attribute">...</span>&gt;</span></span><br><span class="line">        ...</span><br><span class="line">        <span class="tag">&lt;<span class="title">activity</span></span><br><span class="line">            <span class="attribute">android:name</span>=<span class="value">"com.buildsystemexample.app.SecondActivity"</span></span><br><span class="line">            <span class="attribute">android:label</span>=<span class="value">"@string/title_activity_second"</span> &gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="title">activity</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="title">application</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">manifest</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>####构建类型</p>
+<p>构建类型代表每个应用程序包生成编译包装的版本。默认情况下，提供了<code>debug</code>和<code>release</code>版本的类型。</p>
+<figure class="highlight nimrod"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">android &#123;</span><br><span class="line">    ...</span><br><span class="line">    defaultConfig &#123; ... &#125;</span><br><span class="line">    signingConfigs &#123; ... &#125;</span><br><span class="line">    buildTypes &#123; ... &#125;</span><br><span class="line">    productFlavors <span class="decorator">&#123;...&#125;</span></span><br><span class="line">    buildTypes &#123;</span><br><span class="line">        release &#123;</span><br><span class="line">            minifyEnabled <span class="literal">false</span></span><br><span class="line">            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'</span><br><span class="line">        &#125;</span><br><span class="line">         debug &#123;</span><br><span class="line">            debuggable <span class="literal">true</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>注：虽然只有<code>release</code>类型出现在默认<code>build.gradle</code>文件，但是每个版本都会生成<code>release</code>和<code>debug</code>版本。</p>
+</blockquote>
+<p>在这个例子中，该<code>product flavors</code>和<code>build types</code>创建以下<code>build variants</code>：</p>
+<ul>
+<li>demoDebug</li>
+<li>demoRelease</li>
+<li>fullDebug</li>
+<li>fullRelease</li>
+</ul>
+<p>要构建这个例子中，点击Android Studio中<strong>Build</strong>菜单选项，或调用命令行的 <code>assemble</code>任务。</p>
+<blockquote>
+<p>注：<strong> Build &gt; Make Project</strong> 选项编译自上次编译修改过整个项目的所有源文件。<strong>Build &gt; Rebuild Project</strong>选项重新编译项目中的所有源文件。</p>
+</blockquote>
+<p>每个<code>build variant</code>产生单独的文件夹。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://hanks.xyz/2015/09/14/Gradle_in_Android_Studio_(2)_-_配置Gradle/" data-id="cihryjm5u006ok4056tyeoaqo" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  
+  
+</article>
+
+  
+<section id="comments">
+    <!-- 多说分享框 -->
+    <div class="ds-share flat" data-thread-key="/2015/09/14/Gradle_in_Android_Studio_(2)_-_配置Gradle/" data-title="Gradle in Android Studio (2) - 配置Gradle" data-images="此处请替换为分享时显示的图片的链接地址" data-content="Gradle in Android Studio (2) - 配置Gradle" data-url="http://hanks.xyz//2015/09/14/Gradle_in_Android_Studio_(2)_-_配置Gradle/">
+    <div class="ds-share-inline">
+      <ul  class="ds-share-icons-16">
+
+      	<li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+        <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+        <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+        <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+        <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+      </ul>
+      <div class="ds-share-icons-more">
+      </div>
+    </div>
+   </div>
+    <!-- 多说评论框 start -->
+   	<div class="ds-thread" data-thread-key="/2015/09/14/Gradle_in_Android_Studio_(2)_-_配置Gradle/" data-title="Gradle in Android Studio (2) - 配置Gradle" data-url="http://hanks.xyz//2015/09/14/Gradle_in_Android_Studio_(2)_-_配置Gradle/"></div>
+   <!-- 多说评论框 end -->
+   <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+   <script type="text/javascript">
+   var duoshuoQuery = {short_name:"hanks-zyh"};
+   	(function() {
+   		var ds = document.createElement('script');
+   		ds.type = 'text/javascript';ds.async = true;
+   		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+   		ds.charset = 'UTF-8';
+   		(document.getElementsByTagName('head')[0]
+   		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+   	})();
+   	</script>
+   <!-- 多说公共JS代码 end -->
+</section>
+
+</section>
+      </div>
+      <footer id="footer">
+  
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      &copy; 2015 Hanks<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+  </br>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    
+
+<script src="/js/jquery.min.js" type="text/javascript"></script>
+<script src="/js/jquery.scrollLoading.js" type="text/javascript"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+  <script src="/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+
+
+<script src="/js/script.js" type="text/javascript"></script>
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>基本数据类型的运算 | Hanks.xyz</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description">
+<meta property="og:type" content="article">
+<meta property="og:title" content="基本数据类型的运算">
+<meta property="og:url" content="http://hanks.xyz/2014/02/25/基本数据类型的运算/index.html">
+<meta property="og:site_name" content="Hanks.xyz">
+<meta property="og:description">
+<meta property="og:updated_time" content="2015-12-04T17:20:04.324Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="基本数据类型的运算">
+<meta name="twitter:description">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <!-- <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600' rel='stylesheet' type='text/css'> -->
+  <!-- <link href="//fonts.googleapis.com/css?family=Source+Code+Pro:400,700" rel="stylesheet" type="text/css"> -->
+  <link href="//fonts.useso.com/css?family=Source+Code+Pro:400,700" rel="stylesheet" type="text/css">
+  <link href='//fonts.useso.com/css?family=Open+Sans:300,600' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo">Hanks.xyz</a>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">首页</a>
+        
+          <a class="main-nav-link" href="/archives">归档</a>
+        
+          <a class="main-nav-link" href="/about/index.html">关于</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        <div id="search-form-wrap">
+          <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://hanks.xyz"></form>
+        </div>
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+        
+        
+          <a id="nav-github-link" class="nav-icon" href="https://github.com/hanks-zyh" title="Fork me on GitHub"></a>
+        
+      </nav>
+    </div>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/" class="mobile-nav-link">首页</a>
+  
+    <a href="/archives" class="mobile-nav-link">归档</a>
+  
+    <a href="/about/index.html" class="mobile-nav-link">关于</a>
+  
+  <div id="search-form-wrap-mobile">
+    <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://hanks.xyz"></form>
+  </div>
+</nav>
+      <div class="outer">
+        
+        <section id="main"><article id="post-基本数据类型的运算" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/02/25/基本数据类型的运算/" class="article-date">
+  <time datetime="2014-02-25T14:52:00.000Z" itemprop="datePublished">2014-02-25</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      基本数据类型的运算
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+<p><br>
+</p>
+<p><pre code_snippet_id="205043" snippet_file_name="blog_20140225_1_6730786" name="code" class="cpp">#include &lt;iostream &gt;
+#include &lt;cstdio&gt;
+using namespace std;
+void test_int()
+{
+	printf(&quot;\ntest int:\n&quot;);
+	int a = 100000;
+	cout &lt;&lt; &quot;100000 * 100000 = &quot; &lt;&lt; a * a &lt;&lt; endl;
+	cout &lt;&lt; &quot; 14  / 5  = &quot; &lt;&lt; 14 / 5 &lt;&lt; endl;
+	cout &lt;&lt; &quot; 14  % 5  = &quot; &lt;&lt; 14 % 5 &lt;&lt; endl;
+	cout &lt;&lt; &quot; -14 / 5  = &quot; &lt;&lt; -14 / 5 &lt;&lt; endl;
+	cout &lt;&lt; &quot; -14 % 5  = &quot; &lt;&lt; -14 % 5 &lt;&lt; endl;
+	cout &lt;&lt; &quot; 14  / -5 = &quot; &lt;&lt; 14 / -5 &lt;&lt; endl;
+	cout &lt;&lt; &quot; 14  % -5 = &quot; &lt;&lt; 14 % -5 &lt;&lt; endl;
+	cout &lt;&lt; &quot; -14 / -5 = &quot; &lt;&lt; -14 / -5 &lt;&lt; endl;
+	cout &lt;&lt; &quot; -14 % -5 = &quot; &lt;&lt; -14 % -5 &lt;&lt; endl;
+}
+void test_double()
+{
+	printf(&quot;\ntest double:\n&quot;);
+	double c, d, z;
+	c = 1.0; d = 0.0;
+	cout &lt;&lt; &quot; 1.0  / 0.0 = &quot; &lt;&lt; c/d &lt;&lt; endl;
+	c = -1.0; d = 0.0;
+	cout &lt;&lt; &quot; -1.0 / 0.0 = &quot; &lt;&lt; c/d &lt;&lt; endl;
+	c = 0.0; d = 0.0;
+	cout &lt;&lt; &quot; 0.0  / 0.0 = &quot; &lt;&lt; c/d &lt;&lt; endl;
+	z = 1.0;
+	cout &lt;&lt; &quot; z = 1.0; z = &quot; &lt;&lt; z &lt;&lt; endl;
+	z /= 12345678912345.0;
+	
+	cout &lt;&lt; &quot; z /= 12345678912345.0; z = &quot; &lt;&lt; z &lt;&lt; endl;
+	z += 1.0;
+	cout &lt;&lt; &quot; z += 1.0; z = &quot; &lt;&lt; z &lt;&lt; endl;
+	z -= 1.0;
+	cout &lt;&lt; &quot; z -= 1.0; z = &quot; &lt;&lt; z &lt;&lt; endl;
+	z *= 12345678912345.0;
+	cout &lt;&lt; &quot; z *= 12345678912345.0; z == &quot; &lt;&lt; z &lt;&lt; endl;
+}
+void test_bool()
+{
+	printf(&quot;\ntest bool:\n&quot;);
+	cout &lt;&lt; &quot;(1 &lt;= 2) = &quot; &lt;&lt; (1 &lt;= 2) &lt;&lt; endl;
+	cout &lt;&lt; &quot;(3 == 4) = &quot; &lt;&lt; (3 == 4) &lt;&lt; endl;
+	cout &lt;&lt; &quot;(5 != 6 &amp;&amp; -7 &lt;= 10) = &quot; &lt;&lt; (5 != 6 &amp;&amp; -7 &lt;= 10) &lt;&lt; endl;
+	cout &lt;&lt; &quot;(1234 &amp; 5678) = &quot; &lt;&lt; (1234 &amp; 5678) &lt;&lt; endl;
+	cout &lt;&lt; &quot;(1 &lt;&lt; 16) = &quot; &lt;&lt; (1 &lt;&lt; 16) &lt;&lt; endl;
+}
+void test_order()
+{
+	printf(&quot;\ntest order:\n&quot;);
+	int a = 2, b = 3;
+	cout &lt;&lt; &quot;(a++) * (a+2*b) * (b++) = &quot; &lt;&lt; (a++) * (a+2*b) * (b++) &lt;&lt; endl;
+}
+void test_char()
+{
+	printf(&quot;\ntest char:\n&quot;);
+	cout &lt;&lt; &quot;'A ' + 2 = &quot; &lt;&lt; 'A' + 2 &lt;&lt; endl;
+	cout &lt;&lt; &quot;(char)('A ' + 2) = &quot; &lt;&lt; (char)('A' + 2) &lt;&lt; endl;
+	cout &lt;&lt; &quot;'z' - 'f' = &quot; &lt;&lt; 'z' - 'f' &lt;&lt; endl;
+}
+int main()
+{
+	test_int();
+	test_double();
+	test_bool();
+	test_char();
+	test_order();
+	
+	return 0;
+}
+
+/*
+
+test int:
+100000 * 100000 = 1410065408
+ 14  / 5  = 2
+ 14  % 5  = 4
+ -14 / 5  = -2
+ -14 % 5  = -4
+ 14  / -5 = -2
+ 14  % -5 = 4
+ -14 / -5 = 2
+ -14 % -5 = -4
+
+test double:
+ 1.0  / 0.0 = inf
+ -1.0 / 0.0 = -inf
+ 0.0  / 0.0 = nan
+ z = 1.0; z = 1
+ z /= 12345678912345.0; z = 8.1e-014
+ z += 1.0; z = 1
+ z -= 1.0; z = 8.10463e-014
+ z *= 12345678912345.0; z == 1.00057
+
+test bool:
+(1 &lt;= 2) = 1
+(3 == 4) = 0
+(5 != 6 &amp;&amp; -7 &lt;= 10) = 1
+(1234 &amp; 5678) = 1026
+(1 &lt;&lt; 16) = 65536
+
+test char:
+'A ' + 2 = 67
+(char)('A ' + 2) = C
+'z' - 'f' = 20
+
+test order:
+(a++) * (a+2*b) * (b++) = 48
+
+*/</pre><br>
+<br>
+</p>
+<p><br>
+</p>
+<p><br>
+</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://hanks.xyz/2014/02/25/基本数据类型的运算/" data-id="cihryjlyf001sk4055ljhw3o1" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  
+  
+</article>
+
+  
+<section id="comments">
+    <!-- 多说分享框 -->
+    <div class="ds-share flat" data-thread-key="/2014/02/25/基本数据类型的运算/" data-title="基本数据类型的运算" data-images="此处请替换为分享时显示的图片的链接地址" data-content="基本数据类型的运算" data-url="http://hanks.xyz//2014/02/25/基本数据类型的运算/">
+    <div class="ds-share-inline">
+      <ul  class="ds-share-icons-16">
+
+      	<li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+        <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+        <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+        <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+        <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+      </ul>
+      <div class="ds-share-icons-more">
+      </div>
+    </div>
+   </div>
+    <!-- 多说评论框 start -->
+   	<div class="ds-thread" data-thread-key="/2014/02/25/基本数据类型的运算/" data-title="基本数据类型的运算" data-url="http://hanks.xyz//2014/02/25/基本数据类型的运算/"></div>
+   <!-- 多说评论框 end -->
+   <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+   <script type="text/javascript">
+   var duoshuoQuery = {short_name:"hanks-zyh"};
+   	(function() {
+   		var ds = document.createElement('script');
+   		ds.type = 'text/javascript';ds.async = true;
+   		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+   		ds.charset = 'UTF-8';
+   		(document.getElementsByTagName('head')[0]
+   		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+   	})();
+   	</script>
+   <!-- 多说公共JS代码 end -->
+</section>
+
+</section>
+      </div>
+      <footer id="footer">
+  
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      &copy; 2015 Hanks<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+  </br>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    
+
+<script src="/js/jquery.min.js" type="text/javascript"></script>
+<script src="/js/jquery.scrollLoading.js" type="text/javascript"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+  <script src="/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+
+
+<script src="/js/script.js" type="text/javascript"></script>
+
+  </div>
+</body>
+</html>

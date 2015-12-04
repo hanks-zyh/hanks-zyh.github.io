@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>NYOJ-题目27&amp;nbsp;水池数目 | Hanks.xyz</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description">
+<meta property="og:type" content="article">
+<meta property="og:title" content="NYOJ-题目27&nbsp;水池数目">
+<meta property="og:url" content="http://hanks.xyz/2014/02/19/NYOJ-题目27&nbsp;水池数目/index.html">
+<meta property="og:site_name" content="Hanks.xyz">
+<meta property="og:description">
+<meta property="og:updated_time" content="2015-12-04T17:20:04.316Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="NYOJ-题目27&nbsp;水池数目">
+<meta name="twitter:description">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <!-- <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600' rel='stylesheet' type='text/css'> -->
+  <!-- <link href="//fonts.googleapis.com/css?family=Source+Code+Pro:400,700" rel="stylesheet" type="text/css"> -->
+  <link href="//fonts.useso.com/css?family=Source+Code+Pro:400,700" rel="stylesheet" type="text/css">
+  <link href='//fonts.useso.com/css?family=Open+Sans:300,600' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo">Hanks.xyz</a>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">首页</a>
+        
+          <a class="main-nav-link" href="/archives">归档</a>
+        
+          <a class="main-nav-link" href="/about/index.html">关于</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        <div id="search-form-wrap">
+          <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://hanks.xyz"></form>
+        </div>
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+        
+        
+          <a id="nav-github-link" class="nav-icon" href="https://github.com/hanks-zyh" title="Fork me on GitHub"></a>
+        
+      </nav>
+    </div>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/" class="mobile-nav-link">首页</a>
+  
+    <a href="/archives" class="mobile-nav-link">归档</a>
+  
+    <a href="/about/index.html" class="mobile-nav-link">关于</a>
+  
+  <div id="search-form-wrap-mobile">
+    <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://hanks.xyz"></form>
+  </div>
+</nav>
+      <div class="outer">
+        
+        <section id="main"><article id="post-NYOJ-题目27&amp;nbsp;水池数目" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/02/19/NYOJ-题目27&nbsp;水池数目/" class="article-date">
+  <time datetime="2014-02-19T11:18:00.000Z" itemprop="datePublished">2014-02-19</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      NYOJ-题目27&amp;nbsp;水池数目
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+<div id="sina_keyword_ad_area2" class="articalContent  ">
+			<a href="http://acm.nyist.net/JudgeOnline/problem.php?pid=27" target="_blank">http://acm.nyist.net/JudgeOnline/problem.php?pid=27</a>
+<div><br></div>
+<div><br></div>
+<div>程序代码（一）：时间 8 内存 272</div>
+<div>
+<div>&nbsp;<wbr></div>
+<div><font color="#214EDA">#include</font></div>
+<div><font color="#214EDA">#define N 102</font></div>
+<div><font color="#214EDA">#define M 102</font></div>
+<div><font color="#214EDA">int map[N][M] = {0};</font></div>
+<div><font color="#214EDA">void search(int i,int j)</font>
+//递归调用，将是 1 的 连续地方 全部 变为 0</div>
+<div><font color="#214EDA">{ &nbsp;<wbr>
+&nbsp;<wbr></font></div>
+<div><font color="#214EDA">if(map[i][j-1]) { map[i][j-1]=0;
+search(i,j-1); }&nbsp;<wbr></font></div>
+<div><font color="#214EDA">if(map[i][j+1]) { map[i][j+1]=0;
+search(i,j+1); } &nbsp;<wbr> &nbsp;<wbr></font></div>
+<div><font color="#214EDA">if(map[i-1][j]) { map[i-1][j]=0;
+search(i-1,j); } &nbsp;<wbr> &nbsp;<wbr></font></div>
+<div><font color="#214EDA">if(map[i+1][j]) { map[i+1][j]=0;
+search(i+1,j); }</font></div>
+<div><font color="#214EDA">}</font></div>
+<div><font color="#214EDA">int main()</font></div>
+<div><font color="#214EDA">{ &nbsp;<wbr>
+&nbsp;<wbr></font></div>
+<div><font color="#214EDA">int t,n,m; &nbsp;<wbr>
+&nbsp;<wbr></font></div>
+<div><font color="#214EDA">int i,j,count; &nbsp;<wbr>
+&nbsp;<wbr></font></div>
+<div><font color="#214EDA">scanf("%d",&amp;t);
+&nbsp;<wbr> &nbsp;<wbr></font></div>
+<div><font color="#214EDA">while(t--) &nbsp;<wbr>
+&nbsp;<wbr></font></div>
+<div><font color="#214EDA">{ &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr></font></div>
+<div><font color="#214EDA">scanf("%d
+%d",&amp;n,&amp;m);&nbsp;<wbr></font></div>
+<div><font color="#214EDA">count=0; &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr></font></div>
+<div><font color="#214EDA">for(i=1;i&lt;=n;i++)
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr></font></div>
+<div><font color="#214EDA">for(j=1;j&lt;=m;j++)
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr></font></div>
+<div><font color="#214EDA">scanf("%d",&amp;map[i][j]);
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr></font></div>
+<div><font color="#214EDA">for(i=1;i&lt;=n;i++)
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr></font></div>
+<div><font color="#214EDA">for(j=1;j&lt;=m;j++)
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr></font></div>
+<div><font color="#214EDA">if(map[i][j])
+&nbsp;<wbr>&nbsp;<wbr></font></div>
+<div><font color="#214EDA">{&nbsp;<wbr></font></div>
+<div><font color="#214EDA">count++;&nbsp;<wbr></font></div>
+<div><font color="#214EDA">map[i][j]=0;&nbsp;<wbr></font></div>
+<div><font color="#214EDA">search(i,j);&nbsp;<wbr></font></div>
+<div><font color="#214EDA">} &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr></font></div>
+<div><font color="#214EDA">printf("%d\n",count);
+&nbsp;<wbr>&nbsp;<wbr></font></div>
+<div><font color="#214EDA">}
+&nbsp;<wbr>&nbsp;<wbr></font></div>
+<div><font color="#214EDA">return 0;</font></div>
+<div><font color="#214EDA">} &nbsp;<wbr>
+&nbsp;<wbr></font> <font color="#4D6DF3">&nbsp;<wbr>
+&nbsp;<wbr></font></div>
+</div>
+<div><font color="#4D6DF3"><br></font></div>
+<div><span style="line-height: 21px;">程序代码（二）：时间 4 内存
+308</span></div>
+<div>
+<div><span style="line-height: 21px;">&nbsp;<wbr></span></div>
+<div>&nbsp;<wbr></div>
+<div><span style="background-color: rgb(255, 255, 255);"><font color="#00B7EF">#include</font></span></div>
+<div><span style="background-color: rgb(255, 255, 255);"><font color="#00B7EF">#include</font></span></div>
+<div><span style="background-color: rgb(255, 255, 255);"><font color="#FE2302">int
+map[100][100],vis[100][100];
+//这里定义两个数组同时搜索，时间少，但消耗内存大</font></span></div>
+<div><span style="background-color: rgb(255, 255, 255);"><font color="#00B7EF">int
+n,m;</font></span></div>
+<div><span style="background-color: rgb(255, 255, 255);"><font color="#00B7EF">void
+dfs(int i,int j)</font></span></div>
+<div><span style="background-color: rgb(255, 255, 255);"><font color="#00B7EF">{</font></span></div>
+<div><span style="background-color: rgb(255, 255, 255);"><font color="#00B7EF">vis[i][j]=1;</font></span></div>
+<div><span style="background-color: rgb(255, 255, 255);"><font color="#00B7EF">if(map[i-1][j]&amp;&amp;!vis[i-1][j])</font></span></div>
+<div><span style="background-color: rgb(255, 255, 255);"><font color="#00B7EF">{</font></span></div>
+<div><span style="background-color: rgb(255, 255, 255);"><font color="#00B7EF">vis[i-1][j]=1;</font></span></div>
+<div><span style="background-color: rgb(255, 255, 255);"><font color="#00B7EF">dfs(i-1,j);</font></span></div>
+<div><span style="background-color: rgb(255, 255, 255);"><font color="#00B7EF">}</font></span></div>
+<div><span style="background-color: rgb(255, 255, 255);"><font color="#00B7EF">if(map[i+1][j]&amp;&amp;!vis[i+1][j])</font></span></div>
+<div><span style="background-color: rgb(255, 255, 255);"><font color="#00B7EF">{</font></span></div>
+<div><span style="background-color: rgb(255, 255, 255);"><font color="#00B7EF">vis[i+1][j]=1;</font></span></div>
+<div><span style="background-color: rgb(255, 255, 255);"><font color="#00B7EF">dfs(i+1,j);</font></span></div>
+<div><span style="background-color: rgb(255, 255, 255);"><font color="#00B7EF">}</font></span></div>
+<div><span style="background-color: rgb(255, 255, 255);"><font color="#00B7EF">if(map[i][j-1]&amp;&amp;!vis[i][j-1])</font></span></div>
+<div><span style="background-color: rgb(255, 255, 255);"><font color="#00B7EF">{</font></span></div>
+<div><span style="background-color: rgb(255, 255, 255);"><font color="#00B7EF">vis[i][j-1]=1;</font></span></div>
+<div><span style="background-color: rgb(255, 255, 255);"><font color="#00B7EF">dfs(i,j-1);</font></span></div>
+<div><span style="background-color: rgb(255, 255, 255);"><font color="#00B7EF">}</font></span></div>
+<div><span style="background-color: rgb(255, 255, 255);"><font color="#00B7EF">if(map[i][j+1]&amp;&amp;!vis[i][j+1])</font></span></div>
+<div><span style="background-color: rgb(255, 255, 255);"><font color="#00B7EF">{</font></span></div>
+<div><span style="background-color: rgb(255, 255, 255);"><font color="#00B7EF">vis[i][j+1]=1;</font></span></div>
+<div><span style="background-color: rgb(255, 255, 255);"><font color="#00B7EF">dfs(i,j+1);</font></span></div>
+<div><span style="background-color: rgb(255, 255, 255);"><font color="#00B7EF">}</font></span></div>
+<div><span style="background-color: rgb(255, 255, 255);"><font color="#00B7EF">}</font></span></div>
+<div><span style="background-color: rgb(255, 255, 255);"><font color="#00B7EF">int
+main()</font></span></div>
+<div><span style="background-color: rgb(255, 255, 255);"><font color="#00B7EF">{</font></span></div>
+<div><span style="background-color: rgb(255, 255, 255);"><font color="#00B7EF">int
+i,j,sum,t;</font></span></div>
+<div><span style="background-color: rgb(255, 255, 255);"><font color="#00B7EF">scanf("%d",&amp;t);</font></span></div>
+<div><span style="background-color: rgb(255, 255, 255);"><font color="#00B7EF">while(t--)</font></span></div>
+<div><span style="background-color: rgb(255, 255, 255);"><font color="#00B7EF">{</font></span></div>
+<div><span style="background-color: rgb(255, 255, 255);"><font color="#00B7EF">scanf("%d%d",&amp;m,&amp;n);</font></span></div>
+<div><span style="background-color: rgb(255, 255, 255);"><font color="#00B7EF">memset(vis,0,sizeof(vis));</font></span></div>
+<div><span style="background-color: rgb(255, 255, 255);"><font color="#00B7EF">memset(map,0,sizeof(map));</font></span></div>
+<div><span style="background-color: rgb(255, 255, 255);"><font color="#00B7EF">for(i=1;i&lt;=m;i++)</font></span></div>
+<div><span style="background-color: rgb(255, 255, 255);"><font color="#00B7EF">for(j=1;j&lt;=n;j++)</font></span></div>
+<div><span style="background-color: rgb(255, 255, 255);"><font color="#00B7EF">scanf("%d",&amp;map[i][j]);</font></span></div>
+<div><span style="background-color: rgb(255, 255, 255);"><font color="#00B7EF">sum=0;</font></span></div>
+<div><span style="background-color: rgb(255, 255, 255);"><font color="#00B7EF">for(i=1;i&lt;=m;i++)</font></span></div>
+<div><span style="background-color: rgb(255, 255, 255);"><font color="#00B7EF">for(j=1;j&lt;=n;j++)</font></span></div>
+<div><span style="background-color: rgb(255, 255, 255);"><font color="#00B7EF">if(!vis[i][j]&amp;&amp;map[i][j])</font></span></div>
+<div><span style="background-color: rgb(255, 255, 255);"><font color="#00B7EF">{</font></span></div>
+<div><span style="background-color: rgb(255, 255, 255);"><font color="#00B7EF">sum++;</font></span></div>
+<div><span style="background-color: rgb(255, 255, 255);"><font color="#00B7EF">dfs(i,j);</font></span></div>
+<div><span style="background-color: rgb(255, 255, 255);"><font color="#00B7EF">}</font></span></div>
+<div><span style="background-color: rgb(255, 255, 255);"><font color="#00B7EF">printf("%d\n",sum);</font></span></div>
+<div><span style="background-color: rgb(255, 255, 255);"><font color="#00B7EF">}</font></span></div>
+<div><span style="background-color: rgb(255, 255, 255);"><font color="#00B7EF">return 0;</font></span></div>
+<div><span style="background-color: rgb(255, 255, 255);"><font color="#00B7EF">}</font></span> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr></div>
+</div>
+<div><font color="#4D6DF3"><br></font></div>
+<div><span style="line-height: 21px;">程序代码（三）：时间 0 内存
+248</span></div>
+<div><span style="line-height: 21px;"><br></span></div>
+<div>
+<div><span style="line-height: 21px;">&nbsp;<wbr></span></div>
+<div><font color="#FD2200">#include</font></div>
+<div><font color="#FD2200">#include</font></div>
+<div><font color="#0E01FF">char</font> <font color="#FD2200">map[100][100],vis[100][100];</font><font color="#070AFE">//这里把数组定义成字符型数组，来存放整型数，减少了内现存和时间</font></div>
+<div><font color="#FD2200">int n,m;</font></div>
+<div><font color="#FD2200">void dfs(int i,int j)</font></div>
+<div><font color="#FD2200">{</font></div>
+<div><font color="#FD2200">vis[i][j]=1;</font></div>
+<div><font color="#FD2200">if(map[i-1][j]&amp;&amp;!vis[i-1][j])</font></div>
+<div><font color="#FD2200">{</font></div>
+<div><font color="#FD2200">vis[i-1][j]=1;</font></div>
+<div><font color="#FD2200">dfs(i-1,j);</font></div>
+<div><font color="#FD2200">}</font></div>
+<div><font color="#FD2200">if(map[i+1][j]&amp;&amp;!vis[i+1][j])</font></div>
+<div><font color="#FD2200">{</font></div>
+<div><font color="#FD2200">vis[i+1][j]=1;</font></div>
+<div><font color="#FD2200">dfs(i+1,j);</font></div>
+<div><font color="#FD2200">}</font></div>
+<div><font color="#FD2200">if(map[i][j-1]&amp;&amp;!vis[i][j-1])</font></div>
+<div><font color="#FD2200">{</font></div>
+<div><font color="#FD2200">vis[i][j-1]=1;</font></div>
+<div><font color="#FD2200">dfs(i,j-1);</font></div>
+<div><font color="#FD2200">}</font></div>
+<div><font color="#FD2200">if(map[i][j+1]&amp;&amp;!vis[i][j+1])</font></div>
+<div><font color="#FD2200">{</font></div>
+<div><font color="#FD2200">vis[i][j+1]=1;</font></div>
+<div><font color="#FD2200">dfs(i,j+1);</font></div>
+<div><font color="#FD2200">}</font></div>
+<div><font color="#FD2200">}</font></div>
+<div><font color="#FD2200">int main()</font></div>
+<div><font color="#FD2200">{</font></div>
+<div><font color="#FD2200">int i,j,sum,t;</font></div>
+<div><font color="#FD2200">scanf("%d",&amp;t);</font></div>
+<div><font color="#FD2200">while(t--)</font></div>
+<div><font color="#FD2200">{</font></div>
+<div><font color="#FD2200">scanf("%d%d",&amp;m,&amp;n);</font></div>
+<div><font color="#FD2200">memset(vis,0,sizeof(vis));</font></div>
+<div><font color="#FD2200">memset(map,0,sizeof(map));</font></div>
+<div><font color="#FD2200">for(i=1;i&lt;=m;i++)</font></div>
+<div><font color="#FD2200">for(j=1;j&lt;=n;j++)</font></div>
+<div><font color="#FD2200">scanf("%d",&amp;map[i][j]);</font></div>
+<div><font color="#FD2200">sum=0;</font></div>
+<div><font color="#FD2200">for(i=1;i&lt;=m;i++)</font></div>
+<div><font color="#FD2200">for(j=1;j&lt;=n;j++)</font></div>
+<div><font color="#FD2200">if(!vis[i][j]&amp;&amp;map[i][j])</font></div>
+<div><font color="#FD2200">{</font></div>
+<div><font color="#FD2200">sum++;</font></div>
+<div><font color="#FD2200">dfs(i,j);</font></div>
+<div><font color="#FD2200">}</font></div>
+<div><font color="#FD2200">printf("%d\n",sum);</font></div>
+<div><font color="#FD2200">}</font></div>
+<div><font color="#FD2200">return 0;</font></div>
+<div><font color="#FD2200">} &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr></font> &nbsp;<wbr></div>
+</div>							
+		</div>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://hanks.xyz/2014/02/19/NYOJ-题目27&nbsp;水池数目/" data-id="cihryjm530062k405dftavzue" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  
+  
+</article>
+
+  
+<section id="comments">
+    <!-- 多说分享框 -->
+    <div class="ds-share flat" data-thread-key="/2014/02/19/NYOJ-题目27&nbsp;水池数目/" data-title="NYOJ-题目27&nbsp;水池数目" data-images="此处请替换为分享时显示的图片的链接地址" data-content="NYOJ-题目27&nbsp;水池数目" data-url="http://hanks.xyz//2014/02/19/NYOJ-题目27&nbsp;水池数目/">
+    <div class="ds-share-inline">
+      <ul  class="ds-share-icons-16">
+
+      	<li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+        <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+        <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+        <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+        <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+      </ul>
+      <div class="ds-share-icons-more">
+      </div>
+    </div>
+   </div>
+    <!-- 多说评论框 start -->
+   	<div class="ds-thread" data-thread-key="/2014/02/19/NYOJ-题目27&nbsp;水池数目/" data-title="NYOJ-题目27&nbsp;水池数目" data-url="http://hanks.xyz//2014/02/19/NYOJ-题目27&nbsp;水池数目/"></div>
+   <!-- 多说评论框 end -->
+   <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+   <script type="text/javascript">
+   var duoshuoQuery = {short_name:"hanks-zyh"};
+   	(function() {
+   		var ds = document.createElement('script');
+   		ds.type = 'text/javascript';ds.async = true;
+   		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+   		ds.charset = 'UTF-8';
+   		(document.getElementsByTagName('head')[0]
+   		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+   	})();
+   	</script>
+   <!-- 多说公共JS代码 end -->
+</section>
+
+</section>
+      </div>
+      <footer id="footer">
+  
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      &copy; 2015 Hanks<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+  </br>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    
+
+<script src="/js/jquery.min.js" type="text/javascript"></script>
+<script src="/js/jquery.scrollLoading.js" type="text/javascript"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+  <script src="/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+
+
+<script src="/js/script.js" type="text/javascript"></script>
+
+  </div>
+</body>
+</html>

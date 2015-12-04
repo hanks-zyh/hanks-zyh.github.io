@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>HTTPie:a CLI, cURL-like tool for humans | Hanks.xyz</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HTTPie:a CLI, cURL-like tool for humans">
+<meta property="og:url" content="http://hanks.xyz/2015/08/17/HTTPie__a_CLI,_cURL-like_tool_for_humans/index.html">
+<meta property="og:site_name" content="Hanks.xyz">
+<meta property="og:description">
+<meta property="og:image" content="http://ww3.sinaimg.cn/mw690/7cc829d3gw1ejbewyhgazj20d10970t3.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/jakubroztocil/httpie/master/httpie.png">
+<meta property="og:image" content="http://img.blog.csdn.net/20150817000201064?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center">
+<meta property="og:updated_time" content="2015-12-04T17:21:40.176Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="HTTPie:a CLI, cURL-like tool for humans">
+<meta name="twitter:description">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <!-- <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600' rel='stylesheet' type='text/css'> -->
+  <!-- <link href="//fonts.googleapis.com/css?family=Source+Code+Pro:400,700" rel="stylesheet" type="text/css"> -->
+  <link href="//fonts.useso.com/css?family=Source+Code+Pro:400,700" rel="stylesheet" type="text/css">
+  <link href='//fonts.useso.com/css?family=Open+Sans:300,600' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo">Hanks.xyz</a>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">首页</a>
+        
+          <a class="main-nav-link" href="/archives">归档</a>
+        
+          <a class="main-nav-link" href="/about/index.html">关于</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        <div id="search-form-wrap">
+          <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://hanks.xyz"></form>
+        </div>
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+        
+        
+          <a id="nav-github-link" class="nav-icon" href="https://github.com/hanks-zyh" title="Fork me on GitHub"></a>
+        
+      </nav>
+    </div>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/" class="mobile-nav-link">首页</a>
+  
+    <a href="/archives" class="mobile-nav-link">归档</a>
+  
+    <a href="/about/index.html" class="mobile-nav-link">关于</a>
+  
+  <div id="search-form-wrap-mobile">
+    <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://hanks.xyz"></form>
+  </div>
+</nav>
+      <div class="outer">
+        
+        <section id="main"><article id="post-HTTPie__a_CLI,_cURL-like_tool_for_humans" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/08/17/HTTPie__a_CLI,_cURL-like_tool_for_humans/" class="article-date">
+  <time datetime="2015-08-16T16:08:00.000Z" itemprop="datePublished">2015-08-17</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      HTTPie:a CLI, cURL-like tool for humans
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+<p style="margin:0px; font-family:'Microsoft YaHei',宋体,'Myriad Pro',Lato,'Helvetica Neue',Helvetica,Arial,sans-serif; font-weight:normal; line-height:1; color:rgb(46,46,46); padding:0px">
+</p>
+<h1><span style="font-size:12px"></span></h1>
+<h1 style="font-size:2.25em; margin-right:0px; margin-bottom:16px; margin-left:0px; line-height:1.2; position:relative; padding-bottom:0.3em; border-bottom-width:1px; border-bottom-style:solid; border-bottom-color:rgb(238,238,238); color:rgb(51,51,51); font-family:'Helvetica Neue',Helvetica,'Segoe UI',Arial,freesans,sans-serif; margin-top:0px!important">
+HTTPie</h1>
+<br>
+<p></p>
+<p style="margin:0px; font-family:'Microsoft YaHei',宋体,'Myriad Pro',Lato,'Helvetica Neue',Helvetica,Arial,sans-serif; font-weight:normal; line-height:1; color:rgb(46,46,46); padding:0px">
+<br>
+</p>
+<p style="font-size:22px; margin:0px; font-family:'Microsoft YaHei',宋体,'Myriad Pro',Lato,'Helvetica Neue',Helvetica,Arial,sans-serif; font-weight:normal; line-height:1; color:rgb(46,46,46); padding:0px">
+<br>
+</p>
+<p style="font-size:22px; margin:0px; font-family:'Microsoft YaHei',宋体,'Myriad Pro',Lato,'Helvetica Neue',Helvetica,Arial,sans-serif; font-weight:normal; line-height:1; color:rgb(46,46,46); padding:0px">
+<img src="http://ww3.sinaimg.cn/mw690/7cc829d3gw1ejbewyhgazj20d10970t3.jpg" alt=""><br>
+</p>
+<p style="font-size:22px; margin:0px; font-family:'Microsoft YaHei',宋体,'Myriad Pro',Lato,'Helvetica Neue',Helvetica,Arial,sans-serif; font-weight:normal; line-height:1; color:rgb(46,46,46); padding:0px">
+<img src="https://raw.githubusercontent.com/jakubroztocil/httpie/master/httpie.png" alt=""><br>
+</p>
+<p style="font-size:22px; margin:0px; font-family:'Microsoft YaHei',宋体,'Myriad Pro',Lato,'Helvetica Neue',Helvetica,Arial,sans-serif; font-weight:normal; line-height:1; color:rgb(46,46,46); padding:0px">
+<a target="_blank" href="https://github.com/jkbrzt/httpie" style="font-family:'Microsoft YaHei',宋体,'Myriad Pro',Lato,'Helvetica Neue',Helvetica,Arial,sans-serif; font-size:18px; line-height:18px">github</a><br>
+</p>
+<p style="font-size:22px; margin:0px; font-family:'Microsoft YaHei',宋体,'Myriad Pro',Lato,'Helvetica Neue',Helvetica,Arial,sans-serif; font-weight:normal; line-height:1; color:rgb(46,46,46); padding:0px">
+<br>
+</p>
+<p style="font-size:22px; margin:0px; font-family:'Microsoft YaHei',宋体,'Myriad Pro',Lato,'Helvetica Neue',Helvetica,Arial,sans-serif; font-weight:normal; line-height:1; color:rgb(46,46,46); padding:0px">
+<span style="font-family:'Microsoft YaHei',宋体,Lato,'Helvetica Neue',Helvetica,Arial,sans-serif; font-size:15px; line-height:22.5px">HTTPie 是用 Python 编写，用到了&nbsp;</span><a target="_blank" href="http://python-requests.org/" style="color:rgb(88,176,213); text-decoration:none; font-family:'Microsoft YaHei',宋体,Lato,'Helvetica Neue',Helvetica,Arial,sans-serif; font-size:15px; line-height:22.5px">Requests</a><span style="color:rgb(46,46,46); font-family:'Microsoft YaHei',宋体,Lato,'Helvetica Neue',Helvetica,Arial,sans-serif; font-size:15px; line-height:22.5px">&nbsp;和&nbsp;</span><a target="_blank" href="http://pygments.org/" style="color:rgb(88,176,213); text-decoration:none; font-family:'Microsoft YaHei',宋体,Lato,'Helvetica Neue',Helvetica,Arial,sans-serif; font-size:15px; line-height:22.5px">Pygments</a><span style="color:rgb(46,46,46); font-family:'Microsoft YaHei',宋体,Lato,'Helvetica Neue',Helvetica,Arial,sans-serif; font-size:15px; line-height:22.5px">&nbsp;这些出色的库。</span><br>
+</p>
+<p style="font-size:22px; margin:0px; font-family:'Microsoft YaHei',宋体,'Myriad Pro',Lato,'Helvetica Neue',Helvetica,Arial,sans-serif; font-weight:normal; line-height:1; color:rgb(46,46,46); padding:0px">
+<span style="color:rgb(46,46,46); font-family:'Microsoft YaHei',宋体,Lato,'Helvetica Neue',Helvetica,Arial,sans-serif; font-size:15px; line-height:22.5px"><br>
+</span></p>
+<p style="font-size:22px; margin:0px; font-family:'Microsoft YaHei',宋体,'Myriad Pro',Lato,'Helvetica Neue',Helvetica,Arial,sans-serif; font-weight:normal; line-height:1; color:rgb(46,46,46); padding:0px">
+<span style="color:rgb(46,46,46); font-family:'Microsoft YaHei',宋体,Lato,'Helvetica Neue',Helvetica,Arial,sans-serif; font-size:15px; line-height:22.5px"><br>
+</span></p>
+<p style="font-size:22px; margin:0px; font-family:'Microsoft YaHei',宋体,'Myriad Pro',Lato,'Helvetica Neue',Helvetica,Arial,sans-serif; font-weight:normal; line-height:1; color:rgb(46,46,46); padding:0px">
+<span style="color:rgb(46,46,46); font-family:'Microsoft YaHei',宋体,Lato,'Helvetica Neue',Helvetica,Arial,sans-serif; font-size:15px; line-height:22.5px"></span></p>
+<p style="margin-top:0px; margin-bottom:10px; color:rgb(46,46,46); font-family:'Microsoft YaHei',宋体,Lato,'Helvetica Neue',Helvetica,Arial,sans-serif; font-size:15px; line-height:22.5px">
+<span style="">主要特性：</span></p>
+<ul style="margin-top:0px; margin-bottom:10px; color:rgb(46,46,46); font-family:'Microsoft YaHei',宋体,Lato,'Helvetica Neue',Helvetica,Arial,sans-serif; font-size:15px; line-height:22.5px">
+<li style="margin-bottom:5px">直观的语法</li><li style="margin-bottom:5px">&#26684;式化和色彩化的终端输出</li><li style="margin-bottom:5px">内置 JSON 支持</li><li style="margin-bottom:5px">支持上传表单和文件</li><li style="margin-bottom:5px">HTTPS、代理和认证</li><li style="margin-bottom:5px">任意请求数据</li><li style="margin-bottom:5px">自定义头部</li><li style="margin-bottom:5px">持久性会话</li><li style="margin-bottom:5px">类 Wget 下载</li><li style="margin-bottom:5px">支持 Python 2.6, 2.7 和 3.x</li><li style="margin-bottom:5px">支持 Linux, Mac OS X 和 Windows</li><li style="margin-bottom:5px">插件</li><li style="margin-bottom:5px">文档</li><li style="margin-bottom:5px">测试覆盖率</li></ul>
+<h2 style="margin:0px; font-family:'Microsoft YaHei',宋体,'Myriad Pro',Lato,'Helvetica Neue',Helvetica,Arial,sans-serif; font-weight:normal; line-height:1; color:rgb(46,46,46); padding:0px">
+<span style="color:rgb(46,46,46); font-family:'Microsoft YaHei',宋体,Lato,'Helvetica Neue',Helvetica,Arial,sans-serif; line-height:22.5px"><span style="font-size:24px">安装</span></span></h2>
+<div><span style="color:rgb(46,46,46); font-family:'Microsoft YaHei',宋体,Lato,'Helvetica Neue',Helvetica,Arial,sans-serif; line-height:22.5px"><span style="font-size:24px"><br>
+</span></span></div>
+<p style="font-size:22px; margin:0px; font-family:'Microsoft YaHei',宋体,'Myriad Pro',Lato,'Helvetica Neue',Helvetica,Arial,sans-serif; font-weight:normal; line-height:1; color:rgb(46,46,46); padding:0px">
+<span style="color:rgb(46,46,46); font-family:'Microsoft YaHei',宋体,Lato,'Helvetica Neue',Helvetica,Arial,sans-serif; font-size:15px; line-height:22.5px"><span style="font-family:Arial,Verdana,Geneva,'Bitstream Vera Sans',Helvetica,sans-serif; font-size:14.640419960022px; line-height:21.9606304168701px"><span style="white-space:pre"></span><span style="white-space:pre"></span>Mac
+ OS X</span><br>
+</span></p>
+<p style="margin:0px; font-weight:normal; color:rgb(46,46,46); padding:0px"><span style="font-family:Microsoft YaHei,宋体,Lato,Helvetica Neue,Helvetica,Arial,sans-serif"><span style="font-size:15px; line-height:22.5px"></span></span></p>
+<pre style="margin:0px 2em; padding:10px; line-height:17.8231201171875px"><span class="nv" style="color:rgb(187,96,213)">$ </span>brew install httpie</pre>
+<p></p>
+<p><span style="font-family:Arial,Verdana,Geneva,'Bitstream Vera Sans',Helvetica,sans-serif; font-size:14.640419960022px; line-height:21.9606304168701px"><span style="white-space:pre"></span><span style="white-space:pre"></span>Linux</span><span style="font-family:Arial,Verdana,Geneva,'Bitstream Vera Sans',Helvetica,sans-serif; font-size:14.640419960022px; line-height:21.9606304168701px">&nbsp;</span></p>
+<p><span style="font-family:Arial,Verdana,Geneva,'Bitstream Vera Sans',Helvetica,sans-serif; font-size:14.640419960022px; line-height:21.9606304168701px"></span></p>
+<pre style="margin:0px 2em; padding:10px; line-height:17.8231201171875px"><span class="c" style="color:rgb(96,160,176); font-style:italic"># Debian-based distributions such as Ubuntu:
+</span><span class="nv" style="color:rgb(187,96,213)">$ </span>apt-get install httpie
+
+<span class="c" style="color:rgb(96,160,176); font-style:italic"># RPM-based distributions:
+</span><span class="nv" style="color:rgb(187,96,213)">$ </span>yum install httpie</pre>
+<p></p>
+<p><span style="white-space:pre"></span><span style="white-space:pre"></span>通过<a target="_blank" href="http://www.pip-installer.org/en/latest/index.html" rel="nofollow" style="border-bottom-width:1px; border-bottom-style:dashed; border-bottom-color:rgb(204,204,204); color:rgb(85,26,139); text-decoration:none; font-family:Arial,Verdana,Geneva,'Bitstream Vera Sans',Helvetica,sans-serif; font-size:14.640419960022px; line-height:21.9606304168701px">pip</a><span style="font-family:Arial,Verdana,Geneva,'Bitstream Vera Sans',Helvetica,sans-serif; font-size:14.640419960022px; line-height:21.9606304168701px">:</span></p>
+<p><span style="font-family:Arial,Verdana,Geneva,'Bitstream Vera Sans',Helvetica,sans-serif; font-size:14.640419960022px; line-height:21.9606304168701px"></span></p>
+<pre style="margin:0px 2em; padding:10px; line-height:17.8231201171875px"><span class="c" style="color:rgb(96,160,176); font-style:italic"># Make sure we have an up-to-date version of pip and setuptools:
+</span><span class="nv" style="color:rgb(187,96,213)">$ </span>pip install --upgrade pip setuptools
+
+<span class="nv" style="color:rgb(187,96,213)">$ </span>pip install --upgrade httpie</pre>
+<br>
+<p></p>
+<p><span style="font-family:Arial,Verdana,Geneva,'Bitstream Vera Sans',Helvetica,sans-serif; font-size:14.640419960022px; line-height:21.9606304168701px"><br>
+</span></p>
+<p><span style="font-family:Arial,Verdana,Geneva,'Bitstream Vera Sans',Helvetica,sans-serif; line-height:21.9606304168701px"><span style="font-size:24px">使用</span></span></p>
+<p><span style="font-family:Arial,Verdana,Geneva,'Bitstream Vera Sans',Helvetica,sans-serif; font-size:14.640419960022px; line-height:21.9606304168701px">&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;<img src="http://img.blog.csdn.net/20150817000201064?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt=""><br>
+</span></p>
+<p><span style="font-family:Arial,Verdana,Geneva,'Bitstream Vera Sans',Helvetica,sans-serif; font-size:14.640419960022px; line-height:21.9606304168701px"><span style="white-space:pre"></span>hello world</span></p>
+<p><span style="font-family:Arial,Verdana,Geneva,'Bitstream Vera Sans',Helvetica,sans-serif; font-size:14.640419960022px; line-height:21.9606304168701px"></span></p>
+<pre style="margin:0px 2em; padding:10px; line-height:17.8231201171875px"><span class="nv" style="color:rgb(187,96,213)">$ </span>http httpie.org</pre>
+<br>
+<p><strong><span style="font-size:24px"><span style="font-family:monospace; line-height:17.8430118560791px">http&nbsp;</span><span class="pre" style="white-space:pre; font-family:monospace; line-height:17.8430118560791px">--help</span></span></strong></p>
+<p><br>
+</p>
+<p><span style="font-size:18px">参考手册</span></p>
+<p><a target="_blank" href="https://pypi.python.org/pypi/httpie"><span style="font-size:18px">https://pypi.python.org/pypi/httpie</span></a><br>
+</p>
+<p style="font-size:22px; margin:0px; font-family:'Microsoft YaHei',宋体,'Myriad Pro',Lato,'Helvetica Neue',Helvetica,Arial,sans-serif; font-weight:normal; line-height:1; color:rgb(46,46,46); padding:0px">
+<br>
+</p>
+<p style="font-size:22px; margin:0px; font-family:'Microsoft YaHei',宋体,'Myriad Pro',Lato,'Helvetica Neue',Helvetica,Arial,sans-serif; font-weight:normal; line-height:1; color:rgb(46,46,46); padding:0px">
+<br>
+</p>
+<h2 style="margin:0px; font-family:'Microsoft YaHei',宋体,'Myriad Pro',Lato,'Helvetica Neue',Helvetica,Arial,sans-serif; font-weight:normal; line-height:1; color:rgb(46,46,46); padding:0px">
+<span style="color:rgb(46,46,46); font-family:'Microsoft YaHei',宋体,Lato,'Helvetica Neue',Helvetica,Arial,sans-serif; line-height:22.5px"><span style="font-size:24px">例子</span></span></h2>
+<p></p>
+<ul>
+<li><span style="color:rgb(43,43,43); font-family:arial,sans-serif; line-height:21px"><span style="font-size:14px">自定义HTTP方法,HTTP header和JSON数据</span></span></li></ul>
+<p></p>
+<p></p>
+<p style="margin:0px; font-family:'Microsoft YaHei',宋体,'Myriad Pro',Lato,'Helvetica Neue',Helvetica,Arial,sans-serif; font-weight:normal; line-height:1; color:rgb(46,46,46); padding:0px">
+<span style="font-family:'Microsoft YaHei',宋体,Lato,'Helvetica Neue',Helvetica,Arial,sans-serif; line-height:22.5px"><span style="font-size:14px"><span style="color:rgb(43,43,43); font-family:arial,sans-serif; line-height:21px"></span></span></span></p>
+<pre name="code" class="html">$ http PUT example.org X-API-Token:123 name=John</pre>
+<p></p>
+<p style="margin:0px; font-family:'Microsoft YaHei',宋体,'Myriad Pro',Lato,'Helvetica Neue',Helvetica,Arial,sans-serif; font-weight:normal; line-height:1; color:rgb(46,46,46); padding:0px">
+</p>
+<ul>
+<li><span style="color:rgb(43,43,43); font-family:arial,sans-serif; line-height:21px"><span style="font-size:14px">提交表单</span></span></li></ul>
+<p></p>
+<p style="margin:0px; font-family:'Microsoft YaHei',宋体,'Myriad Pro',Lato,'Helvetica Neue',Helvetica,Arial,sans-serif; font-weight:normal; line-height:1; color:rgb(46,46,46); padding:0px">
+<span style="font-family:'Microsoft YaHei',宋体,Lato,'Helvetica Neue',Helvetica,Arial,sans-serif; line-height:22.5px"><span style="font-size:14px"><span style="color:rgb(43,43,43); font-family:arial,sans-serif; line-height:21px"></span></span></span></p>
+<pre name="code" class="html">$ http -f POST example.org hello=World</pre>
+<ul>
+<li><span style="font-size:14px">打印发送请求<span style="color:rgb(43,43,43); font-family:arial,sans-serif; line-height:21px">使用的输出项</span></span></li></ul>
+<p></p>
+<p style="margin:0px; font-family:'Microsoft YaHei',宋体,'Myriad Pro',Lato,'Helvetica Neue',Helvetica,Arial,sans-serif; font-weight:normal; line-height:1; color:rgb(46,46,46); padding:0px">
+<span style="color:rgb(46,46,46); font-family:'Microsoft YaHei',宋体,Lato,'Helvetica Neue',Helvetica,Arial,sans-serif; line-height:22.5px"><span style="font-size:14px"><span style="color:rgb(43,43,43); font-family:arial,sans-serif; line-height:21px"></span></span></span></p>
+<pre name="code" class="html">$ http -v example.org</pre>
+<ul>
+<li><span style="font-size:14px">利用<span style="color:rgb(43,43,43); font-family:arial,sans-serif; line-height:21px">使用Github API发布评论和验证一个问题</span></span></li></ul>
+<p></p>
+<p style="margin:0px; font-family:'Microsoft YaHei',宋体,'Myriad Pro',Lato,'Helvetica Neue',Helvetica,Arial,sans-serif; font-weight:normal; line-height:1; color:rgb(46,46,46); padding:0px">
+<span style="color:rgb(46,46,46); font-family:'Microsoft YaHei',宋体,Lato,'Helvetica Neue',Helvetica,Arial,sans-serif; line-height:22.5px"><span style="font-size:14px"><span style="color:rgb(43,43,43); font-family:arial,sans-serif; line-height:21px"></span></span></span></p>
+<pre name="code" class="html">$ http -a USERNAME POST https://api.github.com/repos/jakubroztocil/httpie/issues/83/comments body=&#39;HTTPie is awesome!&#39;</pre><span style="color:rgb(43,43,43); font-family:arial,sans-serif; line-height:21px"></span>
+<ul>
+<li><span style="font-size:14px">使用重定向输入上传一个文件</span></li></ul>
+<p></p>
+<p style="margin:0px; font-family:'Microsoft YaHei',宋体,'Myriad Pro',Lato,'Helvetica Neue',Helvetica,Arial,sans-serif; font-weight:normal; line-height:1; color:rgb(46,46,46); padding:0px">
+<span style="color:rgb(46,46,46); font-family:'Microsoft YaHei',宋体,Lato,'Helvetica Neue',Helvetica,Arial,sans-serif; line-height:22.5px"><span style="font-size:14px"><span style="color:rgb(43,43,43); font-family:arial,sans-serif; line-height:21px"></span></span></span></p>
+<pre name="code" class="html">$ http example.org &lt; file.json</pre><span style="color:rgb(43,43,43); font-family:arial,sans-serif; line-height:21px"></span>
+<ul>
+<li><span style="font-size:14px">下载一个文件并通过重定向输出将其保存</span></li></ul>
+<p></p>
+<p style="margin:0px; font-family:'Microsoft YaHei',宋体,'Myriad Pro',Lato,'Helvetica Neue',Helvetica,Arial,sans-serif; font-weight:normal; line-height:1; color:rgb(46,46,46); padding:0px">
+<span style="color:rgb(46,46,46); font-family:'Microsoft YaHei',宋体,Lato,'Helvetica Neue',Helvetica,Arial,sans-serif; line-height:22.5px"><span style="font-size:14px"><span style="color:rgb(43,43,43); font-family:arial,sans-serif; line-height:21px"></span></span></span></p>
+<pre name="code" class="html">$ http example.org/file &gt; file</pre>
+<pre></pre>
+<p></p>
+<p></p>
+<ul>
+<li><span style="color:rgb(43,43,43); font-family:arial,sans-serif; line-height:21px"><span style="font-size:14px">wget风&#26684;下载文件</span></span></li></ul>
+<p></p>
+<p><span style="color:rgb(46,46,46); font-family:'Microsoft YaHei',宋体,Lato,'Helvetica Neue',Helvetica,Arial,sans-serif; line-height:22.5px"><span style="font-size:14px"><span style="color:rgb(43,43,43); font-family:arial,sans-serif; line-height:21px"></span></span></span></p>
+<pre name="code" class="html">$ http --download example.org/file</pre><span style="color:rgb(43,43,43); font-family:arial,sans-serif; line-height:21px"></span>
+<ul>
+<li><span style="font-size:14px">使用session保持请求相同的主机之间的通信</span></li></ul>
+<pre name="code" class="html">$ http --session=logged-in -a username:password httpbin.org/get API-Key:123
+
+$ http --session=logged-in httpbin.org/headers</pre><span style="color:rgb(43,43,43); font-family:arial,sans-serif; line-height:21px"></span>
+<ul>
+<li><span style="font-size:14px">设置一个自定义的主机头工作在失踪的DNS记录:</span></li></ul>
+<pre name="code" class="html">$ http localhost:8000 Host:example.com</pre><span style="font-size:14px"><br>
+</span>
+<h2 style="font-family:Georgia,'Bitstream Vera Serif','New York',Palatino,serif; font-weight:normal; line-height:1em; font-size:20.4965877532959px; color:rgb(54,109,156); margin:0.7em 0px">
+HTTP Method</h2>
+<div id="http-method" style="font-family:Arial,Verdana,Geneva,'Bitstream Vera Sans',Helvetica,sans-serif; font-size:14.640419960022px; line-height:17.8231201171875px">
+<p style="line-height:1.5">HTTP 请求方法位于 URL的左边,下面是使用DELETE方法进行请求</p>
+<pre style="margin:0px 2em; padding:10px"><span class="nv" style="color:rgb(187,96,213)">$ </span>http DELETE example.org/todos/7
+</pre>
+<p style="line-height:1.5">就像执行了下面的request-line命令行</p>
+<pre style="margin:0px 2em; padding:10px"><span class="nf" style="color:rgb(6,40,126)">DELETE</span> <span class="nn" style="color:rgb(14,132,181); font-weight:bold">/todos/7</span> <span class="kr" style="color:rgb(0,112,32); font-weight:bold">HTTP</span><span class="o" style="color:rgb(102,102,102)">/</span><span class="m" style="color:rgb(64,160,112)">1.1</span>
+</pre>
+<p style="line-height:1.5">HTTPie 默认使用&nbsp;<strong><tt>GET</tt>&nbsp;</strong>(with no request data) 或者&nbsp;<strong><tt>POST</tt>&nbsp;</strong>(with request data).</p>
+</div>
+<div id="request-url" style="font-family:Arial,Verdana,Geneva,'Bitstream Vera Sans',Helvetica,sans-serif; font-size:14.640419960022px; line-height:17.8231201171875px">
+<h2 style="font-family:Georgia,'Bitstream Vera Serif','New York',Palatino,serif; font-weight:normal; line-height:1em; font-size:20.4965877532959px; color:rgb(54,109,156); margin:0.7em 0px">
+Request URL</h2>
+<p style="line-height:1.5">&nbsp;HTTPie 需要请求一个URL. 默认的 scheme 是&nbsp;<tt><span class="pre" style="white-space:pre"><strong>http://</strong></span></tt>, 而且可以省略参数
+<strong>–&nbsp;</strong><tt><strong>http</strong> , <span style="font-family:monospace; font-size:14.640419960022px; line-height:21.9606304168701px; white-space:pre">
+<span style="font-family:monospace; font-size:14.640419960022px; line-height:21.9606304168701px"><strong>example.org</strong></span></span>就代表了
+<strong>http://</strong><span style="font-family:monospace; font-size:14.640419960022px; line-height:21.9606304168701px"><strong>example.org</strong>,此外,支持curl类&#20284;的localhost, 例如&nbsp;<span style="font-family:Arial,Verdana,Geneva,'Bitstream Vera Sans',Helvetica,sans-serif; font-size:14.640419960022px; line-height:21.9606304168701px"><strong>&nbsp;</strong></span><tt style="font-size:14.640419960022px; line-height:21.9606304168701px"><strong>:3000</strong>
+ 代表&nbsp;<span style="font-family:monospace; font-size:14.640419960022px; line-height:21.9606304168701px; white-space:pre"><strong>http://localhost:3000,
+</strong>默认是80端口</span></tt></span></tt></p>
+<pre style="margin:0px 2em; padding:10px"><span class="nv" style="color:rgb(187,96,213)">$ </span>http :/foo
+</pre>
+<pre style="margin:0px 2em; padding:10px"><span class="nf" style="color:rgb(6,40,126)">GET</span> <span class="nn" style="color:rgb(14,132,181); font-weight:bold">/foo</span> <span class="kr" style="color:rgb(0,112,32); font-weight:bold">HTTP</span><span class="o" style="color:rgb(102,102,102)">/</span><span class="m" style="color:rgb(64,160,112)">1.1</span>
+<span class="na" style="color:rgb(64,112,160)">Host</span><span class="o" style="color:rgb(102,102,102)">:</span> <span class="l">localhost</span>
+</pre>
+<pre style="margin:0px 2em; padding:10px"><span class="nv" style="color:rgb(187,96,213)">$ </span>http :3000/bar
+</pre>
+<pre style="margin:0px 2em; padding:10px"><span class="nf" style="color:rgb(6,40,126)">GET</span> <span class="nn" style="color:rgb(14,132,181); font-weight:bold">/bar</span> <span class="kr" style="color:rgb(0,112,32); font-weight:bold">HTTP</span><span class="o" style="color:rgb(102,102,102)">/</span><span class="m" style="color:rgb(64,160,112)">1.1</span>
+<span class="na" style="color:rgb(64,112,160)">Host</span><span class="o" style="color:rgb(102,102,102)">:</span> <span class="l">localhost:3000</span>
+</pre>
+<pre style="margin:0px 2em; padding:10px"><span class="nv" style="color:rgb(187,96,213)">$ </span>http :
+</pre>
+<pre style="margin:0px 2em; padding:10px"><span class="nf" style="color:rgb(6,40,126)">GET</span> <span class="nn" style="color:rgb(14,132,181); font-weight:bold">/</span> <span class="kr" style="color:rgb(0,112,32); font-weight:bold">HTTP</span><span class="o" style="color:rgb(102,102,102)">/</span><span class="m" style="color:rgb(64,160,112)">1.1</span>
+<span class="na" style="color:rgb(64,112,160)">Host</span><span class="o" style="color:rgb(102,102,102)">:</span> <span class="l">localhost</span>
+</pre>
+<p style="line-height:1.5">当手动在url中添加&nbsp;<strong>querystring parameters&nbsp;</strong>, 可以直接使用&nbsp;<strong>key==value</strong>
+<span style="font-family:Arial,Verdana,Geneva,'Bitstream Vera Sans',Helvetica,sans-serif; font-size:14.640419960022px; line-height:21.9606304168701px">
+<strong>key==value</strong></span><span style="font-family:Arial,Verdana,Geneva,'Bitstream Vera Sans',Helvetica,sans-serif; font-size:14.640419960022px; line-height:21.9606304168701px"><strong>&nbsp;</strong>&nbsp;</span>的形式而不用担心
+<strong>&amp;</strong>&nbsp;符号.&nbsp;</p>
+<pre style="margin:0px 2em; padding:10px"><span class="nv" style="color:rgb(187,96,213)">$ </span>http GET www.google.com <span class="nv" style="color:rgb(187,96,213)">search</span><span class="o" style="color:rgb(102,102,102)">==</span>HTTPie <span class="nv" style="color:rgb(187,96,213)">tbm</span><span class="o" style="color:rgb(102,102,102)">==</span>isch
+</pre>
+<pre style="margin:0px 2em; padding:10px"><span class="nf" style="color:rgb(6,40,126)">GET</span> <span class="nn" style="color:rgb(14,132,181); font-weight:bold">/?search=HTTPie&amp;tbm=isch</span> <span class="kr" style="color:rgb(0,112,32); font-weight:bold">HTTP</span><span class="o" style="color:rgb(102,102,102)">/</span><span class="m" style="color:rgb(64,160,112)">1.1</span>
+</pre>
+</div>
+<div id="request-items" style="font-family:Arial,Verdana,Geneva,'Bitstream Vera Sans',Helvetica,sans-serif; font-size:14.640419960022px; line-height:17.8231201171875px">
+<h2 style="font-family:Georgia,'Bitstream Vera Serif','New York',Palatino,serif; font-weight:normal; line-height:1em; font-size:20.4965877532959px; color:rgb(54,109,156); margin:0.7em 0px">
+<br>
+</h2>
+</div>
+<br>
+<p></p>
+<span style="color:rgb(46,46,46); font-family:'Microsoft YaHei',宋体,Lato,'Helvetica Neue',Helvetica,Arial,sans-serif; line-height:22.5px"><span style="color:rgb(43,43,43); font-family:arial,sans-serif; line-height:21px"><span style="font-size:14px">&nbsp;</span></span></span>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://hanks.xyz/2015/08/17/HTTPie__a_CLI,_cURL-like_tool_for_humans/" data-id="cihryjm5i006fk405hc9y3hpe" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  
+  
+</article>
+
+  
+<section id="comments">
+    <!-- 多说分享框 -->
+    <div class="ds-share flat" data-thread-key="/2015/08/17/HTTPie__a_CLI,_cURL-like_tool_for_humans/" data-title="HTTPie:a CLI, cURL-like tool for humans" data-images="此处请替换为分享时显示的图片的链接地址" data-content="HTTPie:a CLI, cURL-like tool for humans" data-url="http://hanks.xyz//2015/08/17/HTTPie__a_CLI,_cURL-like_tool_for_humans/">
+    <div class="ds-share-inline">
+      <ul  class="ds-share-icons-16">
+
+      	<li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+        <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+        <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+        <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+        <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+      </ul>
+      <div class="ds-share-icons-more">
+      </div>
+    </div>
+   </div>
+    <!-- 多说评论框 start -->
+   	<div class="ds-thread" data-thread-key="/2015/08/17/HTTPie__a_CLI,_cURL-like_tool_for_humans/" data-title="HTTPie:a CLI, cURL-like tool for humans" data-url="http://hanks.xyz//2015/08/17/HTTPie__a_CLI,_cURL-like_tool_for_humans/"></div>
+   <!-- 多说评论框 end -->
+   <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+   <script type="text/javascript">
+   var duoshuoQuery = {short_name:"hanks-zyh"};
+   	(function() {
+   		var ds = document.createElement('script');
+   		ds.type = 'text/javascript';ds.async = true;
+   		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+   		ds.charset = 'UTF-8';
+   		(document.getElementsByTagName('head')[0]
+   		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+   	})();
+   	</script>
+   <!-- 多说公共JS代码 end -->
+</section>
+
+</section>
+      </div>
+      <footer id="footer">
+  
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      &copy; 2015 Hanks<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+  </br>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    
+
+<script src="/js/jquery.min.js" type="text/javascript"></script>
+<script src="/js/jquery.scrollLoading.js" type="text/javascript"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+  <script src="/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+
+
+<script src="/js/script.js" type="text/javascript"></script>
+
+  </div>
+</body>
+</html>

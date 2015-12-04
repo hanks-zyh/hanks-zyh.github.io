@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>前方高能--Retrofit | Hanks.xyz</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description">
+<meta property="og:type" content="article">
+<meta property="og:title" content="前方高能--Retrofit">
+<meta property="og:url" content="http://hanks.xyz/2015/05/27/前方高能--Retrofit/index.html">
+<meta property="og:site_name" content="Hanks.xyz">
+<meta property="og:description">
+<meta property="og:image" content="http://i.imgur.com/tIdZkl3.png">
+<meta property="og:updated_time" content="2015-12-04T17:20:04.328Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="前方高能--Retrofit">
+<meta name="twitter:description">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <!-- <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600' rel='stylesheet' type='text/css'> -->
+  <!-- <link href="//fonts.googleapis.com/css?family=Source+Code+Pro:400,700" rel="stylesheet" type="text/css"> -->
+  <link href="//fonts.useso.com/css?family=Source+Code+Pro:400,700" rel="stylesheet" type="text/css">
+  <link href='//fonts.useso.com/css?family=Open+Sans:300,600' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo">Hanks.xyz</a>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">首页</a>
+        
+          <a class="main-nav-link" href="/archives">归档</a>
+        
+          <a class="main-nav-link" href="/about/index.html">关于</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        <div id="search-form-wrap">
+          <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://hanks.xyz"></form>
+        </div>
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+        
+        
+          <a id="nav-github-link" class="nav-icon" href="https://github.com/hanks-zyh" title="Fork me on GitHub"></a>
+        
+      </nav>
+    </div>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/" class="mobile-nav-link">首页</a>
+  
+    <a href="/archives" class="mobile-nav-link">归档</a>
+  
+    <a href="/about/index.html" class="mobile-nav-link">关于</a>
+  
+  <div id="search-form-wrap-mobile">
+    <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://hanks.xyz"></form>
+  </div>
+</nav>
+      <div class="outer">
+        
+        <section id="main"><article id="post-前方高能--Retrofit" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/05/27/前方高能--Retrofit/" class="article-date">
+  <time datetime="2015-05-26T16:26:00.000Z" itemprop="datePublished">2015-05-27</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      前方高能--Retrofit
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>#Retrofit</p>
+<blockquote>
+<p>A type-safe REST client for Android and Java</p>
+</blockquote>
+<hr>
+<p>Android中非常有名的网络框架<br><a href="http://square.github.io/retrofit/" target="_blank" rel="external"><strong>官网</strong> ：http://square.github.io/retrofit/</a><br><a href="http://square.github.io/okhttp/" target="_blank" rel="external"><strong>参考项目</strong>： http://square.github.io/okhttp/</a><br><a href="https://github.com/goodev/RetrofitDemo" target="_blank" rel="external"><strong>Android 示例项目</strong>：  https://github.com/goodev/RetrofitDemo</a></p>
+<hr>
+<p><strong><a href="#">Retrofit</a></strong> vs <strong><a href="#">Volley</a></strong><br><a href="http://instructure.github.io/blog/2013/12/09/volley-vs-retrofit/" target="_blank" rel="external">http://instructure.github.io/blog/2013/12/09/volley-vs-retrofit/</a><br>提取一张图片<br><img src="http://i.imgur.com/tIdZkl3.png" alt="这里写图片描述"></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//API</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">ApiService</span> </span>&#123;</span><br><span class="line">    <span class="annotation">@GET</span>(<span class="string">"/jobs"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">getJobs</span><span class="params">(Callback&lt;Data&gt; callback)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//RestClient</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RestClient</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String BASE_URL = <span class="string">"https://yourapi.host.com"</span>;</span><br><span class="line">    <span class="keyword">private</span> ApiService apiService;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">RestClient</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        Gson gson = <span class="keyword">new</span> GsonBuilder()</span><br><span class="line">                .registerTypeAdapterFactory(<span class="keyword">new</span> ItemTypeAdapterFactory())</span><br><span class="line">                .setDateFormat(<span class="string">"yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'SSS'Z'"</span>)</span><br><span class="line">                .create();</span><br><span class="line"></span><br><span class="line">        RestAdapter restAdapter = <span class="keyword">new</span> RestAdapter.Builder()</span><br><span class="line">                .setLogLevel(RestAdapter.LogLevel.FULL)</span><br><span class="line">                .setEndpoint(BASE_URL) </span><br><span class="line">                .setConverter(<span class="keyword">new</span> GsonConverter(gson))</span><br><span class="line">                .setRequestInterceptor(<span class="keyword">new</span> SessionRequestInterceptor())</span><br><span class="line">                .setClient(<span class="keyword">new</span> OkClient(MySSLTrust.getUnsafeOkHttpClient()))</span><br><span class="line">                .build();</span><br><span class="line"></span><br><span class="line">        apiService = restAdapter.create(ApiService.class);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> ApiService <span class="title">getApiService</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> apiService;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//MySSLTrust 的SSL信任</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MySSLTrust</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> OkHttpClient <span class="title">getUnsafeOkHttpClient</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">// Create a trust manager that does not validate certificate chains</span></span><br><span class="line">            <span class="keyword">final</span> TrustManager[] trustAllCerts = <span class="keyword">new</span> TrustManager[] &#123;</span><br><span class="line">                    <span class="keyword">new</span> X509TrustManager() &#123;</span><br><span class="line">                        <span class="annotation">@Override</span></span><br><span class="line">                        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">checkClientTrusted</span><span class="params">(java.security.cert.X509Certificate[] chain, String authType)</span> <span class="keyword">throws</span> CertificateException </span>&#123;</span><br><span class="line">                        &#125;</span><br><span class="line"></span><br><span class="line">                        <span class="annotation">@Override</span></span><br><span class="line">                        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">checkServerTrusted</span><span class="params">(java.security.cert.X509Certificate[] chain, String authType)</span> <span class="keyword">throws</span> CertificateException </span>&#123;</span><br><span class="line">                        &#125;</span><br><span class="line"></span><br><span class="line">                        <span class="annotation">@Override</span></span><br><span class="line">                        <span class="keyword">public</span> java.security.cert.X509Certificate[] getAcceptedIssuers() &#123;</span><br><span class="line">                            <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">            &#125;;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// Install the all-trusting trust manager</span></span><br><span class="line">            <span class="keyword">final</span> SSLContext sslContext = SSLContext.getInstance(<span class="string">"SSL"</span>);</span><br><span class="line">            sslContext.init(<span class="keyword">null</span>, trustAllCerts, <span class="keyword">new</span> java.security.SecureRandom());</span><br><span class="line">            <span class="comment">// Create an ssl socket factory with our all-trusting manager</span></span><br><span class="line">            <span class="keyword">final</span> SSLSocketFactory sslSocketFactory = sslContext.getSocketFactory();</span><br><span class="line"></span><br><span class="line">            OkHttpClient okHttpClient = <span class="keyword">new</span> OkHttpClient();</span><br><span class="line">            okHttpClient.setSslSocketFactory(sslSocketFactory);</span><br><span class="line">            okHttpClient.setHostnameVerifier(<span class="keyword">new</span> HostnameVerifier() &#123;</span><br><span class="line">                <span class="annotation">@Override</span></span><br><span class="line">                <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">verify</span><span class="params">(String hostname, SSLSession session)</span> </span>&#123;</span><br><span class="line">                    <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">return</span> okHttpClient;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(e);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span><br><span class="line"> * add Headers fro every request</span><br><span class="line"> * Created by Hanks on 2015/5/18.</span><br><span class="line"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SessionRequestInterceptor</span> <span class="keyword">implements</span> <span class="title">RequestInterceptor</span> </span>&#123;</span><br><span class="line">    <span class="annotation">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">intercept</span><span class="params">(RequestFacade request)</span> </span>&#123;</span><br><span class="line">        <span class="comment">/*request.addHeader("Accept", "application/json;versions=1");</span><br><span class="line">        if(isUserLoggedIn())&#123;</span><br><span class="line">            request.addHeader("Authorization",getToken());</span><br><span class="line">        &#125;*/</span></span><br><span class="line">            request.addHeader(<span class="string">"Authorization"</span>,<span class="string">"huhu="</span>)；</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>官网的几个例子：<br>API Declaration</p>
+<p>Annotations on the interface methods and its parameters indicate how a request will be handled.</p>
+<p>REQUEST METHOD</p>
+<p>Every method must have an HTTP annotation that provides the request method and relative URL. There are five built-in annotations: GET, POST, PUT, DELETE, and HEAD. The relative URL of the resource is specified in the annotation.<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@<span class="function"><span class="title">GET</span><span class="params">(<span class="string">"/users/list"</span>)</span></span></span><br></pre></td></tr></table></figure></p>
+<p>You can also specify query parameters in the URL.</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@<span class="function"><span class="title">GET</span><span class="params">(<span class="string">"/users/list?sort=desc"</span>)</span></span></span><br></pre></td></tr></table></figure>
+<p>URL MANIPULATION</p>
+<p>A request URL can be updated dynamically using replacement blocks and parameters on the method. A replacement block is an alphanumeric string surrounded by { and }. A corresponding parameter must be annotated with @Path using the same string.</p>
+<p>@GET(“/group/{id}/users”)<br>List<user> groupList(@Path(“id”) int groupId);<br>Query parameters can also be added.<br><figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">@GET</span>(<span class="string">"/group/&#123;id&#125;/users"</span>)</span><br><span class="line">List&lt;User&gt; <span class="function">groupList</span>(<span class="variable">@Path</span>(<span class="string">"id"</span>) int groupId, <span class="variable">@Query</span>(<span class="string">"sort"</span>) String sort);</span><br></pre></td></tr></table></figure></user></p>
+<p>For complex query parameter combinations a Map can be used.<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@<span class="function"><span class="title">GET</span><span class="params">(<span class="string">"/group/&#123;id&#125;/users"</span>)</span></span></span><br></pre></td></tr></table></figure></p>
+<p>List<user> groupList(@Path(“id”) int groupId, @QueryMap Map<string, string=""> options);<br>REQUEST BODY</string,></user></p>
+<p>An object can be specified for use as an HTTP request body with the @Body annotation.</p>
+<p>@POST(“/users/new”)<br>void createUser(@Body User user, Callback<user> cb);<br>The object will also be converted using the RestAdapter’s converter.</user></p>
+<p>FORM ENCODED AND MULTIPART</p>
+<p>Methods can also be declared to send form-encoded and multipart data.</p>
+<p>Form-encoded data is sent when @FormUrlEncoded is present on the method. Each key-value pair is annotated with @Field containing the name and the object providing the value.</p>
+<p>@FormUrlEncoded<br>@POST(“/user/edit”)<br>User updateUser(@Field(“first_name”) String first, @Field(“last_name”) String last);<br>Multipart requests are used when @Multipart is present on the method. Parts are declared using the @Part annotation.</p>
+<p>@Multipart<br>@PUT(“/user/photo”)<br>User updateUser(@Part(“photo”) TypedFile photo, @Part(“description”) TypedString description);<br>Multipart parts use the RestAdapter’s converter or they can implement TypedOutput to handle their own serialization.</p>
+<p>HEADER MANIPULATION</p>
+<p>You can set static headers for a method using the @Headers annotation.<br><figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">@Headers</span>(<span class="string">"Cache-Control: max-age=640000"</span>)</span><br><span class="line"><span class="variable">@GET</span>(<span class="string">"/widget/list"</span>)</span><br><span class="line">List&lt;Widget&gt; <span class="function">widgetList</span>();</span><br><span class="line"><span class="variable">@Headers</span>(&#123;</span><br><span class="line">    <span class="string">"Accept: application/vnd.github.v3.full+json"</span>,</span><br><span class="line">    <span class="string">"User-Agent: Retrofit-Sample-App"</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@<span class="function"><span class="title">GET</span><span class="params">(<span class="string">"/users/&#123;username&#125;"</span>)</span></span></span><br></pre></td></tr></table></figure>
+<p>User getUser(@Path(“username”) String username);<br>Note that headers do not overwrite each other. All headers with the same name will be included in the request.</p>
+<p>A request Header can be updated dynamically using the @Header annotation. A corresponding parameter must be provided to the @Header. If the value is null, the header will be omitted. Otherwise, toString will be called on the value, and the result used.<br><figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">@GET</span>(<span class="string">"/user"</span>)</span><br><span class="line">void <span class="function">getUser</span>(<span class="variable">@Header</span>(<span class="string">"Authorization"</span>) String authorization, Callback&lt;User&gt; callback)</span><br></pre></td></tr></table></figure></p>
+<p>Headers that need to be added to every request can be specified using a RequestInterceptor. The following code creates a RequestInterceptor that will add a User-Agent header to every request.<br><figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">RequestInterceptor requestInterceptor = <span class="keyword">new</span> RequestInterceptor() &#123;</span><br><span class="line">  <span class="annotation">@Override</span></span><br><span class="line">  <span class="keyword">public</span> <span class="function"><span class="keyword">void</span> <span class="title">intercept</span><span class="params">(RequestFacade request)</span> </span>&#123;</span><br><span class="line">    request.addHeader(<span class="string">"User-Agent"</span>, <span class="string">"Retrofit-Sample-App"</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">RestAdapter restAdapter = <span class="keyword">new</span> RestAdapter.Builder()</span><br><span class="line">  .setEndpoint(<span class="string">"https://api.github.com"</span>)</span><br><span class="line">  .setRequestInterceptor(requestInterceptor)</span><br><span class="line">  .build();</span><br></pre></td></tr></table></figure></p>
+<p>SYNCHRONOUS VS. ASYNCHRONOUS VS. OBSERVABLE</p>
+<p>Methods can be declared for either synchronous or asynchronous execution.</p>
+<p>A method with a return type will be executed synchronously.<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@<span class="function"><span class="title">GET</span><span class="params">(<span class="string">"/user/&#123;id&#125;/photo"</span>)</span></span></span><br></pre></td></tr></table></figure></p>
+<p>Photo getUserPhoto(@Path(“id”) int id);<br>Asynchronous execution requires the last parameter of the method be a Callback.<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@<span class="function"><span class="title">GET</span><span class="params">(<span class="string">"/user/&#123;id&#125;/photo"</span>)</span></span></span><br></pre></td></tr></table></figure></p>
+<p>void getUserPhoto(@Path(“id”) int id, Callback<photo> cb);<br>On Android, callbacks will be executed on the main thread. For desktop applications callbacks will happen on the same thread that executed the HTTP request.</photo></p>
+<p>Retrofit also integrates RxJava to support methods with a return type of rx.Observable<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@<span class="function"><span class="title">GET</span><span class="params">(<span class="string">"/user/&#123;id&#125;/photo"</span>)</span></span></span><br></pre></td></tr></table></figure></p>
+<p>Observable<photo> getUserPhoto(@Path(“id”) int id);<br>Observable requests are subscribed asynchronously and observed on the same thread that executed the HTTP request. To observe on a different thread (e.g. Android’s main thread) call observeOn(Scheduler) on the returned Observable.</photo></p>
+<p><strong>RESPONSE OBJECT TYPE</strong></p>
+<p>HTTP responses are automatically converted to a specified type using the RestAdapter’s converter which defaults to JSON. The desired type is declared as the method return type or using the Callback or Observable.</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="at_rule">@<span class="keyword">GET("/users/list")</span></span><br><span class="line">List&lt;User&gt; <span class="function">userList</span>()</span>;</span><br></pre></td></tr></table></figure>
+<figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="annotation">@GET</span>(<span class="string">"/users/list"</span>)</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">userList</span><span class="params">(Callback&lt;List&lt;User&gt;&gt; cb)</span></span>;</span><br></pre></td></tr></table></figure>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">@GET</span>(<span class="string">"/users/list"</span>)</span><br><span class="line"><span class="constant">Observable</span>&lt;<span class="constant">List</span>&lt;<span class="constant">User</span><span class="prompt">&gt;&gt; </span>userList();</span><br></pre></td></tr></table></figure>
+<p>For access to the raw HTTP response use the Response type.<br><figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="annotation">@GET</span>(<span class="string">"/users/list"</span>)</span><br><span class="line"><span class="function">Response <span class="title">userList</span><span class="params">()</span></span>;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="annotation">@GET</span>(<span class="string">"/users/list"</span>)</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">userList</span><span class="params">(Callback&lt;Response&gt; cb)</span></span>;</span><br></pre></td></tr></table></figure>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="at_rule">@<span class="keyword">GET("/users/list")</span></span><br><span class="line">Observable&lt;Response&gt; <span class="function">userList</span>()</span>;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://hanks.xyz/2015/05/27/前方高能--Retrofit/" data-id="cihryjlyp001yk405s20yf116" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  
+  
+</article>
+
+  
+<section id="comments">
+    <!-- 多说分享框 -->
+    <div class="ds-share flat" data-thread-key="/2015/05/27/前方高能--Retrofit/" data-title="前方高能--Retrofit" data-images="此处请替换为分享时显示的图片的链接地址" data-content="前方高能--Retrofit" data-url="http://hanks.xyz//2015/05/27/前方高能--Retrofit/">
+    <div class="ds-share-inline">
+      <ul  class="ds-share-icons-16">
+
+      	<li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+        <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+        <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+        <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+        <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+      </ul>
+      <div class="ds-share-icons-more">
+      </div>
+    </div>
+   </div>
+    <!-- 多说评论框 start -->
+   	<div class="ds-thread" data-thread-key="/2015/05/27/前方高能--Retrofit/" data-title="前方高能--Retrofit" data-url="http://hanks.xyz//2015/05/27/前方高能--Retrofit/"></div>
+   <!-- 多说评论框 end -->
+   <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+   <script type="text/javascript">
+   var duoshuoQuery = {short_name:"hanks-zyh"};
+   	(function() {
+   		var ds = document.createElement('script');
+   		ds.type = 'text/javascript';ds.async = true;
+   		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+   		ds.charset = 'UTF-8';
+   		(document.getElementsByTagName('head')[0]
+   		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+   	})();
+   	</script>
+   <!-- 多说公共JS代码 end -->
+</section>
+
+</section>
+      </div>
+      <footer id="footer">
+  
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      &copy; 2015 Hanks<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+  </br>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    
+
+<script src="/js/jquery.min.js" type="text/javascript"></script>
+<script src="/js/jquery.scrollLoading.js" type="text/javascript"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+  <script src="/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+
+
+<script src="/js/script.js" type="text/javascript"></script>
+
+  </div>
+</body>
+</html>

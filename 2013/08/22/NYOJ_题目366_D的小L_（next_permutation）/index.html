@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>NYOJ 题目366 D的小L （next_permutation） | Hanks.xyz</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description">
+<meta property="og:type" content="article">
+<meta property="og:title" content="NYOJ 题目366 D的小L （next_permutation）">
+<meta property="og:url" content="http://hanks.xyz/2013/08/22/NYOJ_题目366_D的小L_（next_permutation）/index.html">
+<meta property="og:site_name" content="Hanks.xyz">
+<meta property="og:description">
+<meta property="og:image" content="http://59.69.128.200/JudgeOnline/admin/kind/plugins/emoticons/44.gif">
+<meta property="og:image" content="http://59.69.128.200/JudgeOnline/admin/kind/plugins/emoticons/18.gif">
+<meta property="og:updated_time" content="2015-12-04T17:20:04.316Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="NYOJ 题目366 D的小L （next_permutation）">
+<meta name="twitter:description">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <!-- <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600' rel='stylesheet' type='text/css'> -->
+  <!-- <link href="//fonts.googleapis.com/css?family=Source+Code+Pro:400,700" rel="stylesheet" type="text/css"> -->
+  <link href="//fonts.useso.com/css?family=Source+Code+Pro:400,700" rel="stylesheet" type="text/css">
+  <link href='//fonts.useso.com/css?family=Open+Sans:300,600' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo">Hanks.xyz</a>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">首页</a>
+        
+          <a class="main-nav-link" href="/archives">归档</a>
+        
+          <a class="main-nav-link" href="/about/index.html">关于</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        <div id="search-form-wrap">
+          <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://hanks.xyz"></form>
+        </div>
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+        
+        
+          <a id="nav-github-link" class="nav-icon" href="https://github.com/hanks-zyh" title="Fork me on GitHub"></a>
+        
+      </nav>
+    </div>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/" class="mobile-nav-link">首页</a>
+  
+    <a href="/archives" class="mobile-nav-link">归档</a>
+  
+    <a href="/about/index.html" class="mobile-nav-link">关于</a>
+  
+  <div id="search-form-wrap-mobile">
+    <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://hanks.xyz"></form>
+  </div>
+</nav>
+      <div class="outer">
+        
+        <section id="main"><article id="post-NYOJ_题目366_D的小L_（next_permutation）" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2013/08/22/NYOJ_题目366_D的小L_（next_permutation）/" class="article-date">
+  <time datetime="2013-08-22T05:17:00.000Z" itemprop="datePublished">2013-08-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      NYOJ 题目366 D的小L （next_permutation）
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+<h4 class="problem-display"></h4>
+<h2 class="problem-display" align="center"><span style="color:#3366ff; background-color:#ffffff">D的小L</span></h2>
+<div class="problem-ins" align="center"><span style="color:#009900; background-color:#ffffff">时间限制：<span id="problem[time_limit]" class="editable highlight">4000</span> ms &nbsp;|&nbsp; 内存限制：<span id="problem[memory_limit]" class="editable highlight">65535</span> KB</span></div>
+<div class="problem-ins" align="center"><span style="background-color:#ffffff"><span style="color:#009900">难度：<span class="editable highlight">2</span></span></span></div>
+<div class="clr"></div>
+<dl class="problem-display"><dt>描述 </dt><dd>&nbsp; &nbsp; &nbsp; 一天TC的匡匡找ACM的小L玩三国杀，但是这会小L忙着哩，不想和匡匡玩但又怕匡匡生气，这时小L给匡匡出了个题目想难倒匡匡(小L很D吧<img border="0" alt="" src="http://59.69.128.200/JudgeOnline/admin/kind/plugins/emoticons/44.gif">)，有一个数n(0&lt;n&lt;10),写出1到n的全排列，这时匡匡有点囧了<img border="0" alt="" src="http://59.69.128.200/JudgeOnline/admin/kind/plugins/emoticons/18.gif">，，，聪明的你能帮匡匡解围吗？
+<div class="clr"></div>
+<dl class="others"><dt>输入 </dt><dd>第一行输入一个数N（0&lt;N&lt;10）,表示有N组测试数据。后面的N行输入多组输入数据，每组输入数据都是一个整数x(0&lt;x&lt;10) </dd><dt>输出 </dt><dd>按特定顺序输出所有组合。<br>
+特定顺序：每一个组合中的&#20540;从小到大排列，组合之间按字典序排列。 </dd><dt>样例输入 </dt><dd>
+<pre id="sample_input">2
+2
+3</pre>
+</dd><dt>样例输出 </dt><dd>
+<pre id="sample_output">12
+21
+123
+132
+213
+231
+312
+321</pre>
+</dd></dl>
+</dd></dl>
+<p>先看一下全排列吧：<a target="_blank" href="http://blog.csdn.net/morewindows/article/details/7370155">大牛空间全排列</a>，比较详细</p>
+<dl></dl>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>代码一：简单STL 之 next_permutation();</p>
+<p>&nbsp;</p>
+<p><a target="_blank" href="http://shenan1984.blog.163.com/blog/static/2530851020081124954081/">next_permutation，prev_permutation详细</a></p>
+<p>&nbsp;</p>
+<pre class="cpp" name="code">/***************************
+# 2013-8-22 12:56:46 
+# Time: 8MS   Memory: 232KB
+# Author: zyh
+# Status: Accepted
+***************************/ 
+
+#include&lt;iostream&gt;
+#include&lt;stdio.h&gt;
+#include&lt;string.h&gt;
+#include&lt;stdlib.h&gt;
+#include&lt;algorithm&gt;
+
+using namespace std;
+
+int main()
+{
+	int n,x,i,j;char s[12];
+	scanf(&quot;%d&quot;,&amp;n);
+	while(n--)
+	{
+		scanf(&quot;%d&quot;,&amp;x);
+		for(i=0;i&lt;x;i++) s[i]=i+'1';
+		s[i]='\0';
+		do{
+			puts(s);
+		}while(next_permutation(s,s+x));//全排列函数应用
+	}
+	return 0;
+} </pre>
+<p><br>
+&nbsp;</p>
+<p>代码二： 递归求全排列， 两个数组；</p>
+<p>一个S[ ]存放原来的数， 另个 S1[ ]存放 排列, 从S1的0位置存放，存到长度输出一个全排列</p>
+<p>&nbsp;</p>
+<pre class="cpp" name="code">/***************************
+# 2013-8-22 15:46:46 
+# Time: 8MS   Memory: 232KB
+# Author: zyh
+# Status: Accepted
+***************************/ 
+
+#include&lt;stdio.h&gt;
+#include&lt;string.h&gt;
+
+int x;
+bool vis[12];
+char s[12],s1[12];
+
+void permutation(int t)
+{
+	if(t==x){
+		s1[x] = '\0'; //这里不要忘了，用字符数组存储字符串要注意末尾 '\0' 
+		puts(s1);
+	} 
+	for(int i=0;i&lt;x;i++){
+		if(!vis[s[i]-'1']){
+			s1[t] = s[i];
+			vis[s[i]-'1'] = 1;
+			permutation(t+1); 
+			vis[s[i]-'1'] = 0;
+		}
+	}
+}
+int main()
+{
+	int n,i;
+	scanf(&quot;%d&quot;,&amp;n);
+	while(n--)
+	{
+		memset(vis,0,sizeof(vis));
+		scanf(&quot;%d&quot;,&amp;x);
+		for(i=0;i&lt;x;i++) {
+			s[i] = i+'1';
+		}
+		s[i] = '\0';
+		permutation(0);
+	}
+	return 0;
+} 
+</pre>
+<p><br>
+</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://hanks.xyz/2013/08/22/NYOJ_题目366_D的小L_（next_permutation）/" data-id="cihryjm4m005rk405low6v174" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  
+  
+</article>
+
+  
+<section id="comments">
+    <!-- 多说分享框 -->
+    <div class="ds-share flat" data-thread-key="/2013/08/22/NYOJ_题目366_D的小L_（next_permutation）/" data-title="NYOJ 题目366 D的小L （next_permutation）" data-images="此处请替换为分享时显示的图片的链接地址" data-content="NYOJ 题目366 D的小L （next_permutation）" data-url="http://hanks.xyz//2013/08/22/NYOJ_题目366_D的小L_（next_permutation）/">
+    <div class="ds-share-inline">
+      <ul  class="ds-share-icons-16">
+
+      	<li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+        <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+        <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+        <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+        <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+      </ul>
+      <div class="ds-share-icons-more">
+      </div>
+    </div>
+   </div>
+    <!-- 多说评论框 start -->
+   	<div class="ds-thread" data-thread-key="/2013/08/22/NYOJ_题目366_D的小L_（next_permutation）/" data-title="NYOJ 题目366 D的小L （next_permutation）" data-url="http://hanks.xyz//2013/08/22/NYOJ_题目366_D的小L_（next_permutation）/"></div>
+   <!-- 多说评论框 end -->
+   <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+   <script type="text/javascript">
+   var duoshuoQuery = {short_name:"hanks-zyh"};
+   	(function() {
+   		var ds = document.createElement('script');
+   		ds.type = 'text/javascript';ds.async = true;
+   		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+   		ds.charset = 'UTF-8';
+   		(document.getElementsByTagName('head')[0]
+   		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+   	})();
+   	</script>
+   <!-- 多说公共JS代码 end -->
+</section>
+
+</section>
+      </div>
+      <footer id="footer">
+  
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      &copy; 2015 Hanks<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+  </br>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    
+
+<script src="/js/jquery.min.js" type="text/javascript"></script>
+<script src="/js/jquery.scrollLoading.js" type="text/javascript"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+  <script src="/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+
+
+<script src="/js/script.js" type="text/javascript"></script>
+
+  </div>
+</body>
+</html>

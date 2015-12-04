@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>ACM—NYOJ小小结 | Hanks.xyz</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ACM—NYOJ小小结">
+<meta property="og:url" content="http://hanks.xyz/2013/07/20/ACM—NYOJ小小结/index.html">
+<meta property="og:site_name" content="Hanks.xyz">
+<meta property="og:description">
+<meta property="og:updated_time" content="2015-12-04T17:20:04.300Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ACM—NYOJ小小结">
+<meta name="twitter:description">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <!-- <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600' rel='stylesheet' type='text/css'> -->
+  <!-- <link href="//fonts.googleapis.com/css?family=Source+Code+Pro:400,700" rel="stylesheet" type="text/css"> -->
+  <link href="//fonts.useso.com/css?family=Source+Code+Pro:400,700" rel="stylesheet" type="text/css">
+  <link href='//fonts.useso.com/css?family=Open+Sans:300,600' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo">Hanks.xyz</a>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">首页</a>
+        
+          <a class="main-nav-link" href="/archives">归档</a>
+        
+          <a class="main-nav-link" href="/about/index.html">关于</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        <div id="search-form-wrap">
+          <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://hanks.xyz"></form>
+        </div>
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+        
+        
+          <a id="nav-github-link" class="nav-icon" href="https://github.com/hanks-zyh" title="Fork me on GitHub"></a>
+        
+      </nav>
+    </div>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/" class="mobile-nav-link">首页</a>
+  
+    <a href="/archives" class="mobile-nav-link">归档</a>
+  
+    <a href="/about/index.html" class="mobile-nav-link">关于</a>
+  
+  <div id="search-form-wrap-mobile">
+    <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://hanks.xyz"></form>
+  </div>
+</nav>
+      <div class="outer">
+        
+        <section id="main"><article id="post-ACM—NYOJ小小结" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2013/07/20/ACM—NYOJ小小结/" class="article-date">
+  <time datetime="2013-07-20T02:54:00.000Z" itemprop="datePublished">2013-07-20</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      ACM—NYOJ小小结
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+<p>我觉得做题不是越多越好，而是善于总结！</p>
+<p>做南阳理工题目也有一段时间了，我觉得还是有必要总结一下，把以前做过的题目再重新看看，提取其中的知识点，重点，达到灵活运用才是王道！</p>
+<p><br>
+</p>
+<p>算法的五个特点：<span style="font-family:arial; font-size:13px; line-height:19.5px">&nbsp;</span><span style="font-family:arial; font-size:13px; line-height:19.5px">1. 能行性(或有效的)&nbsp;</span><span style="font-family:arial; font-size:13px; line-height:19.5px">&nbsp;2. 有限性 3. 确定性
+ 4. 输入 5. 输出</span></p>
+<p><br>
+</p>
+<p>一、基本输入：</p>
+<p>每道题目基本上都要求输入数据，因此你的程序要准确接收输入的数据，这步做好了，下面的才有可能进行，并且输入都得有个结束标示，不然一直输入是不可能的吧。下面对这些基本的输入做些总结。</p>
+<p><span style="font-size:18px"><strong>1. 先输入一个整数，代表测试数据组数&nbsp;</strong></span></p>
+<p>例如：<span style="font-family:Tahoma,Arial,sans-serif,simsun; line-height:21px"><span style="font-size:18px; color:#cc0000">第一行输入一个数N（0&lt;N&lt;=100）,表示有N组测试数据</span></span></p>
+<p><br>
+</p>
+<p>&nbsp;我一般这样写代码</p>
+<p></p>
+<pre name="code" class="cpp">int n;
+scanf(&quot;%d&quot;,&amp;n);
+while(n--)
+{
+     //........核心程序
+}</pre>这样看起来简洁，直接n--
+<p></p>
+<p>不过结尾如果要求输出 case n : .....</p>
+<p>用个for循环比较好，循环一次，case&#43;&#43;；</p>
+<p><br>
+</p>
+<p><strong><span style="font-size:18px">2.没有说明几组测试数据的，一般是以EOF结束输入，或者指明EOF结束</span></strong></p>
+<p></p>
+<pre name="code" class="cpp">C语法：
+	while( scanf(&quot;%d %d&quot;,&amp;a, &amp;b) != EOF) 
+	{ &nbsp; &nbsp; .... } 
+C++语法：
+	while( cin &gt;&gt; a &gt;&gt; b ) { &nbsp; &nbsp; .... } </pre><br>
+Scanf函数返回&#20540;就是读出的变量个数，
+<p></p>
+<p>如：scanf( “%d &nbsp;%d”, &amp;a, &amp;b ); 如果a和b都被成功读入整数，那么scanf的返回&#20540;就是2； 如果只有a被成功读入整数，返回&#20540;为1；</p>
+<p>如果a和b都未被成功读入整数，返回&#20540;为0；</p>
+<p>如果遇到错误或遇到end of file，返回&#20540;为EOF&nbsp;<br>
+EOF是一个预定义的常量，等于-1。</p>
+<p><strong><span style="font-size:18px">3.输入不说明有多少个Input Block,但以某个特殊输入为结束标志。</span></strong></p>
+<p><span style="font-size:18px; color:#cc0000">Input contains multiple test cases. Each test case contains a pair of integers a and b, one pair of integers per line.&nbsp;</span></p>
+<p><span style="font-size:18px; color:#cc0000">A test case containing 0 0 terminates the input and this test case is not to be processed.&nbsp;</span></p>
+<p>2010-10-13<br>
+20<br>
+本类输入解决方案：<br>
+&#61550;<br>
+</p>
+<pre name="code" class="cpp">C语法：
+while(scanf(&quot;%d&quot;,&amp;n)  &amp;&amp; n!=0 ) { .... } 
+
+C++语法：
+while( cin &gt;&gt; n &amp;&amp; n != 0 ) { .... }</pre><strong><span style="font-size:18px"><br>
+4.输入是一整行字符串的：</span></strong>
+<p></p>
+<p></p>
+<pre name="code" class="cpp">C语法：
+	&nbsp; char buf[20];  &nbsp;gets(buf); 
+C++语法：
+	如果用string buf;来保存：getline( cin , buf ); 
+	如果用char buf[ 255 ]; 来保存： cin.getline( buf, 255 );</pre><br>
+scanf(“ %s%s”,str1,str2)，在多个字符串之间用一个或多个空&#26684;分隔；
+<p></p>
+<p><br>
+若使用gets函数，应为gets(str1); gets(str2); 字符串之间用回车符作分隔。</p>
+<p><br>
+通常情况下，接受短字符用scanf函数，接受长字符用gets函数。</p>
+<p><br>
+而getchar函数每次只接受一个字符，经常c=getchar()这样来使用。<br>
+</p>
+<p><br>
+</p>
+<p>getline 是一个函数，它可以接受用户的输入的字符，直到已达指定个数，或者用户输入了特定的字符。它的函数声明形式（函数原型）如下：<br>
+<span style="white-space:pre"></span><span style="color:#ff0000">iostream&amp; getline(char line[], int size, char endchar = '\n');</span><br>
+不用管它的返回类型，来关心它的三个参数：<br>
+char line[]： 就是一个字符数组，用户输入的内容将存入在该数组内。<br>
+int size : 最多接受几个字符？用户超过size的输入都将不被接受。<br>
+char endchar :当用户输入endchar指定的字符时，自动结束。默认是回车符。<br>
+</p>
+<p>结合后两个参数，getline可以方便地实现： 用户最多输入指定个数的字符，如果超过，则仅指定个数的前面字符有效，如果没有超过，则用户可以通过回车来结束输入。<br>
+char name[4];<br>
+cin.getline(name,4,'\n');<br>
+由于 endchar 默认已经是 '\n'，所以后面那行也可以写成：<br>
+cin.getline(name,4);<br>
+</p>
+<p><br>
+</p>
+<p>5.接受字符串，以一个空行结束</p>
+<p></p>
+<pre name="code" class="cpp">while( gets(str) )
+{....}</pre><br>
+（粘贴吧，太累了。。）
+<p></p>
+<p><strong><span style="font-size:18px">二、输出问题</span></strong></p>
+<p></p>
+<h2>&nbsp;一个Input Block对应一个Output Block，OutputBlock之间空行。</h2>
+<h2>l&nbsp;&nbsp;<strong>ProblemDescription</strong> <br>
+Your task is to calculate the sum of some integers. </h2>
+<h2>l&nbsp;&nbsp;<strong>Input</strong> <br>
+Input contains an integer N in the first line, and then N lines follow. Eachline starts with a integer M, and then M integers follow in the same line.</h2>
+<h2>l&nbsp;&nbsp;<strong>Output</strong><br>
+For each group of input integers you should output their sum in one line, andyou must note that there is a blank line between outputs.&nbsp;<br>
+<br>
+</h2>
+<h2>l&nbsp;&nbsp;<strong>Sampleinput<br>
+</strong>3 <br>
+4 1 2 3 4 <br>
+5 1 2 3 4 5 <br>
+3 1 2 3 </h2>
+<h2>l&nbsp;&nbsp;<strong>Sampleoutput<br>
+</strong>10<br>
+<br>
+15<br>
+<br>
+6 </h2>
+<h2><br>
+</h2>
+<h2><pre name="code" class="cpp"> C语法：
+
+ { 
+    .... 
+   printf(&quot;%d\n\n&quot;,ans);
+
+}
+
+C++语法：
+
+ { 
+    ... 
+    cout &lt;&lt; ans &lt;&lt; endl&lt;&lt; endl; 
+}</pre><br>
+2.输出数据中间有空行，最后一个数据后面没有空行</h2>
+<h1><br>
+</h1>
+<h2>C语法：</h2>
+<h2><pre name="code" class="cpp"> for (k=0;k&lt;count;k++) 
+{ 
+      while (…) 
+      { 
+             printf(&quot; %d\n&quot;,result); 
+      } 
+      if (k!=count-1) printf(&quot;\n&quot;); 
+} </pre><br>
+<br>
+<br>
+</h2>
+<h2>&nbsp;</h2>
+<h2>l&nbsp;<u>http://acm.hdu.edu.cn/showproblem.php?pid=1016</u></h2>
+<h2>l&nbsp;<u>http://acm.hdu.edu.cn/showproblem.php?pid=1017</u></h2>
+<h1>&nbsp;</h1>
+<h2 align="center"><span style="font-size:18px; color:#000099">初学者常见问题</span></h2>
+<h1><span style="color:#330066">编译错误</span></h1>
+<h2>l&nbsp;Main函数必须返回int类型(正式比赛)</h2>
+<h2>l&nbsp; 不要在for语句中定义类型</h2>
+<h2>l&nbsp;__int64不支持，可以用long long代替</h2>
+<h2>l&nbsp; 使用了汉语的标点符号</h2>
+<h2>l&nbsp; itoa不是ANSI函数</h2>
+<h3>&nbsp;&nbsp;能将整数转换为字符串而且与ANSI标准兼容的方法是使用sprintf()函数</h3>
+<h4>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int num = 100;<br>
+&nbsp;&nbsp;&nbsp; char str[25];<br>
+&nbsp;&nbsp;&nbsp; sprintf(str, &quot; %d&quot; , num);<br>
+<br>
+</h4>
+<h2>l&nbsp; 另外，拷贝程序容易产生错误</h2>
+<h1><span style="color:#330066">不常规的编程方式</span></h1>
+<h2>l&nbsp;&nbsp;<strong>Printf和cout混用的问题</strong></h2>
+<h2>l&nbsp;&nbsp;以下的程序输出什么？</h2>
+<h2>l&nbsp;&nbsp;#include&lt;stdio.h&gt;</h2>
+<h2>l&nbsp;&nbsp;#include&lt;iostream.h&gt;</h2>
+<h2>l&nbsp;&nbsp;int main()</h2>
+<h2>l&nbsp;&nbsp;{</h2>
+<h2>l&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int j=0;</h2>
+<h2>l&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for(j=0;j&lt;5;j&#43;&#43;)</h2>
+<h2>l&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {</h2>
+<h2>l&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; cout&lt;&lt;&quot;j=&quot;;</h2>
+<h2>l&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; printf(&quot;%d\n&quot;,j);</h2>
+<h2>l&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }</h2>
+<h2>l&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;</h2>
+<h2>l&nbsp;&nbsp;}</h2>
+<h2>&nbsp;</h2>
+<h1><span style="color:#330066">什么问题？</span></h1>
+<h2>l&nbsp;&nbsp;<strong>一个带缓冲输出（cout）</strong></h2>
+<h2>l&nbsp;&nbsp; <strong>一个不带缓冲输出(printf)</strong></h2>
+<h2>l&nbsp;&nbsp;<strong>Goole你的问题，充分利用网络资源</strong></h2>
+<h1><br>
+</h1>
+<div><br>
+</div>
+<div>
+<h2 align="center"><strong><span style="color:#7E9CE8">ACM</span><span style="color:#7E9CE8">菜鸟的</span><span style="color:#7E9CE8">21</span><span style="color:#7E9CE8">个经典错误</span></strong></h2>
+<h1><span style="color:#7E9CE8">以</span><span style="color:#7E9CE8">HDU</span><span style="color:#7E9CE8">1089 A</span><span style="color:#7E9CE8">＋</span><span style="color:#7E9CE8">B</span><span style="color:#7E9CE8">为例</span></h1>
+<h2>l&nbsp;SampleInput</h2>
+<h2>l&nbsp;1 5</h2>
+<h2>l&nbsp;10 20</h2>
+<h2>l&nbsp;SampleOutput</h2>
+<h2>l&nbsp;6</h2>
+<h2>l&nbsp;30</h2>
+<h1><span style="color:#7E9CE8">菜鸟之伤（</span><span style="color:#7E9CE8">1</span><span style="color:#7E9CE8">）</span></h1>
+<h2><pre name="code" class="cpp"> #include&lt;stdio.h&gt;
+
+void main()
+
+{
+
+l int a,b;
+
+scanf(“%d%d”,&amp;a,&amp;b);
+
+printf(“%d\n”,a+b);
+
+ }</pre><br>
+<br>
+</h2>
+<h1><span style="color:#7E9CE8">菜鸟之伤（</span><span style="color:#7E9CE8">1</span><span style="color:#7E9CE8">）</span></h1>
+<h2>l&nbsp; 总结：</h2>
+<h2>&nbsp;&nbsp;&nbsp;&nbsp; 程序不能处理多组数据的问题是最常见的入门问题，只要掌握几种常见的类型，就可以轻松掌握了，具体处理方法曾在第一次课件有详细描述，这里省略了～</h2>
+<h1><span style="color:#7E9CE8">菜鸟之伤（</span><span style="color:#7E9CE8">2</span><span style="color:#7E9CE8">）</span></h1>
+<div><span style="color:#7E9CE8"></span><pre name="code" class="cpp">#include&lt;stdio.h&gt;
+ void main()
+{
+  int a,b;
+  while(scanf(“%d%d”,&amp;a,&amp;b)!=0)
+  printf(“%d\n”,a+b);
+}
+</pre><br>
+<br>
+</div>
+<h1><span style="color:rgb(126,156,232)">菜鸟之伤（</span><span style="color:#7E9CE8">2</span><span style="color:#7E9CE8">）</span></h1>
+<h2>l&nbsp; 总结：文件结束符EOF的&#20540;是-1而不是0，所以while(scanf(…)!=0)常常会因为死循环而造成TLE，这个必须牢记。</h2>
+<h2>l&nbsp; 说明：不仅仅菜鸟，很多老鸟也常常因为不注意这点而犯错误，而且还常常因为想不到会犯这种低级错误而想不到原因。</h2>
+<h1><span style="color:#7E9CE8">菜鸟之伤（</span><span style="color:#7E9CE8">3</span><span style="color:#7E9CE8">）</span></h1>
+<h2><pre name="code" class="cpp">#include&lt;stdio.h&gt;
+
+void main()
+{
+
+   int a,b;
+
+   while(scanf(“%d%d”,&amp;a,&amp;b)!=EOF);  //这里多了分号
+
+   printf(“%d\n”,a+b);
+
+ }</pre><br>
+<br>
+</h2>
+<h1><span style="color:#7E9CE8">菜鸟之伤（</span><span style="color:#7E9CE8">3</span><span style="color:#7E9CE8">）</span></h1>
+<h2>l&nbsp; 总结：while 或者&nbsp;for循环的条件外面误加了分号，编译不影响，但是结果循环体没有真正得到多次执行；</h2>
+<h2>l&nbsp; 说明：菜鸟常犯的错误，往往因为编译能通过而不能迅速察觉，尤其比赛中～</h2>
+<h2><span style="color:#7E9CE8">l&nbsp; </span><strong><span style="color:#7E9CE8">提醒：</span></strong>当你将scanf();语句加上while循环以处理多组数据问题的时候尤其注意——<span style="color:#7E9CE8">因为之前有分号，很容易忘记去掉！</span></h2>
+<h1><span style="color:#7E9CE8">菜鸟之伤（</span><span style="color:#7E9CE8">4</span><span style="color:#7E9CE8">）</span></h1>
+<h2><pre name="code" class="cpp"> #include&lt;stdio.h&gt;
+
+ void main()
+
+ {
+
+   int a,b;
+
+   while(scanf(“%d%d”,&amp;a,&amp;b) =2) //应为-1 或 EOF
+
+      printf(“%d\n”,a+b);
+
+}</pre><br>
+<br>
+</h2>
+<h1><span style="color:#7E9CE8">菜鸟之伤（</span><span style="color:#7E9CE8">4</span><span style="color:#7E9CE8">）</span></h1>
+<h2>l&nbsp; 总结：</h2>
+<h2>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; C语言中，赋&#20540;符号＝和判断是否相等的逻辑符号＝＝具有完全不同的含义，往往因为我们的习惯问题，<span style="color:#CC0000">在编程中误将判断是否相等的逻辑符号写成赋&#20540;符号＝</span>。同样的，这种失误也会因为不影响编译而影响查错的时间。</h2>
+<h2>&nbsp;</h2>
+<h2>l&nbsp; 说明：菜鸟常犯的错误，但是有过几次教训就会牢记了，呵呵～</h2>
+<h1><span style="color:#7E9CE8">以</span><span style="color:#7E9CE8">HDU</span><span style="color:#7E9CE8">1001 Sum Problem</span><span style="color:#7E9CE8">为例</span></h1>
+<h2>l&nbsp;SampleInput</h2>
+<h2>l&nbsp;1</h2>
+<h2>l&nbsp;100</h2>
+<h2>l&nbsp;SampleOutput</h2>
+<h2>l&nbsp;1</h2>
+<h2>&nbsp;</h2>
+<h2>l&nbsp;5050</h2>
+<h2>&nbsp;</h2>
+<h1><span style="color:#7E9CE8">菜鸟之伤（</span><span style="color:#7E9CE8">5</span><span style="color:#7E9CE8">）</span></h1>
+<h2><pre name="code" class="cpp">#include&lt;stdio.h&gt;
+
+void main()
+
+{    int i,n,s;
+
+     while(scanf(“%d”,&amp;n) ==1)
+
+     {
+
+          for(i=1;i&lt;=n;i++)
+
+              s+=i; //s为初始化
+
+          printf(“%d\n\n”,s);
+
+     }
+
+}</pre><br>
+<br>
+</h2>
+<h1><span style="color:#7E9CE8">菜鸟之伤（</span><span style="color:#7E9CE8">5</span><span style="color:#7E9CE8">）</span></h1>
+<h2>l&nbsp; 总结：</h2>
+<h2>&nbsp;&nbsp;&nbsp;&nbsp; <span style="color:#CC0000">忘记变量的初始化</span>是典型的菜鸟问题，不必紧张，多经历几次就牢记了～</h2>
+<h2>&nbsp;</h2>
+<h2><span style="color:#CC0000">l&nbsp; </span>说明：<span style="color:#CC0000">普通变量的初始化还比较容易查找，而用来保存计算结果的数组的初始化更是容易忘记！</span></h2>
+<h1><span style="color:#7E9CE8">菜鸟之伤（</span><span style="color:#7E9CE8">6</span><span style="color:#7E9CE8">）</span></h1>
+<h2><pre name="code" class="cpp">#include&lt;stdio.h&gt;
+
+void main()
+
+{    int i,n,s=0;
+
+     while(scanf(“%d”,&amp;n) ==1)
+
+     {
+
+          for(i=1;i&lt;=n;i++)
+
+              s+=i; //第二次循环s的初始值不一定为0
+
+          printf(“%d\n\n”,s);
+
+     }
+
+}</pre><br>
+<br>
+</h2>
+<h1><span style="color:#7E9CE8">菜鸟之伤（</span><span style="color:#7E9CE8">6</span><span style="color:#7E9CE8">）</span></h1>
+<h2>l&nbsp; 总结：<span style="color:#CC0000">变量初始化放在循环外，是一个典型的</span><span style="color:#CC0000">ACM</span><span style="color:#CC0000">初级错误，因为</span><span style="color:#CC0000">ACM</span><span style="color:#CC0000">赛题的多组测试特性，如果不能在循环内初始化，将只能确保第一组数据没问题，而很多入门者习惯只测试一组数据，很容易忽略这个问题</span>。</h2>
+<h2>l&nbsp; &nbsp;&nbsp;&nbsp; </h2>
+<h2>l&nbsp; 说明：菜鸟常犯的错误，关键是要理解为什么这样会有问题，真正理解后，修改也就不难了。</h2>
+<h1><span style="color:#7E9CE8">菜鸟之伤（</span><span style="color:#7E9CE8">7</span><span style="color:#7E9CE8">）</span></h1>
+<h2><pre name="code" class="cpp"> #include&lt;stdio.h&gt;
+
+ void main()
+
+ {int i,n,s;
+
+  while(scanf(“%d”,&amp;n) ==1)
+
+  {
+
+     s=n*(n+1)/2; //s有可能越界溢出
+
+     printf(“%d\n\n”,s);
+
+ }
+
+}</pre><br>
+<br>
+</h2>
+<h1><span style="color:#7E9CE8">菜鸟之伤（</span><span style="color:#7E9CE8">7</span><span style="color:#7E9CE8">）</span></h1>
+<h2>l&nbsp; 总结：</h2>
+<h2>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 数组越界还能在提交后收到Runtime Error的信息反馈，而运算中的数据溢出则往往只能收到Wrong Answer的错误提示，所以这种错误往往容易被误导成算法问题；</h2>
+<h2>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </h2>
+<h2>l&nbsp; 说明：</h2>
+<h2>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 不仅菜鸟，就是大牛甚至大神，也常常犯这种错误，只是情况复杂些而已～</h2>
+<h1><span style="color:#7E9CE8">菜鸟之伤（</span><span style="color:#7E9CE8">8</span><span style="color:#7E9CE8">）</span></h1>
+<h2><pre name="code" class="cpp">#include&lt;stdio.h&gt;
+
+void main()
+
+{int i,n,s;
+
+ while(scanf(“%d”,&amp;n) ==1)
+
+ {
+
+ s=n/2*(n+1);
+
+ printf(“%d\n\n”,s);//结果为整数
+
+ }
+
+}</pre><br>
+<br>
+</h2>
+<h1><span style="color:#7E9CE8">菜鸟之伤（</span><span style="color:#7E9CE8">8</span><span style="color:#7E9CE8">）</span></h1>
+<h2>l&nbsp; 总结：</h2>
+<h2>&nbsp;&nbsp;&nbsp;&nbsp; <span style="color:#CC0000">当两个整数进行运算的时候，运算结果一定还是整数，所以不要因为常规数学惯性思维的影响而认为结果可能为浮点数；</span></h2>
+<h2>&nbsp;&nbsp;&nbsp;&nbsp; 而不同数据类型一同运算的时候，运算结果的数据类型和相对复杂的类型一致（比如 整数&#43;实数，结果类型是实数）</h2>
+<h2>&nbsp;&nbsp;&nbsp;&nbsp; </h2>
+<h1><span style="color:#7E9CE8">菜鸟之伤（</span><span style="color:#7E9CE8">9</span><span style="color:#7E9CE8">）</span></h1>
+<h2><pre name="code" class="cpp">#include&lt;stdio.h&gt;
+
+void main()
+
+{    int i,n,s;
+
+     while(scanf(“%d”,&amp;n)==1) //丢失大括号，使得循环体不完整而出错
+
+          if(n%2==0)
+
+            s=n/2*(n+1);
+
+           else
+
+               s=(n+1)/2*n;
+
+      printf(“%d\n\n”,s);
+
+ }</pre><br>
+<br>
+</h2>
+<h1><span style="color:#7E9CE8">菜鸟之伤（</span><span style="color:#7E9CE8">9</span><span style="color:#7E9CE8">）</span></h1>
+<h2>l&nbsp; 总结：</h2>
+<h2>&nbsp;&nbsp;&nbsp;&nbsp; 写for或者while等任何循环语句的时候，不管循环体内有几个语句，务必养成都加上一对大括号的好习惯。</h2>
+<h2>l&nbsp; 常常碰到的情况是这样的——本来循环体内只有一条语句，确实不用大括号，但是在修改程序的过程中，循环体内增加了其他语句，而这时却忘记了添加大括号！</h2>
+<h2><span style="color:#7E9CE8">l&nbsp; </span><span style="color:#7E9CE8">所以说</span><span style="color:#7E9CE8">——</span><span style="color:#7E9CE8">好习惯很重要！</span></h2>
+<h1><span style="color:#7E9CE8">菜鸟之伤（</span><span style="color:#7E9CE8">10</span><span style="color:#7E9CE8">）</span></h1>
+<h2><pre name="code" class="cpp">#include&lt;stdio.h&gt;
+
+void main()
+
+{    int i,n,s;
+
+      while(scanf(“%d”,&amp;n)==1)
+
+       { if(n%2==0)
+
+              s=n/2*(n+1);
+
+           else
+
+               s=(n+1)/2*n;     }
+
+       printf(“%d\n\n”,s); //没包含到大括号里面，没有循环
+
+}</pre><br>
+<br>
+</h2>
+<h1><span style="color:#7E9CE8">菜鸟之伤（</span><span style="color:#7E9CE8">10</span><span style="color:#7E9CE8">）</span></h1>
+<h2>l&nbsp; 总结：</h2>
+<h2>&nbsp;&nbsp;&nbsp;&nbsp; 这也是一个经典错误，虽然为循环体加了大括号，但是并没有包含全部的信息，造成的后果是只有一次输出——尽管对于每组数据都处理了，但是只输出最后一组结果。</h2>
+<h2><span style="color:#CC0000">l&nbsp;</span><span style="color:#CC0000">由于很多同学习惯每次只测试一组数据，就更容易忽略这个错误了</span><span style="color:#CC0000">...</span></h2>
+<h2><span style="color:#7E9CE8">l&nbsp; </span><strong><span style="color:#7E9CE8">再次证明</span><span style="color:#7E9CE8">——</span><span style="color:#7E9CE8">好习惯很重要！</span></strong></h2>
+<h1><span style="color:#7E9CE8">菜鸟之伤（</span><span style="color:#7E9CE8">11</span><span style="color:#7E9CE8">）</span></h1>
+<h2>l&nbsp;&nbsp;假设不会中间溢出，下面的程序是否有问题？</h2>
+<h2>l&nbsp;&nbsp;#include&lt;stdio.h&gt;</h2>
+<h2>l&nbsp;&nbsp;void main()</h2>
+<h2>l&nbsp;&nbsp;{&nbsp;&nbsp;&nbsp; int i,n,s;</h2>
+<h2>l&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;while(scanf(“%d”,&amp;n) ==1)</h2>
+<h2>l&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{</h2>
+<h2>l&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;s=n(n&#43;1)/2;</h2>
+<h2>l&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;printf(“%d\n\n”,s);</h2>
+<h2>l&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</h2>
+<h2>l&nbsp;&nbsp;}</h2>
+<h1><span style="color:#7E9CE8">菜鸟之伤（</span><span style="color:#7E9CE8">11</span><span style="color:#7E9CE8">）</span></h1>
+<h2>l&nbsp; 总结：</h2>
+<h2>&nbsp;&nbsp;&nbsp;&nbsp; 这也是受数学习惯影响而可能出现的一个错误，当然，这个错误很好检查，因为编译不能通过的~</h2>
+<h2>l&nbsp;总结出这个只是因为确实会出现这个情况，而对于极度没有编程经验的同学来说，有时候也会带来困扰~</h2>
+<h2>&nbsp;&nbsp;&nbsp;&nbsp; </h2>
+<h1><span style="color:#7E9CE8">还是以</span><span style="color:#7E9CE8">A</span><span style="color:#7E9CE8">＋B</span><span style="color:#7E9CE8">为例</span></h1>
+<h2>l&nbsp; 题目描述：计算A＋B的&#20540;，输入数据每行包含2个正整数，如果输入数据是两个负数，则结束输入。</h2>
+<h2>l&nbsp;SampleInput</h2>
+<h2>l&nbsp;1 5</h2>
+<h2>l&nbsp;-1 -1</h2>
+<h2>l&nbsp;SampleOutput</h2>
+<h2>l&nbsp;6</h2>
+<h1><span style="color:#7E9CE8">菜鸟之伤（</span><span style="color:#7E9CE8">12</span><span style="color:#7E9CE8">）</span></h1>
+<h2><pre name="code" class="cpp">#include&lt;stdio.h&gt;
+
+void main()
+
+{
+    int a,b;
+
+     while(scanf(“%d%d”,&amp;a,&amp;b)==2)
+
+    {  if(a==-1&amp; b==-1) return; //相与应用 &amp;&amp;
+
+     printf(“%d\n”,a+b);
+
+    }     }</pre><br>
+<br>
+</h2>
+<h1><span style="color:#7E9CE8">菜鸟之伤（</span><span style="color:#7E9CE8">12</span><span style="color:#7E9CE8">）</span></h1>
+<h2>l&nbsp;总结：正如判断相等要用“==”一样，C语言中进行逻辑与的运算也是需要两个字符“&amp;&amp;”，类&#20284;的逻辑或运算也是两个字符“||”，如果是单个的字符，含义就完全不同了~</h2>
+<h1><span style="color:#7E9CE8">菜鸟之伤（</span><span style="color:#7E9CE8">13</span><span style="color:#7E9CE8">）</span></h1>
+<h2><span style="color:#7E9CE8">l&nbsp;&nbsp; </span><strong><span style="color:#7E9CE8">上一个程序的改进版：</span></strong></h2>
+<h2><pre name="code" class="cpp">#include&lt;stdio.h&gt;
+
+void main()
+
+{
+
+   int a,b;
+
+   while(scanf(“%d%d”,&amp;a,&amp;b)==2)
+
+  { if(a==-1&amp;&amp; b==-1) return;
+
+   printf(“%d\n”,a+b);
+
+  }   }</pre><br>
+<br>
+</h2>
+<h1><span style="color:#7E9CE8">菜鸟之伤（</span><span style="color:#7E9CE8">13</span><span style="color:#7E9CE8">）</span></h1>
+<h2>l&nbsp; 总结：题目描述是负数结束输入，Sample Input最后给出的是-1，如果读题不仔细，很容易陷入思维定势，而会不加思索在程序中用-1判断，这样就真的会发生不幸的事件——尽管我也认为这个陷阱有点阴，而且未必有很大意义，但是题目并没错，而你确实读题不仔细～</h2>
+<h2>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </h2>
+<h2>l&nbsp; 说明：算是经典的小陷阱，现在很少出现了</h2>
+<h1><span style="color:#7E9CE8">继续以</span><span style="color:#7E9CE8">A</span><span style="color:#7E9CE8">＋B</span><span style="color:#7E9CE8">为例</span></h1>
+<h2>l&nbsp;题目描述：给定2个整数A和B，如果A&#43;B&gt;0，请输出”OK!”，否则请输出”No~”</h2>
+<h2>l&nbsp;SampleInput</h2>
+<h2>l&nbsp;1 5</h2>
+<h2>l&nbsp;1 -5</h2>
+<h2>l&nbsp;SampleOutput</h2>
+<h2>l&nbsp;OK!</h2>
+<h2>l&nbsp;No~</h2>
+<h1><span style="color:#7E9CE8">菜鸟之伤（</span><span style="color:#7E9CE8">14</span><span style="color:#7E9CE8">）</span></h1>
+<h2><pre name="code" class="cpp">#include&lt;stdio.h&gt;
+
+void main()
+
+{
+
+ int a,b;
+
+ while(scanf(“%d%d”,&amp;a,&amp;b)==2)
+
+ {if(a+b&gt;0)   printf(“OK!\n”);
+
+  else            printf(“NO~\n”);   } //大小写与题目不符
+
+ }</pre><br>
+<br>
+</h2>
+<h1><span style="color:#7E9CE8">菜鸟之伤（</span><span style="color:#7E9CE8">14</span><span style="color:#7E9CE8">）</span></h1>
+<h2>l&nbsp; 总结：字符串输出的大小写问题对于菜鸟需要特别注意，其实，不管是——全大写、全小写，还是首字母大写，你尽管复制即可（没有电子版，另当别论），当然还要注意是否有标点符号等情况。</h2>
+<h2>&nbsp;&nbsp;&nbsp;&nbsp; </h2>
+<h2>l&nbsp; 说明：菜鸟常犯错误，稍有经验即可避免</h2>
+<h1><span style="color:#7E9CE8">以</span><span style="color:#7E9CE8">1170</span><span style="color:#7E9CE8">Balloon Comes!</span><span style="color:#7E9CE8">为例</span></h1>
+<h2>l&nbsp;SampleInput</h2>
+<h2>l&nbsp;4</h2>
+<h2>l&nbsp;&#43; 1 2</h2>
+<h2>l&nbsp;- 1 2</h2>
+<h2>l&nbsp;* 1 2</h2>
+<h2>l&nbsp;/ 1 2</h2>
+<h1><span style="color:#7E9CE8">菜鸟之伤（</span><span style="color:#7E9CE8">15</span><span style="color:#7E9CE8">）</span></h1>
+<h2><pre name="code" class="cpp">  int n,a,b,i;
+
+  char p;
+
+  scanf(&quot;%d&quot;,&amp;n);
+
+  for(i=0;i&lt;n;i++)
+
+  {
+
+      scanf(&quot;%c%d%d&quot;,&amp;p,&amp;a,&amp;b); // 第一个%c接受的可能是输入n之后的换行符
+
+      if( ……)
+
+  }</pre><br>
+<br>
+</h2>
+<h1><span style="color:#7E9CE8">菜鸟之伤（</span><span style="color:#7E9CE8">15</span><span style="color:#7E9CE8">）</span></h1>
+<h2><pre name="code" class="cpp">刚才程序的改进版:
+
+  int n,a,b,i;
+
+  char p;
+
+  scanf(&quot;%d&quot;,&amp;n);
+
+  getchar(); //这里吸收输入n之后的 ''
+
+  for(i=0;i&lt;n;i++)
+
+  {
+
+      scanf(&quot;%c%d%d&quot;,&amp;p,&amp;a,&amp;b);
+
+      if( ...) ……
+
+  }</pre><br>
+<br>
+</h2>
+<h2><span style="color:#7E9CE8">l&nbsp;&nbsp;</span><span style="color:#7E9CE8">是否还有问题？如何修改？ (只接受的第一次的'\n')</span></h2>
+<h1><span style="color:#7E9CE8">菜鸟之伤（</span><span style="color:#7E9CE8">15</span><span style="color:#7E9CE8">）</span></h1>
+<h2>l&nbsp; 总结：字符和数字的混合输入带来的问题，也是一个常常困扰使用C语言编程的同学的经典问题，关键就是程序未能及时接收回车符，而误将回车当作下一组数据的首字母，你可以通过添加一句getchar(); 轻松解决该问题。</h2>
+<h2>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </h2>
+<h2>l&nbsp; 说明：菜鸟的经典错误，如果之前没有遇到过，很难一下子反应过来，当然，遇到一次以后就不成为问题了～</h2>
+<h1><span style="color:#7E9CE8">2007 </span><span style="color:#7E9CE8">平方和与立方和</span></h1>
+<h2>l&nbsp; 给定一段连续的整数，求出他们中所有偶数的平方和以及所有奇数的立方和。</h2>
+<h2>l&nbsp;SampleInput</h2>
+<h2>l&nbsp;1 3</h2>
+<h2>l&nbsp;2 5</h2>
+<h2>l&nbsp;SampleOutput</h2>
+<h2>l&nbsp;4 28</h2>
+<h2>l&nbsp;20 152</h2>
+<h1><span style="color:#7E9CE8">菜鸟之伤（</span><span style="color:#7E9CE8">16</span><span style="color:#7E9CE8">）</span></h1>
+<h2><pre name="code" class="cpp">#include&lt;stdio.h&gt;
+
+void main()
+
+{    int m,n;
+
+     while(scanf(“%d%d” ,&amp;m,&amp;n) ==2)
+
+     {   int i,x=0,y=0;
+
+          for(i=m;i&lt;=n;i++)
+
+          {   if(i%2==0)  y=y+i*i;
+
+               else  x=x+i*i*i;   }
+
+          printf(“%d %d\n”,y,x);
+
+     }
+
+}</pre><br>
+<br>
+</h2>
+<h1><span style="color:#7E9CE8">菜鸟之伤（</span><span style="color:#7E9CE8">16</span><span style="color:#7E9CE8">）</span></h1>
+<h2>l&nbsp; 总结：题目并没有保证数据是递增的，但人往往有思维定势，而很多题目的设计就是针对这一点！不要埋怨，这种训练能很好的培养我们审慎的思维习惯。</h2>
+<h2>&nbsp;</h2>
+<h2>l&nbsp; 说明：这种错误经历过以后还是比较容易牢记的，所以说有时候经验很重要。</h2>
+<h1><span style="color:#7E9CE8">菜鸟之伤（</span><span style="color:#7E9CE8">17</span><span style="color:#7E9CE8">）</span></h1>
+<h2>l&nbsp;&nbsp;以下的程序输出什么？</h2>
+<h2><pre name="code" class="cpp">#include&lt;stdio.h&gt;
+
+#include&lt;iostream.h&gt;
+
+int main()
+
+{
+
+     int j=0;
+
+     for(j=0;j&lt;5;j++)
+
+     {
+
+           cout&lt;&lt;&quot;j=&quot;;  // 尽量不要c与c++混合使用
+
+          printf(&quot;%d\n&quot;,j);
+
+    }
+
+    return 0;
+
+}</pre><br>
+<br>
+</h2>
+<h1><span style="color:#7E9CE8">菜鸟之伤（</span><span style="color:#7E9CE8">17</span><span style="color:#7E9CE8">）</span></h1>
+<h2>l&nbsp; &nbsp;期望输出：</h2>
+<h2>&nbsp;</h2>
+<h2>l&nbsp;j=0</h2>
+<h2>l&nbsp;j=1</h2>
+<h2>l&nbsp;j=2</h2>
+<h2>l&nbsp;j=3</h2>
+<h2>l&nbsp;j=4</h2>
+<h2>&nbsp;</h2>
+<h1><span style="color:#7E9CE8">菜鸟之伤（</span><span style="color:#7E9CE8">17</span><span style="color:#7E9CE8">）</span></h1>
+<h2>l&nbsp; 总结：在一个程序中同时使用C和C&#43;&#43;的输出语句，很容易带来问题，原因就是输出机制不完全一样（一个不带缓冲，一个带缓冲），所以尽量避免C和C&#43;&#43;输出语句混用。</h2>
+<h2>&nbsp;&nbsp;&nbsp;&nbsp; </h2>
+<h2>l&nbsp;说明：这是传说中的经典错误，据说曾困扰某牛人于现场赛 :-)</h2>
+<h1><span style="color:#7E9CE8">以</span><span style="color:#7E9CE8">2004</span><span style="color:#7E9CE8">成绩转换为例</span></h1>
+<h2>l&nbsp; <strong><span style="color:#7E9CE8">题目描述：</span></strong>输入一个百分制的成绩t，将其转换成对应的等级，具体转换规则如下：</h2>
+<h2>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 90~100为A;</h2>
+<h2>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 80~89为B;</h2>
+<h2>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 70~79为C;</h2>
+<h2>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 60~69为D;</h2>
+<h2>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0~59为E;</h2>
+<h2>l&nbsp;<strong><span style="color:#7E9CE8">输出描述：</span></strong>对于每组输入数据，输出一行。如果输入数据不在0~100范围内，请输出一行：“Score iserror!”。</h2>
+<h1><span style="color:#7E9CE8">菜鸟之伤（</span><span style="color:#7E9CE8">18</span><span style="color:#7E9CE8">）</span></h1>
+<h2><pre name="code" class="cpp">#include&lt;stdio.h&gt;
+
+int main()
+
+{    int t,a;
+
+       while(scanf(&quot;%d&quot;,&amp;t)!=EOF)
+
+       {    if(t&gt;100||t&lt;0) printf(&quot;Score iserror!\n&quot;);
+
+            else
+
+            {  a=(t-50)/10;
+
+               switch(a) //注意case的break;
+
+               {  case 5:
+
+                  case4:printf(&quot;A\n&quot;);       case3:printf(&quot;B\n&quot;);
+
+                  case2:printf(&quot;C\n&quot;);       case1:printf(&quot;D\n&quot;);
+
+                  default:printf(&quot;E\n&quot;);     
+
+                }     }    }
+
+               return 0;
+
+       }</pre><br>
+<br>
+</h2>
+<h1><span style="color:#7E9CE8">菜鸟之伤（</span><span style="color:#7E9CE8">18</span><span style="color:#7E9CE8">）</span></h1>
+<h2>l&nbsp; 总结：C语言中的case语句要求在每个case的处理后面都要跟break；（特殊需求除外），而如果因为不了解或者不小心而缺少部分break;则执行的效果也许会不符合你最初的设计。</h2>
+<h2>&nbsp;&nbsp;&nbsp;&nbsp; </h2>
+<h2>l&nbsp; 说明：C语言的基本功很重要～</h2>
+<h1><span style="color:#7E9CE8">以</span><span style="color:#7E9CE8">2046</span><span style="color:#7E9CE8">骨牌铺方&#26684;为例</span></h1>
+<h2>l&nbsp;<strong><span style="color:#7E9CE8">题目描述：</span></strong>在2×n的一个长方形方&#26684;中,用一个1× 2的骨牌铺满方&#26684;,输入n ,输出铺放方案的总数.</h2>
+<h2>l&nbsp;<strong><span style="color:#7E9CE8">输入描述：</span></strong>输入数据由多行组成，每行包含一个整数n,表示该测试实例的长方形方&#26684;的规&#26684;是2×n(0&lt;n&lt;=50)。</h2>
+<h1><span style="color:#7E9CE8">菜鸟之伤（</span><span style="color:#7E9CE8">19</span><span style="color:#7E9CE8">）</span></h1>
+<h2><pre name="code" class="cpp">#include&lt;stdio.h&gt;
+
+int main()
+
+{
+
+    int i;
+
+     __int64 a[50]={0,1,2};//数组开的小
+
+      for(i=3;i&lt;=50;i++)
+
+         a[i]=a[i-1]+a[i-2];
+
+    while(scanf(&quot;%d&quot;,&amp;i)!=EOF){
+
+          printf(&quot;%I64d\n&quot;,a[i]);   
+
+     }
+
+}</pre><br>
+<br>
+</h2>
+<h1><span style="color:#7E9CE8">菜鸟之伤（</span><span style="color:#7E9CE8">19</span><span style="color:#7E9CE8">）</span></h1>
+<h2>l&nbsp;总结：数组下标越界是最常见的Runtime Error，也是菜鸟常犯的错误，除了需要扎实的C语言基本功，编程中的注意力集中也是需要的（很多时候不是不知道理论，而是不注意）~</h2>
+<h2>l&nbsp;说明：一般情况，你可以通过将数组开的大点而尽量避免这个问题~</h2>
+<h1><span style="color:#7E9CE8">以</span><span style="color:#7E9CE8">1425Sort</span><span style="color:#7E9CE8">为例</span></h1>
+<h2>l&nbsp; <strong><span style="color:#7E9CE8">题目描述：</span></strong>给你n个整数，请按从大到小的顺序输出其中前m大的数。</h2>
+<h2>l&nbsp; <strong><span style="color:#7E9CE8">输入描述：</span></strong>每组测试数据有两行，第一行有两个数n,m(0&lt;n,m&lt;1000000)，第二行包含n个各不相同，且都处于区间[-500000,500000]的整数。</h2>
+<h1><span style="color:#7E9CE8">菜鸟之伤（</span><span style="color:#7E9CE8">20</span><span style="color:#7E9CE8">）</span></h1>
+<h2><pre name="code" class="cpp">#include&lt;stdio.h&gt;
+
+void main()
+
+{
+
+   int n,m,i,num[1000000]; //大数组尽量放在main函数外面，全局变量
+
+    while(scanf(“%d%d”,&amp;n,&amp;m)==2)
+
+    {   ......   }
+
+}</pre><br>
+<br>
+</h2>
+<h1><span style="color:#7E9CE8">菜鸟之伤（</span><span style="color:#7E9CE8">20</span><span style="color:#7E9CE8">）</span></h1>
+<h2>l&nbsp; 总结：ACM编程中，使用很大的数组是很常见的做法，但如果超大的数组被定义成局部变量，则很容易出现Runtime Error，解决办法也很简单：定义成全局变量即可。原因是局部变量分配在栈（较小），全局变量分配在堆（较大）；</h2>
+<h2>&nbsp;&nbsp;&nbsp;&nbsp; </h2>
+<h2>l&nbsp; 说明：这里所说的超大也不能无限制的大，可以根据题目的内存限制进行估算</h2>
+<h1><span style="color:#7E9CE8">以</span><strong><span style="color:#7E9CE8">3199 Hamming Problem</span></strong><span style="color:#7E9CE8">为例</span></h1>
+<h2>l&nbsp;&nbsp;<strong><span style="color:#7E9CE8">题目描述：</span></strong>For each three prime numbers p1, p2 and p3, let's define Hammingsequence Hi(p1, p2, p3), i=1, ... as containing in increasing order all thenatural numbers whose only prime divisors are p1, p2 or
+ p3. </h2>
+<h2>l&nbsp;&nbsp;Forexample, H(2, 3, 5) = 2, 3, 4, 5, 6, 8, 9, 10, 12, 15, 16, 18, 20, 24, 25, 27,...</h2>
+<h2>l&nbsp;&nbsp;So H5(2, 3,5)=6.</h2>
+<h2>l&nbsp;&nbsp;<strong><span style="color:#7E9CE8">输出描述</span><span style="color:#7E9CE8">：</span></strong>The output file must contain the single integer - Hi(p1, p2, p3). Allnumbers in input and output are less than<strong><span style="color:#7E9CE8">10^18</span></strong>.</h2>
+<h1><span style="color:#7E9CE8">菜鸟之伤（</span><span style="color:#7E9CE8">21</span><span style="color:#7E9CE8">）</span></h1>
+<h2>l&nbsp;典型错误——</h2>
+<h2>l&nbsp;没有仔细分析...</h2>
+<h2>l&nbsp;也不敢尝试...</h2>
+<h2>l&nbsp;直接被吓走了......</h2>
+<h1><span style="color:#7E9CE8">菜鸟之伤（</span><span style="color:#7E9CE8">21</span><span style="color:#7E9CE8">）</span></h1>
+<h2>l&nbsp; 总结：这个题目从本质上来说，和1058Humble Numbers是一样的，唯一吓人的就是数据范围的描述，可能会有人想: i 这么大，没法开数组呀？</h2>
+<h2>l&nbsp; 但是，你仔细分析一下会发现：因为输出也是小于10^18，而同时，即使一组内的三个素数是最小的2，3，5，增长的速度也是很快的，所以不必为数组太大而着急。当然，也不必因为发现i很小而觉得数据太水，那是因为只能如此，不然输出就要超范围了~</h2>
+</div>
+<br>
+<p></p>
+<p><br>
+</p>
+<p><br>
+</p>
+<p><br>
+</p>
+<p><br>
+</p>
+<p><span style="font-family:Tahoma,Arial,sans-serif,simsun; font-size:14px; line-height:21px"><span style="color:#cc0000"><br>
+</span></span></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://hanks.xyz/2013/07/20/ACM—NYOJ小小结/" data-id="cihryjm6h0078k405d18l10kf" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  
+  
+</article>
+
+  
+<section id="comments">
+    <!-- 多说分享框 -->
+    <div class="ds-share flat" data-thread-key="/2013/07/20/ACM—NYOJ小小结/" data-title="ACM—NYOJ小小结" data-images="此处请替换为分享时显示的图片的链接地址" data-content="ACM—NYOJ小小结" data-url="http://hanks.xyz//2013/07/20/ACM—NYOJ小小结/">
+    <div class="ds-share-inline">
+      <ul  class="ds-share-icons-16">
+
+      	<li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+        <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+        <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+        <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+        <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+      </ul>
+      <div class="ds-share-icons-more">
+      </div>
+    </div>
+   </div>
+    <!-- 多说评论框 start -->
+   	<div class="ds-thread" data-thread-key="/2013/07/20/ACM—NYOJ小小结/" data-title="ACM—NYOJ小小结" data-url="http://hanks.xyz//2013/07/20/ACM—NYOJ小小结/"></div>
+   <!-- 多说评论框 end -->
+   <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+   <script type="text/javascript">
+   var duoshuoQuery = {short_name:"hanks-zyh"};
+   	(function() {
+   		var ds = document.createElement('script');
+   		ds.type = 'text/javascript';ds.async = true;
+   		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+   		ds.charset = 'UTF-8';
+   		(document.getElementsByTagName('head')[0]
+   		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+   	})();
+   	</script>
+   <!-- 多说公共JS代码 end -->
+</section>
+
+</section>
+      </div>
+      <footer id="footer">
+  
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      &copy; 2015 Hanks<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+  </br>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    
+
+<script src="/js/jquery.min.js" type="text/javascript"></script>
+<script src="/js/jquery.scrollLoading.js" type="text/javascript"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+  <script src="/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+
+
+<script src="/js/script.js" type="text/javascript"></script>
+
+  </div>
+</body>
+</html>

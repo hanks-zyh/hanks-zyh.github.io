@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Android中ProgressBar样式 | Hanks.xyz</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android中ProgressBar样式">
+<meta property="og:url" content="http://hanks.xyz/2015/04/26/Android中ProgressBar样式/index.html">
+<meta property="og:site_name" content="Hanks.xyz">
+<meta property="og:description">
+<meta property="og:image" content="http://img.blog.csdn.net/20150426140252132">
+<meta property="og:image" content="http://img.blog.csdn.net/20150426141921299">
+<meta property="og:image" content="http://img.blog.csdn.net/20150426142305106">
+<meta property="og:image" content="http://img.blog.csdn.net/20150426142433923">
+<meta property="og:updated_time" content="2015-12-04T17:20:04.304Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android中ProgressBar样式">
+<meta name="twitter:description">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <!-- <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600' rel='stylesheet' type='text/css'> -->
+  <!-- <link href="//fonts.googleapis.com/css?family=Source+Code+Pro:400,700" rel="stylesheet" type="text/css"> -->
+  <link href="//fonts.useso.com/css?family=Source+Code+Pro:400,700" rel="stylesheet" type="text/css">
+  <link href='//fonts.useso.com/css?family=Open+Sans:300,600' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo">Hanks.xyz</a>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">首页</a>
+        
+          <a class="main-nav-link" href="/archives">归档</a>
+        
+          <a class="main-nav-link" href="/about/index.html">关于</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        <div id="search-form-wrap">
+          <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://hanks.xyz"></form>
+        </div>
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+        
+        
+          <a id="nav-github-link" class="nav-icon" href="https://github.com/hanks-zyh" title="Fork me on GitHub"></a>
+        
+      </nav>
+    </div>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/" class="mobile-nav-link">首页</a>
+  
+    <a href="/archives" class="mobile-nav-link">归档</a>
+  
+    <a href="/about/index.html" class="mobile-nav-link">关于</a>
+  
+  <div id="search-form-wrap-mobile">
+    <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://hanks.xyz"></form>
+  </div>
+</nav>
+      <div class="outer">
+        
+        <section id="main"><article id="post-Android中ProgressBar样式" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/04/26/Android中ProgressBar样式/" class="article-date">
+  <time datetime="2015-04-26T06:28:00.000Z" itemprop="datePublished">2015-04-26</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Android中ProgressBar样式
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><img src="http://img.blog.csdn.net/20150426140252132" alt="这里写图片描述"><br>Android系统已经被各大厂商改的面目全非，各种系统组件在不同手机上显示的效果完全不同，现在要想在开发中想要保持统一的界面风格，必须全部修改系统组件的样式，现在我们需要修改系统默认的<strong><code>ProgressBar</code></strong>,就Android系统本身来说，不同的版本组件的样式也不同。</p>
+<p>##系统中ProgressBar样式<br><img src="http://img.blog.csdn.net/20150426141921299" alt="系统样式"><br>找到<code>android-sdk</code>目录下的<code>platforms\android-15\data\res\values</code>中的<code>styles.xml</code>,然后查找ProgressBar，可以发现<br><figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;style <span class="property">name</span>=<span class="string">"Widget.ProgressBar"</span>&gt;</span><br><span class="line">        &lt;<span class="property">item</span> <span class="property">name</span>=<span class="string">"android:indeterminateOnly"</span>&gt;<span class="constant">true</span>&lt;/<span class="property">item</span>&gt;</span><br><span class="line">        &lt;<span class="property">item</span> <span class="property">name</span>=<span class="string">"android:indeterminateDrawable"</span>&gt;@android:drawable/progress_medium_white&lt;/<span class="property">item</span>&gt;</span><br><span class="line">        &lt;<span class="property">item</span> <span class="property">name</span>=<span class="string">"android:indeterminateBehavior"</span>&gt;<span class="keyword">repeat</span>&lt;/<span class="property">item</span>&gt;</span><br><span class="line">        &lt;<span class="property">item</span> <span class="property">name</span>=<span class="string">"android:indeterminateDuration"</span>&gt;<span class="number">3500</span>&lt;/<span class="property">item</span>&gt;</span><br><span class="line">        &lt;<span class="property">item</span> <span class="property">name</span>=<span class="string">"android:minWidth"</span>&gt;<span class="number">48</span>dip&lt;/<span class="property">item</span>&gt;</span><br><span class="line">        &lt;<span class="property">item</span> <span class="property">name</span>=<span class="string">"android:maxWidth"</span>&gt;<span class="number">48</span>dip&lt;/<span class="property">item</span>&gt;</span><br><span class="line">        &lt;<span class="property">item</span> <span class="property">name</span>=<span class="string">"android:minHeight"</span>&gt;<span class="number">48</span>dip&lt;/<span class="property">item</span>&gt;</span><br><span class="line">        &lt;<span class="property">item</span> <span class="property">name</span>=<span class="string">"android:maxHeight"</span>&gt;<span class="number">48</span>dip&lt;/<span class="property">item</span>&gt;</span><br><span class="line">    &lt;/style&gt;</span><br></pre></td></tr></table></figure></p>
+<p><code>android:indeterminateDrawable</code>的值为<strong><code>@android:drawable/progress_medium_white</code></strong>,找到drawable目录下的progress_medium_white.xml,打开<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="pi">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">animated-rotate</span> <span class="attribute">xmlns:android</span>=<span class="value">"http://schemas.android.com/apk/res/android"</span></span><br><span class="line">    <span class="attribute">android:drawable</span>=<span class="value">"@drawable/spinner_white_48"</span></span><br><span class="line">    <span class="attribute">android:pivotX</span>=<span class="value">"50%"</span></span><br><span class="line">    <span class="attribute">android:pivotY</span>=<span class="value">"50%"</span></span><br><span class="line">    <span class="attribute">android:framesCount</span>=<span class="value">"12"</span></span><br><span class="line">    <span class="attribute">android:frameDuration</span>=<span class="value">"100"</span> /&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>就是一个简单的spinner_white_48.png的<strong><code>旋转动画</code></strong></p>
+<p>##自定义<code>android:indeterminateDrawable</code>的值</p>
+<p>###旋转动画<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="pi">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">rotate</span> <span class="attribute">xmlns:android</span>=<span class="value">"http://schemas.android.com/apk/res/android"</span></span><br><span class="line">    <span class="attribute">android:pivotX</span>=<span class="value">"50%"</span></span><br><span class="line">    <span class="attribute">android:pivotY</span>=<span class="value">"50%"</span></span><br><span class="line">    <span class="attribute">android:fromDegrees</span>=<span class="value">"0"</span></span><br><span class="line">    <span class="attribute">android:toDegrees</span>=<span class="value">"360"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">bitmap</span></span><br><span class="line">        <span class="attribute">android:src</span>=<span class="value">"@mipmap/icon_timeline_stop_blue"</span></span><br><span class="line">        <span class="attribute">android:antialias</span>=<span class="value">"true"</span></span><br><span class="line">        <span class="attribute">android:filter</span>=<span class="value">"true"</span>&gt;</span><span class="tag">&lt;/<span class="title">bitmap</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">rotate</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>然后<br><figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;ProgressBar</span><br><span class="line">    android:layout_width=<span class="string">"wrap_content"</span></span><br><span class="line">    android:layout_height=<span class="string">"wrap_content"</span></span><br><span class="line">    android:indeterminateDrawable=<span class="string">"@drawable/loading_anim"</span></span><br><span class="line">    android:<span class="property">id</span>=<span class="string">"@+id/progressBar"</span> /&gt;</span><br></pre></td></tr></table></figure></p>
+<p>即可制作简单的旋转样式的的ProgressBar</p>
+<hr>
+<p>###帧动画<br>还有一种样式的为<strong><code>帧动画</code></strong>，这里有一点需要注意的<br><img src="http://img.blog.csdn.net/20150426142305106" alt="这里写图片描述">       <img src="http://img.blog.csdn.net/20150426142433923" alt="这里写图片描述"><br>两个图片,制作帧动画<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="pi">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">animation-list</span> <span class="attribute">xmlns:android</span>=<span class="value">"http://schemas.android.com/apk/res/android"</span></span><br><span class="line">    <span class="attribute">android:oneshot</span>=<span class="value">"false"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">item</span> <span class="attribute">android:duration</span>=<span class="value">"100"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">clip</span></span><br><span class="line">            <span class="attribute">android:clipOrientation</span>=<span class="value">"horizontal"</span></span><br><span class="line">            <span class="attribute">android:drawable</span>=<span class="value">"@mipmap/kaoyan_tip_f1"</span></span><br><span class="line">            <span class="attribute">android:gravity</span>=<span class="value">"left"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="title">item</span>&gt;</span><span class="tag">&lt;<span class="title">item</span> <span class="attribute">android:duration</span>=<span class="value">"100"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">clip</span></span><br><span class="line">        <span class="attribute">android:clipOrientation</span>=<span class="value">"horizontal"</span></span><br><span class="line">        <span class="attribute">android:drawable</span>=<span class="value">"@mipmap/kaoyan_tip_f2"</span></span><br><span class="line">        <span class="attribute">android:gravity</span>=<span class="value">"left"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">item</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="title">animation-list</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>需要注意的是，需要使用<strong><code>clip</code></strong>节点来指定<strong><code>android:clipOrientation</code></strong>和<strong><code>android:gravity=&quot;left&quot;</code></strong>，否则可能出现不同屏幕显示不完整的情况</p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://hanks.xyz/2015/04/26/Android中ProgressBar样式/" data-id="cihryjm6a0074k405cv1lvhxu" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  
+  
+</article>
+
+  
+<section id="comments">
+    <!-- 多说分享框 -->
+    <div class="ds-share flat" data-thread-key="/2015/04/26/Android中ProgressBar样式/" data-title="Android中ProgressBar样式" data-images="此处请替换为分享时显示的图片的链接地址" data-content="Android中ProgressBar样式" data-url="http://hanks.xyz//2015/04/26/Android中ProgressBar样式/">
+    <div class="ds-share-inline">
+      <ul  class="ds-share-icons-16">
+
+      	<li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+        <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+        <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+        <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+        <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+      </ul>
+      <div class="ds-share-icons-more">
+      </div>
+    </div>
+   </div>
+    <!-- 多说评论框 start -->
+   	<div class="ds-thread" data-thread-key="/2015/04/26/Android中ProgressBar样式/" data-title="Android中ProgressBar样式" data-url="http://hanks.xyz//2015/04/26/Android中ProgressBar样式/"></div>
+   <!-- 多说评论框 end -->
+   <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+   <script type="text/javascript">
+   var duoshuoQuery = {short_name:"hanks-zyh"};
+   	(function() {
+   		var ds = document.createElement('script');
+   		ds.type = 'text/javascript';ds.async = true;
+   		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+   		ds.charset = 'UTF-8';
+   		(document.getElementsByTagName('head')[0]
+   		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+   	})();
+   	</script>
+   <!-- 多说公共JS代码 end -->
+</section>
+
+</section>
+      </div>
+      <footer id="footer">
+  
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      &copy; 2015 Hanks<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+  </br>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    
+
+<script src="/js/jquery.min.js" type="text/javascript"></script>
+<script src="/js/jquery.scrollLoading.js" type="text/javascript"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+  <script src="/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+
+
+<script src="/js/script.js" type="text/javascript"></script>
+
+  </div>
+</body>
+</html>

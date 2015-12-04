@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>一元多项式的相加、相乘 | Hanks.xyz</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description">
+<meta property="og:type" content="article">
+<meta property="og:title" content="一元多项式的相加、相乘">
+<meta property="og:url" content="http://hanks.xyz/2014/02/19/一元多项式的相加、相乘/index.html">
+<meta property="og:site_name" content="Hanks.xyz">
+<meta property="og:description">
+<meta property="og:updated_time" content="2015-12-04T17:20:04.332Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="一元多项式的相加、相乘">
+<meta name="twitter:description">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <!-- <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600' rel='stylesheet' type='text/css'> -->
+  <!-- <link href="//fonts.googleapis.com/css?family=Source+Code+Pro:400,700" rel="stylesheet" type="text/css"> -->
+  <link href="//fonts.useso.com/css?family=Source+Code+Pro:400,700" rel="stylesheet" type="text/css">
+  <link href='//fonts.useso.com/css?family=Open+Sans:300,600' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo">Hanks.xyz</a>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">首页</a>
+        
+          <a class="main-nav-link" href="/archives">归档</a>
+        
+          <a class="main-nav-link" href="/about/index.html">关于</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        <div id="search-form-wrap">
+          <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://hanks.xyz"></form>
+        </div>
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+        
+        
+          <a id="nav-github-link" class="nav-icon" href="https://github.com/hanks-zyh" title="Fork me on GitHub"></a>
+        
+      </nav>
+    </div>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/" class="mobile-nav-link">首页</a>
+  
+    <a href="/archives" class="mobile-nav-link">归档</a>
+  
+    <a href="/about/index.html" class="mobile-nav-link">关于</a>
+  
+  <div id="search-form-wrap-mobile">
+    <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://hanks.xyz"></form>
+  </div>
+</nav>
+      <div class="outer">
+        
+        <section id="main"><article id="post-一元多项式的相加、相乘" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/02/19/一元多项式的相加、相乘/" class="article-date">
+  <time datetime="2014-02-19T11:16:00.000Z" itemprop="datePublished">2014-02-19</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      一元多项式的相加、相乘
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+<div id="sina_keyword_ad_area2" class="articalContent  ">
+			<p>#define null 0</p>
+<p>#include "stdio.h"<br>
+#include "stdlib.h"<br>
+#include "math.h"</p>
+<p>typedef struct<br>
+{<br>
+&nbsp;<wbr>float coef;//系数<br>
+&nbsp;<wbr>int expn;//指数<br>
+}term;//代表一元多项式的一项<br>
+typedef struct Lnode<br>
+{<br>
+&nbsp;<wbr>term data;//链表的一个结点存放一项<br>
+&nbsp;<wbr>Lnode * next;<br>
+}* Link,* Polynomial;//Polynomial代表一元多项式</p>
+<p>int cmp(term a,term b)//比较a.b的指数<br>
+{<br>
+&nbsp;<wbr>if (a.expn==b.expn) return 0;//如果两项指数相等，返回0<br>
+&nbsp;<wbr>else return
+(a.expn-b.expn)/abs(a.expn-b.expn);//如果a的指数 &gt; b的指数返回一个大于0
+的值，如果a的指数&lt; b的指数返回一个小于0 的值，abs(a.expn-b.expn)本身大于0，<br>
+}<br>
+void PrintPolyn(Polynomial p)//输出显示一元多项式p<br>
+{<br>
+&nbsp;<wbr>Link q;<br>
+&nbsp;<wbr>q = p-&gt;next;<br>
+&nbsp;<wbr>printf("\n##################
+系数&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> 指数
+#################\n");<br>
+&nbsp;<wbr>while(q)<br>
+&nbsp;<wbr>{<br>
+&nbsp;<wbr>&nbsp;<wbr>printf("&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+%8.2f&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+%-d\n",q-&gt;data.coef,q-&gt;data.expn);<br>
+&nbsp;<wbr>&nbsp;<wbr>q = q-&gt;next;<br>
+&nbsp;<wbr>}<br>
+}<br>
+void Orderinsert(Polynomial &amp;L,term e)//在L的合适位置插入e<br>
+{<br>
+&nbsp;<wbr>Link o,p,q;<br>
+&nbsp;<wbr>q = L;//q指向L，存放L的地址<br>
+&nbsp;<wbr>p=q-&gt;next;//p指向L第一个有效项<br>
+&nbsp;<wbr>while ( p &amp;&amp; cmp(p-&gt;data,e)&lt;0
+)//如果e的指数比p所指向的项的指数小，则指针p后移<br>
+&nbsp;<wbr>{<br>
+&nbsp;<wbr>&nbsp;<wbr>q = p;//q跟踪p<br>
+&nbsp;<wbr>&nbsp;<wbr>p = p-&gt;next;<br>
+&nbsp;<wbr>}<br>
+&nbsp;<wbr>if( p &amp;&amp; 0 == cmp(p-&gt;data,e) )
+//如果e的指数和p所指向的项的指数相等，则将两项合并<br>
+&nbsp;<wbr>{<br>
+&nbsp;<wbr>&nbsp;<wbr>p-&gt;data.coef += e.coef
+;//系数相加，指数不变<br>
+&nbsp;<wbr>&nbsp;<wbr>return ;<br>
+&nbsp;<wbr>}<br>
+&nbsp;<wbr>else//当前p所指向的项指数比e的大，将新结点插入L<br>
+&nbsp;<wbr>{<br>
+&nbsp;<wbr>&nbsp;<wbr>o =
+(Link)malloc(sizeof(Lnode));//分配新结点<br>
+&nbsp;<wbr>&nbsp;<wbr>o-&gt;data = e;//为新结点赋值<br>
+&nbsp;<wbr>&nbsp;<wbr>q-&gt;next = o;//q指向新结点<br>
+&nbsp;<wbr>&nbsp;<wbr>o-&gt;next =
+p;//新结点指向p所指向的项<br>
+&nbsp;<wbr>&nbsp;<wbr>return;<br>
+&nbsp;<wbr>}<br>
+&nbsp;<wbr><br>
+}<br>
+void CreatPolyn (Polynomial &amp;L,int m)//创建p,里面含m项<br>
+{<br>
+&nbsp;<wbr>term e;//定义一元多项式的一项e<br>
+&nbsp;<wbr>int i;<br>
+&nbsp;<wbr>L = (Link)malloc(sizeof(Lnode));//分配一个结点<br>
+&nbsp;<wbr>L-&gt;next = null;</p>
+<p>&nbsp;<wbr>printf("\n请输入%d个系数和指数用空格符间隔：\n",m);<br>
+&nbsp;<wbr>for(i=1;i&lt;=m;i++)<br>
+&nbsp;<wbr>{<br>
+&nbsp;<wbr>&nbsp;<wbr>scanf("%f%d",&amp;e.coef,&amp;e.expn);//得到e的系数和指数<br>
+
+&nbsp;<wbr>&nbsp;<wbr>Orderinsert(L,e);//将e插到一元多项式p的合适位置<br>
+
+&nbsp;<wbr>}<br>
+}<br>
+void AddPolyn(Polynomial &amp;La,Polynomial Lb)<br>
+{<br>
+&nbsp;<wbr>Link pb;//指向Lb<br>
+&nbsp;<wbr>term b;<br>
+&nbsp;<wbr>pb = Lb-&gt;next;<br>
+&nbsp;<wbr>while(pb)<br>
+&nbsp;<wbr>{<br>
+&nbsp;<wbr>&nbsp;<wbr>b = pb-&gt;data;
+//用来存放Lb每项数据<br>
+&nbsp;<wbr>&nbsp;<wbr>Orderinsert(La,b);//将b插入La中<br>
+
+&nbsp;<wbr>&nbsp;<wbr>pb = pb-&gt;next;<br>
+&nbsp;<wbr>}</p>
+<p>
+&nbsp;<wbr>printf("\n***************两个多项式相加后的多项式为：***************\n");<br>
+
+&nbsp;<wbr>PrintPolyn(La);&nbsp;<wbr>&nbsp;<wbr>//输出相加后的一元多项式/</p>
+<p>&nbsp;<wbr>free(pb); //销毁链表Lb<br>
+}</p>
+<p>void MultiplyPolyn(Polynomial La,Polynomial Lb)<br>
+{<br>
+&nbsp;<wbr>Polynomial Lc =
+(Link)malloc(sizeof(Lnode));<br>
+&nbsp;<wbr>Lc-&gt;next = null;//创建一个新的链表，存放相乘后的多项式</p>
+<p>&nbsp;<wbr>Link pa,pb;//pa,pb用来指向La，Lb<br>
+&nbsp;<wbr>term temp;//存放临时项</p>
+<p>&nbsp;<wbr>for(pb = Lb-&gt;next; pb ; pb =
+pb-&gt;next)<br>
+&nbsp;<wbr>{&nbsp;<wbr>//Lb的每一项都与 多项式La相乘<br>
+&nbsp;<wbr>&nbsp;<wbr>for(pa = La-&gt;next; pa; pa =
+pa-&gt;next )<br>
+&nbsp;<wbr>&nbsp;<wbr>{<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>temp.coef =
+pa-&gt;data.coef * pb-&gt;data.coef;//系数相乘，指数相加<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>temp.expn =
+pa-&gt;data.expn + pb-&gt;data.expn;<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>Orderinsert(Lc,temp);///相乘的每一项都放到Lc中<br>
+
+&nbsp;<wbr>&nbsp;<wbr>}<br>
+&nbsp;<wbr>}</p>
+<p>
+&nbsp;<wbr>printf("\n***************两个多项式相乘后的多项式为：****************\n");<br>
+
+&nbsp;<wbr>PrintPolyn(Lc);&nbsp;<wbr>&nbsp;<wbr>//输出相乘后的一元多项式/<br>
+
+&nbsp;<wbr>free(Lb);//销毁La，Lb<br>
+&nbsp;<wbr>free(La);<br>
+}</p>
+<p>int main()<br>
+{<br>
+&nbsp;<wbr>system("mode con cols=65
+lines=35");//设置窗口大小<br>
+&nbsp;<wbr>system("COLOR f1");//设置窗口颜色</p>
+<p>&nbsp;<wbr>int door=1,num;</p>
+<p>&nbsp;<wbr>while( door )<br>
+&nbsp;<wbr>{<br>
+&nbsp;<wbr>&nbsp;<wbr>printf("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n");<br>
+
+&nbsp;<wbr>&nbsp;<wbr>printf("&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+如要对顺序表进行操作，请输入各项前面相应的数字\n");<br>
+&nbsp;<wbr>&nbsp;<wbr>printf("&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+************************************\n");<br>
+&nbsp;<wbr>&nbsp;<wbr>printf("&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+|&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+1、两个一元多项式相加&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+|\n");<br>
+&nbsp;<wbr>&nbsp;<wbr>printf("&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+|&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+2、两个一元多项式相乘&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+|\n");<br>
+&nbsp;<wbr>&nbsp;<wbr>printf("&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+|&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+0、退出&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+|\n");<br>
+&nbsp;<wbr>&nbsp;<wbr>printf("&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+************************************\n");<br>
+&nbsp;<wbr>&nbsp;<wbr>printf(" 请输入数字进行操作：");<br>
+&nbsp;<wbr>&nbsp;<wbr>scanf("%d",&amp;num);</p>
+<p>&nbsp;<wbr>&nbsp;<wbr>switch(num)<br>
+&nbsp;<wbr>&nbsp;<wbr>{<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>case
+1:&nbsp;<wbr>//加法<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>Polynomial
+L1,L2;//定义两个链表代表两个一元多项式<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>CreatPolyn(L1,5);//创建L1,里面含5项<br>
+
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>PrintPolyn(L1);//输出L1<br>
+
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>CreatPolyn(L2,3);//创建L2,里面含3项<br>
+
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>PrintPolyn(L2);//输出L2<br>
+
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>AddPolyn(L1,L2);&nbsp;<wbr>&nbsp;<wbr>//两个一元多项式相加<br>
+
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>break;<br>
+
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>case
+2:&nbsp;<wbr>//乘法<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>Polynomial
+L3,L4;//定义两个链表代表两个一元多项式<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>CreatPolyn(L3,5);//创建L3,里面含5项<br>
+
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>PrintPolyn(L3);//输出L3<br>
+
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>CreatPolyn(L4,3);//创建L4,里面含3项<br>
+
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>PrintPolyn(L4);//输出L4<br>
+
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>MultiplyPolyn(L3,L4);&nbsp;<wbr>&nbsp;<wbr>//两个一元多项式相乘<br>
+
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>break;<br>
+
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>case 0: door
+= 0; break;<br>
+&nbsp;<wbr>&nbsp;<wbr>}&nbsp;<wbr><br>
+&nbsp;<wbr>}<br>
+&nbsp;<wbr>return 0;<br>
+}<br>
+<br></p>							
+		</div>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://hanks.xyz/2014/02/19/一元多项式的相加、相乘/" data-id="cihryjlzp002ik405cf56pnmo" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  
+  
+</article>
+
+  
+<section id="comments">
+    <!-- 多说分享框 -->
+    <div class="ds-share flat" data-thread-key="/2014/02/19/一元多项式的相加、相乘/" data-title="一元多项式的相加、相乘" data-images="此处请替换为分享时显示的图片的链接地址" data-content="一元多项式的相加、相乘" data-url="http://hanks.xyz//2014/02/19/一元多项式的相加、相乘/">
+    <div class="ds-share-inline">
+      <ul  class="ds-share-icons-16">
+
+      	<li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+        <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+        <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+        <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+        <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+      </ul>
+      <div class="ds-share-icons-more">
+      </div>
+    </div>
+   </div>
+    <!-- 多说评论框 start -->
+   	<div class="ds-thread" data-thread-key="/2014/02/19/一元多项式的相加、相乘/" data-title="一元多项式的相加、相乘" data-url="http://hanks.xyz//2014/02/19/一元多项式的相加、相乘/"></div>
+   <!-- 多说评论框 end -->
+   <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+   <script type="text/javascript">
+   var duoshuoQuery = {short_name:"hanks-zyh"};
+   	(function() {
+   		var ds = document.createElement('script');
+   		ds.type = 'text/javascript';ds.async = true;
+   		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+   		ds.charset = 'UTF-8';
+   		(document.getElementsByTagName('head')[0]
+   		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+   	})();
+   	</script>
+   <!-- 多说公共JS代码 end -->
+</section>
+
+</section>
+      </div>
+      <footer id="footer">
+  
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      &copy; 2015 Hanks<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+  </br>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    
+
+<script src="/js/jquery.min.js" type="text/javascript"></script>
+<script src="/js/jquery.scrollLoading.js" type="text/javascript"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+  <script src="/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+
+
+<script src="/js/script.js" type="text/javascript"></script>
+
+  </div>
+</body>
+</html>

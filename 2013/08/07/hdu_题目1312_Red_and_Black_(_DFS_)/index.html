@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>hdu 题目1312 Red and Black ( DFS ) | Hanks.xyz</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description">
+<meta property="og:type" content="article">
+<meta property="og:title" content="hdu 题目1312 Red and Black ( DFS )">
+<meta property="og:url" content="http://hanks.xyz/2013/08/07/hdu_题目1312_Red_and_Black_(_DFS_)/index.html">
+<meta property="og:site_name" content="Hanks.xyz">
+<meta property="og:description">
+<meta property="og:updated_time" content="2015-12-04T17:20:04.308Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="hdu 题目1312 Red and Black ( DFS )">
+<meta name="twitter:description">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <!-- <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600' rel='stylesheet' type='text/css'> -->
+  <!-- <link href="//fonts.googleapis.com/css?family=Source+Code+Pro:400,700" rel="stylesheet" type="text/css"> -->
+  <link href="//fonts.useso.com/css?family=Source+Code+Pro:400,700" rel="stylesheet" type="text/css">
+  <link href='//fonts.useso.com/css?family=Open+Sans:300,600' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo">Hanks.xyz</a>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">首页</a>
+        
+          <a class="main-nav-link" href="/archives">归档</a>
+        
+          <a class="main-nav-link" href="/about/index.html">关于</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        <div id="search-form-wrap">
+          <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://hanks.xyz"></form>
+        </div>
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+        
+        
+          <a id="nav-github-link" class="nav-icon" href="https://github.com/hanks-zyh" title="Fork me on GitHub"></a>
+        
+      </nav>
+    </div>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/" class="mobile-nav-link">首页</a>
+  
+    <a href="/archives" class="mobile-nav-link">归档</a>
+  
+    <a href="/about/index.html" class="mobile-nav-link">关于</a>
+  
+  <div id="search-form-wrap-mobile">
+    <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://hanks.xyz"></form>
+  </div>
+</nav>
+      <div class="outer">
+        
+        <section id="main"><article id="post-hdu_题目1312_Red_and_Black_(_DFS_)" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2013/08/07/hdu_题目1312_Red_and_Black_(_DFS_)/" class="article-date">
+  <time datetime="2013-08-07T05:40:00.000Z" itemprop="datePublished">2013-08-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      hdu 题目1312 Red and Black ( DFS )
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+<h1 align="center" style="color:#1a5cc8">Red and Black</h1>
+<p align="center"><span size="&#43;0"><strong><span style="font-family:Arial; font-size:12px; color:green"><strong>Time Limit: 2000/1000 MS (Java/Others)&nbsp;&nbsp;&nbsp;&nbsp;Memory Limit: 65536/32768 K (Java/Others)<br>
+Total Submission(s): 6594&nbsp;&nbsp;&nbsp;&nbsp;Accepted Submission(s): 4184<br>
+</strong></span></strong></span><br>
+<br>
+</p>
+<div class="panel_title" align="left">Problem Description</div>
+<div class="panel_content">There is a rectangular room, covered with square tiles. Each tile is colored either red or black. A man is standing on a black tile. From a tile, he can move to one of four adjacent tiles. But he can't move on red tiles, he can move
+ only on black tiles.<br>
+<br>
+Write a program to count the number of black tiles which he can reach by repeating the moves described above.<br>
+</div>
+<div class="panel_bottom">&nbsp;</div>
+<p>&nbsp;</p>
+<div class="panel_title" align="left">Input</div>
+<div class="panel_content">The input consists of multiple data sets. A data set starts with a line containing two positive integers W and H; W and H are the numbers of tiles in the x- and y- directions, respectively. W and H are not more than 20.<br>
+<br>
+There are H more lines in the data set, each of which includes W characters. Each character represents the color of a tile as follows.<br>
+<br>
+'.' - a black tile <br>
+'#' - a red tile <br>
+'@' - a man on a black tile(appears exactly once in a data set) <br>
+</div>
+<div class="panel_bottom">&nbsp;<br>
+</div>
+<div class="panel_title" align="left">Output</div>
+<div class="panel_content">For each data set, your program should output a line which contains the number of tiles he can reach from the initial tile (including itself).<br>
+</div>
+<div class="panel_bottom">&nbsp;<br>
+</div>
+<div class="panel_title" align="left">Sample Input</div>
+<div class="panel_content">
+<pre><div style="font-family:Courier New,Courier,monospace">6 9
+....#.
+.....#
+......
+......
+......
+......
+......
+#@...#
+.#..#.
+11 9
+.#.........
+.#.#######.
+.#.#.....#.
+.#.#.###.#.
+.#.#..@#.#.
+.#.#####.#.
+.#.......#.
+.#########.
+...........
+11 6
+..#..#..#..
+..#..#..#..
+..#..#..###
+..#..#..#@.
+..#..#..#..
+..#..#..#..
+7 7
+..#.#..
+..#.#..
+###.###
+...@...
+###.###
+..#.#..
+..#.#..
+0 0</div></pre>
+</div>
+<div class="panel_bottom">&nbsp;</div>
+<div class="panel_title" align="left">Sample Output</div>
+<div class="panel_content">
+<pre><div style="font-family:Courier New,Courier,monospace">45
+59
+6
+13</div></pre>
+</div>
+<p>&nbsp;</p>
+<p><strong><span style="font-family:KaiTi_GB2312; font-size:18px">简单深搜，</span></strong></p>
+<p><strong><span style="font-family:KaiTi_GB2312; font-size:18px">1。获取@的位置</span></strong></p>
+<p><strong><span style="font-family:KaiTi_GB2312; font-size:18px">2。将@变为‘0’</span></strong></p>
+<p><strong><span style="font-family:KaiTi_GB2312; font-size:18px">3。从@的位置开始，设为当前位置，将与当前位置相连的‘.’都变为‘0’</span></strong></p>
+<p><strong><span style="font-family:KaiTi_GB2312; font-size:18px">4。计算最后看字符‘0’的个数，</span></strong></p>
+<p>&nbsp;</p>
+<pre class="cpp" name="code">#include&lt;iostream&gt;
+#include&lt;stdio.h&gt;
+
+using namespace std;
+
+char a[21][21];
+
+
+void DFS(int x,int y,int w,int h)
+{
+	if(a[x][y]=='.')  a[x][y]='0';
+	
+	if(a[x+1][y]=='.'&amp;&amp;x+1&lt;h) DFS(x+1,y,w,h);
+	if(a[x-1][y]=='.'&amp;&amp;x-1&gt;=0) DFS(x-1,y,w,h);	
+	if(a[x][y+1]=='.'&amp;&amp;y+1&lt;w) DFS(x,y+1,w,h);
+	if(a[x][y-1]=='.'&amp;&amp;y-1&gt;=0) DFS(x,y-1,w,h);
+}
+
+void count(int w,int h)
+{
+	int i,j,num=0;
+	for(i=0;i&lt;h;i++)
+		for(j=0;j&lt;w;j++)
+		{
+			if(a[i][j] == '0')
+				num++;
+		}
+	printf(&quot;%d\n&quot;,num);
+}
+
+int main() 
+{
+	int i,j,x,y,w,h;
+	while(scanf(&quot;%d%d&quot;,&amp;w,&amp;h),w&amp;&amp;h)
+	{
+		getchar();
+		for(i=0;i&lt;h;i++)
+		{
+			for(j=0;j&lt;w;j++)
+			{
+				scanf(&quot;%c&quot;,&amp;a[i][j]);
+				if(a[i][j]=='@')
+				{
+					x=i;
+					y=j;
+				}
+			}	
+			getchar();	
+		}	
+
+		a[x][y]='0';
+		DFS(x,y,w,h);	
+		count(w,h);
+	}
+	return 0;
+}
+
+</pre>
+<p><br>
+&nbsp;</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://hanks.xyz/2013/08/07/hdu_题目1312_Red_and_Black_(_DFS_)/" data-id="cihryjm1y003tk40521l3yz4c" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  
+  
+</article>
+
+  
+<section id="comments">
+    <!-- 多说分享框 -->
+    <div class="ds-share flat" data-thread-key="/2013/08/07/hdu_题目1312_Red_and_Black_(_DFS_)/" data-title="hdu 题目1312 Red and Black ( DFS )" data-images="此处请替换为分享时显示的图片的链接地址" data-content="hdu 题目1312 Red and Black ( DFS )" data-url="http://hanks.xyz//2013/08/07/hdu_题目1312_Red_and_Black_(_DFS_)/">
+    <div class="ds-share-inline">
+      <ul  class="ds-share-icons-16">
+
+      	<li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+        <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+        <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+        <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+        <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+      </ul>
+      <div class="ds-share-icons-more">
+      </div>
+    </div>
+   </div>
+    <!-- 多说评论框 start -->
+   	<div class="ds-thread" data-thread-key="/2013/08/07/hdu_题目1312_Red_and_Black_(_DFS_)/" data-title="hdu 题目1312 Red and Black ( DFS )" data-url="http://hanks.xyz//2013/08/07/hdu_题目1312_Red_and_Black_(_DFS_)/"></div>
+   <!-- 多说评论框 end -->
+   <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+   <script type="text/javascript">
+   var duoshuoQuery = {short_name:"hanks-zyh"};
+   	(function() {
+   		var ds = document.createElement('script');
+   		ds.type = 'text/javascript';ds.async = true;
+   		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+   		ds.charset = 'UTF-8';
+   		(document.getElementsByTagName('head')[0]
+   		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+   	})();
+   	</script>
+   <!-- 多说公共JS代码 end -->
+</section>
+
+</section>
+      </div>
+      <footer id="footer">
+  
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      &copy; 2015 Hanks<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+  </br>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    
+
+<script src="/js/jquery.min.js" type="text/javascript"></script>
+<script src="/js/jquery.scrollLoading.js" type="text/javascript"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+  <script src="/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+
+
+<script src="/js/script.js" type="text/javascript"></script>
+
+  </div>
+</body>
+</html>

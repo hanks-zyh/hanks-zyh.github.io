@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>字符串的输入 | Hanks.xyz</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description">
+<meta property="og:type" content="article">
+<meta property="og:title" content="字符串的输入">
+<meta property="og:url" content="http://hanks.xyz/2013/07/15/字符串的输入/index.html">
+<meta property="og:site_name" content="Hanks.xyz">
+<meta property="og:description">
+<meta property="og:updated_time" content="2015-12-04T17:20:04.336Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="字符串的输入">
+<meta name="twitter:description">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <!-- <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600' rel='stylesheet' type='text/css'> -->
+  <!-- <link href="//fonts.googleapis.com/css?family=Source+Code+Pro:400,700" rel="stylesheet" type="text/css"> -->
+  <link href="//fonts.useso.com/css?family=Source+Code+Pro:400,700" rel="stylesheet" type="text/css">
+  <link href='//fonts.useso.com/css?family=Open+Sans:300,600' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo">Hanks.xyz</a>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">首页</a>
+        
+          <a class="main-nav-link" href="/archives">归档</a>
+        
+          <a class="main-nav-link" href="/about/index.html">关于</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        <div id="search-form-wrap">
+          <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://hanks.xyz"></form>
+        </div>
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+        
+        
+          <a id="nav-github-link" class="nav-icon" href="https://github.com/hanks-zyh" title="Fork me on GitHub"></a>
+        
+      </nav>
+    </div>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/" class="mobile-nav-link">首页</a>
+  
+    <a href="/archives" class="mobile-nav-link">归档</a>
+  
+    <a href="/about/index.html" class="mobile-nav-link">关于</a>
+  
+  <div id="search-form-wrap-mobile">
+    <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://hanks.xyz"></form>
+  </div>
+</nav>
+      <div class="outer">
+        
+        <section id="main"><article id="post-字符串的输入" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2013/07/15/字符串的输入/" class="article-date">
+  <time datetime="2013-07-15T07:20:00.000Z" itemprop="datePublished">2013-07-15</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      字符串的输入
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+<p>字符串的输入的主流函数:</p>
+<p>一、<span style="color:#ff0000">scanf()</span>;&nbsp; 二、<span style="color:#ff0000">cin</span>;&nbsp; 三、<span style="color:#ff0000">gets()</span>;&nbsp; 四、<span style="color:#ff0000">getline()</span>;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<strong>五、<span style="color:#ff0000">sscanf() 重点！！！！</span></strong></p>
+<p><br>
+</p>
+<p>一、scanf(&quot;%s&quot;,str);</p>
+<p>遇见空&#26684;或换行就停止。</p>
+<p><pre class="cpp" name="code">#include&lt;stdio.h&gt;
+int main()
+{
+        char str[100];
+        while(true)
+        {
+               scanf(&quot;%s&quot;,str);
+               printf(&quot;%s\n&quot;,str);
+        }
+        return 0;
+}</pre>输入：123 456</p>
+<p></p>
+<p></p>
+<p>输出：123</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 456</p>
+<p>&nbsp;</p>
+<p>二、cin&gt;&gt;str;与scanf();</p>
+<p>相&#20284;遇见空&#26684;或换行就停止；以文件结束。</p>
+<p>&nbsp;</p>
+<p>三、gets(str);</p>
+<p>gets(str)函数与 <strong>scanf(&quot;%s&quot;,&amp;str) </strong>相&#20284;，但不完全相同，使用scanf(&quot;%s&quot;,&amp;s) 函数输入字符串时存在一个问题，</p>
+<p>就是如果输入了空&#26684;会认为字符串结束，空&#26684;后的字符将作为下一个输入项处理，但gets()函数将接收输入的整个字符串直到遇到<span style="color:#ff0000">换行为止或文件结束</span>。</p>
+<p>&nbsp;</p>
+<p>四、getline(cin,str);</p>
+<p>需要加头文件#include&lt;stdlib.h&gt; ；<span style="color:#008000">而且str&nbsp;必须是 string类型；</span></p>
+<p><span style="color:#008000">读入一行以文件或换行结束。</span></p>
+<p>&nbsp;</p>
+<p><strong><span style="color:#ff0000">五、sscanf();</span></strong></p>
+<p><span style="color:#008000">1、sscanf与scanf类&#20284;，都是用于输入的，只是后者以键盘(stdin)为输入源，前者以固定字符串为输入源。</span></p>
+<p><span style="color:#008000">2、 </span><span style="color:#3366ff">%[a-z] 表示匹配a到z中任意字符，贪婪性(尽可能多的匹配)</span></p>
+<p><span style="color:#3366ff">　　%[aB'] 匹配a、B、'中一员，贪婪性</span></p>
+<p><span style="color:#3366ff">　　%[^a] 匹配非a的任意字符，贪婪性</span></p>
+<p><span style="color:#008000">3、用法例子</span></p>
+<p><span style="color:#008000">&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;a. 常见用法。</span></p>
+<blockquote style="border-bottom:medium none; border-left:medium none; padding-bottom:0px; margin:0px 0px 0px 40px; padding-left:0px; padding-right:0px; border-top:medium none; border-right:medium none; padding-top:0px">
+<p><span style="color:#008000">　　char buf[512] ;</span></p>
+<p><span style="color:#008000">　　sscanf(&quot;123456 &quot;, &quot;%s&quot;, buf);//此处buf是数组名，它的意思是将123456以%s的形式存入buf中！</span></p>
+<p><span style="color:#008000">　　printf(&quot;%s\n&quot;, buf);</span></p>
+<p><span style="color:#008000">　　结果为：123456</span></p>
+</blockquote>
+<p><span style="color:#008000">　　b</span><span style="color:#3366ff">. 取指定长度的字符串</span><span style="color:#008000">。如在下例中，取最大长度为4字节的字符串。</span></p>
+<blockquote style="border-bottom:medium none; border-left:medium none; padding-bottom:0px; margin:0px 0px 0px 40px; padding-left:0px; padding-right:0px; border-top:medium none; border-right:medium none; padding-top:0px">
+<p><span style="color:#008000">　　sscanf(&quot;123456 &quot;, &quot;%4s&quot;, buf);</span></p>
+<p><span style="color:#008000">　　printf(&quot;%s\n&quot;, buf);</span></p>
+<p><span style="color:#008000">　　结果为：1234</span></p>
+</blockquote>
+<p><span style="color:#008000">　　c.</span><span style="color:#000099"> 取到指定字符为止的字符串</span><span style="color:#008000">。如在下例中，取遇到空&#26684;为止字符串。</span></p>
+<blockquote style="border-bottom:medium none; border-left:medium none; padding-bottom:0px; margin:0px 0px 0px 40px; padding-left:0px; padding-right:0px; border-top:medium none; border-right:medium none; padding-top:0px">
+<p><span style="color:#008000">　　sscanf(&quot;123456 abcdedf&quot;, &quot;%[^ ]&quot;, buf);</span></p>
+<p><span style="color:#008000">　　printf(&quot;%s\n&quot;, buf);</span></p>
+<p><span style="color:#008000">　　结果为：123456</span></p>
+</blockquote>
+<p><span style="color:#008000">　　d. 取</span><span style="color:#000099">仅包含指定字符集的字符</span><span style="color:#008000">串。如在下例中，取仅包含1到9和小写字母的字符串。</span></p>
+<blockquote style="border-bottom:medium none; border-left:medium none; padding-bottom:0px; margin:0px 0px 0px 40px; padding-left:0px; padding-right:0px; border-top:medium none; border-right:medium none; padding-top:0px">
+<p><span style="color:#008000">　　sscanf(&quot;123456abcdedfBCDEF&quot;, &quot;%[1-9a-z]&quot;, buf);</span></p>
+<p><span style="color:#008000">　　printf(&quot;%s\n&quot;, buf);</span></p>
+<div class="spctrl">&nbsp;&nbsp;&nbsp;&nbsp; <span style="color:#008000">结果为：123456abcdedf</span></div>
+<p><span style="color:#008000">　　当输入：</span></p>
+<p><span style="color:#008000">　　sscanf(&quot;123456abcdedfBCDEF&quot;,&quot;%[1-9A-Z]&quot;,buf);</span></p>
+<p><span style="color:#008000">　　printf(&quot;%s\n&quot;,buf);</span></p>
+</blockquote>
+<div class="spctrl">&nbsp;<span style="color:#008000">　<span style="white-space:pre"> </span>
+结果为：123456</span></div>
+<p><span style="color:#008000">　　e</span><span style="color:#000099">. 取到指定字符集为止的字符串</span><span style="color:#008000">。如在下例中，取遇到大写字母为止的字符串。</span></p>
+<p><span style="color:#008000">　　<span style="white-space:pre"> </span>sscanf(&quot;123456abcdedfBCDEF&quot;, &quot;%[^A-Z]&quot;, buf);</span></p>
+<p><span style="color:#008000">　　<span style="white-space:pre"> </span>printf(&quot;%s\n&quot;, buf);</span></p>
+<p><span style="color:#008000">　　<span style="white-space:pre"> </span>结果为：123456abcdedf</span>&nbsp;</p>
+<p><span style="color:#008000">　</span><span style="color:#ff0000">　f、</span><span style="color:#008000">给定一个字符串<a href="mailto:iios/12DDWDFF@122" target="_blank" rel="external">iios/12DDWDFF@122</a>，获取 / 和 @ 之间的字符串，先将 &quot;iios/&quot;过滤掉，再将非<a href="mailto:'@'" target="_blank" rel="external">'@'</a>的一串内容送到buf中</span>&nbsp;</p>
+<p><span style="color:#008000">　　sscanf(&quot;iios/12DDWDFF@122&quot;, </span><span style="color:#ff0000">&quot;%*[^/]/%[^@]&quot;</span><span style="color:#008000">, buf);</span></p>
+<p><span style="color:#008000">　　printf(&quot;%s\n&quot;, buf);</span></p>
+<p><span style="color:#008000">　　结果为：12DDWDFF</span></p>
+<p><span style="color:#008000">　　</span><span style="color:#ff0000">g</span><span style="color:#008000">、给定一个字符串&quot;</span><span style="color:#000099">hello, world</span><span style="color:#008000">&quot;，仅保留world。（注意：&quot;，&quot;之后有一空&#26684;，%s遇空&#26684;停止，加&nbsp;</span><span style="color:#000099">*&nbsp;</span><span style="color:#008000">则是忽略第一个读到的字符串）</span></p>
+<p><span style="color:#008000">　　<span style="white-space:pre"> </span>sscanf(&quot;hello, world&quot;, &quot;</span><span style="color:#ff0000">%*s%s</span><span style="color:#008000">&quot;, buf);</span></p>
+<p><span style="color:#008000">　　<span style="white-space:pre"> </span>printf(&quot;%s\n&quot;, buf);</span></p>
+<p><span style="color:#008000">　　<span style="white-space:pre"> </span>结果为：world</span></p>
+<p><span style="color:#008000">　　%*s表示第一个匹配到的%s被过滤掉，即hello被过滤了</span></p>
+<p><span style="color:#008000">　　如果没有空&#26684;则结果为NULL</span></p>
+<p><span style="color:#008000"></span>&nbsp;</p>
+<div id="cnblogs_post_body">
+<h1 class="title_txt">&nbsp;<span style="font-size:18px"> <span style="color:#ff6600">
+sscanf函数的用法</span><cite class="fav_csdnstylebykimi"> </cite></span></h1>
+<div class="blogstory">
+<p>头文件 #include &lt;stdio.h&gt;</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 定义函数 :&nbsp; int sscanf (const char *str,const char * format,........);</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 函数说明&nbsp;:&nbsp;&nbsp; sscanf()会将参数str的字符串根据参数format字符串来转换并&#26684;式化数据。&#26684;式转换形式请参考scanf()。转换后的结果存于对应的参数内。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 返回&#20540; :&nbsp; 成功则返回参数数目，失败则返回-1，错误原因存于errno中。 返回0表示失败&nbsp;&nbsp;&nbsp; 否则，表示正确&#26684;式化数据的个数&nbsp;&nbsp;&nbsp; 例如：sscanf(str，&quot;%d%d%s&quot;, &amp;i,&amp;i2, &amp;s);&nbsp;&nbsp;&nbsp; 如果三个变成都读入成功会返回3。&nbsp;&nbsp;&nbsp; 如果只读入了第一个整数到i则会返回1。证明无法从str读入第二个整数。&nbsp;&nbsp;</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 范例</p>
+<pre class="cpp" name="code"> #include &lt;stdio.h&gt;
+   main() 
+   { 
+            int i; 
+            unsigned int j; 
+            char input[ ]=”10 0x1b aaaaaaaa bbbbbbbb”; 
+            char s[5]; 
+            sscanf(input,”%d %x %5[a-z] %*s %f”,&amp;i,&amp;j,s,s); 
+            printf(“%d %d %s ”,i,j,s); 
+   }
+//输出：&nbsp;10 27 aaaaa</pre>
+<p><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; sscanf(stringBuf.c_str(), &quot;%20[^#]#%20[^ ]&quot;,......)语句中&quot;&quot;中的内容含义为：</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; “%[ ]”符号用于声明字符串，它比“%s”更具体，可以用于<span style="color:#ff0000">设置读取的样式</span>。例如“%[a-z]”只读取小写字母，读到其它字符就结束。注意，方括号中如果有“^”，代表一直读到某字符为止。例如：<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; “%[^#]”：读取字符串，一直到出现“＃”号为止。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; “%20[^#]”：读取20个字节的字符串，出现“＃”号时结束。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 所以，“%20[^#]#%20[^ ]”的意义就是，</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 读取两个20字节大小的字符串，第一个字符串可以用＃结束，第二个字符串可以用回车符结束。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 它们的具体阐述，参见MSDN：“scanf Type Field Characters”章节，和“scanf Width&nbsp; Specification”章节。</p>
+<p>*********************************************************************************************************************************************</p>
+<p>大家都知道sscanf是一个很好用的函数，利用它可以从字符串中取出整数、浮点数和字符串等等。它的使用方法简单，特别对于整数和浮点数来说。但新手可能并不知道处理字符串时的一些高级用法，这里做个简要说明吧。</p>
+<p>1. 常见用法。</p>
+<p>以下是引用片段：<br>
+　　charstr[512]={0};<br>
+　　sscanf(&quot;123456&quot;,&quot;%s&quot;,str);<br>
+　　printf(&quot;str=%s&quot;,str);</p>
+<p>　　2. 取指定长度的字符串。如在下例中，取最大长度为4字节的字符串。</p>
+<p>以下是引用片段：<br>
+　　sscanf(&quot;123456&quot;,&quot;%4s&quot;,str);<br>
+　　printf(&quot;str=%s&quot;,str);</p>
+<p>　　3. 取到指定字符为止的字符串。如在下例中，取遇到空&#26684;为止字符串。</p>
+<p>以下是引用片段：<br>
+　　sscanf(&quot;123456abcdedf&quot;,&quot;%[^]&quot;,str);<br>
+　　printf(&quot;str=%s&quot;,str);</p>
+<p>　　4. 取仅包含指定字符集的字符串。如在下例中，取仅包含1到9和小写字母的字符串。</p>
+<p>以下是引用片段：<br>
+　　sscanf(&quot;123456abcdedfBCDEF&quot;,&quot;%[1-9a-z]&quot;,str);<br>
+　　printf(&quot;str=%s&quot;,str);</p>
+<p>　　5. 取到指定字符集为止的字符串。如在下例中，取遇到大写字母为止的字符串。</p>
+<p>以下是引用片段：<br>
+　　sscanf(&quot;123456abcdedfBCDEF&quot;,&quot;%[^A-Z]&quot;,str);<br>
+　　printf(&quot;str=%s&quot;,str); </p>
+<p>*********************************************************************************************************************************************</p>
+<p>名称: sscanf() - 从一个字符串中读进与指定&#26684;式相符的数据. <br>
+<br>
+语法: int sscanf( string str, string fmt, mixed var1, mixed var2 ... );</p>
+<p>整数 sscanf( 字符串 str, 字符串 fmt, 混合 var1, 混合 var2 ... );</p>
+<p>用法: 以指定的&#26684;式 fmt 去解读字符串 str. fmt 中除了 %d 和 %s 以外, 亦可包含其他的字符串作为&#26684;式. 每一个 %d 或 %s 都对应一个参数, 按顺序为 var1, var2 ... %d 读入一个整数到参数中, 而 %s 读入一个字符串. * 亦可用于&#26684;式中, (即 %*d 和 %*s) 加了星号 (*) 表示跳过此数据不读入. (也就是不把此数据读入参数中) LPC 的 sscanf() 与 C 的 sscanf() 虽然相&#20284;, 但仍有不同之处. LPC 的 sscanf()
+ 不需要 (也不可) 提供变量的内存位址给 sscanf(), 只需要给予变量的名字. 另一个不同点是, LPC 的 sscanf() 对于: sscanf( str, &quot;%s %s&quot;, str1, str2 ); 的语法, 将会把 str 中的第一个英文单字 (即第一个空白字符以前的内容) 读入 str1, 后面其余的内容读入 str2.</p>
+<p>sscanf() 会返回符合&#26684;式的 %d 和 %s 总数.</p>
+<p>以前曾经编写过这样的小程序：一个文本文件，每行是一条记录，每条记录中包含多个字段，每个字段之间以某种定界符分开，举例如下：</p>
+<p>Notebook,IBM,ThinkPad X32,6,12000<br>
+<br>
+(各字段以逗号分隔，内容依次是：物品名称，生产厂家，型号，数量，价&#26684;)</p>
+<p>如果要对这样的一行记录进行处理，提取出各个字段，怎么做比较好呢？</p>
+<p>我以前的做法是在一个循环中用strtok函数每次取一个字段，然后将内容保存到一个字符串数组中。这样做虽然可行，但我总感觉写出的代码有些啰嗦。</p>
+<p>最近看到一段代码，用C的标准库函数sscanf，处理这样的数据，只需一行就可以了。我把代码整理了一下，去掉了无关的部分，核心部分如下：</p>
+<pre class="cpp" name="code">float price;
+int quantity;
+char category[21], name[21];
+char vendor[21], sku[21];
+char buf[201];
+fp = fopen(filename, &quot;r&quot;);
+fgets(buf, 200, fp);
+sscanf(buf,&quot;%20[^#]#%20[^#]#%f#%i#%20[^#]#%20[^\n]&quot;,name, sku, &amp;price, &amp;quantity, category, vendor);
+
+</pre>
+<p><br>
+下面简单做些解说：</p>
+<p><span style="color:#ff0000">%20[^#]# 最多读入20个字符，直到遇见定界符#，但不包含定界符<br>
+<br>
+%f# 读入一个浮点数，直到遇见定界符#<br>
+<br>
+%i# 读入一个整数，直到遇见定界符#<br>
+<br>
+%20[^\n] 最多读入20个字符，忽略行尾的回车符</span></p>
+<p>是不是很简洁明了呢？</p>
+<pre class="cpp" name="code">#include &lt;stdio.h&gt;
+int main()
+{
+
+char log[]=&quot;&lt;14&gt;2002-11-11 12:12:12 11.22.33.44 3 3 aaaa aaaaaa&quot;;
+//char log[]=&quot;&lt;1&gt;2002-11-11 12:12:12 11.22.33.44 3 aaaa aaaaaa&quot;;
+char test[]=&quot;&lt;1111&gt; 22&quot;;
+char log2[200];
+char str1[20],str2[20],str3[20],str4[20],str5[20],str6[20],char str7[20];
+int a1,a2,a3,a4,a5,a6;
+<span style="color:#ff0000;">sscanf(log,&quot;&lt;%d&gt;%s %s %s %d %d %s&quot;,&amp;a1,str2,str3,str4,&amp;a5,&amp;a6,str7);
+</span>printf(&quot;%d\n&quot;,a1);
+printf(&quot;%s\n&quot;,str2);
+printf(&quot;%s\n&quot;,str3);
+printf(&quot;%s\n&quot;,str4);
+printf(&quot;%d\n&quot;,a5);
+printf(&quot;%d\n&quot;,a6);
+printf(&quot;%s\n&quot;,str7);
+sscanf(test,&quot;&lt;%d&gt; %d&quot;,&amp;a5,&amp;a6);
+printf(&quot;%d\n&quot;,a5);
+printf(&quot;%d\n&quot;,a6);
+sscanf(log,&quot;&lt;%[^&gt;]&gt;%[^ ] %[^ ] %[^ ] %[^ ] %[^ ] %[^$]&quot;,str1,str2,str3,str4,str5,str6,str7);
+printf(&quot;%s\n&quot;,str1);
+printf(&quot;%s\n&quot;,str2);
+printf(&quot;%s\n&quot;,str3);
+printf(&quot;%s\n&quot;,str4);
+printf(&quot;%s\n&quot;,str5);
+printf(&quot;%s\n&quot;,str6);
+printf(&quot;%s\n&quot;,str7);
+return 1;
+
+}
+
+</pre>
+<p><br>
+const char *str = &quot;drw-rw-rw- 1 user group 0 Oct 28 2003&quot;;<br>
+<br>
+上面是源串，我要分别得到drw-rw-rw-，group字段<br>
+<br>
+注意：因为这几个字段的&#20540;会变化，所以我要用&#26684;式化输入，分别存入下面的a b c中，高手帮忙！<br>
+<br>
+下面这个是我没成功的尝试</p>
+<pre class="cpp" name="code">char a[20];
+char b[50];
+char c[20];
+//int ret = sscanf(str, &quot;%[^'' '']* %[''u''] %[^'' '']&quot;, a, b, c);
+int ret = sscanf(str, &quot;%s%*s%*s%s%*s%*s%*s%*s%s&quot;, a, b, c);
+</pre>
+<p><br>
+<br>
+这样就可以了，不要的东西都抛弃掉了</p>
+<p><br>
+<br>
+<strong>今天看到一个奇怪的scanf。其实这只是用了正则表达式。<br>
+<br>
+sscanf(user, &quot;%127[^:]:%127[^ ]&quot;, user_name, password);</strong></p>
+<p><strong><span style="color:#ff0000">&quot;%127[^:]:%127[^ ]&quot;，是正则表达式<br>
+</span><br>
+用scanf或者printf，可以在%后面跟%d,%s等东西，也可以跟一个正则表达式。<br>
+<br>
+这里，127表示最多可以接受127个字符，[^:]是正则表达式，表示非&quot;:&quot;，到&quot;:&quot;结束<br>
+<br>
+后面，%127[^ ]，同样，其中[^ ]是正则表达式，表示非&quot; &quot;,到&quot; &quot;结束</strong></p>
+<p><strong>所以，如果user是&quot;wpc:123456&quot;的字符串，那么经过上面的sscanf后，<br>
+<br>
+user_name是wpc，而password是123456</strong></p>
+</div>
+</div>
+<p>&nbsp;</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://hanks.xyz/2013/07/15/字符串的输入/" data-id="cihryjlyb001ok405yyu70hvo" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  
+  
+</article>
+
+  
+<section id="comments">
+    <!-- 多说分享框 -->
+    <div class="ds-share flat" data-thread-key="/2013/07/15/字符串的输入/" data-title="字符串的输入" data-images="此处请替换为分享时显示的图片的链接地址" data-content="字符串的输入" data-url="http://hanks.xyz//2013/07/15/字符串的输入/">
+    <div class="ds-share-inline">
+      <ul  class="ds-share-icons-16">
+
+      	<li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+        <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+        <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+        <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+        <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+      </ul>
+      <div class="ds-share-icons-more">
+      </div>
+    </div>
+   </div>
+    <!-- 多说评论框 start -->
+   	<div class="ds-thread" data-thread-key="/2013/07/15/字符串的输入/" data-title="字符串的输入" data-url="http://hanks.xyz//2013/07/15/字符串的输入/"></div>
+   <!-- 多说评论框 end -->
+   <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+   <script type="text/javascript">
+   var duoshuoQuery = {short_name:"hanks-zyh"};
+   	(function() {
+   		var ds = document.createElement('script');
+   		ds.type = 'text/javascript';ds.async = true;
+   		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+   		ds.charset = 'UTF-8';
+   		(document.getElementsByTagName('head')[0]
+   		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+   	})();
+   	</script>
+   <!-- 多说公共JS代码 end -->
+</section>
+
+</section>
+      </div>
+      <footer id="footer">
+  
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      &copy; 2015 Hanks<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+  </br>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    
+
+<script src="/js/jquery.min.js" type="text/javascript"></script>
+<script src="/js/jquery.scrollLoading.js" type="text/javascript"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+  <script src="/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+
+
+<script src="/js/script.js" type="text/javascript"></script>
+
+  </div>
+</body>
+</html>

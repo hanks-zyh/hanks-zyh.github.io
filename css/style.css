@@ -129,7 +129,7 @@ body {
   -webkit-text-size-adjust: 100%;
 }
 .outer {
-  max-width: 1100px;
+  max-width: 1300px;
   margin: 0 auto;
 }
 .outer:before,
@@ -139,6 +139,9 @@ body {
 }
 .outer:after {
   clear: both;
+}
+.footer_center {
+  text-align: center;
 }
 .left,
 .alignleft {
@@ -177,26 +180,15 @@ body {
 }
 .logo {
   display: block;
-  width: 150px;
-  height: 24px;
-  background: url("images/logo.png") no-repeat;
-  -webkit-background-size: 150px 24px;
-  -moz-background-size: 150px 24px;
-  background-size: 150px 24px;
-  text-indent: -9999px;
-}
-@media screen and (min-width: 768px) {
-  #main {
-    display: inline;
-    float: left;
-    width: 80%;
-    margin: 0 0.909090909090909%;
-  }
+  width: 170px;
+  font-family: monospace, sans-serif;
+  text-decoration: initial;
+  color: #fff;
+  font-size: 2em;
 }
 .article-date,
 .article-category-link,
-.archive-year,
-.widget-title {
+.archive-year {
   text-decoration: none;
   text-transform: uppercase;
   letter-spacing: 2px;
@@ -209,71 +201,59 @@ body {
 }
 .article-inner h1,
 .article-entry h1,
-.archive-article-inner h1,
-.widget h1 {
+.archive-article-inner h1 {
   font-size: 2em;
 }
 .article-inner h2,
 .article-entry h2,
-.archive-article-inner h2,
-.widget h2 {
+.archive-article-inner h2 {
   font-size: 1.5em;
 }
 .article-inner h3,
 .article-entry h3,
-.archive-article-inner h3,
-.widget h3 {
+.archive-article-inner h3 {
   font-size: 1.3em;
 }
 .article-inner h4,
 .article-entry h4,
-.archive-article-inner h4,
-.widget h4 {
+.archive-article-inner h4 {
   font-size: 1.2em;
 }
 .article-inner h5,
 .article-entry h5,
-.archive-article-inner h5,
-.widget h5 {
+.archive-article-inner h5 {
   font-size: 1em;
 }
 .article-inner h6,
 .article-entry h6,
-.archive-article-inner h6,
-.widget h6 {
+.archive-article-inner h6 {
   font-size: 1em;
   color: #999;
 }
 .article-inner hr,
 .article-entry hr,
-.archive-article-inner hr,
-.widget hr {
+.archive-article-inner hr {
   border: 1px dashed #ddd;
 }
 .article-inner strong,
 .article-entry strong,
-.archive-article-inner strong,
-.widget strong {
+.archive-article-inner strong {
   font-weight: bold;
 }
 .article-inner em,
 .article-entry em,
 .archive-article-inner em,
-.widget em,
 .article-inner cite,
 .article-entry cite,
-.archive-article-inner cite,
-.widget cite {
+.archive-article-inner cite {
   font-style: italic;
 }
 .article-inner sup,
 .article-entry sup,
 .archive-article-inner sup,
-.widget sup,
 .article-inner sub,
 .article-entry sub,
-.archive-article-inner sub,
-.widget sub {
+.archive-article-inner sub {
   font-size: 0.75em;
   line-height: 0;
   position: relative;
@@ -281,82 +261,67 @@ body {
 }
 .article-inner sup,
 .article-entry sup,
-.archive-article-inner sup,
-.widget sup {
+.archive-article-inner sup {
   top: -0.5em;
 }
 .article-inner sub,
 .article-entry sub,
-.archive-article-inner sub,
-.widget sub {
+.archive-article-inner sub {
   bottom: -0.2em;
 }
 .article-inner small,
 .article-entry small,
-.archive-article-inner small,
-.widget small {
+.archive-article-inner small {
   font-size: 0.85em;
 }
 .article-inner acronym,
 .article-entry acronym,
 .archive-article-inner acronym,
-.widget acronym,
 .article-inner abbr,
 .article-entry abbr,
-.archive-article-inner abbr,
-.widget abbr {
+.archive-article-inner abbr {
   border-bottom: 1px dotted;
 }
 .article-inner ul,
 .article-entry ul,
 .archive-article-inner ul,
-.widget ul,
 .article-inner ol,
 .article-entry ol,
 .archive-article-inner ol,
-.widget ol,
 .article-inner dl,
 .article-entry dl,
-.archive-article-inner dl,
-.widget dl {
+.archive-article-inner dl {
   margin: 0 20px;
   line-height: 28px;
 }
 .article-inner ul ul,
 .article-entry ul ul,
 .archive-article-inner ul ul,
-.widget ul ul,
 .article-inner ol ul,
 .article-entry ol ul,
 .archive-article-inner ol ul,
-.widget ol ul,
 .article-inner ul ol,
 .article-entry ul ol,
 .archive-article-inner ul ol,
-.widget ul ol,
 .article-inner ol ol,
 .article-entry ol ol,
-.archive-article-inner ol ol,
-.widget ol ol {
+.archive-article-inner ol ol {
   margin-top: 0;
   margin-bottom: 0;
 }
 .article-inner ul,
 .article-entry ul,
-.archive-article-inner ul,
-.widget ul {
+.archive-article-inner ul {
   list-style: disc;
 }
 .article-inner ol,
 .article-entry ol,
-.archive-article-inner ol,
-.widget ol {
+.archive-article-inner ol {
   list-style: decimal;
 }
 .article-inner dt,
 .article-entry dt,
-.archive-article-inner dt,
-.widget dt {
+.archive-article-inner dt {
   font-weight: bold;
 }
 #header {
@@ -375,7 +340,7 @@ body {
 }
 #header .logo {
   float: left;
-  margin: 33px 30px 0 0;
+  margin: 23px 30px 0 0;
 }
 #header-outer {
   height: 100%;
@@ -541,7 +506,7 @@ body {
 }
 .article-title {
   text-decoration: none;
-  font-size: 40px !important;
+  font-size: 2rem !important;
   font-weight: 300;
   color: #535353;
   line-height: 1.2;
@@ -784,7 +749,7 @@ a.article-title:hover {
 #article-nav:after {
   clear: both;
 }
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 1000px) {
   #article-nav {
     margin: 50px 0;
   }
@@ -818,20 +783,20 @@ a.article-title:hover {
 .article-nav-link-wrap:hover {
   color: #535353;
 }
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 1000px) {
   .article-nav-link-wrap {
     width: 50%;
     margin-top: 0;
   }
 }
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 1000px) {
   #article-nav-newer {
     float: left;
     text-align: right;
     padding-right: 20px;
   }
 }
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 1000px) {
   #article-nav-older {
     float: right;
     text-align: left;
@@ -1007,14 +972,14 @@ a.article-title:hover {
   -moz-column-gap: 10px;
   column-gap: 10px;
 }
-@media screen and (min-width: 480px) and (max-width: 767px) {
+@media screen and (min-width: 480px) and (max-width: 999px) {
   .archives {
     -webkit-column-count: 2;
     -moz-column-count: 2;
     column-count: 2;
   }
 }
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 1000px) {
   .archives {
     -webkit-column-count: 3;
     -moz-column-count: 3;
@@ -1314,7 +1279,7 @@ pre .keyword,
 pre .javascript .function {
   color: #c9c;
 }
-@media screen and (min-width: 480px) and (max-width: 767px) {
+@media screen and (min-width: 480px) and (max-width: 999px) {
   #sidebar {
     display: none;
   }
@@ -1423,102 +1388,4 @@ pre .javascript .function {
     -moz-background-size: 24px 24px;
     background-size: 24px 24px;
   }
-}
-#sidebar {
-  text-align: right;
-}
-@media screen and (min-width: 768px) {
-  #sidebar {
-    display: inline;
-    float: left;
-    width: 16.363636363636363%;
-    margin: 0 0.909090909090909%;
-    padding-right: 40px;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-  }
-}
-.widget-wrap {
-  margin: 50px 0;
-}
-.widget {
-  color: #535353;
-  padding: 15px 0px;
-}
-.widget a {
-  color: #11a7db;
-  text-decoration: none;
-}
-.widget a:hover {
-  text-decoration: underline;
-}
-.widget ul ul,
-.widget ol ul,
-.widget dl ul,
-.widget ul ol,
-.widget ol ol,
-.widget dl ol,
-.widget ul dl,
-.widget ol dl,
-.widget dl dl {
-  margin-left: 15px;
-  list-style: disc;
-}
-.widget {
-  line-height: 28px;
-  word-wrap: normal;
-  font-size: 0.9em;
-}
-.widget:before,
-.widget:after {
-  content: "";
-  display: table;
-}
-.widget:after {
-  clear: both;
-}
-.widget ul,
-.widget ol {
-  list-style: none;
-  margin: 0;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden;
-}
-.widget ul ul,
-.widget ol ul,
-.widget ul ol,
-.widget ol ol {
-  margin: 0 20px;
-}
-.widget ul ul,
-.widget ol ul {
-  list-style: disc;
-}
-.widget ul ol,
-.widget ol ol {
-  list-style: decimal;
-}
-.category-list-count,
-.tag-list-count,
-.archive-list-count {
-  padding-left: 5px;
-  color: #999;
-  font-size: 0.85em;
-}
-.category-list-count:before,
-.tag-list-count:before,
-.archive-list-count:before {
-  content: "(";
-}
-.category-list-count:after,
-.tag-list-count:after,
-.archive-list-count:after {
-  content: ")";
-}
-.tagcloud a {
-  margin-left: 5px;
-  word-wrap: normal;
-  float: right;
 }

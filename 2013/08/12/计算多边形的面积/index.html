@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>计算多边形的面积 | Hanks.xyz</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description">
+<meta property="og:type" content="article">
+<meta property="og:title" content="计算多边形的面积">
+<meta property="og:url" content="http://hanks.xyz/2013/08/12/计算多边形的面积/index.html">
+<meta property="og:site_name" content="Hanks.xyz">
+<meta property="og:description">
+<meta property="og:image" content="http://img.blog.csdn.net/20130812113446953">
+<meta property="og:image" content="http://img.blog.csdn.net/20130812113529546">
+<meta property="og:image" content="http://img.blog.csdn.net/20130812113702812">
+<meta property="og:image" content="http://img.blog.csdn.net/20130812113732687">
+<meta property="og:image" content="http://img.blog.csdn.net/20130812113846968">
+<meta property="og:image" content="http://img.blog.csdn.net/20130812113944421">
+<meta property="og:image" content="http://img.blog.csdn.net/20130812114031187">
+<meta property="og:image" content="http://img.blog.csdn.net/20130812114042718">
+<meta property="og:image" content="http://img.blog.csdn.net/20130812114100093">
+<meta property="og:updated_time" content="2015-12-04T17:20:04.324Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="计算多边形的面积">
+<meta name="twitter:description">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <!-- <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600' rel='stylesheet' type='text/css'> -->
+  <!-- <link href="//fonts.googleapis.com/css?family=Source+Code+Pro:400,700" rel="stylesheet" type="text/css"> -->
+  <link href="//fonts.useso.com/css?family=Source+Code+Pro:400,700" rel="stylesheet" type="text/css">
+  <link href='//fonts.useso.com/css?family=Open+Sans:300,600' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo">Hanks.xyz</a>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">首页</a>
+        
+          <a class="main-nav-link" href="/archives">归档</a>
+        
+          <a class="main-nav-link" href="/about/index.html">关于</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        <div id="search-form-wrap">
+          <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://hanks.xyz"></form>
+        </div>
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+        
+        
+          <a id="nav-github-link" class="nav-icon" href="https://github.com/hanks-zyh" title="Fork me on GitHub"></a>
+        
+      </nav>
+    </div>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/" class="mobile-nav-link">首页</a>
+  
+    <a href="/archives" class="mobile-nav-link">归档</a>
+  
+    <a href="/about/index.html" class="mobile-nav-link">关于</a>
+  
+  <div id="search-form-wrap-mobile">
+    <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://hanks.xyz"></form>
+  </div>
+</nav>
+      <div class="outer">
+        
+        <section id="main"><article id="post-计算多边形的面积" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2013/08/12/计算多边形的面积/" class="article-date">
+  <time datetime="2013-08-12T03:46:00.000Z" itemprop="datePublished">2013-08-12</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      计算多边形的面积
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+<h2>如何计算一个多边形的面积，首先想到的是划分成多个小的三角形，因为三角形我们比较熟悉，而且三角形计算面积的方法也很多</h2>
+<p><span style="font-size:18px">三角形:<br>
+1. 半周长 P=(a&#43;b&#43;c)/2<br>
+2. 面积 S=aHa/2=absin(C)/2=sqrt(P(P-a)(P-b)(P-c))<br>
+3. 中线 Ma=sqrt(2(b^2&#43;c^2)-a^2)/2=sqrt(b^2&#43;c^2&#43;2bccos(A))/2<br>
+4. 角平分线 Ta=sqrt(bc((b&#43;c)^2-a^2))/(b&#43;c)=2bccos(A/2)/(b&#43;c)<br>
+5. 高线 Ha=bsin(C)=csin(B)=sqrt(b^2-((a^2&#43;b^2-c^2)/(2a))^2)<br>
+6. 内切圆半径 r=S/P=asin(B/2)sin(C/2)/sin((B&#43;C)/2)<br>
+=4Rsin(A/2)sin(B/2)sin(C/2)=sqrt((P-a)(P-b)(P-c)/P)<br>
+=Ptan(A/2)tan(B/2)tan(C/2)<br>
+7. 外接圆半径 R=abc/(4S)=a/(2sin(A))=b/(2sin(B))=c/(2sin(C))</span></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p><span style="font-size:18px">计算几何中计算三角形面积</span></p>
+<div><span style="font-size:18px">在计算几何里，我们知道，<span style="color:#3366ff">△ABC的面积就是“向量AB”和“向量AC”两个向量叉积的绝对&#20540;的一半。其正负表示三角形顶点是在右手系还是左手系。</span></span></div>
+<p><img alt="" src="http://img.blog.csdn.net/20130812113446953" width="507" height="195"></p>
+<p>所以得到三角形面积</p>
+<p><img alt="" src="http://img.blog.csdn.net/20130812113529546" width="546" height="127"></p>
+<h3>特别注意： </h3>
+<h3>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 以上得到是有向面积（<span style="color:#ff0000">有正负</span>）！ </h3>
+<div><span style="color:#333399"><strong></strong></span>&nbsp;</div>
+<h2>凸多边形的三角形剖分</h2>
+<div><strong><span style="color:#333399"></span></strong>
+<div>
+<div>&nbsp;</div>
+<div>
+<div>
+<div><span style="font-size:14px; color:#000000">很自然地，我们会想到以 P1为扇面中心，连接P1Pi就得到N-2个三角形，由于凸性，保证这些三角形全在多边形内，那么，这个凸多边形的有向面积：</span><span style="font-size:14px; color:#000000">A=sigma(Ai)&nbsp; (i=1…N-2)
+</span></div>
+</div>
+</div>
+<div><strong><span style="color:#333399"><img alt="" src="http://img.blog.csdn.net/20130812113702812" width="344" height="163"></span></strong></div>
+<div><strong><span style="color:#333399"></span></strong>&nbsp;</div>
+<div><strong><span style="color:#333399"></span></strong>&nbsp;</div>
+<div><strong><span style="color:#333399"></span></strong>&nbsp;</div>
+<div><strong><span style="color:#333399"></span></strong>&nbsp;</div>
+<div><strong><span style="color:#333399"></span></strong>&nbsp;</div>
+<div><strong><span style="color:#333399"></span></strong>&nbsp;</div>
+<h2>凹多边形的面积</h2>
+<div><strong><span style="color:#333399"></span></strong>&nbsp;</div>
+<div><img alt="" src="http://img.blog.csdn.net/20130812113732687" width="356" height="172"></div>
+<div>
+<div><span style="font-family:FangSong_GB2312; font-size:24px">多边形面积公式：A=sigma(Ai)&nbsp; (i=1…N-2)</span></div>
+<div>
+<div>
+<div><span style="font-family:FangSong_GB2312; font-size:24px">结论： </span></div>
+<div><span style="font-family:FangSong_GB2312; font-size:24px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; “有向面积”A比“面积”S其实更<span style="color:red"><strong>本质</strong></span>！</span></div>
+</div>
+</div>
+</div>
+<div>&nbsp;</div>
+</div>
+</div>
+<div><strong><span style="color:#333399"></span></strong>&nbsp;</div>
+<div>
+<div><span style="font-size:18px"><span style="color:#333399"><strong>任意点为扇心的三角形剖分</strong></span><span style="color:#333399"><strong>：</strong></span></span></div>
+<div>
+<div>
+<div><span style="font-size:14px">我们能把多边形分成N-2个三角形，为什么不能分成N个三角形呢？ </span></div>
+<div><span style="font-size:14px">比如，以多边形内部的一个点为扇心，就可以把多边形剖分成 N个三角形。</span></div>
+<div><img alt="" src="http://img.blog.csdn.net/20130812113846968"></div>
+<div>
+<div><span style="font-size:18px; color:#333399"><strong>前面的三角剖分显然对于多边形内部任意一点都是合适的！</strong></span></div>
+<div><strong><span style="color:#333399"></span></strong>&nbsp;</div>
+</div>
+</div>
+</div>
+</div>
+<div><strong><span style="color:#333399"><img alt="" src="http://img.blog.csdn.net/20130812113944421" width="504" height="172"></span></strong></div>
+<div>
+<div><span style="font-size:24px; color:#333399"><strong>能否把扇心移到多边形以外呢？</strong></span></div>
+<div><strong><span style="font-size:24px; color:#333399"></span></strong>&nbsp;</div>
+<div><strong><span style="color:#333399"></span></strong>&nbsp;</div>
+<div><img alt="" src="http://img.blog.csdn.net/20130812114031187" width="400" height="326"></div>
+<div>&nbsp;</div>
+<div>
+<div><span style="font-size:18px"><span style="color:#333399"><strong>既然内外都可以，为什么不设</strong></span><span style="color:#333399"><strong>P0</strong></span><span style="color:#333399"><strong>为坐标原点呢？</strong></span></span></div>
+</div>
+<div><img alt="" src="http://img.blog.csdn.net/20130812114042718" width="297" height="225"></div>
+<div><span style="font-size:32px; color:#ff0000"></span>&nbsp;</div>
+<div><span style="font-size:32px; color:#ff0000">最终简化公式（包括凹多边形）：</span></div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div><img alt="" src="http://img.blog.csdn.net/20130812114100093" width="604" height="184"></div>
+<div>&nbsp;</div>
+<div><span style="font-size:24px"><strong>举个例子：加入上面图中p1(x1,y1) p2(x2,y2),p3(x3,y3),p4(x4,y4);</strong></span></div>
+<div><span style="font-size:24px"><strong>那么多边形的面积为 S =&nbsp; ( x1*y2 - y1*x2 &#43; x2*y3 - y2*x3 &#43; x3*y4 - y3*x4 &#43; x4*y1 - y4*x1&nbsp;) / 2;
+</strong></span></div>
+<div><strong><span style="font-size:24px">求出的面积是有向的，带正负；</span></strong></div>
+</div>
+<div><strong><span style="color:#333399"></span></strong>&nbsp;</div>
+<div><strong><span style="color:#333399"></span></strong>&nbsp;</div>
+<div><strong><span style="color:#333399"></span></strong>&nbsp;</div>
+<div><strong><span style="color:#333399"></span></strong>&nbsp;</div>
+<div><strong><span style="color:#333399"></span></strong>&nbsp;</div>
+<p>&nbsp;</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://hanks.xyz/2013/08/12/计算多边形的面积/" data-id="cihryjlv5000hk405u8ben0kj" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  
+  
+</article>
+
+  
+<section id="comments">
+    <!-- 多说分享框 -->
+    <div class="ds-share flat" data-thread-key="/2013/08/12/计算多边形的面积/" data-title="计算多边形的面积" data-images="此处请替换为分享时显示的图片的链接地址" data-content="计算多边形的面积" data-url="http://hanks.xyz//2013/08/12/计算多边形的面积/">
+    <div class="ds-share-inline">
+      <ul  class="ds-share-icons-16">
+
+      	<li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+        <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+        <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+        <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+        <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+      </ul>
+      <div class="ds-share-icons-more">
+      </div>
+    </div>
+   </div>
+    <!-- 多说评论框 start -->
+   	<div class="ds-thread" data-thread-key="/2013/08/12/计算多边形的面积/" data-title="计算多边形的面积" data-url="http://hanks.xyz//2013/08/12/计算多边形的面积/"></div>
+   <!-- 多说评论框 end -->
+   <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+   <script type="text/javascript">
+   var duoshuoQuery = {short_name:"hanks-zyh"};
+   	(function() {
+   		var ds = document.createElement('script');
+   		ds.type = 'text/javascript';ds.async = true;
+   		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+   		ds.charset = 'UTF-8';
+   		(document.getElementsByTagName('head')[0]
+   		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+   	})();
+   	</script>
+   <!-- 多说公共JS代码 end -->
+</section>
+
+</section>
+      </div>
+      <footer id="footer">
+  
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      &copy; 2015 Hanks<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+  </br>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    
+
+<script src="/js/jquery.min.js" type="text/javascript"></script>
+<script src="/js/jquery.scrollLoading.js" type="text/javascript"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+  <script src="/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+
+
+<script src="/js/script.js" type="text/javascript"></script>
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Java 中Map的使用，以及遍历 | Hanks.xyz</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java 中Map的使用，以及遍历">
+<meta property="og:url" content="http://hanks.xyz/2013/11/08/Java_中Map的使用，以及遍历/index.html">
+<meta property="og:site_name" content="Hanks.xyz">
+<meta property="og:description">
+<meta property="og:updated_time" content="2015-12-04T17:20:04.312Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java 中Map的使用，以及遍历">
+<meta name="twitter:description">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <!-- <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600' rel='stylesheet' type='text/css'> -->
+  <!-- <link href="//fonts.googleapis.com/css?family=Source+Code+Pro:400,700" rel="stylesheet" type="text/css"> -->
+  <link href="//fonts.useso.com/css?family=Source+Code+Pro:400,700" rel="stylesheet" type="text/css">
+  <link href='//fonts.useso.com/css?family=Open+Sans:300,600' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo">Hanks.xyz</a>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">首页</a>
+        
+          <a class="main-nav-link" href="/archives">归档</a>
+        
+          <a class="main-nav-link" href="/about/index.html">关于</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        <div id="search-form-wrap">
+          <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://hanks.xyz"></form>
+        </div>
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+        
+        
+          <a id="nav-github-link" class="nav-icon" href="https://github.com/hanks-zyh" title="Fork me on GitHub"></a>
+        
+      </nav>
+    </div>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/" class="mobile-nav-link">首页</a>
+  
+    <a href="/archives" class="mobile-nav-link">归档</a>
+  
+    <a href="/about/index.html" class="mobile-nav-link">关于</a>
+  
+  <div id="search-form-wrap-mobile">
+    <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://hanks.xyz"></form>
+  </div>
+</nav>
+      <div class="outer">
+        
+        <section id="main"><article id="post-Java_中Map的使用，以及遍历" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2013/11/08/Java_中Map的使用，以及遍历/" class="article-date">
+  <time datetime="2013-11-08T14:21:00.000Z" itemprop="datePublished">2013-11-08</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Java 中Map的使用，以及遍历
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+<p>&nbsp;</p>
+<p><a target="_blank" href="http://poj.org/problem?id=1002">http://poj.org/problem?id=1002</a></p>
+<p>&nbsp;</p>
+<pre class="java" name="code">/*
+ * 1. 用TreeMap&lt;String,Integer&gt;;
+ * 2. 接收字符串，逐个判断，数字直接相加，字符转换成数字，‘-’不管，组成的字符串放到Map
+ * 3. 输出Map中value&gt;1的项
+ * 
+ * */
+
+import java.util.*;
+
+public class Main {
+	public static void main(String[] args) {
+		//jdk1.6以下的不能这样定义 TreeMap &lt;String,Integer&gt; map = new TreeMap&lt;&gt;();
+		TreeMap &lt;String,Integer&gt; map = new TreeMap&lt;String,Integer&gt;();  
+		Scanner cin = new Scanner(System.in);
+		int t = cin.nextInt();
+		String s,str;
+		char ch;
+		int i;
+		while(t--!=0){
+			s = cin.next();
+			str = &quot;&quot;;
+			for(i=0;i&lt;s.length();i&#43;&#43;){
+				ch = s.charAt(i);
+				if(ch&gt;='0' &amp;&amp; ch&lt;='9') str &#43;= ch&#43;&quot;&quot;;
+				else if(ch=='-') continue;
+				else{
+					switch (ch) {
+						case 'A':case 'B':case 'C':  str &#43;= &quot;2&quot;; break;
+						case 'D':case 'E':case 'F':  str &#43;= &quot;3&quot;; break;
+						case 'G':case 'H':case 'I':  str &#43;= &quot;4&quot;; break;
+						case 'J':case 'K':case 'L':  str &#43;= &quot;5&quot;; break;
+						case 'M':case 'N':case 'O':  str &#43;= &quot;6&quot;; break;
+						case 'P':case 'R':case 'S':  str &#43;= &quot;7&quot;; break;
+						case 'T':case 'U':case 'V':  str &#43;= &quot;8&quot;; break;
+						case 'W':case 'X':case 'Y':  str &#43;= &quot;9&quot;; break;
+					}
+				}
+				if(str.length() == 3) str &#43;= &quot;-&quot;;
+			}
+			int cnt;
+			if(map.containsKey(str))  {
+				cnt = map.get(str)&#43;1;
+				map.remove(str);
+				map.put(str, cnt);
+			}else{
+				map.put(str, 1);
+			}
+		}
+		Iterator&lt;String&gt; it = map.keySet().iterator();
+		String key;int num;
+		int flag = 0;
+		while(it.hasNext()){
+			key = it.next();
+			num = map.get(key);
+			if( num&gt;1 ){
+				flag = 1;System.out.println(key&#43;&quot; &quot;&#43; num);
+			}
+		}
+		if(flag==0)System.out.println(&quot;No duplicates.&quot;);
+	}
+}
+
+</pre>
+<p><br>
+&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://hanks.xyz/2013/11/08/Java_中Map的使用，以及遍历/" data-id="cihryjm5f006dk405k5zs9f5i" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  
+  
+</article>
+
+  
+<section id="comments">
+    <!-- 多说分享框 -->
+    <div class="ds-share flat" data-thread-key="/2013/11/08/Java_中Map的使用，以及遍历/" data-title="Java 中Map的使用，以及遍历" data-images="此处请替换为分享时显示的图片的链接地址" data-content="Java 中Map的使用，以及遍历" data-url="http://hanks.xyz//2013/11/08/Java_中Map的使用，以及遍历/">
+    <div class="ds-share-inline">
+      <ul  class="ds-share-icons-16">
+
+      	<li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+        <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+        <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+        <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+        <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+      </ul>
+      <div class="ds-share-icons-more">
+      </div>
+    </div>
+   </div>
+    <!-- 多说评论框 start -->
+   	<div class="ds-thread" data-thread-key="/2013/11/08/Java_中Map的使用，以及遍历/" data-title="Java 中Map的使用，以及遍历" data-url="http://hanks.xyz//2013/11/08/Java_中Map的使用，以及遍历/"></div>
+   <!-- 多说评论框 end -->
+   <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+   <script type="text/javascript">
+   var duoshuoQuery = {short_name:"hanks-zyh"};
+   	(function() {
+   		var ds = document.createElement('script');
+   		ds.type = 'text/javascript';ds.async = true;
+   		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+   		ds.charset = 'UTF-8';
+   		(document.getElementsByTagName('head')[0]
+   		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+   	})();
+   	</script>
+   <!-- 多说公共JS代码 end -->
+</section>
+
+</section>
+      </div>
+      <footer id="footer">
+  
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      &copy; 2015 Hanks<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+  </br>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    
+
+<script src="/js/jquery.min.js" type="text/javascript"></script>
+<script src="/js/jquery.scrollLoading.js" type="text/javascript"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+  <script src="/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+
+
+<script src="/js/script.js" type="text/javascript"></script>
+
+  </div>
+</body>
+</html>

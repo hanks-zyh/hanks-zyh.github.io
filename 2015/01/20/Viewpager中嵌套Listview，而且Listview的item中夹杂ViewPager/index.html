@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Viewpager中嵌套Listview，而且Listview的item中夹杂ViewPager | Hanks.xyz</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Viewpager中嵌套Listview，而且Listview的item中夹杂ViewPager">
+<meta property="og:url" content="http://hanks.xyz/2015/01/20/Viewpager中嵌套Listview，而且Listview的item中夹杂ViewPager/index.html">
+<meta property="og:site_name" content="Hanks.xyz">
+<meta property="og:description">
+<meta property="og:image" content="http://img.blog.csdn.net/20150120221018539">
+<meta property="og:updated_time" content="2015-12-04T17:20:04.320Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Viewpager中嵌套Listview，而且Listview的item中夹杂ViewPager">
+<meta name="twitter:description">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <!-- <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600' rel='stylesheet' type='text/css'> -->
+  <!-- <link href="//fonts.googleapis.com/css?family=Source+Code+Pro:400,700" rel="stylesheet" type="text/css"> -->
+  <link href="//fonts.useso.com/css?family=Source+Code+Pro:400,700" rel="stylesheet" type="text/css">
+  <link href='//fonts.useso.com/css?family=Open+Sans:300,600' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo">Hanks.xyz</a>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">首页</a>
+        
+          <a class="main-nav-link" href="/archives">归档</a>
+        
+          <a class="main-nav-link" href="/about/index.html">关于</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        <div id="search-form-wrap">
+          <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://hanks.xyz"></form>
+        </div>
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+        
+        
+          <a id="nav-github-link" class="nav-icon" href="https://github.com/hanks-zyh" title="Fork me on GitHub"></a>
+        
+      </nav>
+    </div>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/" class="mobile-nav-link">首页</a>
+  
+    <a href="/archives" class="mobile-nav-link">归档</a>
+  
+    <a href="/about/index.html" class="mobile-nav-link">关于</a>
+  
+  <div id="search-form-wrap-mobile">
+    <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://hanks.xyz"></form>
+  </div>
+</nav>
+      <div class="outer">
+        
+        <section id="main"><article id="post-Viewpager中嵌套Listview，而且Listview的item中夹杂ViewPager" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/01/20/Viewpager中嵌套Listview，而且Listview的item中夹杂ViewPager/" class="article-date">
+  <time datetime="2015-01-20T13:57:00.000Z" itemprop="datePublished">2015-01-20</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Viewpager中嵌套Listview，而且Listview的item中夹杂ViewPager
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+<p><span style="font-size:18px"><br>
+</span></p>
+<p><span style="font-size:18px">//现在有一个需求，需要在一个ViewPager的几个页面用listview显示，而且listview的item种类&gt;=2，其中还有viewpager那么盖怎么实现呢，废话不多说，先把ViewPager架子搭起来</span></p>
+<p><span style="font-size:18px">效果</span></p>
+<p><span style="font-size:18px"><img src="http://img.blog.csdn.net/20150120221018539" alt=""><br>
+</span></p>
+<p><span style="font-size:18px">MainActivity.java</span></p>
+<p><span style="font-size:18px"></span></p>
+<pre code_snippet_id="584808" snippet_file_name="blog_20150120_1_5016366" name="code" class="java">public class MainActivity extends Activity {
+
+	private ViewPager viewpager;
+	private List&lt;View&gt; list = new ArrayList&lt;View&gt;();
+	private MyPageAdapter adapter;
+	
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_main);
+		viewpager = (ViewPager)findViewById(R.id.viewpager);
+		
+		initData();
+		adapter = new MyPageAdapter();
+		viewpager.setAdapter(adapter);
+	}
+	//添加3个listview
+	private void initData() {
+		list.add(new View1(this).listview);
+		list.add(new View1(this).listview);
+		list.add(new View1(this).listview);
+	}
+
+	class MyPageAdapter extends PagerAdapter{
+
+		@Override
+		public int getCount() {
+			return list.size();
+		}
+
+		@Override
+		public boolean isViewFromObject(View arg0, Object arg1) {
+			return arg0==arg1;
+		}
+		
+		@Override
+		public Object instantiateItem(ViewGroup container, int position) {
+			((ViewGroup)container).addView((View)list.get(position));
+			return list.get(position);
+			
+		}
+		
+		@Override
+		public void destroyItem(ViewGroup container, int position, Object object) {
+			container.removeView(list.get(position));
+		}
+		
+	}
+ 
+}</pre><br>
+activity_main.xml
+<p></p>
+<p><span style="font-size:18px"></span></p>
+<pre code_snippet_id="584808" snippet_file_name="blog_20150120_2_7742772" name="code" class="java">&lt;android.support.v4.view.ViewPager xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+    xmlns:tools=&quot;http://schemas.android.com/tools&quot;
+    android:id=&quot;@+id/viewpager&quot;
+    android:layout_width=&quot;match_parent&quot;
+    android:layout_height=&quot;match_parent&quot;
+    android:paddingBottom=&quot;@dimen/activity_vertical_margin&quot;
+    android:paddingLeft=&quot;@dimen/activity_horizontal_margin&quot;
+    android:paddingRight=&quot;@dimen/activity_horizontal_margin&quot;
+    android:paddingTop=&quot;@dimen/activity_vertical_margin&quot;
+    tools:context=&quot;com.zyh.listview_viewpager.MainActivity&quot; &gt;
+
+&lt;/android.support.v4.view.ViewPager&gt;</pre><br>
+<br>
+<p></p>
+<p><span style="font-size:18px"><br>
+</span></p>
+<p><span style="font-size:18px">现在ViewPager有了，再看一下要添加的listview</span></p>
+<p><span style="font-size:18px"><br>
+</span></p>
+<p><span style="font-size:18px"></span></p>
+<pre code_snippet_id="584808" snippet_file_name="blog_20150120_3_3915524" name="code" class="java">public class View1 {
+	public static final int VIEWTYPE_VIEWPAGER = 0;
+	public static final int VIEWTYPE_TEXTVIEW = 1;
+	ListView listview;
+	private Context mContext;
+	private MyListviewAdapter adapter;
+
+	public View1(Context context) {
+		init(context);
+	}
+
+	public void init(Context context) {
+		mContext = context;
+		listview = new ListView(context);
+		adapter = new MyListviewAdapter();
+		listview.setAdapter(adapter);
+	}
+
+	class MyListviewAdapter extends BaseAdapter {
+
+		@Override
+		public int getCount() {
+			return 100;
+		}
+
+		@Override
+		public Object getItem(int position) {
+			return null;
+		}
+
+		@Override
+		public long getItemId(int position) {
+			return 0;
+		}
+
+		@Override
+		public View getView(int position, View convertView, ViewGroup parent) {
+
+			if (position % 3 == 0) {
+				// viewpager
+
+				if (convertView == null) {
+					ChildView child = new ChildView();
+					child.init(mContext);
+					convertView = child.viewPager;
+				}
+
+			} else {
+				// textview
+				if (convertView == null) {
+					convertView = new TextView(mContext);
+
+				}
+				((TextView)convertView).setText(&quot;测试数据：&quot;+position);
+			}
+			System.out.println(convertView.toString());
+			return convertView;
+		}
+		@Override
+		public int getViewTypeCount() {
+			return 2;
+		}
+		@Override
+		public int getItemViewType(int position) {
+
+			if (position % 3 == 0) {
+				// viewpager
+
+				return VIEWTYPE_VIEWPAGER;
+
+			} else {
+				// textview
+				return VIEWTYPE_TEXTVIEW;
+			}
+		}
+
+	}
+}
+</pre><br>
+<br>
+<p></p>
+<p><span style="font-size:18px">然后是listview中的item为 ViewPager的情况</span></p>
+<p><span style="font-size:18px"><br>
+</span></p>
+<p><span style="font-size:18px">ChildVIew.java</span></p>
+<p><span style="font-size:18px"></span></p>
+<pre code_snippet_id="584808" snippet_file_name="blog_20150120_4_4581399" name="code" class="java">public class ChildView {
+
+	ViewPager viewPager;
+	private List&lt;View&gt; list = new ArrayList&lt;View&gt;();
+	private Context mContext;
+
+
+	public void init(Context context) {
+		mContext = context;
+
+		for (int i = 0; i &lt; 5; i++) {
+			Button view = new Button(mContext);
+			view.setText(&quot;ViewPager中的TextView：&quot; + i);
+			view.setTextSize(20);
+			list.add(view);
+		}
+		viewPager = (ViewPager) View.inflate(mContext, R.layout.layout_viewpager, null);
+		
+		/**
+		 * 必须设置LayoutParams
+		 */
+		
+		AbsListView.LayoutParams lp = new AbsListView.LayoutParams(LayoutParams.MATCH_PARENT, 200);
+		viewPager.setLayoutParams(lp);
+		viewPager.setAdapter(new MyPageAdapter());
+	}
+
+	class MyPageAdapter extends PagerAdapter {
+
+		@Override
+		public int getCount() {
+			return list.size();
+		}
+
+		@Override
+		public boolean isViewFromObject(View arg0, Object arg1) {
+			return arg0 == arg1;
+		}
+
+		@Override
+		public Object instantiateItem(ViewGroup container, int position) {
+			container.addView(list.get(position));
+			return list.get(position);
+
+		}
+
+		@Override
+		public void destroyItem(ViewGroup container, int position, Object object) {
+			container.removeView(list.get(position));
+		}
+
+	}
+
+}
+</pre><br>
+<p></p>
+<p><span style="font-size:18px">layout_viewpager.xml</span></p>
+<p><span style="font-size:18px"></span></p>
+<pre code_snippet_id="584808" snippet_file_name="blog_20150120_5_1659223" name="code" class="html">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;android.support.v4.view.ViewPager xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+    xmlns:tools=&quot;http://schemas.android.com/tools&quot;
+    android:layout_width=&quot;match_parent&quot;
+    android:layout_height=&quot;wrap_content&quot;
+    android:background=&quot;@android:color/holo_blue_bright&quot; &gt;
+
+    &lt;!-- 布局中设置宽高没有生效，必须代码设置layoutParams --&gt;
+
+&lt;/android.support.v4.view.ViewPager&gt;</pre><br>
+<br>
+<p></p>
+<p><span style="font-size:18px"><br>
+</span></p>
+<p><span style="font-size:18px"><br>
+</span></p>
+<p><span style="font-size:18px"><br>
+</span></p>
+<p><span style="font-size:18px"><br>
+</span></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://hanks.xyz/2015/01/20/Viewpager中嵌套Listview，而且Listview的item中夹杂ViewPager/" data-id="cihryjm3i004xk40597ns89un" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  
+  
+</article>
+
+  
+<section id="comments">
+    <!-- 多说分享框 -->
+    <div class="ds-share flat" data-thread-key="/2015/01/20/Viewpager中嵌套Listview，而且Listview的item中夹杂ViewPager/" data-title="Viewpager中嵌套Listview，而且Listview的item中夹杂ViewPager" data-images="此处请替换为分享时显示的图片的链接地址" data-content="Viewpager中嵌套Listview，而且Listview的item中夹杂ViewPager" data-url="http://hanks.xyz//2015/01/20/Viewpager中嵌套Listview，而且Listview的item中夹杂ViewPager/">
+    <div class="ds-share-inline">
+      <ul  class="ds-share-icons-16">
+
+      	<li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+        <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+        <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+        <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+        <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+      </ul>
+      <div class="ds-share-icons-more">
+      </div>
+    </div>
+   </div>
+    <!-- 多说评论框 start -->
+   	<div class="ds-thread" data-thread-key="/2015/01/20/Viewpager中嵌套Listview，而且Listview的item中夹杂ViewPager/" data-title="Viewpager中嵌套Listview，而且Listview的item中夹杂ViewPager" data-url="http://hanks.xyz//2015/01/20/Viewpager中嵌套Listview，而且Listview的item中夹杂ViewPager/"></div>
+   <!-- 多说评论框 end -->
+   <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+   <script type="text/javascript">
+   var duoshuoQuery = {short_name:"hanks-zyh"};
+   	(function() {
+   		var ds = document.createElement('script');
+   		ds.type = 'text/javascript';ds.async = true;
+   		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+   		ds.charset = 'UTF-8';
+   		(document.getElementsByTagName('head')[0]
+   		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+   	})();
+   	</script>
+   <!-- 多说公共JS代码 end -->
+</section>
+
+</section>
+      </div>
+      <footer id="footer">
+  
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      &copy; 2015 Hanks<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+  </br>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    
+
+<script src="/js/jquery.min.js" type="text/javascript"></script>
+<script src="/js/jquery.scrollLoading.js" type="text/javascript"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+  <script src="/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+
+
+<script src="/js/script.js" type="text/javascript"></script>
+
+  </div>
+</body>
+</html>

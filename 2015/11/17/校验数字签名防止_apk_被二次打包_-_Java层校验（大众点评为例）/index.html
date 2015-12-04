@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>校验数字签名防止 apk 被二次打包 - Java层校验（大众点评为例） | Hanks.xyz</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description">
+<meta property="og:type" content="article">
+<meta property="og:title" content="校验数字签名防止 apk 被二次打包 - Java层校验（大众点评为例）">
+<meta property="og:url" content="http://hanks.xyz/2015/11/17/校验数字签名防止_apk_被二次打包_-_Java层校验（大众点评为例）/index.html">
+<meta property="og:site_name" content="Hanks.xyz">
+<meta property="og:description">
+<meta property="og:image" content="http://7xo976.com1.z0.glb.clouddn.com/images/github-io/Android/dianping-crash.jpeg-style1">
+<meta property="og:updated_time" content="2015-12-04T17:20:04.332Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="校验数字签名防止 apk 被二次打包 - Java层校验（大众点评为例）">
+<meta name="twitter:description">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <!-- <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600' rel='stylesheet' type='text/css'> -->
+  <!-- <link href="//fonts.googleapis.com/css?family=Source+Code+Pro:400,700" rel="stylesheet" type="text/css"> -->
+  <link href="//fonts.useso.com/css?family=Source+Code+Pro:400,700" rel="stylesheet" type="text/css">
+  <link href='//fonts.useso.com/css?family=Open+Sans:300,600' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo">Hanks.xyz</a>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">首页</a>
+        
+          <a class="main-nav-link" href="/archives">归档</a>
+        
+          <a class="main-nav-link" href="/about/index.html">关于</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        <div id="search-form-wrap">
+          <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://hanks.xyz"></form>
+        </div>
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+        
+        
+          <a id="nav-github-link" class="nav-icon" href="https://github.com/hanks-zyh" title="Fork me on GitHub"></a>
+        
+      </nav>
+    </div>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/" class="mobile-nav-link">首页</a>
+  
+    <a href="/archives" class="mobile-nav-link">归档</a>
+  
+    <a href="/about/index.html" class="mobile-nav-link">关于</a>
+  
+  <div id="search-form-wrap-mobile">
+    <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://hanks.xyz"></form>
+  </div>
+</nav>
+      <div class="outer">
+        
+        <section id="main"><article id="post-校验数字签名防止_apk_被二次打包_-_Java层校验（大众点评为例）" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/11/17/校验数字签名防止_apk_被二次打包_-_Java层校验（大众点评为例）/" class="article-date">
+  <time datetime="2015-11-17T03:51:00.000Z" itemprop="datePublished">2015-11-17</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      校验数字签名防止 apk 被二次打包 - Java层校验（大众点评为例）
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+<div class="post-body" style="text-align:justify; color:rgb(85,85,85); font-family:Lato,'PingFang SC','Microsoft YaHei',sans-serif; font-size:16px; line-height:32px">
+<span></span>
+<blockquote style="margin:0px; padding:0px 15px; color:rgb(102,102,102); border-left-width:4px; border-left-style:solid; border-left-color:rgb(221,221,221)">
+<p style="margin-top:0px; margin-bottom:25px">原文链接: &nbsp;http://kiya-z.github.io/2015/11/12/check-signature-for-avoiding-fake-app-java-level-check/<br>
+测试环境<br>
+Ubuntu 14.04<br>
+Lenovo Android 5.1<br>
+Lenovo Android 4.2.2<br>
+Android Studio</p>
+</blockquote>
+<a target="_blank" id="more" style="border-bottom-width:1px; border-bottom-style:solid; border-bottom-color:rgb(153,153,153); word-wrap:break-word; background-color:transparent"></a>
+<h2 id="普及签名包名知识" style="margin:60px 0px 15px; padding:10px 0px 0px; line-height:1; font-size:20px">
+普及签名包名知识</h2>
+<p style="margin-top:0px; margin-bottom:25px">包名 (Package Name) 相当于「应用的身份证」，是系统用来<strong>区分不同应用</strong>的字段，重复的包名会被认为是同一款应用。<br>
+签名文件相当于「开发者的身份证」，目的是为了<strong>检验应用是否被人更改过</strong>（应用必须签名过才能正常安装）。</p>
+<p style="margin-top:0px; margin-bottom:25px">包名相同签名相同时，会发生 替换安装 / 应用升级；<br>
+包名相同签名不同时，安装失败；<br>
+包名不同签名相同时，相当于同一开发者的两个应用，互相不冲突。</p>
+<blockquote style="margin:0px; padding:0px 15px; color:rgb(102,102,102); border-left-width:4px; border-left-style:solid; border-left-color:rgb(221,221,221)">
+<p style="margin-top:0px; margin-bottom:25px">签名的注意事项<br>
+所有的Android应用都必须有数字签名，没有不存在数字签名的应用，包括模拟器上运行的。Android系统不会安装没有数字证书的应用。<br>
+签名的数字证书不需要权威机构来认证，是开发者自己产生的数字证书，即所谓的自签名。<br>
+正式发布一个Android应用时，必须使用一个合适的私钥生成的数字证书来给程序签名，不能使用ADT插件或者ANT工具生成的调试证书来发布。<br>
+Android将数字证书用来标识应用程序的作者和在应用程序之间建立信任关系，而不是用来决定最终用户可以安装哪些应用程序。</p>
+</blockquote>
+<hr style="height:3px; margin:40px 0px; border:none; background-color:rgb(221,221,221)">
+<h2 id="为大众点评换签名" style="margin:60px 0px 15px; padding:10px 0px 0px; line-height:1; font-size:20px">
+为大众点评换签名</h2>
+<p style="margin-top:0px; margin-bottom:25px">按照常规步骤使用&nbsp;<code style="font-family:'Input Mono','PT Mono',Consolas,Monaco,Menlo,monospace; font-size:1em; word-break:break-all; padding:0px 0.3em; background:rgb(238,238,238)">apktool</code>&nbsp;&#43;&nbsp;<code style="font-family:'Input Mono','PT Mono',Consolas,Monaco,Menlo,monospace; font-size:1em; word-break:break-all; padding:0px 0.3em; background:rgb(238,238,238)">signapk</code>&nbsp;反编译、编译、签名并安装到手机上（没有修改任何代码），打开
+ app 选择城市后界面如下图并很快退出：</p>
+<p style="margin-top:0px; margin-bottom:25px"><a target="_blank" href="http://7xo976.com1.z0.glb.clouddn.com/images/github-io/Android/dianping-crash.jpeg-style1" class="fancybox" rel="group" style="color:rgb(85,85,85); text-decoration:none; border-bottom-width:1px; border-bottom-style:solid; border-bottom-color:rgb(153,153,153); word-wrap:break-word; background-color:transparent"><img src="http://7xo976.com1.z0.glb.clouddn.com/images/github-io/Android/dianping-crash.jpeg-style1" alt="dianping-crash" style="border:1px solid rgb(221,221,221); display:block!important; margin:0px auto; max-width:100%; height:auto; padding:3px"></a></p>
+<p style="margin-top:0px; margin-bottom:25px">说明点评对签名进行了校验 。</p>
+<hr style="height:3px; margin:40px 0px; border:none; background-color:rgb(221,221,221)">
+<h2 id="分析校验方法" style="margin:60px 0px 15px; padding:10px 0px 0px; line-height:1; font-size:20px">
+分析校验方法</h2>
+<h3 id="怎么退出的？" style="margin:60px 0px 15px; padding:10px 0px 0px; line-height:1; font-size:18px">
+怎么退出的？</h3>
+<p style="margin-top:0px; margin-bottom:25px">打开 apktool 反编译得到的文件夹下的&nbsp;<code style="font-family:'Input Mono','PT Mono',Consolas,Monaco,Menlo,monospace; font-size:1em; word-break:break-all; padding:0px 0.3em; background:rgb(238,238,238)">AndroidManifest.xml</code>&nbsp;，得到程序包名：<code style="font-family:'Input Mono','PT Mono',Consolas,Monaco,Menlo,monospace; font-size:1em; word-break:break-all; padding:0px 0.3em; background:rgb(238,238,238)">com.dianping.v1</code>&nbsp;。<br>
+清除大众点评的数据，打开 as，连上手机，log 的过滤条件设为 com.dianping ，在选择城市之前清一下 log ，在 log 里搜索 “die”，比较明显的是有四处：</p>
+<p style="margin-top:0px; margin-bottom:25px">进程死亡：<br>
+</p>
+<table style="border-collapse:collapse; border-spacing:0px; margin:0px; width:auto; border:none; font-size:14px">
+<tbody>
+<tr style="background-color:rgb(249,249,249)">
+<td class="gutter" style="padding:0px; vertical-align:middle; border:none">
+<pre style="overflow:auto; font-family:'Input Mono','PT Mono',Consolas,Monaco,Menlo,monospace; font-size:13px; margin-top:0px; margin-bottom:0px; padding:1px 20px 1px 1px; color:rgb(102,102,102); line-height:1.6; border:none; text-align:right; background:rgb(29,31,33)"><span class="line" style="height:20px">1</span>
+<span class="line" style="height:20px">2</span>
+<span class="line" style="height:20px">3</span>
+</pre>
+</td>
+<td class="code" style="padding:0px; vertical-align:middle; border:none">
+<pre style="overflow:auto; font-family:'Input Mono','PT Mono',Consolas,Monaco,Menlo,monospace; font-size:13px; margin-top:0px; margin-bottom:0px; padding:1px; color:rgb(197,200,198); line-height:1.6; border:none; background:rgb(29,31,33)"><span class="line" style="height:20px">Process com<span class="class">.dianping</span><span class="class">.v1</span> (pid <span class="number" style="color:rgb(222,147,95)">19182</span>) has died</span>
+<span class="line" style="height:20px">Process com<span class="class">.dianping</span><span class="class">.v1</span> (pid <span class="number" style="color:rgb(222,147,95)">19586</span>) has died</span>
+<span class="line" style="height:20px">Process com<span class="class">.dianping</span><span class="class">.v1</span> (pid <span class="number" style="color:rgb(222,147,95)">19650</span>) has died</span>
+</pre>
+</td>
+</tr>
+</tbody>
+</table>
+<p style="margin-top:0px; margin-bottom:25px"></p>
+<p style="margin-top:0px; margin-bottom:25px">app 死亡：<br>
+</p>
+<table style="border-collapse:collapse; border-spacing:0px; margin:0px; width:auto; border:none; font-size:14px">
+<tbody>
+<tr style="background-color:rgb(249,249,249)">
+<td class="gutter" style="padding:0px; vertical-align:middle; border:none">
+<pre style="overflow:auto; font-family:'Input Mono','PT Mono',Consolas,Monaco,Menlo,monospace; font-size:13px; margin-top:0px; margin-bottom:0px; padding:1px 20px 1px 1px; color:rgb(102,102,102); line-height:1.6; border:none; text-align:right; background:rgb(29,31,33)"><span class="line" style="height:20px">1</span>
+</pre>
+</td>
+<td class="code" style="padding:0px; vertical-align:middle; border:none">
+<pre style="overflow:auto; font-family:'Input Mono','PT Mono',Consolas,Monaco,Menlo,monospace; font-size:13px; margin-top:0px; margin-bottom:0px; padding:1px; color:rgb(197,200,198); line-height:1.6; border:none; background:rgb(29,31,33)"><span class="line" style="height:20px">Force removing ActivityRecord{<span class="number" style="color:rgb(222,147,95)">266</span>e5efd u0 com.dianping.v1/.NovaMainActivity t14010}: app died, no saved <span class="keyword" style="color:rgb(178,148,187)">state</span></span>
+</pre>
+</td>
+</tr>
+</tbody>
+</table>
+<p style="margin-top:0px; margin-bottom:25px"></p>
+<p style="margin-top:0px; margin-bottom:25px">其中前两个进程死亡之后都有开启进程的操作，说明第一次校验失败后重试了两次：<br>
+</p>
+<table style="border-collapse:collapse; border-spacing:0px; margin:0px; width:auto; border:none; font-size:14px">
+<tbody>
+<tr style="background-color:rgb(249,249,249)">
+<td class="gutter" style="padding:0px; vertical-align:middle; border:none">
+<pre style="overflow:auto; font-family:'Input Mono','PT Mono',Consolas,Monaco,Menlo,monospace; font-size:13px; margin-top:0px; margin-bottom:0px; padding:1px 20px 1px 1px; color:rgb(102,102,102); line-height:1.6; border:none; text-align:right; background:rgb(29,31,33)"><span class="line" style="height:20px">1</span>
+</pre>
+</td>
+<td class="code" style="padding:0px; vertical-align:middle; border:none">
+<pre style="overflow:auto; font-family:'Input Mono','PT Mono',Consolas,Monaco,Menlo,monospace; font-size:13px; margin-top:0px; margin-bottom:0px; padding:1px; color:rgb(197,200,198); line-height:1.6; border:none; background:rgb(29,31,33)"><span class="line" style="height:20px"><span class="string" style="color:rgb(181,189,104)">startProcess:</span> name=com.dianping.v1 app=<span class="literal" style="color:rgb(222,147,95)">null</span> knownToBeDead=<span class="literal" style="color:rgb(222,147,95)">true</span> thread=<span class="literal" style="color:rgb(222,147,95)">null</span> pid=-<span class="number" style="color:rgb(222,147,95)">1</span></span>
+</pre>
+</td>
+</tr>
+</tbody>
+</table>
+<p style="margin-top:0px; margin-bottom:25px"></p>
+<table style="border-collapse:collapse; border-spacing:0px; margin:0px; width:auto; border:none; font-size:14px">
+<tbody>
+<tr style="background-color:rgb(249,249,249)">
+<td class="gutter" style="padding:0px; vertical-align:middle; border:none">
+<pre style="overflow:auto; font-family:'Input Mono','PT Mono',Consolas,Monaco,Menlo,monospace; font-size:13px; margin-top:0px; margin-bottom:0px; padding:1px 20px 1px 1px; color:rgb(102,102,102); line-height:1.6; border:none; text-align:right; background:rgb(29,31,33)"><span class="line" style="height:20px">1</span>
+</pre>
+</td>
+<td class="code" style="padding:0px; vertical-align:middle; border:none">
+<pre style="overflow:auto; font-family:'Input Mono','PT Mono',Consolas,Monaco,Menlo,monospace; font-size:13px; margin-top:0px; margin-bottom:0px; padding:1px; color:rgb(197,200,198); line-height:1.6; border:none; background:rgb(29,31,33)"><span class="line" style="height:20px"><span class="string" style="color:rgb(181,189,104)">startProcess:</span> name=com.dianping.v1 app=<span class="literal" style="color:rgb(222,147,95)">null</span> knownToBeDead=<span class="literal" style="color:rgb(222,147,95)">true</span> thread=<span class="literal" style="color:rgb(222,147,95)">null</span> pid=-<span class="number" style="color:rgb(222,147,95)">1</span></span>
+</pre>
+</td>
+</tr>
+</tbody>
+</table>
+<p style="margin-top:0px; margin-bottom:25px">最后一个直接杀死了 app，没有再继续创建进程。</p>
+<p style="margin-top:0px; margin-bottom:25px">在进程结束之前，发生错误的调用记录：<br>
+</p>
+<table style="border-collapse:collapse; border-spacing:0px; margin:0px; width:auto; border:none; font-size:14px">
+<tbody>
+<tr style="background-color:rgb(249,249,249)">
+<td class="gutter" style="padding:0px; vertical-align:middle; border:none">
+<pre style="overflow:auto; font-family:'Input Mono','PT Mono',Consolas,Monaco,Menlo,monospace; font-size:13px; margin-top:0px; margin-bottom:0px; padding:1px 20px 1px 1px; color:rgb(102,102,102); line-height:1.6; border:none; text-align:right; background:rgb(29,31,33)"><span class="line" style="height:20px">1</span>
+<span class="line" style="height:20px">2</span>
+<span class="line" style="height:20px">3</span>
+<span class="line" style="height:20px">4</span>
+<span class="line" style="height:20px">5</span>
+<span class="line" style="height:20px">6</span>
+</pre>
+</td>
+<td class="code" style="padding:0px; vertical-align:middle; border:none">
+<pre style="overflow:auto; font-family:'Input Mono','PT Mono',Consolas,Monaco,Menlo,monospace; font-size:13px; margin-top:0px; margin-bottom:0px; padding:1px; color:rgb(197,200,198); line-height:1.6; border:none; background:rgb(29,31,33)"><span class="line" style="height:20px"><span class="number" style="color:rgb(222,147,95)">9586</span>-<span class="number" style="color:rgb(222,147,95)">19586</span>/? D/AccessibilityManager:     at com.dianping.base.app.NovaActivity.setContentView(NovaActivity.java:<span class="number" style="color:rgb(222,147,95)">722</span>)</span>
+<span class="line" style="height:20px"> <span class="number" style="color:rgb(222,147,95)">9586</span>-<span class="number" style="color:rgb(222,147,95)">19586</span>/? D/AccessibilityManager:     at com.dianping.main.guide.MainActivity.setOnContentView(MainActivity.java:<span class="number" style="color:rgb(222,147,95)">339</span>)</span>
+<span class="line" style="height:20px"> <span class="number" style="color:rgb(222,147,95)">9586</span>-<span class="number" style="color:rgb(222,147,95)">19586</span>/? D/AccessibilityManager:     at com.dianping.base.basic.FragmentTabActivity.onCreate(FragmentTabActivity.java:<span class="number" style="color:rgb(222,147,95)">51</span>)</span>
+<span class="line" style="height:20px"> <span class="number" style="color:rgb(222,147,95)">9586</span>-<span class="number" style="color:rgb(222,147,95)">19586</span>/? D/AccessibilityManager:     at com.dianping.base.widget.NovaFragmentTabActivity.onCreate(NovaFragmentTabActivity.java:<span class="number" style="color:rgb(222,147,95)">26</span>)</span>
+<span class="line" style="height:20px"> <span class="number" style="color:rgb(222,147,95)">9586</span>-<span class="number" style="color:rgb(222,147,95)">19586</span>/? D/AccessibilityManager:     at com.dianping.main.guide.MainActivity.onCreate(MainActivity.java:<span class="number" style="color:rgb(222,147,95)">169</span>)</span>
+<span class="line" style="height:20px"> <span class="number" style="color:rgb(222,147,95)">9586</span>-<span class="number" style="color:rgb(222,147,95)">19586</span>/? D/AccessibilityManager:     at com.dianping.v1.NovaMainActivity.onCreate(NovaMainActivity.java:<span class="number" style="color:rgb(222,147,95)">15</span>)</span>
+</pre>
+</td>
+</tr>
+</tbody>
+</table>
+<p style="margin-top:0px; margin-bottom:25px"></p>
+<h3 id="代码探索" style="margin:60px 0px 15px; padding:10px 0px 0px; line-height:1; font-size:18px">
+代码探索</h3>
+<p style="margin-top:0px; margin-bottom:25px">解压 apk 文件，发现有 3 个 dex 文件，先拿第一个下手，JD-GUI 打开发现代码没有混淆！</p>
+<p style="margin-top:0px; margin-bottom:25px">调用记录中的文件从上往下过一遍，发现在&nbsp;<code style="font-family:'Input Mono','PT Mono',Consolas,Monaco,Menlo,monospace; font-size:1em; word-break:break-all; padding:0px 0.3em; background:rgb(238,238,238)">com.dianping.main.guide.MainActivity.onCreate()</code>&nbsp;方法中有校验签名的函数：<br>
+</p>
+<table style="border-collapse:collapse; border-spacing:0px; margin:0px; width:auto; border:none; font-size:14px">
+<tbody>
+<tr style="background-color:rgb(249,249,249)">
+<td class="gutter" style="padding:0px; vertical-align:middle; border:none">
+<pre style="overflow:auto; font-family:'Input Mono','PT Mono',Consolas,Monaco,Menlo,monospace; font-size:13px; margin-top:0px; margin-bottom:0px; padding:1px 20px 1px 1px; color:rgb(102,102,102); line-height:1.6; border:none; text-align:right; background:rgb(29,31,33)"><span class="line" style="height:20px">1</span>
+<span class="line" style="height:20px">2</span>
+<span class="line" style="height:20px">3</span>
+</pre>
+</td>
+<td class="code" style="padding:0px; vertical-align:middle; border:none">
+<pre style="overflow:auto; font-family:'Input Mono','PT Mono',Consolas,Monaco,Menlo,monospace; font-size:13px; margin-top:0px; margin-bottom:0px; padding:1px; color:rgb(197,200,198); line-height:1.6; border:none; background:rgb(29,31,33)"><span class="line" style="height:20px"><span class="keyword" style="color:rgb(178,148,187)">if</span> <span class="comment" style="color:rgb(150,152,150)">(!checkSignature()</span>) {    </span>
+<span class="line" style="height:20px">      Process.killProcess<span class="comment" style="color:rgb(150,152,150)">(Process.myPid()</span>);</span>
+<span class="line" style="height:20px">    }</span>
+</pre>
+</td>
+</tr>
+</tbody>
+</table>
+<p style="margin-top:0px; margin-bottom:25px"></p>
+<p style="margin-top:0px; margin-bottom:25px"><code style="font-family:'Input Mono','PT Mono',Consolas,Monaco,Menlo,monospace; font-size:1em; word-break:break-all; padding:0px 0.3em; background:rgb(238,238,238)">checkSignature</code>&nbsp;函数：<br>
+</p>
+<table style="border-collapse:collapse; border-spacing:0px; margin:0px; width:auto; border:none; font-size:14px">
+<tbody>
+<tr style="background-color:rgb(249,249,249)">
+<td class="gutter" style="padding:0px; vertical-align:middle; border:none">
+<pre style="overflow:auto; font-family:'Input Mono','PT Mono',Consolas,Monaco,Menlo,monospace; font-size:13px; margin-top:0px; margin-bottom:0px; padding:1px 20px 1px 1px; color:rgb(102,102,102); line-height:1.6; border:none; text-align:right; background:rgb(29,31,33)"><span class="line" style="height:20px">1</span>
+<span class="line" style="height:20px">2</span>
+<span class="line" style="height:20px">3</span>
+<span class="line" style="height:20px">4</span>
+<span class="line" style="height:20px">5</span>
+<span class="line" style="height:20px">6</span>
+<span class="line" style="height:20px">7</span>
+<span class="line" style="height:20px">8</span>
+<span class="line" style="height:20px">9</span>
+<span class="line" style="height:20px">10</span>
+<span class="line" style="height:20px">11</span>
+<span class="line" style="height:20px">12</span>
+<span class="line" style="height:20px">13</span>
+<span class="line" style="height:20px">14</span>
+<span class="line" style="height:20px">15</span>
+<span class="line" style="height:20px">16</span>
+<span class="line" style="height:20px">17</span>
+<span class="line" style="height:20px">18</span>
+<span class="line" style="height:20px">19</span>
+<span class="line" style="height:20px">20</span>
+<span class="line" style="height:20px">21</span>
+<span class="line" style="height:20px">22</span>
+<span class="line" style="height:20px">23</span>
+<span class="line" style="height:20px">24</span>
+<span class="line" style="height:20px">25</span>
+<span class="line" style="height:20px">26</span>
+<span class="line" style="height:20px">27</span>
+<span class="line" style="height:20px">28</span>
+<span class="line" style="height:20px">29</span>
+<span class="line" style="height:20px">30</span>
+<span class="line" style="height:20px">31</span>
+</pre>
+</td>
+<td class="code" style="padding:0px; vertical-align:middle; border:none">
+<pre style="overflow:auto; font-family:'Input Mono','PT Mono',Consolas,Monaco,Menlo,monospace; font-size:13px; margin-top:0px; margin-bottom:0px; padding:1px; color:rgb(197,200,198); line-height:1.6; border:none; background:rgb(29,31,33)"><span class="line" style="height:20px"><span class="function" style="color:rgb(129,162,190)"><span class="keyword" style="color:rgb(178,148,187)">private</span> boolean <span class="title" style="color:rgb(138,190,183)">checkSignature</span><span class="params" style="color:rgb(222,147,95)">()</span></span>
+<span class="line" style="height:20px"></span>{</span>
+<span class="line" style="height:20px"> <span class="keyword" style="color:rgb(178,148,187)">try</span></span>
+<span class="line" style="height:20px"> {</span>
+<span class="line" style="height:20px">   Signature[] arrayOfSignature = getPackageManager().getPackageInfo(getPackageName(), <span class="number" style="color:rgb(222,147,95)">64</span>).signatures;     <span class="comment" style="color:rgb(150,152,150)">//获得签名数组</span></span>
+<span class="line" style="height:20px">   <span class="keyword" style="color:rgb(178,148,187)">if</span> (arrayOfSignature != null)</span>
+<span class="line" style="height:20px">   {</span>
+<span class="line" style="height:20px">     <span class="keyword" style="color:rgb(178,148,187)">if</span> (arrayOfSignature.length == <span class="number" style="color:rgb(222,147,95)">0</span>) {</span>
+<span class="line" style="height:20px">       <span class="keyword" style="color:rgb(178,148,187)">return</span> <span class="literal" style="color:rgb(222,147,95)">false</span>;</span>
+<span class="line" style="height:20px">     }</span>
+<span class="line" style="height:20px">     <span class="keyword" style="color:rgb(178,148,187)">int</span> j = arrayOfSignature.length;</span>
+<span class="line" style="height:20px">     <span class="keyword" style="color:rgb(178,148,187)">int</span> i = <span class="number" style="color:rgb(222,147,95)">0</span>;</span>
+<span class="line" style="height:20px">     <span class="keyword" style="color:rgb(178,148,187)">while</span> (i &lt; j)   <span class="comment" style="color:rgb(150,152,150)">//如果数组中的某个元素&#20540;与 'ac6fc3fe' 相等，返回校验成功；如果直到结束也没有相等的元素，返回失败</span></span>
+<span class="line" style="height:20px">     {               <span class="comment" style="color:rgb(150,152,150)">//只比较一个特定的元素，可能也是为了不把整个签名泄露出来，同时也做到了一定程度的校验</span></span>
+<span class="line" style="height:20px">       String str = Integer.toHexString(arrayOfSignature[i].toCharsString().hashCode());</span>
+<span class="line" style="height:20px">       <span class="keyword" style="color:rgb(178,148,187)">if</span> (!<span class="string" style="color:rgb(181,189,104)">&quot;ac6fc3fe&quot;</span>.equalsIgnoreCase(str))   </span>
+<span class="line" style="height:20px">       {</span>
+<span class="line" style="height:20px">         boolean <span class="keyword" style="color:rgb(178,148,187)">bool</span> = <span class="string" style="color:rgb(181,189,104)">&quot;600cf559&quot;</span>.equalsIgnoreCase(str);       <span class="comment" style="color:rgb(150,152,150)">//这个比较好像没用</span></span>
+<span class="line" style="height:20px">         <span class="keyword" style="color:rgb(178,148,187)">if</span> (!<span class="keyword" style="color:rgb(178,148,187)">bool</span>) {}</span>
+<span class="line" style="height:20px">       }</span>
+<span class="line" style="height:20px">       <span class="keyword" style="color:rgb(178,148,187)">else</span></span>
+<span class="line" style="height:20px">       {</span>
+<span class="line" style="height:20px">         <span class="keyword" style="color:rgb(178,148,187)">return</span> <span class="literal" style="color:rgb(222,147,95)">true</span>;</span>
+<span class="line" style="height:20px">       }</span>
+<span class="line" style="height:20px">       i &#43;= <span class="number" style="color:rgb(222,147,95)">1</span>;</span>
+<span class="line" style="height:20px">     }</span>
+<span class="line" style="height:20px">   }</span>
+<span class="line" style="height:20px">   <span class="keyword" style="color:rgb(178,148,187)">return</span> <span class="literal" style="color:rgb(222,147,95)">false</span>;</span>
+<span class="line" style="height:20px"> }</span>
+<span class="line" style="height:20px"> <span class="keyword" style="color:rgb(178,148,187)">catch</span> (Exception localException) {}</span>
+<span class="line" style="height:20px">}</span>
+</pre>
+</td>
+</tr>
+</tbody>
+</table>
+<p style="margin-top:0px; margin-bottom:25px"></p>
+<p style="margin-top:0px; margin-bottom:25px">相关 API：</p>
+<p style="margin-top:0px; margin-bottom:25px"><code style="font-family:'Input Mono','PT Mono',Consolas,Monaco,Menlo,monospace; font-size:1em; word-break:break-all; padding:0px 0.3em; background:rgb(238,238,238)">public Signature[] signatures</code><br>
+Array of all signatures read from the package file. This is only filled in if the flag GET_SIGNATURES was set.</p>
+<p style="margin-top:0px; margin-bottom:25px"><code style="font-family:'Input Mono','PT Mono',Consolas,Monaco,Menlo,monospace; font-size:1em; word-break:break-all; padding:0px 0.3em; background:rgb(238,238,238)">public static final int GET_SIGNATURES</code><br>
+PackageInfo flag: return information about the signatures included in the package.<br>
+Constant Value: 64 (0x00000040)</p>
+<p style="margin-top:0px; margin-bottom:25px"><code style="font-family:'Input Mono','PT Mono',Consolas,Monaco,Menlo,monospace; font-size:1em; word-break:break-all; padding:0px 0.3em; background:rgb(238,238,238)">public boolean equalsIgnoreCase (String string)</code><br>
+Compares the given string to this string ignoring case.<br>
+The strings are compared one char at a time.</p>
+<h3 id="流程修改" style="margin:60px 0px 15px; padding:10px 0px 0px; line-height:1; font-size:18px">
+流程修改</h3>
+<p style="margin-top:0px; margin-bottom:25px">在&nbsp;<code style="font-family:'Input Mono','PT Mono',Consolas,Monaco,Menlo,monospace; font-size:1em; word-break:break-all; padding:0px 0.3em; background:rgb(238,238,238)">smali/com/dianping/main/guide/MainActivity.smali</code>&nbsp;中搜索&nbsp;<code style="font-family:'Input Mono','PT Mono',Consolas,Monaco,Menlo,monospace; font-size:1em; word-break:break-all; padding:0px 0.3em; background:rgb(238,238,238)">ac6fc3fe</code>&nbsp;:<br>
+</p>
+<table style="border-collapse:collapse; border-spacing:0px; margin:0px; width:auto; border:none; font-size:14px">
+<tbody>
+<tr style="background-color:rgb(249,249,249)">
+<td class="gutter" style="padding:0px; vertical-align:middle; border:none">
+<pre style="overflow:auto; font-family:'Input Mono','PT Mono',Consolas,Monaco,Menlo,monospace; font-size:13px; margin-top:0px; margin-bottom:0px; padding:1px 20px 1px 1px; color:rgb(102,102,102); line-height:1.6; border:none; text-align:right; background:rgb(29,31,33)"><span class="line" style="height:20px">1</span>
+<span class="line" style="height:20px">2</span>
+<span class="line" style="height:20px">3</span>
+<span class="line" style="height:20px">4</span>
+<span class="line" style="height:20px">5</span>
+<span class="line" style="height:20px">6</span>
+<span class="line" style="height:20px">7</span>
+<span class="line" style="height:20px">8</span>
+<span class="line" style="height:20px">9</span>
+</pre>
+</td>
+<td class="code" style="padding:0px; vertical-align:middle; border:none">
+<pre style="overflow:auto; font-family:'Input Mono','PT Mono',Consolas,Monaco,Menlo,monospace; font-size:13px; margin-top:0px; margin-bottom:0px; padding:1px; color:rgb(197,200,198); line-height:1.6; border:none; background:rgb(29,31,33)"><span class="line" style="height:20px"><span class="keyword" style="color:rgb(178,148,187)">.line</span> 358</span>
+<span class="line" style="height:20px"><span class="keyword" style="color:rgb(178,148,187)">    .local</span> <span class="variable" style="color:rgb(204,102,102)">v4</span>, <span class="string" style="color:rgb(181,189,104)">&quot;myHash&quot;</span>:<span class="class">Ljava/lang/String;</span></span>
+<span class="line" style="height:20px">   <span class="instruction"> const-string </span><span class="variable" style="color:rgb(204,102,102)">v9</span>, <span class="string" style="color:rgb(181,189,104)">&quot;ac6fc3fe&quot;</span></span>
+<span class="line" style="height:20px"></span>
+<span class="line" style="height:20px">   <span class="instruction"> invoke-virtual </span>{<span class="variable" style="color:rgb(204,102,102)">v9</span>, <span class="variable" style="color:rgb(204,102,102)">v4</span>}, <span class="class">Ljava/lang/String;</span><span class="function" style="color:rgb(129,162,190)">-&gt;equalsIgnoreCase(</span><span class="class">Ljava/lang/String;</span><span class="function" style="color:rgb(129,162,190)">)</span>Z</span>
+<span class="line" style="height:20px"></span>
+<span class="line" style="height:20px">   <span class="instruction"> move-result </span><span class="variable" style="color:rgb(204,102,102)">v9</span></span>
+<span class="line" style="height:20px"></span>
+<span class="line" style="height:20px">   <span class="instruction"> if-nez </span><span class="variable" style="color:rgb(204,102,102)">v9</span>,<span class="keyword" style="color:rgb(178,148,187)"> :cond_2</span>     <span class="function" style="color:rgb(129,162,190)"> //if(</span>!equal(..<span class="function" style="color:rgb(129,162,190)">)</span><span class="function" style="color:rgb(129,162,190)">)</span><span class="instruction"> return </span>1</span>
+</pre>
+</td>
+</tr>
+</tbody>
+</table>
+<p style="margin-top:0px; margin-bottom:25px"></p>
+<p style="margin-top:0px; margin-bottom:25px">找到&nbsp;<code style="font-family:'Input Mono','PT Mono',Consolas,Monaco,Menlo,monospace; font-size:1em; word-break:break-all; padding:0px 0.3em; background:rgb(238,238,238)">con_2</code>&nbsp;的定义:<br>
+</p>
+<table style="border-collapse:collapse; border-spacing:0px; margin:0px; width:auto; border:none; font-size:14px">
+<tbody>
+<tr style="background-color:rgb(249,249,249)">
+<td class="gutter" style="padding:0px; vertical-align:middle; border:none">
+<pre style="overflow:auto; font-family:'Input Mono','PT Mono',Consolas,Monaco,Menlo,monospace; font-size:13px; margin-top:0px; margin-bottom:0px; padding:1px 20px 1px 1px; color:rgb(102,102,102); line-height:1.6; border:none; text-align:right; background:rgb(29,31,33)"><span class="line" style="height:20px">1</span>
+<span class="line" style="height:20px">2</span>
+<span class="line" style="height:20px">3</span>
+<span class="line" style="height:20px">4</span>
+<span class="line" style="height:20px">5</span>
+</pre>
+</td>
+<td class="code" style="padding:0px; vertical-align:middle; border:none">
+<pre style="overflow:auto; font-family:'Input Mono','PT Mono',Consolas,Monaco,Menlo,monospace; font-size:13px; margin-top:0px; margin-bottom:0px; padding:1px; color:rgb(197,200,198); line-height:1.6; border:none; background:rgb(29,31,33)"><span class="line" style="height:20px"><span class="keyword" style="color:rgb(178,148,187)">.line</span> 359<span class="keyword" style="color:rgb(178,148,187)"></span>
+<span class="line" style="height:20px">:cond_2</span><span class="instruction"></span>
+<span class="line" style="height:20px">const/4 </span><span class="variable" style="color:rgb(204,102,102)">v8</span>, 0x1</span>
+<span class="line" style="height:20px"><span class="instruction"></span>
+<span class="line" style="height:20px">goto </span>:goto_0</span>
+</pre>
+</td>
+</tr>
+</tbody>
+</table>
+<p style="margin-top:0px; margin-bottom:25px"></p>
+<table style="border-collapse:collapse; border-spacing:0px; margin:0px; width:auto; border:none; font-size:14px">
+<tbody>
+<tr style="background-color:rgb(249,249,249)">
+<td class="gutter" style="padding:0px; vertical-align:middle; border:none">
+<pre style="overflow:auto; font-family:'Input Mono','PT Mono',Consolas,Monaco,Menlo,monospace; font-size:13px; margin-top:0px; margin-bottom:0px; padding:1px 20px 1px 1px; color:rgb(102,102,102); line-height:1.6; border:none; text-align:right; background:rgb(29,31,33)"><span class="line" style="height:20px">1</span>
+<span class="line" style="height:20px">2</span>
+</pre>
+</td>
+<td class="code" style="padding:0px; vertical-align:middle; border:none">
+<pre style="overflow:auto; font-family:'Input Mono','PT Mono',Consolas,Monaco,Menlo,monospace; font-size:13px; margin-top:0px; margin-bottom:0px; padding:1px; color:rgb(197,200,198); line-height:1.6; border:none; background:rgb(29,31,33)"><span class="line" style="height:20px"><span class="symbol">:goto_0</span></span>
+<span class="line" style="height:20px">    <span class="keyword" style="color:rgb(178,148,187)">return</span> v8</span>
+</pre>
+</td>
+</tr>
+</tbody>
+</table>
+<p style="margin-top:0px; margin-bottom:25px">所以把&nbsp;<code style="font-family:'Input Mono','PT Mono',Consolas,Monaco,Menlo,monospace; font-size:1em; word-break:break-all; padding:0px 0.3em; background:rgb(238,238,238)">if-nez v9, :cond_2</code>&nbsp;改成&nbsp;<code style="font-family:'Input Mono','PT Mono',Consolas,Monaco,Menlo,monospace; font-size:1em; word-break:break-all; padding:0px 0.3em; background:rgb(238,238,238)">if-eqz
+ v9, :cond_2</code>&nbsp;就可以了，当然，修改方法还有很多。</p>
+<h3 id="打包签名" style="margin:60px 0px 15px; padding:10px 0px 0px; line-height:1; font-size:18px">
+打包签名</h3>
+<p style="margin-top:0px; margin-bottom:25px">点评可以正常打开，正常登录，正常使用了。</p>
+<hr style="height:3px; margin:40px 0px; border:none; background-color:rgb(221,221,221)">
+<blockquote style="margin:0px; padding:0px 15px; color:rgb(102,102,102); border-left-width:4px; border-left-style:solid; border-left-color:rgb(221,221,221)">
+<p style="margin-top:0px; margin-bottom:25px">番外：<br>
+而另一台手机 (Lenovo Android 4.2.2) 测试进程会不断重新创建。<br>
+应用 crash 之后 App 对应的 Process 都被杀死，然后安排重启 Service，重新启动 Task 栈顶的 Activity 。</p>
+</blockquote>
+<hr style="height:3px; margin:40px 0px; border:none; background-color:rgb(221,221,221)">
+<h2 id="Reference" style="margin:60px 0px 15px; padding:10px 0px 0px; line-height:1; font-size:20px">
+Reference</h2>
+<p style="margin-top:0px; margin-bottom:25px"><a target="_blank" href="http://www.ituring.com.cn/book/1131" rel="external" style="color:rgb(85,85,85); text-decoration:none; border-bottom-width:1px; border-bottom-style:solid; border-bottom-color:rgb(153,153,153); word-wrap:break-word; background-color:transparent">Android软件安全与逆向分析</a><br>
+<a target="_blank" href="http://www.wandoujia.com/blog/xibaibai-diary-3" rel="external" style="color:rgb(85,85,85); text-decoration:none; border-bottom-width:1px; border-bottom-style:solid; border-bottom-color:rgb(153,153,153); word-wrap:break-word; background-color:transparent">洗白白手记：绕开
+ Android 应用开发的那些「坑」</a><br>
+<a target="_blank" href="http://www.oschina.net/question/163910_27292#tags_nav" rel="external" style="color:rgb(85,85,85); text-decoration:none; border-bottom-width:1px; border-bottom-style:solid; border-bottom-color:rgb(153,153,153); word-wrap:break-word; background-color:transparent">给
+ Android 应用程序签名</a></p>
+</div>
+<div class="post-tags" style="margin-top:40px; text-align:center"><a target="_blank" href="http://kiya-z.github.io/tags/Android-%E5%AE%89%E5%85%A8/" rel="tag" style="color:rgb(85,85,85); text-decoration:none; border-bottom-width:1px; border-bottom-style:solid; border-bottom-color:rgb(153,153,153); word-wrap:break-word; display:inline-block; margin-right:10px; font-size:13px; background-color:transparent">#Android
+ 安全</a>&nbsp;<a target="_blank" href="http://kiya-z.github.io/tags/%E5%8F%8D%E7%BC%96%E8%AF%91/" rel="tag" style="color:rgb(85,85,85); text-decoration:none; border-bottom-width:1px; border-bottom-style:solid; border-bottom-color:rgb(153,153,153); word-wrap:break-word; display:inline-block; margin-right:10px; font-size:13px; background-color:transparent">#反编译</a></div>
+<div class="post-tags" style="margin-top:40px; text-align:center"><span style="color:rgb(102,102,102); font-family:Lato,'PingFang SC','Microsoft YaHei',sans-serif; font-size:16px; line-height:32px; text-align:justify">原文链接:
+<a target="_blank" href="http://kiya-z.github.io/2015/11/12/check-signature-for-avoiding-fake-app-java-level-check/">
+&nbsp;</a></span><span style="color:rgb(102,102,102); font-family:Lato,'PingFang SC','Microsoft YaHei',sans-serif; font-size:16px; line-height:32px; text-align:justify"><a target="_blank" href="http://kiya-z.github.io/2015/11/12/check-signature-for-avoiding-fake-app-java-level-check/">http://kiya-z.github.io/2015/11/12/check-signature-for-avoiding-fake-app-java-level-check/</a></span><br>
+</div>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://hanks.xyz/2015/11/17/校验数字签名防止_apk_被二次打包_-_Java层校验（大众点评为例）/" data-id="cihryjlxd0014k4052va6ri23" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  
+  
+</article>
+
+  
+<section id="comments">
+    <!-- 多说分享框 -->
+    <div class="ds-share flat" data-thread-key="/2015/11/17/校验数字签名防止_apk_被二次打包_-_Java层校验（大众点评为例）/" data-title="校验数字签名防止 apk 被二次打包 - Java层校验（大众点评为例）" data-images="此处请替换为分享时显示的图片的链接地址" data-content="校验数字签名防止 apk 被二次打包 - Java层校验（大众点评为例）" data-url="http://hanks.xyz//2015/11/17/校验数字签名防止_apk_被二次打包_-_Java层校验（大众点评为例）/">
+    <div class="ds-share-inline">
+      <ul  class="ds-share-icons-16">
+
+      	<li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+        <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+        <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+        <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+        <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+      </ul>
+      <div class="ds-share-icons-more">
+      </div>
+    </div>
+   </div>
+    <!-- 多说评论框 start -->
+   	<div class="ds-thread" data-thread-key="/2015/11/17/校验数字签名防止_apk_被二次打包_-_Java层校验（大众点评为例）/" data-title="校验数字签名防止 apk 被二次打包 - Java层校验（大众点评为例）" data-url="http://hanks.xyz//2015/11/17/校验数字签名防止_apk_被二次打包_-_Java层校验（大众点评为例）/"></div>
+   <!-- 多说评论框 end -->
+   <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+   <script type="text/javascript">
+   var duoshuoQuery = {short_name:"hanks-zyh"};
+   	(function() {
+   		var ds = document.createElement('script');
+   		ds.type = 'text/javascript';ds.async = true;
+   		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+   		ds.charset = 'UTF-8';
+   		(document.getElementsByTagName('head')[0]
+   		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+   	})();
+   	</script>
+   <!-- 多说公共JS代码 end -->
+</section>
+
+</section>
+      </div>
+      <footer id="footer">
+  
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      &copy; 2015 Hanks<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+  </br>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    
+
+<script src="/js/jquery.min.js" type="text/javascript"></script>
+<script src="/js/jquery.scrollLoading.js" type="text/javascript"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+  <script src="/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+
+
+<script src="/js/script.js" type="text/javascript"></script>
+
+  </div>
+</body>
+</html>

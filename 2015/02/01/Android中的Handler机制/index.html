@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Android中的Handler机制 | Hanks.xyz</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android中的Handler机制">
+<meta property="og:url" content="http://hanks.xyz/2015/02/01/Android中的Handler机制/index.html">
+<meta property="og:site_name" content="Hanks.xyz">
+<meta property="og:description">
+<meta property="og:image" content="http://img.blog.csdn.net/20150201220109613?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvaHB1X3p5aA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20150201221137176?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvaHB1X3p5aA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20150202175845054?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvaHB1X3p5aA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20150202203303921?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvaHB1X3p5aA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:updated_time" content="2015-12-04T17:20:04.304Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android中的Handler机制">
+<meta name="twitter:description">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <!-- <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600' rel='stylesheet' type='text/css'> -->
+  <!-- <link href="//fonts.googleapis.com/css?family=Source+Code+Pro:400,700" rel="stylesheet" type="text/css"> -->
+  <link href="//fonts.useso.com/css?family=Source+Code+Pro:400,700" rel="stylesheet" type="text/css">
+  <link href='//fonts.useso.com/css?family=Open+Sans:300,600' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo">Hanks.xyz</a>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">首页</a>
+        
+          <a class="main-nav-link" href="/archives">归档</a>
+        
+          <a class="main-nav-link" href="/about/index.html">关于</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        <div id="search-form-wrap">
+          <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://hanks.xyz"></form>
+        </div>
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+        
+        
+          <a id="nav-github-link" class="nav-icon" href="https://github.com/hanks-zyh" title="Fork me on GitHub"></a>
+        
+      </nav>
+    </div>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/" class="mobile-nav-link">首页</a>
+  
+    <a href="/archives" class="mobile-nav-link">归档</a>
+  
+    <a href="/about/index.html" class="mobile-nav-link">关于</a>
+  
+  <div id="search-form-wrap-mobile">
+    <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://hanks.xyz"></form>
+  </div>
+</nav>
+      <div class="outer">
+        
+        <section id="main"><article id="post-Android中的Handler机制" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/02/01/Android中的Handler机制/" class="article-date">
+  <time datetime="2015-02-01T13:47:00.000Z" itemprop="datePublished">2015-02-01</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Android中的Handler机制
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+<p><br></p><p>还记得第一次使用Handler的情形，我开启了一个子线程，在子线程中给TextView进行setText()，然后运行起来程序异常终止了，查看log信息：</p><p><span style="color:#ff0000;">&nbsp;E/AndroidRuntime(2206): android.view.ViewRootImpl$CalledFromWrongThreadException: Only the original thread that created a view hierarchy can touch its views.</span></p><p>goolgle一下找到了原因:&nbsp;原来android中相关的view和控件不是线程安全的，我们必须单独做处理。然后就了解了Handler。可以在子线程中通过Handler发送一个Message给主线程，然后在主线程进行UI更新<br></p><p><img alt="" src="http://img.blog.csdn.net/20150201220109613?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvaHB1X3p5aA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast"><br></p><p>可以大概看成Handler的作用有分发消息，处理消息，发送消息，移除消息</p><p>下面看一下Message类</p><p><img alt="" src="http://img.blog.csdn.net/20150201221137176?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvaHB1X3p5aA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast"><br></p><p>可见Message包括what(message的标识) 、obj 任意对象， arg1 arg2, 而且可以设置Target来指定Handler</p><p><br></p><p>当Handler发送一条Message时有一下两种写法：</p><p></p><pre class="java" name="code" snippet_file_name="blog_20150201_1_852454" code_snippet_id="595187">Message msg = Message.obtain();
+msg.what = 200;
+msg.obj = obj;
+handler.sendMessage(msg);</pre><br><pre class="java" name="code" snippet_file_name="blog_20150201_2_5190102" code_snippet_id="595187">Message.obtain(handler, 200).sendToTarget();</pre><p></p><p>Looper类：</p><p><img alt="" src="http://img.blog.csdn.net/20150202175845054?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvaHB1X3p5aA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast"><br></p><p>Looper的类注释中</p><p><pre class="java" name="code" snippet_file_name="blog_20150202_3_1040235" code_snippet_id="595187">Class used to run a message loop for a thread. Threads by default do not have a message loop associated with them; to create one, call prepare in the thread that is to run the loop, and then loop to have it process messages until the loop is stopped. 
+
+Most interaction with a message loop is through the Handler class. 
+
+This is a typical example of the implementation of a Looper thread, using the separation of prepare and loop to create an initial Handler to communicate with the Looper. 
+
+  class LooperThread extends Thread {
+      public Handler mHandler;
+
+      public void run() {
+          Looper.prepare();
+
+          mHandler = new Handler() {
+              public void handleMessage(Message msg) {
+                  // process incoming messages here
+              }
+          };
+
+          Looper.loop();
+      }
+  }
+</pre><br><br></p><p></p><h5>&nbsp;Handler的作用？</h5>1)在非UI线程更新UI ;<br><p>2)发送一个延时消息;</p><p>3)当做定时器，每隔一段时间发送一次消息，如进行图片轮播</p><h5>为什么android设计只能UI线程更新UI？</h5>1) 解决多线程并发的问题<br>2) 提高界面更新的性能问题<br>3) 架构设计的简单<h5>Handler 相关的异常</h5><p>1)<span style="color:#ff0000;">E/AndroidRuntime(2206): android.view.ViewRootImpl$CalledFromWrongThreadException: Only the original thread that created a view hierarchy can touch its views.</span></p><p>&nbsp;不能子线程更新UI的异常{解决：在子线程向主线程中的handler发送Message}</p><p>2<span style="color:#ff0000;">E/AndroidRuntime(2329): java.lang.RuntimeException: Can't create handler inside thread that has not called Looper.prepare()</span></p><p>不能在子线程中new Handlder()，我们需要调用Looper.prepare(); 后new&nbsp;Handler然后&nbsp;Looper.loop();<br></p><p><span style="font-size:14px;color:#000099;"><strong>我们自己创建的线程中没有Looper对象，这里注意一点，在ActivityThread线I程中会隐士的调用Looper.prepare（）方法</strong></span></p><p>在下面我们会看一下Looper.prepare()方法的源码</p><h5>&nbsp;Handler、Looper、MessageQueue之间的关系（源码角度分析）？</h5><div>Handler 的构造方法：</div><div><pre class="java" name="code" snippet_file_name="blog_20150202_4_6872382" code_snippet_id="595187">/**
+     * Use the {@link Looper} for the current thread with the specified callback interface
+     * and set whether the handler should be asynchronous.
+     *
+     * Handlers are synchronous by default unless this constructor is used to make
+     * one that is strictly asynchronous.
+     *
+     * Asynchronous messages represent interrupts or events that do not require global ordering
+     * with represent to synchronous messages.  Asynchronous messages are not subject to
+     * the synchronization barriers introduced by {@link MessageQueue#enqueueSyncBarrier(long)}.
+     *
+     * @param callback The callback interface in which to handle messages, or null.
+     * @param async If true, the handler calls {@link Message#setAsynchronous(boolean)} for
+     * each {@link Message} that is sent to it or {@link Runnable} that is posted to it.
+     *
+     * @hide
+     */
+    public Handler(Callback callback, boolean async) {
+        if (FIND_POTENTIAL_LEAKS) {
+            final Class&lt;? extends Handler&gt; klass = getClass();
+            if ((klass.isAnonymousClass() || klass.isMemberClass() || klass.isLocalClass()) &amp;&amp;
+                    (klass.getModifiers() &amp; Modifier.STATIC) == 0) {
+                Log.w(TAG, &quot;The following Handler class should be static or leaks might occur: &quot; +
+                    klass.getCanonicalName());
+            }
+        }
+        //获取Looper
+        mLooper = Looper.myLooper();
+        if (mLooper == null) {
+            throw new RuntimeException(
+                &quot;Can't create handler inside thread that has not called Looper.prepare()&quot;);
+        }
+        mQueue = mLooper.mQueue; //获取Looper中的MessageQueue
+        mCallback = callback;
+        mAsynchronous = async;
+    }</pre><br></div><div><pre class="java" name="code" snippet_file_name="blog_20150202_5_1068327" code_snippet_id="595187">&lt;/pre&gt;Looper.myLooper();&lt;/div&gt;&lt;div&gt;&lt;pre name=&quot;code&quot; class=&quot;java&quot;&gt; /**
+     * Return the Looper object associated with the current thread.  Returns
+     * null if the calling thread is not associated with a Looper.
+     */
+    public static Looper myLooper() {
+        return sThreadLocal.get();
+    }</pre><pre class="java" name="code" snippet_file_name="blog_20150202_6_3868831" code_snippet_id="595187">final MessageQueue mQueue;</pre><br>而Handler的各种sendMessage方法最终都会调用sendMessageAtTime(Message msg, long uptimeMillis)</div><div><pre class="java" name="code" snippet_file_name="blog_20150202_7_7475348" code_snippet_id="595187"> /**
+     * Enqueue a message into the message queue after all pending messages
+     * before the absolute time (in milliseconds) &lt;var&gt;uptimeMillis&lt;/var&gt;.
+     * &lt;b&gt;The time-base is {@link android.os.SystemClock#uptimeMillis}.&lt;/b&gt;
+     * Time spent in deep sleep will add an additional delay to execution.
+     * You will receive it in {@link #handleMessage}, in the thread attached
+     * to this handler.
+     * 
+     * @param uptimeMillis The absolute time at which the message should be
+     *         delivered, using the
+     *         {@link android.os.SystemClock#uptimeMillis} time-base.
+     *         
+     * @return Returns true if the message was successfully placed in to the 
+     *         message queue.  Returns false on failure, usually because the
+     *         looper processing the message queue is exiting.  Note that a
+     *         result of true does not mean the message will be processed -- if
+     *         the looper is quit before the delivery time of the message
+     *         occurs then the message will be dropped.
+     */
+    public boolean sendMessageAtTime(Message msg, long uptimeMillis) {
+        MessageQueue queue = mQueue;
+        if (queue == null) {
+            RuntimeException e = new RuntimeException(
+                    this + &quot; sendMessageAtTime() called with no mQueue&quot;);
+            Log.w(&quot;Looper&quot;, e.getMessage(), e);
+            return false;
+        }
+        return enqueueMessage(queue, msg, uptimeMillis); //将msg入队到mQueue中
+    }</pre><div><pre class="java" name="code" snippet_file_name="blog_20150202_8_1671293" code_snippet_id="595187"> private boolean enqueueMessage(MessageQueue queue, Message msg, long uptimeMillis) {
+        msg.target = this;
+        if (mAsynchronous) {
+            msg.setAsynchronous(true);
+        }
+        return queue.enqueueMessage(msg, uptimeMillis);
+    }</pre><br>消息入队时将msg.target 制定成this，也就是Handler自身</div><div><br></div><div><br></div>可以看成当我们new Handlder时回从ThreadLocal中get一个Looper对象，而Looper中含有一个消息队列MessageQueue,当我们调用Handler的sendMessageXXX等方法时，会将一个Message对象添加到Looper的MessageQueue中，那么Looper中是如何处理Message的呢</div><div>Looper的构造方法： 可以看成这里会new一个MessageQueue对象，然后mThread为当前线程</div><div><pre class="java" name="code" snippet_file_name="blog_20150202_9_7470420" code_snippet_id="595187">private Looper(boolean quitAllowed) {
+        mQueue = new MessageQueue(quitAllowed);
+        mThread = Thread.currentThread();
+    }</pre><br></div><div>Looper. prepare()方法，因为Looper的构造方法是私有，Handler调用mThreadLocal.get()方法来获得Looper对象，而Looper的prepare方法中会new一个Looper放到mThreadLocal中</div><div><pre class="java" name="code" snippet_file_name="blog_20150202_10_9714517" code_snippet_id="595187">/** Initialize the current thread as a looper. 初始化一个looper
+      * This gives you a chance to create handlers that then reference 该方法提供给用户一个机会去创建handler来
+      * this looper, before actually starting the loop. Be sure to call
+      * {@link #loop()} after calling this method, and end it by calling
+      * {@link #quit()}.
+      */
+    public static void prepare() {
+        prepare(true);
+    }
+
+    private static void prepare(boolean quitAllowed) {
+        if (sThreadLocal.get() != null) {
+            throw new RuntimeException(&quot;Only one Looper may be created per thread&quot;);
+        }
+        sThreadLocal.set(new Looper(quitAllowed));
+    }
+</pre><br><br></div><div><br></div><div>我们查看Looper的Loop方法</div><div><pre class="java" name="code" snippet_file_name="blog_20150202_11_2482002" code_snippet_id="595187"> /**
+     * Run the message queue in this thread. Be sure to call
+     * {@link #quit()} to end the loop.
+     */
+    public static void loop() {
+        final Looper me = myLooper();
+        if (me == null) {
+            throw new RuntimeException(&quot;No Looper; Looper.prepare() wasn't called on this thread.&quot;);
+        }
+        final MessageQueue queue = me.mQueue;
+
+        // Make sure the identity of this thread is that of the local process,
+        // and keep track of what that identity token actually is.
+        Binder.clearCallingIdentity();
+        final long ident = Binder.clearCallingIdentity();
+
+        for (;;) {//一个死循环
+            Message msg = queue.next(); // might block //不断获取下一个Message
+            if (msg == null) { //当队列为空时msg为null 跳出循环
+                // No message indicates that the message queue is quitting.
+                return;
+            }
+
+            // This must be in a local variable, in case a UI event sets the logger
+            Printer logging = me.mLogging;
+            if (logging != null) {
+                logging.println(&quot;&gt;&gt;&gt;&gt;&gt; Dispatching to &quot; + msg.target + &quot; &quot; +
+                        msg.callback + &quot;: &quot; + msg.what);
+            }
+
+            msg.target.dispatchMessage(msg); //这里调用msg.target（也就是handler）的&lt;span style=&quot;font-family: Arial, Helvetica, sans-serif;&quot;&gt;&lt;/span&gt;dispatchMessage(msg);
+            if (logging != null) {
+                logging.println(&quot;&lt;&lt;&lt;&lt;&lt; Finished to &quot; + msg.target + &quot; &quot; + msg.callback);
+            }
+
+            // Make sure that during the course of dispatching the
+            // identity of the thread wasn't corrupted.
+            final long newIdent = Binder.clearCallingIdentity();
+            if (ident != newIdent) {
+                Log.wtf(TAG, &quot;Thread identity changed from 0x&quot;
+                        + Long.toHexString(ident) + &quot; to 0x&quot;
+                        + Long.toHexString(newIdent) + &quot; while dispatching to &quot;
+                        + msg.target.getClass().getName() + &quot; &quot;
+                        + msg.callback + &quot; what=&quot; + msg.what);
+            }
+
+            msg.recycleUnchecked();
+        }
+    }
+</pre><br>这里调用msg.target（也就是handler）的dispatchMessage(msg); &nbsp;&nbsp;我们来看handler的dispatchMessage方法</div><div><pre class="java" name="code" snippet_file_name="blog_20150202_12_3646304" code_snippet_id="595187"> /**
+     * Handle system messages here.
+     */
+    public void dispatchMessage(Message msg) {
+        if (msg.callback != null) {
+            handleCallback(msg);
+        } else {
+            if (mCallback != null) {
+                if (mCallback.handleMessage(msg)) {
+                    return;
+                }
+            }
+            handleMessage(msg);
+        }
+    }</pre><br>可以看到最终会回调执行我们熟悉的 handleMessage(msg);<br><div><br></div></div><div><br></div><p><br></p><p>1).Looper&nbsp;内部包含一个消息队列 MessageQueue，suoyoudeHandler发送的消息都走向这个消息队列Looper.Looper方法，一个死循环，不断从MessageQueue取消息，有消息就处理，没有就阻塞</p>2).MessageQueue一个消息队列，可以添加消息，并处理消息<br>3).Handler &nbsp; Handler封装了消息的发送（主要包括消息发送的对象，如何处理）内部跟Looper相关联，也就是说在handler的内部可以找到Looper然后可以获得Message，在Handler中发送消息，其实是向MessageQueue队列中发送消息<br><br>总结：handler负责发送消息，Looper负责接受Handler发送来的消息，并把消息回传给handler自己，MessageQueue是一个存储消息的容器<br><p><br></p><p><img alt="" src="http://img.blog.csdn.net/20150202203303921?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvaHB1X3p5aA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast"><br></p><p>结合图片看看这个过程</p><p><br></p><p></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://hanks.xyz/2015/02/01/Android中的Handler机制/" data-id="cihryjm6a0073k405tpnn4iw9" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  
+  
+</article>
+
+  
+<section id="comments">
+    <!-- 多说分享框 -->
+    <div class="ds-share flat" data-thread-key="/2015/02/01/Android中的Handler机制/" data-title="Android中的Handler机制" data-images="此处请替换为分享时显示的图片的链接地址" data-content="Android中的Handler机制" data-url="http://hanks.xyz//2015/02/01/Android中的Handler机制/">
+    <div class="ds-share-inline">
+      <ul  class="ds-share-icons-16">
+
+      	<li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+        <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+        <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+        <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+        <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+      </ul>
+      <div class="ds-share-icons-more">
+      </div>
+    </div>
+   </div>
+    <!-- 多说评论框 start -->
+   	<div class="ds-thread" data-thread-key="/2015/02/01/Android中的Handler机制/" data-title="Android中的Handler机制" data-url="http://hanks.xyz//2015/02/01/Android中的Handler机制/"></div>
+   <!-- 多说评论框 end -->
+   <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+   <script type="text/javascript">
+   var duoshuoQuery = {short_name:"hanks-zyh"};
+   	(function() {
+   		var ds = document.createElement('script');
+   		ds.type = 'text/javascript';ds.async = true;
+   		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+   		ds.charset = 'UTF-8';
+   		(document.getElementsByTagName('head')[0]
+   		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+   	})();
+   	</script>
+   <!-- 多说公共JS代码 end -->
+</section>
+
+</section>
+      </div>
+      <footer id="footer">
+  
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      &copy; 2015 Hanks<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+  </br>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    
+
+<script src="/js/jquery.min.js" type="text/javascript"></script>
+<script src="/js/jquery.scrollLoading.js" type="text/javascript"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+  <script src="/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+
+
+<script src="/js/script.js" type="text/javascript"></script>
+
+  </div>
+</body>
+</html>

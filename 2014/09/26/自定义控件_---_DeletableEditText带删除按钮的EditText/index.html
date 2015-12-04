@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>自定义控件 --- DeletableEditText带删除按钮的EditText | Hanks.xyz</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description">
+<meta property="og:type" content="article">
+<meta property="og:title" content="自定义控件 --- DeletableEditText带删除按钮的EditText">
+<meta property="og:url" content="http://hanks.xyz/2014/09/26/自定义控件_---_DeletableEditText带删除按钮的EditText/index.html">
+<meta property="og:site_name" content="Hanks.xyz">
+<meta property="og:description">
+<meta property="og:image" content="http://img.blog.csdn.net/20140926144938572">
+<meta property="og:updated_time" content="2015-12-04T17:20:04.336Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="自定义控件 --- DeletableEditText带删除按钮的EditText">
+<meta name="twitter:description">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <!-- <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600' rel='stylesheet' type='text/css'> -->
+  <!-- <link href="//fonts.googleapis.com/css?family=Source+Code+Pro:400,700" rel="stylesheet" type="text/css"> -->
+  <link href="//fonts.useso.com/css?family=Source+Code+Pro:400,700" rel="stylesheet" type="text/css">
+  <link href='//fonts.useso.com/css?family=Open+Sans:300,600' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo">Hanks.xyz</a>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">首页</a>
+        
+          <a class="main-nav-link" href="/archives">归档</a>
+        
+          <a class="main-nav-link" href="/about/index.html">关于</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        <div id="search-form-wrap">
+          <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://hanks.xyz"></form>
+        </div>
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+        
+        
+          <a id="nav-github-link" class="nav-icon" href="https://github.com/hanks-zyh" title="Fork me on GitHub"></a>
+        
+      </nav>
+    </div>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/" class="mobile-nav-link">首页</a>
+  
+    <a href="/archives" class="mobile-nav-link">归档</a>
+  
+    <a href="/about/index.html" class="mobile-nav-link">关于</a>
+  
+  <div id="search-form-wrap-mobile">
+    <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://hanks.xyz"></form>
+  </div>
+</nav>
+      <div class="outer">
+        
+        <section id="main"><article id="post-自定义控件_---_DeletableEditText带删除按钮的EditText" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/09/26/自定义控件_---_DeletableEditText带删除按钮的EditText/" class="article-date">
+  <time datetime="2014-09-26T06:49:00.000Z" itemprop="datePublished">2014-09-26</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      自定义控件 --- DeletableEditText带删除按钮的EditText
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+<p><img src="http://img.blog.csdn.net/20140926144938572" alt=""><br>
+</p>
+<p>DeletableEditText 的布局：</p>
+<p><br>
+</p>
+<pre code_snippet_id="475707" snippet_file_name="blog_20140926_1_1408152" name="code" class="html">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;RelativeLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+    android:layout_width=&quot;match_parent&quot;
+    android:layout_height=&quot;fill_parent&quot;
+    android:focusable=&quot;true&quot;
+    android:focusableInTouchMode=&quot;true&quot; &gt;
+
+    &lt;EditText
+        android:id=&quot;@+id/edt_input&quot;
+        android:singleLine=&quot;true&quot;
+        android:layout_width=&quot;fill_parent&quot;
+        android:layout_height=&quot;fill_parent&quot;
+        android:paddingLeft=&quot;10dp&quot;
+        android:paddingRight=&quot;10dp&quot; /&gt;
+    &lt;!--删除按钮--!&gt;
+    &lt;ImageButton
+        android:id=&quot;@+id/btn_delete&quot;
+        android:scaleType=&quot;centerInside&quot;
+        android:layout_margin=&quot;5dp&quot;
+        android:layout_width=&quot;wrap_content&quot;
+        android:layout_height=&quot;wrap_content&quot;
+        android:layout_alignParentRight=&quot;true&quot;
+        android:layout_alignParentEnd=&quot;true&quot;
+        android:layout_centerVertical=&quot;true&quot;
+        android:layout_marginRight=&quot;10dp&quot;
+        android:background=&quot;@drawable/hzdl_cancel_n&quot;
+        android:visibility=&quot;gone&quot; /&gt;
+&lt;/RelativeLayout&gt;</pre><br>
+<br>
+<p></p>
+<p><br>
+</p>
+<p>定义类 继承 LinearLayout</p>
+<p></p>
+<pre code_snippet_id="475707" snippet_file_name="blog_20140926_2_3823174" name="code" class="java">package com.example.deletableedittext;
+
+import android.content.Context;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.AttributeSet;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
+
+import com.zyh.deletableedittext.R;
+
+/**
+ * 带删除按钮的EditText
+ * @author zyh
+ */
+public class DeleteableEditText extends LinearLayout {
+
+	private EditText edt_input;
+	private ImageButton btn_delete;
+
+	public DeleteableEditText(Context context) {
+		super(context);
+	}
+
+	public DeleteableEditText(Context context, AttributeSet attrs) {
+		super(context, attrs);
+		// 获取布局
+		View view = LayoutInflater.from(context).inflate(R.layout.edit_delete, this, true);
+		edt_input = (EditText) view.findViewById(R.id.edt_input);
+		btn_delete = (ImageButton) this.findViewById(R.id.btn_delete);
+		edt_input.addTextChangedListener(new TextWatcher() {
+			public void onTextChanged(CharSequence s, int start, int before, int count) {
+			}
+
+			public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+			}
+
+			public void afterTextChanged(Editable s) {
+				btn_delete.setVisibility(edt_input.isFocused() &amp;&amp; s.length() &gt; 0 ? View.VISIBLE : View.GONE);
+			}
+		});
+		edt_input.setOnFocusChangeListener(new OnFocusChangeListener() {
+			public void onFocusChange(View v, boolean hasFocus) {
+				btn_delete.setVisibility(edt_input.getText().length() &lt;= 0 || !hasFocus ? 8 : 0);
+			}
+		});
+		btn_delete.setOnClickListener(new OnClickListener() {
+			public void onClick(View v) {
+				edt_input.setText(&quot;&quot;);
+			}
+		});
+	}
+
+	/**
+	 * @param str 设置输入框显示的默认值
+	 */
+	public void setHint(String str) {
+		edt_input.setHint(str);
+	}
+
+	/**
+	 * @return 获取输入框中的内容
+	 */
+	public String getText() {
+		return edt_input.getText().toString().trim();
+	}
+
+	/**
+	 * @param str 设置输入框内容
+	 */
+	public void setText(String str) {
+		edt_input.setText(str);
+	}
+
+	/**
+	 * @param id 字符id
+	 */
+	public void setText(int id) {
+		edt_input.setText(id);
+	}
+
+}
+</pre><br>
+<br>
+<p></p>
+<p>然后就可以直接在 布局中使用了&nbsp;</p>
+<p><br>
+</p>
+<p><span style="font-size:24px; color:#ff0000"><a target="_blank" href="https://github.com/18236887539/DeletableEditText">源码地址：https://github.com/18236887539/DeletableEditText</a></span></p>
+<p><br>
+</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://hanks.xyz/2014/09/26/自定义控件_---_DeletableEditText带删除按钮的EditText/" data-id="cihryjlvd000kk405123z85gg" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  
+  
+</article>
+
+  
+<section id="comments">
+    <!-- 多说分享框 -->
+    <div class="ds-share flat" data-thread-key="/2014/09/26/自定义控件_---_DeletableEditText带删除按钮的EditText/" data-title="自定义控件 --- DeletableEditText带删除按钮的EditText" data-images="此处请替换为分享时显示的图片的链接地址" data-content="自定义控件 --- DeletableEditText带删除按钮的EditText" data-url="http://hanks.xyz//2014/09/26/自定义控件_---_DeletableEditText带删除按钮的EditText/">
+    <div class="ds-share-inline">
+      <ul  class="ds-share-icons-16">
+
+      	<li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+        <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+        <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+        <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+        <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+      </ul>
+      <div class="ds-share-icons-more">
+      </div>
+    </div>
+   </div>
+    <!-- 多说评论框 start -->
+   	<div class="ds-thread" data-thread-key="/2014/09/26/自定义控件_---_DeletableEditText带删除按钮的EditText/" data-title="自定义控件 --- DeletableEditText带删除按钮的EditText" data-url="http://hanks.xyz//2014/09/26/自定义控件_---_DeletableEditText带删除按钮的EditText/"></div>
+   <!-- 多说评论框 end -->
+   <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+   <script type="text/javascript">
+   var duoshuoQuery = {short_name:"hanks-zyh"};
+   	(function() {
+   		var ds = document.createElement('script');
+   		ds.type = 'text/javascript';ds.async = true;
+   		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+   		ds.charset = 'UTF-8';
+   		(document.getElementsByTagName('head')[0]
+   		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+   	})();
+   	</script>
+   <!-- 多说公共JS代码 end -->
+</section>
+
+</section>
+      </div>
+      <footer id="footer">
+  
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      &copy; 2015 Hanks<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+  </br>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    
+
+<script src="/js/jquery.min.js" type="text/javascript"></script>
+<script src="/js/jquery.scrollLoading.js" type="text/javascript"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+  <script src="/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+
+
+<script src="/js/script.js" type="text/javascript"></script>
+
+  </div>
+</body>
+</html>

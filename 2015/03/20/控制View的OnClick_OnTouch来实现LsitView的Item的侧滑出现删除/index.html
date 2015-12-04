@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>控制View的OnClick OnTouch来实现LsitView的Item的侧滑出现删除 | Hanks.xyz</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description">
+<meta property="og:type" content="article">
+<meta property="og:title" content="控制View的OnClick OnTouch来实现LsitView的Item的侧滑出现删除">
+<meta property="og:url" content="http://hanks.xyz/2015/03/20/控制View的OnClick_OnTouch来实现LsitView的Item的侧滑出现删除/index.html">
+<meta property="og:site_name" content="Hanks.xyz">
+<meta property="og:description">
+<meta property="og:image" content="http://img.blog.csdn.net/20150320203755100">
+<meta property="og:image" content="http://img.blog.csdn.net/20150320202716541">
+<meta property="og:image" content="http://img.blog.csdn.net/20150320202702783">
+<meta property="og:updated_time" content="2015-12-04T17:20:04.324Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="控制View的OnClick OnTouch来实现LsitView的Item的侧滑出现删除">
+<meta name="twitter:description">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <!-- <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600' rel='stylesheet' type='text/css'> -->
+  <!-- <link href="//fonts.googleapis.com/css?family=Source+Code+Pro:400,700" rel="stylesheet" type="text/css"> -->
+  <link href="//fonts.useso.com/css?family=Source+Code+Pro:400,700" rel="stylesheet" type="text/css">
+  <link href='//fonts.useso.com/css?family=Open+Sans:300,600' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo">Hanks.xyz</a>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">首页</a>
+        
+          <a class="main-nav-link" href="/archives">归档</a>
+        
+          <a class="main-nav-link" href="/about/index.html">关于</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        <div id="search-form-wrap">
+          <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://hanks.xyz"></form>
+        </div>
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+        
+        
+          <a id="nav-github-link" class="nav-icon" href="https://github.com/hanks-zyh" title="Fork me on GitHub"></a>
+        
+      </nav>
+    </div>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/" class="mobile-nav-link">首页</a>
+  
+    <a href="/archives" class="mobile-nav-link">归档</a>
+  
+    <a href="/about/index.html" class="mobile-nav-link">关于</a>
+  
+  <div id="search-form-wrap-mobile">
+    <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://hanks.xyz"></form>
+  </div>
+</nav>
+      <div class="outer">
+        
+        <section id="main"><article id="post-控制View的OnClick_OnTouch来实现LsitView的Item的侧滑出现删除" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/03/20/控制View的OnClick_OnTouch来实现LsitView的Item的侧滑出现删除/" class="article-date">
+  <time datetime="2015-03-20T12:57:00.000Z" itemprop="datePublished">2015-03-20</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      控制View的OnClick OnTouch来实现LsitView的Item的侧滑出现删除
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>效果：<br><img src="http://img.blog.csdn.net/20150320203755100" alt="这里写图片描述"></p>
+<p>触摸：按下，移动，抬起<br>点击：一组触摸事件的组合(按下，松开)<br>长按：一组触摸事件的组合(按下，持续超过500ms（Android中）)</p>
+<p>为一个View设置点击事件：<br><figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">view.setOnClickListener(<span class="keyword">new</span> OnClickListener() &#123;    </span><br><span class="line">          <span class="annotation">@Override</span></span><br><span class="line">          <span class="keyword">public</span> <span class="function"><span class="keyword">void</span> <span class="title">onClick</span><span class="params">(View v)</span> </span>&#123;</span><br><span class="line">              Log.i(<span class="string">""</span>, <span class="string">"onClick"</span>);</span><br><span class="line">          &#125;</span><br><span class="line">      &#125;);</span><br></pre></td></tr></table></figure></p>
+<p>为一个View设置touch事件：<br><figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">view.setOnTouchListener(<span class="keyword">new</span> OnTouchListener() &#123;</span><br><span class="line">          <span class="annotation">@Override</span></span><br><span class="line">          <span class="keyword">public</span> <span class="function"><span class="keyword">boolean</span> <span class="title">onTouch</span><span class="params">(View v, MotionEvent event)</span> </span>&#123;</span><br><span class="line">	</span><br><span class="line">		<span class="keyword">switch</span> (event.getAction()) &#123;</span><br><span class="line">		</span><br><span class="line">			<span class="keyword">case</span> MotionEvent.ACTION_DOWN:</span><br><span class="line">				Log.i(<span class="string">""</span>, <span class="string">"ACTION_DOWN"</span>);</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">				</span><br><span class="line">			<span class="keyword">case</span> MotionEvent.ACTION_MOVE:</span><br><span class="line">				Log.i(<span class="string">""</span>, <span class="string">"ACTION_MOVE"</span>);</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">				</span><br><span class="line">			<span class="keyword">case</span> MotionEvent.ACTION_CANCEL:</span><br><span class="line">			<span class="keyword">case</span> MotionEvent.ACTION_UP:</span><br><span class="line">				Log.i(<span class="string">""</span>, <span class="string">"ACTION_UP"</span>);</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">		&#125;			</span><br><span class="line">              <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">          &#125;</span><br><span class="line">      &#125;);</span><br></pre></td></tr></table></figure></p>
+<p>当同时为一个View设置点击和touch事件时：</p>
+<p>在onTouch返回false时：<br><img src="http://img.blog.csdn.net/20150320202716541" alt="这里写图片描述"><br>当onTouch返回true时：<br><img src="http://img.blog.csdn.net/20150320202702783" alt="这里写图片描述"><br>不在响应点击事件了</p>
+<p>我们的需求是，在item关闭时可以响应点击事件（onTouch中返回false），在item打开时不响应点击事件（onTouch中返回true）</p>
+<p>下面处理Touch事件：</p>
+<blockquote>
+<p>ACTION_DOWN： 记录下手指按下的位置<br>ACTION_MOVE： 判断移动的距离（带正负号）移动item<br>ACTION_UP：根据手指抬起位置，将视图移动到合适的位置</p>
+</blockquote>
+<p>listView 的 item 的布局<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="pi">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">RelativeLayout</span> <span class="attribute">xmlns:android</span>=<span class="value">"http://schemas.android.com/apk/res/android"</span></span><br><span class="line">    <span class="attribute">android:id</span>=<span class="value">"@+id/layout"</span></span><br><span class="line">    <span class="attribute">android:layout_width</span>=<span class="value">"match_parent"</span></span><br><span class="line">    <span class="attribute">android:layout_height</span>=<span class="value">"86dp"</span></span><br><span class="line">    <span class="attribute">android:layout_below</span>=<span class="value">"@+id/Listview"</span> &gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="title">TextView</span></span><br><span class="line">        <span class="attribute">android:id</span>=<span class="value">"@+id/more"</span></span><br><span class="line">        <span class="attribute">android:layout_width</span>=<span class="value">"60dp"</span></span><br><span class="line">        <span class="attribute">android:layout_height</span>=<span class="value">"match_parent"</span></span><br><span class="line">        <span class="attribute">android:layout_toLeftOf</span>=<span class="value">"@+id/delete"</span></span><br><span class="line">        <span class="attribute">android:background</span>=<span class="value">"@android:color/darker_gray"</span></span><br><span class="line">        <span class="attribute">android:clickable</span>=<span class="value">"true"</span></span><br><span class="line">        <span class="attribute">android:gravity</span>=<span class="value">"center"</span></span><br><span class="line">        <span class="attribute">android:onClick</span>=<span class="value">"more"</span></span><br><span class="line">        <span class="attribute">android:text</span>=<span class="value">"更多"</span></span><br><span class="line">        <span class="attribute">android:textColor</span>=<span class="value">"@android:color/white"</span></span><br><span class="line">        <span class="attribute">android:textSize</span>=<span class="value">"16sp"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="title">TextView</span></span><br><span class="line">        <span class="attribute">android:id</span>=<span class="value">"@+id/delete"</span></span><br><span class="line">        <span class="attribute">android:layout_width</span>=<span class="value">"60dp"</span></span><br><span class="line">        <span class="attribute">android:layout_height</span>=<span class="value">"match_parent"</span></span><br><span class="line">        <span class="attribute">android:layout_alignParentRight</span>=<span class="value">"true"</span></span><br><span class="line">        <span class="attribute">android:background</span>=<span class="value">"@android:color/holo_red_light"</span></span><br><span class="line">        <span class="attribute">android:clickable</span>=<span class="value">"true"</span></span><br><span class="line">        <span class="attribute">android:gravity</span>=<span class="value">"center"</span></span><br><span class="line">        <span class="attribute">android:onClick</span>=<span class="value">"delete"</span></span><br><span class="line">        <span class="attribute">android:text</span>=<span class="value">"删除"</span></span><br><span class="line">        <span class="attribute">android:textColor</span>=<span class="value">"@android:color/white"</span></span><br><span class="line">        <span class="attribute">android:textSize</span>=<span class="value">"16sp"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="title">TextView</span></span><br><span class="line">        <span class="attribute">android:id</span>=<span class="value">"@+id/tv_top"</span></span><br><span class="line">        <span class="attribute">android:layout_width</span>=<span class="value">"match_parent"</span></span><br><span class="line">        <span class="attribute">android:layout_height</span>=<span class="value">"match_parent"</span></span><br><span class="line">        <span class="attribute">android:background</span>=<span class="value">"@android:color/holo_orange_dark"</span></span><br><span class="line">        <span class="attribute">android:gravity</span>=<span class="value">"center"</span></span><br><span class="line">        <span class="attribute">android:text</span>=<span class="value">"item"</span></span><br><span class="line">        <span class="attribute">android:textSize</span>=<span class="value">"20sp"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="title">RelativeLayout</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>自定义的View</p>
+<figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.zyh.slideview;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> android.animation.Animator;</span><br><span class="line"><span class="keyword">import</span> android.animation.Animator.AnimatorListener;</span><br><span class="line"><span class="keyword">import</span> android.animation.ObjectAnimator;</span><br><span class="line"><span class="keyword">import</span> android.content.Context;</span><br><span class="line"><span class="keyword">import</span> android.util.AttributeSet;</span><br><span class="line"><span class="keyword">import</span> android.view.LayoutInflater;</span><br><span class="line"><span class="keyword">import</span> android.view.MotionEvent;</span><br><span class="line"><span class="keyword">import</span> android.view.View;</span><br><span class="line"><span class="keyword">import</span> android.view.View.OnClickListener;</span><br><span class="line"><span class="keyword">import</span> android.widget.RelativeLayout;</span><br><span class="line"><span class="keyword">import</span> android.widget.TextView;</span><br><span class="line"><span class="keyword">import</span> android.widget.Toast;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MoveLayout</span> <span class="keyword">extends</span> <span class="title">RelativeLayout</span> <span class="keyword">implements</span> <span class="title">OnClickListener</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Context context;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> downX;</span><br><span class="line">    <span class="keyword">private</span> TextView tv_top;</span><br><span class="line">    <span class="keyword">private</span> TextView delete;</span><br><span class="line">    <span class="keyword">private</span> TextView more;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">MoveLayout</span><span class="params">(Context context, AttributeSet attrs, <span class="keyword">int</span> defStyleAttr)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(context, attrs, defStyleAttr);</span><br><span class="line">        init(context);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">MoveLayout</span><span class="params">(Context context, AttributeSet attrs)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>(context, attrs, <span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">MoveLayout</span><span class="params">(Context context)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>(context, <span class="keyword">null</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="function"><span class="keyword">void</span> <span class="title">init</span><span class="params">(Context context)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.context = context;</span><br><span class="line">        LayoutInflater.from(context).inflate(R.layout.move_layout, <span class="keyword">this</span>, <span class="keyword">true</span>);</span><br><span class="line">        delete = (TextView) findViewById(R.id.delete);</span><br><span class="line">        more = (TextView) findViewById(R.id.more);</span><br><span class="line">        tv_top = (TextView) findViewById(R.id.tv_top);</span><br><span class="line">        tv_top.setOnTouchListener(<span class="keyword">new</span> OnTouchListener() &#123;</span><br><span class="line">            <span class="annotation">@Override</span></span><br><span class="line">            <span class="keyword">public</span> <span class="function"><span class="keyword">boolean</span> <span class="title">onTouch</span><span class="params">(View v, MotionEvent event)</span> </span>&#123;</span><br><span class="line">                <span class="function"><span class="keyword">return</span> <span class="title">handlerTouch</span><span class="params">(v, event)</span></span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">        tv_top.setOnClickListener(<span class="keyword">this</span>);</span><br><span class="line">        more.setOnClickListener(<span class="keyword">this</span>);</span><br><span class="line">        delete.setOnClickListener(<span class="keyword">this</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* ---------------------处理 Touch-------------------------- */</span></span><br><span class="line">    <span class="keyword">boolean</span> result = <span class="keyword">false</span>;</span><br><span class="line">    <span class="keyword">boolean</span> isOpen = <span class="keyword">false</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">protected</span> <span class="function"><span class="keyword">boolean</span> <span class="title">handlerTouch</span><span class="params">(View v, MotionEvent event)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> bottomWidth = delete.getWidth() + delete.getWidth();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">switch</span> (event.getAction()) &#123;</span><br><span class="line">            <span class="keyword">case</span> MotionEvent.ACTION_DOWN:</span><br><span class="line">                // Log.i(<span class="string">""</span>, <span class="string">"ACTION_DOWN"</span>);</span><br><span class="line">                downX = (<span class="keyword">int</span>) event.getRawX();</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> MotionEvent.ACTION_MOVE:</span><br><span class="line">                // Log.i(<span class="string">""</span>, <span class="string">"ACTION_MOVE"</span>);</span><br><span class="line">                <span class="comment">// if (isAniming)</span></span><br><span class="line">                <span class="comment">// break;</span></span><br><span class="line">                <span class="keyword">int</span> dx = (<span class="keyword">int</span>) (event.getRawX() - downX);</span><br><span class="line">                <span class="comment">// Log.i("", "dy___" + dx);</span></span><br><span class="line">                <span class="keyword">if</span> (isOpen) &#123;</span><br><span class="line">                    <span class="comment">// 打开状态</span></span><br><span class="line">                    <span class="comment">// 向右滑动</span></span><br><span class="line">                    <span class="keyword">if</span> (dx &gt; <span class="number">0</span> &amp;&amp; dx &lt; bottomWidth) &#123;</span><br><span class="line">                        v.setTranslationX(dx - bottomWidth);</span><br><span class="line">                        <span class="comment">// 允许移动，阻止点击</span></span><br><span class="line">                        result = <span class="keyword">true</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    <span class="comment">// 闭合状态</span></span><br><span class="line">                    <span class="comment">// 向左移动</span></span><br><span class="line">                    <span class="keyword">if</span> (dx &lt; <span class="number">0</span> &amp;&amp; Math.abs(dx) &lt; bottomWidth) &#123;</span><br><span class="line">                        v.setTranslationX(dx);</span><br><span class="line">                        <span class="comment">// 允许移动，阻止点击</span></span><br><span class="line">                        result = <span class="keyword">true</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> MotionEvent.ACTION_CANCEL:</span><br><span class="line">            <span class="keyword">case</span> MotionEvent.ACTION_UP:</span><br><span class="line"></span><br><span class="line">                // Log.i(<span class="string">""</span>, <span class="string">"ACTION_UP"</span> + v.getTranslationX());</span><br><span class="line"></span><br><span class="line">                <span class="comment">// 获取已经移动的</span></span><br><span class="line">                <span class="keyword">float</span> ddx = v.getTranslationX();</span><br><span class="line"></span><br><span class="line">                <span class="comment">// 判断打开还是关闭</span></span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> (ddx &lt;= <span class="number">0</span> &amp;&amp; ddx &gt; -(bottomWidth / <span class="number">2</span>)) &#123;</span><br><span class="line">                    <span class="comment">// 关闭</span></span><br><span class="line">                    ObjectAnimator oa1 = ObjectAnimator.ofFloat(v, <span class="string">"translationX"</span>, ddx, <span class="number">0</span>).setDuration(<span class="number">100</span>);</span><br><span class="line">                    oa1.start();</span><br><span class="line">                    oa1.addListener(<span class="keyword">new</span> AnimatorListener() &#123;</span><br><span class="line">                        <span class="annotation">@Override</span></span><br><span class="line">                        <span class="keyword">public</span> <span class="function"><span class="keyword">void</span> <span class="title">onAnimationStart</span><span class="params">(Animator animation)</span> </span>&#123;</span><br><span class="line">                        &#125;</span><br><span class="line"></span><br><span class="line">                        <span class="annotation">@Override</span></span><br><span class="line">                        <span class="keyword">public</span> <span class="function"><span class="keyword">void</span> <span class="title">onAnimationRepeat</span><span class="params">(Animator animation)</span> </span>&#123;</span><br><span class="line">                        &#125;</span><br><span class="line"></span><br><span class="line">                        <span class="annotation">@Override</span></span><br><span class="line">                        <span class="keyword">public</span> <span class="function"><span class="keyword">void</span> <span class="title">onAnimationEnd</span><span class="params">(Animator animation)</span> </span>&#123;</span><br><span class="line">                            isOpen = <span class="keyword">false</span>;</span><br><span class="line">                            result = <span class="keyword">false</span>;</span><br><span class="line">                        &#125;</span><br><span class="line"></span><br><span class="line">                        <span class="annotation">@Override</span></span><br><span class="line">                        <span class="keyword">public</span> <span class="function"><span class="keyword">void</span> <span class="title">onAnimationCancel</span><span class="params">(Animator animation)</span> </span>&#123;</span><br><span class="line">                            isOpen = <span class="keyword">false</span>;</span><br><span class="line">                            result = <span class="keyword">false</span>;</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;);</span><br><span class="line"></span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span> (ddx &lt;= -(bottomWidth / <span class="number">2</span>) &amp;&amp; ddx &gt; -bottomWidth) &#123;</span><br><span class="line">                    <span class="comment">// 打开</span></span><br><span class="line">                    ObjectAnimator oa1 = ObjectAnimator.ofFloat(v, <span class="string">"translationX"</span>, ddx, -bottomWidth)</span><br><span class="line">                            .setDuration(<span class="number">100</span>);</span><br><span class="line">                    oa1.start();</span><br><span class="line">                    result = <span class="keyword">true</span>;</span><br><span class="line">                    isOpen = <span class="keyword">true</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="annotation">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">void</span> <span class="title">onClick</span><span class="params">(View v)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">switch</span> (v.getId()) &#123;</span><br><span class="line">            <span class="keyword">case</span> R.id.tv_top:</span><br><span class="line">                Toast.makeText(context, <span class="string">"item"</span>, 0).show();</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> R.id.more:</span><br><span class="line">                Toast.makeText(context, <span class="string">"more"</span>, 0).show();</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> R.id.delete:</span><br><span class="line">                Toast.makeText(context, <span class="string">"delete"</span>, 0).show();</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>源代码：github](<a href="https://github.com/18236887539/SlideLayout" target="_blank" rel="external">https://github.com/18236887539/SlideLayout</a>)</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://hanks.xyz/2015/03/20/控制View的OnClick_OnTouch来实现LsitView的Item的侧滑出现删除/" data-id="cihryjlxs001bk405v4ep5utv" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  
+  
+</article>
+
+  
+<section id="comments">
+    <!-- 多说分享框 -->
+    <div class="ds-share flat" data-thread-key="/2015/03/20/控制View的OnClick_OnTouch来实现LsitView的Item的侧滑出现删除/" data-title="控制View的OnClick OnTouch来实现LsitView的Item的侧滑出现删除" data-images="此处请替换为分享时显示的图片的链接地址" data-content="控制View的OnClick OnTouch来实现LsitView的Item的侧滑出现删除" data-url="http://hanks.xyz//2015/03/20/控制View的OnClick_OnTouch来实现LsitView的Item的侧滑出现删除/">
+    <div class="ds-share-inline">
+      <ul  class="ds-share-icons-16">
+
+      	<li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+        <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+        <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+        <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+        <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+      </ul>
+      <div class="ds-share-icons-more">
+      </div>
+    </div>
+   </div>
+    <!-- 多说评论框 start -->
+   	<div class="ds-thread" data-thread-key="/2015/03/20/控制View的OnClick_OnTouch来实现LsitView的Item的侧滑出现删除/" data-title="控制View的OnClick OnTouch来实现LsitView的Item的侧滑出现删除" data-url="http://hanks.xyz//2015/03/20/控制View的OnClick_OnTouch来实现LsitView的Item的侧滑出现删除/"></div>
+   <!-- 多说评论框 end -->
+   <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+   <script type="text/javascript">
+   var duoshuoQuery = {short_name:"hanks-zyh"};
+   	(function() {
+   		var ds = document.createElement('script');
+   		ds.type = 'text/javascript';ds.async = true;
+   		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+   		ds.charset = 'UTF-8';
+   		(document.getElementsByTagName('head')[0]
+   		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+   	})();
+   	</script>
+   <!-- 多说公共JS代码 end -->
+</section>
+
+</section>
+      </div>
+      <footer id="footer">
+  
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      &copy; 2015 Hanks<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+  </br>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    
+
+<script src="/js/jquery.min.js" type="text/javascript"></script>
+<script src="/js/jquery.scrollLoading.js" type="text/javascript"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+  <script src="/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+
+
+<script src="/js/script.js" type="text/javascript"></script>
+
+  </div>
+</body>
+</html>

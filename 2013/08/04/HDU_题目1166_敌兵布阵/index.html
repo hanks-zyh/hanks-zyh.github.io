@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>HDU 题目1166 敌兵布阵 | Hanks.xyz</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HDU 题目1166 敌兵布阵">
+<meta property="og:url" content="http://hanks.xyz/2013/08/04/HDU_题目1166_敌兵布阵/index.html">
+<meta property="og:site_name" content="Hanks.xyz">
+<meta property="og:description">
+<meta property="og:updated_time" content="2015-12-04T17:20:04.308Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="HDU 题目1166 敌兵布阵">
+<meta name="twitter:description">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <!-- <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600' rel='stylesheet' type='text/css'> -->
+  <!-- <link href="//fonts.googleapis.com/css?family=Source+Code+Pro:400,700" rel="stylesheet" type="text/css"> -->
+  <link href="//fonts.useso.com/css?family=Source+Code+Pro:400,700" rel="stylesheet" type="text/css">
+  <link href='//fonts.useso.com/css?family=Open+Sans:300,600' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo">Hanks.xyz</a>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">首页</a>
+        
+          <a class="main-nav-link" href="/archives">归档</a>
+        
+          <a class="main-nav-link" href="/about/index.html">关于</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        <div id="search-form-wrap">
+          <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://hanks.xyz"></form>
+        </div>
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+        
+        
+          <a id="nav-github-link" class="nav-icon" href="https://github.com/hanks-zyh" title="Fork me on GitHub"></a>
+        
+      </nav>
+    </div>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/" class="mobile-nav-link">首页</a>
+  
+    <a href="/archives" class="mobile-nav-link">归档</a>
+  
+    <a href="/about/index.html" class="mobile-nav-link">关于</a>
+  
+  <div id="search-form-wrap-mobile">
+    <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://hanks.xyz"></form>
+  </div>
+</nav>
+      <div class="outer">
+        
+        <section id="main"><article id="post-HDU_题目1166_敌兵布阵" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2013/08/04/HDU_题目1166_敌兵布阵/" class="article-date">
+  <time datetime="2013-08-04T15:42:00.000Z" itemprop="datePublished">2013-08-04</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      HDU 题目1166 敌兵布阵
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+<p><br>
+</p>
+<p></p>
+<h1 style="color:rgb(26,92,200); text-align:center; font-family:'Times New Roman'">
+敌兵布阵</h1>
+<span style="font-family:'Times New Roman'; font-size:14px"><strong><span style="font-family:Arial; font-size:12px; color:green">Time Limit: 2000/1000 MS (Java/Others)&nbsp;&nbsp;&nbsp;&nbsp;Memory Limit: 65536/32768 K (Java/Others)<br>
+Total Submission(s): 29945&nbsp;&nbsp;&nbsp;&nbsp;Accepted Submission(s): 12848<br>
+</span></strong></span><br style="font-family:'Times New Roman'; font-size:14px">
+<br style="font-family:'Times New Roman'; font-size:14px">
+<div class="panel_title" align="left" style="height:38px; background-color:transparent; padding:0px 14px; color:rgb(124,169,237); font-size:18px; font-family:Arial; font-weight:bold">
+Problem Description</div>
+<div class="panel_content" style="height:auto; margin:0px; padding:0px 20px; font-size:14px; font-family:'Times New Roman'">
+C国的死对头A国这段时间正在进行军事演习，所以C国间谍头子Derek和他手下Tidy又开始忙乎了。A国在海岸线沿直线布置了N个工兵营地,Derek和Tidy的任务就是要监视这些工兵营地的活动情况。由于采取了某种先进的监测手段，所以每个工兵营地的人数C国都掌握的一清二楚,每个工兵营地的人数都有可能发生变动，可能增加或减少若干人手,但这些都逃不过C国的监视。<br>
+中央情报局要研究敌人究竟演习什么战术,所以Tidy要随时向Derek汇报某一段连续的工兵营地一共有多少人,例如Derek问:“Tidy,马上汇报第3个营地到第10个营地共有多少人!”Tidy就要马上开始计算这一段的总人数并汇报。但敌兵营地的人数经常变动，而Derek每次询问的段都不一样，所以Tidy不得不每次都一个一个营地的去数，很快就精疲力尽了，Derek对Tidy的计算速度越来越不满:&quot;你个死肥仔，算得这么慢，我炒你鱿鱼!”Tidy想：“你自己来算算看，这可真是一项累人的工作!我恨不得你炒我鱿鱼呢!”无奈之下，Tidy只好打电话向计算机专家Windbreaker求救,Windbreaker说：“死肥仔，叫你平时做多点acm题和看多点算法书，现在尝到苦果了吧!”Tidy说：&quot;我知错了。。。&quot;但Windbreaker已经挂掉电话了。Tidy很苦恼，这么算他真的会崩溃的，聪明的读者，你能写个程序帮他完成这项工作吗？不过如果你的程序效率不够高的话，Tidy还是会受到Derek的责骂的.<br>
+</div>
+<div class="panel_bottom" style="height:auto; margin:0px; font-family:'Times New Roman'; font-size:14px">
+&nbsp;</div>
+<br style="font-family:'Times New Roman'; font-size:14px">
+<div class="panel_title" align="left" style="height:38px; background-color:transparent; padding:0px 14px; color:rgb(124,169,237); font-size:18px; font-family:Arial; font-weight:bold">
+Input</div>
+<div class="panel_content" style="height:auto; margin:0px; padding:0px 20px; font-size:14px; font-family:'Times New Roman'">
+第一行一个整数T，表示有T组数据。<br>
+每组数据第一行一个正整数N（N&lt;=50000）,表示敌人有N个工兵营地，接下来有N个正整数,第i个正整数ai代表第i个工兵营地里开始时有ai个人（1&lt;=ai&lt;=50）。<br>
+接下来每行有一条命令，命令有4种形式：<br>
+(1) Add i j,i和j为正整数,表示第i个营地增加j个人（j不超过30）<br>
+(2)Sub i j ,i和j为正整数,表示第i个营地减少j个人（j不超过30）;<br>
+(3)Query i j ,i和j为正整数,i&lt;=j，表示询问第i到第j个营地的总人数;<br>
+(4)End 表示结束，这条命令在每组数据最后出现;<br>
+每组数据最多有40000条命令<br>
+</div>
+<div class="panel_bottom" style="height:auto; margin:0px; font-family:'Times New Roman'; font-size:14px">
+&nbsp;</div>
+<br style="font-family:'Times New Roman'; font-size:14px">
+<div class="panel_title" align="left" style="height:38px; background-color:transparent; padding:0px 14px; color:rgb(124,169,237); font-size:18px; font-family:Arial; font-weight:bold">
+Output</div>
+<div class="panel_content" style="height:auto; margin:0px; padding:0px 20px; font-size:14px; font-family:'Times New Roman'">
+对第i组数据,首先输出“Case i:”和回车,<br>
+对于每个Query询问，输出一个整数并回车,表示询问的段中的总人数,这个数保持在int以内。<br>
+</div>
+<div class="panel_bottom" style="height:auto; margin:0px; font-family:'Times New Roman'; font-size:14px">
+&nbsp;</div>
+<br style="font-family:'Times New Roman'; font-size:14px">
+<div class="panel_title" align="left" style="height:38px; background-color:transparent; padding:0px 14px; color:rgb(124,169,237); font-size:18px; font-family:Arial; font-weight:bold">
+Sample Input</div>
+<div class="panel_content" style="height:auto; margin:0px; padding:0px 20px; font-size:14px; font-family:'Times New Roman'">
+<pre style="margin-top:0px; margin-bottom:0px"><div style="font-family:'Courier New',Courier,monospace">1
+10
+1 2 3 4 5 6 7 8 9 10
+Query 1 3
+Add 3 6
+Query 2 7
+Sub 10 2
+Add 6 3
+Query 3 10
+End </div></pre>
+</div>
+<div class="panel_bottom" style="height:auto; margin:0px; font-family:'Times New Roman'; font-size:14px">
+&nbsp;</div>
+<br style="font-family:'Times New Roman'; font-size:14px">
+<div class="panel_title" align="left" style="height:38px; background-color:transparent; padding:0px 14px; color:rgb(124,169,237); font-size:18px; font-family:Arial; font-weight:bold">
+Sample Output</div>
+<div class="panel_content" style="height:auto; margin:0px; padding:0px 20px; font-size:14px; font-family:'Times New Roman'">
+<pre style="margin-top:0px; margin-bottom:0px"><div style="font-family:'Courier New',Courier,monospace">Case 1:
+6
+33
+59</div></pre>
+</div>
+<div class="panel_bottom" style="height:auto; margin:0px; font-family:'Times New Roman'; font-size:14px">
+&nbsp;</div>
+<div><br>
+</div>
+<br>
+<p></p>
+<p><strong><span style="font-size:18px">分析：树状数组的典型应用</span></strong></p>
+<p><strong><span style="font-size:18px">tree[ ] 存放树状数组，c[ ] 存放原始数据 ,</span></strong></p>
+<p><strong><span style="font-size:18px">tree[1] = c[1]; &nbsp;&nbsp;</span></strong></p>
+<p><strong><span style="font-size:18px">tree[2] = c[1]&#43;c[2]; &nbsp; &nbsp;&nbsp;</span><span style="font-size:18px">&nbsp;// lowbit( 2 ) = 2;</span></strong></p>
+<p><strong><span style="font-size:18px">tree[3] = c[3];</span></strong></p>
+<p><strong><span style="font-size:18px">tree[4] = c[1]&#43;c[2]&#43;c[3]&#43;c[4]; &nbsp;&nbsp;<strong><span style="font-size:18px">&nbsp;// lowbit( 4 ) = 4 ;</span></strong></span></strong></p>
+<p><strong><span style="font-size:18px">tree[5] = c[5];</span></strong></p>
+<p><strong><span style="font-size:18px">tree[6] = c[5]&#43;c[6]; &nbsp;&nbsp;<strong><span style="font-size:18px">&nbsp;// lowbit( 6 ) = 2;</span></strong></span></strong></p>
+<p><strong><span style="font-size:18px">tree[7] = c[7];</span></strong></p>
+<p><strong><span style="font-size:18px">tree[8] = c[1]&#43;c[2]&#43;c[3]&#43;c[4]&#43;c[5]&#43;c[6]&#43;c[7]&#43;c[8]; &nbsp; &nbsp;<strong><span style="font-size:18px">&nbsp;// lowbit(8 ) = 8;</span></strong></span></strong></p>
+<p><strong><span style="font-size:18px">;;;;;一次AC&nbsp;</span></strong></p>
+<p><br>
+</p>
+<p><pre name="code" class="cpp">/*
+ 2013/08/04 22:53
+ author :zyh
+ 树状数组 
+*/
+
+#define N 50002
+#include &lt;iostream&gt;
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;string.h&gt;
+using namespace std;
+
+int n;
+int tree[N],c[N];
+
+int lowbit(int x)
+{
+	return x&amp;(-x);//返回值代表tree[i] 里面 包含 c[]里面的几项
+}
+
+void build_tree()
+{
+	int i,j;
+	for(i=1;i&lt;=n;i++)
+	{
+		if(i&amp;1) tree[i] = c[i];    //奇数
+		else
+		{
+			int temp = 0;
+			for(j=i-lowbit(i)+1;j&lt;=i;j++)
+			{
+				temp += c[j];
+			}
+			tree[i] = temp;
+		} 	
+	}
+	
+//	for(i=1;i&lt;=n;i++)  printf(&quot;%d &quot;,tree[i]);
+}
+
+void Add(int a,int b)
+{
+	int i;
+	for(i=a;i&lt;=n;)
+	{
+	 	tree[i] += b;
+	 	i += lowbit(i);
+	}
+//	for(i=1;i&lt;=n;i++)  printf(&quot;%d &quot;,tree[i]);
+}
+
+void Sub(int a,int b)
+{
+	int i;
+	for(i=a;i&lt;=n;)
+	{
+	 	tree[i] -= b;
+	 	i += lowbit(i);
+	}
+//	for(i=1;i&lt;=n;i++)  printf(&quot;%d &quot;,tree[i]);
+}
+
+int Sum(int b)
+{
+	int i,sum=0;
+	for(i=b;i&gt;=1;)
+	{
+		sum += tree[i];
+		i -= lowbit(i); 
+	}
+	return sum;
+}
+
+int main()
+{
+	int t,i,j,a,b;
+	char s[6];
+	scanf(&quot;%d&quot;,&amp;t);
+	for(i=1;i&lt;=t;i++)
+	{
+		memset(tree,0,sizeof(tree));
+		scanf(&quot;%d&quot;,&amp;n);
+		for(j=1;j&lt;=n;j++)
+			scanf(&quot;%d&quot;,&amp;c[j]);
+		build_tree();
+		
+		printf(&quot;Case %d:\n&quot;,i);
+		while(scanf(&quot;%s&quot;,s) &amp;&amp; s[0]!= 'E')
+		{
+			scanf(&quot;%d%d&quot;,&amp;a,&amp;b);
+			
+			switch(s[0])
+			{
+				case 'A':Add(a,b);break;
+				case 'S':Sub(a,b);break;
+				case 'Q':printf(&quot;%d\n&quot;,Sum(b)-Sum(a-1));break;
+			}
+		}
+	}
+	return 0;
+}</pre><br>
+<br>
+</p>
+<p><br>
+</p>
+<p><br>
+</p>
+<p><br>
+</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://hanks.xyz/2013/08/04/HDU_题目1166_敌兵布阵/" data-id="cihryjm5p006kk405cuxqe1a0" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  
+  
+</article>
+
+  
+<section id="comments">
+    <!-- 多说分享框 -->
+    <div class="ds-share flat" data-thread-key="/2013/08/04/HDU_题目1166_敌兵布阵/" data-title="HDU 题目1166 敌兵布阵" data-images="此处请替换为分享时显示的图片的链接地址" data-content="HDU 题目1166 敌兵布阵" data-url="http://hanks.xyz//2013/08/04/HDU_题目1166_敌兵布阵/">
+    <div class="ds-share-inline">
+      <ul  class="ds-share-icons-16">
+
+      	<li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+        <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+        <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+        <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+        <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+      </ul>
+      <div class="ds-share-icons-more">
+      </div>
+    </div>
+   </div>
+    <!-- 多说评论框 start -->
+   	<div class="ds-thread" data-thread-key="/2013/08/04/HDU_题目1166_敌兵布阵/" data-title="HDU 题目1166 敌兵布阵" data-url="http://hanks.xyz//2013/08/04/HDU_题目1166_敌兵布阵/"></div>
+   <!-- 多说评论框 end -->
+   <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+   <script type="text/javascript">
+   var duoshuoQuery = {short_name:"hanks-zyh"};
+   	(function() {
+   		var ds = document.createElement('script');
+   		ds.type = 'text/javascript';ds.async = true;
+   		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+   		ds.charset = 'UTF-8';
+   		(document.getElementsByTagName('head')[0]
+   		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+   	})();
+   	</script>
+   <!-- 多说公共JS代码 end -->
+</section>
+
+</section>
+      </div>
+      <footer id="footer">
+  
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      &copy; 2015 Hanks<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+  </br>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    
+
+<script src="/js/jquery.min.js" type="text/javascript"></script>
+<script src="/js/jquery.scrollLoading.js" type="text/javascript"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+  <script src="/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+
+
+<script src="/js/script.js" type="text/javascript"></script>
+
+  </div>
+</body>
+</html>

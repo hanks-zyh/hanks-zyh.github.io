@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>hdu 题目1272 小希的迷宫 （并查集） | Hanks.xyz</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description">
+<meta property="og:type" content="article">
+<meta property="og:title" content="hdu 题目1272 小希的迷宫 （并查集）">
+<meta property="og:url" content="http://hanks.xyz/2013/08/05/hdu_题目1272_小希的迷宫_（并查集）/index.html">
+<meta property="og:site_name" content="Hanks.xyz">
+<meta property="og:description">
+<meta property="og:image" content="http://acm.hdu.edu.cn/data/images/C20-1007-1.jpg">
+<meta property="og:updated_time" content="2015-12-04T17:20:04.308Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="hdu 题目1272 小希的迷宫 （并查集）">
+<meta name="twitter:description">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <!-- <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600' rel='stylesheet' type='text/css'> -->
+  <!-- <link href="//fonts.googleapis.com/css?family=Source+Code+Pro:400,700" rel="stylesheet" type="text/css"> -->
+  <link href="//fonts.useso.com/css?family=Source+Code+Pro:400,700" rel="stylesheet" type="text/css">
+  <link href='//fonts.useso.com/css?family=Open+Sans:300,600' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo">Hanks.xyz</a>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">首页</a>
+        
+          <a class="main-nav-link" href="/archives">归档</a>
+        
+          <a class="main-nav-link" href="/about/index.html">关于</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        <div id="search-form-wrap">
+          <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://hanks.xyz"></form>
+        </div>
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+        
+        
+          <a id="nav-github-link" class="nav-icon" href="https://github.com/hanks-zyh" title="Fork me on GitHub"></a>
+        
+      </nav>
+    </div>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/" class="mobile-nav-link">首页</a>
+  
+    <a href="/archives" class="mobile-nav-link">归档</a>
+  
+    <a href="/about/index.html" class="mobile-nav-link">关于</a>
+  
+  <div id="search-form-wrap-mobile">
+    <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://hanks.xyz"></form>
+  </div>
+</nav>
+      <div class="outer">
+        
+        <section id="main"><article id="post-hdu_题目1272_小希的迷宫_（并查集）" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2013/08/05/hdu_题目1272_小希的迷宫_（并查集）/" class="article-date">
+  <time datetime="2013-08-05T13:25:00.000Z" itemprop="datePublished">2013-08-05</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      hdu 题目1272 小希的迷宫 （并查集）
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+<h1 align="center" style="color:#1a5cc8">小希的迷宫</h1>
+<p align="center"><span size="&#43;0"><strong><span style="font-family:Arial; font-size:12px; color:green; font-weight:bold">Time Limit: 2000/1000 MS (Java/Others)&nbsp;&nbsp;&nbsp;&nbsp;Memory Limit: 65536/32768 K (Java/Others)<br>
+Total Submission(s): 19645&nbsp;&nbsp;&nbsp;&nbsp;Accepted Submission(s): 6008<br>
+</span></strong></span><br>
+<br>
+</p>
+<div class="panel_title" align="left">Problem Description</div>
+<div class="panel_content">上次Gardon的迷宫城堡小希玩了很久（见Problem B），现在她也想设计一个迷宫让Gardon来走。但是她设计迷宫的思路不一样，首先她认为所有的通道都应该是双向连通的，就是说如果有一个通道连通了房间A和B，那么既可以通过它从房间A走到房间B，也可以通过它从房间B走到房间A，为了提高难度，小希希望任意两个房间有且仅有一条路径可以相通（除非走了回头路）。小希现在把她的设计图给你，让你帮忙判断她的设计图是否符合她的设计思路。比如下面的例子，前两个是符合条件的，但是最后一个却有两种方法从5到达8。
+<br>
+<img src="http://acm.hdu.edu.cn/data/images/C20-1007-1.jpg" alt=""><br>
+</div>
+<div class="panel_bottom">&nbsp;</div>
+<p><br>
+&nbsp;</p>
+<div class="panel_title" align="left">Input</div>
+<div class="panel_content">输入包含多组数据，每组数据是一个以0 0结尾的整数对列表，表示了一条通道连接的两个房间的编号。房间的编号至少为1，且不超过100000。每两组数据之间有一个空行。
+<br>
+整个文件以两个-1结尾。<br>
+</div>
+<div class="panel_bottom">&nbsp;</div>
+<p><br>
+&nbsp;</p>
+<div class="panel_title" align="left">Output</div>
+<div class="panel_content">对于输入的每一组数据，输出仅包括一行。如果该迷宫符合小希的思路，那么输出&quot;Yes&quot;，否则输出&quot;No&quot;。<br>
+</div>
+<div class="panel_bottom">&nbsp;</div>
+<p><br>
+&nbsp;</p>
+<div class="panel_title" align="left">Sample Input</div>
+<div class="panel_content">
+<pre><div style="font-family:Courier New,Courier,monospace">6 8  5 3  5 2  6 4
+5 6  0 0
+
+8 1  7 3  6 2  8 9  7 5
+7 4  7 8  7 6  0 0
+
+3 8  6 8  6 4
+5 3  5 6  5 2  0 0
+
+-1 -1</div></pre>
+</div>
+<div class="panel_bottom">&nbsp;</div>
+<p><br>
+&nbsp;</p>
+<div class="panel_title" align="left">Sample Output</div>
+<div class="panel_content">
+<pre><div style="font-family:Courier New,Courier,monospace">Yes
+Yes
+No</div></pre>
+</div>
+<p>&nbsp;</p>
+<p>分析：使用并查集，两个判断，</p>
+<p>1. 如果当前输入的两个点（本身就代表它们之间有一条路） 她们的根节点相同， 则不符合题目中的条件说明有环，</p>
+<p>2.所有的点必须在一个集合内，即连通的，只要并查集的根节点个数为1&nbsp;即可</p>
+<p>&nbsp;</p>
+<pre class="cpp" name="code">*
+2013/08/04 17:59
+author :zyh
+*/
+
+#define N 100010
+#include &lt;iostream&gt;
+#include &lt;stdio.h&gt;
+#include &lt;string.h&gt;
+
+using namespace std;
+
+int a[N];
+int flag[N];
+
+int find1(int x)
+{
+    while( a[x]!=x)
+        x=a[x];
+    return x;
+}
+
+void merge(int x,int y)
+{
+    int xx=find1(x);
+    int yy=find1(y);
+    if(xx!=yy)    a[xx] = yy;
+    
+}
+
+
+int main()
+{
+    int i,t,m,n,x1,x2;
+    while(scanf(&quot;%d%d&quot;,&amp;m,&amp;n) &amp;&amp; (m!=-1&amp;&amp;n!=-1))
+    {
+        if(m==0 &amp;&amp; n==0 ) 
+        {
+            printf(&quot;Yes\n&quot;);
+            continue;
+        }
+        
+        for(i=1;i&lt;=N;i++) 
+        {
+            flag[i] = 0;
+            a[i] = i;
+        }    
+        int min,max;
+        int sign = 1;        
+        while((m!=0 &amp;&amp; n!=0))
+        {
+            flag[m] = flag[n] = 1;
+            x1 = find1(m);
+            x2 = find1(n);
+            
+            if(x1==x2) sign = 0;
+            else merge(m,n);
+            scanf(&quot;%d%d&quot;,&amp;m,&amp;n);
+        }
+        if(!sign) printf(&quot;No\n&quot;);
+        else
+        {
+            int cnt = 0;
+            for(i=1;i&lt;=N;i++)
+            {
+                if(flag[i] &amp;&amp; a[i]==i)
+                cnt++;
+            }
+            printf(&quot;%s\n&quot;,cnt==1?&quot;Yes&quot;:&quot;No&quot;); 
+        }
+    }
+    return 0;
+}
+</pre>
+<p><br>
+&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://hanks.xyz/2013/08/05/hdu_题目1272_小希的迷宫_（并查集）/" data-id="cihryjm21003vk405r6fs6fp3" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  
+  
+</article>
+
+  
+<section id="comments">
+    <!-- 多说分享框 -->
+    <div class="ds-share flat" data-thread-key="/2013/08/05/hdu_题目1272_小希的迷宫_（并查集）/" data-title="hdu 题目1272 小希的迷宫 （并查集）" data-images="此处请替换为分享时显示的图片的链接地址" data-content="hdu 题目1272 小希的迷宫 （并查集）" data-url="http://hanks.xyz//2013/08/05/hdu_题目1272_小希的迷宫_（并查集）/">
+    <div class="ds-share-inline">
+      <ul  class="ds-share-icons-16">
+
+      	<li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+        <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+        <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+        <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+        <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+      </ul>
+      <div class="ds-share-icons-more">
+      </div>
+    </div>
+   </div>
+    <!-- 多说评论框 start -->
+   	<div class="ds-thread" data-thread-key="/2013/08/05/hdu_题目1272_小希的迷宫_（并查集）/" data-title="hdu 题目1272 小希的迷宫 （并查集）" data-url="http://hanks.xyz//2013/08/05/hdu_题目1272_小希的迷宫_（并查集）/"></div>
+   <!-- 多说评论框 end -->
+   <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+   <script type="text/javascript">
+   var duoshuoQuery = {short_name:"hanks-zyh"};
+   	(function() {
+   		var ds = document.createElement('script');
+   		ds.type = 'text/javascript';ds.async = true;
+   		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+   		ds.charset = 'UTF-8';
+   		(document.getElementsByTagName('head')[0]
+   		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+   	})();
+   	</script>
+   <!-- 多说公共JS代码 end -->
+</section>
+
+</section>
+      </div>
+      <footer id="footer">
+  
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      &copy; 2015 Hanks<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+  </br>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    
+
+<script src="/js/jquery.min.js" type="text/javascript"></script>
+<script src="/js/jquery.scrollLoading.js" type="text/javascript"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+  <script src="/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+
+
+<script src="/js/script.js" type="text/javascript"></script>
+
+  </div>
+</body>
+</html>

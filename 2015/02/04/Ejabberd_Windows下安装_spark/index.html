@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Ejabberd Windows下安装+spark | Hanks.xyz</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Ejabberd Windows下安装+spark">
+<meta property="og:url" content="http://hanks.xyz/2015/02/04/Ejabberd_Windows下安装_spark/index.html">
+<meta property="og:site_name" content="Hanks.xyz">
+<meta property="og:description">
+<meta property="og:image" content="http://img.blog.csdn.net/20150204233626673?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvaHB1X3p5aA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20150204233638466?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvaHB1X3p5aA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20150204233703910?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvaHB1X3p5aA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20150204233716436?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvaHB1X3p5aA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20150204233726920?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvaHB1X3p5aA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20150204233803097?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvaHB1X3p5aA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20150204233750772?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvaHB1X3p5aA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20150204234055164?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvaHB1X3p5aA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20150204234111108?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvaHB1X3p5aA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20150204234124383?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvaHB1X3p5aA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20150204234240231?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvaHB1X3p5aA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20150204234513938?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvaHB1X3p5aA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20150204234630393?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvaHB1X3p5aA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20150204234907111?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvaHB1X3p5aA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20150204235005986?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvaHB1X3p5aA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20150204235153595?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvaHB1X3p5aA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20150204235241128?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvaHB1X3p5aA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:updated_time" content="2015-12-04T17:20:04.304Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Ejabberd Windows下安装+spark">
+<meta name="twitter:description">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <!-- <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600' rel='stylesheet' type='text/css'> -->
+  <!-- <link href="//fonts.googleapis.com/css?family=Source+Code+Pro:400,700" rel="stylesheet" type="text/css"> -->
+  <link href="//fonts.useso.com/css?family=Source+Code+Pro:400,700" rel="stylesheet" type="text/css">
+  <link href='//fonts.useso.com/css?family=Open+Sans:300,600' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo">Hanks.xyz</a>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">首页</a>
+        
+          <a class="main-nav-link" href="/archives">归档</a>
+        
+          <a class="main-nav-link" href="/about/index.html">关于</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        <div id="search-form-wrap">
+          <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://hanks.xyz"></form>
+        </div>
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+        
+        
+          <a id="nav-github-link" class="nav-icon" href="https://github.com/hanks-zyh" title="Fork me on GitHub"></a>
+        
+      </nav>
+    </div>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/" class="mobile-nav-link">首页</a>
+  
+    <a href="/archives" class="mobile-nav-link">归档</a>
+  
+    <a href="/about/index.html" class="mobile-nav-link">关于</a>
+  
+  <div id="search-form-wrap-mobile">
+    <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://hanks.xyz"></form>
+  </div>
+</nav>
+      <div class="outer">
+        
+        <section id="main"><article id="post-Ejabberd_Windows下安装_spark" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/02/04/Ejabberd_Windows下安装_spark/" class="article-date">
+  <time datetime="2015-02-04T15:39:00.000Z" itemprop="datePublished">2015-02-04</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Ejabberd Windows下安装+spark
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+<p><br>
+</p>
+<p>下载Ejabberd</p>
+<p>下载地址：<span style="color:#3366ff"><a target="_blank" href="">http://www.process-one.net/downloads/ejabberd/2.1.11/ejabberd-2.1.11-windows-installer.exe</a></span><br>
+</p>
+<p><br>
+</p>
+<p>下载完成后双击打开：</p>
+<p><img src="http://img.blog.csdn.net/20150204233626673?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvaHB1X3p5aA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt=""><br>
+</p>
+<p><img src="http://img.blog.csdn.net/20150204233638466?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvaHB1X3p5aA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt=""><br>
+</p>
+<p><img src="http://img.blog.csdn.net/20150204233703910?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvaHB1X3p5aA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt=""><br>
+</p>
+<p><img src="http://img.blog.csdn.net/20150204233716436?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvaHB1X3p5aA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt=""><br>
+</p>
+<p><br>
+</p>
+<p><img src="http://img.blog.csdn.net/20150204233726920?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvaHB1X3p5aA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt=""></p>
+<p><img src="http://img.blog.csdn.net/20150204233803097?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvaHB1X3p5aA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt=""><br>
+</p>
+<p><img src="http://img.blog.csdn.net/20150204233750772?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvaHB1X3p5aA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt=""><br>
+</p>
+<p><img src="http://img.blog.csdn.net/20150204234055164?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvaHB1X3p5aA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt=""><br>
+</p>
+<p><img src="http://img.blog.csdn.net/20150204234111108?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvaHB1X3p5aA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt=""><br>
+</p>
+<p><img src="http://img.blog.csdn.net/20150204234124383?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvaHB1X3p5aA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt=""><br>
+</p>
+<p>完成点击&nbsp;<strong>启动ejabberd&nbsp;</strong></p>
+<p><strong><img src="http://img.blog.csdn.net/20150204234240231?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvaHB1X3p5aA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt=""><br>
+</strong></p>
+<p><strong>点击<em style="text-decoration:underline">admin interface </em>输入刚才安装时填写的密码登陆,进入管理界面</strong></p>
+<p><strong><img src="http://img.blog.csdn.net/20150204234513938?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvaHB1X3p5aA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt=""><br>
+</strong></p>
+<p><strong>点击<u><em>虚拟主机</em></u></strong></p>
+<p><strong><u><em><img src="http://img.blog.csdn.net/20150204234630393?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvaHB1X3p5aA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt=""><br>
+</em></u></strong></p>
+<p><strong><u><em><br>
+</em></u></strong></p>
+<p><strong><u><em><br>
+</em></u></strong></p>
+<p><strong>下面开始下载Spark PC客户端，地址：<span style="color:#3366ff"><a target="_blank" href="http://www.igniterealtime.org/downloads/index.jsp#spark">http://www.igniterealtime.org/downloads/index.jsp#spark</a></span>. 这里我们使用windows版本.
+</strong></p>
+<p><strong>安装成功后，运行spark&nbsp;</strong></p>
+<p><strong><img src="http://img.blog.csdn.net/20150204234907111?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvaHB1X3p5aA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt=""><br>
+</strong></p>
+<p>点击 <strong><em style="text-decoration:underline">“高级” </em>，选择自动检测，也可以手动填写</strong></p>
+<p><img src="http://img.blog.csdn.net/20150204235005986?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvaHB1X3p5aA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt=""></p>
+<p>点击账号可以创建账号：<br>
+</p>
+<p>然后登陆；</p>
+<p><img src="http://img.blog.csdn.net/20150204235153595?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvaHB1X3p5aA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt=""><br>
+</p>
+<p>此时，查看后台：用户上线</p>
+<p><img src="http://img.blog.csdn.net/20150204235241128?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvaHB1X3p5aA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt=""><br>
+</p>
+<p><br>
+</p>
+<p>后续会介绍实现Android端的</p>
+<p><br>
+</p>
+<p><br>
+</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://hanks.xyz/2015/02/04/Ejabberd_Windows下安装_spark/" data-id="cihryjm5x006rk405tq56mtkd" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  
+  
+</article>
+
+  
+<section id="comments">
+    <!-- 多说分享框 -->
+    <div class="ds-share flat" data-thread-key="/2015/02/04/Ejabberd_Windows下安装_spark/" data-title="Ejabberd Windows下安装+spark" data-images="此处请替换为分享时显示的图片的链接地址" data-content="Ejabberd Windows下安装+spark" data-url="http://hanks.xyz//2015/02/04/Ejabberd_Windows下安装_spark/">
+    <div class="ds-share-inline">
+      <ul  class="ds-share-icons-16">
+
+      	<li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+        <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+        <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+        <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+        <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+      </ul>
+      <div class="ds-share-icons-more">
+      </div>
+    </div>
+   </div>
+    <!-- 多说评论框 start -->
+   	<div class="ds-thread" data-thread-key="/2015/02/04/Ejabberd_Windows下安装_spark/" data-title="Ejabberd Windows下安装+spark" data-url="http://hanks.xyz//2015/02/04/Ejabberd_Windows下安装_spark/"></div>
+   <!-- 多说评论框 end -->
+   <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+   <script type="text/javascript">
+   var duoshuoQuery = {short_name:"hanks-zyh"};
+   	(function() {
+   		var ds = document.createElement('script');
+   		ds.type = 'text/javascript';ds.async = true;
+   		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+   		ds.charset = 'UTF-8';
+   		(document.getElementsByTagName('head')[0]
+   		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+   	})();
+   	</script>
+   <!-- 多说公共JS代码 end -->
+</section>
+
+</section>
+      </div>
+      <footer id="footer">
+  
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      &copy; 2015 Hanks<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+  </br>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    
+
+<script src="/js/jquery.min.js" type="text/javascript"></script>
+<script src="/js/jquery.scrollLoading.js" type="text/javascript"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+  <script src="/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+
+
+<script src="/js/script.js" type="text/javascript"></script>
+
+  </div>
+</body>
+</html>

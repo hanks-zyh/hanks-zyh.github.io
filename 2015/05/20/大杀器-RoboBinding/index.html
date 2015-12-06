@@ -11,7 +11,7 @@
 <meta property="og:url" content="http://hanks.xyz/2015/05/20/大杀器-RoboBinding/index.html">
 <meta property="og:site_name" content="Hanks.xyz">
 <meta property="og:description">
-<meta property="og:updated_time" content="2015-12-04T17:20:04.324Z">
+<meta property="og:updated_time" content="2015-12-06T03:19:40.477Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="大杀器-RoboBinding">
 <meta name="twitter:description">
@@ -119,16 +119,16 @@
 <hr>
 <p>以在Fragment中使用为例(官方的例子用法很全了)</p>
 <ol>
-<li>fragment_demo.xml  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;LinearLayout </span><br><span class="line">	//加上命名空间</span><br><span class="line">	xmlns:<span class="built_in">bind</span>=<span class="string">"http://robobinding.org/android"</span></span><br><span class="line"></span><br><span class="line">&lt;TextView</span><br><span class="line">	<span class="built_in">bind</span>:text=<span class="string">"&#123;content&#125;"</span></span><br></pre></td></tr></table></figure>
+<li>fragment_demo.xml  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;LinearLayout</span><br><span class="line">	//加上命名空间</span><br><span class="line">	xmlns:<span class="built_in">bind</span>=<span class="string">"http://robobinding.org/android"</span></span><br><span class="line"></span><br><span class="line">&lt;TextView</span><br><span class="line">	<span class="built_in">bind</span>:text=<span class="string">"&#123;content&#125;"</span></span><br></pre></td></tr></table></figure>
 </li>
 </ol>
 <p>点击事件 <strong>bind:onClick=”methodName”</strong><br>还支持其他更多属性的绑定</p>
 <ol>
 <li><p>DemoPresentationModel.java</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//加上注解</span></span><br><span class="line"><span class="annotation">@PresentationModel</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DemoPresentationModel</span></span>&#123;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">private</span> String content; <span class="comment">//对应xml中bind:text="&#123;content&#125;"</span></span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">getContent</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="keyword">return</span> content;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">setContent</span><span class="params">(Content content)</span></span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.content = content;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//加上注解</span></span><br><span class="line"><span class="annotation">@PresentationModel</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DemoPresentationModel</span></span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">private</span> String content; <span class="comment">//对应xml中bind:text="&#123;content&#125;"</span></span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">getContent</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="keyword">return</span> content;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">setContent</span><span class="params">(Content content)</span></span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.content = content;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>DemoFragment.java</p>
-<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="aspectj">   <span class="annotation">@Override</span></span><br><span class="line">   <span class="keyword">public</span> <span class="function"><span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</span><br><span class="line">       <span class="keyword">super</span>.onCreate(savedInstanceState);</span><br><span class="line">       </span><br><span class="line">       presentationModel = <span class="keyword">new</span> DemoPresentationModel();</span><br><span class="line">       presentationModel.setContent(<span class="string">"内容"</span>);</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="annotation">@Override</span></span><br><span class="line">   <span class="keyword">public</span> <span class="function">View <span class="title">onCreateView</span><span class="params">(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)</span> </span>&#123;</span><br><span class="line">       ViewBinder viewBinder = <span class="keyword">new</span> BinderFactoryBuilder().build().createViewBinder(getActivity());</span><br><span class="line">       View rootView = viewBinder.inflateAndBind(R.layout.fragment_demo, presentationModel);   <span class="comment">//xml里面按照上面的要求,不能写错</span></span><br><span class="line">       <span class="keyword">return</span> rootView;</span><br><span class="line">   &#125;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="aspectj">   <span class="annotation">@Override</span></span><br><span class="line">   <span class="keyword">public</span> <span class="function"><span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</span><br><span class="line">       <span class="keyword">super</span>.onCreate(savedInstanceState);</span><br><span class="line"></span><br><span class="line">       presentationModel = <span class="keyword">new</span> DemoPresentationModel();</span><br><span class="line">       presentationModel.setContent(<span class="string">"内容"</span>);</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="annotation">@Override</span></span><br><span class="line">   <span class="keyword">public</span> <span class="function">View <span class="title">onCreateView</span><span class="params">(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)</span> </span>&#123;</span><br><span class="line">       ViewBinder viewBinder = <span class="keyword">new</span> BinderFactoryBuilder().build().createViewBinder(getActivity());</span><br><span class="line">       View rootView = viewBinder.inflateAndBind(R.layout.fragment_demo, presentationModel);   <span class="comment">//xml里面按照上面的要求,不能写错</span></span><br><span class="line">       <span class="keyword">return</span> rootView;</span><br><span class="line">   &#125;</span></span><br></pre></td></tr></table></figure>
 </li>
 </ol>
 <p>需要更新属性的,让POJO类实现<strong><code>HasPresentationModelChangeSupport</code></strong></p>
@@ -140,9 +140,11 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://hanks.xyz/2015/05/20/大杀器-RoboBinding/" data-id="cihsst0og001q08055m1ny0l1" class="article-share-link">Share</a>
+      <a data-url="http://hanks.xyz/2015/05/20/大杀器-RoboBinding/" data-id="cihu1jbv300293j05vs2tgy0a" class="article-share-link">Share</a>
       
       
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
+
     </footer>
   
   
@@ -186,6 +188,71 @@
 </section>
       </div>
       <footer id="footer">
+  
+    <aside id="sidebar" class="outer">
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2015/12/04/mac_java_enviroment/">OS X中Java环境变量配置</a>
+          </li>
+        
+          <li>
+            <a href="/2015/12/02/mac-os-in-Ubuntu/">Ubuntu 安装 OS X 10.11  虚拟机</a>
+          </li>
+        
+          <li>
+            <a href="/2015/12/01/ReactiveX/">ReactiveX</a>
+          </li>
+        
+          <li>
+            <a href="/2015/11/26/利器_--_抓包工具总结/">利器 -- 抓包工具总结</a>
+          </li>
+        
+          <li>
+            <a href="/2015/11/21/Rx/">使用RxJava 提升用户体验</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/Java/" style="font-size: 13.33px;">Java</a> <a href="/tags/OS-X/" style="font-size: 10px;">OS X</a> <a href="/tags/Rx/" style="font-size: 10px;">Rx</a> <a href="/tags/RxJava/" style="font-size: 10px;">RxJava</a> <a href="/tags/Ubuntu/" style="font-size: 16.67px;">Ubuntu</a> <a href="/tags/mac-os/" style="font-size: 10px;">mac os</a> <a href="/tags/virtualBox/" style="font-size: 10px;">virtualBox</a> <a href="/tags/必备知识/" style="font-size: 10px;">必备知识</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">links</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="http://kiya.space">kiya-z</a>
+          </li>
+        
+          <li>
+            <a href="http://hexo.io">Hexo</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
   
   <div class="outer footer_center">
     <div id="footer-info" class="inner">

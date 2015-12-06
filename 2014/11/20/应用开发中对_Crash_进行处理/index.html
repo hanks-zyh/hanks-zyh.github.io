@@ -12,7 +12,7 @@
 <meta property="og:site_name" content="Hanks.xyz">
 <meta property="og:description">
 <meta property="og:image" content="http://img.blog.csdn.net/20141120204320761?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvaHB1X3p5aA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
-<meta property="og:updated_time" content="2015-12-04T17:20:04.332Z">
+<meta property="og:updated_time" content="2015-12-06T03:19:40.625Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="应用开发中对 Crash 进行处理">
 <meta name="twitter:description">
@@ -137,14 +137,14 @@
 </span><span style="color:rgb(51,51,51)">接口，然后在主线程中调用该处理程序基于以上的原因</span></span></p>
 <br>
 <p align="left"><pre code_snippet_id="526993" snippet_file_name="blog_20141120_4_3201053" name="code" class="java">
- 
+
 public class DefaultExceptionHandler implements UncaughtExceptionHandler{
     private Context context=null;
-     
+
     public DefaultExceptionHandler(Context context){
         this.context=context;
     }
-     
+
     public void uncaughtException(Thread thread,Throwable ex){
         //收集异常信息
         sendCrashReport(ex);
@@ -153,14 +153,14 @@ public class DefaultExceptionHandler implements UncaughtExceptionHandler{
             Thread.sleep(500);
         }catch(InterruptedException e){
             e.printStackTrace();
-     
+
         }
-         
+
         //处理异常
         handleException();
-         
+
     }
-     
+
     private void sendCrashReport(Throwable ex){
         StringBuffer exceptionStr=new StringBuffer();
         exceptionStr.append(ex.getMessage());
@@ -168,17 +168,17 @@ public class DefaultExceptionHandler implements UncaughtExceptionHandler{
         for(int i=0;i&lt;elements.length;i++){
             exceptionStr.append(elements[i].toString());
         }
-         
+
         //这里可以发送收集到的Crash信息到服务器
     }
-     
+
     private void handleException(){
         //这里可以对异常处理
         //可以记录主要的信息
         //干脆直接杀死应用程序 System.exit(0); //或再次抛给系统处理
-         
+
     }
- 
+
 }</pre><br>
 </p>
 <p><span style="font-family:KaiTi_GB2312; font-size:24px">我们只需要在主Activity中调用一次即可，不需要在所有地方都调用</span></p>
@@ -196,9 +196,11 @@ public class DefaultExceptionHandler implements UncaughtExceptionHandler{
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://hanks.xyz/2014/11/20/应用开发中对_Crash_进行处理/" data-id="cihsst0o5001g0805b57iq203" class="article-share-link">Share</a>
+      <a data-url="http://hanks.xyz/2014/11/20/应用开发中对_Crash_进行处理/" data-id="cihu1jbub001x3j05zss1cixu" class="article-share-link">Share</a>
       
       
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
+
     </footer>
   
   
@@ -242,6 +244,71 @@ public class DefaultExceptionHandler implements UncaughtExceptionHandler{
 </section>
       </div>
       <footer id="footer">
+  
+    <aside id="sidebar" class="outer">
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2015/12/04/mac_java_enviroment/">OS X中Java环境变量配置</a>
+          </li>
+        
+          <li>
+            <a href="/2015/12/02/mac-os-in-Ubuntu/">Ubuntu 安装 OS X 10.11  虚拟机</a>
+          </li>
+        
+          <li>
+            <a href="/2015/12/01/ReactiveX/">ReactiveX</a>
+          </li>
+        
+          <li>
+            <a href="/2015/11/26/利器_--_抓包工具总结/">利器 -- 抓包工具总结</a>
+          </li>
+        
+          <li>
+            <a href="/2015/11/21/Rx/">使用RxJava 提升用户体验</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/Java/" style="font-size: 13.33px;">Java</a> <a href="/tags/OS-X/" style="font-size: 10px;">OS X</a> <a href="/tags/Rx/" style="font-size: 10px;">Rx</a> <a href="/tags/RxJava/" style="font-size: 10px;">RxJava</a> <a href="/tags/Ubuntu/" style="font-size: 16.67px;">Ubuntu</a> <a href="/tags/mac-os/" style="font-size: 10px;">mac os</a> <a href="/tags/virtualBox/" style="font-size: 10px;">virtualBox</a> <a href="/tags/必备知识/" style="font-size: 10px;">必备知识</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">links</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="http://kiya.space">kiya-z</a>
+          </li>
+        
+          <li>
+            <a href="http://hexo.io">Hexo</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
   
   <div class="outer footer_center">
     <div id="footer-info" class="inner">

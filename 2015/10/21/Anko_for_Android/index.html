@@ -13,7 +13,7 @@
 <meta property="og:description">
 <meta property="og:image" content="http://file.bmob.cn/M02/32/C1/oYYBAFYnZ7GAHENVAATT_iv8nqY107.gif">
 <meta property="og:image" content="http://file.bmob.cn/M02/32/C5/oYYBAFYnaXGAU36mAAA-AHHYR0Y038.png">
-<meta property="og:updated_time" content="2015-12-04T17:20:04.304Z">
+<meta property="og:updated_time" content="2015-12-06T03:19:40.237Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Anko for Android">
 <meta name="twitter:description">
@@ -104,7 +104,7 @@
 </blockquote>
 <p> Anko版本的 <code>hello world</code> :<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">verticalLayout &#123;</span><br><span class="line">    <span class="variable"><span class="keyword">val</span> name</span> = editText()</span><br><span class="line">    button(<span class="string">"Say Hello"</span>) &#123;</span><br><span class="line">        onClick &#123; toast(<span class="string">"Hello, $&#123;name.text&#125;!"</span>) &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>上面的代码创建了一个Button,放在 <code>LinearLayout</code> 内, 并为其设置了一个点击监听器<code>OnClickListener</code> .</p>
-<p><img src="http://file.bmob.cn/M02/32/C1/oYYBAFYnZ7GAHENVAATT_iv8nqY107.gif" alt=""> </p>
+<p><img src="http://file.bmob.cn/M02/32/C1/oYYBAFYnZ7GAHENVAATT_iv8nqY107.gif" alt=""></p>
 <p>上面是一个DSL(Domain Specific Language),使用的是 <a href="http://kotlinlang.org" target="_blank" rel="external">Kotlin</a>语言.</p>
 <blockquote>
 <p>DSL，即 Domain Specific Language，领域相关语言。什么是 DSL，说白了它就是某个行业中的行话。</p>
@@ -114,7 +114,7 @@
 <ul>
 <li>It is not typesafe</li>
 <li>It is not null-safe</li>
-<li>It forces you to write almost <em>the same code</em> for every layout you make </li>
+<li>It forces you to write almost <em>the same code</em> for every layout you make</li>
 <li>XML is parsed on the device wasting CPU time and battery 渲染xml为对象过程耗时耗电</li>
 <li>Most of all, it allows no code reuse. 大部分不能重用</li>
 </ul>
@@ -139,8 +139,8 @@
 <h3 id="基础">基础</h3><p>Anko中, 你不需要继承其他奇怪的类,只要标准的<code>Activity</code>, <code>Fragment</code>, <code>FragmentActivity</code> 或者其他任意的类</p>
 <p>首先, 在使用Anko的DSL的类中导入 <code>org.jetbrains.anko.*</code> .</p>
 <p>DSL 可以在 <code>onCreate()</code>中使用:</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onCreate</span><span class="params">(savedInstanceState: <span class="typename">Bundle?</span>)</span> &#123;</span></span><br><span class="line">    super<span class="type">&lt;Activity&gt;</span>.onCreate(savedInstanceState)</span><br><span class="line">    </span><br><span class="line">    verticalLayout &#123;</span><br><span class="line">        padding = dip(<span class="number">30</span>)</span><br><span class="line">        editText &#123;</span><br><span class="line">            hint = <span class="string">"Name"</span></span><br><span class="line">            textSize = <span class="number">24</span>f</span><br><span class="line">        &#125;</span><br><span class="line">        editText &#123;</span><br><span class="line">            hint = <span class="string">"Password"</span></span><br><span class="line">            textSize = <span class="number">24</span>f</span><br><span class="line">        &#125;</span><br><span class="line">        button(<span class="string">"Login"</span>) &#123;</span><br><span class="line">            textSize = <span class="number">26</span>f</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>不需要显示的调用 <code>setContentView(R.layout.something)</code>,  Anko 自动为Activity（只会对Activity）进行 set content view </p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onCreate</span><span class="params">(savedInstanceState: <span class="typename">Bundle?</span>)</span> &#123;</span></span><br><span class="line">    super<span class="type">&lt;Activity&gt;</span>.onCreate(savedInstanceState)</span><br><span class="line"></span><br><span class="line">    verticalLayout &#123;</span><br><span class="line">        padding = dip(<span class="number">30</span>)</span><br><span class="line">        editText &#123;</span><br><span class="line">            hint = <span class="string">"Name"</span></span><br><span class="line">            textSize = <span class="number">24</span>f</span><br><span class="line">        &#125;</span><br><span class="line">        editText &#123;</span><br><span class="line">            hint = <span class="string">"Password"</span></span><br><span class="line">            textSize = <span class="number">24</span>f</span><br><span class="line">        &#125;</span><br><span class="line">        button(<span class="string">"Login"</span>) &#123;</span><br><span class="line">            textSize = <span class="number">26</span>f</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>不需要显示的调用 <code>setContentView(R.layout.something)</code>,  Anko 自动为Activity（只会对Activity）进行 set content view</p>
 <p><code>padding</code>, <code>hint</code> 和 <code>textSize</code> 是 <a href="http://kotlinlang.org/docs/reference/extensions.html#extension-properties" target="_blank" rel="external">扩展属性</a>. 大多数 <code>View</code> 具有这些属性，允许使用<code>text = &quot;Some text&quot;</code> 代替 <code>setText(&quot;Some text&quot;)</code>.</p>
 <p><code>verticalLayout</code> (一个竖直方向的 <code>LinearLayout</code>), <code>editText</code> 和 <code>button</code> are<br><a href="http://kotlinlang.org/docs/reference/extensions.html" target="_blank" rel="external">扩展函数</a>. 这些函数存在与ANdroid 框架中的大部View中,  <code>Activities</code>, <code>Fragments</code> ( <code>android.support</code> 包中的) 甚至 <code>Context</code>同样适用.</p>
 <p>如果有一个 <code>Context</code> 实例, 可以写出下面的DSL结构:</p>
@@ -150,18 +150,18 @@
 <p>如果你不需要 <code>View</code> 其他的属性，你可以省略 <code>{}</code> 直接写 <code>button(&quot;Ok&quot;)</code> 或只有 <code>button()</code>:</p>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">verticalLayout &#123;</span><br><span class="line">    button(<span class="string">"Ok"</span>)</span><br><span class="line">    button(<span class="string">"Cancel"</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="Layouts_和_LayoutParams">Layouts 和 LayoutParams</h3><p>在父布局中布局控件可能需要使用 <code>LayoutParams</code>. xml中长这样:</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">ImageView</span> </span><br><span class="line">    <span class="attribute">android:layout_width</span>=<span class="value">"wrap_content"</span></span><br><span class="line">    <span class="attribute">android:layout_height</span>=<span class="value">"wrap_content"</span></span><br><span class="line">    <span class="attribute">android_layout_marginLeft</span>=<span class="value">"5dip"</span></span><br><span class="line">    <span class="attribute">android_layout_marginTop</span>=<span class="value">"10dip"</span></span><br><span class="line">    <span class="attribute">android:src</span>=<span class="value">"@drawable/something"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">ImageView</span></span><br><span class="line">    <span class="attribute">android:layout_width</span>=<span class="value">"wrap_content"</span></span><br><span class="line">    <span class="attribute">android:layout_height</span>=<span class="value">"wrap_content"</span></span><br><span class="line">    <span class="attribute">android_layout_marginLeft</span>=<span class="value">"5dip"</span></span><br><span class="line">    <span class="attribute">android_layout_marginTop</span>=<span class="value">"10dip"</span></span><br><span class="line">    <span class="attribute">android:src</span>=<span class="value">"@drawable/something"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
 <p>Anko中, 在<code>View</code>的后面使用 <code>lparams</code>来实现类似与xml的 <code>LayoutParams</code>。</p>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">linearLayout &#123;</span><br><span class="line">    button(<span class="string">"Login"</span>) &#123;</span><br><span class="line">        textSize = <span class="number">26</span>f</span><br><span class="line">    &#125;.lparams(width = wrapContent) &#123;</span><br><span class="line">        horizontalMargin = dip(<span class="number">5</span>)</span><br><span class="line">        topMargin = dip(<span class="number">10</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>如果指定了 <code>lparams</code>,但是没有指定 <code>width</code> 或者 <code>height</code>, 默认是 <code>WRAP_CONTENT</code>.但是你可以自己通过使用<a href="http://kotlinlang.org/docs/reference/functions.html#named-arguments" target="_blank" rel="external">named arguments</a>指定.</p>
 <p>注意下面一些方便的属性:</p>
 <ul>
-<li><code>horizontalMargin</code> 同时设置 left 和 right margins, </li>
+<li><code>horizontalMargin</code> 同时设置 left 和 right margins,</li>
 <li><code>verticalMargin</code> 同时设置   top 和 bottom  </li>
 <li><code>margin</code> 同时设置4个方向的 margins.</li>
 </ul>
 <p><strong>注意</strong>  <code>lparams</code> 的使用在不同的布局中是不同的, 例如在 <code>RelativeLayout</code>中:</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable"><span class="keyword">val</span> ID_OK</span> = <span class="number">1</span></span><br><span class="line"></span><br><span class="line">relativeLayout &#123;</span><br><span class="line">    button(<span class="string">"Ok"</span>) &#123;</span><br><span class="line">        id = ID_OK</span><br><span class="line">    &#125;.lparams &#123; alignParentTop() &#125;</span><br><span class="line">  </span><br><span class="line">    button(<span class="string">"Cancel"</span>).lparams &#123; below(ID_OK) &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable"><span class="keyword">val</span> ID_OK</span> = <span class="number">1</span></span><br><span class="line"></span><br><span class="line">relativeLayout &#123;</span><br><span class="line">    button(<span class="string">"Ok"</span>) &#123;</span><br><span class="line">        id = ID_OK</span><br><span class="line">    &#125;.lparams &#123; alignParentTop() &#125;</span><br><span class="line"></span><br><span class="line">    button(<span class="string">"Cancel"</span>).lparams &#123; below(ID_OK) &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="Listeners">Listeners</h3><p>设置listeners:</p>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">button(<span class="string">"Login"</span>) &#123;</span><br><span class="line">    onClick &#123;</span><br><span class="line">        login(name, password)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>下面的效果一样:</p>
@@ -175,7 +175,7 @@
 <p>幸运的是，Anko中可以使用以下两个 helper方法 (<code>button(R.string.login)</code>) 和 (<code>button { textResource = R.string.login }</code>).</p>
 <p><strong>注意</strong>，这些属性不是 <code>text</code>, <code>hint</code>, <code>image</code>, 而是 <code>textResource</code>, <code>hintResource</code> and <code>imageResource</code>.</p>
 <blockquote>
-<p>Resource properties always throw <code>AnkoException</code> when read. </p>
+<p>Resource properties always throw <code>AnkoException</code> when read.</p>
 </blockquote>
 <h4 id="Colors">Colors</h4><p>两个简单的扩展函数使代码更加易懂。</p>
 <table>
@@ -214,9 +214,11 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://hanks.xyz/2015/10/21/Anko_for_Android/" data-id="cihsst0ve006w0805u1xfp7vh" class="article-share-link">Share</a>
+      <a data-url="http://hanks.xyz/2015/10/21/Anko_for_Android/" data-id="cihu1jc1900853j05n9x9eohx" class="article-share-link">Share</a>
       
       
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
+
     </footer>
   
   
@@ -260,6 +262,71 @@
 </section>
       </div>
       <footer id="footer">
+  
+    <aside id="sidebar" class="outer">
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2015/12/04/mac_java_enviroment/">OS X中Java环境变量配置</a>
+          </li>
+        
+          <li>
+            <a href="/2015/12/02/mac-os-in-Ubuntu/">Ubuntu 安装 OS X 10.11  虚拟机</a>
+          </li>
+        
+          <li>
+            <a href="/2015/12/01/ReactiveX/">ReactiveX</a>
+          </li>
+        
+          <li>
+            <a href="/2015/11/26/利器_--_抓包工具总结/">利器 -- 抓包工具总结</a>
+          </li>
+        
+          <li>
+            <a href="/2015/11/21/Rx/">使用RxJava 提升用户体验</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/Java/" style="font-size: 13.33px;">Java</a> <a href="/tags/OS-X/" style="font-size: 10px;">OS X</a> <a href="/tags/Rx/" style="font-size: 10px;">Rx</a> <a href="/tags/RxJava/" style="font-size: 10px;">RxJava</a> <a href="/tags/Ubuntu/" style="font-size: 16.67px;">Ubuntu</a> <a href="/tags/mac-os/" style="font-size: 10px;">mac os</a> <a href="/tags/virtualBox/" style="font-size: 10px;">virtualBox</a> <a href="/tags/必备知识/" style="font-size: 10px;">必备知识</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">links</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="http://kiya.space">kiya-z</a>
+          </li>
+        
+          <li>
+            <a href="http://hexo.io">Hexo</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
   
   <div class="outer footer_center">
     <div id="footer-info" class="inner">

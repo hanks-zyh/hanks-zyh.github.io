@@ -201,59 +201,71 @@ body {
 }
 .article-inner h1,
 .article-entry h1,
-.archive-article-inner h1 {
+.archive-article-inner h1,
+.widget h1 {
   font-size: 2em;
 }
 .article-inner h2,
 .article-entry h2,
-.archive-article-inner h2 {
+.archive-article-inner h2,
+.widget h2 {
   font-size: 1.5em;
 }
 .article-inner h3,
 .article-entry h3,
-.archive-article-inner h3 {
+.archive-article-inner h3,
+.widget h3 {
   font-size: 1.3em;
 }
 .article-inner h4,
 .article-entry h4,
-.archive-article-inner h4 {
+.archive-article-inner h4,
+.widget h4 {
   font-size: 1.2em;
 }
 .article-inner h5,
 .article-entry h5,
-.archive-article-inner h5 {
+.archive-article-inner h5,
+.widget h5 {
   font-size: 1em;
 }
 .article-inner h6,
 .article-entry h6,
-.archive-article-inner h6 {
+.archive-article-inner h6,
+.widget h6 {
   font-size: 1em;
   color: #999;
 }
 .article-inner hr,
 .article-entry hr,
-.archive-article-inner hr {
+.archive-article-inner hr,
+.widget hr {
   border: 1px dashed #ddd;
 }
 .article-inner strong,
 .article-entry strong,
-.archive-article-inner strong {
+.archive-article-inner strong,
+.widget strong {
   font-weight: bold;
 }
 .article-inner em,
 .article-entry em,
 .archive-article-inner em,
+.widget em,
 .article-inner cite,
 .article-entry cite,
-.archive-article-inner cite {
+.archive-article-inner cite,
+.widget cite {
   font-style: italic;
 }
 .article-inner sup,
 .article-entry sup,
 .archive-article-inner sup,
+.widget sup,
 .article-inner sub,
 .article-entry sub,
-.archive-article-inner sub {
+.archive-article-inner sub,
+.widget sub {
   font-size: 0.75em;
   line-height: 0;
   position: relative;
@@ -261,67 +273,82 @@ body {
 }
 .article-inner sup,
 .article-entry sup,
-.archive-article-inner sup {
+.archive-article-inner sup,
+.widget sup {
   top: -0.5em;
 }
 .article-inner sub,
 .article-entry sub,
-.archive-article-inner sub {
+.archive-article-inner sub,
+.widget sub {
   bottom: -0.2em;
 }
 .article-inner small,
 .article-entry small,
-.archive-article-inner small {
+.archive-article-inner small,
+.widget small {
   font-size: 0.85em;
 }
 .article-inner acronym,
 .article-entry acronym,
 .archive-article-inner acronym,
+.widget acronym,
 .article-inner abbr,
 .article-entry abbr,
-.archive-article-inner abbr {
+.archive-article-inner abbr,
+.widget abbr {
   border-bottom: 1px dotted;
 }
 .article-inner ul,
 .article-entry ul,
 .archive-article-inner ul,
+.widget ul,
 .article-inner ol,
 .article-entry ol,
 .archive-article-inner ol,
+.widget ol,
 .article-inner dl,
 .article-entry dl,
-.archive-article-inner dl {
+.archive-article-inner dl,
+.widget dl {
   margin: 0 20px;
   line-height: 28px;
 }
 .article-inner ul ul,
 .article-entry ul ul,
 .archive-article-inner ul ul,
+.widget ul ul,
 .article-inner ol ul,
 .article-entry ol ul,
 .archive-article-inner ol ul,
+.widget ol ul,
 .article-inner ul ol,
 .article-entry ul ol,
 .archive-article-inner ul ol,
+.widget ul ol,
 .article-inner ol ol,
 .article-entry ol ol,
-.archive-article-inner ol ol {
+.archive-article-inner ol ol,
+.widget ol ol {
   margin-top: 0;
   margin-bottom: 0;
 }
 .article-inner ul,
 .article-entry ul,
-.archive-article-inner ul {
+.archive-article-inner ul,
+.widget ul {
   list-style: disc;
 }
 .article-inner ol,
 .article-entry ol,
-.archive-article-inner ol {
+.archive-article-inner ol,
+.widget ol {
   list-style: decimal;
 }
 .article-inner dt,
 .article-entry dt,
-.archive-article-inner dt {
+.archive-article-inner dt,
+.widget dt {
   font-weight: bold;
 }
 #header {
@@ -1388,4 +1415,83 @@ pre .javascript .function {
     -moz-background-size: 24px 24px;
     background-size: 24px 24px;
   }
+}
+.widget-wrap {
+  margin-bottom: 50px !important;
+}
+@media screen and (min-width: 768px) {
+  .widget-wrap {
+    display: inline;
+    float: left;
+    width: 31.11111111111111%;
+    margin: 0 1.111111111111111%;
+  }
+}
+.widget-title {
+  color: #ccc;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 1em;
+  line-height: 1em;
+  font-weight: bold;
+}
+.widget {
+  color: #999;
+}
+.widget {
+  line-height: 28px;
+  word-wrap: normal;
+  font-size: 0.9em;
+}
+.widget:before,
+.widget:after {
+  content: "";
+  display: table;
+}
+.widget:after {
+  clear: both;
+}
+.widget ul,
+.widget ol {
+  list-style: none;
+  margin: 0;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.widget ul ul,
+.widget ol ul,
+.widget ul ol,
+.widget ol ol {
+  margin: 0 20px;
+}
+.widget ul ul,
+.widget ol ul {
+  list-style: disc;
+}
+.widget ul ol,
+.widget ol ol {
+  list-style: decimal;
+}
+.category-list-count,
+.tag-list-count,
+.archive-list-count {
+  padding-left: 5px;
+  color: #999;
+  font-size: 0.85em;
+}
+.category-list-count:before,
+.tag-list-count:before,
+.archive-list-count:before {
+  content: "(";
+}
+.category-list-count:after,
+.tag-list-count:after,
+.archive-list-count:after {
+  content: ")";
+}
+.tagcloud a {
+  margin-right: 5px;
+  word-wrap: normal;
+  float: left;
 }

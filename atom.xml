@@ -45,144 +45,6 @@
   </entry>
   
   <entry>
-    <title><![CDATA[欢迎使用CSDN-markdown编辑器]]></title>
-    <link href="http://hanks.xyz/2015/12/04/%E6%AC%A2%E8%BF%8E%E4%BD%BF%E7%94%A8CSDN-markdown%E7%BC%96%E8%BE%91%E5%99%A8/"/>
-    <id>http://hanks.xyz/2015/12/04/欢迎使用CSDN-markdown编辑器/</id>
-    <published>2015-12-03T16:12:12.330Z</published>
-    <updated>2015-12-03T16:10:29.195Z</updated>
-    <content type="html"><![CDATA[<h1 id="欢迎使用Markdown编辑器写博客">欢迎使用Markdown编辑器写博客</h1><p>本Markdown编辑器使用<a href="https://github.com/benweet/stackedit" target="_blank" rel="external">StackEdit</a>修改而来，用它写博客，将会带来全新的体验哦：</p>
-<ul>
-<li><strong>Markdown和扩展Markdown简洁的语法</strong></li>
-<li><strong>代码块高亮</strong></li>
-<li><strong>图片链接和图片上传</strong></li>
-<li><strong><em>LaTex</em>数学公式</strong></li>
-<li><strong>UML序列图和流程图</strong></li>
-<li><strong>离线写博客</strong></li>
-<li><strong>导入导出Markdown文件</strong></li>
-<li><strong>丰富的快捷键</strong></li>
-</ul>
-<hr>
-<h2 id="快捷键">快捷键</h2><ul>
-<li>加粗    <code>Ctrl + B</code> </li>
-<li>斜体    <code>Ctrl + I</code> </li>
-<li>引用    <code>Ctrl + Q</code></li>
-<li>插入链接    <code>Ctrl + L</code></li>
-<li>插入代码    <code>Ctrl + K</code></li>
-<li>插入图片    <code>Ctrl + G</code></li>
-<li>提升标题    <code>Ctrl + H</code></li>
-<li>有序列表    <code>Ctrl + O</code></li>
-<li>无序列表    <code>Ctrl + U</code></li>
-<li>横线    <code>Ctrl + R</code></li>
-<li>撤销    <code>Ctrl + Z</code></li>
-<li>重做    <code>Ctrl + Y</code></li>
-</ul>
-<h2 id="Markdown及扩展">Markdown及扩展</h2><blockquote>
-<p>Markdown 是一种轻量级标记语言，它允许人们使用易读易写的纯文本格式编写文档，然后转换成格式丰富的HTML页面。    —— <a href="https://zh.wikipedia.org/wiki/Markdown" target="_blank"> [ 维基百科 ]</a></p>
-</blockquote>
-<p>使用简单的符号标识不同的标题，将某些文字标记为<strong>粗体</strong>或者<em>斜体</em>，创建一个<a href="http://www.csdn.net" target="_blank" rel="external">链接</a>等，详细语法参考帮助？。</p>
-<p>本编辑器支持 <strong>Markdown Extra</strong> , 　扩展了很多好用的功能。具体请参考<a href="https://github.com/jmcmanus/pagedown-extra" title="Pagedown Extra" target="_blank" rel="external">Github</a>.  </p>
-<h3 id="表格">表格</h3><p><strong>Markdown　Extra</strong>　表格语法：</p>
-<table>
-<thead>
-<tr>
-<th>项目</th>
-<th>价格</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Computer</td>
-<td>$1600</td>
-</tr>
-<tr>
-<td>Phone</td>
-<td>$12</td>
-</tr>
-<tr>
-<td>Pipe</td>
-<td>$1</td>
-</tr>
-</tbody>
-</table>
-<p>可以使用冒号来定义对齐方式：</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">项目</th>
-<th style="text-align:right">价格</th>
-<th style="text-align:center">数量</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">Computer</td>
-<td style="text-align:right">1600 元</td>
-<td style="text-align:center">5</td>
-</tr>
-<tr>
-<td style="text-align:left">Phone</td>
-<td style="text-align:right">12 元</td>
-<td style="text-align:center">12</td>
-</tr>
-<tr>
-<td style="text-align:left">Pipe</td>
-<td style="text-align:right">1 元</td>
-<td style="text-align:center">234</td>
-</tr>
-</tbody>
-</table>
-<p>###定义列表</p>
-<p><strong>Markdown　Extra</strong>　定义列表语法：<br>项目１<br>项目２<br>:   定义 A<br>:   定义 B</p>
-<p>项目３<br>:   定义 C</p>
-<p>:   定义 D</p>
-<pre><code><span class="blockquote">&gt; 定义D内容</span>
-</code></pre><h3 id="代码块">代码块</h3><p>代码块语法遵循标准markdown代码，例如：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="decorator">@requires_authorization</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">somefunc</span><span class="params">(param1=<span class="string">''</span>, param2=<span class="number">0</span>)</span>:</span></span><br><span class="line">    <span class="string">'''A docstring'''</span></span><br><span class="line">    <span class="keyword">if</span> param1 &gt; param2: <span class="comment"># interesting</span></span><br><span class="line">        <span class="keyword">print</span> <span class="string">'Greater'</span></span><br><span class="line">    <span class="keyword">return</span> (param2 - param1 + <span class="number">1</span>) <span class="keyword">or</span> <span class="keyword">None</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SomeClass</span>:</span></span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>message = <span class="string">'''interpreter</span><br><span class="line"><span class="prompt">... </span>prompt'''</span></span><br></pre></td></tr></table></figure></p>
-<p>###脚注<br>生成一个脚注[^footnote].<br>  [^footnote]: 这里是 <strong>脚注</strong> 的 <em>内容</em>.</p>
-<h3 id="目录">目录</h3><p>用 <code>[TOC]</code>来生成目录：</p>
-<p>[TOC]</p>
-<h3 id="数学公式">数学公式</h3><p>使用MathJax渲染<em>LaTex</em> 数学公式，详见<a href="http://math.stackexchange.com/" target="_blank" rel="external">math.stackexchange.com</a>.</p>
-<ul>
-<li>行内公式，数学公式为：$\Gamma(n) = (n-1)!\quad\forall n\in\mathbb N$。</li>
-<li>块级公式：</li>
-</ul>
-<p>$$    x = \dfrac{-b \pm \sqrt{b^2 - 4ac}}{2a} $$</p>
-<p>更多LaTex语法请参考 <a href="http://meta.math.stackexchange.com/questions/5020/mathjax-basic-tutorial-and-quick-reference" target="_blank" rel="external">这儿</a>.</p>
-<h3 id="UML_图:">UML 图:</h3><p>可以渲染序列图：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#24352;&#19977;-&#62;&#26446;&#22235;: &#22079;&#65292;&#23567;&#22235;&#20799;, &#20889;&#21338;&#23458;&#20102;&#27809;?&#10;Note right of &#26446;&#22235;: &#26446;&#22235;&#24867;&#20102;&#19968;&#19979;&#65292;&#35828;&#65306;&#10;&#26446;&#22235;--&#62;&#24352;&#19977;: &#24537;&#24471;&#21520;&#34880;&#65292;&#21738;&#26377;&#26102;&#38388;&#20889;&#12290;</span><br></pre></td></tr></table></figure>
-<p>或者流程图：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">st=&#62;start: &#24320;&#22987;&#10;e=&#62;end: &#32467;&#26463;&#10;op=&#62;operation: &#25105;&#30340;&#25805;&#20316;&#10;cond=&#62;condition: &#30830;&#35748;&#65311;&#10;&#10;st-&#62;op-&#62;cond&#10;cond(yes)-&#62;e&#10;cond(no)-&#62;op</span><br></pre></td></tr></table></figure>
-<ul>
-<li>关于 <strong>序列图</strong> 语法，参考 <a href="http://bramp.github.io/js-sequence-diagrams/" target="_blank" rel="external">这儿</a>,</li>
-<li>关于 <strong>流程图</strong> 语法，参考 <a href="http://adrai.github.io/flowchart.js/" target="_blank" rel="external">这儿</a>.</li>
-</ul>
-<h2 id="离线写博客">离线写博客</h2><p>即使用户在没有网络的情况下，也可以通过本编辑器离线写博客（直接在曾经使用过的浏览器中输入<a href="http://write.blog.csdn.net/mdeditor" target="_blank" rel="external">write.blog.csdn.net/mdeditor</a>即可。<strong>Markdown编辑器</strong>使用浏览器离线存储将内容保存在本地。</p>
-<p>用户写博客的过程中，内容实时保存在浏览器缓存中，在用户关闭浏览器或者其它异常情况下，内容不会丢失。用户再次打开浏览器时，会显示上次用户正在编辑的没有发表的内容。</p>
-<p>博客发表后，本地缓存将被删除。　</p>
-<p>用户可以选择 <i class="icon-disk"></i> 把正在写的博客保存到服务器草稿箱，即使换浏览器或者清除缓存，内容也不会丢失。</p>
-<blockquote>
-<p><strong>注意：</strong>虽然浏览器存储大部分时候都比较可靠，但为了您的数据安全，在联网后，<strong>请务必及时发表或者保存到服务器草稿箱</strong>。</p>
-</blockquote>
-<p>##浏览器兼容</p>
-<ol>
-<li>目前，本编辑器对Chrome浏览器支持最为完整。建议大家使用较新版本的Chrome。</li>
-<li>IE９以下不支持</li>
-<li>IE９，１０，１１存在以下问题<ol>
-<li>不支持离线功能</li>
-<li>IE9不支持文件导入导出</li>
-<li>IE10不支持拖拽文件导入</li>
-</ol>
-</li>
-</ol>
-<hr>
-]]></content>
-    <summary type="html">
-    <![CDATA[ ]]>
-    
-    </summary>
-    
-  </entry>
-  
-  <entry>
     <title><![CDATA[Ubuntu 安装 OS X 10.11  虚拟机]]></title>
     <link href="http://hanks.xyz/2015/12/02/mac-os-in-Ubuntu/"/>
     <id>http://hanks.xyz/2015/12/02/mac-os-in-Ubuntu/</id>
@@ -231,7 +93,7 @@
     <link href="http://hanks.xyz/2015/12/01/ReactiveX/"/>
     <id>http://hanks.xyz/2015/12/01/ReactiveX/</id>
     <published>2015-12-01T14:28:34.000Z</published>
-    <updated>2015-12-02T16:49:42.979Z</updated>
+    <updated>2015-12-06T03:19:40.341Z</updated>
     <content type="html"><![CDATA[<blockquote>
 <p>An API for asynchronous programming with observable streams</p>
 </blockquote>
@@ -245,6 +107,8 @@
 <p><img src="http://file.bmob.cn/M02/CD/5C/oYYBAFZehqmAAvzxAAEPNTqMZeU527.gif" alt=""><br>]]>
     
     </summary>
+    
+      <category term="Android" scheme="http://hanks.xyz/tags/Android/"/>
     
       <category term="Rx" scheme="http://hanks.xyz/tags/Rx/"/>
     
@@ -339,7 +203,7 @@
     <link href="http://hanks.xyz/2015/11/21/Rx/"/>
     <id>http://hanks.xyz/2015/11/21/Rx/</id>
     <published>2015-11-21T14:28:34.000Z</published>
-    <updated>2015-12-02T09:06:44.537Z</updated>
+    <updated>2015-12-06T03:19:40.349Z</updated>
     <content type="html"><![CDATA[<blockquote>
 <p>原文链接：<a href="https://medium.com/@diolor/improving-ux-with-rxjava-4440a13b157f#.qdhu122d1" target="_blank" rel="external">https://medium.com/@diolor/improving-ux-with-rxjava-4440a13b157f#.qdhu122d1</a><br><br>翻译： <a href="https://github.com/hanks-zyh" target="_blank" rel="external">hanks</a></p>
 </blockquote>
@@ -443,7 +307,7 @@
     <link href="http://hanks.xyz/2015/11/18/%E8%A7%A3%E6%9E%90_dex_%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84_-_DexHeader/"/>
     <id>http://hanks.xyz/2015/11/18/解析_dex_文件结构_-_DexHeader/</id>
     <published>2015-11-18T03:02:00.000Z</published>
-    <updated>2015-12-04T17:20:04.324Z</updated>
+    <updated>2015-12-06T04:32:37.893Z</updated>
     <content type="html"><![CDATA[
 <p><span style="font-size:18px">原文:&nbsp;<a target="_blank" href="http://kiya-z.github.io/2015/11/17/parse-dex-file-part-dex-header/">http://kiya-z.github.io/2015/11/17/parse-dex-file-part-dex-header/</a></span></p>
 <p><br>
@@ -1804,9 +1668,9 @@ Reference</h2>
     <link href="http://hanks.xyz/2015/10/31/%E4%B8%8A%E4%BC%A0%E8%87%AA%E5%B7%B1%E7%9A%84%E5%BA%93%E5%88%B0jcenter/"/>
     <id>http://hanks.xyz/2015/10/31/上传自己的库到jcenter/</id>
     <published>2015-10-31T12:24:00.000Z</published>
-    <updated>2015-12-04T17:20:04.328Z</updated>
+    <updated>2015-12-06T03:19:40.425Z</updated>
     <content type="html"><![CDATA[<h1 id="注册">注册</h1><p><a href="https://bintray.com/" target="_blank" rel="external">https://bintray.com/</a><br>注册一个账号。</p>
-<p>获取API Key<br><a href="https://bintray.com/profile/edit" target="_blank" rel="external">https://bintray.com/profile/edit</a> </p>
+<p>获取API Key<br><a href="https://bintray.com/profile/edit" target="_blank" rel="external">https://bintray.com/profile/edit</a></p>
 <h1 id="创建与配置项目">创建与配置项目</h1><ol>
 <li>修改项目目录下的 <code>build.gradle</code>,添加依赖</li>
 </ol>
@@ -1825,6 +1689,8 @@ Reference</h2>
     
     </summary>
     
+      <category term="Android" scheme="http://hanks.xyz/tags/Android/"/>
+    
   </entry>
   
   <entry>
@@ -1832,7 +1698,7 @@ Reference</h2>
     <link href="http://hanks.xyz/2015/10/25/Ubuntu%E4%B8%8BJava%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/"/>
     <id>http://hanks.xyz/2015/10/25/Ubuntu下Java环境配置/</id>
     <published>2015-10-25T14:42:00.000Z</published>
-    <updated>2015-12-04T17:20:04.320Z</updated>
+    <updated>2015-12-06T03:19:40.385Z</updated>
     <content type="html"><![CDATA[<p>#Java环境配置</p>
 <ol>
 <li>下载 <code>jdk-8u60-linux-x64.tar.gz</code></li>
@@ -1856,6 +1722,10 @@ Reference</h2>
     
     </summary>
     
+      <category term="Java" scheme="http://hanks.xyz/tags/Java/"/>
+    
+      <category term="Ubuntu" scheme="http://hanks.xyz/tags/Ubuntu/"/>
+    
   </entry>
   
   <entry>
@@ -1863,13 +1733,13 @@ Reference</h2>
     <link href="http://hanks.xyz/2015/10/21/Anko_for_Android/"/>
     <id>http://hanks.xyz/2015/10/21/Anko_for_Android/</id>
     <published>2015-10-21T10:39:00.000Z</published>
-    <updated>2015-12-04T17:20:04.304Z</updated>
+    <updated>2015-12-06T03:19:40.237Z</updated>
     <content type="html"><![CDATA[<h1 id="Anko_for_Android">Anko for Android</h1><blockquote>
 <p><a href="https://github.com/JetBrains/anko" target="_blank" rel="external">Anko</a> 是一个使开发Android应用更简单更快捷的库,Anko使你的代码简洁易懂, 使开发者不用再在意Android SDK对Java版本的限制(目前还不支持Java8  =。= ).</p>
 </blockquote>
 <p> Anko版本的 <code>hello world</code> :<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">verticalLayout &#123;</span><br><span class="line">    <span class="variable"><span class="keyword">val</span> name</span> = editText()</span><br><span class="line">    button(<span class="string">"Say Hello"</span>) &#123;</span><br><span class="line">        onClick &#123; toast(<span class="string">"Hello, $&#123;name.text&#125;!"</span>) &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>上面的代码创建了一个Button,放在 <code>LinearLayout</code> 内, 并为其设置了一个点击监听器<code>OnClickListener</code> .</p>
-<p><img src="http://file.bmob.cn/M02/32/C1/oYYBAFYnZ7GAHENVAATT_iv8nqY107.gif" alt=""> </p>
+<p><img src="http://file.bmob.cn/M02/32/C1/oYYBAFYnZ7GAHENVAATT_iv8nqY107.gif" alt=""></p>
 <p>上面是一个DSL(Domain Specific Language),使用的是 <a href="http://kotlinlang.org" target="_blank" rel="external">Kotlin</a>语言.</p>
 <blockquote>
 <p>DSL，即 Domain Specific Language，领域相关语言。什么是 DSL，说白了它就是某个行业中的行话。</p>
@@ -1879,7 +1749,7 @@ Reference</h2>
 <ul>
 <li>It is not typesafe</li>
 <li>It is not null-safe</li>
-<li>It forces you to write almost <em>the same code</em> for every layout you make </li>
+<li>It forces you to write almost <em>the same code</em> for every layout you make</li>
 <li>XML is parsed on the device wasting CPU time and battery 渲染xml为对象过程耗时耗电</li>
 <li>Most of all, it allows no code reuse. 大部分不能重用</li>
 </ul>
@@ -1904,8 +1774,8 @@ Reference</h2>
 <h3 id="基础">基础</h3><p>Anko中, 你不需要继承其他奇怪的类,只要标准的<code>Activity</code>, <code>Fragment</code>, <code>FragmentActivity</code> 或者其他任意的类</p>
 <p>首先, 在使用Anko的DSL的类中导入 <code>org.jetbrains.anko.*</code> .</p>
 <p>DSL 可以在 <code>onCreate()</code>中使用:</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onCreate</span><span class="params">(savedInstanceState: <span class="typename">Bundle?</span>)</span> &#123;</span></span><br><span class="line">    super<span class="type">&lt;Activity&gt;</span>.onCreate(savedInstanceState)</span><br><span class="line">    </span><br><span class="line">    verticalLayout &#123;</span><br><span class="line">        padding = dip(<span class="number">30</span>)</span><br><span class="line">        editText &#123;</span><br><span class="line">            hint = <span class="string">"Name"</span></span><br><span class="line">            textSize = <span class="number">24</span>f</span><br><span class="line">        &#125;</span><br><span class="line">        editText &#123;</span><br><span class="line">            hint = <span class="string">"Password"</span></span><br><span class="line">            textSize = <span class="number">24</span>f</span><br><span class="line">        &#125;</span><br><span class="line">        button(<span class="string">"Login"</span>) &#123;</span><br><span class="line">            textSize = <span class="number">26</span>f</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>不需要显示的调用 <code>setContentView(R.layout.something)</code>,  Anko 自动为Activity（只会对Activity）进行 set content view </p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onCreate</span><span class="params">(savedInstanceState: <span class="typename">Bundle?</span>)</span> &#123;</span></span><br><span class="line">    super<span class="type">&lt;Activity&gt;</span>.onCreate(savedInstanceState)</span><br><span class="line"></span><br><span class="line">    verticalLayout &#123;</span><br><span class="line">        padding = dip(<span class="number">30</span>)</span><br><span class="line">        editText &#123;</span><br><span class="line">            hint = <span class="string">"Name"</span></span><br><span class="line">            textSize = <span class="number">24</span>f</span><br><span class="line">        &#125;</span><br><span class="line">        editText &#123;</span><br><span class="line">            hint = <span class="string">"Password"</span></span><br><span class="line">            textSize = <span class="number">24</span>f</span><br><span class="line">        &#125;</span><br><span class="line">        button(<span class="string">"Login"</span>) &#123;</span><br><span class="line">            textSize = <span class="number">26</span>f</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>不需要显示的调用 <code>setContentView(R.layout.something)</code>,  Anko 自动为Activity（只会对Activity）进行 set content view</p>
 <p><code>padding</code>, <code>hint</code> 和 <code>textSize</code> 是 <a href="http://kotlinlang.org/docs/reference/extensions.html#extension-properties" target="_blank" rel="external">扩展属性</a>. 大多数 <code>View</code> 具有这些属性，允许使用<code>text = &quot;Some text&quot;</code> 代替 <code>setText(&quot;Some text&quot;)</code>.</p>
 <p><code>verticalLayout</code> (一个竖直方向的 <code>LinearLayout</code>), <code>editText</code> 和 <code>button</code> are<br><a href="http://kotlinlang.org/docs/reference/extensions.html" target="_blank" rel="external">扩展函数</a>. 这些函数存在与ANdroid 框架中的大部View中,  <code>Activities</code>, <code>Fragments</code> ( <code>android.support</code> 包中的) 甚至 <code>Context</code>同样适用.</p>
 <p>如果有一个 <code>Context</code> 实例, 可以写出下面的DSL结构:</p>
@@ -1915,18 +1785,18 @@ Reference</h2>
 <p>如果你不需要 <code>View</code> 其他的属性，你可以省略 <code>{}</code> 直接写 <code>button(&quot;Ok&quot;)</code> 或只有 <code>button()</code>:</p>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">verticalLayout &#123;</span><br><span class="line">    button(<span class="string">"Ok"</span>)</span><br><span class="line">    button(<span class="string">"Cancel"</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="Layouts_和_LayoutParams">Layouts 和 LayoutParams</h3><p>在父布局中布局控件可能需要使用 <code>LayoutParams</code>. xml中长这样:</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">ImageView</span> </span><br><span class="line">    <span class="attribute">android:layout_width</span>=<span class="value">"wrap_content"</span></span><br><span class="line">    <span class="attribute">android:layout_height</span>=<span class="value">"wrap_content"</span></span><br><span class="line">    <span class="attribute">android_layout_marginLeft</span>=<span class="value">"5dip"</span></span><br><span class="line">    <span class="attribute">android_layout_marginTop</span>=<span class="value">"10dip"</span></span><br><span class="line">    <span class="attribute">android:src</span>=<span class="value">"@drawable/something"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">ImageView</span></span><br><span class="line">    <span class="attribute">android:layout_width</span>=<span class="value">"wrap_content"</span></span><br><span class="line">    <span class="attribute">android:layout_height</span>=<span class="value">"wrap_content"</span></span><br><span class="line">    <span class="attribute">android_layout_marginLeft</span>=<span class="value">"5dip"</span></span><br><span class="line">    <span class="attribute">android_layout_marginTop</span>=<span class="value">"10dip"</span></span><br><span class="line">    <span class="attribute">android:src</span>=<span class="value">"@drawable/something"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
 <p>Anko中, 在<code>View</code>的后面使用 <code>lparams</code>来实现类似与xml的 <code>LayoutParams</code>。</p>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">linearLayout &#123;</span><br><span class="line">    button(<span class="string">"Login"</span>) &#123;</span><br><span class="line">        textSize = <span class="number">26</span>f</span><br><span class="line">    &#125;.lparams(width = wrapContent) &#123;</span><br><span class="line">        horizontalMargin = dip(<span class="number">5</span>)</span><br><span class="line">        topMargin = dip(<span class="number">10</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>如果指定了 <code>lparams</code>,但是没有指定 <code>width</code> 或者 <code>height</code>, 默认是 <code>WRAP_CONTENT</code>.但是你可以自己通过使用<a href="http://kotlinlang.org/docs/reference/functions.html#named-arguments" target="_blank" rel="external">named arguments</a>指定.</p>
 <p>注意下面一些方便的属性:</p>
 <ul>
-<li><code>horizontalMargin</code> 同时设置 left 和 right margins, </li>
+<li><code>horizontalMargin</code> 同时设置 left 和 right margins,</li>
 <li><code>verticalMargin</code> 同时设置   top 和 bottom  </li>
 <li><code>margin</code> 同时设置4个方向的 margins.</li>
 </ul>
 <p><strong>注意</strong>  <code>lparams</code> 的使用在不同的布局中是不同的, 例如在 <code>RelativeLayout</code>中:</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable"><span class="keyword">val</span> ID_OK</span> = <span class="number">1</span></span><br><span class="line"></span><br><span class="line">relativeLayout &#123;</span><br><span class="line">    button(<span class="string">"Ok"</span>) &#123;</span><br><span class="line">        id = ID_OK</span><br><span class="line">    &#125;.lparams &#123; alignParentTop() &#125;</span><br><span class="line">  </span><br><span class="line">    button(<span class="string">"Cancel"</span>).lparams &#123; below(ID_OK) &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable"><span class="keyword">val</span> ID_OK</span> = <span class="number">1</span></span><br><span class="line"></span><br><span class="line">relativeLayout &#123;</span><br><span class="line">    button(<span class="string">"Ok"</span>) &#123;</span><br><span class="line">        id = ID_OK</span><br><span class="line">    &#125;.lparams &#123; alignParentTop() &#125;</span><br><span class="line"></span><br><span class="line">    button(<span class="string">"Cancel"</span>).lparams &#123; below(ID_OK) &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="Listeners">Listeners</h3><p>设置listeners:</p>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">button(<span class="string">"Login"</span>) &#123;</span><br><span class="line">    onClick &#123;</span><br><span class="line">        login(name, password)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>下面的效果一样:</p>
@@ -1940,7 +1810,7 @@ Reference</h2>
 <p>幸运的是，Anko中可以使用以下两个 helper方法 (<code>button(R.string.login)</code>) 和 (<code>button { textResource = R.string.login }</code>).</p>
 <p><strong>注意</strong>，这些属性不是 <code>text</code>, <code>hint</code>, <code>image</code>, 而是 <code>textResource</code>, <code>hintResource</code> and <code>imageResource</code>.</p>
 <blockquote>
-<p>Resource properties always throw <code>AnkoException</code> when read. </p>
+<p>Resource properties always throw <code>AnkoException</code> when read.</p>
 </blockquote>
 <h4 id="Colors">Colors</h4><p>两个简单的扩展函数使代码更加易懂。</p>
 <table>
@@ -1981,6 +1851,8 @@ Reference</h2>
     
     </summary>
     
+      <category term="Android" scheme="http://hanks.xyz/tags/Android/"/>
+    
   </entry>
   
   <entry>
@@ -1988,7 +1860,7 @@ Reference</h2>
     <link href="http://hanks.xyz/2015/10/15/Ubuntu%E4%B8%8B%E5%BC%80%E5%8F%91Android%E9%85%8D%E7%BD%AE%E6%B5%81%E7%A8%8B/"/>
     <id>http://hanks.xyz/2015/10/15/Ubuntu下开发Android配置流程/</id>
     <published>2015-10-15T15:57:00.000Z</published>
-    <updated>2015-12-04T17:20:04.320Z</updated>
+    <updated>2015-12-06T03:19:40.661Z</updated>
     <content type="html"><![CDATA[<p>#安装Ubuntu 12.04</p>
 <ol>
 <li>使用USBwriterU盘写入镜像，安装</li>
@@ -2021,7 +1893,7 @@ Reference</h2>
 <p> 需要添加相应权限</p>
 <p>##使用Android Studio 编译时提示 appt error</p>
 <blockquote>
-<p>appcompat-v7:21.0.0’: No resource found that matches the given name: attr ‘android:actionModeShareDrawable’ </p>
+<p>appcompat-v7:21.0.0’: No resource found that matches the given name: attr ‘android:actionModeShareDrawable’</p>
 </blockquote>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get <span class="operator"><span class="keyword">install</span> lib32z1 lib32ncurses5 lib32bz2-<span class="number">1.0</span></span><br><span class="line">sudo apt-<span class="keyword">get</span> <span class="keyword">install</span> lib32stdc++<span class="number">6</span></span></span><br></pre></td></tr></table></figure>
 <p>#android6.0SDK中删除HttpClient的相关类的解决方法</p>
@@ -2039,6 +1911,10 @@ Reference</h2>
     
     </summary>
     
+      <category term="Android" scheme="http://hanks.xyz/tags/Android/"/>
+    
+      <category term="Ubuntu" scheme="http://hanks.xyz/tags/Ubuntu/"/>
+    
   </entry>
   
   <entry>
@@ -2046,7 +1922,7 @@ Reference</h2>
     <link href="http://hanks.xyz/2015/09/27/FTI%E4%BB%AC%E5%9C%A8%E4%BD%BF%E7%94%A8%E7%9A%84%E5%BC%80%E6%BA%90%E5%BA%93/"/>
     <id>http://hanks.xyz/2015/09/27/FTI们在使用的开源库/</id>
     <published>2015-09-27T14:49:00.000Z</published>
-    <updated>2015-12-04T17:20:04.304Z</updated>
+    <updated>2015-12-06T03:19:40.265Z</updated>
     <content type="html"><![CDATA[<p>#FTI们在使用的开源库</p>
 <blockquote>
 <p>转载请注明出处 <a href="http://blog.csdn.net/hpu_zyh/article/details/48769703" target="_blank" rel="external">http://blog.csdn.net/hpu_zyh/article/details/48769703</a></p>
@@ -2065,6 +1941,8 @@ Reference</h2>
     
     </summary>
     
+      <category term="Android" scheme="http://hanks.xyz/tags/Android/"/>
+    
   </entry>
   
   <entry>
@@ -2072,7 +1950,7 @@ Reference</h2>
     <link href="http://hanks.xyz/2015/09/14/Gradle_in_Android_Studio_(3)_-_%E9%A1%B9%E7%9B%AE%E4%B8%AD%E7%9A%84Gradle/"/>
     <id>http://hanks.xyz/2015/09/14/Gradle_in_Android_Studio_(3)_-_项目中的Gradle/</id>
     <published>2015-09-14T13:51:00.000Z</published>
-    <updated>2015-12-04T17:20:04.304Z</updated>
+    <updated>2015-12-06T03:19:40.301Z</updated>
     <content type="html"><![CDATA[<p>#Gradle in Android Studio</p>
 <blockquote>
 <p>转载请注明出处 :  <a href="http://blog.csdn.net/hpu_zyh/article/details/48447539" target="_blank" rel="external">http://blog.csdn.net/hpu_zyh/article/details/48447539</a><br><a href="http://blog.csdn.net/hpu_zyh" target="_blank" rel="external">博客主页</a>  |   <a href="http://www.jianshu.com/users/3e9f552e6ba7" target="_blank" rel="external">简书</a>  |  <a href="http://www.zhihu.com/people/yuhan-zhang-36" target="_blank" rel="external">知乎</a>  |  <a href="http://weibo.com/u/2359002991" target="_blank" rel="external">微博</a>  |  <a href="https://github.com/hanks-zyh" target="_blank" rel="external">github</a></p>
@@ -2083,7 +1961,7 @@ Reference</h2>
 <p>##Android Studio中的Gradle<br>当创建一个项目后,Android studio 会自动创建以下的目录<br><img src="http://img.blog.csdn.net/20150914214416965" alt="这里写图片描述"><br>一般情况下,我们只修改<code>app</code> moudle下的build.gradle即可满足使用</p>
 <p>android studio 目录结构<br><img src="http://img.blog.csdn.net/20150914214430893" alt="这里写图片描述"></p>
 <p>##库管理机制</p>
-<p>当创建一个项目时,生成以下的基本信息: <code>app/build.gradle</code><br><figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">apply plugin: <span class="string">'com.android.application'</span></span><br><span class="line"></span><br><span class="line">android &#123;</span><br><span class="line">    compileSdkVersion <span class="number">22</span>             <span class="comment">// 这里需要按照自己本机下载的版本填写, 如果本机没有下载,会报错</span></span><br><span class="line">    buildToolsVersion <span class="string">"23.0.0 rc2"</span>   <span class="comment">// Error:failed to find target android-22 : E:\android-sdk </span></span><br><span class="line"></span><br><span class="line">    defaultConfig &#123;</span><br><span class="line">        applicationId <span class="string">"hanks.com.myapplication"</span> <span class="comment">//应用包名</span></span><br><span class="line">        minSdkVersion <span class="number">15</span>                        </span><br><span class="line">        targetSdkVersion <span class="number">22</span>                     </span><br><span class="line">        versionCode <span class="number">1</span></span><br><span class="line">        versionName <span class="string">"1.0"</span></span><br><span class="line">    &#125;</span><br><span class="line">    buildTypes &#123;</span><br><span class="line">        release &#123;</span><br><span class="line">            minifyEnabled <span class="keyword">false</span></span><br><span class="line">            proguardFiles getDefaultProguardFile(<span class="string">'proguard-android.txt'</span>), <span class="string">'proguard-rules.pro'</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">dependencies</span> &#123; <span class="comment">//库依赖</span></span><br><span class="line">    <span class="keyword">compile</span> <span class="keyword">fileTree</span>(dir: <span class="string">'libs'</span>, <span class="keyword">include</span>: [<span class="string">'*.jar'</span>]) <span class="comment">//引用本地的libs目录下的所以jar包</span></span><br><span class="line">    <span class="keyword">compile</span> <span class="string">'com.android.support:appcompat-v7:22.2.0'</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>当创建一个项目时,生成以下的基本信息: <code>app/build.gradle</code><br><figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">apply plugin: <span class="string">'com.android.application'</span></span><br><span class="line"></span><br><span class="line">android &#123;</span><br><span class="line">    compileSdkVersion <span class="number">22</span>             <span class="comment">// 这里需要按照自己本机下载的版本填写, 如果本机没有下载,会报错</span></span><br><span class="line">    buildToolsVersion <span class="string">"23.0.0 rc2"</span>   <span class="comment">// Error:failed to find target android-22 : E:\android-sdk</span></span><br><span class="line"></span><br><span class="line">    defaultConfig &#123;</span><br><span class="line">        applicationId <span class="string">"hanks.com.myapplication"</span> <span class="comment">//应用包名</span></span><br><span class="line">        minSdkVersion <span class="number">15</span>                        </span><br><span class="line">        targetSdkVersion <span class="number">22</span>                     </span><br><span class="line">        versionCode <span class="number">1</span></span><br><span class="line">        versionName <span class="string">"1.0"</span></span><br><span class="line">    &#125;</span><br><span class="line">    buildTypes &#123;</span><br><span class="line">        release &#123;</span><br><span class="line">            minifyEnabled <span class="keyword">false</span></span><br><span class="line">            proguardFiles getDefaultProguardFile(<span class="string">'proguard-android.txt'</span>), <span class="string">'proguard-rules.pro'</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">dependencies</span> &#123; <span class="comment">//库依赖</span></span><br><span class="line">    <span class="keyword">compile</span> <span class="keyword">fileTree</span>(dir: <span class="string">'libs'</span>, <span class="keyword">include</span>: [<span class="string">'*.jar'</span>]) <span class="comment">//引用本地的libs目录下的所以jar包</span></span><br><span class="line">    <span class="keyword">compile</span> <span class="string">'com.android.support:appcompat-v7:22.2.0'</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>当需要添加一些第三方库时, 直接在<code>dependencies</code>添加引用<br><figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">dependencies</span> &#123;</span><br><span class="line">    <span class="comment">// Google Play Services</span></span><br><span class="line">    <span class="keyword">compile</span> <span class="string">'com.google.android.gms:play-services:7.8.0'</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// Support Libraries</span></span><br><span class="line">    <span class="keyword">compile</span> <span class="string">'com.android.support:appcompat-v7:23.0.0'</span></span><br><span class="line">    <span class="keyword">compile</span> <span class="string">'com.android.support:cardview-v7:23.0.0'</span></span><br><span class="line">    <span class="keyword">compile</span> <span class="string">'com.android.support:design:23.0.0'</span></span><br><span class="line">    <span class="keyword">compile</span> <span class="string">'com.android.support:gridlayout-v7:23.0.0'</span></span><br><span class="line">    <span class="keyword">compile</span> <span class="string">'com.android.support:leanback-v17:23.0.0'</span></span><br><span class="line">    <span class="keyword">compile</span> <span class="string">'com.android.support:mediarouter-v7:23.0.0'</span></span><br><span class="line">    <span class="keyword">compile</span> <span class="string">'com.android.support:palette-v7:23.0.0'</span></span><br><span class="line">    <span class="keyword">compile</span> <span class="string">'com.android.support:recyclerview-v7:23.0.0'</span></span><br><span class="line">    <span class="keyword">compile</span> <span class="string">'com.android.support:support-annotations:23.0.0'</span></span><br><span class="line">    <span class="keyword">compile</span> <span class="string">'com.android.support:support-v13:23.0.0'</span></span><br><span class="line">    <span class="keyword">compile</span> <span class="string">'com.android.support:support-v4:23.0.0'</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// <span class="doctag">Note:</span> these libraries require the "Google Repository" and "Android Repository"</span></span><br><span class="line">    <span class="comment">//       to be installed via the SDK manager.</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>添加引用后,Android Studio会提示我们<code>Sync</code>, 然后会自动从远程库中下载我们引用的库文件,本地已经缓存过的话会直接引用本地的,而不用下载</p>
 <figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">compile <span class="function"><span class="title">files</span><span class="params">(<span class="string">'libs/gson-2.3.1.jar'</span>)</span></span>                <span class="comment">//引用单个jar</span></span><br><span class="line">-------------------------------------------------------------------------------</span><br><span class="line">compile <span class="function"><span class="title">fileTree</span><span class="params">(include: [<span class="string">'*.jar'</span>], dir: <span class="string">'libs'</span>)</span></span>   <span class="comment">// 引用libs下的全部jar</span></span><br><span class="line">-------------------------------------------------------------------------------</span><br><span class="line">compile <span class="function"><span class="title">project</span><span class="params">(<span class="string">':library:mylibrary'</span>)</span></span>               <span class="comment">// 引用library目录下的mylibrary</span></span><br></pre></td></tr></table></figure>
@@ -2106,6 +1984,8 @@ Reference</h2>
     
     </summary>
     
+      <category term="Android" scheme="http://hanks.xyz/tags/Android/"/>
+    
   </entry>
   
   <entry>
@@ -2113,7 +1993,7 @@ Reference</h2>
     <link href="http://hanks.xyz/2015/09/14/Gradle_in_Android_Studio_(2)_-_%E9%85%8D%E7%BD%AEGradle/"/>
     <id>http://hanks.xyz/2015/09/14/Gradle_in_Android_Studio_(2)_-_配置Gradle/</id>
     <published>2015-09-14T13:41:00.000Z</published>
-    <updated>2015-12-04T17:20:04.304Z</updated>
+    <updated>2015-12-06T03:19:40.289Z</updated>
     <content type="html"><![CDATA[<p>#配置Gradle</p>
 <blockquote>
 <p>来自<a href="https://developer.android.com/intl/zh-cn/tools/building/configuring-gradle.html#workBuildVariants" target="_blank" rel="external">AndroidDevelopers</a></p>
@@ -2260,6 +2140,8 @@ Reference</h2>
     
     </summary>
     
+      <category term="Android" scheme="http://hanks.xyz/tags/Android/"/>
+    
   </entry>
   
   <entry>
@@ -2267,7 +2149,7 @@ Reference</h2>
     <link href="http://hanks.xyz/2015/09/14/Gradle_in_Android_Studio_(1)_-_%E6%9E%84%E5%BB%BA%E7%B3%BB%E7%BB%9F%E6%A6%82%E8%BF%B0/"/>
     <id>http://hanks.xyz/2015/09/14/Gradle_in_Android_Studio_(1)_-_构建系统概述/</id>
     <published>2015-09-14T13:32:00.000Z</published>
-    <updated>2015-12-04T17:20:04.304Z</updated>
+    <updated>2015-12-06T03:19:40.273Z</updated>
     <content type="html"><![CDATA[<p>#构建系统概述</p>
 <blockquote>
 <p>Android构建系统是用于构建，测试，运行和打包app的工具包。构建系统可以集成到Android Studio菜单中,也可以单独使用命令行运行。构建系统的特点：</p>
@@ -2303,6 +2185,41 @@ Reference</h2>
     <![CDATA[ ]]>
     
     </summary>
+    
+      <category term="Android" scheme="http://hanks.xyz/tags/Android/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[用Android Studio进行NDK开发(简化流程)]]></title>
+    <link href="http://hanks.xyz/2015/09/02/%E7%94%A8Android_Studio%E8%BF%9B%E8%A1%8CNDK%E5%BC%80%E5%8F%91(%E7%AE%80%E5%8C%96%E6%B5%81%E7%A8%8B)/"/>
+    <id>http://hanks.xyz/2015/09/02/用Android_Studio进行NDK开发(简化流程)/</id>
+    <published>2015-09-02T14:32:00.000Z</published>
+    <updated>2015-12-06T03:19:40.557Z</updated>
+    <content type="html"><![CDATA[<blockquote>
+<p>开发环境<br><strong>Android Studio 1.3 RC3</strong><br><strong>android-ndk-r10e</strong></p>
+<p>转载请注明出处 :  <a href="http://blog.csdn.net/hpu_zyh/article/details/48184581" target="_blank" rel="external">http://blog.csdn.net/hpu_zyh/article/details/48184581</a><br><a href="http://blog.csdn.net/hpu_zyh" target="_blank" rel="external">博客主页</a>  |   <a href="http://www.jianshu.com/users/3e9f552e6ba7" target="_blank" rel="external">简书</a>  |  <a href="http://www.zhihu.com/people/yuhan-zhang-36" target="_blank" rel="external">知乎</a>  |  <a href="http://weibo.com/u/2359002991" target="_blank" rel="external">微博</a>  |  <a href="https://github.com/hanks-zyh" target="_blank" rel="external">github</a></p>
+</blockquote>
+<p>###1. 准备NDK环境<br>我这里下载的是<code>android-ndk-r10e</code><br>进入Android studio 的 <code>Project Structure</code>-&gt;<code>SDK location</code> -&gt; <code>Android NDK location</code>, 设置<strong>android-ndk-r10e</strong>的路径, 配置好即可进行开发了(就是这么简单)<br><img src="http://img.blog.csdn.net/20150902221536713" alt="这里写图片描述"></p>
+<p>###2. NDK开发</p>
+<p>####创建工程,配置NDK<br>在Android studio中创建一个新的Android项目, 修改项目下的<code>build.gradle</code><br><figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">apply plugin: <span class="string">'com.android.application'</span></span><br><span class="line"></span><br><span class="line">android &#123;</span><br><span class="line">    compileSdkVersion <span class="number">22</span></span><br><span class="line">    buildToolsVersion <span class="string">"23.0.0 rc2"</span></span><br><span class="line"></span><br><span class="line">    defaultConfig &#123;</span><br><span class="line">        applicationId <span class="string">"hanks.com.hkjni"</span></span><br><span class="line">        minSdkVersion <span class="number">15</span></span><br><span class="line">        targetSdkVersion <span class="number">22</span></span><br><span class="line">        versionCode <span class="number">1</span></span><br><span class="line">        versionName <span class="string">"1.0"</span></span><br><span class="line"></span><br><span class="line">        ndk&#123;</span><br><span class="line">            moduleName <span class="string">"hkjni"</span>   <span class="comment">//生成的so名字</span></span><br><span class="line">            abiFilters <span class="string">"armeabi"</span>, <span class="string">"armeabi-v7a"</span>, <span class="string">"x86"</span>  <span class="comment">//输出指定三种abi体系结构下的so库。</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    buildTypes &#123;</span><br><span class="line">        release &#123;</span><br><span class="line">            minifyEnabled <span class="keyword">false</span></span><br><span class="line">            proguardFiles getDefaultProguardFile(<span class="string">'proguard-android.txt'</span>), <span class="string">'proguard-rules.pro'</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">dependencies</span> &#123;</span><br><span class="line">    <span class="keyword">compile</span> <span class="keyword">fileTree</span>(dir: <span class="string">'libs'</span>, <span class="keyword">include</span>: [<span class="string">'*.jar'</span>])</span><br><span class="line">    <span class="keyword">compile</span> <span class="string">'com.android.support:appcompat-v7:22.2.0'</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>编写     <code>MainActivity</code><br><img src="http://img.blog.csdn.net/20150902223647139" alt="这里写图片描述"></p>
+<p>在<code>src\main</code>目录下创建 <code>jni</code>目录<br>创建需要调用的 <code>c语言</code>文件<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">"jni.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="function">JNIEXPORT jstring JNICALL <span class="title">Java_hanks_com_hkjni_MainActivity_getHello</span> <span class="params">(JNIEnv * env , jobject obj)</span></span>&#123;</span><br><span class="line">    <span class="keyword">char</span> * str = <span class="string">"from hkcode"</span>;</span><br><span class="line">    <span class="keyword">return</span> (*env)-&gt;NewStringUTF(env,str);</span><br><span class="line">    <span class="comment">//如果不知道这个方法名怎么写可以通过 javah 生成</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><img src="http://img.blog.csdn.net/20150902222115560" alt="这里写图片描述"></p>
+<p><img src="http://img.blog.csdn.net/20150902222221488" alt="这里写图片描述"></p>
+<p><strong>下面就可以直接运行了!!!(感觉比以前轻松好多啊)</strong></p>
+<p>   如果不知道这个方法名怎么写可以通过 <strong>javah</strong>命令 生成,然后<strong>复制</strong>即可, 知道命名规则的话直接编写 .c 文件也可以<br>   <img src="http://img.blog.csdn.net/20150902222137395" alt="这里写图片描述"></p>
+<p><img src="http://img.blog.csdn.net/20150902222237008" alt="这里写图片描述">   </p>
+<hr>
+<p>以前用Eclipse还有编辑 <code>Android.mk</code>文件,现在Android studio 自动生成了</p>
+<p><img src="http://img.blog.csdn.net/20150902222152383" alt="这里写图片描述"></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[ ]]>
+    
+    </summary>
+    
+      <category term="Android" scheme="http://hanks.xyz/tags/Android/"/>
     
   </entry>
   

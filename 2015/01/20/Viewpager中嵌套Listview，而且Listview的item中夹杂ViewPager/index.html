@@ -12,7 +12,7 @@
 <meta property="og:site_name" content="Hanks.xyz">
 <meta property="og:description">
 <meta property="og:image" content="http://img.blog.csdn.net/20150120221018539">
-<meta property="og:updated_time" content="2015-12-04T17:20:04.320Z">
+<meta property="og:updated_time" content="2015-12-06T03:19:40.397Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Viewpager中嵌套Listview，而且Listview的item中夹杂ViewPager">
 <meta name="twitter:description">
@@ -112,13 +112,13 @@
 	private ViewPager viewpager;
 	private List&lt;View&gt; list = new ArrayList&lt;View&gt;();
 	private MyPageAdapter adapter;
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		viewpager = (ViewPager)findViewById(R.id.viewpager);
-		
+
 		initData();
 		adapter = new MyPageAdapter();
 		viewpager.setAdapter(adapter);
@@ -141,21 +141,21 @@
 		public boolean isViewFromObject(View arg0, Object arg1) {
 			return arg0==arg1;
 		}
-		
+
 		@Override
 		public Object instantiateItem(ViewGroup container, int position) {
 			((ViewGroup)container).addView((View)list.get(position));
 			return list.get(position);
-			
+
 		}
-		
+
 		@Override
 		public void destroyItem(ViewGroup container, int position, Object object) {
 			container.removeView(list.get(position));
 		}
-		
+
 	}
- 
+
 }</pre><br>
 activity_main.xml
 <p></p>
@@ -283,11 +283,11 @@ activity_main.xml
 			list.add(view);
 		}
 		viewPager = (ViewPager) View.inflate(mContext, R.layout.layout_viewpager, null);
-		
+
 		/**
 		 * 必须设置LayoutParams
 		 */
-		
+
 		AbsListView.LayoutParams lp = new AbsListView.LayoutParams(LayoutParams.MATCH_PARENT, 200);
 		viewPager.setLayoutParams(lp);
 		viewPager.setAdapter(new MyPageAdapter());
@@ -348,9 +348,11 @@ activity_main.xml
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://hanks.xyz/2015/01/20/Viewpager中嵌套Listview，而且Listview的item中夹杂ViewPager/" data-id="cihsst0t6004x0805qb5kwcar" class="article-share-link">Share</a>
+      <a data-url="http://hanks.xyz/2015/01/20/Viewpager中嵌套Listview，而且Listview的item中夹杂ViewPager/" data-id="cihu1jbz2005t3j05hsabm4ap" class="article-share-link">Share</a>
       
       
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
+
     </footer>
   
   
@@ -394,6 +396,71 @@ activity_main.xml
 </section>
       </div>
       <footer id="footer">
+  
+    <aside id="sidebar" class="outer">
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2015/12/04/mac_java_enviroment/">OS X中Java环境变量配置</a>
+          </li>
+        
+          <li>
+            <a href="/2015/12/02/mac-os-in-Ubuntu/">Ubuntu 安装 OS X 10.11  虚拟机</a>
+          </li>
+        
+          <li>
+            <a href="/2015/12/01/ReactiveX/">ReactiveX</a>
+          </li>
+        
+          <li>
+            <a href="/2015/11/26/利器_--_抓包工具总结/">利器 -- 抓包工具总结</a>
+          </li>
+        
+          <li>
+            <a href="/2015/11/21/Rx/">使用RxJava 提升用户体验</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/Java/" style="font-size: 13.33px;">Java</a> <a href="/tags/OS-X/" style="font-size: 10px;">OS X</a> <a href="/tags/Rx/" style="font-size: 10px;">Rx</a> <a href="/tags/RxJava/" style="font-size: 10px;">RxJava</a> <a href="/tags/Ubuntu/" style="font-size: 16.67px;">Ubuntu</a> <a href="/tags/mac-os/" style="font-size: 10px;">mac os</a> <a href="/tags/virtualBox/" style="font-size: 10px;">virtualBox</a> <a href="/tags/必备知识/" style="font-size: 10px;">必备知识</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">links</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="http://kiya.space">kiya-z</a>
+          </li>
+        
+          <li>
+            <a href="http://hexo.io">Hexo</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
   
   <div class="outer footer_center">
     <div id="footer-info" class="inner">

@@ -15,7 +15,7 @@
 <meta property="og:image" content="http://img.blog.csdn.net/20150201204605230">
 <meta property="og:image" content="http://img.blog.csdn.net/20150201204621360">
 <meta property="og:image" content="http://img.blog.csdn.net/20150201204618137">
-<meta property="og:updated_time" content="2015-12-04T17:20:04.324Z">
+<meta property="og:updated_time" content="2015-12-06T03:19:40.605Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="结合Android学设计模式--工厂方法（FactoryMethod）">
 <meta name="twitter:description">
@@ -124,18 +124,18 @@
 <p>因为这种情况下，我们往往需要的是马上生产子类，getConnection方法往往是静态的，所以简单工厂，也叫静态工厂方法。<br>
 </p>
 <p></p>
-<pre code_snippet_id="594899" snippet_file_name="blog_20150201_1_5230849" name="code" class="java">abstract class Connection{      
-    static Connection getConnection(  
-            Context context, HttpHost host, HttpHost proxy,  
-            RequestFeeder requestFeeder) {  
-   
-        if (host.getSchemeName().equals(&quot;http&quot;)) {  
-            return new HttpConnection(context, host, requestFeeder);  
-        }  
-   
-        // Otherwise, default to https  
-        return new HttpsConnection(context, host, proxy, requestFeeder);  
-    }  
+<pre code_snippet_id="594899" snippet_file_name="blog_20150201_1_5230849" name="code" class="java">abstract class Connection{
+    static Connection getConnection(
+            Context context, HttpHost host, HttpHost proxy,
+            RequestFeeder requestFeeder) {
+
+        if (host.getSchemeName().equals(&quot;http&quot;)) {
+            return new HttpConnection(context, host, requestFeeder);
+        }
+
+        // Otherwise, default to https
+        return new HttpsConnection(context, host, proxy, requestFeeder);
+    }
 }  </pre><br>
 <p></p>
 <p>在Android中，我们经常使用静态工厂方法的地方应该是创建<strong><span style="color:#cc0000">Bitmap</span></strong>对象的时候，例如通过资源id获取Bitmap对象。</p>
@@ -187,27 +187,27 @@ BitmapFactory中的decodeFile、decodeByteArray工厂方法都是这么一个类
 我们来看下具体的代码：<br>
 </p>
 <p></p>
-<pre code_snippet_id="594899" snippet_file_name="blog_20150201_3_4014047" name="code" class="java">//抽象产品  
-public interface Runnable {  
-    public abstract void run();  
-}  
-   
-//抽象工厂  
-public interface ThreadFactory {  
-    Thread newThread(Runnable r);  
+<pre code_snippet_id="594899" snippet_file_name="blog_20150201_3_4014047" name="code" class="java">//抽象产品
+public interface Runnable {
+    public abstract void run();
+}
+
+//抽象工厂
+public interface ThreadFactory {
+    Thread newThread(Runnable r);
 } </pre>比如AsyncTask类中工厂的具体实现如下：
 <p></p>
 <p></p>
-<pre code_snippet_id="594899" snippet_file_name="blog_20150201_4_7686603" name="code" class="java">//工厂实现类  
-private static final ThreadFactory sThreadFactory = new ThreadFactory() {  
-    private final AtomicInteger mCount = new AtomicInteger(1);  
-  
-    public Thread newThread(Runnable r) {  
-        return new Thread(r, &quot;AsyncTask #&quot; + mCount.getAndIncrement());  
-    }  
-};  
-//那么产品类在哪里呢？  
-//做为参数Runnable r，我们可以创建千千万万个此系列的产品类  
+<pre code_snippet_id="594899" snippet_file_name="blog_20150201_4_7686603" name="code" class="java">//工厂实现类
+private static final ThreadFactory sThreadFactory = new ThreadFactory() {
+    private final AtomicInteger mCount = new AtomicInteger(1);
+
+    public Thread newThread(Runnable r) {
+        return new Thread(r, &quot;AsyncTask #&quot; + mCount.getAndIncrement());
+    }
+};
+//那么产品类在哪里呢？
+//做为参数Runnable r，我们可以创建千千万万个此系列的产品类
 //同理，我们可以创建另外类似的工厂，生产某种专门的线程，非常容易扩展  </pre><br>
 <br>
 <p></p>
@@ -225,9 +225,11 @@ private static final ThreadFactory sThreadFactory = new ThreadFactory() {
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://hanks.xyz/2015/02/01/结合Android学设计模式--工厂方法（FactoryMethod）/" data-id="cihsst0n2000s08053g6wqxin" class="article-share-link">Share</a>
+      <a data-url="http://hanks.xyz/2015/02/01/结合Android学设计模式--工厂方法（FactoryMethod）/" data-id="cihu1jbsr00143j05ly0es9l0" class="article-share-link">Share</a>
       
       
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
+
     </footer>
   
   
@@ -271,6 +273,71 @@ private static final ThreadFactory sThreadFactory = new ThreadFactory() {
 </section>
       </div>
       <footer id="footer">
+  
+    <aside id="sidebar" class="outer">
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2015/12/04/mac_java_enviroment/">OS X中Java环境变量配置</a>
+          </li>
+        
+          <li>
+            <a href="/2015/12/02/mac-os-in-Ubuntu/">Ubuntu 安装 OS X 10.11  虚拟机</a>
+          </li>
+        
+          <li>
+            <a href="/2015/12/01/ReactiveX/">ReactiveX</a>
+          </li>
+        
+          <li>
+            <a href="/2015/11/26/利器_--_抓包工具总结/">利器 -- 抓包工具总结</a>
+          </li>
+        
+          <li>
+            <a href="/2015/11/21/Rx/">使用RxJava 提升用户体验</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/Java/" style="font-size: 13.33px;">Java</a> <a href="/tags/OS-X/" style="font-size: 10px;">OS X</a> <a href="/tags/Rx/" style="font-size: 10px;">Rx</a> <a href="/tags/RxJava/" style="font-size: 10px;">RxJava</a> <a href="/tags/Ubuntu/" style="font-size: 16.67px;">Ubuntu</a> <a href="/tags/mac-os/" style="font-size: 10px;">mac os</a> <a href="/tags/virtualBox/" style="font-size: 10px;">virtualBox</a> <a href="/tags/必备知识/" style="font-size: 10px;">必备知识</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">links</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="http://kiya.space">kiya-z</a>
+          </li>
+        
+          <li>
+            <a href="http://hexo.io">Hexo</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
   
   <div class="outer footer_center">
     <div id="footer-info" class="inner">

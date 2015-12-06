@@ -15,7 +15,7 @@
 <meta property="og:image" content="http://img.blog.csdn.net/20150201221137176?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvaHB1X3p5aA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
 <meta property="og:image" content="http://img.blog.csdn.net/20150202175845054?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvaHB1X3p5aA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
 <meta property="og:image" content="http://img.blog.csdn.net/20150202203303921?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvaHB1X3p5aA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
-<meta property="og:updated_time" content="2015-12-04T17:20:04.304Z">
+<meta property="og:updated_time" content="2015-12-06T03:19:40.181Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android中的Handler机制">
 <meta name="twitter:description">
@@ -105,11 +105,11 @@
 <p><br></p><p>还记得第一次使用Handler的情形，我开启了一个子线程，在子线程中给TextView进行setText()，然后运行起来程序异常终止了，查看log信息：</p><p><span style="color:#ff0000;">&nbsp;E/AndroidRuntime(2206): android.view.ViewRootImpl$CalledFromWrongThreadException: Only the original thread that created a view hierarchy can touch its views.</span></p><p>goolgle一下找到了原因:&nbsp;原来android中相关的view和控件不是线程安全的，我们必须单独做处理。然后就了解了Handler。可以在子线程中通过Handler发送一个Message给主线程，然后在主线程进行UI更新<br></p><p><img alt="" src="http://img.blog.csdn.net/20150201220109613?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvaHB1X3p5aA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast"><br></p><p>可以大概看成Handler的作用有分发消息，处理消息，发送消息，移除消息</p><p>下面看一下Message类</p><p><img alt="" src="http://img.blog.csdn.net/20150201221137176?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvaHB1X3p5aA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast"><br></p><p>可见Message包括what(message的标识) 、obj 任意对象， arg1 arg2, 而且可以设置Target来指定Handler</p><p><br></p><p>当Handler发送一条Message时有一下两种写法：</p><p></p><pre class="java" name="code" snippet_file_name="blog_20150201_1_852454" code_snippet_id="595187">Message msg = Message.obtain();
 msg.what = 200;
 msg.obj = obj;
-handler.sendMessage(msg);</pre><br><pre class="java" name="code" snippet_file_name="blog_20150201_2_5190102" code_snippet_id="595187">Message.obtain(handler, 200).sendToTarget();</pre><p></p><p>Looper类：</p><p><img alt="" src="http://img.blog.csdn.net/20150202175845054?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvaHB1X3p5aA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast"><br></p><p>Looper的类注释中</p><p><pre class="java" name="code" snippet_file_name="blog_20150202_3_1040235" code_snippet_id="595187">Class used to run a message loop for a thread. Threads by default do not have a message loop associated with them; to create one, call prepare in the thread that is to run the loop, and then loop to have it process messages until the loop is stopped. 
+handler.sendMessage(msg);</pre><br><pre class="java" name="code" snippet_file_name="blog_20150201_2_5190102" code_snippet_id="595187">Message.obtain(handler, 200).sendToTarget();</pre><p></p><p>Looper类：</p><p><img alt="" src="http://img.blog.csdn.net/20150202175845054?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvaHB1X3p5aA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast"><br></p><p>Looper的类注释中</p><p><pre class="java" name="code" snippet_file_name="blog_20150202_3_1040235" code_snippet_id="595187">Class used to run a message loop for a thread. Threads by default do not have a message loop associated with them; to create one, call prepare in the thread that is to run the loop, and then loop to have it process messages until the loop is stopped.
 
-Most interaction with a message loop is through the Handler class. 
+Most interaction with a message loop is through the Handler class.
 
-This is a typical example of the implementation of a Looper thread, using the separation of prepare and loop to create an initial Handler to communicate with the Looper. 
+This is a typical example of the implementation of a Looper thread, using the separation of prepare and loop to create an initial Handler to communicate with the Looper.
 
   class LooperThread extends Thread {
       public Handler mHandler;
@@ -174,12 +174,12 @@ This is a typical example of the implementation of a Looper thread, using the se
      * Time spent in deep sleep will add an additional delay to execution.
      * You will receive it in {@link #handleMessage}, in the thread attached
      * to this handler.
-     * 
+     *
      * @param uptimeMillis The absolute time at which the message should be
      *         delivered, using the
      *         {@link android.os.SystemClock#uptimeMillis} time-base.
-     *         
-     * @return Returns true if the message was successfully placed in to the 
+     *
+     * @return Returns true if the message was successfully placed in to the
      *         message queue.  Returns false on failure, usually because the
      *         looper processing the message queue is exiting.  Note that a
      *         result of true does not mean the message will be processed -- if
@@ -288,9 +288,11 @@ This is a typical example of the implementation of a Looper thread, using the se
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://hanks.xyz/2015/02/01/Android中的Handler机制/" data-id="cihsst0vm0073080576es16e9" class="article-share-link">Share</a>
+      <a data-url="http://hanks.xyz/2015/02/01/Android中的Handler机制/" data-id="cihu1jc1j008j3j053schp4oe" class="article-share-link">Share</a>
       
       
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
+
     </footer>
   
   
@@ -334,6 +336,71 @@ This is a typical example of the implementation of a Looper thread, using the se
 </section>
       </div>
       <footer id="footer">
+  
+    <aside id="sidebar" class="outer">
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2015/12/04/mac_java_enviroment/">OS X中Java环境变量配置</a>
+          </li>
+        
+          <li>
+            <a href="/2015/12/02/mac-os-in-Ubuntu/">Ubuntu 安装 OS X 10.11  虚拟机</a>
+          </li>
+        
+          <li>
+            <a href="/2015/12/01/ReactiveX/">ReactiveX</a>
+          </li>
+        
+          <li>
+            <a href="/2015/11/26/利器_--_抓包工具总结/">利器 -- 抓包工具总结</a>
+          </li>
+        
+          <li>
+            <a href="/2015/11/21/Rx/">使用RxJava 提升用户体验</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/Java/" style="font-size: 13.33px;">Java</a> <a href="/tags/OS-X/" style="font-size: 10px;">OS X</a> <a href="/tags/Rx/" style="font-size: 10px;">Rx</a> <a href="/tags/RxJava/" style="font-size: 10px;">RxJava</a> <a href="/tags/Ubuntu/" style="font-size: 16.67px;">Ubuntu</a> <a href="/tags/mac-os/" style="font-size: 10px;">mac os</a> <a href="/tags/virtualBox/" style="font-size: 10px;">virtualBox</a> <a href="/tags/必备知识/" style="font-size: 10px;">必备知识</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">links</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="http://kiya.space">kiya-z</a>
+          </li>
+        
+          <li>
+            <a href="http://hexo.io">Hexo</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
   
   <div class="outer footer_center">
     <div id="footer-info" class="inner">

@@ -11,7 +11,7 @@
 <meta property="og:url" content="http://hanks.xyz/2015/02/05/Android端使用asmack实现IM/index.html">
 <meta property="og:site_name" content="Hanks.xyz">
 <meta property="og:description">
-<meta property="og:updated_time" content="2015-12-04T17:20:04.300Z">
+<meta property="og:updated_time" content="2015-12-06T03:19:40.209Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android端使用asmack实现IM">
 <meta name="twitter:description">
@@ -115,25 +115,25 @@ spark</a>&nbsp;连接 ejabberd，今天一捣鼓了一下asmack</p>
                 connectionConfig.setReconnectionAllowed(true);
                 // 允许登陆成功后更新在线状态
                 connectionConfig.setSendPresence(true);
-                
+
                 //下面为解决 找不到密钥凭证，4.0+系统不同
-                Log.i(&quot;当前操作系统版本API Level=&quot;, Build.VERSION.SDK_INT + &quot;&quot;); //$NON-NLS-1$ //$NON-NLS-2$  
+                Log.i(&quot;当前操作系统版本API Level=&quot;, Build.VERSION.SDK_INT + &quot;&quot;); //$NON-NLS-1$ //$NON-NLS-2$
                 if (Build.VERSION.SDK_INT &gt;= 14) {
-                    connectionConfig.setTruststoreType(&quot;AndroidCAStore&quot;); //$NON-NLS-1$  
+                    connectionConfig.setTruststoreType(&quot;AndroidCAStore&quot;); //$NON-NLS-1$
                     connectionConfig.setTruststorePassword(null);
                     connectionConfig.setTruststorePath(null);
                 } else {
-                    connectionConfig.setTruststoreType(&quot;BKS&quot;); //$NON-NLS-1$  
-                    String path = System.getProperty(&quot;javax.net.ssl.trustStore&quot;); //$NON-NLS-1$  
+                    connectionConfig.setTruststoreType(&quot;BKS&quot;); //$NON-NLS-1$
+                    String path = System.getProperty(&quot;javax.net.ssl.trustStore&quot;); //$NON-NLS-1$
                     if (path == null)
-                        path = System.getProperty(&quot;java.home&quot;) + File.separator //$NON-NLS-1$  
-                                + &quot;etc&quot; + File.separator + &quot;security&quot; //$NON-NLS-1$ //$NON-NLS-2$  
-                                + File.separator + &quot;cacerts.bks&quot;; //$NON-NLS-1$  
+                        path = System.getProperty(&quot;java.home&quot;) + File.separator //$NON-NLS-1$
+                                + &quot;etc&quot; + File.separator + &quot;security&quot; //$NON-NLS-1$ //$NON-NLS-2$
+                                + File.separator + &quot;cacerts.bks&quot;; //$NON-NLS-1$
                     connectionConfig.setTruststorePath(path);
                 }
-                
+
                 connectionConfig.setSecurityMode(SecurityMode.disabled);
-                
+
                 //获取到一个XMPPConnection对象
                 connection = new XMPPConnection(connectionConfig);
                 try {
@@ -176,18 +176,18 @@ spark</a>&nbsp;连接 ejabberd，今天一捣鼓了一下asmack</p>
 </div>
 <div><pre code_snippet_id="598689" snippet_file_name="blog_20150205_6_4481821" name="code" class="java"> newChat.sendMessage(message);</pre>
 <h5>修改状态</h5>
-<div><pre code_snippet_id="598689" snippet_file_name="blog_20150206_7_4867034" name="code" class="java">            //设置登陆后的个人状态信息  
-            Presence p = new Presence(Presence.Type.available);  
-            p.setStatus(&quot;吃饭...&quot;);  
+<div><pre code_snippet_id="598689" snippet_file_name="blog_20150206_7_4867034" name="code" class="java">            //设置登陆后的个人状态信息
+            Presence p = new Presence(Presence.Type.available);
+            p.setStatus(&quot;吃饭...&quot;);
             connection.sendPacket(p);  </pre></div>
 <h5>下线</h5>
 </div>
 <div><pre code_snippet_id="598689" snippet_file_name="blog_20150206_8_6554723" name="code" class="java">connection.disconnect(); </pre></div>
 <h5>获取好友列表</h5>
-<p><pre code_snippet_id="598689" snippet_file_name="blog_20150206_9_194261" name="code" class="java">        Collection&lt;RosterEntry&gt; rosters = connection.getRoster().getEntries();  
-        Log.i(&quot;zyh&quot;,&quot;-------我的好友列表-------&quot;);  
-        for(RosterEntry rosterEntry : rosters){  
-            Log.i(&quot;zyh&quot;,&quot;name: &quot;+rosterEntry.getName()+&quot;,jid: &quot;+rosterEntry.getUser());  
+<p><pre code_snippet_id="598689" snippet_file_name="blog_20150206_9_194261" name="code" class="java">        Collection&lt;RosterEntry&gt; rosters = connection.getRoster().getEntries();
+        Log.i(&quot;zyh&quot;,&quot;-------我的好友列表-------&quot;);
+        for(RosterEntry rosterEntry : rosters){
+            Log.i(&quot;zyh&quot;,&quot;name: &quot;+rosterEntry.getName()+&quot;,jid: &quot;+rosterEntry.getUser());
         }  </pre><br>
 <br>
 </p>
@@ -212,9 +212,11 @@ spark</a>&nbsp;连接 ejabberd，今天一捣鼓了一下asmack</p>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://hanks.xyz/2015/02/05/Android端使用asmack实现IM/" data-id="cihsst0vi006z0805f3f2ys12" class="article-share-link">Share</a>
+      <a data-url="http://hanks.xyz/2015/02/05/Android端使用asmack实现IM/" data-id="cihu1jc1e008b3j051taxl6rf" class="article-share-link">Share</a>
       
       
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
+
     </footer>
   
   
@@ -258,6 +260,71 @@ spark</a>&nbsp;连接 ejabberd，今天一捣鼓了一下asmack</p>
 </section>
       </div>
       <footer id="footer">
+  
+    <aside id="sidebar" class="outer">
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2015/12/04/mac_java_enviroment/">OS X中Java环境变量配置</a>
+          </li>
+        
+          <li>
+            <a href="/2015/12/02/mac-os-in-Ubuntu/">Ubuntu 安装 OS X 10.11  虚拟机</a>
+          </li>
+        
+          <li>
+            <a href="/2015/12/01/ReactiveX/">ReactiveX</a>
+          </li>
+        
+          <li>
+            <a href="/2015/11/26/利器_--_抓包工具总结/">利器 -- 抓包工具总结</a>
+          </li>
+        
+          <li>
+            <a href="/2015/11/21/Rx/">使用RxJava 提升用户体验</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/Java/" style="font-size: 13.33px;">Java</a> <a href="/tags/OS-X/" style="font-size: 10px;">OS X</a> <a href="/tags/Rx/" style="font-size: 10px;">Rx</a> <a href="/tags/RxJava/" style="font-size: 10px;">RxJava</a> <a href="/tags/Ubuntu/" style="font-size: 16.67px;">Ubuntu</a> <a href="/tags/mac-os/" style="font-size: 10px;">mac os</a> <a href="/tags/virtualBox/" style="font-size: 10px;">virtualBox</a> <a href="/tags/必备知识/" style="font-size: 10px;">必备知识</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">links</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="http://kiya.space">kiya-z</a>
+          </li>
+        
+          <li>
+            <a href="http://hexo.io">Hexo</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
   
   <div class="outer footer_center">
     <div id="footer-info" class="inner">

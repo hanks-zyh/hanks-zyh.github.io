@@ -17,7 +17,7 @@
 <meta property="og:image" content="http://img.blog.csdn.net/20150811233007639">
 <meta property="og:image" content="http://img.blog.csdn.net/20150811232943087">
 <meta property="og:image" content="http://img.blog.csdn.net/20150811233017780">
-<meta property="og:updated_time" content="2015-12-04T17:20:04.324Z">
+<meta property="og:updated_time" content="2015-12-06T03:19:40.489Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="来自Gradle的hello world">
 <meta name="twitter:description">
@@ -134,7 +134,7 @@
 </ol>
 <h2 id="创建_build-gradle_文件">创建 build.gradle 文件</h2><figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">task</span> hello&#123;</span><br><span class="line">    <span class="keyword">doLast</span>&#123;</span><br><span class="line">        <span class="keyword">println</span> <span class="string">'Hello world!'</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>进入文件所在目录, 运行命令 <code>gradle -q hello</code><br>输出:<br><img src="http://img.blog.csdn.net/20150811232952218" alt="这里写图片描述"><br>这个构建脚本定义了一个独立的 <strong>task,</strong>叫做<strong>hello</strong>, 并且加入了一个    action.    当你运行 gradle    hello,    Gradle 执行叫做    hello 的 task,    也就是执行了你所提供的    action.    这个 action    是一个包含了一些    Groovy    代码的闭包.</p>
-<p><code>-q</code> : 代表quite模式.它不会生成    Gradle    的日志信息    (log    messages),    所以用户只能看到tasks 的输出.    它使得的输出更加清晰.    你并不一定需要加入这个选项.    </p>
+<p><code>-q</code> : 代表quite模式.它不会生成    Gradle    的日志信息    (log    messages),    所以用户只能看到tasks 的输出.    它使得的输出更加清晰.    你并不一定需要加入这个选项.</p>
 <h2 id="便捷的定义">便捷的定义</h2><figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">task</span> hello	&lt;&lt; &#123;</span><br><span class="line">	<span class="keyword">println</span>	<span class="string">'Hello	world!'</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>与前面的例子比较,    <strong>doLast</strong>    被替换成了    <strong>&lt;&lt;</strong>     它们有一样的功能,    但看上去更加简洁了</p>
 <h2 id="构建脚本代码">构建脚本代码</h2><figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">task</span> upper &lt;&lt; &#123;</span><br><span class="line">    String someString = <span class="string">'my_name'</span></span><br><span class="line">    <span class="keyword">println</span> <span class="string">"Original: "</span> + someString</span><br><span class="line">    <span class="keyword">println</span> <span class="string">"Upper case: "</span>+ someString.toUpperCase()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -151,9 +151,11 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://hanks.xyz/2015/08/11/来自Gradle的hello_world/" data-id="cihsst0nu00160805f5fy0nad" class="article-share-link">Share</a>
+      <a data-url="http://hanks.xyz/2015/08/11/来自Gradle的hello_world/" data-id="cihu1jbts001l3j05fma6lct2" class="article-share-link">Share</a>
       
       
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
+
     </footer>
   
   
@@ -197,6 +199,71 @@
 </section>
       </div>
       <footer id="footer">
+  
+    <aside id="sidebar" class="outer">
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2015/12/04/mac_java_enviroment/">OS X中Java环境变量配置</a>
+          </li>
+        
+          <li>
+            <a href="/2015/12/02/mac-os-in-Ubuntu/">Ubuntu 安装 OS X 10.11  虚拟机</a>
+          </li>
+        
+          <li>
+            <a href="/2015/12/01/ReactiveX/">ReactiveX</a>
+          </li>
+        
+          <li>
+            <a href="/2015/11/26/利器_--_抓包工具总结/">利器 -- 抓包工具总结</a>
+          </li>
+        
+          <li>
+            <a href="/2015/11/21/Rx/">使用RxJava 提升用户体验</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/Java/" style="font-size: 13.33px;">Java</a> <a href="/tags/OS-X/" style="font-size: 10px;">OS X</a> <a href="/tags/Rx/" style="font-size: 10px;">Rx</a> <a href="/tags/RxJava/" style="font-size: 10px;">RxJava</a> <a href="/tags/Ubuntu/" style="font-size: 16.67px;">Ubuntu</a> <a href="/tags/mac-os/" style="font-size: 10px;">mac os</a> <a href="/tags/virtualBox/" style="font-size: 10px;">virtualBox</a> <a href="/tags/必备知识/" style="font-size: 10px;">必备知识</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">links</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="http://kiya.space">kiya-z</a>
+          </li>
+        
+          <li>
+            <a href="http://hexo.io">Hexo</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
   
   <div class="outer footer_center">
     <div id="footer-info" class="inner">

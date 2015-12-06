@@ -4,7 +4,7 @@
   <subtitle><![CDATA[coding]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://hanks.xyz/"/>
-  <updated>2015-12-06T15:38:18.054Z</updated>
+  <updated>2015-12-06T15:54:38.750Z</updated>
   <id>http://hanks.xyz/</id>
   
   <author>
@@ -19,7 +19,7 @@
     <link href="http://hanks.xyz/2015/12/06/rx_thread/"/>
     <id>http://hanks.xyz/2015/12/06/rx_thread/</id>
     <published>2015-12-06T15:26:00.000Z</published>
-    <updated>2015-12-06T15:38:18.054Z</updated>
+    <updated>2015-12-06T15:54:38.750Z</updated>
     <content type="html"><![CDATA[<p>初学者在使用<code>RxJava</code>的过程中，经常搞不清Observable的事件序列和每次操作应该怎样切换线程，切换哪个线程<br>首先需要搞懂在<code>RxJava</code> 中<code>.subscribeOn()</code> 和  <code>observeOn()</code> 之间的区别：</p>
 <ul>
 <li><code>.subscribeOn()</code> 用来指定<code>Observable</code>应该操作的调度器(<code>Scheduler</code>)</li>
@@ -27,6 +27,9 @@
 <li>默认情况下， 事件序列操作的线程与调用<code>.subscribe()</code>的线程一致</li>
 </ul>
 <p>没理解？<br><a id="more"></a></p>
+<blockquote>
+<p>英文原文: <a href="https://medium.com/@diolor/observe-in-the-correct-thread-1939bb9bb9d2#.nn1m7lrb8" target="_blank" rel="external">https://medium.com/@diolor/observe-in-the-correct-thread-1939bb9bb9d2#.nn1m7lrb8</a><br><br>翻译: <a href="https://github.com/hanks-zyh" target="_blank" rel="external">hanks</a></p>
+</blockquote>
 <h2 id="例子">例子</h2><h3 id="1-主线程_/_-subscribe()_线程">1.主线程 /  .subscribe() 线程</h3><p>在 Activity的 <code>onCreate()</code>(主线程) 方法中添加以下代码：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Observable.just(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>)</span><br><span class="line">  .subscribe();</span><br></pre></td></tr></table></figure>
 <p>调用情况如下：</p>
@@ -51,6 +54,9 @@
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">Observable</span><span class="class">.just</span>(1,2,3)</span><br><span class="line">  <span class="class">.subscribeOn</span>(<span class="tag">thread1</span>)</span><br><span class="line">  <span class="class">.subscribeOn</span>(<span class="tag">thread2</span>)</span><br><span class="line">  <span class="class">.subscribe</span>();</span><br></pre></td></tr></table></figure>
 <p><code>Observable</code> 的创建和  <code>.subscribeOn()</code> 的调用都将在 thread1 上面执行，所以没有必要多次调用 <code>.subscribeOn()</code>,因为只有第一次的是有用的。</p>
 <p><code>Android</code> <code>Rxjava</code> <code>Rxandroid</code></p>
+<blockquote>
+<p><strong>文章出处</strong> (<a href="http://hanks.xyz">http://hanks.xyz</a>)</p>
+</blockquote>
 ]]></content>
     <summary type="html">
     <![CDATA[<p>初学者在使用<code>RxJava</code>的过程中，经常搞不清Observable的事件序列和每次操作应该怎样切换线程，切换哪个线程<br>首先需要搞懂在<code>RxJava</code> 中<code>.subscribeOn()</code> 和  <code>observeOn()</code> 之间的区别：</p>

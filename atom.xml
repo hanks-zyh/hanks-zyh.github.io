@@ -1909,19 +1909,17 @@ Reference</h2>
     <link href="http://hanks.xyz/2015/10/15/Ubuntu%E4%B8%8B%E5%BC%80%E5%8F%91Android%E9%85%8D%E7%BD%AE%E6%B5%81%E7%A8%8B/"/>
     <id>http://hanks.xyz/2015/10/15/Ubuntu下开发Android配置流程/</id>
     <published>2015-10-15T15:57:00.000Z</published>
-    <updated>2015-12-06T03:19:40.661Z</updated>
-    <content type="html"><![CDATA[<p>#安装Ubuntu 12.04</p>
-<ol>
+    <updated>2015-12-07T05:26:49.460Z</updated>
+    <content type="html"><![CDATA[<h1 id="安装Ubuntu_12-04">安装Ubuntu 12.04</h1><ol>
 <li>使用USBwriterU盘写入镜像，安装</li>
 <li>安装时分区/：20G swap：8G /home：20G</li>
 <li>安装完成后首先本地拨号 DSL，用户名，密码</li>
 <li>软件与更新 -&gt; 选择软件源163的, 附加驱动，使用博通bcm的无线驱动，显卡驱动选择Video…-fglrx-update(专有)</li>
-<li><a href="https://github.com/shadowsocks/shadowsocks/wiki" target="_blank" rel="external">shadowsocks</a>的<a href="www.8dlive.com/post/168.html">下载与配置</a><br>注意可在 &gt;= 14.04 安装 qt5<br>(sudo pip install shadowsocks)</li>
-</ol>
-<p>#Android studio 使用Shadowsocks</p>
-<p>##首先Convert Shadowsocks into an HTTP proxy</p>
-<ol>
-<li>First run <strong>polipo</strong> with parent proxy set to Shadowsocks:</li>
+<li><p><a href="https://github.com/shadowsocks/shadowsocks/wiki" target="_blank" rel="external">shadowsocks</a>的<a href="www.8dlive.com/post/168.html">下载与配置</a><br>注意可在 &gt;= 14.04 安装 qt5<br>(sudo pip install shadowsocks)</p>
+<a id="more"></a>
+<h1 id="Android_studio_使用Shadowsocks">Android studio 使用Shadowsocks</h1><h2 id="首先Convert_Shadowsocks_into_an_HTTP_proxy">首先Convert Shadowsocks into an HTTP proxy</h2></li>
+<li><p>First run <strong>polipo</strong> with parent proxy set to Shadowsocks:</p>
+</li>
 </ol>
 <figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">apt-<span class="built_in">get</span> install polipo</span><br><span class="line">service polipo <span class="keyword">stop</span></span><br><span class="line">polipo socksParentProxy=localhos<span class="variable">t:1080</span></span><br></pre></td></tr></table></figure>
 <p>如果地址被占用</p>
@@ -1935,28 +1933,30 @@ Reference</h2>
 <li>gradle.properties<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">systemProp<span class="class">.https</span><span class="class">.proxyPort</span>=<span class="number">8123</span></span><br><span class="line">systemProp<span class="class">.https</span><span class="class">.proxyHost</span>=<span class="number">127.0</span>.<span class="number">0.1</span></span><br><span class="line">systemProp<span class="class">.http</span><span class="class">.proxyHost</span>=<span class="number">127.0</span>.<span class="number">0.1</span></span><br><span class="line">systemProp<span class="class">.http</span><span class="class">.proxyPort</span>=<span class="number">8123</span></span><br></pre></td></tr></table></figure>
 </li>
 </ol>
-<p>#Android studio 相关异常</p>
-<blockquote>
+<h1 id="Android_studio_相关异常">Android studio 相关异常</h1><blockquote>
 <p>IllegalArgumentException: java.io.IOException: Cannot run program “/home/hanks/android-sdk-linux/platform-tools/adb”: error=2, 没有那个文件或目录</p>
 </blockquote>
 <p> 需要添加相应权限</p>
-<p>##使用Android Studio 编译时提示 appt error</p>
-<blockquote>
+<h2 id="使用Android_Studio_编译时提示_appt_error">使用Android Studio 编译时提示 appt error</h2><blockquote>
 <p>appcompat-v7:21.0.0’: No resource found that matches the given name: attr ‘android:actionModeShareDrawable’</p>
 </blockquote>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get <span class="operator"><span class="keyword">install</span> lib32z1 lib32ncurses5 lib32bz2-<span class="number">1.0</span></span><br><span class="line">sudo apt-<span class="keyword">get</span> <span class="keyword">install</span> lib32stdc++<span class="number">6</span></span></span><br></pre></td></tr></table></figure>
-<p>#android6.0SDK中删除HttpClient的相关类的解决方法</p>
-<p>一、出现的情况<br>在eclipse或 android studio开发，<br>设置android SDK的编译版本为23时，且使用了httpClient相关类的库项目：如android-async-http等等，会出现有一些类找不到的错误。<br>二、原因<br>android 6.0(api 23) SDK，不再提供org.apache.http.*(只保留几个类).</p>
+<h1 id="android6-0SDK中删除HttpClient的相关类的解决方法">android6.0SDK中删除HttpClient的相关类的解决方法</h1><p>一、出现的情况<br>在eclipse或 android studio开发，<br>设置android SDK的编译版本为23时，且使用了httpClient相关类的库项目：如android-async-http等等，会出现有一些类找不到的错误。<br>二、原因<br>android 6.0(api 23) SDK，不再提供org.apache.http.*(只保留几个类).</p>
 <p>三、解决方法<br>1.eclipse:<br>libs中加入<br>org.apache.http.legacy.jar<br>上面的jar包在：**\android-sdk-windows\platforms\android-23\optional下（需要下载android 6.0的SDK）</p>
-<p>#virtualBox<br>直接官网下载deb安装即可</p>
-<p>#Genymotion<br>官网下载，得到bin包</p>
+<h1 id="virtualBox">virtualBox</h1><p>直接官网下载deb安装即可</p>
+<h1 id="Genymotion">Genymotion</h1><p>官网下载，得到bin包</p>
 <ol>
 <li>添加执行权限</li>
 </ol>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">chmod</span> <span class="tag">u</span>+<span class="tag">x</span> <span class="tag">genymotion</span><span class="class">.bin</span></span><br><span class="line"><span class="tag">sudo</span> <span class="tag">genymotion</span><span class="class">.bin</span></span><br></pre></td></tr></table></figure>
 ]]></content>
     <summary type="html">
-    <![CDATA[ ]]>
+    <![CDATA[<h1 id="安装Ubuntu_12-04">安装Ubuntu 12.04</h1><ol>
+<li>使用USBwriterU盘写入镜像，安装</li>
+<li>安装时分区/：20G swap：8G /home：20G</li>
+<li>安装完成后首先本地拨号 DSL，用户名，密码</li>
+<li>软件与更新 -&gt; 选择软件源163的, 附加驱动，使用博通bcm的无线驱动，显卡驱动选择Video…-fglrx-update(专有)</li>
+<li><p><a href="https://github.com/shadowsocks/shadowsocks/wiki">shadowsocks</a>的<a href="www.8dlive.com/post/168.html">下载与配置</a><br>注意可在 &gt;= 14.04 安装 qt5<br>(sudo pip install shadowsocks)</p>]]>
     
     </summary>
     

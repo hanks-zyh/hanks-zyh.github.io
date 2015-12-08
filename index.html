@@ -76,6 +76,52 @@
         
         <section id="main">
   
+    <article id="post-refactoring-plaid-1" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/12/08/refactoring-plaid-1/" class="article-date">
+  <time datetime="2015-12-08T10:17:00.000Z" itemprop="datePublished">2015-12-08</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/12/08/refactoring-plaid-1/">重构 Plaid app - 响应式的MVP模式(一)</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Nick Butcher 在 <a href="https://github.com/nickbutcher/plaid">github</a> 上开源了Plaid。这个app不仅很酷,还拥有极致的 UI / UX。如此炫酷的app的代码对开发者来说copy下来阅读一下可谓是最佳实践。于是我也copy下来,决定深入Plaid的代码。像往常一样,你会发现代码的某些部分可以实现或者用另一种方式。因此不只是谈论代码,我决定花一些时间来重构Plaid的部分源代码。我将写3篇文章来分享我关于如何重构Plaid的,这篇文章是第一部分。</p>
+<p>前言: 开始我满满的自信以为自己能重构整个app. 然而,事实是我太天真了,我低估了这个应用的复杂度和新特性的数量。在我花了几个小时阅读 Nick Butcher的代码之后, 我发现了一些有些功能仅仅通过使用应用程序很难发现。一句话:我意识到我没有时间把所有的想法付诸行动。因此我的“重构”集中于应用程序的“主页”和“搜索屏幕”。本来想要讨论(理论上)一些事情可以重构,但是由于时间原因没有完成。重构代码可以在<a href="https://github.com/sockeqwe/plaid">github上</a>找到</p>
+        
+          <p class="article-more-link">
+            <a href="/2015/12/08/refactoring-plaid-1/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://hanks.xyz/2015/12/08/refactoring-plaid-1/" data-id="cihx8jzto0000oe05x10luf57" class="article-share-link">Share</a>
+      
+        <a href="http://hanks.xyz/2015/12/08/refactoring-plaid-1/#ds_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Refactoring/">Refactoring</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Rxjava/">Rxjava</a></li></ul>
+
+    </footer>
+  
+</article>
+
+  
+
+  
     <article id="post-rx_thread" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2015/12/06/rx_thread/" class="article-date">
@@ -964,51 +1010,6 @@
   
 
   
-    <article id="post-用Android_Studio进行NDK开发(简化流程)" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2015/09/02/用Android_Studio进行NDK开发(简化流程)/" class="article-date">
-  <time datetime="2015-09-02T14:32:00.000Z" itemprop="datePublished">2015-09-02</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/09/02/用Android_Studio进行NDK开发(简化流程)/">用Android Studio进行NDK开发(简化流程)</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-         
-        
-          <p class="article-more-link">
-            <a href="/2015/09/02/用Android_Studio进行NDK开发(简化流程)/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://hanks.xyz/2015/09/02/用Android_Studio进行NDK开发(简化流程)/" data-id="cihw2qoht001aow05zh4pjayj" class="article-share-link">Share</a>
-      
-        <a href="http://hanks.xyz/2015/09/02/用Android_Studio进行NDK开发(简化流程)/#ds_thread" class="article-comment-link">Comments</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
-
-    </footer>
-  
-</article>
-
-  
-
-  
 
   
     <nav id="page-nav">
@@ -1032,6 +1033,10 @@
       <ul>
         
           <li>
+            <a href="/2015/12/08/refactoring-plaid-1/">重构 Plaid app - 响应式的MVP模式(一)</a>
+          </li>
+        
+          <li>
             <a href="/2015/12/06/rx_thread/">Rx中的线程切换</a>
           </li>
         
@@ -1047,10 +1052,6 @@
             <a href="/2015/12/01/ReactiveX/">ReactiveX</a>
           </li>
         
-          <li>
-            <a href="/2015/11/29/rx_ux/">使用RxJava 提升用户体验</a>
-          </li>
-        
       </ul>
     </div>
   </div>
@@ -1060,7 +1061,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/Java/" style="font-size: 13.33px;">Java</a> <a href="/tags/OS-X/" style="font-size: 10px;">OS X</a> <a href="/tags/Rx/" style="font-size: 10px;">Rx</a> <a href="/tags/RxJava/" style="font-size: 10px;">RxJava</a> <a href="/tags/Rxandroid/" style="font-size: 10px;">Rxandroid</a> <a href="/tags/Rxjava/" style="font-size: 10px;">Rxjava</a> <a href="/tags/Ubuntu/" style="font-size: 16.67px;">Ubuntu</a> <a href="/tags/mac-os/" style="font-size: 10px;">mac os</a> <a href="/tags/virtualBox/" style="font-size: 10px;">virtualBox</a> <a href="/tags/必备知识/" style="font-size: 10px;">必备知识</a>
+      <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/Java/" style="font-size: 13.33px;">Java</a> <a href="/tags/OS-X/" style="font-size: 10px;">OS X</a> <a href="/tags/Refactoring/" style="font-size: 10px;">Refactoring</a> <a href="/tags/Rx/" style="font-size: 10px;">Rx</a> <a href="/tags/RxJava/" style="font-size: 10px;">RxJava</a> <a href="/tags/Rxandroid/" style="font-size: 10px;">Rxandroid</a> <a href="/tags/Rxjava/" style="font-size: 13.33px;">Rxjava</a> <a href="/tags/Ubuntu/" style="font-size: 16.67px;">Ubuntu</a> <a href="/tags/mac-os/" style="font-size: 10px;">mac os</a> <a href="/tags/virtualBox/" style="font-size: 10px;">virtualBox</a> <a href="/tags/必备知识/" style="font-size: 10px;">必备知识</a>
     </div>
   </div>
 

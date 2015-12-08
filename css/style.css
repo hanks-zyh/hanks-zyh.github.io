@@ -181,7 +181,8 @@ body {
 .logo {
   display: block;
   width: 170px;
-  font-family: monospace, sans-serif;
+  font-family: 'Open Sans', "Microsoft Yahei";
+  font-weight: bold;
   text-decoration: initial;
   color: #fff;
   font-size: 2em;
@@ -381,7 +382,7 @@ body {
 #main-nav {
   position: relative;
   float: left;
-  top: 37px;
+  top: 29px;
 }
 .nav-icon,
 .main-nav-link {

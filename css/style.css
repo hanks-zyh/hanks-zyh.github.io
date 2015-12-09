@@ -368,7 +368,7 @@ body {
 }
 #header .logo {
   float: left;
-  margin: 23px 30px 0 0;
+  margin: 29px 30px 0 0;
 }
 #header-outer {
   height: 100%;
@@ -382,7 +382,7 @@ body {
 #main-nav {
   position: relative;
   float: left;
-  top: 29px;
+  top: 40px;
 }
 .nav-icon,
 .main-nav-link {
@@ -1033,6 +1033,7 @@ a.article-title:hover {
   -ms-transition: color 0.2s;
   transition: color 0.2s;
   line-height: 28px;
+  font-size: 0.7em;
 }
 .archive-article-title:hover {
   color: #42b983;
@@ -1367,7 +1368,7 @@ pre .javascript .function {
     display: none;
   }
   #header #main-nav-toggle {
-    top: 0px;
+    top: -11px;
   }
   #mobile-nav {
     display: block;

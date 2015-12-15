@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Ubuntu进行 react-native 的开发 | Hanks.xyz</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="尝试在　Ubuntu 14.04　上面进行 react-native 的开发, 安装官方文档进行配置,记录配置流程
+安装 node.js在官网下载源码安装即可, 安装后查看版本1$ node -v
+安装 watchman文档
+安装依赖1$ sudo apt-get install autoconf  automake python-dev">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Ubuntu进行 react-native 的开发">
+<meta property="og:url" content="http://hanks.xyz/2015/12/15/react-native-start-md/index.html">
+<meta property="og:site_name" content="Hanks.xyz">
+<meta property="og:description" content="尝试在　Ubuntu 14.04　上面进行 react-native 的开发, 安装官方文档进行配置,记录配置流程
+安装 node.js在官网下载源码安装即可, 安装后查看版本1$ node -v
+安装 watchman文档
+安装依赖1$ sudo apt-get install autoconf  automake python-dev">
+<meta property="og:image" content="https://dn-coding-net-production-pp.qbox.me/8cc2616a-d10b-4367-a093-9982589d1a27.png">
+<meta property="og:image" content="https://dn-coding-net-production-pp.qbox.me/a97d02dc-4546-47e4-899a-644390e87352.png">
+<meta property="og:image" content="https://dn-coding-net-production-pp.qbox.me/0028d35c-c502-49ba-8994-c04c3c5ad6aa.png">
+<meta property="og:updated_time" content="2015-12-15T04:10:52.706Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Ubuntu进行 react-native 的开发">
+<meta name="twitter:description" content="尝试在　Ubuntu 14.04　上面进行 react-native 的开发, 安装官方文档进行配置,记录配置流程
+安装 node.js在官网下载源码安装即可, 安装后查看版本1$ node -v
+安装 watchman文档
+安装依赖1$ sudo apt-get install autoconf  automake python-dev">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <!-- <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600' rel='stylesheet' type='text/css'> -->
+  <!-- <link href="//fonts.googleapis.com/css?family=Source+Code+Pro:400,700" rel="stylesheet" type="text/css"> -->
+  <link href="//fonts.useso.com/css?family=Source+Code+Pro:400,700" rel="stylesheet" type="text/css">
+  <link href='//fonts.useso.com/css?family=Open+Sans:300,600' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo">Hanks.xyz</a>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">首页</a>
+        
+          <a class="main-nav-link" href="/archives">归档</a>
+        
+          <a class="main-nav-link" href="/about/index.html">关于</a>
+        
+          <a class="main-nav-link" href="/atom.xml">RSS</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        <div id="search-form-wrap">
+          <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://hanks.xyz"></form>
+        </div>
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+        
+        
+          <a id="nav-github-link" class="nav-icon" href="https://github.com/hanks-zyh" title="Fork me on GitHub"></a>
+        
+      </nav>
+    </div>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/" class="mobile-nav-link">首页</a>
+  
+    <a href="/archives" class="mobile-nav-link">归档</a>
+  
+    <a href="/about/index.html" class="mobile-nav-link">关于</a>
+  
+    <a href="/atom.xml" class="mobile-nav-link">RSS</a>
+  
+  <div id="search-form-wrap-mobile">
+    <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://hanks.xyz"></form>
+  </div>
+</nav>
+      <div class="outer">
+        
+        <section id="main"><article id="post-react-native-start-md" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/12/15/react-native-start-md/" class="article-date">
+  <time datetime="2015-12-15T04:07:52.000Z" itemprop="datePublished">2015-12-15</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Ubuntu进行 react-native 的开发
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>尝试在　<code>Ubuntu 14.04</code>　上面进行 react-native 的开发, 安装<a href="https://facebook.github.io/react-native/docs/getting-started.html" target="_blank" rel="external">官方文档</a>进行配置,记录配置流程</p>
+<h2 id="安装_node-js">安装 node.js</h2><p>在<a href="https://nodejs.org/en/" target="_blank" rel="external">官网</a>下载源码安装即可, 安装后查看版本<br><figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="keyword">node</span><span class="identifier"> </span><span class="title">-v</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="安装_watchman">安装 watchman</h2><p><a href="https://facebook.github.io/watchman/docs/install.html" target="_blank" rel="external">文档</a></p>
+<p>安装依赖<br><figure class="highlight q"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-<span class="built_in">get</span> install autoconf  automake python-<span class="built_in">dev</span></span><br></pre></td></tr></table></figure></p>
+<a id="more"></a>
+<p>安装 watchman, 如果出错, 查看安装依赖的详细文档<br><figure class="highlight smalltalk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="char">$ </span>git clone <span class="method">https:</span>//github.com/facebook/watchman.git</span><br><span class="line"><span class="char">$ </span>cd watchman</span><br><span class="line"><span class="char">$ </span>git checkout v4<span class="number">.3</span><span class="number">.0</span>  # the latest stable release</span><br><span class="line"><span class="char">$ </span>./autogen.sh</span><br><span class="line"><span class="char">$ </span>./configure</span><br><span class="line"><span class="char">$ </span>make</span><br><span class="line"><span class="char">$ </span>sudo make install</span><br></pre></td></tr></table></figure></p>
+<h2 id="安装_react-native">安装 react-native</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm <span class="operator"><span class="keyword">install</span> -<span class="keyword">g</span> react-<span class="keyword">native</span>-cli</span></span><br></pre></td></tr></table></figure>
+<h2 id="创建react-native_项目">创建react-native 项目</h2><figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ react-<span class="keyword">native</span> init AwesomeProject</span><br></pre></td></tr></table></figure>
+<h2 id="运行">运行</h2><p>启动 server, 如果没有启动server , 会报错 <code>React Native: ReferenceError: Can&#39;t find variable: require (line 1 in the generated bundle)</code></p>
+<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ react-<span class="keyword">native</span> start</span><br></pre></td></tr></table></figure>
+<p><img src="https://dn-coding-net-production-pp.qbox.me/8cc2616a-d10b-4367-a093-9982589d1a27.png" alt=" react-native start  "></p>
+<p>编译apk,并运行到模拟器, 需要配置好Android开发的环境变量(ANDROID_HOME,  GRADLE_HOME )</p>
+<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ react-<span class="keyword">native</span> run-android</span><br></pre></td></tr></table></figure>
+<p><img src="https://dn-coding-net-production-pp.qbox.me/a97d02dc-4546-47e4-899a-644390e87352.png" alt="Android"></p>
+<p>做一些修改</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span><br><span class="line"> * Sample React Native App</span><br><span class="line"> * https://github.com/facebook/react-native</span><br><span class="line"> */</span></span><br><span class="line"><span class="pi">'use strict'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> React = <span class="built_in">require</span>(<span class="string">'react-native'</span>);</span><br><span class="line"><span class="keyword">var</span> &#123;</span><br><span class="line">  AppRegistry,</span><br><span class="line">  StyleSheet,</span><br><span class="line">  Text,</span><br><span class="line">  View,</span><br><span class="line">&#125; = React;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> AwesomeProject = React.createClass(&#123;</span><br><span class="line">  render: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      <span class="xml"><span class="tag">&lt;<span class="title">View</span> <span class="attribute">style</span>=<span class="value">&#123;styles.container&#125;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">Text</span> <span class="attribute">style</span>=<span class="value">&#123;styles.welcome&#125;</span>&gt;</span></span><br><span class="line">         Hanks,  Welcome to React Native!</span><br><span class="line">        <span class="tag">&lt;/<span class="title">Text</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">Text</span> <span class="attribute">style</span>=<span class="value">&#123;styles.instructions&#125;</span>&gt;</span></span><br><span class="line">          To get started, edit index.android.js</span><br><span class="line">        <span class="tag">&lt;/<span class="title">Text</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">Text</span> <span class="attribute">style</span>=<span class="value">&#123;styles.reply&#125;</span>&gt;</span></span><br><span class="line">         Yep, I do!</span><br><span class="line">        <span class="tag">&lt;/<span class="title">Text</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">Text</span> <span class="attribute">style</span>=<span class="value">&#123;styles.instructions&#125;</span>&gt;</span></span><br><span class="line">          Shake or press menu button for dev menu</span><br><span class="line">        <span class="tag">&lt;/<span class="title">Text</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="title">View</span>&gt;</span></span><br><span class="line">    )</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> styles = StyleSheet.create(&#123;</span><br><span class="line">  container: &#123;</span><br><span class="line">    flex: <span class="number">1</span>,</span><br><span class="line">    justifyContent: <span class="string">'center'</span>,</span><br><span class="line">    alignItems: <span class="string">'center'</span>,</span><br><span class="line">    backgroundColor: <span class="string">'#F5FCFF'</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">  welcome: &#123;</span><br><span class="line">    fontSize: <span class="number">20</span>,</span><br><span class="line">    textAlign: <span class="string">'center'</span>,</span><br><span class="line">    margin: <span class="number">10</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">  instructions: &#123;</span><br><span class="line">    textAlign: <span class="string">'center'</span>,</span><br><span class="line">    color: <span class="string">'#333333'</span>,</span><br><span class="line">    marginBottom: <span class="number">5</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="comment">// 添加style</span></span><br><span class="line">  reply:&#123;</span><br><span class="line">      color: <span class="string">'#e8801b'</span>,</span><br><span class="line">      fontSize: <span class="number">20</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">AppRegistry.registerComponent(<span class="string">'AwesomeProject'</span>, () =&gt; AwesomeProject);</span><br></pre></td></tr></table></figure>
+<p>再次reload js, 可以通过菜单调出选项</p>
+<p><img src="https://dn-coding-net-production-pp.qbox.me/0028d35c-c502-49ba-8994-c04c3c5ad6aa.png" alt="Android"></p>
+<p>＞文章出处: <a href="http://hanks.xyz">http://hanks.xyz</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://hanks.xyz/2015/12/15/react-native-start-md/" data-id="cii6vdtgz003xg005niiius1a" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/React-Native/">React-Native</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Ubuntu/">Ubuntu</a></li></ul>
+
+    </footer>
+  
+  
+</article>
+
+  
+<section id="comments">
+    <!-- 多说分享框 -->
+    <div class="ds-share flat" data-thread-key="/2015/12/15/react-native-start-md/" data-title="Ubuntu进行 react-native 的开发" data-images="此处请替换为分享时显示的图片的链接地址" data-content="Ubuntu进行 react-native 的开发" data-url="http://hanks.xyz//2015/12/15/react-native-start-md/">
+    <div class="ds-share-inline">
+      <ul  class="ds-share-icons-16">
+
+      	<li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+        <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+        <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+        <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+        <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+      </ul>
+      <div class="ds-share-icons-more">
+      </div>
+    </div>
+   </div>
+    <!-- 多说评论框 start -->
+   	<div class="ds-thread" data-thread-key="/2015/12/15/react-native-start-md/" data-title="Ubuntu进行 react-native 的开发" data-url="http://hanks.xyz//2015/12/15/react-native-start-md/"></div>
+   <!-- 多说评论框 end -->
+   <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+   <script type="text/javascript">
+   var duoshuoQuery = {short_name:"hanks-zyh"};
+   	(function() {
+   		var ds = document.createElement('script');
+   		ds.type = 'text/javascript';ds.async = true;
+   		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+   		ds.charset = 'UTF-8';
+   		(document.getElementsByTagName('head')[0]
+   		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+   	})();
+   	</script>
+   <!-- 多说公共JS代码 end -->
+</section>
+
+</section>
+      </div>
+      <footer id="footer">
+  
+    <aside id="sidebar" class="outer">
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2015/12/15/react-native-start-md/">Ubuntu进行 react-native 的开发</a>
+          </li>
+        
+          <li>
+            <a href="/2015/12/08/refactoring-plaid-1/">重构 Plaid app - 响应式的MVP模式(一)</a>
+          </li>
+        
+          <li>
+            <a href="/2015/12/06/rx_thread/">Rx中的线程切换</a>
+          </li>
+        
+          <li>
+            <a href="/2015/12/04/mac_java_enviroment/">OS X中Java环境变量配置</a>
+          </li>
+        
+          <li>
+            <a href="/2015/12/02/mac-os-in-Ubuntu/">Ubuntu 安装 OS X 10.11  虚拟机</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/Java/" style="font-size: 13.33px;">Java</a> <a href="/tags/OS-X/" style="font-size: 10px;">OS X</a> <a href="/tags/React-Native/" style="font-size: 10px;">React-Native</a> <a href="/tags/Refactoring/" style="font-size: 10px;">Refactoring</a> <a href="/tags/Rx/" style="font-size: 10px;">Rx</a> <a href="/tags/RxJava/" style="font-size: 10px;">RxJava</a> <a href="/tags/Rxandroid/" style="font-size: 10px;">Rxandroid</a> <a href="/tags/Rxjava/" style="font-size: 13.33px;">Rxjava</a> <a href="/tags/Ubuntu/" style="font-size: 16.67px;">Ubuntu</a> <a href="/tags/mac-os/" style="font-size: 10px;">mac os</a> <a href="/tags/virtualBox/" style="font-size: 10px;">virtualBox</a> <a href="/tags/必备知识/" style="font-size: 10px;">必备知识</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">links</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="http://kiya.space">kiya-z</a>
+          </li>
+        
+          <li>
+            <a href="http://hexo.io">Hexo</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+  
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      &copy; 2015 Hanks<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+  </br>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    
+
+<script src="/js/jquery.min.js" type="text/javascript"></script>
+<script src="/js/jquery.scrollLoading.js" type="text/javascript"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+  <script src="/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+
+
+<script src="/js/script.js" type="text/javascript"></script>
+
+  </div>
+</body>
+</html>

@@ -3,18 +3,19 @@
 <head>
   <meta charset="utf-8">
   
-  <title>NYOJ 题目685 查找字符串（STL----map） | Hanks.xyz</title>
+  <title>react-native_UIExplorer | Hanks.xyz</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description">
+  <meta name="description" content="运行 FaceBook 给出的例子, 由于网络问题折腾了半天, 在公司网络死活不行,到家一小会儿搞定.">
 <meta property="og:type" content="article">
-<meta property="og:title" content="NYOJ 题目685 查找字符串（STL----map）">
-<meta property="og:url" content="http://hanks.xyz/2013/08/22/NYOJ_题目685_查找字符串（STL----map）/index.html">
+<meta property="og:title" content="react-native_UIExplorer">
+<meta property="og:url" content="http://hanks.xyz/2015/12/18/react-native-UIExplorer/index.html">
 <meta property="og:site_name" content="Hanks.xyz">
-<meta property="og:description">
-<meta property="og:updated_time" content="2015-12-04T17:20:04.316Z">
+<meta property="og:description" content="运行 FaceBook 给出的例子, 由于网络问题折腾了半天, 在公司网络死活不行,到家一小会儿搞定.">
+<meta property="og:image" content="https://dn-coding-net-production-pp.qbox.me/7edbed81-477e-4173-8ea4-f5d0ac0988b7.png">
+<meta property="og:updated_time" content="2015-12-17T17:23:59.122Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="NYOJ 题目685 查找字符串（STL----map）">
-<meta name="twitter:description">
+<meta name="twitter:title" content="react-native_UIExplorer">
+<meta name="twitter:description" content="运行 FaceBook 给出的例子, 由于网络问题折腾了半天, 在公司网络死活不行,到家一小会儿搞定.">
   
   
     <link rel="icon" href="/favicon.png">
@@ -75,10 +76,10 @@
 </nav>
       <div class="outer">
         
-        <section id="main"><article id="post-NYOJ_题目685_查找字符串（STL----map）" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-react-native-UIExplorer" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2013/08/22/NYOJ_题目685_查找字符串（STL----map）/" class="article-date">
-  <time datetime="2013-08-22T11:11:00.000Z" itemprop="datePublished">2013-08-22</time>
+    <a href="/2015/12/18/react-native-UIExplorer/" class="article-date">
+  <time datetime="2015-12-17T17:16:28.000Z" itemprop="datePublished">2015-12-18</time>
 </a>
     
   </div>
@@ -89,7 +90,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      NYOJ 题目685 查找字符串（STL----map）
+      react-native_UIExplorer
     </h1>
   
 
@@ -97,99 +98,24 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        
-<h2 align="center"><span style="color:#3366ff">查找字符串</span></h2>
-<div align="center"><span style="color:#009900">时间限制：<span id="problem[time_limit]">1000</span> ms &nbsp;|&nbsp; 内存限制：<span id="problem[memory_limit]">65535</span> KB
-</span></div>
-<div align="center"><span style="color:#009900">难度：3</span></div>
-<dl><dt>描述 </dt><dd>
-<p align="left">小明得到了一张写有奇怪字符串的纸，他想知道一些字符串出现了多少次，但这些字符串太多了，他想找你帮忙，你能帮他吗？输入字符包括所有小写字母、‘@’、‘&#43;’。</p>
-<dl><dt>输入 </dt><dd>第一行包含一个整数T（T&lt;=100).表示测试数据组数。<br>
-接下来每组数据第一行包含两个整数n，m(n，m&lt;100000),分别表示有n个字符串，小明要问你m次。<br>
-接下来n行，每行包含一个字符串，长度不大于15。<br>
-接下来m行，每行包含一个字符串，表示小明要问该串出现的次数。<br>
-</dd><dt>输出 </dt><dd>输出每组小明询问数串出现的次数。 </dd><dt>样例输入 </dt><dd>
-<pre id="sample_input">1
-5 3
-hello
-<a target="_blank" href="mailto:it@is&#43;so@easy">it@is&#43;so@easy</a>
-hello
-ibelieveicanac
-hello
-hello
-icannotacit
-Giveup</pre>
-</dd><dd>
-<pre>&nbsp;</pre>
-</dd><dd>
-<pre>样例输出 </pre>
-</dd><dd>
-<pre id="sample_output">3</pre>
-</dd><dd>
-<pre>0</pre>
-</dd><dd>
-<pre>0</pre>
-</dd></dl>
-</dd><dd>&nbsp;</dd></dl>
-<p></p>
-<dl></dl>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<pre class="cpp" name="code">/***************************
-# 2013-8-22 18:47:15 
-# Time: 140MS   Memory: 308KB
-# Author: zyh
-# Status: Accepted
-***************************/ 
-
-#include&lt;iostream&gt;
-#include&lt;stdio.h&gt;
-#include&lt;string.h&gt;
-#include&lt;stdlib.h&gt;
-#include&lt;algorithm&gt;
-#include&lt;map&gt;
-
-using namespace std;
-
-map&lt;string,int&gt; M;
-
-int main()
-{
-	int n,m,t;
-	char s[16];
-	string str;
-	scanf(&quot;%d&quot;,&amp;t);
-	while(t--)
-	{
-		scanf(&quot;%d%d&quot;,&amp;n,&amp;m);
-		getchar();
-		while(n--){
-			gets(s);
-			str = s;
-			M[str]++;
-		}
-		while(m--){
-			gets(s);
-			str = s;
-			printf(&quot;%d\n&quot;,M[str]);
-		}
-		M.clear();		
-	}
-	return 0;
-} </pre>
-<p><br>
-&nbsp;</p>
-<p>&nbsp;</p>
+        <p>运行 FaceBook 给出的例子, 由于网络问题折腾了半天, 在公司网络死活不行,到家一小会儿搞定.<br><a id="more"></a></p>
+<h2 id="react-native_环境">react-native 环境</h2><p>参考前面:<a href="http://hanks.xyz/2015/12/15/react-native-start-md/">Ubuntu进行 react-native 的开发</a></p>
+<p>下载例子源码</p>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git <span class="keyword">clone</span> <span class="title">https</span>://github.com/facebook/react-native.git</span><br><span class="line">cd react-native</span><br><span class="line">npm install</span><br></pre></td></tr></table></figure>
+<p><code>npm install</code> 过程需要下载大约 100多兆的依赖, 所以看网络情况咯</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd react-native</span><br><span class="line">./<span class="string">gradlew :</span><span class="string">Examples:</span><span class="string">UIExplorer:</span><span class="string">android:</span><span class="string">app:</span>installDebug</span><br><span class="line">.<span class="regexp">/packager/</span>packager.sh</span><br></pre></td></tr></table></figure>
+<p>packager.sh 开启server.<br>然后利用 <code>gradlew</code>命令编译apk</p>
+<p> <img src="https://dn-coding-net-production-pp.qbox.me/7edbed81-477e-4173-8ea4-f5d0ac0988b7.png" alt="图片"></p>
+<p>文章出处: <a href="http://hanks.xyz">http://hanks.xyz</a></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://hanks.xyz/2013/08/22/NYOJ_题目685_查找字符串（STL----map）/" data-id="ciiaio5gj00777w055hpsqsht" class="article-share-link">Share</a>
+      <a data-url="http://hanks.xyz/2015/12/18/react-native-UIExplorer/" data-id="ciiaio5c300437w05gfm0fpzu" class="article-share-link">Share</a>
       
       
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/React-Native/">React-Native</a></li></ul>
+
     </footer>
   
   
@@ -198,7 +124,7 @@ int main()
   
 <section id="comments">
     <!-- 多说分享框 -->
-    <div class="ds-share flat" data-thread-key="/2013/08/22/NYOJ_题目685_查找字符串（STL----map）/" data-title="NYOJ 题目685 查找字符串（STL----map）" data-images="https://raw.githubusercontent.com/Hankiya/LoveOnline/master/Rich%20Format%20Vertical.png" data-content="NYOJ 题目685 查找字符串（STL----map）" data-url="http://hanks.xyz//2013/08/22/NYOJ_题目685_查找字符串（STL----map）/">
+    <div class="ds-share flat" data-thread-key="/2015/12/18/react-native-UIExplorer/" data-title="react-native_UIExplorer" data-images="https://raw.githubusercontent.com/Hankiya/LoveOnline/master/Rich%20Format%20Vertical.png" data-content="react-native_UIExplorer" data-url="http://hanks.xyz//2015/12/18/react-native-UIExplorer/">
     <div class="ds-share-inline">
       <ul  class="ds-share-icons-16">
 
@@ -213,7 +139,7 @@ int main()
     </div>
    </div>
     <!-- 多说评论框 start -->
-   	<div class="ds-thread" data-thread-key="/2013/08/22/NYOJ_题目685_查找字符串（STL----map）/" data-title="NYOJ 题目685 查找字符串（STL----map）" data-url="http://hanks.xyz//2013/08/22/NYOJ_题目685_查找字符串（STL----map）/"></div>
+   	<div class="ds-thread" data-thread-key="/2015/12/18/react-native-UIExplorer/" data-title="react-native_UIExplorer" data-url="http://hanks.xyz//2015/12/18/react-native-UIExplorer/"></div>
    <!-- 多说评论框 end -->
    <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
    <script type="text/javascript">

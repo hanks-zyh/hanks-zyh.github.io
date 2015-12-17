@@ -4,7 +4,7 @@
   <subtitle><![CDATA[coding]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://hanks.xyz/"/>
-  <updated>2015-12-15T04:10:52.706Z</updated>
+  <updated>2015-12-15T04:10:56.606Z</updated>
   <id>http://hanks.xyz/</id>
   
   <author>
@@ -19,7 +19,7 @@
     <link href="http://hanks.xyz/2015/12/15/react-native-start-md/"/>
     <id>http://hanks.xyz/2015/12/15/react-native-start-md/</id>
     <published>2015-12-15T04:07:52.000Z</published>
-    <updated>2015-12-15T04:10:52.706Z</updated>
+    <updated>2015-12-15T04:10:56.606Z</updated>
     <content type="html"><![CDATA[<p>尝试在　<code>Ubuntu 14.04</code>　上面进行 react-native 的开发, 安装<a href="https://facebook.github.io/react-native/docs/getting-started.html" target="_blank" rel="external">官方文档</a>进行配置,记录配置流程</p>
 <h2 id="安装_node-js">安装 node.js</h2><p>在<a href="https://nodejs.org/en/" target="_blank" rel="external">官网</a>下载源码安装即可, 安装后查看版本<br><figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="keyword">node</span><span class="identifier"> </span><span class="title">-v</span></span><br></pre></td></tr></table></figure></p>
 <h2 id="安装_watchman">安装 watchman</h2><p><a href="https://facebook.github.io/watchman/docs/install.html" target="_blank" rel="external">文档</a></p>

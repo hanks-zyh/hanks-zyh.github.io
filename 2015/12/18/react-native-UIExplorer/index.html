@@ -3,18 +3,19 @@
 <head>
   <meta charset="utf-8">
   
-  <title>react-native_UIExplorer | Hanks.xyz</title>
+  <title>运行React-Native例子UIExplorer | Hanks.xyz</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="运行 FaceBook 给出的例子, 由于网络问题折腾了半天, 在公司网络死活不行,到家一小会儿搞定.">
 <meta property="og:type" content="article">
-<meta property="og:title" content="react-native_UIExplorer">
+<meta property="og:title" content="运行React-Native例子UIExplorer">
 <meta property="og:url" content="http://hanks.xyz/2015/12/18/react-native-UIExplorer/index.html">
 <meta property="og:site_name" content="Hanks.xyz">
 <meta property="og:description" content="运行 FaceBook 给出的例子, 由于网络问题折腾了半天, 在公司网络死活不行,到家一小会儿搞定.">
 <meta property="og:image" content="https://dn-coding-net-production-pp.qbox.me/7edbed81-477e-4173-8ea4-f5d0ac0988b7.png">
-<meta property="og:updated_time" content="2015-12-17T17:23:59.122Z">
+<meta property="og:image" content="https://dn-coding-net-production-pp.qbox.me/b78d351b-bc3f-40b5-840a-db8a82153fa2.png">
+<meta property="og:updated_time" content="2015-12-18T02:55:11.582Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="react-native_UIExplorer">
+<meta name="twitter:title" content="运行React-Native例子UIExplorer">
 <meta name="twitter:description" content="运行 FaceBook 给出的例子, 由于网络问题折腾了半天, 在公司网络死活不行,到家一小会儿搞定.">
   
   
@@ -90,7 +91,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      react-native_UIExplorer
+      运行React-Native例子UIExplorer
     </h1>
   
 
@@ -99,19 +100,26 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>运行 FaceBook 给出的例子, 由于网络问题折腾了半天, 在公司网络死活不行,到家一小会儿搞定.<br><a id="more"></a></p>
-<h2 id="react-native_环境">react-native 环境</h2><p>参考前面:<a href="http://hanks.xyz/2015/12/15/react-native-start-md/">Ubuntu进行 react-native 的开发</a></p>
-<p>下载例子源码</p>
-<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git <span class="keyword">clone</span> <span class="title">https</span>://github.com/facebook/react-native.git</span><br><span class="line">cd react-native</span><br><span class="line">npm install</span><br></pre></td></tr></table></figure>
+<h3 id="react-native_环境">react-native 环境</h3><p>参考前面:<a href="http://hanks.xyz/2015/12/15/react-native-start-md/">Ubuntu进行 react-native 的开发</a></p>
+<h3 id="APK运行到模拟器">APK运行到模拟器</h3><figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git <span class="keyword">clone</span> <span class="title">https</span>://github.com/facebook/react-native.git</span><br><span class="line">cd react-native</span><br><span class="line">npm install</span><br></pre></td></tr></table></figure>
 <p><code>npm install</code> 过程需要下载大约 100多兆的依赖, 所以看网络情况咯</p>
 <figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd react-native</span><br><span class="line">./<span class="string">gradlew :</span><span class="string">Examples:</span><span class="string">UIExplorer:</span><span class="string">android:</span><span class="string">app:</span>installDebug</span><br><span class="line">.<span class="regexp">/packager/</span>packager.sh</span><br></pre></td></tr></table></figure>
-<p>packager.sh 开启server.<br>然后利用 <code>gradlew</code>命令编译apk</p>
-<p> <img src="https://dn-coding-net-production-pp.qbox.me/7edbed81-477e-4173-8ea4-f5d0ac0988b7.png" alt="图片"></p>
+<p>注意,使用<code>packager.sh</code> 开启server.<br>然后利用 <code>gradlew</code>命令编译apk</p>
+<p> <img src="https://dn-coding-net-production-pp.qbox.me/7edbed81-477e-4173-8ea4-f5d0ac0988b7.png" alt="模拟器"></p>
+<h3 id="运行到真机">运行到真机</h3><ol>
+<li>真机开启USB调试</li>
+<li>必须关掉模拟器, react-native要求同时只能连接一个设备, 可以通过 <code>abd devices</code>查看连接个数</li>
+<li><code>adb reverse tcp:8081 tcp:8081</code><br>手机必须和电脑在同一个局域网, 然后把手机无线的代理设置为电脑的ip:8081</li>
+<li>然后可以安装到真机了</li>
+</ol>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd react-native</span><br><span class="line">./<span class="string">gradlew :</span><span class="string">Examples:</span><span class="string">UIExplorer:</span><span class="string">android:</span><span class="string">app:</span>installDebug</span><br><span class="line">.<span class="regexp">/packager/</span>packager.sh</span><br></pre></td></tr></table></figure>
+<p><img src="https://dn-coding-net-production-pp.qbox.me/b78d351b-bc3f-40b5-840a-db8a82153fa2.png" alt="真机"></p>
 <p>文章出处: <a href="http://hanks.xyz">http://hanks.xyz</a></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://hanks.xyz/2015/12/18/react-native-UIExplorer/" data-id="ciiaio5c300437w05gfm0fpzu" class="article-share-link">Share</a>
+      <a data-url="http://hanks.xyz/2015/12/18/react-native-UIExplorer/" data-id="ciib3057m0043ao05v66jr8mc" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/React-Native/">React-Native</a></li></ul>
@@ -124,7 +132,7 @@
   
 <section id="comments">
     <!-- 多说分享框 -->
-    <div class="ds-share flat" data-thread-key="/2015/12/18/react-native-UIExplorer/" data-title="react-native_UIExplorer" data-images="https://raw.githubusercontent.com/Hankiya/LoveOnline/master/Rich%20Format%20Vertical.png" data-content="react-native_UIExplorer" data-url="http://hanks.xyz//2015/12/18/react-native-UIExplorer/">
+    <div class="ds-share flat" data-thread-key="/2015/12/18/react-native-UIExplorer/" data-title="运行React-Native例子UIExplorer" data-images="https://raw.githubusercontent.com/Hankiya/LoveOnline/master/Rich%20Format%20Vertical.png" data-content="运行React-Native例子UIExplorer" data-url="http://hanks.xyz//2015/12/18/react-native-UIExplorer/">
     <div class="ds-share-inline">
       <ul  class="ds-share-icons-16">
 
@@ -139,7 +147,7 @@
     </div>
    </div>
     <!-- 多说评论框 start -->
-   	<div class="ds-thread" data-thread-key="/2015/12/18/react-native-UIExplorer/" data-title="react-native_UIExplorer" data-url="http://hanks.xyz//2015/12/18/react-native-UIExplorer/"></div>
+   	<div class="ds-thread" data-thread-key="/2015/12/18/react-native-UIExplorer/" data-title="运行React-Native例子UIExplorer" data-url="http://hanks.xyz//2015/12/18/react-native-UIExplorer/"></div>
    <!-- 多说评论框 end -->
    <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
    <script type="text/javascript">
@@ -171,11 +179,11 @@
       <ul>
         
           <li>
-            <a href="/2015/12/18/react-native-UIExplorer/">react-native_UIExplorer</a>
+            <a href="/2015/12/18/react-native-UIExplorer/">运行React-Native例子UIExplorer</a>
           </li>
         
           <li>
-            <a href="/2015/12/15/react-native-start-md/">Ubuntu进行 react-native 的开发</a>
+            <a href="/2015/12/15/react-native-start-md/">Ubuntu进行 React-Native 的开发</a>
           </li>
         
           <li>

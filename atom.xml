@@ -2012,7 +2012,7 @@ Reference</h2>
     <link href="http://hanks.xyz/2015/10/31/%E4%B8%8A%E4%BC%A0%E8%87%AA%E5%B7%B1%E7%9A%84%E5%BA%93%E5%88%B0jcenter/"/>
     <id>http://hanks.xyz/2015/10/31/上传自己的库到jcenter/</id>
     <published>2015-10-31T12:24:00.000Z</published>
-    <updated>2015-12-06T03:19:40.425Z</updated>
+    <updated>2015-12-20T09:50:42.017Z</updated>
     <content type="html"><![CDATA[<h1 id="注册">注册</h1><p><a href="https://bintray.com/" target="_blank" rel="external">https://bintray.com/</a><br>注册一个账号。</p>
 <p>获取API Key<br><a href="https://bintray.com/profile/edit" target="_blank" rel="external">https://bintray.com/profile/edit</a></p>
 <h1 id="创建与配置项目">创建与配置项目</h1><ol>
@@ -2023,7 +2023,8 @@ Reference</h2>
 <li>修改要打包成aar的moudle下的<code>build.gradle</code></li>
 </ol>
 <figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br></pre></td><td class="code"><pre><span class="line">apply plugin: <span class="string">'com.android.library'</span></span><br><span class="line">apply plugin: <span class="string">'com.github.dcendents.android-maven'</span></span><br><span class="line">apply plugin: <span class="string">'com.jfrog.bintray'</span></span><br><span class="line"></span><br><span class="line">version = <span class="string">"0.6.6"</span>                                                              <span class="comment">// #CONFIG# // project version</span></span><br><span class="line"></span><br><span class="line">android &#123;</span><br><span class="line">    compileSdkVersion <span class="number">21</span></span><br><span class="line">    buildToolsVersion <span class="string">"21.1.2"</span></span><br><span class="line">    defaultConfig &#123;</span><br><span class="line">        minSdkVersion <span class="number">8</span></span><br><span class="line">        targetSdkVersion <span class="number">21</span></span><br><span class="line">        versionCode <span class="number">1</span></span><br><span class="line">        versionName <span class="string">"1.0"</span></span><br><span class="line">    &#125;</span><br><span class="line">    buildTypes &#123;</span><br><span class="line">        release &#123;</span><br><span class="line">            minifyEnabled <span class="keyword">false</span></span><br><span class="line">            proguardFiles getDefaultProguardFile(<span class="string">'proguard-android.txt'</span>), <span class="string">'proguard-rules.pro'</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">dependencies</span> &#123;</span><br><span class="line">    <span class="keyword">compile</span> <span class="keyword">fileTree</span>(dir: <span class="string">'libs'</span>, <span class="keyword">include</span>: [<span class="string">'*.jar'</span>])</span><br><span class="line">    <span class="keyword">compile</span> <span class="string">'com.android.support:support-v4:22.2.1'</span></span><br><span class="line">    <span class="keyword">compile</span> <span class="string">'com.android.support:recyclerview-v7:22.2.1'</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> siteUrl = <span class="string">'https://github.com/hanks-zyh/AnimateCheckBox'</span>                    <span class="comment">// #CONFIG# // project homepage</span></span><br><span class="line"><span class="keyword">def</span> gitUrl = <span class="string">'https://github.com/hanks-zyh/AnimateCheckBox.git'</span>                <span class="comment">// #CONFIG# // project git</span></span><br><span class="line"><span class="keyword">group</span> = <span class="string">"com.hanks"</span>                                                           <span class="comment">// #CONFIG# // Maven Group ID for the artifact (pageckage name is ok)</span></span><br><span class="line"></span><br><span class="line">install &#123;</span><br><span class="line">    <span class="keyword">repositories</span>.mavenInstaller &#123;</span><br><span class="line">        <span class="comment">// This generates POM.xml with proper parameters</span></span><br><span class="line">        pom &#123;</span><br><span class="line">            <span class="keyword">project</span> &#123;</span><br><span class="line">                packaging <span class="string">'aar'</span></span><br><span class="line">                name <span class="string">'Less Code For Android'</span>                                   <span class="comment">// #CONFIG# // project title</span></span><br><span class="line">                url siteUrl</span><br><span class="line">                <span class="comment">// Set your license</span></span><br><span class="line">                licenses &#123;</span><br><span class="line">                    license &#123;</span><br><span class="line">                        name <span class="string">'The Apache Software License, Version 2.0'</span></span><br><span class="line">                        url <span class="string">'http://www.apache.org/licenses/LICENSE-2.0.txt'</span></span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                developers &#123;</span><br><span class="line">                    developer &#123;</span><br><span class="line">                        id <span class="string">'hanks'</span>                                           <span class="comment">// #CONFIG# // your user id (you can write your nickname)</span></span><br><span class="line">                        name <span class="string">'hanks'</span>                                       <span class="comment">// #CONFIG# // your user name</span></span><br><span class="line">                        email <span class="string">'zhangyuhan2014@gmail.com'</span>                               <span class="comment">// #CONFIG# // your email</span></span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                scm &#123;</span><br><span class="line">                    connection gitUrl</span><br><span class="line">                    developerConnection gitUrl</span><br><span class="line">                    url siteUrl</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">task</span> sourcesJar(type: Jar) &#123;</span><br><span class="line">    <span class="keyword">from</span> android.<span class="keyword">sourceSets</span>.main.java.srcDirs</span><br><span class="line">    classifier = <span class="string">'sources'</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">task</span> javadoc(type: Javadoc) &#123;</span><br><span class="line">    <span class="keyword">source</span> = android.<span class="keyword">sourceSets</span>.main.java.srcDirs</span><br><span class="line">    <span class="keyword">classpath</span> += <span class="keyword">project</span>.files(android.getBootClasspath().<span class="keyword">join</span>(<span class="keyword">File</span>.pathSeparator))</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">task</span> javadocJar(type: Jar, dependsOn: javadoc) &#123;</span><br><span class="line">    classifier = <span class="string">'javadoc'</span></span><br><span class="line">    <span class="keyword">from</span> javadoc.<span class="keyword">destinationDir</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">artifacts</span> &#123;</span><br><span class="line">    archives javadocJar</span><br><span class="line">    archives sourcesJar</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//在local.properties添加bintray.user和bintray.apikey</span></span><br><span class="line">Properties properties = <span class="keyword">new</span> Properties()</span><br><span class="line">properties.load(<span class="keyword">project</span>.rootProject.<span class="keyword">file</span>(<span class="string">'local.properties'</span>).newDataInputStream())</span><br><span class="line">bintray &#123;</span><br><span class="line">    user = properties.getProperty(<span class="string">"bintray.user"</span>)</span><br><span class="line">    key = properties.getProperty(<span class="string">"bintray.apikey"</span>)</span><br><span class="line">    <span class="keyword">configurations</span> = [<span class="string">'archives'</span>]</span><br><span class="line">    pkg &#123;</span><br><span class="line">        repo = <span class="string">"maven"</span></span><br><span class="line">        name = <span class="string">"AnimateCheckBox"</span>     <span class="comment">// #CONFIG# project name in jcenter</span></span><br><span class="line">        websiteUrl = siteUrl</span><br><span class="line">        vcsUrl = gitUrl</span><br><span class="line">        licenses = [<span class="string">"Apache-2.0"</span>]</span><br><span class="line">        publish = <span class="keyword">true</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h1 id="执行_bintrayUpload">执行 bintrayUpload</h1><p>当bintrayUpload成功之后，</p>
+<h1 id="执行创建的_install_任务(Gradle)">执行创建的 install 任务(Gradle)</h1><p>用于生产 jar 和 jardoc</p>
+<h1 id="执行_bintrayUpload">执行 bintrayUpload</h1><p><img src="https://dn-coding-net-production-pp.qbox.me/3d7fb771-5d4a-48ac-8f2b-1d9cce14dcc8.png" alt="图片"><br>当bintrayUpload成功之后，</p>
 <p>到 <a href="https://bintray.com/" target="_blank" rel="external">https://bintray.com/</a> 查看刚上传的项目<br>找到 <strong>Maven Central</strong> 标签，提示体积jcenter审核</p>
 <h1 id="上传到_jcenter">上传到 jcenter</h1><p>等邮件通知，审核通过之后可以查看</p>
 <p>到<a href="http://jcenter.bintray.com/" target="_blank" rel="external">http://jcenter.bintray.com/</a> 按照路径查看是否存在<br>如 <strong>otto</strong> 的 <a href="http://jcenter.bintray.com/com/squareup/otto/1.3.7/" target="_blank" rel="external">http://jcenter.bintray.com/com/squareup/otto/1.3.7/</a><br>然后别人就可以添加引用，从远程下载了</p>
@@ -2266,19 +2267,165 @@ Reference</h2>
     <link href="http://hanks.xyz/2015/09/27/FTI%E4%BB%AC%E5%9C%A8%E4%BD%BF%E7%94%A8%E7%9A%84%E5%BC%80%E6%BA%90%E5%BA%93/"/>
     <id>http://hanks.xyz/2015/09/27/FTI们在使用的开源库/</id>
     <published>2015-09-27T14:49:00.000Z</published>
-    <updated>2015-12-06T03:19:40.265Z</updated>
-    <content type="html"><![CDATA[<p>#FTI们在使用的开源库</p>
-<blockquote>
+    <updated>2015-12-19T02:59:22.277Z</updated>
+    <content type="html"><![CDATA[<blockquote>
 <p>转载请注明出处 <a href="http://blog.csdn.net/hpu_zyh/article/details/48769703" target="_blank" rel="external">http://blog.csdn.net/hpu_zyh/article/details/48769703</a></p>
 </blockquote>
-<p><img src="http://img.blog.csdn.net/20150927233506588" alt="这里写图片描述"></p>
-<p>##1. Instagram<br><a href="https://github.com/ACRA/acra" target="_blank" rel="external">ACRA</a><br><a href="https://github.com/loopj/android-async-http" target="_blank" rel="external">android-async-http</a><br><a href="https://github.com/JakeWharton/DiskLruCache" target="_blank" rel="external">DiskLruCache</a><br><a href="">Foursquared</a><br><a href="https://github.com/FasterXML/jackson-annotations" target="_blank" rel="external">jackson-annotations</a><br><a href="https://github.com/FasterXML/jackson-core" target="_blank" rel="external">jackson-core</a><br><a href="https://github.com/FasterXML/jackson-databind" target="_blank" rel="external">jackson-databind</a><br><a href="https://github.com/facebook/rebound" target="_blank" rel="external">rebound</a><br><a href="https://github.com/mttkay/signpost" target="_blank" rel="external">signpost</a><br><a href="https://github.com/code4craft/webmagic" target="_blank" rel="external">webm</a><br><a href="">XML Pull Parser</a><br><a href="https://github.com/sannies/mp4parser" target="_blank" rel="external">mp4parser</a></p>
-<p>##2. Twitter<br>Apache Software<br>FoundationApache<br>ThriftAndroid Open Source Project<br>Bouncy Castle Crypto (via Spongy Castle)<br>Chris Banes<br><a href="https://github.com/google/ExoPlayer" target="_blank" rel="external">ExoPlayer</a><br><a href="https://github.com/google/gcm" target="_blank" rel="external">Google Cloud Messaging</a><br><a href="https://github.com/googlei18n/libphonenumber" target="_blank" rel="external">Google libphonenumber</a><br><a href="https://github.com/FasterXML/jackson" target="_blank" rel="external">Jackson</a> Java JSON-processor Core<br><a href="https://github.com/bluelinelabs/LoganSquare" target="_blank" rel="external">LoganSquare</a><br><a href="https://github.com/square/okhttp" target="_blank" rel="external">OkHttp</a><br><a href="https://github.com/ReactiveX/RxJava" target="_blank" rel="external">RxJava</a><br><a href="https://github.com/ReactiveX/RxAndroid" target="_blank" rel="external">RxAndroid</a><br><a href="https://github.com/qos-ch/slf4j" target="_blank" rel="external">SLF4J</a><br>Vandal Software, LLC<br><a href="https://github.com/etsy/AndroidStaggeredGrid" target="_blank" rel="external">AndroidStaggeredGridView</a><br><a href="https://github.com/JakeWharton/ViewPagerIndicator" target="_blank" rel="external">ViewPagerIndicator</a></p>
-<p>##3. facebook<br>ACE<br>achartengine<br>ACRA<br>actionbar-pulltorefresh<br>ActionBarSherloc<br>AES block cipher<br>android-async-http<br>android-circlebutton<br>android-gif-drawable<br>android-support-v4-perferencefragment<br>Android Open Source Project<br>android websockets<br>antlr<br>Apache Commons Codec<br>Apache Commons Exec<br>Apache Commons Lang<br>Apache Commons Logging<br>Apache Commons Math<br>Apache Harmony<br>Apache httpminme<br>Apache JAMES Mime4J<br>Apache Lucene<br>Apache Thrift<br>Apache HttpComments Client<br>Apache HttpComments Core<br>appirater<br>apps-for-android<br>ASM<br>assertj<br>atinject<br>base64coer<br>bitvect<br>Boost<br>bsdiff<br>c-ares<br>Code Generation Library(cglib)<br>chromecast-java-api<br>chrometophone<br>chromimum<br>commons-cli<br>custommenu<br>cwac-camera<br>cwac-touchlist<br>dagger<br>dependency-shot<br>dex-method-counts<br>DisLruCache<br>djinni<br>dnsjava<br>double-conversion<br>DynamicGrid<br>ejs<br>encode<br>ExoPlayer<br>expat<br>ffmpeg<br>FFT by mark Oleson<br>FFT by Takuya Ooura<br>flatbuffers<br>getRoundedCornerBitmap<br>giflib<br>Google Breakpad<br>google-gson<br>google-guice<br>JetBrains Grammar-Kit<br>guava-libraries<br>gyp<br>Hamcrest<br>horizontal-listview<br>http-parser<br>icu4j<br>ieeehalfprecision<br>ImageViewZoom<br>intellij-community<br>Jackson Core<br>Jackson Annotations<br>Jackson Databind<br>JacksonForSmile<br>JacksonDatatypeGuava<br>java-diff-utils<br>java-websocket<br>javawriter<br>jcodec<br>joda-time<br>json-simple<br>JSON-java<br>JSONPath<br>jsr-305<br>libevent<br>libjingle<br>libjpeg-turbo<br>libjpeg<br>libphonenumber<br>libpng<br>libsrtp<br>libuuid<br>…</p>
-<p>##4 .Slack<br><a href="https://github.com/tongcpp/PullToRefresh-PinnedSection-ListView" target="_blank" rel="external">PinnedSe<br>ctionListView</a><br>HybiParser<br>FloatLabelLayout<br>Mixpanel<br><a href="https://github.com/google/guava" target="_blank" rel="external">Guava</a><br><a href="https://github.com/JodaOrg/joda-time" target="_blank" rel="external">Joda-Time</a><br><a href="https://github.com/square/dagger" target="_blank" rel="external">Dagger</a><br><a href="https://github.com/JakeWharton/butterknife" target="_blank" rel="external">Butterknife</a><br><a href="https://github.com/square/otto" target="_blank" rel="external">Otto</a><br><a href="https://github.com/ReactiveX/RxJava" target="_blank" rel="external">RxJava</a><br><a href="https://github.com/ReactiveX/RxAndroid" target="_blank" rel="external">RxAndroid</a><br><a href="https://github.com/JakeWharton/timber" target="_blank" rel="external">Timber</a><br><a href="https://github.com/square/picasso" target="_blank" rel="external">Picasso</a><br><a href="https://github.com/google/gson" target="_blank" rel="external">Gson</a><br><a href="https://github.com/square/okhttp" target="_blank" rel="external">OkHttp</a><br><a href="https://github.com/square/okio" target="_blank" rel="external">Okio</a><br><a href="https://github.com/Flipboard/bottomsheet" target="_blank" rel="external">BottomSheet</a><br><a href="https://github.com/chrisjenx/Calligraphy" target="_blank" rel="external">Calligraphy</a><br><a href="https://github.com/chrisbanes/PhotoView" target="_blank" rel="external">PhotoView</a><br><a href="https://github.com/makovkastar/FloatingActionButton" target="_blank" rel="external">FloatingActionButton</a><br><a href="https://github.com/splitwise/TokenAutoComplete" target="_blank" rel="external">TokenAutoComplete</a></p>
-<p>##5. Quip</p>
-<p>##6. Trello</p>
-<p>###。。。待完善</p>
+<h2 id="Instagram">Instagram</h2><p><a href="https://github.com/ACRA/acra" target="_blank" rel="external">ACRA</a></p>
+<p><a href="https://github.com/loopj/android-async-http" target="_blank" rel="external">android-async-http</a></p>
+<p><a href="https://github.com/JakeWharton/DiskLruCache" target="_blank" rel="external">DiskLruCache</a></p>
+<p><a href="">Foursquared</a></p>
+<p><a href="https://github.com/FasterXML/jackson-annotations" target="_blank" rel="external">jackson-annotations</a></p>
+<p><a href="https://github.com/FasterXML/jackson-core" target="_blank" rel="external">jackson-core</a></p>
+<p><a href="https://github.com/FasterXML/jackson-databind" target="_blank" rel="external">jackson-databind</a></p>
+<p><a href="https://github.com/facebook/rebound" target="_blank" rel="external">rebound</a></p>
+<p><a href="https://github.com/mttkay/signpost" target="_blank" rel="external">signpost</a></p>
+<p><a href="https://github.com/code4craft/webmagic" target="_blank" rel="external">webm</a></p>
+<p><a href="">XML Pull Parser</a></p>
+<p><a href="https://github.com/sannies/mp4parser" target="_blank" rel="external">mp4parser</a></p>
+<h2 id="Twitter">Twitter</h2><p>Apache Software</p>
+<p>FoundationApache</p>
+<p>ThriftAndroid Open Source Project</p>
+<p>Bouncy Castle Crypto (via Spongy Castle)</p>
+<p>Chris Banes</p>
+<p><a href="https://github.com/google/ExoPlayer" target="_blank" rel="external">ExoPlayer</a></p>
+<p><a href="https://github.com/google/gcm" target="_blank" rel="external">Google Cloud Messaging</a></p>
+<p><a href="https://github.com/googlei18n/libphonenumber" target="_blank" rel="external">Google libphonenumber</a></p>
+<p><a href="https://github.com/FasterXML/jackson" target="_blank" rel="external">Jackson</a> Java JSON-processor Core</p>
+<p><a href="https://github.com/bluelinelabs/LoganSquare" target="_blank" rel="external">LoganSquare</a></p>
+<p><a href="https://github.com/square/okhttp" target="_blank" rel="external">OkHttp</a></p>
+<p><a href="https://github.com/ReactiveX/RxJava" target="_blank" rel="external">RxJava</a></p>
+<p><a href="https://github.com/ReactiveX/RxAndroid" target="_blank" rel="external">RxAndroid</a></p>
+<p><a href="https://github.com/qos-ch/slf4j" target="_blank" rel="external">SLF4J</a></p>
+<p>Vandal Software, LLC</p>
+<p><a href="https://github.com/etsy/AndroidStaggeredGrid" target="_blank" rel="external">AndroidStaggeredGridView</a></p>
+<p><a href="https://github.com/JakeWharton/ViewPagerIndicator" target="_blank" rel="external">ViewPagerIndicator</a></p>
+<h2 id="facebook">facebook</h2><p>ACE</p>
+<p>achartengine</p>
+<p>ACRA</p>
+<p>actionbar-pulltorefresh</p>
+<p>ActionBarSherloc</p>
+<p>AES block cipher</p>
+<p>android-async-http</p>
+<p>android-circlebutton</p>
+<p>android-gif-drawable</p>
+<p>android-support-v4-perferencefragment</p>
+<p>Android Open Source Project</p>
+<p>android websockets</p>
+<p>antlr<br>Apache Commons Codec</p>
+<p>Apache Commons Exec</p>
+<p>Apache Commons Lang</p>
+<p>Apache Commons Logging</p>
+<p>Apache Commons Math</p>
+<p>Apache Harmony</p>
+<p>Apache httpminme</p>
+<p>Apache JAMES Mime4J</p>
+<p>Apache Lucene</p>
+<p>Apache Thrift</p>
+<p>Apache HttpComments Client</p>
+<p>Apache HttpComments Core</p>
+<p>appirater</p>
+<p>apps-for-android</p>
+<p>ASM</p>
+<p>assertj</p>
+<p>atinject</p>
+<p>base64coer</p>
+<p>bitvect</p>
+<p>Boost</p>
+<p>bsdiff</p>
+<p>c-ares</p>
+<p>Code Generation Library(cglib)</p>
+<p>chromecast-java-api</p>
+<p>chrometophone</p>
+<p>chromimum</p>
+<p>commons-cli</p>
+<p>custommenu</p>
+<p>cwac-camera</p>
+<p>cwac-touchlist</p>
+<p>dagger</p>
+<p>dependency-shot</p>
+<p>dex-method-counts</p>
+<p>DisLruCache</p>
+<p>djinni</p>
+<p>dnsjava</p>
+<p>double-conversion</p>
+<p>DynamicGrid<br>ejs</p>
+<p>encode</p>
+<p>ExoPlayer</p>
+<p>expat</p>
+<p>ffmpeg</p>
+<p>FFT by mark Oleson</p>
+<p>FFT by Takuya Ooura</p>
+<p>flatbuffers<br>getRoundedCornerBitmap</p>
+<p>giflib<br>Google Breakpad</p>
+<p>google-gson</p>
+<p>google-guice<br>JetBrains Grammar-Kit</p>
+<p>guava-libraries</p>
+<p>gyp<br>Hamcrest</p>
+<p>horizontal-listview</p>
+<p>http-parser<br>icu4j</p>
+<p>ieeehalfprecision</p>
+<p>ImageViewZoom<br>intellij-community</p>
+<p>Jackson Core<br>Jackson Annotations</p>
+<p>Jackson Databind</p>
+<p>JacksonForSmile</p>
+<p>JacksonDatatypeGuava</p>
+<p>java-diff-utils</p>
+<p>java-websocket</p>
+<p>javawriter</p>
+<p>jcodec</p>
+<p>joda-time</p>
+<p>json-simple</p>
+<p>JSON-java</p>
+<p>JSONPath<br>jsr-305</p>
+<p>libevent</p>
+<p>libjingle</p>
+<p>libjpeg-turbo</p>
+<p>libjpeg</p>
+<p>libphonenumber</p>
+<p>libpng</p>
+<p>libsrtp</p>
+<p>libuuid<br>…</p>
+<h2 id="Slack">Slack</h2><p><a href="https://github.com/tongcpp/PullToRefresh-PinnedSection-ListView" target="_blank" rel="external">PinnedSectionListView</a></p>
+<p>HybiParser</p>
+<p>FloatLabelLayout</p>
+<p>Mixpanel</p>
+<p><a href="https://github.com/google/guava" target="_blank" rel="external">Guava</a></p>
+<p><a href="https://github.com/JodaOrg/joda-time" target="_blank" rel="external">Joda-Time</a></p>
+<p><a href="https://github.com/square/dagger" target="_blank" rel="external">Dagger</a></p>
+<p><a href="https://github.com/JakeWharton/butterknife" target="_blank" rel="external">Butterknife</a></p>
+<p><a href="https://github.com/square/otto" target="_blank" rel="external">Otto</a></p>
+<p><a href="https://github.com/ReactiveX/RxJava" target="_blank" rel="external">RxJava</a></p>
+<p><a href="https://github.com/ReactiveX/RxAndroid" target="_blank" rel="external">RxAndroid</a></p>
+<p><a href="https://github.com/JakeWharton/timber" target="_blank" rel="external">Timber</a></p>
+<p><a href="https://github.com/square/picasso" target="_blank" rel="external">Picasso</a></p>
+<p><a href="https://github.com/google/gson" target="_blank" rel="external">Gson</a></p>
+<p><a href="https://github.com/square/okhttp" target="_blank" rel="external">OkHttp</a></p>
+<p><a href="https://github.com/square/okio" target="_blank" rel="external">Okio</a></p>
+<p><a href="https://github.com/Flipboard/bottomsheet" target="_blank" rel="external">BottomSheet</a></p>
+<p><a href="https://github.com/chrisjenx/Calligraphy" target="_blank" rel="external">Calligraphy</a></p>
+<p><a href="https://github.com/chrisbanes/PhotoView" target="_blank" rel="external">PhotoView</a></p>
+<p><a href="https://github.com/makovkastar/FloatingActionButton" target="_blank" rel="external">FloatingActionButton</a></p>
+<p><a href="https://github.com/splitwise/TokenAutoComplete" target="_blank" rel="external">TokenAutoComplete</a></p>
+<h2 id="Quip">Quip</h2><h2 id="Trello">Trello</h2><h2 id="Tumblr_网站和应用程序版权信息">Tumblr 网站和应用程序版权信息</h2><p>Tumblr’s web and mobile applications (including but not limited to iOS, Android, and Windows Mobile) are Copyright (c) 2015, Tumblr, Inc. All Rights Reserved.</p>
+<p>Tumblr’s web and mobile applications use “open source” components. You can find the source code of these open source projects, along with applicable license information, below. We are deeply grateful to these developers for their work and contributions.</p>
+<p>ActionBar-PullToRefresh</p>
+<p>Copyright (c) 2013 Chris Banes<br>Project: <a href="https://github.com/chrisbanes/ActionBar-PullToRefresh" target="_blank" rel="external">https://github.com/chrisbanes/ActionBar-PullToRefresh</a><br>License: <a href="http://www.apache.org/licenses/LICENSE-2.0" target="_blank" rel="external">http://www.apache.org/licenses/LICENSE-2.0</a><br>Android PullToRefresh</p>
+<p>Copyright (c) 2011-2012 Chris Banes<br>Project: <a href="https://github.com/chrisbanes/Android-PullToRefresh" target="_blank" rel="external">https://github.com/chrisbanes/Android-PullToRefresh</a><br>License: <a href="https://github.com/chrisbanes/Android-PullToRefresh/blob/master/LICENSE" target="_blank" rel="external">https://github.com/chrisbanes/Android-PullToRefresh/blob/master/LICENSE</a><br>Android SDK</p>
+<p>Copyright (c) 2014 Google Inc. All Rights Reserved.<br>Project: <a href="http://source.android.com/" target="_blank" rel="external">http://source.android.com/</a><br>License: <a href="http://source.android.com/source/licenses.html" target="_blank" rel="external">http://source.android.com/source/licenses.html</a>; see also <a href="http://developer.android.com/sdk/terms.html" target="_blank" rel="external">http://developer.android.com/sdk/terms.html</a><br>Apache HTTP MIME</p>
+<p>Copyright (c) 1999-2014 The Apache Software Foundation. All Rights Reserved.<br>Project: <a href="http://hc.apache.org/httpcomponents-client-ga/httpmime/" target="_blank" rel="external">http://hc.apache.org/httpcomponents-client-ga/httpmime/</a><br>License: <a href="http://www.apache.org/licenses/" target="_blank" rel="external">http://www.apache.org/licenses/</a><br>Apache Pool Component</p>
+<p>Copyright (c) 2001-2014 The Apache Software Foundation. All Rights Reserved.<br>Project: <a href="http://commons.apache.org/proper/commons-pool/" target="_blank" rel="external">http://commons.apache.org/proper/commons-pool/</a><br>License: <a href="http://www.apache.org/licenses/" target="_blank" rel="external">http://www.apache.org/licenses/</a><br>DiskLruCache</p>
+<p>Copyright (c) 2012 Jake Wharton<br>Copyright (c) 2011 The Android Open Source Project<br>Project: <a href="https://github.com/JakeWharton/DiskLruCache" target="_blank" rel="external">https://github.com/JakeWharton/DiskLruCache</a><br>License: <a href="http://www.apache.org/licenses/LICENSE-2.0" target="_blank" rel="external">http://www.apache.org/licenses/LICENSE-2.0</a><br>Nine Old Androids</p>
+<p>Copyright (c) 2012 Jake Wharton<br>Project: <a href="http://nineoldandroids.com/" target="_blank" rel="external">http://nineoldandroids.com/</a><br>License: <a href="http://www.apache.org/licenses/" target="_blank" rel="external">http://www.apache.org/licenses/</a><br>Rebound</p>
+<p>Copyright (c) 2013, Facebook, Inc. All rights reserved.<br>Project: <a href="http://facebook.github.io/rebound/" target="_blank" rel="external">http://facebook.github.io/rebound/</a><br>License: <a href="https://github.com/facebook/rebound/blob/master/LICENSE" target="_blank" rel="external">https://github.com/facebook/rebound/blob/master/LICENSE</a><br>Signpost</p>
+<p>Copyright (c) 2012 Takahiro Horikawa, Matthias Kaepp, and contributors.<br>Project: <a href="https://code.google.com/p/oauth-signpost/" target="_blank" rel="external">https://code.google.com/p/oauth-signpost/</a><br>License: <a href="http://www.apache.org/licenses/LICENSE-2.0" target="_blank" rel="external">http://www.apache.org/licenses/LICENSE-2.0</a><br>SmoothProgressBar</p>
+<p>Copyright (c) 2014 Antoine Merle<br>Project: <a href="https://github.com/castorflex/SmoothProgressBar" target="_blank" rel="external">https://github.com/castorflex/SmoothProgressBar</a><br>License: <a href="http://www.apache.org/licenses/LICENSE-2.0" target="_blank" rel="external">http://www.apache.org/licenses/LICENSE-2.0</a><br>StickyListHeaders</p>
+<p>Copyright (c) 2012 Emil Sjölander<br>Project: <a href="https://github.com/emilsjolander/StickyListHeaders" target="_blank" rel="external">https://github.com/emilsjolander/StickyListHeaders</a><br>License: <a href="http://www.apache.org/licenses/LICENSE-2.0" target="_blank" rel="external">http://www.apache.org/licenses/LICENSE-2.0</a><br>ViewPagerIndicator</p>
+<p>Copyright (c) 2012 Jake Wharton<br>Copyright (c) 2011 Patrik Åkerfeldt<br>Copyright (c) 2011 Francisco Figueiredo Jr.<br>Project: <a href="https://github.com/JakeWharton/Android-ViewPagerIndicator" target="_blank" rel="external">https://github.com/JakeWharton/Android-ViewPagerIndicator</a><br>License: <a href="http://www.apache.org/licenses/LICENSE-2.0" target="_blank" rel="external">http://www.apache.org/licenses/LICENSE-2.0</a><br>Volley</p>
+<p>Copyright (c) 2011 The Android Open Source Project<br>Project: <a href="https://android.googlesource.com/platform/frameworks/volley/" target="_blank" rel="external">https://android.googlesource.com/platform/frameworks/volley/</a><br>License: <a href="http://www.apache.org/licenses/LICENSE-2.0" target="_blank" rel="external">http://www.apache.org/licenses/LICENSE-2.0</a><br>Butter Knife</p>
+<p>Copyright (c) 2013 Jake Wharton<br>Project: <a href="https://github.com/JakeWharton/butterknife" target="_blank" rel="external">https://github.com/JakeWharton/butterknife</a><br>License: <a href="http://www.apache.org/licenses/LICENSE-2.0" target="_blank" rel="external">http://www.apache.org/licenses/LICENSE-2.0</a><br>Leak Canary</p>
+<p>Copyright (c) 2015 Square, Inc<br>Project: <a href="https://github.com/square/leakcanary" target="_blank" rel="external">https://github.com/square/leakcanary</a><br>License: <a href="http://www.apache.org/licenses/LICENSE-2.0" target="_blank" rel="external">http://www.apache.org/licenses/LICENSE-2.0</a><br>ExoPlayer</p>
+<p>Copyright (c) 2015 Google, Inc<br>Project: <a href="https://google.github.io/ExoPlayer/index.html" target="_blank" rel="external">https://google.github.io/ExoPlayer/index.html</a><br>License: <a href="http://www.apache.org/licenses/LICENSE-2.0" target="_blank" rel="external">http://www.apache.org/licenses/LICENSE-2.0</a></p>
 ]]></content>
     <summary type="html">
     <![CDATA[ ]]>

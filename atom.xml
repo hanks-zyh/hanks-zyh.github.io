@@ -4,7 +4,7 @@
   <subtitle><![CDATA[coding]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://hanks.xyz/"/>
-  <updated>2015-12-23T10:56:24.544Z</updated>
+  <updated>2015-12-24T11:09:26.833Z</updated>
   <id>http://hanks.xyz/</id>
   
   <author>
@@ -13,6 +13,34 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[React-Native 的Navigator控制界面跳转]]></title>
+    <link href="http://hanks.xyz/2015/12/24/react-navigator/"/>
+    <id>http://hanks.xyz/2015/12/24/react-navigator/</id>
+    <published>2015-12-24T11:08:08.000Z</published>
+    <updated>2015-12-24T11:09:26.833Z</updated>
+    <content type="html"><![CDATA[<p>例子:<br><img src="http://file.bmob.cn/M02/17/17/oYYBAFZ70QWAYn4DABTb3uKu6GM103.gif" alt="界面跳转"></p>
+<p>回顾一下,一个简单的界面包含一下几块</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span><br><span class="line"> * Sample React Native App</span><br><span class="line"> * https://github.com/hanks-zyh</span><br><span class="line"> */</span></span><br><span class="line"><span class="pi"></span><br><span class="line">'use strict'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> React = <span class="built_in">require</span>(<span class="string">'react-native'</span>);</span><br><span class="line"><span class="keyword">var</span> &#123;</span><br><span class="line">  AppRegistry,</span><br><span class="line">  StyleSheet,</span><br><span class="line">  Text,</span><br><span class="line">&#125; =  React;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> AwesomeProject = React.createClass(&#123;</span><br><span class="line">  render: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">      <span class="keyword">return</span> (<span class="xml"><span class="tag">&lt;<span class="title">Text</span>&gt;</span>Hello, hanks<span class="tag">&lt;/<span class="title">Text</span>&gt;</span>)</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> styles = StyleSheet.create(&#123;</span><br><span class="line"></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">AppRegistry.registerComponent(<span class="string">'AwesomeProject'</span>, () =&gt; AwesomeProject);</span><br></pre></td></tr></table></figure>
+<p>接下来练习<code>Navigator</code>的使用,<code>Navigator</code>标签负责不同界面之间的跳转;</p>
+<p><a href="http://facebook.github.io/react-native/docs/navigator.html#content" target="_blank" rel="external">官方文档</a></p>
+<h2 id="基础用法">基础用法</h2><figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">&lt;Navigator</span><br><span class="line">    initialRoute=&#123;&#123;name: <span class="string">'My First Scene'</span>, index: <span class="number">0</span>&#125;&#125;</span><br><span class="line">    renderScene=&#123;(route, navigator) =&gt;</span><br><span class="line">      &lt;MySceneComponent</span><br><span class="line">        name=&#123;route.name&#125;</span><br><span class="line">        onForward=&#123;() =&gt; &#123;</span><br><span class="line">          var nextIndex = route.index + <span class="number">1</span>;</span><br><span class="line">          navigator.push(&#123;</span><br><span class="line">            name: <span class="string">'Scene '</span> + nextIndex,</span><br><span class="line">            index: nextIndex,</span><br><span class="line">          &#125;);</span><br><span class="line">        &#125;&#125;</span><br><span class="line">        onBack=&#123;() =&gt; &#123;</span><br><span class="line">          if (route.index &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            navigator.pop();</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;&#125;</span><br><span class="line">      /&gt;</span><br><span class="line">    &#125;</span><br><span class="line">  /&gt;</span><br></pre></td></tr></table></figure>
+<p>基础方法 <code>push</code>, <code>pop</code>, <strong>Navigator</strong> 的<code>renderScene</code> 方法可以获取到 <code>navigator</code> 和 <code>route</code>对象,然后就可使用 <code>navigator</code>的  <code>push</code>, <code>pop</code> 控制界面.</p>
+<p>获取  <code>navigator</code> 和 <code>route</code> 的例子</p>
+<figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">//...</span><br><span class="line">&lt;Navigator</span><br><span class="line">  ddebugOverlay=&#123;false&#125;</span><br><span class="line">  initialRoute=&#123;&#123; title: <span class="string">'Main'</span>, id:<span class="string">'http'</span>&#125;&#125;</span><br><span class="line">  configureScence=&#123;&#123; configureScence &#125;&#125;</span><br><span class="line">  renderScene=&#123;renderSceneAndroid&#125;</span><br><span class="line">/&gt;</span><br><span class="line"></span><br><span class="line">var _navigator; //全局navigator对象</span><br><span class="line">//...</span><br><span class="line">renderSceneAndroid: <span class="keyword">function</span>(route, navigator)&#123;</span><br><span class="line">  _navigator = navigator;</span><br><span class="line"></span><br><span class="line">  if(route.id === <span class="string">'http'</span>)&#123;</span><br><span class="line">    return (</span><br><span class="line">      &lt;HttpView navigator=&#123;navigator&#125; route=&#123;route&#125; /&gt;</span><br><span class="line">     );</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  if(route.id === <span class="string">'shop'</span>)&#123;</span><br><span class="line">    return (</span><br><span class="line">      &lt;ShopView navigator=&#123;navigator&#125; route=&#123;route&#125;/&gt;</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">//...</span><br><span class="line">// 调用push 跳转</span><br><span class="line">&lt;TouchableOpacity onPress=&#123; () =&gt; _navigator.push(&#123;title:<span class="string">'Http'</span>,id:<span class="string">'http'</span>&#125;) &#125;  style=&#123; styles.button &#125;&gt;</span><br><span class="line">  &lt;Text&gt;NetWork&lt;/Text&gt;</span><br><span class="line">&lt;/TouchableOpacity&gt;</span><br></pre></td></tr></table></figure>
+<p>根据route的id来判断跳到哪个界面, 调用 push 添加新的界面, push的参数为 route:字典</p>
+<h2 id="安卓返回按键监听">安卓返回按键监听</h2><p>http.js 中获取 navigator 对象,调用 <code>pop</code> 方法退出界面<br><figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">BackAndroid.addEventListener(<span class="string">'hardwareBackPress'</span>, <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span>(_navigator == <span class="literal">null</span>)&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span>(_navigator.getCurrentRoutes().length === <span class="number">1</span>)&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  _navigator.pop();</span><br><span class="line">  <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p><a href="https://github.com/hanks-zyh/Hrn" target="_blank" rel="external">githb源码</a></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[ ]]>
+    
+    </summary>
+    
+      <category term="React-Native" scheme="http://hanks.xyz/tags/React-Native/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[React-Native 网络请求]]></title>
@@ -2157,41 +2185,6 @@ Reference</h2>
     </summary>
     
       <category term="Android" scheme="http://hanks.xyz/tags/Android/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[Ubuntu下Java环境配置]]></title>
-    <link href="http://hanks.xyz/2015/10/25/Ubuntu%E4%B8%8BJava%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/"/>
-    <id>http://hanks.xyz/2015/10/25/Ubuntu下Java环境配置/</id>
-    <published>2015-10-25T14:42:00.000Z</published>
-    <updated>2015-12-06T03:19:40.385Z</updated>
-    <content type="html"><![CDATA[<p>#Java环境配置</p>
-<ol>
-<li>下载 <code>jdk-8u60-linux-x64.tar.gz</code></li>
-<li>解压文件</li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 进入到下载目录</span></span><br><span class="line"><span class="built_in">cd</span> ~/Downloads</span><br><span class="line"><span class="comment"># 在 /usr/lib/ 下创建jvm目录，如果有可以跳过</span></span><br><span class="line">sudo mkdir /usr/lib/jvm</span><br><span class="line"><span class="comment"># 解压</span></span><br><span class="line">sudo tar zxvf jdk-<span class="number">8</span>u60-linux-x64.tar.gz -C /usr/lib/jvm</span><br><span class="line"><span class="comment"># 进入到解压过后的文件</span></span><br><span class="line"><span class="built_in">cd</span> /usr/lib/jvm/</span><br><span class="line"><span class="comment"># 重命名目录</span></span><br><span class="line">mv jdk1.<span class="number">8.0</span>_60/ java-<span class="number">8</span>u60-sun</span><br></pre></td></tr></table></figure>
-<ol>
-<li>修改环境变量</li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 编辑.bashrc文件</span></span><br><span class="line">vim ~/.bashrc</span><br></pre></td></tr></table></figure>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 在文件底部添加：</span></span><br><span class="line"><span class="built_in">export</span> JAVA_HOME=/usr/lib/jvm/java-<span class="number">8</span>u60-sun  </span><br><span class="line"><span class="built_in">export</span> JRE_HOME=<span class="variable">$&#123;JAVA_HOME&#125;</span>/jre  </span><br><span class="line"><span class="built_in">export</span> CLASSPATH=.:<span class="variable">$&#123;JAVA_HOME&#125;</span>/lib:<span class="variable">$&#123;JRE_HOME&#125;</span>/lib  </span><br><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$&#123;JAVA_HOME&#125;</span>/bin:<span class="variable">$PATH</span></span><br></pre></td></tr></table></figure>
-<p>保存退出</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 使更改生效</span></span><br><span class="line"><span class="built_in">source</span> ~/.bashrc</span><br></pre></td></tr></table></figure>
-<ol>
-<li>测试</li>
-</ol>
-<p><img src="http://file.bmob.cn/M02/44/E5/oYYBAFYs6cGAUXgGAAQQhkbBVNA434.png" alt=""></p>
-]]></content>
-    <summary type="html">
-    <![CDATA[ ]]>
-    
-    </summary>
-    
-      <category term="Java" scheme="http://hanks.xyz/tags/Java/"/>
-    
-      <category term="Ubuntu" scheme="http://hanks.xyz/tags/Ubuntu/"/>
     
   </entry>
   

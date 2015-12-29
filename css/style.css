@@ -187,15 +187,26 @@ body {
   color: #fff;
   font-size: 2em;
 }
+@media screen and (min-width: 768px) {
+  #main {
+    display: inline;
+    float: left;
+    width: 73.33333333333333%;
+    margin: 0 0.833333333333333%;
+  }
+}
+#main {
+  float: right;
+}
 .article-date,
 .article-category-link,
-.archive-year {
+.archive-year,
+.widget-title {
   text-decoration: none;
   text-transform: uppercase;
   letter-spacing: 2px;
   color: #999;
   margin-bottom: 1em;
-  margin-left: 5px;
   line-height: 1em;
   text-shadow: 0 1px #fff;
   font-weight: bold;
@@ -503,6 +514,15 @@ body {
 }
 .article-inner {
   overflow: hidden;
+  padding-bottom: 1em;
+  border-bottom: 1px dashed #e0e0e0;
+}
+a.article-tag-list-link {
+  color: #686d73;
+  background: #f5f5f5;
+  padding: 0.5rem 0.6rem;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
 }
 .article-meta:before,
 .article-meta:after {
@@ -698,18 +718,12 @@ a.article-title:hover {
   -moz-background-size: 24px 24px;
   background-size: 24px 24px;
 }
-.article-more-link a {
+.article-more-link {
   display: inline-block;
   line-height: 1em;
   padding: 6px 15px;
-  -webkit-border-radius: 15px;
-  border-radius: 15px;
-  background: #fff;
-  color: #999;
-  text-shadow: 0 1px #fff;
-  text-decoration: none;
-}
-.article-more-link a:hover {
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
   background: #42b983;
   color: #fff;
   text-decoration: none;
@@ -1418,27 +1432,45 @@ pre .javascript .function {
     background-size: 24px 24px;
   }
 }
-.widget-wrap {
-  margin-bottom: 50px !important;
+#sidebar {
+  text-align: left;
 }
 @media screen and (min-width: 768px) {
-  .widget-wrap {
+  #sidebar {
     display: inline;
     float: left;
-    width: 31.11111111111111%;
-    margin: 0 1.111111111111111%;
+    width: 23.333333333333332%;
+    margin: 0 0.833333333333333%;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
   }
 }
-.widget-title {
-  color: #ccc;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  margin-bottom: 1em;
-  line-height: 1em;
-  font-weight: bold;
+.widget-wrap {
+  margin: 50px 0;
 }
 .widget {
-  color: #999;
+  color: #2c3e50;
+  padding: 15px 0px;
+}
+.widget a {
+  color: #42b983;
+  text-decoration: none;
+}
+.widget a:hover {
+  text-decoration: underline;
+}
+.widget ul ul,
+.widget ol ul,
+.widget dl ul,
+.widget ul ol,
+.widget ol ol,
+.widget dl ol,
+.widget ul dl,
+.widget ol dl,
+.widget dl dl {
+  margin-left: 15px;
+  list-style: disc;
 }
 .widget {
   line-height: 28px;
@@ -1496,4 +1528,9 @@ pre .javascript .function {
   margin-right: 5px;
   word-wrap: normal;
   float: left;
+  border: 1px solid;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  margin-bottom: 5px;
+  padding: 0px 10px;
 }

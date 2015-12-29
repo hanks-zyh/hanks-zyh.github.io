@@ -22,7 +22,7 @@ Flex是Flexible Box的缩写，意为”弹性布局”，用来为盒状模型�
 Flexbox
 1234567891011alignItems enum(&apos;flex-start&apos;, &apos;flex-end&apos;, &apos;center&apos;, &apos;stretch&apos;)alignSelf enum(&apos;au">
 <meta property="og:image" content="https://dn-coding-net-production-pp.qbox.me/711188c5-babe-478d-989f-0bd70916c0ea.png">
-<meta property="og:updated_time" content="2015-12-22T11:02:24.574Z">
+<meta property="og:updated_time" content="2015-12-29T14:10:13.985Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="React-Native中的布局">
 <meta name="twitter:description" content="React-Native 使用 FlexBox布局来放置元素
@@ -91,6 +91,71 @@ Flexbox
 </nav>
       <div class="outer">
         
+          <aside id="sidebar">
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2015/12/29/react-userinfo/">React-Native 练习用户信息界面</a>
+          </li>
+        
+          <li>
+            <a href="/2015/12/29/react-viewpager/">React-Native 实现Android中的ViewPager</a>
+          </li>
+        
+          <li>
+            <a href="/2015/12/24/react-navigator/">React-Native 的Navigator控制界面跳转</a>
+          </li>
+        
+          <li>
+            <a href="/2015/12/23/react-network/">React-Native 网络请求</a>
+          </li>
+        
+          <li>
+            <a href="/2015/12/23/react-http/">React-Native进行网络请求</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Android/">Android</a> <a href="/tags/Atom/">Atom</a> <a href="/tags/Java/">Java</a> <a href="/tags/OS-X/">OS X</a> <a href="/tags/React-Native/">React-Native</a> <a href="/tags/Refactoring/">Refactoring</a> <a href="/tags/Rx/">Rx</a> <a href="/tags/RxJava/">RxJava</a> <a href="/tags/Rxandroid/">Rxandroid</a> <a href="/tags/Rxjava/">Rxjava</a> <a href="/tags/Ubuntu/">Ubuntu</a> <a href="/tags/mac-os/">mac os</a> <a href="/tags/virtualBox/">virtualBox</a> <a href="/tags/必备知识/">必备知识</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">links</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="http://kiya.space">kiya-z</a>
+          </li>
+        
+          <li>
+            <a href="http://hexo.io">Hexo</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
         <section id="main"><article id="post-react-flexbox" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2015/12/21/react-flexbox/" class="article-date">
@@ -136,16 +201,13 @@ Flexbox
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">View</span> <span class="attribute">style</span>=<span class="value">&#123;styles.box4&#125;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">View</span> <span class="attribute">style</span>= &#123;<span class="attribute">styles.column41</span>&#125;&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">View</span> <span class="attribute">style</span>= &#123;<span class="attribute">styles.item</span>&#125;/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">View</span> <span class="attribute">style</span>= &#123;<span class="attribute">styles.item</span>&#125;/&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="title">View</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">View</span> <span class="attribute">style</span>= &#123;<span class="attribute">styles.column52</span>&#125;&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">View</span> <span class="attribute">style</span>= &#123;<span class="attribute">styles.item</span>&#125;/&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="title">View</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">View</span> <span class="attribute">style</span>= &#123;<span class="attribute">styles.column42</span>&#125;&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">View</span> <span class="attribute">style</span>= &#123;<span class="attribute">styles.item</span>&#125;/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">View</span> <span class="attribute">style</span>= &#123;<span class="attribute">styles.item</span>&#125;/&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="title">View</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;/<span class="title">View</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">column52</span>:<span class="rules">&#123;</span><br><span class="line">  <span class="rule"><span class="attribute">justifyContent</span>:<span class="value"><span class="string">'center'</span>,</span><br><span class="line"></span></span></span>&#125;,</span><br></pre></td></tr></table></figure>
 <p>参考链接:<br><a href="http://www.ruanyifeng.com/blog/2015/07/flex-grammar.html" target="_blank" rel="external">http://www.ruanyifeng.com/blog/2015/07/flex-grammar.html</a><br><a href="http://segmentfault.com/a/1190000002658374" target="_blank" rel="external">http://segmentfault.com/a/1190000002658374</a></p>
+<blockquote>
+<p>文章出处 <a href="http://hanks.xyz">http://hanks.xyz</a></p>
+</blockquote>
 
       
     </div>
-    <footer class="article-footer">
-      <a data-url="http://hanks.xyz/2015/12/21/react-flexbox/" data-id="ciik5dbhj004a9805p8yfjhzl" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/React-Native/">React-Native</a></li></ul>
 
-    </footer>
   
   
 </article>
@@ -188,71 +250,6 @@ Flexbox
 </section>
       </div>
       <footer id="footer">
-  
-    <aside id="sidebar" class="outer">
-  
-    
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Recents</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2015/12/24/react-navigator/">React-Native 的Navigator控制界面跳转</a>
-          </li>
-        
-          <li>
-            <a href="/2015/12/23/react-network/">React-Native 网络请求</a>
-          </li>
-        
-          <li>
-            <a href="/2015/12/22/react-components/">React-Native 组件练习-购物app侧滑菜单</a>
-          </li>
-        
-          <li>
-            <a href="/2015/12/21/react-flexbox/">React-Native中的布局</a>
-          </li>
-        
-          <li>
-            <a href="/2015/12/18/atom-nuclide/">Atom安装Nuclide</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tag Cloud</h3>
-    <div class="widget tagcloud">
-      <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/Atom/" style="font-size: 10px;">Atom</a> <a href="/tags/Java/" style="font-size: 12.5px;">Java</a> <a href="/tags/OS-X/" style="font-size: 10px;">OS X</a> <a href="/tags/React-Native/" style="font-size: 17.5px;">React-Native</a> <a href="/tags/Refactoring/" style="font-size: 10px;">Refactoring</a> <a href="/tags/Rx/" style="font-size: 10px;">Rx</a> <a href="/tags/RxJava/" style="font-size: 10px;">RxJava</a> <a href="/tags/Rxandroid/" style="font-size: 10px;">Rxandroid</a> <a href="/tags/Rxjava/" style="font-size: 12.5px;">Rxjava</a> <a href="/tags/Ubuntu/" style="font-size: 15px;">Ubuntu</a> <a href="/tags/mac-os/" style="font-size: 10px;">mac os</a> <a href="/tags/virtualBox/" style="font-size: 10px;">virtualBox</a> <a href="/tags/必备知识/" style="font-size: 10px;">必备知识</a>
-    </div>
-  </div>
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">links</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="http://kiya.space">kiya-z</a>
-          </li>
-        
-          <li>
-            <a href="http://hexo.io">Hexo</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-
-  
-</aside>
   
   <div class="outer footer_center">
     <div id="footer-info" class="inner">

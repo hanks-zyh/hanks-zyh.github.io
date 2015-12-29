@@ -101,7 +101,7 @@
           </li>
         
           <li>
-            <a href="/2015/12/23/react-http/">React-Native进行网络请求</a>
+            <a href="/2015/12/22/react-components/">React-Native 组件练习-购物app侧滑菜单</a>
           </li>
         
       </ul>
@@ -280,44 +280,6 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>大部分的app都需要进行网络连接,通过网络获取服务器的数据,然后更新app的界面展示内容,React-Native自然拥有网络的相关操作.<br><a href="https://facebook.github.io/react-native/docs/network.html#content">官方文档</a><br>
-        
-            
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/React-Native/">React-Native</a></li></ul>
-
-  
-        
-      
-    </div>
-
-  
-</article>
-
-  
-
-  
-    <article id="post-react-http" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2015/12/23/react-http/" class="article-date">
-  <time datetime="2015-12-23T07:34:52.000Z" itemprop="datePublished">2015-12-23</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/12/23/react-http/">React-Native进行网络请求</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-         
         
             
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/React-Native/">React-Native</a></li></ul>
@@ -520,6 +482,45 @@
         
             
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/React-Native/">React-Native</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Ubuntu/">Ubuntu</a></li></ul>
+
+  
+        
+      
+    </div>
+
+  
+</article>
+
+  
+
+  
+    <article id="post-refactoring-plaid-1" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/12/08/refactoring-plaid-1/" class="article-date">
+  <time datetime="2015-12-08T10:17:00.000Z" itemprop="datePublished">2015-12-08</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/12/08/refactoring-plaid-1/">重构 Plaid app - 响应式的MVP模式(一)</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Nick Butcher 在 <a href="https://github.com/nickbutcher/plaid">github</a> 上开源了Plaid。这个app不仅很酷,还拥有极致的 UI / UX。如此炫酷的app的代码对开发者来说copy下来阅读一下可谓是最佳实践。于是我也copy下来,决定深入Plaid的代码。和往常一样，你会发现里面的一些代码可以用其他的方式实现。因此不只是谈论代码,我决定花一些时间来重构Plaid的部分源代码。我将写3篇文章来分享我关于如何重构Plaid的,这篇文章是第一部分。</p>
+<p>前言: 开始我以为自己能重构整个app. 然而,事实是我太天真了,我低估了这个应用的复杂度和新特性的数量。在我花了几个小时阅读 Nick Butcher 的代码之后, 我发现有些功能仅仅通过使用应用程序很难发现。一句话: 我意识到我没有时间把所有的想法付诸行动。因此我的“重构”集中于应用程序的“主页”和“搜索屏幕”。本来想看看有没有更多模块可以重构，但是我没有太多空闲时间来做了。重构代码可以在<a href="https://github.com/sockeqwe/plaid">github上</a>找到</p>
+        
+            
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Refactoring/">Refactoring</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Rxjava/">Rxjava</a></li></ul>
 
   
         

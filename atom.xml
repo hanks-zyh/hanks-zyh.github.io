@@ -128,22 +128,6 @@
   </entry>
   
   <entry>
-    <title><![CDATA[React-Native进行网络请求]]></title>
-    <link href="http://hanks.xyz/2015/12/23/react-http/"/>
-    <id>http://hanks.xyz/2015/12/23/react-http/</id>
-    <published>2015-12-23T07:34:52.000Z</published>
-    <updated>2015-12-29T14:10:13.985Z</updated>
-    <content type="html"></content>
-    <summary type="html">
-    <![CDATA[ ]]>
-    
-    </summary>
-    
-      <category term="React-Native" scheme="http://hanks.xyz/tags/React-Native/"/>
-    
-  </entry>
-  
-  <entry>
     <title><![CDATA[React-Native 组件练习-购物app侧滑菜单]]></title>
     <link href="http://hanks.xyz/2015/12/22/react-components/"/>
     <id>http://hanks.xyz/2015/12/22/react-components/</id>
@@ -2074,6 +2058,102 @@ Reference</h2>
     <![CDATA[ ]]>
     
     </summary>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[抓包工具整理]]></title>
+    <link href="http://hanks.xyz/2015/11/02/capture/"/>
+    <id>http://hanks.xyz/2015/11/02/capture/</id>
+    <published>2015-11-02T08:36:49.000Z</published>
+    <updated>2015-12-02T09:29:32.138Z</updated>
+    <content type="html"><![CDATA[<p><a href="https://github.com/hanks-zyh/capturedata" target="_blank" rel="external">github 地址</a></p>
+<blockquote>
+<p>抓包工具整理</p>
+</blockquote>
+<h1 id="抓包工具_–_Charles">抓包工具 – Charles</h1><p>基于Java 跨平台： Linux , Mac OS X, Windows<br><a href="https://www.charlesproxy.com/" target="_blank" rel="external">官网</a></p>
+<blockquote>
+<p>Charles is an HTTP proxy / HTTP monitor / Reverse Proxy that enables a developer to view all of the HTTP and SSL / HTTPS traffic between their machine and the Internet. This includes requests, responses and the HTTP headers (which contain the cookies and caching information).</p>
+</blockquote>
+<p><img src="https://www.charlesproxy.com/assets/img/sm/23/image/mac_screen_321.png?k=f28bf8eff3" alt=""></p>
+<hr>
+<a id="more"></a>
+<p><strong>以下为Linux 平台</strong></p>
+<h2 id="安装">安装</h2><p><a href="https://www.charlesproxy.com/latest-release/download.do" target="_blank" rel="external">下载 charles-proxy-3.11.2.tar.gz</a></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor"># 解压</span></span><br><span class="line">tar zxvf charles-proxy-<span class="number">3.11</span><span class="number">.2</span>.tar.gz</span><br><span class="line"></span><br><span class="line"><span class="preprocessor"># 启动 charles</span></span><br><span class="line">./charles/bin/charles</span><br></pre></td></tr></table></figure>
+<h2 id="手机抓包">手机抓包</h2><p><strong>前提：使手机和电脑在一个局域网内，不一定非要是一个ip段，只要是同一个路由下就可以了，比如电脑连接的有线网ip为192.168.16.12，然后手机链接的wifi ip为192.168.1.103，但是这个有线网和无线网的最终都是来自于一个外部ip，这样的话也是可以的。</strong></p>
+<p>在安卓手机的 <code>设置 -&gt; wlan -&gt; 长按连接的wifi -&gt; 修改网络 -&gt;  高级选项 -&gt; 代理选手动</code> ， 填入电脑的 ip 和 charles 监听的 端口（默认为 8888）</p>
+<blockquote>
+<p>查看电脑端口 ： <code>ifconfig</code><br>查看/修改 charles 监听端口： charles的 <code>Proxy -&gt; Proxy Setting</code></p>
+</blockquote>
+<p>设置好之后Charles弹出确认框，点击Allow按钮即可</p>
+<p> <img src="https://dn-coding-net-production-pp.qbox.me/ad193bbb-4d55-4feb-9e55-0634aa6dbfce.png" alt="图片"></p>
+<p> <img src="https://dn-coding-net-production-pp.qbox.me/c48ee820-f6ae-4814-b505-ff4870db1f5b.png" alt="图片"></p>
+<h2 id="抓取_https">抓取 https</h2><p> <img src="https://dn-coding-net-production-pp.qbox.me/027d34d1-c783-4aca-8db3-e0066bf4ca1b.png" alt="图片"></p>
+<h3 id="安装证书">安装证书</h3><p>charles的 Help -&gt; SSL Proxy -&gt; Install charles Root</p>
+<h3 id="设置_ssl_enable">设置 ssl enable</h3><p>在需要抓取的 https 链接上 右键 <code>enable ssl proxy</code><br><img src="https://dn-coding-net-production-pp.qbox.me/4b91cf2a-e35b-4b9b-96ac-047eafe607e6.png" alt="图片"></p>
+<p>参考 <a href="http://drops.wooyun.org/tips/2423" target="_blank" rel="external">charles使用教程指南</a></p>
+<h1 id="抓包工具_–_mitmproxy">抓包工具 – mitmproxy</h1><p>基于python 跨平台： linux, windows，    OSX (Mountain Lion and later)<br><a href="https://mitmproxy.org/" target="_blank" rel="external">官网</a></p>
+<blockquote>
+<p>Mitmproxy是一个基于python的中间人代理的框架。做过渗透测试的肯定很熟悉工具burpsuite或Fiddler，这些工具能够拦截并修改http或https的数据包，对于分析数据包交互的应用来说是非常有用的。但是这些工具都是整套给我们做好了。比如如果想自己定制一套这样的工具，添加一些自己需要的功能的话，那么我想，mitmproxy将是一个比较好的选择，因为它提供了一个可供用户调用的库libmproxy（注意该库目前只支持linux系统）。</p>
+</blockquote>
+<p><img src="https://dn-coding-net-production-pp.qbox.me/a2d09a30-ea72-42a1-818e-0982f7227784.png" alt="图片"></p>
+<p><img src="https://dn-coding-net-production-pp.qbox.me/85e1f4e1-c914-4ac1-9984-4492aad7096f.png" alt="图片"></p>
+<p><img src="https://dn-coding-net-production-pp.qbox.me/6992699a-cb21-44b7-9114-38d1b10f0272.png" alt="图片"></p>
+<hr>
+<p><strong>以下基于Linux台（Ubuntu14.04）</strong></p>
+<h2 id="下载">下载</h2><figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo pip <span class="keyword">install</span> mitmproxy</span><br></pre></td></tr></table></figure>
+<p>如果下载速度慢可以下载<a href="https://mitmproxy.org/download/mitmproxy-0.14.0.tar.gz" target="_blank" rel="external">tar包</a></p>
+<h2 id="启动">启动</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ mitmproxy -b <span class="number">192.168</span><span class="number">.1</span><span class="number">.29</span> -p <span class="number">9999</span></span><br></pre></td></tr></table></figure>
+<p>输入 <code>？</code> 查看帮助， <code>q</code>返回<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">A      accept all intercepted flows</span><br><span class="line">a      accept this intercepted flow</span><br><span class="line">b      save request/response body</span><br><span class="line">C      clear flow list or eventlog</span><br><span class="line">d      <span class="operator"><span class="keyword">delete</span> flow</span><br><span class="line"><span class="keyword">D</span>      <span class="keyword">duplicate</span> flow</span><br><span class="line"><span class="keyword">e</span>      toggle eventlog</span><br><span class="line"><span class="keyword">F</span>      toggle follow flow <span class="keyword">list</span></span><br><span class="line"><span class="keyword">l</span>      <span class="keyword">set</span> <span class="keyword">limit</span> filter pattern</span><br><span class="line"><span class="keyword">L</span>      <span class="keyword">load</span> saved flows</span><br><span class="line"><span class="keyword">m</span>      toggle flow mark</span><br><span class="line"><span class="keyword">n</span>      <span class="keyword">create</span> a <span class="keyword">new</span> request</span><br><span class="line"><span class="keyword">P</span>      copy flow <span class="keyword">to</span> clipboard</span><br><span class="line">r      replay request</span><br><span class="line">U      unmark all marked flows</span><br><span class="line">V      revert changes <span class="keyword">to</span> request</span><br><span class="line">w      <span class="keyword">save</span> flows</span><br><span class="line">W      stream flows <span class="keyword">to</span> <span class="keyword">file</span></span><br><span class="line">X      <span class="keyword">kill</span> <span class="keyword">and</span> <span class="keyword">delete</span> flow, even <span class="keyword">if</span> it<span class="string">'s mid-intercept</span><br><span class="line">tab    tab between eventlog and flow list</span><br><span class="line">enter  view flow</span><br><span class="line">|      run script on this flow</span></span></span><br></pre></td></tr></table></figure></p>
+<p>手机设置好代理，界面上就可以看到请求了<br><img src="https://dn-coding-net-production-pp.qbox.me/c5446754-1d45-4d7d-ba48-44b6e26d3b4f.png" alt="图片"></p>
+<h2 id="mitmproxy_查看http请求响应">mitmproxy 查看http请求响应</h2><p><code>C (大写)</code> 清除抓包结果</p>
+<p><code>j</code>  <code>k</code> 选择请求， 回车查看详细信息</p>
+<p> <img src="https://dn-coding-net-production-pp.qbox.me/5cfa3fd1-879b-4db6-8f05-f8885d730964.png" alt="图片"></p>
+<p><code>tab</code>   切换 <strong>Request</strong> 和 <strong>Response</strong></p>
+<p><code>m</code> Display Mode 美化信息<br> <img src="https://dn-coding-net-production-pp.qbox.me/70e7c4ad-f7c0-4e7a-bea6-2c4cdd36d50b.png" alt="图片"><br> 上图输入 m，在输入 s，便可以以json形式展示</p>
+<p><code>e</code> 编辑<br>Edit request (cookies,query,path,url,header,form,raw body,method)?<br>Edit response (cookies,code,message,header,raw body)?</p>
+<h3 id="mitmproxy拦截_(Intercept)">mitmproxy拦截 (Intercept)</h3><p>相当于在客户端和服务器做中间人，可以修改客户端请求，修改服务器返回</p>
+<p>输入 <code>i</code>（代表Intercept filter）即可，此时界面便会让你输入想要拦截的条件：</p>
+<p>mitmproxy的条件拦截在默认情况下是过滤抓包的URL的。也就是说当你直接输入要拦截的条件（比如输入“weibo”），那么接下来要出现抓包会将匹配的抓包整体变黄：</p>
+<p>mitmproxy条件过滤效果<br>mitmproxy条件拦截效果<br>这些橘黄色的数据包都代表被拦截了，还未发送给服务器，这个时候你就可以对这些数据包进行修改，我们选择一个数据包enter进入：</p>
+<p>mitmproxy 拦截 选择数据包<br>与之前的类似，输入“e”，进行request编辑模式，然后输入“h”代表要编辑request的头部:</p>
+<p>mitmproxy 编辑拦截包的头部<br>输入enter便可对高亮的User-Agent的值进行修改，上图的weibo版本之前是5.0的，被我改成了6.0 。我们还可以对header进行添加属性，输入“a”即可，然后使用tab分别键入key和value。这里我添加了“test－test”键值对：</p>
+<p>mitmproxy 拦截header添加键值对<br>至此，我对拦截的request header已经修改完毕，现在要做的就是我要认可接受这个修改，然后发给服务器。所以我们输入“a”（代表“accept”）即可，等到服务器响应后，注意，mitmproxy便又了拦截服务器发过来的response（注意那个“Response intercepted”）：</p>
+<p>mitmproxy 拦截response<br>现在如果你想修改这个response也可以，方式同上面修改request一样。这个时候我再输入“a”，代表我接受了这个response，然后这个response便可发给客户端了:</p>
+<p>mitmproxy 拦截response之后accept</p>
+<p>更多类型的mitmproxy拦截</p>
+<p>同时mitmproxy还支持不同类型的条件过滤，之前在拦截字符串前面加上特定的参数比如我要拦截所有的POST request怎么办？输入：~m POST 即可（m代表method）：</p>
+<p>mitmproxy 拦截特定的request 方法</p>
+<p>拦截所有的request： ~q</p>
+<p>拦截特定的header： ~h</p>
+<p>拦截特定的domain： ~d</p>
+<p>拦截特定的响应代码（404之类的）： ~c</p>
+<p>mitmproxy官方文档。</p>
+<hr>
+<h1 id="抓包工具_–_Fiddler">抓包工具 – Fiddler</h1><p>基于C#  windows, Linux看这里 <a href="http://fiddler.wikidot.com/mono" target="_blank" rel="external">Mono Fiddler</a></p>
+<hr>
+<h2 id="下载-1">下载</h2><p>直接下载，安装即可</p>
+<h2 id="手机抓包-1">手机抓包</h2><p><img src="https://imququ.com/static/uploads/2013/09/Snip20130913_20.png.webp" alt=""></p>
+<hr>
+<h1 id="抓包工具_–_wireshark">抓包工具 – wireshark</h1><p>跨平台：Windows，OS X ，Linux</p>
+<p><a href="https://www.wireshark.org/" target="_blank" rel="external">官网</a></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p><a href="https://github.com/hanks-zyh/capturedata">github 地址</a></p>
+<blockquote>
+<p>抓包工具整理</p>
+</blockquote>
+<h1 id="抓包工具_–_Charles">抓包工具 – Charles</h1><p>基于Java 跨平台： Linux , Mac OS X, Windows<br><a href="https://www.charlesproxy.com/">官网</a></p>
+<blockquote>
+<p>Charles is an HTTP proxy / HTTP monitor / Reverse Proxy that enables a developer to view all of the HTTP and SSL / HTTPS traffic between their machine and the Internet. This includes requests, responses and the HTTP headers (which contain the cookies and caching information).</p>
+</blockquote>
+<p><img src="https://www.charlesproxy.com/assets/img/sm/23/image/mac_screen_321.png?k=f28bf8eff3" alt=""></p>
+<hr>]]>
+    
+    </summary>
+    
+      <category term="必备知识" scheme="http://hanks.xyz/tags/%E5%BF%85%E5%A4%87%E7%9F%A5%E8%AF%86/"/>
     
   </entry>
   

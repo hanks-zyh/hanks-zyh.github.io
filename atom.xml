@@ -4,7 +4,7 @@
   <subtitle><![CDATA[coding]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://hanks.xyz/"/>
-  <updated>2015-12-30T09:46:10.492Z</updated>
+  <updated>2015-12-30T10:14:08.780Z</updated>
   <id>http://hanks.xyz/</id>
   
   <author>
@@ -13,6 +13,64 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[Android 下雪动画]]></title>
+    <link href="http://hanks.xyz/2015/12/30/snowfall/"/>
+    <id>http://hanks.xyz/2015/12/30/snowfall/</id>
+    <published>2015-12-30T09:58:41.000Z</published>
+    <updated>2015-12-30T10:14:08.780Z</updated>
+    <content type="html"><![CDATA[<blockquote>
+<ul>
+<li>原文链接 :  <a href="https://blog.stylingandroid.com/snowfall/" target="_blank" rel="external">Snowfall</a></li>
+<li>原文作者 : <a href="https://blog.stylingandroid.com" target="_blank" rel="external">Styling Android</a></li>
+<li>译文出自 : <a href="http://hanks.xyz">hanks.xyz</a></li>
+<li>译者 : <a href="https://github.com/hanks-zyh" target="_blank" rel="external">hanks-zyh</a></li>
+<li>校对者: <a href="https://github.com/desmond1121" target="_blank" rel="external">desmond1121</a></li>
+<li>状态 : 完成</li>
+</ul>
+</blockquote>
+<p>这本是一个愉快的季节，但是，呵呵，胡扯！ 因为这篇文章的发表时间是2015年的圣诞节，所以我们需要给Style Android用制造出一些节日气氛。感谢读者们，因为有的读者可能没有在庆祝圣诞，有些读者可能还是6月份。<br>那么问题来了，我们应该做些什么来让这个节日像是真正的节日呢？ 最简单的方法：带上圣诞帽，拍个照。</p>
+<p><img src="https://dn-coding-net-production-pp.qbox.me/6c6bdb8b-fcd8-4869-80d0-1b3f849810d8.png" alt="tree"></p>
+<a id="more"></a>
+<p>看我多么欢乐！<br>但是我感觉这个图片有些单调，所以来弄点雪花，让雪花飘下来。<br>我们可以添加一个包含这个图片的自定义View</p>
+<p><strong>res/layout/activity_main.xml</strong></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="pi">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">RelativeLayout</span> <span class="attribute">xmlns:android</span>=<span class="value">"http://schemas.android.com/apk/res/android"</span></span><br><span class="line">  <span class="attribute">xmlns:tools</span>=<span class="value">"http://schemas.android.com/tools"</span></span><br><span class="line">  <span class="attribute">android:layout_width</span>=<span class="value">"match_parent"</span></span><br><span class="line">  <span class="attribute">android:layout_height</span>=<span class="value">"match_parent"</span></span><br><span class="line">  <span class="attribute">tools:context</span>=<span class="value">"com.stylingandroid.snowfall.MainActivity"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="title">ImageView</span></span><br><span class="line">    <span class="attribute">android:id</span>=<span class="value">"@+id/image"</span></span><br><span class="line">    <span class="attribute">android:layout_width</span>=<span class="value">"match_parent"</span></span><br><span class="line">    <span class="attribute">android:layout_height</span>=<span class="value">"match_parent"</span></span><br><span class="line">    <span class="attribute">android:layout_centerInParent</span>=<span class="value">"true"</span></span><br><span class="line">    <span class="attribute">android:contentDescription</span>=<span class="value">"@null"</span></span><br><span class="line">    <span class="attribute">android:scaleType</span>=<span class="value">"fitCenter"</span></span><br><span class="line">    <span class="attribute">android:src</span>=<span class="value">"@drawable/tree"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="title">com.stylingandroid.snowfall.SnowView</span></span><br><span class="line">    <span class="attribute">android:layout_width</span>=<span class="value">"match_parent"</span></span><br><span class="line">    <span class="attribute">android:layout_height</span>=<span class="value">"match_parent"</span></span><br><span class="line">    <span class="attribute">android:layout_alignBottom</span>=<span class="value">"@id/image"</span></span><br><span class="line">    <span class="attribute">android:layout_alignEnd</span>=<span class="value">"@id/image"</span></span><br><span class="line">    <span class="attribute">android:layout_alignLeft</span>=<span class="value">"@id/image"</span></span><br><span class="line">    <span class="attribute">android:layout_alignRight</span>=<span class="value">"@id/image"</span></span><br><span class="line">    <span class="attribute">android:layout_alignStart</span>=<span class="value">"@id/image"</span></span><br><span class="line">    <span class="attribute">android:layout_alignTop</span>=<span class="value">"@id/image"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">RelativeLayout</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>尽管可以通过继承ImageView来实现自定义View，但我决定将 <code>SnowView</code> 和图片分开，这样每次刷新动画的时候不用重新渲染图片，只刷新 <code>SnowView</code> 就行了</p>
+<p><code>SnowView.java</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SnowView</span> <span class="keyword">extends</span> <span class="title">View</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> NUM_SNOWFLAKES = <span class="number">150</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> DELAY = <span class="number">5</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> SnowFlake[] snowflakes;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">SnowView</span><span class="params">(Context context)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(context);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">SnowView</span><span class="params">(Context context, AttributeSet attrs)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(context, attrs);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">SnowView</span><span class="params">(Context context, AttributeSet attrs, <span class="keyword">int</span> defStyleAttr)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(context, attrs, defStyleAttr);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">resize</span><span class="params">(<span class="keyword">int</span> width, <span class="keyword">int</span> height)</span> </span>&#123;</span><br><span class="line">        Paint paint = <span class="keyword">new</span> Paint(Paint.ANTI_ALIAS_FLAG);</span><br><span class="line">        paint.setColor(Color.WHITE);</span><br><span class="line">        paint.setStyle(Paint.Style.FILL);</span><br><span class="line">        snowflakes = <span class="keyword">new</span> SnowFlake[NUM_SNOWFLAKES];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; NUM_SNOWFLAKES; i++) &#123;</span><br><span class="line">            snowflakes[i] = SnowFlake.create(width, height, paint);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="annotation">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onSizeChanged</span><span class="params">(<span class="keyword">int</span> w, <span class="keyword">int</span> h, <span class="keyword">int</span> oldw, <span class="keyword">int</span> oldh)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.onSizeChanged(w, h, oldw, oldh);</span><br><span class="line">        <span class="keyword">if</span> (w != oldw || h != oldh) &#123;</span><br><span class="line">            resize(w, h);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="annotation">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onDraw</span><span class="params">(Canvas canvas)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.onDraw(canvas);</span><br><span class="line">        <span class="keyword">for</span> (SnowFlake snowFlake : snowflakes) &#123;</span><br><span class="line">            snowFlake.draw(canvas);</span><br><span class="line">        &#125;</span><br><span class="line">        getHandler().postDelayed(runnable, DELAY);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Runnable runnable = <span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">        <span class="annotation">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            invalidate();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>代码很简单。 在View 的 <code>onSizeChanged</code> 方法中初始化 150 个随机位置的雪花对象。 在<code>onDraw</code>方法中画出雪花，然后每隔一段时间就刷新一下位置，需要注意的是<code>onDraw</code>没有立即去执行，而是通过创建一个runnable，这样不会阻塞UI线程<br>雪花下落是基于Samuel Arbesman的<a href="http://www.openprocessing.org/sketch/84771" target="_blank" rel="external">雪花下落的算法</a>。</p>
+<p><strong>SnowFlake.java</strong><br><figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line">class SnowFlake &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="built_in">float</span> ANGE_RANGE = <span class="number">0.1</span>f;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="built_in">float</span> HALF_ANGLE_RANGE = ANGE_RANGE / <span class="number">2</span>f;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="built_in">float</span> <span class="constant">HALF_PI</span> = (<span class="built_in">float</span>) Math.<span class="constant">PI</span> / <span class="number">2</span>f;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="built_in">float</span> ANGLE_SEED = <span class="number">25</span>f;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="built_in">float</span> ANGLE_DIVISOR = <span class="number">10000</span>f;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="built_in">float</span> INCREMENT_LOWER = <span class="number">2</span>f;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="built_in">float</span> INCREMENT_UPPER = <span class="number">4</span>f;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="built_in">float</span> FLAKE_SIZE_LOWER = <span class="number">7</span>f;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="built_in">float</span> FLAKE_SIZE_UPPER = <span class="number">20</span>f;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Random <span class="built_in">random</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Point position;</span><br><span class="line">    <span class="keyword">private</span> <span class="built_in">float</span> angle;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="built_in">float</span> increment;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="built_in">float</span> flakeSize;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Paint paint;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> SnowFlake create(<span class="built_in">int</span> <span class="variable">width</span>, <span class="built_in">int</span> <span class="variable">height</span>, Paint paint) &#123;</span><br><span class="line">        Random <span class="built_in">random</span> = <span class="keyword">new</span> Random();</span><br><span class="line">        <span class="built_in">int</span> x = <span class="built_in">random</span>.getRandom(<span class="variable">width</span>);</span><br><span class="line">        <span class="built_in">int</span> y = <span class="built_in">random</span>.getRandom(<span class="variable">height</span>);</span><br><span class="line">        Point position = <span class="keyword">new</span> Point(x, y);</span><br><span class="line">        <span class="built_in">float</span> angle = <span class="built_in">random</span>.getRandom(ANGLE_SEED) / ANGLE_SEED * ANGE_RANGE + <span class="constant">HALF_PI</span> - HALF_ANGLE_RANGE;</span><br><span class="line">        <span class="built_in">float</span> increment = <span class="built_in">random</span>.getRandom(INCREMENT_LOWER, INCREMENT_UPPER);</span><br><span class="line">        <span class="built_in">float</span> flakeSize = <span class="built_in">random</span>.getRandom(FLAKE_SIZE_LOWER, FLAKE_SIZE_UPPER);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> SnowFlake(<span class="built_in">random</span>, position, angle, increment, flakeSize, paint);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    SnowFlake(Random <span class="built_in">random</span>, Point position, <span class="built_in">float</span> angle, <span class="built_in">float</span> increment, <span class="built_in">float</span> flakeSize, Paint paint) &#123;</span><br><span class="line">        <span class="keyword">this</span>.<span class="built_in">random</span> = <span class="built_in">random</span>;</span><br><span class="line">        <span class="keyword">this</span>.position = position;</span><br><span class="line">        <span class="keyword">this</span>.angle = angle;</span><br><span class="line">        <span class="keyword">this</span>.increment = increment;</span><br><span class="line">        <span class="keyword">this</span>.flakeSize = flakeSize;</span><br><span class="line">        <span class="keyword">this</span>.paint = paint;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">void</span> move(<span class="built_in">int</span> <span class="variable">width</span>, <span class="built_in">int</span> <span class="variable">height</span>) &#123;</span><br><span class="line">        <span class="keyword">double</span> x = position.x + (increment * Math.<span class="built_in">cos</span>(angle));</span><br><span class="line">        <span class="keyword">double</span> y = position.y + (increment * Math.<span class="built_in">sin</span>(angle));</span><br><span class="line"></span><br><span class="line">        angle += <span class="built_in">random</span>.getRandom(-ANGLE_SEED, ANGLE_SEED) / ANGLE_DIVISOR;</span><br><span class="line"></span><br><span class="line">        position.<span class="built_in">set</span>((<span class="built_in">int</span>) x, (<span class="built_in">int</span>) y);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (!isInside(<span class="variable">width</span>, <span class="variable">height</span>)) &#123;</span><br><span class="line">            reset(<span class="variable">width</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="built_in">boolean</span> isInside(<span class="built_in">int</span> <span class="variable">width</span>, <span class="built_in">int</span> <span class="variable">height</span>) &#123;</span><br><span class="line">        <span class="built_in">int</span> x = position.x;</span><br><span class="line">        <span class="built_in">int</span> y = position.y;</span><br><span class="line">        <span class="keyword">return</span> x &gt;= -flakeSize - <span class="number">1</span> &amp;&amp; x + flakeSize &lt;= <span class="variable">width</span> &amp;&amp; y &gt;= -flakeSize - <span class="number">1</span> &amp;&amp; y - flakeSize &lt; <span class="variable">height</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">void</span> reset(<span class="built_in">int</span> <span class="variable">width</span>) &#123;</span><br><span class="line">        position.x = <span class="built_in">random</span>.getRandom(<span class="variable">width</span>);</span><br><span class="line">        position.y = (<span class="built_in">int</span>) (-flakeSize - <span class="number">1</span>);</span><br><span class="line">        angle = <span class="built_in">random</span>.getRandom(ANGLE_SEED) / ANGLE_SEED * ANGE_RANGE + <span class="constant">HALF_PI</span> - HALF_ANGLE_RANGE;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title">draw</span>(Canvas canvas) &#123;</span><br><span class="line">        <span class="built_in">int</span> <span class="variable">width</span> = canvas.getWidth();</span><br><span class="line">        <span class="built_in">int</span> <span class="variable">height</span> = canvas.getHeight();</span><br><span class="line">        move(<span class="variable">width</span>, <span class="variable">height</span>);</span><br><span class="line">        canvas.drawCircle(position.x, position.y, flakeSize, paint);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>初始化的时候，雪花的随机位置就已经确定了。这是为了确保雪花不会每次画的时候都在开始的位置。当一个雪花的位置超出Canvas的边界之后，它就会被重新放到顶部的一个随机位置，这样就可以循环利用了，避免了重复创建。<br>当画雪花下落的每一帧的时候，我们首先给<code>SnowFlake</code>添加一个随机数来改变位置，这样可以模仿有小风吹雪花。<br>在把雪花画到canvas上之前，我们会进行边界检查(如果需要的话，超出边界的就重新放到顶部)</p>
+<p>我一直在不断的调整里面的常量来改变下雪的效果直到我感觉满意为止。</p>
+<p>最终效果如下：</p>
+<iframe width="880" height="660" src="https://www.youtube.com/embed/pk66ZziTfOw" frameborder="0" allowfullscreen></iframe>
+
+<p>当然了，在canvas里面塞这么多东西不是一个好的方法（有其他更好的 比如OpenGL），但是，我现在要去吃火鸡了，所以可能要等下一次了。</p>
+<p><a href="https://github.com/StylingAndroid/Snowfall" target="_blank" rel="external">源文件地址</a></p>
+<p>版权声明：<br>Part of this code is based upon “Snowfall” by Sam Arbesman, licensed under Creative Commons Attribution-Share Alike 3.0 and GNU GPL license.<br>Work: <a href="http://openprocessing.org/visuals/?visualID=" target="_blank" rel="external">http://openprocessing.org/visuals/?visualID=</a> 84771<br>License:<br><a href="http://creativecommons.org/licenses/by-sa/3.0/" target="_blank" rel="external">http://creativecommons.org/licenses/by-sa/3.0/</a><br><a href="http://creativecommons.org/licenses/GPL/2.0/" target="_blank" rel="external">http://creativecommons.org/licenses/GPL/2.0/</a></p>
+<p>© 2015, Mark Allison. All rights reserved. This article originally appeared on Styling Android.</p>
+<p>Portions of this page are modifications based on work created and shared by Google and used according to terms described in the Creative Commons 3.0 Attribution License</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<blockquote>
+<ul>
+<li>原文链接 :  <a href="https://blog.stylingandroid.com/snowfall/">Snowfall</a></li>
+<li>原文作者 : <a href="https://blog.stylingandroid.com">Styling Android</a></li>
+<li>译文出自 : <a href="http://hanks.xyz">hanks.xyz</a></li>
+<li>译者 : <a href="https://github.com/hanks-zyh">hanks-zyh</a></li>
+<li>校对者: <a href="https://github.com/desmond1121">desmond1121</a></li>
+<li>状态 : 完成</li>
+</ul>
+</blockquote>
+<p>这本是一个愉快的季节，但是，呵呵，胡扯！ 因为这篇文章的发表时间是2015年的圣诞节，所以我们需要给Style Android用制造出一些节日气氛。感谢读者们，因为有的读者可能没有在庆祝圣诞，有些读者可能还是6月份。<br>那么问题来了，我们应该做些什么来让这个节日像是真正的节日呢？ 最简单的方法：带上圣诞帽，拍个照。</p>
+<p><img src="https://dn-coding-net-production-pp.qbox.me/6c6bdb8b-fcd8-4869-80d0-1b3f849810d8.png" alt="tree"></p>]]>
+    
+    </summary>
+    
+      <category term="Android" scheme="http://hanks.xyz/tags/Android/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[React-Native 知乎日报首页]]></title>
@@ -1718,369 +1776,6 @@ Reference</h3>
 </div>
 <div class="post-nav-next post-nav-item" style="display:inline-block; width:440px; white-space:normal">
 <a target="_blank" href="http://kiya-z.github.io/2015/11/12/check-signature-for-avoiding-fake-app-java-level-check/" rel="next" title="校验数字签名防止 apk 被二次打包 - Java层校验（大众点评为例）" style="color:rgb(85,85,85); text-decoration:none; border-bottom-style:none; word-wrap:break-word; position:relative; display:inline-block; line-height:25px; font-size:14px; background-color:transparent"><span class="fa fa-chevron-left" style=""></span></a></div>
-</div>
-]]></content>
-    <summary type="html">
-    <![CDATA[ ]]>
-    
-    </summary>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[校验数字签名防止 apk 被二次打包 - Java层校验（大众点评为例）]]></title>
-    <link href="http://hanks.xyz/2015/11/17/%E6%A0%A1%E9%AA%8C%E6%95%B0%E5%AD%97%E7%AD%BE%E5%90%8D%E9%98%B2%E6%AD%A2_apk_%E8%A2%AB%E4%BA%8C%E6%AC%A1%E6%89%93%E5%8C%85_-_Java%E5%B1%82%E6%A0%A1%E9%AA%8C%EF%BC%88%E5%A4%A7%E4%BC%97%E7%82%B9%E8%AF%84%E4%B8%BA%E4%BE%8B%EF%BC%89/"/>
-    <id>http://hanks.xyz/2015/11/17/校验数字签名防止_apk_被二次打包_-_Java层校验（大众点评为例）/</id>
-    <published>2015-11-17T03:51:00.000Z</published>
-    <updated>2015-12-04T17:20:04.332Z</updated>
-    <content type="html"><![CDATA[
-<div class="post-body" style="text-align:justify; color:rgb(85,85,85); font-family:Lato,'PingFang SC','Microsoft YaHei',sans-serif; font-size:16px; line-height:32px">
-<span></span>
-<blockquote style="margin:0px; padding:0px 15px; color:rgb(102,102,102); border-left-width:4px; border-left-style:solid; border-left-color:rgb(221,221,221)">
-<p style="margin-top:0px; margin-bottom:25px">原文链接: &nbsp;http://kiya-z.github.io/2015/11/12/check-signature-for-avoiding-fake-app-java-level-check/<br>
-测试环境<br>
-Ubuntu 14.04<br>
-Lenovo Android 5.1<br>
-Lenovo Android 4.2.2<br>
-Android Studio</p>
-</blockquote>
-<a target="_blank" id="more" style="border-bottom-width:1px; border-bottom-style:solid; border-bottom-color:rgb(153,153,153); word-wrap:break-word; background-color:transparent"></a>
-<h2 id="普及签名包名知识" style="margin:60px 0px 15px; padding:10px 0px 0px; line-height:1; font-size:20px">
-普及签名包名知识</h2>
-<p style="margin-top:0px; margin-bottom:25px">包名 (Package Name) 相当于「应用的身份证」，是系统用来<strong>区分不同应用</strong>的字段，重复的包名会被认为是同一款应用。<br>
-签名文件相当于「开发者的身份证」，目的是为了<strong>检验应用是否被人更改过</strong>（应用必须签名过才能正常安装）。</p>
-<p style="margin-top:0px; margin-bottom:25px">包名相同签名相同时，会发生 替换安装 / 应用升级；<br>
-包名相同签名不同时，安装失败；<br>
-包名不同签名相同时，相当于同一开发者的两个应用，互相不冲突。</p>
-<blockquote style="margin:0px; padding:0px 15px; color:rgb(102,102,102); border-left-width:4px; border-left-style:solid; border-left-color:rgb(221,221,221)">
-<p style="margin-top:0px; margin-bottom:25px">签名的注意事项<br>
-所有的Android应用都必须有数字签名，没有不存在数字签名的应用，包括模拟器上运行的。Android系统不会安装没有数字证书的应用。<br>
-签名的数字证书不需要权威机构来认证，是开发者自己产生的数字证书，即所谓的自签名。<br>
-正式发布一个Android应用时，必须使用一个合适的私钥生成的数字证书来给程序签名，不能使用ADT插件或者ANT工具生成的调试证书来发布。<br>
-Android将数字证书用来标识应用程序的作者和在应用程序之间建立信任关系，而不是用来决定最终用户可以安装哪些应用程序。</p>
-</blockquote>
-<hr style="height:3px; margin:40px 0px; border:none; background-color:rgb(221,221,221)">
-<h2 id="为大众点评换签名" style="margin:60px 0px 15px; padding:10px 0px 0px; line-height:1; font-size:20px">
-为大众点评换签名</h2>
-<p style="margin-top:0px; margin-bottom:25px">按照常规步骤使用&nbsp;<code style="font-family:'Input Mono','PT Mono',Consolas,Monaco,Menlo,monospace; font-size:1em; word-break:break-all; padding:0px 0.3em; background:rgb(238,238,238)">apktool</code>&nbsp;&#43;&nbsp;<code style="font-family:'Input Mono','PT Mono',Consolas,Monaco,Menlo,monospace; font-size:1em; word-break:break-all; padding:0px 0.3em; background:rgb(238,238,238)">signapk</code>&nbsp;反编译、编译、签名并安装到手机上（没有修改任何代码），打开
- app 选择城市后界面如下图并很快退出：</p>
-<p style="margin-top:0px; margin-bottom:25px"><a target="_blank" href="http://7xo976.com1.z0.glb.clouddn.com/images/github-io/Android/dianping-crash.jpeg-style1" class="fancybox" rel="group" style="color:rgb(85,85,85); text-decoration:none; border-bottom-width:1px; border-bottom-style:solid; border-bottom-color:rgb(153,153,153); word-wrap:break-word; background-color:transparent"><img src="http://7xo976.com1.z0.glb.clouddn.com/images/github-io/Android/dianping-crash.jpeg-style1" alt="dianping-crash" style="border:1px solid rgb(221,221,221); display:block!important; margin:0px auto; max-width:100%; height:auto; padding:3px"></a></p>
-<p style="margin-top:0px; margin-bottom:25px">说明点评对签名进行了校验 。</p>
-<hr style="height:3px; margin:40px 0px; border:none; background-color:rgb(221,221,221)">
-<h2 id="分析校验方法" style="margin:60px 0px 15px; padding:10px 0px 0px; line-height:1; font-size:20px">
-分析校验方法</h2>
-<h3 id="怎么退出的？" style="margin:60px 0px 15px; padding:10px 0px 0px; line-height:1; font-size:18px">
-怎么退出的？</h3>
-<p style="margin-top:0px; margin-bottom:25px">打开 apktool 反编译得到的文件夹下的&nbsp;<code style="font-family:'Input Mono','PT Mono',Consolas,Monaco,Menlo,monospace; font-size:1em; word-break:break-all; padding:0px 0.3em; background:rgb(238,238,238)">AndroidManifest.xml</code>&nbsp;，得到程序包名：<code style="font-family:'Input Mono','PT Mono',Consolas,Monaco,Menlo,monospace; font-size:1em; word-break:break-all; padding:0px 0.3em; background:rgb(238,238,238)">com.dianping.v1</code>&nbsp;。<br>
-清除大众点评的数据，打开 as，连上手机，log 的过滤条件设为 com.dianping ，在选择城市之前清一下 log ，在 log 里搜索 “die”，比较明显的是有四处：</p>
-<p style="margin-top:0px; margin-bottom:25px">进程死亡：<br>
-</p>
-<table style="border-collapse:collapse; border-spacing:0px; margin:0px; width:auto; border:none; font-size:14px">
-<tbody>
-<tr style="background-color:rgb(249,249,249)">
-<td class="gutter" style="padding:0px; vertical-align:middle; border:none">
-<pre style="overflow:auto; font-family:'Input Mono','PT Mono',Consolas,Monaco,Menlo,monospace; font-size:13px; margin-top:0px; margin-bottom:0px; padding:1px 20px 1px 1px; color:rgb(102,102,102); line-height:1.6; border:none; text-align:right; background:rgb(29,31,33)"><span class="line" style="height:20px">1</span>
-<span class="line" style="height:20px">2</span>
-<span class="line" style="height:20px">3</span>
-</pre>
-</td>
-<td class="code" style="padding:0px; vertical-align:middle; border:none">
-<pre style="overflow:auto; font-family:'Input Mono','PT Mono',Consolas,Monaco,Menlo,monospace; font-size:13px; margin-top:0px; margin-bottom:0px; padding:1px; color:rgb(197,200,198); line-height:1.6; border:none; background:rgb(29,31,33)"><span class="line" style="height:20px">Process com<span class="class">.dianping</span><span class="class">.v1</span> (pid <span class="number" style="color:rgb(222,147,95)">19182</span>) has died</span>
-<span class="line" style="height:20px">Process com<span class="class">.dianping</span><span class="class">.v1</span> (pid <span class="number" style="color:rgb(222,147,95)">19586</span>) has died</span>
-<span class="line" style="height:20px">Process com<span class="class">.dianping</span><span class="class">.v1</span> (pid <span class="number" style="color:rgb(222,147,95)">19650</span>) has died</span>
-</pre>
-</td>
-</tr>
-</tbody>
-</table>
-<p style="margin-top:0px; margin-bottom:25px"></p>
-<p style="margin-top:0px; margin-bottom:25px">app 死亡：<br>
-</p>
-<table style="border-collapse:collapse; border-spacing:0px; margin:0px; width:auto; border:none; font-size:14px">
-<tbody>
-<tr style="background-color:rgb(249,249,249)">
-<td class="gutter" style="padding:0px; vertical-align:middle; border:none">
-<pre style="overflow:auto; font-family:'Input Mono','PT Mono',Consolas,Monaco,Menlo,monospace; font-size:13px; margin-top:0px; margin-bottom:0px; padding:1px 20px 1px 1px; color:rgb(102,102,102); line-height:1.6; border:none; text-align:right; background:rgb(29,31,33)"><span class="line" style="height:20px">1</span>
-</pre>
-</td>
-<td class="code" style="padding:0px; vertical-align:middle; border:none">
-<pre style="overflow:auto; font-family:'Input Mono','PT Mono',Consolas,Monaco,Menlo,monospace; font-size:13px; margin-top:0px; margin-bottom:0px; padding:1px; color:rgb(197,200,198); line-height:1.6; border:none; background:rgb(29,31,33)"><span class="line" style="height:20px">Force removing ActivityRecord{<span class="number" style="color:rgb(222,147,95)">266</span>e5efd u0 com.dianping.v1/.NovaMainActivity t14010}: app died, no saved <span class="keyword" style="color:rgb(178,148,187)">state</span></span>
-</pre>
-</td>
-</tr>
-</tbody>
-</table>
-<p style="margin-top:0px; margin-bottom:25px"></p>
-<p style="margin-top:0px; margin-bottom:25px">其中前两个进程死亡之后都有开启进程的操作，说明第一次校验失败后重试了两次：<br>
-</p>
-<table style="border-collapse:collapse; border-spacing:0px; margin:0px; width:auto; border:none; font-size:14px">
-<tbody>
-<tr style="background-color:rgb(249,249,249)">
-<td class="gutter" style="padding:0px; vertical-align:middle; border:none">
-<pre style="overflow:auto; font-family:'Input Mono','PT Mono',Consolas,Monaco,Menlo,monospace; font-size:13px; margin-top:0px; margin-bottom:0px; padding:1px 20px 1px 1px; color:rgb(102,102,102); line-height:1.6; border:none; text-align:right; background:rgb(29,31,33)"><span class="line" style="height:20px">1</span>
-</pre>
-</td>
-<td class="code" style="padding:0px; vertical-align:middle; border:none">
-<pre style="overflow:auto; font-family:'Input Mono','PT Mono',Consolas,Monaco,Menlo,monospace; font-size:13px; margin-top:0px; margin-bottom:0px; padding:1px; color:rgb(197,200,198); line-height:1.6; border:none; background:rgb(29,31,33)"><span class="line" style="height:20px"><span class="string" style="color:rgb(181,189,104)">startProcess:</span> name=com.dianping.v1 app=<span class="literal" style="color:rgb(222,147,95)">null</span> knownToBeDead=<span class="literal" style="color:rgb(222,147,95)">true</span> thread=<span class="literal" style="color:rgb(222,147,95)">null</span> pid=-<span class="number" style="color:rgb(222,147,95)">1</span></span>
-</pre>
-</td>
-</tr>
-</tbody>
-</table>
-<p style="margin-top:0px; margin-bottom:25px"></p>
-<table style="border-collapse:collapse; border-spacing:0px; margin:0px; width:auto; border:none; font-size:14px">
-<tbody>
-<tr style="background-color:rgb(249,249,249)">
-<td class="gutter" style="padding:0px; vertical-align:middle; border:none">
-<pre style="overflow:auto; font-family:'Input Mono','PT Mono',Consolas,Monaco,Menlo,monospace; font-size:13px; margin-top:0px; margin-bottom:0px; padding:1px 20px 1px 1px; color:rgb(102,102,102); line-height:1.6; border:none; text-align:right; background:rgb(29,31,33)"><span class="line" style="height:20px">1</span>
-</pre>
-</td>
-<td class="code" style="padding:0px; vertical-align:middle; border:none">
-<pre style="overflow:auto; font-family:'Input Mono','PT Mono',Consolas,Monaco,Menlo,monospace; font-size:13px; margin-top:0px; margin-bottom:0px; padding:1px; color:rgb(197,200,198); line-height:1.6; border:none; background:rgb(29,31,33)"><span class="line" style="height:20px"><span class="string" style="color:rgb(181,189,104)">startProcess:</span> name=com.dianping.v1 app=<span class="literal" style="color:rgb(222,147,95)">null</span> knownToBeDead=<span class="literal" style="color:rgb(222,147,95)">true</span> thread=<span class="literal" style="color:rgb(222,147,95)">null</span> pid=-<span class="number" style="color:rgb(222,147,95)">1</span></span>
-</pre>
-</td>
-</tr>
-</tbody>
-</table>
-<p style="margin-top:0px; margin-bottom:25px">最后一个直接杀死了 app，没有再继续创建进程。</p>
-<p style="margin-top:0px; margin-bottom:25px">在进程结束之前，发生错误的调用记录：<br>
-</p>
-<table style="border-collapse:collapse; border-spacing:0px; margin:0px; width:auto; border:none; font-size:14px">
-<tbody>
-<tr style="background-color:rgb(249,249,249)">
-<td class="gutter" style="padding:0px; vertical-align:middle; border:none">
-<pre style="overflow:auto; font-family:'Input Mono','PT Mono',Consolas,Monaco,Menlo,monospace; font-size:13px; margin-top:0px; margin-bottom:0px; padding:1px 20px 1px 1px; color:rgb(102,102,102); line-height:1.6; border:none; text-align:right; background:rgb(29,31,33)"><span class="line" style="height:20px">1</span>
-<span class="line" style="height:20px">2</span>
-<span class="line" style="height:20px">3</span>
-<span class="line" style="height:20px">4</span>
-<span class="line" style="height:20px">5</span>
-<span class="line" style="height:20px">6</span>
-</pre>
-</td>
-<td class="code" style="padding:0px; vertical-align:middle; border:none">
-<pre style="overflow:auto; font-family:'Input Mono','PT Mono',Consolas,Monaco,Menlo,monospace; font-size:13px; margin-top:0px; margin-bottom:0px; padding:1px; color:rgb(197,200,198); line-height:1.6; border:none; background:rgb(29,31,33)"><span class="line" style="height:20px"><span class="number" style="color:rgb(222,147,95)">9586</span>-<span class="number" style="color:rgb(222,147,95)">19586</span>/? D/AccessibilityManager:     at com.dianping.base.app.NovaActivity.setContentView(NovaActivity.java:<span class="number" style="color:rgb(222,147,95)">722</span>)</span>
-<span class="line" style="height:20px"> <span class="number" style="color:rgb(222,147,95)">9586</span>-<span class="number" style="color:rgb(222,147,95)">19586</span>/? D/AccessibilityManager:     at com.dianping.main.guide.MainActivity.setOnContentView(MainActivity.java:<span class="number" style="color:rgb(222,147,95)">339</span>)</span>
-<span class="line" style="height:20px"> <span class="number" style="color:rgb(222,147,95)">9586</span>-<span class="number" style="color:rgb(222,147,95)">19586</span>/? D/AccessibilityManager:     at com.dianping.base.basic.FragmentTabActivity.onCreate(FragmentTabActivity.java:<span class="number" style="color:rgb(222,147,95)">51</span>)</span>
-<span class="line" style="height:20px"> <span class="number" style="color:rgb(222,147,95)">9586</span>-<span class="number" style="color:rgb(222,147,95)">19586</span>/? D/AccessibilityManager:     at com.dianping.base.widget.NovaFragmentTabActivity.onCreate(NovaFragmentTabActivity.java:<span class="number" style="color:rgb(222,147,95)">26</span>)</span>
-<span class="line" style="height:20px"> <span class="number" style="color:rgb(222,147,95)">9586</span>-<span class="number" style="color:rgb(222,147,95)">19586</span>/? D/AccessibilityManager:     at com.dianping.main.guide.MainActivity.onCreate(MainActivity.java:<span class="number" style="color:rgb(222,147,95)">169</span>)</span>
-<span class="line" style="height:20px"> <span class="number" style="color:rgb(222,147,95)">9586</span>-<span class="number" style="color:rgb(222,147,95)">19586</span>/? D/AccessibilityManager:     at com.dianping.v1.NovaMainActivity.onCreate(NovaMainActivity.java:<span class="number" style="color:rgb(222,147,95)">15</span>)</span>
-</pre>
-</td>
-</tr>
-</tbody>
-</table>
-<p style="margin-top:0px; margin-bottom:25px"></p>
-<h3 id="代码探索" style="margin:60px 0px 15px; padding:10px 0px 0px; line-height:1; font-size:18px">
-代码探索</h3>
-<p style="margin-top:0px; margin-bottom:25px">解压 apk 文件，发现有 3 个 dex 文件，先拿第一个下手，JD-GUI 打开发现代码没有混淆！</p>
-<p style="margin-top:0px; margin-bottom:25px">调用记录中的文件从上往下过一遍，发现在&nbsp;<code style="font-family:'Input Mono','PT Mono',Consolas,Monaco,Menlo,monospace; font-size:1em; word-break:break-all; padding:0px 0.3em; background:rgb(238,238,238)">com.dianping.main.guide.MainActivity.onCreate()</code>&nbsp;方法中有校验签名的函数：<br>
-</p>
-<table style="border-collapse:collapse; border-spacing:0px; margin:0px; width:auto; border:none; font-size:14px">
-<tbody>
-<tr style="background-color:rgb(249,249,249)">
-<td class="gutter" style="padding:0px; vertical-align:middle; border:none">
-<pre style="overflow:auto; font-family:'Input Mono','PT Mono',Consolas,Monaco,Menlo,monospace; font-size:13px; margin-top:0px; margin-bottom:0px; padding:1px 20px 1px 1px; color:rgb(102,102,102); line-height:1.6; border:none; text-align:right; background:rgb(29,31,33)"><span class="line" style="height:20px">1</span>
-<span class="line" style="height:20px">2</span>
-<span class="line" style="height:20px">3</span>
-</pre>
-</td>
-<td class="code" style="padding:0px; vertical-align:middle; border:none">
-<pre style="overflow:auto; font-family:'Input Mono','PT Mono',Consolas,Monaco,Menlo,monospace; font-size:13px; margin-top:0px; margin-bottom:0px; padding:1px; color:rgb(197,200,198); line-height:1.6; border:none; background:rgb(29,31,33)"><span class="line" style="height:20px"><span class="keyword" style="color:rgb(178,148,187)">if</span> <span class="comment" style="color:rgb(150,152,150)">(!checkSignature()</span>) {    </span>
-<span class="line" style="height:20px">      Process.killProcess<span class="comment" style="color:rgb(150,152,150)">(Process.myPid()</span>);</span>
-<span class="line" style="height:20px">    }</span>
-</pre>
-</td>
-</tr>
-</tbody>
-</table>
-<p style="margin-top:0px; margin-bottom:25px"></p>
-<p style="margin-top:0px; margin-bottom:25px"><code style="font-family:'Input Mono','PT Mono',Consolas,Monaco,Menlo,monospace; font-size:1em; word-break:break-all; padding:0px 0.3em; background:rgb(238,238,238)">checkSignature</code>&nbsp;函数：<br>
-</p>
-<table style="border-collapse:collapse; border-spacing:0px; margin:0px; width:auto; border:none; font-size:14px">
-<tbody>
-<tr style="background-color:rgb(249,249,249)">
-<td class="gutter" style="padding:0px; vertical-align:middle; border:none">
-<pre style="overflow:auto; font-family:'Input Mono','PT Mono',Consolas,Monaco,Menlo,monospace; font-size:13px; margin-top:0px; margin-bottom:0px; padding:1px 20px 1px 1px; color:rgb(102,102,102); line-height:1.6; border:none; text-align:right; background:rgb(29,31,33)"><span class="line" style="height:20px">1</span>
-<span class="line" style="height:20px">2</span>
-<span class="line" style="height:20px">3</span>
-<span class="line" style="height:20px">4</span>
-<span class="line" style="height:20px">5</span>
-<span class="line" style="height:20px">6</span>
-<span class="line" style="height:20px">7</span>
-<span class="line" style="height:20px">8</span>
-<span class="line" style="height:20px">9</span>
-<span class="line" style="height:20px">10</span>
-<span class="line" style="height:20px">11</span>
-<span class="line" style="height:20px">12</span>
-<span class="line" style="height:20px">13</span>
-<span class="line" style="height:20px">14</span>
-<span class="line" style="height:20px">15</span>
-<span class="line" style="height:20px">16</span>
-<span class="line" style="height:20px">17</span>
-<span class="line" style="height:20px">18</span>
-<span class="line" style="height:20px">19</span>
-<span class="line" style="height:20px">20</span>
-<span class="line" style="height:20px">21</span>
-<span class="line" style="height:20px">22</span>
-<span class="line" style="height:20px">23</span>
-<span class="line" style="height:20px">24</span>
-<span class="line" style="height:20px">25</span>
-<span class="line" style="height:20px">26</span>
-<span class="line" style="height:20px">27</span>
-<span class="line" style="height:20px">28</span>
-<span class="line" style="height:20px">29</span>
-<span class="line" style="height:20px">30</span>
-<span class="line" style="height:20px">31</span>
-</pre>
-</td>
-<td class="code" style="padding:0px; vertical-align:middle; border:none">
-<pre style="overflow:auto; font-family:'Input Mono','PT Mono',Consolas,Monaco,Menlo,monospace; font-size:13px; margin-top:0px; margin-bottom:0px; padding:1px; color:rgb(197,200,198); line-height:1.6; border:none; background:rgb(29,31,33)"><span class="line" style="height:20px"><span class="function" style="color:rgb(129,162,190)"><span class="keyword" style="color:rgb(178,148,187)">private</span> boolean <span class="title" style="color:rgb(138,190,183)">checkSignature</span><span class="params" style="color:rgb(222,147,95)">()</span></span>
-<span class="line" style="height:20px"></span>{</span>
-<span class="line" style="height:20px"> <span class="keyword" style="color:rgb(178,148,187)">try</span></span>
-<span class="line" style="height:20px"> {</span>
-<span class="line" style="height:20px">   Signature[] arrayOfSignature = getPackageManager().getPackageInfo(getPackageName(), <span class="number" style="color:rgb(222,147,95)">64</span>).signatures;     <span class="comment" style="color:rgb(150,152,150)">//获得签名数组</span></span>
-<span class="line" style="height:20px">   <span class="keyword" style="color:rgb(178,148,187)">if</span> (arrayOfSignature != null)</span>
-<span class="line" style="height:20px">   {</span>
-<span class="line" style="height:20px">     <span class="keyword" style="color:rgb(178,148,187)">if</span> (arrayOfSignature.length == <span class="number" style="color:rgb(222,147,95)">0</span>) {</span>
-<span class="line" style="height:20px">       <span class="keyword" style="color:rgb(178,148,187)">return</span> <span class="literal" style="color:rgb(222,147,95)">false</span>;</span>
-<span class="line" style="height:20px">     }</span>
-<span class="line" style="height:20px">     <span class="keyword" style="color:rgb(178,148,187)">int</span> j = arrayOfSignature.length;</span>
-<span class="line" style="height:20px">     <span class="keyword" style="color:rgb(178,148,187)">int</span> i = <span class="number" style="color:rgb(222,147,95)">0</span>;</span>
-<span class="line" style="height:20px">     <span class="keyword" style="color:rgb(178,148,187)">while</span> (i &lt; j)   <span class="comment" style="color:rgb(150,152,150)">//如果数组中的某个元素&#20540;与 'ac6fc3fe' 相等，返回校验成功；如果直到结束也没有相等的元素，返回失败</span></span>
-<span class="line" style="height:20px">     {               <span class="comment" style="color:rgb(150,152,150)">//只比较一个特定的元素，可能也是为了不把整个签名泄露出来，同时也做到了一定程度的校验</span></span>
-<span class="line" style="height:20px">       String str = Integer.toHexString(arrayOfSignature[i].toCharsString().hashCode());</span>
-<span class="line" style="height:20px">       <span class="keyword" style="color:rgb(178,148,187)">if</span> (!<span class="string" style="color:rgb(181,189,104)">&quot;ac6fc3fe&quot;</span>.equalsIgnoreCase(str))   </span>
-<span class="line" style="height:20px">       {</span>
-<span class="line" style="height:20px">         boolean <span class="keyword" style="color:rgb(178,148,187)">bool</span> = <span class="string" style="color:rgb(181,189,104)">&quot;600cf559&quot;</span>.equalsIgnoreCase(str);       <span class="comment" style="color:rgb(150,152,150)">//这个比较好像没用</span></span>
-<span class="line" style="height:20px">         <span class="keyword" style="color:rgb(178,148,187)">if</span> (!<span class="keyword" style="color:rgb(178,148,187)">bool</span>) {}</span>
-<span class="line" style="height:20px">       }</span>
-<span class="line" style="height:20px">       <span class="keyword" style="color:rgb(178,148,187)">else</span></span>
-<span class="line" style="height:20px">       {</span>
-<span class="line" style="height:20px">         <span class="keyword" style="color:rgb(178,148,187)">return</span> <span class="literal" style="color:rgb(222,147,95)">true</span>;</span>
-<span class="line" style="height:20px">       }</span>
-<span class="line" style="height:20px">       i &#43;= <span class="number" style="color:rgb(222,147,95)">1</span>;</span>
-<span class="line" style="height:20px">     }</span>
-<span class="line" style="height:20px">   }</span>
-<span class="line" style="height:20px">   <span class="keyword" style="color:rgb(178,148,187)">return</span> <span class="literal" style="color:rgb(222,147,95)">false</span>;</span>
-<span class="line" style="height:20px"> }</span>
-<span class="line" style="height:20px"> <span class="keyword" style="color:rgb(178,148,187)">catch</span> (Exception localException) {}</span>
-<span class="line" style="height:20px">}</span>
-</pre>
-</td>
-</tr>
-</tbody>
-</table>
-<p style="margin-top:0px; margin-bottom:25px"></p>
-<p style="margin-top:0px; margin-bottom:25px">相关 API：</p>
-<p style="margin-top:0px; margin-bottom:25px"><code style="font-family:'Input Mono','PT Mono',Consolas,Monaco,Menlo,monospace; font-size:1em; word-break:break-all; padding:0px 0.3em; background:rgb(238,238,238)">public Signature[] signatures</code><br>
-Array of all signatures read from the package file. This is only filled in if the flag GET_SIGNATURES was set.</p>
-<p style="margin-top:0px; margin-bottom:25px"><code style="font-family:'Input Mono','PT Mono',Consolas,Monaco,Menlo,monospace; font-size:1em; word-break:break-all; padding:0px 0.3em; background:rgb(238,238,238)">public static final int GET_SIGNATURES</code><br>
-PackageInfo flag: return information about the signatures included in the package.<br>
-Constant Value: 64 (0x00000040)</p>
-<p style="margin-top:0px; margin-bottom:25px"><code style="font-family:'Input Mono','PT Mono',Consolas,Monaco,Menlo,monospace; font-size:1em; word-break:break-all; padding:0px 0.3em; background:rgb(238,238,238)">public boolean equalsIgnoreCase (String string)</code><br>
-Compares the given string to this string ignoring case.<br>
-The strings are compared one char at a time.</p>
-<h3 id="流程修改" style="margin:60px 0px 15px; padding:10px 0px 0px; line-height:1; font-size:18px">
-流程修改</h3>
-<p style="margin-top:0px; margin-bottom:25px">在&nbsp;<code style="font-family:'Input Mono','PT Mono',Consolas,Monaco,Menlo,monospace; font-size:1em; word-break:break-all; padding:0px 0.3em; background:rgb(238,238,238)">smali/com/dianping/main/guide/MainActivity.smali</code>&nbsp;中搜索&nbsp;<code style="font-family:'Input Mono','PT Mono',Consolas,Monaco,Menlo,monospace; font-size:1em; word-break:break-all; padding:0px 0.3em; background:rgb(238,238,238)">ac6fc3fe</code>&nbsp;:<br>
-</p>
-<table style="border-collapse:collapse; border-spacing:0px; margin:0px; width:auto; border:none; font-size:14px">
-<tbody>
-<tr style="background-color:rgb(249,249,249)">
-<td class="gutter" style="padding:0px; vertical-align:middle; border:none">
-<pre style="overflow:auto; font-family:'Input Mono','PT Mono',Consolas,Monaco,Menlo,monospace; font-size:13px; margin-top:0px; margin-bottom:0px; padding:1px 20px 1px 1px; color:rgb(102,102,102); line-height:1.6; border:none; text-align:right; background:rgb(29,31,33)"><span class="line" style="height:20px">1</span>
-<span class="line" style="height:20px">2</span>
-<span class="line" style="height:20px">3</span>
-<span class="line" style="height:20px">4</span>
-<span class="line" style="height:20px">5</span>
-<span class="line" style="height:20px">6</span>
-<span class="line" style="height:20px">7</span>
-<span class="line" style="height:20px">8</span>
-<span class="line" style="height:20px">9</span>
-</pre>
-</td>
-<td class="code" style="padding:0px; vertical-align:middle; border:none">
-<pre style="overflow:auto; font-family:'Input Mono','PT Mono',Consolas,Monaco,Menlo,monospace; font-size:13px; margin-top:0px; margin-bottom:0px; padding:1px; color:rgb(197,200,198); line-height:1.6; border:none; background:rgb(29,31,33)"><span class="line" style="height:20px"><span class="keyword" style="color:rgb(178,148,187)">.line</span> 358</span>
-<span class="line" style="height:20px"><span class="keyword" style="color:rgb(178,148,187)">    .local</span> <span class="variable" style="color:rgb(204,102,102)">v4</span>, <span class="string" style="color:rgb(181,189,104)">&quot;myHash&quot;</span>:<span class="class">Ljava/lang/String;</span></span>
-<span class="line" style="height:20px">   <span class="instruction"> const-string </span><span class="variable" style="color:rgb(204,102,102)">v9</span>, <span class="string" style="color:rgb(181,189,104)">&quot;ac6fc3fe&quot;</span></span>
-<span class="line" style="height:20px"></span>
-<span class="line" style="height:20px">   <span class="instruction"> invoke-virtual </span>{<span class="variable" style="color:rgb(204,102,102)">v9</span>, <span class="variable" style="color:rgb(204,102,102)">v4</span>}, <span class="class">Ljava/lang/String;</span><span class="function" style="color:rgb(129,162,190)">-&gt;equalsIgnoreCase(</span><span class="class">Ljava/lang/String;</span><span class="function" style="color:rgb(129,162,190)">)</span>Z</span>
-<span class="line" style="height:20px"></span>
-<span class="line" style="height:20px">   <span class="instruction"> move-result </span><span class="variable" style="color:rgb(204,102,102)">v9</span></span>
-<span class="line" style="height:20px"></span>
-<span class="line" style="height:20px">   <span class="instruction"> if-nez </span><span class="variable" style="color:rgb(204,102,102)">v9</span>,<span class="keyword" style="color:rgb(178,148,187)"> :cond_2</span>     <span class="function" style="color:rgb(129,162,190)"> //if(</span>!equal(..<span class="function" style="color:rgb(129,162,190)">)</span><span class="function" style="color:rgb(129,162,190)">)</span><span class="instruction"> return </span>1</span>
-</pre>
-</td>
-</tr>
-</tbody>
-</table>
-<p style="margin-top:0px; margin-bottom:25px"></p>
-<p style="margin-top:0px; margin-bottom:25px">找到&nbsp;<code style="font-family:'Input Mono','PT Mono',Consolas,Monaco,Menlo,monospace; font-size:1em; word-break:break-all; padding:0px 0.3em; background:rgb(238,238,238)">con_2</code>&nbsp;的定义:<br>
-</p>
-<table style="border-collapse:collapse; border-spacing:0px; margin:0px; width:auto; border:none; font-size:14px">
-<tbody>
-<tr style="background-color:rgb(249,249,249)">
-<td class="gutter" style="padding:0px; vertical-align:middle; border:none">
-<pre style="overflow:auto; font-family:'Input Mono','PT Mono',Consolas,Monaco,Menlo,monospace; font-size:13px; margin-top:0px; margin-bottom:0px; padding:1px 20px 1px 1px; color:rgb(102,102,102); line-height:1.6; border:none; text-align:right; background:rgb(29,31,33)"><span class="line" style="height:20px">1</span>
-<span class="line" style="height:20px">2</span>
-<span class="line" style="height:20px">3</span>
-<span class="line" style="height:20px">4</span>
-<span class="line" style="height:20px">5</span>
-</pre>
-</td>
-<td class="code" style="padding:0px; vertical-align:middle; border:none">
-<pre style="overflow:auto; font-family:'Input Mono','PT Mono',Consolas,Monaco,Menlo,monospace; font-size:13px; margin-top:0px; margin-bottom:0px; padding:1px; color:rgb(197,200,198); line-height:1.6; border:none; background:rgb(29,31,33)"><span class="line" style="height:20px"><span class="keyword" style="color:rgb(178,148,187)">.line</span> 359<span class="keyword" style="color:rgb(178,148,187)"></span>
-<span class="line" style="height:20px">:cond_2</span><span class="instruction"></span>
-<span class="line" style="height:20px">const/4 </span><span class="variable" style="color:rgb(204,102,102)">v8</span>, 0x1</span>
-<span class="line" style="height:20px"><span class="instruction"></span>
-<span class="line" style="height:20px">goto </span>:goto_0</span>
-</pre>
-</td>
-</tr>
-</tbody>
-</table>
-<p style="margin-top:0px; margin-bottom:25px"></p>
-<table style="border-collapse:collapse; border-spacing:0px; margin:0px; width:auto; border:none; font-size:14px">
-<tbody>
-<tr style="background-color:rgb(249,249,249)">
-<td class="gutter" style="padding:0px; vertical-align:middle; border:none">
-<pre style="overflow:auto; font-family:'Input Mono','PT Mono',Consolas,Monaco,Menlo,monospace; font-size:13px; margin-top:0px; margin-bottom:0px; padding:1px 20px 1px 1px; color:rgb(102,102,102); line-height:1.6; border:none; text-align:right; background:rgb(29,31,33)"><span class="line" style="height:20px">1</span>
-<span class="line" style="height:20px">2</span>
-</pre>
-</td>
-<td class="code" style="padding:0px; vertical-align:middle; border:none">
-<pre style="overflow:auto; font-family:'Input Mono','PT Mono',Consolas,Monaco,Menlo,monospace; font-size:13px; margin-top:0px; margin-bottom:0px; padding:1px; color:rgb(197,200,198); line-height:1.6; border:none; background:rgb(29,31,33)"><span class="line" style="height:20px"><span class="symbol">:goto_0</span></span>
-<span class="line" style="height:20px">    <span class="keyword" style="color:rgb(178,148,187)">return</span> v8</span>
-</pre>
-</td>
-</tr>
-</tbody>
-</table>
-<p style="margin-top:0px; margin-bottom:25px">所以把&nbsp;<code style="font-family:'Input Mono','PT Mono',Consolas,Monaco,Menlo,monospace; font-size:1em; word-break:break-all; padding:0px 0.3em; background:rgb(238,238,238)">if-nez v9, :cond_2</code>&nbsp;改成&nbsp;<code style="font-family:'Input Mono','PT Mono',Consolas,Monaco,Menlo,monospace; font-size:1em; word-break:break-all; padding:0px 0.3em; background:rgb(238,238,238)">if-eqz
- v9, :cond_2</code>&nbsp;就可以了，当然，修改方法还有很多。</p>
-<h3 id="打包签名" style="margin:60px 0px 15px; padding:10px 0px 0px; line-height:1; font-size:18px">
-打包签名</h3>
-<p style="margin-top:0px; margin-bottom:25px">点评可以正常打开，正常登录，正常使用了。</p>
-<hr style="height:3px; margin:40px 0px; border:none; background-color:rgb(221,221,221)">
-<blockquote style="margin:0px; padding:0px 15px; color:rgb(102,102,102); border-left-width:4px; border-left-style:solid; border-left-color:rgb(221,221,221)">
-<p style="margin-top:0px; margin-bottom:25px">番外：<br>
-而另一台手机 (Lenovo Android 4.2.2) 测试进程会不断重新创建。<br>
-应用 crash 之后 App 对应的 Process 都被杀死，然后安排重启 Service，重新启动 Task 栈顶的 Activity 。</p>
-</blockquote>
-<hr style="height:3px; margin:40px 0px; border:none; background-color:rgb(221,221,221)">
-<h2 id="Reference" style="margin:60px 0px 15px; padding:10px 0px 0px; line-height:1; font-size:20px">
-Reference</h2>
-<p style="margin-top:0px; margin-bottom:25px"><a target="_blank" href="http://www.ituring.com.cn/book/1131" rel="external" style="color:rgb(85,85,85); text-decoration:none; border-bottom-width:1px; border-bottom-style:solid; border-bottom-color:rgb(153,153,153); word-wrap:break-word; background-color:transparent">Android软件安全与逆向分析</a><br>
-<a target="_blank" href="http://www.wandoujia.com/blog/xibaibai-diary-3" rel="external" style="color:rgb(85,85,85); text-decoration:none; border-bottom-width:1px; border-bottom-style:solid; border-bottom-color:rgb(153,153,153); word-wrap:break-word; background-color:transparent">洗白白手记：绕开
- Android 应用开发的那些「坑」</a><br>
-<a target="_blank" href="http://www.oschina.net/question/163910_27292#tags_nav" rel="external" style="color:rgb(85,85,85); text-decoration:none; border-bottom-width:1px; border-bottom-style:solid; border-bottom-color:rgb(153,153,153); word-wrap:break-word; background-color:transparent">给
- Android 应用程序签名</a></p>
-</div>
-<div class="post-tags" style="margin-top:40px; text-align:center"><a target="_blank" href="http://kiya-z.github.io/tags/Android-%E5%AE%89%E5%85%A8/" rel="tag" style="color:rgb(85,85,85); text-decoration:none; border-bottom-width:1px; border-bottom-style:solid; border-bottom-color:rgb(153,153,153); word-wrap:break-word; display:inline-block; margin-right:10px; font-size:13px; background-color:transparent">#Android
- 安全</a>&nbsp;<a target="_blank" href="http://kiya-z.github.io/tags/%E5%8F%8D%E7%BC%96%E8%AF%91/" rel="tag" style="color:rgb(85,85,85); text-decoration:none; border-bottom-width:1px; border-bottom-style:solid; border-bottom-color:rgb(153,153,153); word-wrap:break-word; display:inline-block; margin-right:10px; font-size:13px; background-color:transparent">#反编译</a></div>
-<div class="post-tags" style="margin-top:40px; text-align:center"><span style="color:rgb(102,102,102); font-family:Lato,'PingFang SC','Microsoft YaHei',sans-serif; font-size:16px; line-height:32px; text-align:justify">原文链接:
-<a target="_blank" href="http://kiya-z.github.io/2015/11/12/check-signature-for-avoiding-fake-app-java-level-check/">
-&nbsp;</a></span><span style="color:rgb(102,102,102); font-family:Lato,'PingFang SC','Microsoft YaHei',sans-serif; font-size:16px; line-height:32px; text-align:justify"><a target="_blank" href="http://kiya-z.github.io/2015/11/12/check-signature-for-avoiding-fake-app-java-level-check/">http://kiya-z.github.io/2015/11/12/check-signature-for-avoiding-fake-app-java-level-check/</a></span><br>
 </div>
 ]]></content>
     <summary type="html">

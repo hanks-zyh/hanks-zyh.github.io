@@ -4,7 +4,7 @@
   <subtitle><![CDATA[coding]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://hanks.xyz/"/>
-  <updated>2015-12-31T12:56:23.541Z</updated>
+  <updated>2015-12-31T13:20:53.833Z</updated>
   <id>http://hanks.xyz/</id>
   
   <author>
@@ -15,26 +15,37 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title><![CDATA[2015回顾]]></title>
+    <title><![CDATA[2015回顾@hanks]]></title>
     <link href="http://hanks.xyz/2015/12/31/2015/"/>
     <id>http://hanks.xyz/2015/12/31/2015/</id>
     <published>2015-12-31T12:41:17.000Z</published>
-    <updated>2015-12-31T12:56:23.541Z</updated>
+    <updated>2015-12-31T13:20:53.833Z</updated>
     <content type="html"><![CDATA[<blockquote>
 <p>2015的最后一天，我选择了辞职</p>
 </blockquote>
-<p>2014年的这个时候,开始出去找工作,到现在差不多工作一年了, 期间也经历了远程,国外团队,创业团队,知识面拓展了不少(但是应该还是有很多不知道),最大的感触就是面试,找工作真的不是想象的那样,今天看到知乎上面的一个提问<a href="https://www.zhihu.com/question/38982159" target="_blank" rel="external">我用个假简历去面试android的结果为什么会这样？</a>,这就是现实而已.<br><a id="more"></a><br>关于辞职,一方面,是想好好休息几天，身体真的变差了，上个楼都累的不行,前几天突发牙痛，昨天发现脸都肿了，今天去看牙，感觉医院好坑，进入二话不说先消费，然后说了一大堆丁不懂得的名词,最后告诉我治疗费用要好几万，愣是把我吓跑了，回去的路上脸上的肿逐渐消了，(´･ω･`)难道是吓好了吗？<br>另一方面，原来团队里就我一个Android开发,想寻找更适合的开发团队,说实话技术方面Android技能多大进步，还停留在应用开发等级(想尝试一些高级的),一些底层的源码方面也没好好深究一下,我一直在努力学习一些好的架构,看了一些设计模式的东西.我认为想要开发出高质量的应用,一方面是性能,另一方面是代码质量, 当面还有UI,不过自己没有能力去设计界面,只能努力去实现一些效果.不过自己学了很多新的知识，年初的时候知道了Rx, mvp,mvvm(最先接触的是Robobinding,后来Android出了 Data Bind),kotlin语言…之后就在项目中去实践，设计风格上,自从Material Design出来之后, 然后就迷上了,自己开发的应用就尽量去遵循其原则,后来Android出来support design的库,用于实现5.0以下的Material Design风格. Android之外的，首先把python稍微入门了，把开发环境切成了Ubuntu,了解一些Linux方 面的东西，在学校的时候最后悔的就是没有多学点服务器方面的知识，巩固了一下git,vim等工具，复习了前端一些知识css，js，了解了一下sass,less,感觉挺好玩的，也能提高开发效率,最近学了react-native的东西，自己也写了一些简单的<a href="http://hanks.xyz/">例子</a>，react-native的做出的app实现也还是原生组件，所以性能应该没啥问题，学习上面也没啥难度(可能还没遇到坑),很快应该就能入门.开源方面, 也学习去利用开源力量,同时贡献一点自己的力量.</p>
-<p>关于买电脑,2015买了两台电脑,一台普通笔记本,一台Macbook pro,我个人的建议是学生档毕竟经济能力有限,不是必须Mac(比如开发Android完全可以不用)的话不要买mac,我的普通笔记本5000元左右,16G内存,256SSD, i7八核2.5GHz,安装Ubuntu,然后window虚拟机,mac虚拟机,Android虚拟机同开毫无压力,同时各个系统软件都可使用,性价比要比mac本高的多,不过质量应该是不行,我打算也就用个一两年,质量的话还是得Macbook</p>
+<h1 id="去年">去年</h1><p>2014年的这个时候,开始出去找工作,到现在差不多工作一年了, 期间也经历了远程,国外团队,创业团队,知识面拓展了不少(但是应该还是有很多不知道),最大的感触就是面试,找工作真的不是想象的那样,今天看到知乎上面的一个提问<a href="https://www.zhihu.com/question/38982159" target="_blank" rel="external">我用个假简历去面试android的结果为什么会这样？</a>,这就是现实而已.<br><a id="more"></a></p>
+<h1 id="关于辞职">关于辞职</h1><p><strong>一方面</strong>,是想好好休息几天，身体真的变差了，上个楼都累的不行,前几天突发牙痛，昨天发现脸都肿了，今天去看牙，感觉医院好坑，进入二话不说先消费，然后说了一大堆丁不懂得的名词,最后告诉我治疗费用要好几万，愣是把我吓跑了，回去的路上脸上的肿逐渐消了，(´･ω･`) 难道是吓好了吗？<br><strong>另一方面</strong>，原来团队里就我一个Android开发,想寻找更适合的开发团队,说实话技术方面Android技能多大进步，还停留在应用开发等级(想尝试一些高级的),一些底层的源码方面也没好好深究一下,我一直在努力学习一些好的架构,看了一些设计模式的东西.我认为想要开发出高质量的应用,一方面是性能,另一方面是代码质量, 当然还有UI(脸啊),不过自己没有能力去设计界面,只能努力去实现一些效果.不过自己学了很多新的知识，年初的时候知道了<code>Rx</code>, <code>mvp</code>,<code>mvvm</code>(最先接触的是<code>Robobinding</code>,后来 Android 出了 <code>Data Binding</code>),<code>kotlin语言</code>… 之后就在项目中去实践，设计风格上,自从Material Design出来之后, 然后就迷上了,自己开发的应用就尽量去遵循其原则,后来Android出来support design的库,用于实现5.0以下的Material Design风格.</p>
+<h1 id="Android之外">Android之外</h1><p> Android之外的，首先把python稍微入门了，把开发环境切成了Ubuntu,了解一些Linux方 面的东西，在学校的时候最后悔的就是没有多学点服务器方面的知识，巩固了一下git,vim等工具，复习了前端一些知识css，js，了解了一下sass,less,感觉挺好玩的，也能提高开发效率,最近学了react-native的东西，自己也写了一些简单的<a href="http://hanks.xyz/">例子</a>，react-native的做出的app实现也还是原生组件，所以性能应该没啥问题，学习上面也没啥难度(可能还没遇到坑),很快应该就能入门.开源方面, 也学习去利用开源力量,同时贡献一点自己的力量.</p>
+<h1 id="关于买电脑">关于买电脑</h1><p>2015买了两台电脑,一台普通笔记本,一台Macbook pro,我个人的建议是学生档毕竟经济能力有限,不是必须Mac(比如开发Android完全可以不用)的话不要买mac,我的普通笔记本5000元左右,16G内存,256SSD, i7八核2.5GHz,安装Ubuntu,然后window虚拟机,mac虚拟机,Android虚拟机同开毫无压力,同时各个系统软件都可使用,性价比要比mac本高的多,不过质量应该是不行,我打算也就用个一两年,质量的话还是得Macbook</p>
 <p>总之,2016应该还是学学学,不学怎么进步呢.</p>
-<p>2015读书列表(大部分时间都是在上下班的公交上看的,而且有的没看完):<br>Linux命令行大全<br>Flask Web开发：基于Python的Web应用开发实战<br>Bootstrap实战<br>android内核剖析<br>android群英转<br>android开发艺术探究<br>android源码设计模式解析与实战</p>
-<p>另外,如果你有好工作,欢迎推荐! :point_right:我的<a href="https://github.com/hanks-zyh" target="_blank" rel="external">github</a></p>
+<p>2015读书列表(大部分时间都是在上下班的公交上看的,而且有的没看完):</p>
+<ul>
+<li>Linux命令行大全</li>
+<li>Flask Web开发：基于Python的Web应用开发实战</li>
+<li>Bootstrap实战</li>
+<li>android内核剖析</li>
+<li>android群英转</li>
+<li>android开发艺术探究</li>
+<li>android源码设计模式解析与实战</li>
+</ul>
+<p>另外,如果你有好工作,欢迎推荐!  :point_right:我的<a href="https://github.com/hanks-zyh" target="_blank" rel="external">github</a></p>
 <p>跨年演唱会开始了,准备迎接2016吧!</p>
 ]]></content>
     <summary type="html">
     <![CDATA[<blockquote>
 <p>2015的最后一天，我选择了辞职</p>
 </blockquote>
-<p>2014年的这个时候,开始出去找工作,到现在差不多工作一年了, 期间也经历了远程,国外团队,创业团队,知识面拓展了不少(但是应该还是有很多不知道),最大的感触就是面试,找工作真的不是想象的那样,今天看到知乎上面的一个提问<a href="https://www.zhihu.com/question/38982159">我用个假简历去面试android的结果为什么会这样？</a>,这就是现实而已.<br>]]>
+<h1 id="去年">去年</h1><p>2014年的这个时候,开始出去找工作,到现在差不多工作一年了, 期间也经历了远程,国外团队,创业团队,知识面拓展了不少(但是应该还是有很多不知道),最大的感触就是面试,找工作真的不是想象的那样,今天看到知乎上面的一个提问<a href="https://www.zhihu.com/question/38982159">我用个假简历去面试android的结果为什么会这样？</a>,这就是现实而已.<br>]]>
     
     </summary>
     

@@ -4,7 +4,7 @@
   <subtitle><![CDATA[coding]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://hanks.xyz/"/>
-  <updated>2015-12-30T10:14:08.780Z</updated>
+  <updated>2015-12-31T12:56:23.541Z</updated>
   <id>http://hanks.xyz/</id>
   
   <author>
@@ -13,6 +13,34 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[2015回顾]]></title>
+    <link href="http://hanks.xyz/2015/12/31/2015/"/>
+    <id>http://hanks.xyz/2015/12/31/2015/</id>
+    <published>2015-12-31T12:41:17.000Z</published>
+    <updated>2015-12-31T12:56:23.541Z</updated>
+    <content type="html"><![CDATA[<blockquote>
+<p>2015的最后一天，我选择了辞职</p>
+</blockquote>
+<p>2014年的这个时候,开始出去找工作,到现在差不多工作一年了, 期间也经历了远程,国外团队,创业团队,知识面拓展了不少(但是应该还是有很多不知道),最大的感触就是面试,找工作真的不是想象的那样,今天看到知乎上面的一个提问<a href="https://www.zhihu.com/question/38982159" target="_blank" rel="external">我用个假简历去面试android的结果为什么会这样？</a>,这就是现实而已.<br><a id="more"></a><br>关于辞职,一方面,是想好好休息几天，身体真的变差了，上个楼都累的不行,前几天突发牙痛，昨天发现脸都肿了，今天去看牙，感觉医院好坑，进入二话不说先消费，然后说了一大堆丁不懂得的名词,最后告诉我治疗费用要好几万，愣是把我吓跑了，回去的路上脸上的肿逐渐消了，(´･ω･`)难道是吓好了吗？<br>另一方面，原来团队里就我一个Android开发,想寻找更适合的开发团队,说实话技术方面Android技能多大进步，还停留在应用开发等级(想尝试一些高级的),一些底层的源码方面也没好好深究一下,我一直在努力学习一些好的架构,看了一些设计模式的东西.我认为想要开发出高质量的应用,一方面是性能,另一方面是代码质量, 当面还有UI,不过自己没有能力去设计界面,只能努力去实现一些效果.不过自己学了很多新的知识，年初的时候知道了Rx, mvp,mvvm(最先接触的是Robobinding,后来Android出了 Data Bind),kotlin语言…之后就在项目中去实践，设计风格上,自从Material Design出来之后, 然后就迷上了,自己开发的应用就尽量去遵循其原则,后来Android出来support design的库,用于实现5.0以下的Material Design风格. Android之外的，首先把python稍微入门了，把开发环境切成了Ubuntu,了解一些Linux方 面的东西，在学校的时候最后悔的就是没有多学点服务器方面的知识，巩固了一下git,vim等工具，复习了前端一些知识css，js，了解了一下sass,less,感觉挺好玩的，也能提高开发效率,最近学了react-native的东西，自己也写了一些简单的<a href="http://hanks.xyz/">例子</a>，react-native的做出的app实现也还是原生组件，所以性能应该没啥问题，学习上面也没啥难度(可能还没遇到坑),很快应该就能入门.开源方面, 也学习去利用开源力量,同时贡献一点自己的力量.</p>
+<p>关于买电脑,2015买了两台电脑,一台普通笔记本,一台Macbook pro,我个人的建议是学生档毕竟经济能力有限,不是必须Mac(比如开发Android完全可以不用)的话不要买mac,我的普通笔记本5000元左右,16G内存,256SSD, i7八核2.5GHz,安装Ubuntu,然后window虚拟机,mac虚拟机,Android虚拟机同开毫无压力,同时各个系统软件都可使用,性价比要比mac本高的多,不过质量应该是不行,我打算也就用个一两年,质量的话还是得Macbook</p>
+<p>总之,2016应该还是学学学,不学怎么进步呢.</p>
+<p>2015读书列表(大部分时间都是在上下班的公交上看的,而且有的没看完):<br>Linux命令行大全<br>Flask Web开发：基于Python的Web应用开发实战<br>Bootstrap实战<br>android内核剖析<br>android群英转<br>android开发艺术探究<br>android源码设计模式解析与实战</p>
+<p>另外,如果你有好工作,欢迎推荐! :point_right:我的<a href="https://github.com/hanks-zyh" target="_blank" rel="external">github</a></p>
+<p>跨年演唱会开始了,准备迎接2016吧!</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<blockquote>
+<p>2015的最后一天，我选择了辞职</p>
+</blockquote>
+<p>2014年的这个时候,开始出去找工作,到现在差不多工作一年了, 期间也经历了远程,国外团队,创业团队,知识面拓展了不少(但是应该还是有很多不知道),最大的感触就是面试,找工作真的不是想象的那样,今天看到知乎上面的一个提问<a href="https://www.zhihu.com/question/38982159">我用个假简历去面试android的结果为什么会这样？</a>,这就是现实而已.<br>]]>
+    
+    </summary>
+    
+      <category term="Android" scheme="http://hanks.xyz/tags/Android/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[Android 下雪动画]]></title>
@@ -1585,198 +1613,6 @@ Reference</h3>
  安全</a>&nbsp;<a target="_blank" href="http://kiya-z.github.io/tags/dex/" rel="tag" style="color:rgb(85,85,85); text-decoration:none; border-bottom-width:1px; border-bottom-style:solid; border-bottom-color:rgb(153,153,153); word-wrap:break-word; display:inline-block; margin-right:10px; font-size:13px; background-color:transparent">#dex</a></div>
 <br>
 <p></p>
-]]></content>
-    <summary type="html">
-    <![CDATA[ ]]>
-    
-    </summary>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[如何运行 .smali 程序]]></title>
-    <link href="http://hanks.xyz/2015/11/17/%E5%A6%82%E4%BD%95%E8%BF%90%E8%A1%8C_.smali_%E7%A8%8B%E5%BA%8F/"/>
-    <id>http://hanks.xyz/2015/11/17/如何运行_.smali_程序/</id>
-    <published>2015-11-17T03:53:00.000Z</published>
-    <updated>2015-12-04T17:20:04.328Z</updated>
-    <content type="html"><![CDATA[
-<h1 class="post-title" style="margin:0px; padding:0px; line-height:1; text-align:center; word-break:break-word">
-<span style="font-size:18px">原文:&nbsp;<a target="_blank" href="http://kiya-z.github.io/2015/11/16/how-to-run-file-ended-with-smali/">http://kiya-z.github.io/2015/11/16/how-to-run-file-ended-with-smali/</a></span></h1>
-<h1 class="post-title" style="margin:0px; padding:0px; line-height:1; text-align:center; word-break:break-word">
-<span style="font-size:18px"><br>
-</span></h1>
-<h1 class="post-title" style="font-size:26px; margin:0px; padding:0px; line-height:1; text-align:center; word-break:break-word">
-<br>
-</h1>
-<h1 class="post-title" style="font-size:26px; margin:0px; padding:0px; line-height:1; text-align:center; word-break:break-word">
-<br>
-如何运行 .smali 程序</h1>
-<div class="post-meta" style="font-size:12px; margin:3px 0px 60px; color:rgb(153,153,153); text-align:center">
-<span class="post-time">发表于&nbsp;2015-11-16&nbsp;</span><span class="post-category">&nbsp; | &nbsp; 分类于&nbsp;<span><a target="_blank" href="http://kiya-z.github.io/categories/Android/" rel="index" style="color:rgb(85,85,85); text-decoration:none; border-bottom-width:1px; border-bottom-style:solid; border-bottom-color:rgb(153,153,153); word-wrap:break-word; background-color:transparent"><span>Android</span>&nbsp;</a></span></span><span class="post-comments-count">&nbsp;
- | &nbsp;&nbsp;<a target="_blank" href="http://kiya-z.github.io/2015/11/16/how-to-run-file-ended-with-smali/#comments" style="color:rgb(85,85,85); text-decoration:none; border-bottom-width:1px; border-bottom-style:solid; border-bottom-color:rgb(153,153,153); word-wrap:break-word; background-color:transparent"><span class="post-comments-count ds-thread-count">暂无评论</span>&nbsp;</a></span><span id="busuanzi_container_page_pv" style="display:inline">&nbsp;
- | &nbsp;&nbsp;<span id="busuanzi_value_page_pv">3</span>&nbsp; Hits</span></div>
-<div class="post-body" style="text-align:justify; color:rgb(85,85,85); font-family:Lato,'PingFang SC','Microsoft YaHei',sans-serif; font-size:16px; line-height:32px">
-<span></span>
-<h2 id="准备_smali_程序" style="margin:60px 0px 15px; padding:10px 0px 0px; line-height:1; font-size:20px">
-准备 smali 程序</h2>
-<a target="_blank" id="more" style="border-bottom-width:1px; border-bottom-style:solid; border-bottom-color:rgb(153,153,153); word-wrap:break-word; background-color:transparent"></a>
-<p style="margin-top:0px; margin-bottom:25px">从 《Android 软件安全与逆向》书中抠出一段，起名为&nbsp;<code style="font-family:'Input Mono','PT Mono',Consolas,Monaco,Menlo,monospace; font-size:1em; word-break:break-all; padding:0px 0.3em; background:rgb(238,238,238)">FirstSmali.smali</code>&nbsp;：<br>
-</p>
-<table style="border-collapse:collapse; border-spacing:0px; margin:0px; width:auto; border:none; font-size:14px">
-<tbody>
-<tr style="background-color:rgb(249,249,249)">
-<td class="gutter" style="padding:0px; vertical-align:middle; border:none">
-<pre style="overflow:auto; font-family:'Input Mono','PT Mono',Consolas,Monaco,Menlo,monospace; font-size:13px; margin-top:0px; margin-bottom:0px; padding:1px 20px 1px 1px; color:rgb(102,102,102); line-height:1.6; border:none; text-align:right; background:rgb(29,31,33)"><span class="line" style="height:20px">1</span>
-<span class="line" style="height:20px">2</span>
-<span class="line" style="height:20px">3</span>
-<span class="line" style="height:20px">4</span>
-<span class="line" style="height:20px">5</span>
-<span class="line" style="height:20px">6</span>
-<span class="line" style="height:20px">7</span>
-<span class="line" style="height:20px">8</span>
-<span class="line" style="height:20px">9</span>
-<span class="line" style="height:20px">10</span>
-<span class="line" style="height:20px">11</span>
-<span class="line" style="height:20px">12</span>
-<span class="line" style="height:20px">13</span>
-<span class="line" style="height:20px">14</span>
-<span class="line" style="height:20px">15</span>
-<span class="line" style="height:20px">16</span>
-<span class="line" style="height:20px">17</span>
-<span class="line" style="height:20px">18</span>
-<span class="line" style="height:20px">19</span>
-<span class="line" style="height:20px">20</span>
-<span class="line" style="height:20px">21</span>
-<span class="line" style="height:20px">22</span>
-<span class="line" style="height:20px">23</span>
-<span class="line" style="height:20px">24</span>
-<span class="line" style="height:20px">25</span>
-<span class="line" style="height:20px">26</span>
-<span class="line" style="height:20px">27</span>
-<span class="line" style="height:20px">28</span>
-<span class="line" style="height:20px">29</span>
-<span class="line" style="height:20px">30</span>
-<span class="line" style="height:20px">31</span>
-<span class="line" style="height:20px">32</span>
-<span class="line" style="height:20px">33</span>
-<span class="line" style="height:20px">34</span>
-<span class="line" style="height:20px">35</span>
-<span class="line" style="height:20px">36</span>
-<span class="line" style="height:20px">37</span>
-<span class="line" style="height:20px">38</span>
-<span class="line" style="height:20px">39</span>
-<span class="line" style="height:20px">40</span>
-<span class="line" style="height:20px">41</span>
-<span class="line" style="height:20px">42</span>
-<span class="line" style="height:20px">43</span>
-<span class="line" style="height:20px">44</span>
-<span class="line" style="height:20px">45</span>
-</pre>
-</td>
-<td class="code" style="padding:0px; vertical-align:middle; border:none">
-<pre style="overflow:auto; font-family:'Input Mono','PT Mono',Consolas,Monaco,Menlo,monospace; font-size:13px; margin-top:0px; margin-bottom:0px; padding:1px; color:rgb(197,200,198); line-height:1.6; border:none; background:rgb(29,31,33)"><span class="line" style="height:20px"><span class="keyword" style="color:rgb(178,148,187)">.class</span><span class="keyword" style="color:rgb(178,148,187)"> public</span> <span class="class">LFirstSmali;</span>  <span class="comment" style="color:rgb(150,152,150)"># 定义类名</span></span>
-<span class="line" style="height:20px"><span class="keyword" style="color:rgb(178,148,187)">.super</span> <span class="class">Ljava/lang/Object;</span>   <span class="comment" style="color:rgb(150,152,150)"># 定义父类</span></span>
-<span class="line" style="height:20px"><span class="keyword" style="color:rgb(178,148,187)">.method</span><span class="keyword" style="color:rgb(178,148,187)"> public</span><span class="keyword" style="color:rgb(178,148,187)"> static</span><span class="function" style="color:rgb(129,162,190)"> main(</span><span class="keyword" style="color:rgb(178,148,187)">[</span><span class="class">Ljava/lang/String;</span><span class="function" style="color:rgb(129,162,190)">)</span>V     <span class="comment" style="color:rgb(150,152,150)"># 声明静态方法</span></span>
-<span class="line" style="height:20px"><span class="keyword" style="color:rgb(178,148,187)">    .registers</span> 4     <span class="comment" style="color:rgb(150,152,150)"># 寄存器</span></span>
-<span class="line" style="height:20px">    <span class="comment" style="color:rgb(150,152,150)">#.parameter      # 参数</span></span>
-<span class="line" style="height:20px"></span>
-<span class="line" style="height:20px"><span class="keyword" style="color:rgb(178,148,187)">    .prologue</span>      <span class="comment" style="color:rgb(150,152,150)"># 代码起始</span></span>
-<span class="line" style="height:20px">   <span class="instruction"> nop</span>
-<span class="line" style="height:20px"></span>   <span class="instruction"> nop</span>
-<span class="line" style="height:20px"></span>   <span class="instruction"> nop</span>
-<span class="line" style="height:20px"></span>   <span class="instruction"> nop</span>
-<span class="line" style="height:20px"></span>    <span class="comment" style="color:rgb(150,152,150)">#数据定义</span></span>
-<span class="line" style="height:20px">   <span class="instruction"> const/16 </span><span class="variable" style="color:rgb(204,102,102)">v0</span>,0x8</span>
-<span class="line" style="height:20px">   <span class="instruction"> const/4 </span><span class="variable" style="color:rgb(204,102,102)">v1</span>,0x5</span>
-<span class="line" style="height:20px">   <span class="instruction"> const/4 </span><span class="variable" style="color:rgb(204,102,102)">v2</span>,0x3</span>
-<span class="line" style="height:20px">    <span class="comment" style="color:rgb(150,152,150)">#数据操作</span></span>
-<span class="line" style="height:20px">   <span class="instruction"> move </span><span class="variable" style="color:rgb(204,102,102)">v1</span>,<span class="variable" style="color:rgb(204,102,102)">v2</span></span>
-<span class="line" style="height:20px">    <span class="comment" style="color:rgb(150,152,150)">#数组操作</span></span>
-<span class="line" style="height:20px">   <span class="instruction"> new-array </span><span class="variable" style="color:rgb(204,102,102)">v0</span>,<span class="variable" style="color:rgb(204,102,102)">v0</span>,<span class="keyword" style="color:rgb(178,148,187)">[</span>I</span>
-<span class="line" style="height:20px">   <span class="instruction"> array-length </span><span class="variable" style="color:rgb(204,102,102)">v1</span>,<span class="variable" style="color:rgb(204,102,102)">v0</span></span>
-<span class="line" style="height:20px">    <span class="comment" style="color:rgb(150,152,150)">#实例操作</span></span>
-<span class="line" style="height:20px">   <span class="instruction"> new-instance </span><span class="variable" style="color:rgb(204,102,102)">v1</span>,<span class="class">Ljava/lang/StringBuilder;</span></span>
-<span class="line" style="height:20px">    <span class="comment" style="color:rgb(150,152,150)">#方法调用</span></span>
-<span class="line" style="height:20px">   <span class="instruction"> invoke-direct </span>{<span class="variable" style="color:rgb(204,102,102)">v1</span>},<span class="class">Ljava/lang/StringBuilder;</span><span class="function" style="color:rgb(129,162,190)">-&gt;&lt;init&gt;(</span><span class="function" style="color:rgb(129,162,190)">)</span>V</span>
-<span class="line" style="height:20px">    <span class="comment" style="color:rgb(150,152,150)">#跳转</span></span>
-<span class="line" style="height:20px">   <span class="instruction"> if-nez </span><span class="variable" style="color:rgb(204,102,102)">v0</span>,<span class="keyword" style="color:rgb(178,148,187)"> :cond_0</span></span>
-<span class="line" style="height:20px">   <span class="instruction"> goto </span>:goto_0</span>
-<span class="line" style="height:20px">   <span class="keyword" style="color:rgb(178,148,187)"> :cond_0</span></span>
-<span class="line" style="height:20px">    <span class="comment" style="color:rgb(150,152,150)">#数据转换</span></span>
-<span class="line" style="height:20px">   <span class="instruction"> int-to-float </span><span class="variable" style="color:rgb(204,102,102)">v2</span>,<span class="variable" style="color:rgb(204,102,102)">v2</span></span>
-<span class="line" style="height:20px">    <span class="comment" style="color:rgb(150,152,150)">#运算</span></span>
-<span class="line" style="height:20px">   <span class="instruction"> add-float </span><span class="variable" style="color:rgb(204,102,102)">v2</span>,<span class="variable" style="color:rgb(204,102,102)">v2</span>,<span class="variable" style="color:rgb(204,102,102)">v2</span></span>
-<span class="line" style="height:20px">    <span class="comment" style="color:rgb(150,152,150)">#比较</span></span>
-<span class="line" style="height:20px">   <span class="instruction"> cmpl-float </span><span class="variable" style="color:rgb(204,102,102)">v0</span>,<span class="variable" style="color:rgb(204,102,102)">v2</span>,<span class="variable" style="color:rgb(204,102,102)">v2</span></span>
-<span class="line" style="height:20px">    <span class="comment" style="color:rgb(150,152,150)">#字段操作</span></span>
-<span class="line" style="height:20px">   <span class="instruction"> sget-object </span><span class="variable" style="color:rgb(204,102,102)">v0</span>,<span class="class">Ljava/lang/System;</span>-&gt;out:<span class="class">Ljava/io/PrintStream;</span></span>
-<span class="line" style="height:20px">   <span class="instruction"> const-string </span><span class="variable" style="color:rgb(204,102,102)">v1</span>,<span class="string" style="color:rgb(181,189,104)">&quot;Hello Smali&quot;</span></span>
-<span class="line" style="height:20px">    <span class="comment" style="color:rgb(150,152,150)">#调用</span></span>
-<span class="line" style="height:20px">   <span class="instruction"> invoke-virtual </span>{<span class="variable" style="color:rgb(204,102,102)">v0</span>,<span class="variable" style="color:rgb(204,102,102)">v1</span>}, <span class="class">Ljava/io/PrintStream;</span><span class="function" style="color:rgb(129,162,190)">-&gt;println(</span><span class="class">Ljava/lang/String;</span><span class="function" style="color:rgb(129,162,190)">)</span>V</span>
-<span class="line" style="height:20px">    <span class="comment" style="color:rgb(150,152,150)">#返回</span></span>
-<span class="line" style="height:20px">   <span class="keyword" style="color:rgb(178,148,187)"> :goto_0</span></span>
-<span class="line" style="height:20px">   <span class="instruction"> return-void</span>
-<span class="line" style="height:20px"></span>   <span class="instruction"> return-void </span>    <span class="comment" style="color:rgb(150,152,150)"># 返回空</span><span class="keyword" style="color:rgb(178,148,187)"></span>
-<span class="line" style="height:20px"></span>
-<span class="line" style="height:20px">.end method</span></span>
-</pre>
-</td>
-</tr>
-</tbody>
-</table>
-<p style="margin-top:0px; margin-bottom:25px"></p>
-<hr style="height:3px; margin:40px 0px; border:none; background-color:rgb(221,221,221)">
-<h2 id="编译_smali_程序" style="margin:60px 0px 15px; padding:10px 0px 0px; line-height:1; font-size:20px">
-编译 smali 程序</h2>
-<p style="margin-top:0px; margin-bottom:25px">将&nbsp;<code style="font-family:'Input Mono','PT Mono',Consolas,Monaco,Menlo,monospace; font-size:1em; word-break:break-all; padding:0px 0.3em; background:rgb(238,238,238)">.smali</code>&nbsp;文件编译为&nbsp;<code style="font-family:'Input Mono','PT Mono',Consolas,Monaco,Menlo,monospace; font-size:1em; word-break:break-all; padding:0px 0.3em; background:rgb(238,238,238)">.dex</code>&nbsp;文件
- :<br>
-<code style="font-family:'Input Mono','PT Mono',Consolas,Monaco,Menlo,monospace; font-size:1em; word-break:break-all; padding:0px 0.3em; background:rgb(238,238,238)">java -jar smali.jar -o FirstSmali.dex FirstSmali.smali</code></p>
-<hr style="height:3px; margin:40px 0px; border:none; background-color:rgb(221,221,221)">
-<h2 id="执行_smali_程序" style="margin:60px 0px 15px; padding:10px 0px 0px; line-height:1; font-size:20px">
-执行 smali 程序</h2>
-<p style="margin-top:0px; margin-bottom:25px">打开&nbsp;<code style="font-family:'Input Mono','PT Mono',Consolas,Monaco,Menlo,monospace; font-size:1em; word-break:break-all; padding:0px 0.3em; background:rgb(238,238,238)">adb</code>&nbsp;环境，连上手机，在命令行下<br>
-执行&nbsp;<code style="font-family:'Input Mono','PT Mono',Consolas,Monaco,Menlo,monospace; font-size:1em; word-break:break-all; padding:0px 0.3em; background:rgb(238,238,238)">adb devices</code>&nbsp;查看手机是否连接成功；<br>
-执行&nbsp;<code style="font-family:'Input Mono','PT Mono',Consolas,Monaco,Menlo,monospace; font-size:1em; word-break:break-all; padding:0px 0.3em; background:rgb(238,238,238)">adb push FirstSmali.dex /sdcard/</code>&nbsp;将 dex 文件推到手机上；<br>
-执行如下命令就 OK 了。<br>
-</p>
-<table style="border-collapse:collapse; border-spacing:0px; margin:0px; width:auto; border:none; font-size:14px">
-<tbody>
-<tr style="background-color:rgb(249,249,249)">
-<td class="gutter" style="padding:0px; vertical-align:middle; border:none">
-<pre style="overflow:auto; font-family:'Input Mono','PT Mono',Consolas,Monaco,Menlo,monospace; font-size:13px; margin-top:0px; margin-bottom:0px; padding:1px 20px 1px 1px; color:rgb(102,102,102); line-height:1.6; border:none; text-align:right; background:rgb(29,31,33)"><span class="line" style="height:20px">1</span>
-</pre>
-</td>
-<td class="code" style="padding:0px; vertical-align:middle; border:none">
-<pre style="overflow:auto; font-family:'Input Mono','PT Mono',Consolas,Monaco,Menlo,monospace; font-size:13px; margin-top:0px; margin-bottom:0px; padding:1px; color:rgb(197,200,198); line-height:1.6; border:none; background:rgb(29,31,33)"><span class="line" style="height:20px">adb shell dalvikvm -cp /sdcard/FirstSmali<span class="class">.dex</span> FirstSmali</span>
-</pre>
-</td>
-</tr>
-</tbody>
-</table>
-<p style="margin-top:0px; margin-bottom:25px"></p>
-<h3 id="备注" style="margin:60px 0px 15px; padding:10px 0px 0px; line-height:1; font-size:18px">
-备注</h3>
-<p style="margin-top:0px; margin-bottom:25px"><code style="font-family:'Input Mono','PT Mono',Consolas,Monaco,Menlo,monospace; font-size:1em; word-break:break-all; padding:0px 0.3em; background:rgb(238,238,238)">-cp</code>&nbsp;是&nbsp;<code style="font-family:'Input Mono','PT Mono',Consolas,Monaco,Menlo,monospace; font-size:1em; word-break:break-all; padding:0px 0.3em; background:rgb(238,238,238)">classpath</code>&nbsp;的意思，<code style="font-family:'Input Mono','PT Mono',Consolas,Monaco,Menlo,monospace; font-size:1em; word-break:break-all; padding:0px 0.3em; background:rgb(238,238,238)">dalvikvm</code>&nbsp;命令第一个参数指定类路径，第二个指定类名。</p>
-<p style="margin-top:0px; margin-bottom:25px">另外，如果想要 push 到如&nbsp;<code style="font-family:'Input Mono','PT Mono',Consolas,Monaco,Menlo,monospace; font-size:1em; word-break:break-all; padding:0px 0.3em; background:rgb(238,238,238)">data/local</code>&nbsp;之类的目录下是没有权限的，可以先
- push 到 sdcard，进入&nbsp;<code style="font-family:'Input Mono','PT Mono',Consolas,Monaco,Menlo,monospace; font-size:1em; word-break:break-all; padding:0px 0.3em; background:rgb(238,238,238)">adb shell</code>&nbsp;执行&nbsp;<code style="font-family:'Input Mono','PT Mono',Consolas,Monaco,Menlo,monospace; font-size:1em; word-break:break-all; padding:0px 0.3em; background:rgb(238,238,238)">su</code>&nbsp;获得
- root 权限之后，就可以复制到&nbsp;<code style="font-family:'Input Mono','PT Mono',Consolas,Monaco,Menlo,monospace; font-size:1em; word-break:break-all; padding:0px 0.3em; background:rgb(238,238,238)">data</code>&nbsp;目录了。</p>
-<p style="margin-top:0px; margin-bottom:25px">本文程序只有一个 dex 文件，多个的话需要打包为&nbsp;<code style="font-family:'Input Mono','PT Mono',Consolas,Monaco,Menlo,monospace; font-size:1em; word-break:break-all; padding:0px 0.3em; background:rgb(238,238,238)">zip</code>&nbsp;，将此 zip
- 文件作为&nbsp;<code style="font-family:'Input Mono','PT Mono',Consolas,Monaco,Menlo,monospace; font-size:1em; word-break:break-all; padding:0px 0.3em; background:rgb(238,238,238)">dalvikvm</code>&nbsp;的第一个参数便可。</p>
-</div>
-<div class="post-tags" style="margin-top:40px; text-align:center"><a target="_blank" href="http://kiya-z.github.io/tags/Android-%E5%AE%89%E5%85%A8/" rel="tag" style="color:rgb(85,85,85); text-decoration:none; border-bottom-width:1px; border-bottom-style:solid; border-bottom-color:rgb(153,153,153); word-wrap:break-word; display:inline-block; margin-right:10px; font-size:13px; background-color:transparent">#Android
- 安全</a>&nbsp;<a target="_blank" href="http://kiya-z.github.io/tags/smali/" rel="tag" style="color:rgb(85,85,85); text-decoration:none; border-bottom-width:1px; border-bottom-style:solid; border-bottom-color:rgb(153,153,153); word-wrap:break-word; display:inline-block; margin-right:10px; font-size:13px; background-color:transparent">#smali</a>&nbsp;<a target="_blank" href="http://kiya-z.github.io/tags/%E5%8F%8D%E7%BC%96%E8%AF%91/" rel="tag" style="color:rgb(85,85,85); text-decoration:none; border-bottom-width:1px; border-bottom-style:solid; border-bottom-color:rgb(153,153,153); word-wrap:break-word; display:inline-block; margin-right:10px; font-size:13px; background-color:transparent">#反编译</a></div>
-<div class="post-nav" style="overflow:hidden; margin-top:60px; padding:10px; white-space:nowrap; border-top-width:1px; border-top-style:solid; border-top-color:rgb(238,238,238)">
-<h1 class="post-title" style="color:rgb(85,85,85); font-family:Lato,'PingFang SC','Microsoft YaHei',sans-serif; margin:0px; padding:0px; line-height:1; text-align:center; word-break:break-word">
-<span style="font-size:18px">原文:&nbsp;<a target="_blank" href="http://kiya-z.github.io/2015/11/16/how-to-run-file-ended-with-smali/">http://kiya-z.github.io/2015/11/16/how-to-run-file-ended-with-smali/</a></span></h1>
-<div><br>
-</div>
-<div><br>
-</div>
-<div><br>
-</div>
-<div class="post-nav-next post-nav-item" style="display:inline-block; width:440px; white-space:normal">
-<a target="_blank" href="http://kiya-z.github.io/2015/11/12/check-signature-for-avoiding-fake-app-java-level-check/" rel="next" title="校验数字签名防止 apk 被二次打包 - Java层校验（大众点评为例）" style="color:rgb(85,85,85); text-decoration:none; border-bottom-style:none; word-wrap:break-word; position:relative; display:inline-block; line-height:25px; font-size:14px; background-color:transparent"><span class="fa fa-chevron-left" style=""></span></a></div>
-</div>
 ]]></content>
     <summary type="html">
     <![CDATA[ ]]>

@@ -4,7 +4,7 @@
   <subtitle><![CDATA[coding]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://hanks.xyz/"/>
-  <updated>2015-12-31T13:20:53.833Z</updated>
+  <updated>2016-01-03T15:34:21.468Z</updated>
   <id>http://hanks.xyz/</id>
   
   <author>
@@ -13,6 +13,61 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[Android 热修复总结]]></title>
+    <link href="http://hanks.xyz/2016/01/03/android-hotfix/"/>
+    <id>http://hanks.xyz/2016/01/03/android-hotfix/</id>
+    <published>2016-01-03T15:27:05.000Z</published>
+    <updated>2016-01-03T15:34:21.468Z</updated>
+    <content type="html"><![CDATA[<p>前段时间热修复这个词编的非常火,当时只是大体看了一下,今天抽空好好看了一下具体原理.<br><a id="more"></a></p>
+<h3 id="什么是热修复?">什么是热修复?</h3><p>简单的说就是用户不用重新下载一个新的apk安装,而是直接下载一个补丁包,通过补丁来替换一些出现bug的类, 当然下载补丁的过程用户一般是感觉不到的,表面上看是直接修复了bug.</p>
+<h3 id="原理">原理</h3><p>类似与插件开发,关于插件开发原理,看这篇<a href="http://www.alloyteam.com/2014/04/android-cha-jian-yuan-li-pou-xi/" target="_blank" rel="external">Android插件原理剖析</a>,其中介绍了一下java中的类加载器和android中的类加载器. 热修复就是利用android中的 <code>DexClassLoader</code>类加载器,动态加载补丁dex,替换有bug的类</p>
+<p>已有的热修复解决方案:</p>
+<ul>
+<li><a href="https://github.com/dodola/HotFix" target="_blank" rel="external">https://github.com/dodola/HotFix</a></li>
+<li><a href="https://github.com/jasonross/Nuwa" target="_blank" rel="external">https://github.com/jasonross/Nuwa</a></li>
+<li><a href="https://github.com/bunnyblue/DroidFix" target="_blank" rel="external">https://github.com/bunnyblue/DroidFix</a></li>
+</ul>
+<p>这几个库的原理都类似,具体描述可以查看这篇<a href="https://mp.weixin.qq.com/s?__biz=MzI1MTA1MzM2Nw==&amp;mid=400118620&amp;idx=1&amp;sn=b4fdd5055731290eef12ad0d17f39d4a&amp;scene=1&amp;srcid=1106Imu9ZgwybID13e7y2nEi#wechat_redirect" target="_blank" rel="external">安卓App热补丁动态修复技术介绍</a>.</p>
+<h3 id="切入点">切入点</h3><p>想修复方法? 方法在哪里? 方法都包含在类中. 类在哪里? 类被包含在dex中,而</p>
+<p>最根本的来源是下面这段代码:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> Class <span class="title">findClass</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (Element element : dexElements) &#123;</span><br><span class="line">        DexFile dex = element.dexFile;</span><br><span class="line">        <span class="keyword">if</span> (dex != <span class="keyword">null</span>) &#123;</span><br><span class="line">            Class clazz = dex.loadClassBinaryName(name, definingContext);</span><br><span class="line">            <span class="keyword">if</span> (clazz != <span class="keyword">null</span>) &#123;</span><br><span class="line">                <span class="keyword">return</span> clazz;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>可以看出呢，BaseDexClassLoader中有个<code>pathList</code>对象，pathList中包含一个DexFile的集合<code>dexElements</code>，而对于类加载呢，就是遍历这个集合，通过DexFile去寻找,一个ClassLoader可以包含多个dex文件，每个dex文件是一个Element，多个dex文件排列成一个有序的数组dexElements，当找类的时候，会按顺序遍历dex文件，然后从当前遍历的dex文件中找类，如果找类则返回，如果找不到从下一个dex文件继续查找。</p>
+<p>简单来说: 首先找到<code>pathList</code>对象,然后通过反射改变<code>dexElements</code>数组.<br>但是遇到的以下问题: 也就是类被打上了 <strong>CLASS_ISPREVERIFIED</strong> 标志</p>
+<figure class="highlight nimrod"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java.lang.<span class="type">IllegalAccessError</span>: <span class="type">Class</span> <span class="keyword">ref</span> <span class="keyword">in</span> pre-verified class resolved to unexpected implementation</span><br></pre></td></tr></table></figure>
+<p>根据QQ空间的文章, 这个错误是因为虚拟机加载类的时候, 当一个类中的直接方法(Direct Method)来自与同一个dex中,那么这个类就会被加上 <strong>CLASS_ISPREVERIFIED</strong> 标志, 再次通过类加载器加载会出现上面的错误.</p>
+<p><strong>解决方案</strong>: 在需要加载的类中,引用一个别的dex中的类.这样这个类就不会被加上 CLASS_ISPREVERIFIED 标志了,然后就可以再次加载了. 上面一个开源库的普遍方案就是在类的 <strong>默认构造方法</strong> 上面添加一个其他dex的引用.</p>
+<h3 id="总结">总结</h3><p>于是总体步骤如下:</p>
+<ol>
+<li>可能出现bug的类中,引用一下别的dex中的类.</li>
+<li>因为1中引用了别的dex,需要先将别的dex加载进来.</li>
+<li>现在可以替换bug的类了,加载补丁,通过反射将补丁中的dex放到<code>pathList</code>对象的<code>dexElements</code>数组的前面,完成打补丁.</li>
+</ol>
+<p>其中两个注意点:</p>
+<ul>
+<li>防止类被加上 CLASS_ISPREVERIFIED 标志(通过修改类默认构造方法)</li>
+<li>生成补丁dex(通过dx工具)</li>
+</ul>
+<p>参考文章:</p>
+<ul>
+<li><a href="http://developer.android.com/reference/dalvik/system/DexClassLoader.html" target="_blank" rel="external">DexClassLoader</a></li>
+<li><a href="http://developer.android.com/reference/dalvik/system/PathClassLoader.html" target="_blank" rel="external">PathClassLoader</a></li>
+<li><a href="https://mp.weixin.qq.com/s?__biz=MzI1MTA1MzM2Nw==&amp;mid=400118620&amp;idx=1&amp;sn=b4fdd5055731290eef12ad0d17f39d4a&amp;scene=1&amp;srcid=1106Imu9ZgwybID13e7y2nEi#wechat_redirect" target="_blank" rel="external">安卓App热补丁动态修复技术介绍</a></li>
+<li><a href="http://www.alloyteam.com/2014/04/android-cha-jian-yuan-li-pou-xi/" target="_blank" rel="external">Android插件原理剖析</a></li>
+<li><a href="http://blog.csdn.net/lmj623565791/article/details/49883661" target="_blank" rel="external">Android 热补丁动态修复框架小结</a></li>
+</ul>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>前段时间热修复这个词编的非常火,当时只是大体看了一下,今天抽空好好看了一下具体原理.<br>]]>
+    
+    </summary>
+    
+      <category term="Android" scheme="http://hanks.xyz/tags/Android/"/>
+    
+      <category term="热修复" scheme="http://hanks.xyz/tags/%E7%83%AD%E4%BF%AE%E5%A4%8D/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[2015回顾@hanks]]></title>
@@ -972,658 +1027,6 @@
 <hr>
 <h1 id="抓包工具_–_wireshark">抓包工具 – wireshark</h1><p>跨平台：Windows，OS X ，Linux</p>
 <p><a href="https://www.wireshark.org/" target="_blank" rel="external">官网</a></p>
-]]></content>
-    <summary type="html">
-    <![CDATA[ ]]>
-    
-    </summary>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[解析 dex 文件结构 - DexHeader]]></title>
-    <link href="http://hanks.xyz/2015/11/18/%E8%A7%A3%E6%9E%90_dex_%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84_-_DexHeader/"/>
-    <id>http://hanks.xyz/2015/11/18/解析_dex_文件结构_-_DexHeader/</id>
-    <published>2015-11-18T03:02:00.000Z</published>
-    <updated>2015-12-06T04:32:37.893Z</updated>
-    <content type="html"><![CDATA[
-<p><span style="font-size:18px">原文:&nbsp;<a target="_blank" href="http://kiya-z.github.io/2015/11/17/parse-dex-file-part-dex-header/">http://kiya-z.github.io/2015/11/17/parse-dex-file-part-dex-header/</a></span></p>
-<p><br>
-</p>
-<p></p>
-<h1 class="post-title" style="font-size:26px; margin:0px; padding:0px; line-height:1; text-align:center; word-break:break-word">
-解析 dex 文件结构 - DexHeader</h1>
-<div class="post-meta" style="margin:3px 0px 60px; color:rgb(153,153,153); font-size:12px; text-align:center">
-<span class="post-time">发表于&nbsp;2015-11-17&nbsp;</span><span class="post-category">&nbsp; | &nbsp; 分类于&nbsp;<span><a target="_blank" href="http://kiya-z.github.io/categories/Android/" rel="index" style="color:rgb(85,85,85); text-decoration:none; border-bottom-width:1px; border-bottom-style:solid; border-bottom-color:rgb(153,153,153); word-wrap:break-word; background-color:transparent"><span>Android</span>&nbsp;</a></span></span><span class="post-comments-count">&nbsp;
- | &nbsp;&nbsp;<a target="_blank" href="http://kiya-z.github.io/2015/11/17/parse-dex-file-part-dex-header/#comments" style="color:rgb(85,85,85); text-decoration:none; border-bottom-width:1px; border-bottom-style:solid; border-bottom-color:rgb(153,153,153); word-wrap:break-word; background-color:transparent"><span class="post-comments-count ds-thread-count">暂无评论</span>&nbsp;</a></span><span id="busuanzi_container_page_pv" style="display:inline">&nbsp;
- | &nbsp;&nbsp;<span id="busuanzi_value_page_pv">6</span>&nbsp; Hits</span></div>
-<div class="post-body" style="text-align:justify; color:rgb(85,85,85); font-family:Lato,'PingFang SC','Microsoft YaHei',sans-serif; font-size:16px; line-height:32px">
-<span></span>
-<h3 id="简介" style="margin:60px 0px 15px; padding:10px 0px 0px; line-height:1; font-size:18px">
-简介</h3>
-<p style="margin-top:0px; margin-bottom:25px">dex 文件是 dalvik 虚拟机的可执行文件。</p>
-<a target="_blank" id="more" style="border-bottom-width:1px; border-bottom-style:solid; border-bottom-color:rgb(153,153,153); word-wrap:break-word; background-color:transparent"></a>
-<hr style="height:3px; margin:40px 0px; border:none; background-color:rgb(221,221,221)">
-<h3 id="dex_文件结构" style="margin:60px 0px 15px; padding:10px 0px 0px; line-height:1; font-size:18px">
-dex 文件结构</h3>
-<p style="margin-top:0px; margin-bottom:25px">该结构位于系统源码&nbsp;<code style="font-family:'Input Mono','PT Mono',Consolas,Monaco,Menlo,monospace; font-size:1em; word-break:break-all; padding:0px 0.3em; background:rgb(238,238,238)">dalvik\libdex\DexFile.h</code>&nbsp;中，描述的是
- dex 文件被映射到内存中的结构。</p>
-<table style="border-collapse:collapse; border-spacing:0px; margin:0px; width:auto; border:none; font-size:14px">
-<tbody>
-<tr style="background-color:rgb(249,249,249)">
-<td class="gutter" style="padding:0px; vertical-align:middle; border:none">
-<pre style="overflow:auto; font-family:'Input Mono','PT Mono',Consolas,Monaco,Menlo,monospace; font-size:13px; margin-top:0px; margin-bottom:0px; padding:1px 20px 1px 1px; color:rgb(102,102,102); line-height:1.6; border:none; text-align:right; background:rgb(29,31,33)"><span class="line" style="height:20px">1</span>
-<span class="line" style="height:20px">2</span>
-<span class="line" style="height:20px">3</span>
-<span class="line" style="height:20px">4</span>
-<span class="line" style="height:20px">5</span>
-<span class="line" style="height:20px">6</span>
-<span class="line" style="height:20px">7</span>
-<span class="line" style="height:20px">8</span>
-<span class="line" style="height:20px">9</span>
-<span class="line" style="height:20px">10</span>
-<span class="line" style="height:20px">11</span>
-<span class="line" style="height:20px">12</span>
-<span class="line" style="height:20px">13</span>
-<span class="line" style="height:20px">14</span>
-<span class="line" style="height:20px">15</span>
-<span class="line" style="height:20px">16</span>
-<span class="line" style="height:20px">17</span>
-<span class="line" style="height:20px">18</span>
-<span class="line" style="height:20px">19</span>
-<span class="line" style="height:20px">20</span>
-<span class="line" style="height:20px">21</span>
-<span class="line" style="height:20px">22</span>
-<span class="line" style="height:20px">23</span>
-<span class="line" style="height:20px">24</span>
-<span class="line" style="height:20px">25</span>
-<span class="line" style="height:20px">26</span>
-<span class="line" style="height:20px">27</span>
-<span class="line" style="height:20px">28</span>
-<span class="line" style="height:20px">29</span>
-<span class="line" style="height:20px">30</span>
-<span class="line" style="height:20px">31</span>
-<span class="line" style="height:20px">32</span>
-<span class="line" style="height:20px">33</span>
-<span class="line" style="height:20px">34</span>
-<span class="line" style="height:20px">35</span>
-<span class="line" style="height:20px">36</span>
-</pre>
-</td>
-<td class="code" style="padding:0px; vertical-align:middle; border:none">
-<pre style="overflow:auto; font-family:'Input Mono','PT Mono',Consolas,Monaco,Menlo,monospace; font-size:13px; margin-top:0px; margin-bottom:0px; padding:1px; color:rgb(197,200,198); line-height:1.6; border:none; background:rgb(29,31,33)"><span class="line" style="height:20px">/<span class="keyword" style="color:rgb(178,148,187)">*</span></span>
-<span class="line" style="height:20px"> <span class="keyword" style="color:rgb(178,148,187)">*</span> Structure representing a DEX file.</span>
-<span class="line" style="height:20px"> <span class="keyword" style="color:rgb(178,148,187)">*</span></span>
-<span class="line" style="height:20px"> <span class="keyword" style="color:rgb(178,148,187)">*</span> Code should regard DexFile as opaque, using the API calls provided here</span>
-<span class="line" style="height:20px"> <span class="keyword" style="color:rgb(178,148,187)">*</span> to access specific structures.</span>
-<span class="line" style="height:20px"> <span class="keyword" style="color:rgb(178,148,187)">*</span>/</span>
-<span class="line" style="height:20px">struct DexFile {</span>
-<span class="line" style="height:20px">    /<span class="keyword" style="color:rgb(178,148,187)">*</span> directly-mapped <span class="string" style="color:rgb(181,189,104)">&quot;opt&quot;</span> header <span class="keyword" style="color:rgb(178,148,187)">*</span>/</span>
-<span class="line" style="height:20px">    const DexOptHeader<span class="keyword" style="color:rgb(178,148,187)">*</span> pOptHeader;</span>
-<span class="line" style="height:20px"></span>
-<span class="line" style="height:20px">    /<span class="keyword" style="color:rgb(178,148,187)">*</span> pointers to directly-mapped structs and arrays in base DEX <span class="keyword" style="color:rgb(178,148,187)">*</span>/</span>
-<span class="line" style="height:20px">    const DexHeader<span class="keyword" style="color:rgb(178,148,187)">*</span>    pHeader;</span>
-<span class="line" style="height:20px">    const DexStringId<span class="keyword" style="color:rgb(178,148,187)">*</span>  pStringIds;</span>
-<span class="line" style="height:20px">    const DexTypeId<span class="keyword" style="color:rgb(178,148,187)">*</span>    pTypeIds;</span>
-<span class="line" style="height:20px">    const DexFieldId<span class="keyword" style="color:rgb(178,148,187)">*</span>   pFieldIds;</span>
-<span class="line" style="height:20px">    const DexMethodId<span class="keyword" style="color:rgb(178,148,187)">*</span>  pMethodIds;</span>
-<span class="line" style="height:20px">    const DexProtoId<span class="keyword" style="color:rgb(178,148,187)">*</span>   pProtoIds;</span>
-<span class="line" style="height:20px">    const DexClassDef<span class="keyword" style="color:rgb(178,148,187)">*</span>  pClassDefs;</span>
-<span class="line" style="height:20px">    const DexLink<span class="keyword" style="color:rgb(178,148,187)">*</span>      pLinkData;</span>
-<span class="line" style="height:20px"></span>
-<span class="line" style="height:20px">    /<span class="keyword" style="color:rgb(178,148,187)">*</span></span>
-<span class="line" style="height:20px">     <span class="keyword" style="color:rgb(178,148,187)">*</span> These are mapped out of the <span class="string" style="color:rgb(181,189,104)">&quot;auxillary&quot;</span> section, and may not be</span>
-<span class="line" style="height:20px">     <span class="keyword" style="color:rgb(178,148,187)">*</span> included in the file.</span>
-<span class="line" style="height:20px">     <span class="keyword" style="color:rgb(178,148,187)">*</span>/</span>
-<span class="line" style="height:20px">    const DexClassLookup<span class="keyword" style="color:rgb(178,148,187)">*</span> pClassLookup;</span>
-<span class="line" style="height:20px">    const void<span class="keyword" style="color:rgb(178,148,187)">*</span>         pRegisterMapPool;       // RegisterMapClassPool</span>
-<span class="line" style="height:20px"></span>
-<span class="line" style="height:20px">    /<span class="keyword" style="color:rgb(178,148,187)">*</span> points to start of DEX file data <span class="keyword" style="color:rgb(178,148,187)">*</span>/</span>
-<span class="line" style="height:20px">    const u1<span class="keyword" style="color:rgb(178,148,187)">*</span>           baseAddr;</span>
-<span class="line" style="height:20px"></span>
-<span class="line" style="height:20px">    /<span class="keyword" style="color:rgb(178,148,187)">*</span> track memory overhead for auxillary structures <span class="keyword" style="color:rgb(178,148,187)">*</span>/</span>
-<span class="line" style="height:20px">    int                 overhead;</span>
-<span class="line" style="height:20px"></span>
-<span class="line" style="height:20px">    /<span class="keyword" style="color:rgb(178,148,187)">*</span> additional app-specific data structures associated with the DEX <span class="keyword" style="color:rgb(178,148,187)">*</span>/</span>
-<span class="line" style="height:20px">    //void<span class="keyword" style="color:rgb(178,148,187)">*</span>               auxData;</span>
-<span class="line" style="height:20px">};</span>
-</pre>
-</td>
-</tr>
-</tbody>
-</table>
-<p style="margin-top:0px; margin-bottom:25px">基本的文件结构只需关注:<br>
-</p>
-<table style="border-collapse:collapse; border-spacing:0px; margin:0px; width:auto; border:none; font-size:14px">
-<tbody>
-<tr style="background-color:rgb(249,249,249)">
-<td class="gutter" style="padding:0px; vertical-align:middle; border:none">
-<pre style="overflow:auto; font-family:'Input Mono','PT Mono',Consolas,Monaco,Menlo,monospace; font-size:13px; margin-top:0px; margin-bottom:0px; padding:1px 20px 1px 1px; color:rgb(102,102,102); line-height:1.6; border:none; text-align:right; background:rgb(29,31,33)"><span class="line" style="height:20px">1</span>
-<span class="line" style="height:20px">2</span>
-<span class="line" style="height:20px">3</span>
-<span class="line" style="height:20px">4</span>
-<span class="line" style="height:20px">5</span>
-<span class="line" style="height:20px">6</span>
-<span class="line" style="height:20px">7</span>
-<span class="line" style="height:20px">8</span>
-<span class="line" style="height:20px">9</span>
-<span class="line" style="height:20px">10</span>
-<span class="line" style="height:20px">11</span>
-</pre>
-</td>
-<td class="code" style="padding:0px; vertical-align:middle; border:none">
-<pre style="overflow:auto; font-family:'Input Mono','PT Mono',Consolas,Monaco,Menlo,monospace; font-size:13px; margin-top:0px; margin-bottom:0px; padding:1px; color:rgb(197,200,198); line-height:1.6; border:none; background:rgb(29,31,33)"><span class="line" style="height:20px">struct DexFile{</span>
-<span class="line" style="height:20px">    DexHeader    Header<span class="comment" style="color:rgb(150,152,150)">;</span></span>
-<span class="line" style="height:20px">    DexStringId  StringIds[stringIdsSize]<span class="comment" style="color:rgb(150,152,150)">;</span></span>
-<span class="line" style="height:20px">    DexTypeId    TypeIds[typeIdsSize]<span class="comment" style="color:rgb(150,152,150)">;</span></span>
-<span class="line" style="height:20px">    DexFieldId   FieldIds[fieldIdsSize]<span class="comment" style="color:rgb(150,152,150)">;</span></span>
-<span class="line" style="height:20px">    DexMethodId  MethodIds[methodIdsSize]<span class="comment" style="color:rgb(150,152,150)">;</span></span>
-<span class="line" style="height:20px">    DexProtoId   ProtoIds[protoIdsSize]<span class="comment" style="color:rgb(150,152,150)">;</span></span>
-<span class="line" style="height:20px">    DexClassDef  ClassDefs[classDefsSize]<span class="comment" style="color:rgb(150,152,150)">;</span></span>
-<span class="line" style="height:20px">    DexData      Data[]<span class="comment" style="color:rgb(150,152,150)">;</span></span>
-<span class="line" style="height:20px">    DexLink      LinkData<span class="comment" style="color:rgb(150,152,150)">;</span></span>
-<span class="line" style="height:20px">}<span class="comment" style="color:rgb(150,152,150)">;</span></span>
-</pre>
-</td>
-</tr>
-</tbody>
-</table>
-<p style="margin-top:0px; margin-bottom:25px"></p>
-<h4 id="大体结构图" style="margin:60px 0px 15px; padding:10px 0px 0px; line-height:1">
-大体结构图</h4>
-<p style="margin-top:0px; margin-bottom:25px"><a target="_blank" href="http://7xo976.com1.z0.glb.clouddn.com/images/github-io/Android/dex-file-general-structure.png" class="fancybox" rel="group" style="color:rgb(85,85,85); text-decoration:none; border-bottom-width:1px; border-bottom-style:solid; border-bottom-color:rgb(153,153,153); word-wrap:break-word; background-color:transparent"><img src="http://7xo976.com1.z0.glb.clouddn.com/images/github-io/Android/dex-file-general-structure.png" alt="dex-file-general-structure" style="border:1px solid rgb(221,221,221); display:block!important; margin:0px auto; max-width:100%; height:auto; padding:3px"></a></p>
-<hr style="height:3px; margin:40px 0px; border:none; background-color:rgb(221,221,221)">
-<h3 id="DexHeader_结构" style="margin:60px 0px 15px; padding:10px 0px 0px; line-height:1; font-size:18px">
-DexHeader 结构</h3>
-<table style="border-collapse:collapse; border-spacing:0px; margin:0px; width:auto; border:none; font-size:14px">
-<tbody>
-<tr style="background-color:rgb(249,249,249)">
-<td class="gutter" style="padding:0px; vertical-align:middle; border:none">
-<pre style="overflow:auto; font-family:'Input Mono','PT Mono',Consolas,Monaco,Menlo,monospace; font-size:13px; margin-top:0px; margin-bottom:0px; padding:1px 20px 1px 1px; color:rgb(102,102,102); line-height:1.6; border:none; text-align:right; background:rgb(29,31,33)"><span class="line" style="height:20px">1</span>
-<span class="line" style="height:20px">2</span>
-<span class="line" style="height:20px">3</span>
-<span class="line" style="height:20px">4</span>
-<span class="line" style="height:20px">5</span>
-<span class="line" style="height:20px">6</span>
-<span class="line" style="height:20px">7</span>
-<span class="line" style="height:20px">8</span>
-<span class="line" style="height:20px">9</span>
-<span class="line" style="height:20px">10</span>
-<span class="line" style="height:20px">11</span>
-<span class="line" style="height:20px">12</span>
-<span class="line" style="height:20px">13</span>
-<span class="line" style="height:20px">14</span>
-<span class="line" style="height:20px">15</span>
-<span class="line" style="height:20px">16</span>
-<span class="line" style="height:20px">17</span>
-<span class="line" style="height:20px">18</span>
-<span class="line" style="height:20px">19</span>
-<span class="line" style="height:20px">20</span>
-<span class="line" style="height:20px">21</span>
-<span class="line" style="height:20px">22</span>
-<span class="line" style="height:20px">23</span>
-<span class="line" style="height:20px">24</span>
-<span class="line" style="height:20px">25</span>
-<span class="line" style="height:20px">26</span>
-<span class="line" style="height:20px">27</span>
-<span class="line" style="height:20px">28</span>
-<span class="line" style="height:20px">29</span>
-<span class="line" style="height:20px">30</span>
-<span class="line" style="height:20px">31</span>
-<span class="line" style="height:20px">32</span>
-<span class="line" style="height:20px">33</span>
-<span class="line" style="height:20px">34</span>
-</pre>
-</td>
-<td class="code" style="padding:0px; vertical-align:middle; border:none">
-<pre style="overflow:auto; font-family:'Input Mono','PT Mono',Consolas,Monaco,Menlo,monospace; font-size:13px; margin-top:0px; margin-bottom:0px; padding:1px; color:rgb(197,200,198); line-height:1.6; border:none; background:rgb(29,31,33)"><span class="line" style="height:20px">/<span class="keyword" style="color:rgb(178,148,187)">*</span></span>
-<span class="line" style="height:20px"> <span class="keyword" style="color:rgb(178,148,187)">*</span> 160-bit SHA-1 digest.</span>
-<span class="line" style="height:20px"> <span class="keyword" style="color:rgb(178,148,187)">*</span>/</span>
-<span class="line" style="height:20px">enum { kSHA1DigestLen = 20,</span>
-<span class="line" style="height:20px">       kSHA1DigestOutputLen = kSHA1DigestLen<span class="keyword" style="color:rgb(178,148,187)">*</span>2 &#43;1 };</span>
-<span class="line" style="height:20px"></span>
-<span class="line" style="height:20px">/<span class="keyword" style="color:rgb(178,148,187)">*</span></span>
-<span class="line" style="height:20px"> <span class="keyword" style="color:rgb(178,148,187)">*</span> Direct-mapped <span class="string" style="color:rgb(181,189,104)">&quot;header_item&quot;</span> struct.</span>
-<span class="line" style="height:20px"> <span class="keyword" style="color:rgb(178,148,187)">*</span>/</span>
-<span class="line" style="height:20px">struct DexHeader {</span>
-<span class="line" style="height:20px">    u1  magic[8];           /<span class="keyword" style="color:rgb(178,148,187)">*</span> 版本标识 <span class="keyword" style="color:rgb(178,148,187)">*</span>/</span>
-<span class="line" style="height:20px">    u4  checksum;           /<span class="keyword" style="color:rgb(178,148,187)">*</span> adler32 检验 <span class="keyword" style="color:rgb(178,148,187)">*</span>/</span>
-<span class="line" style="height:20px">    u1  signature[kSHA1DigestLen]; /<span class="keyword" style="color:rgb(178,148,187)">*</span> SHA-1 哈希&#20540; <span class="keyword" style="color:rgb(178,148,187)">*</span>/</span>
-<span class="line" style="height:20px">    u4  fileSize;           /<span class="keyword" style="color:rgb(178,148,187)">*</span> 整个文件大小 <span class="keyword" style="color:rgb(178,148,187)">*</span>/</span>
-<span class="line" style="height:20px">    u4  headerSize;         /<span class="keyword" style="color:rgb(178,148,187)">*</span> DexHeader 大小 <span class="keyword" style="color:rgb(178,148,187)">*</span>/</span>
-<span class="line" style="height:20px">    u4  endianTag;          /<span class="keyword" style="color:rgb(178,148,187)">*</span> 字节序标记 <span class="keyword" style="color:rgb(178,148,187)">*</span>/</span>
-<span class="line" style="height:20px">    u4  linkSize;           /<span class="keyword" style="color:rgb(178,148,187)">*</span> 链接段大小 <span class="keyword" style="color:rgb(178,148,187)">*</span>/</span>
-<span class="line" style="height:20px">    u4  linkOff;            /<span class="keyword" style="color:rgb(178,148,187)">*</span> 链接段偏移 <span class="keyword" style="color:rgb(178,148,187)">*</span>/</span>
-<span class="line" style="height:20px">    u4  mapOff;             /<span class="keyword" style="color:rgb(178,148,187)">*</span> DexMapList 的文件偏移 <span class="keyword" style="color:rgb(178,148,187)">*</span>/</span>
-<span class="line" style="height:20px">    u4  stringIdsSize;      /<span class="keyword" style="color:rgb(178,148,187)">*</span> DexStringId 的个数 <span class="keyword" style="color:rgb(178,148,187)">*</span>/</span>
-<span class="line" style="height:20px">    u4  stringIdsOff;       /<span class="keyword" style="color:rgb(178,148,187)">*</span> DexStringId 的文件偏移 <span class="keyword" style="color:rgb(178,148,187)">*</span>/</span>
-<span class="line" style="height:20px">    u4  typeIdsSize;        /<span class="keyword" style="color:rgb(178,148,187)">*</span> DexTypeId 的个数 <span class="keyword" style="color:rgb(178,148,187)">*</span>/</span>
-<span class="line" style="height:20px">    u4  typeIdsOff;         /<span class="keyword" style="color:rgb(178,148,187)">*</span> DexTypeId 的文件偏移 <span class="keyword" style="color:rgb(178,148,187)">*</span>/</span>
-<span class="line" style="height:20px">    u4  protoIdsSize;       /<span class="keyword" style="color:rgb(178,148,187)">*</span> DexProtoId 的个数 <span class="keyword" style="color:rgb(178,148,187)">*</span>/</span>
-<span class="line" style="height:20px">    u4  protoIdsOff;        /<span class="keyword" style="color:rgb(178,148,187)">*</span> DexProtoId 的文件偏移 <span class="keyword" style="color:rgb(178,148,187)">*</span>/</span>
-<span class="line" style="height:20px">    u4  fieldIdsSize;       /<span class="keyword" style="color:rgb(178,148,187)">*</span> DexFieldId 的个数 <span class="keyword" style="color:rgb(178,148,187)">*</span>/</span>
-<span class="line" style="height:20px">    u4  fieldIdsOff;        /<span class="keyword" style="color:rgb(178,148,187)">*</span> DexFieldId 的文件偏移 <span class="keyword" style="color:rgb(178,148,187)">*</span>/</span>
-<span class="line" style="height:20px">    u4  methodIdsSize;      /<span class="keyword" style="color:rgb(178,148,187)">*</span> DexMethodId 的个数 <span class="keyword" style="color:rgb(178,148,187)">*</span>/</span>
-<span class="line" style="height:20px">    u4  methodIdsOff;       /<span class="keyword" style="color:rgb(178,148,187)">*</span> DexMethodId 的文件偏移 <span class="keyword" style="color:rgb(178,148,187)">*</span>/</span>
-<span class="line" style="height:20px">    u4  classDefsSize;      /<span class="keyword" style="color:rgb(178,148,187)">*</span> DexClassDef 的个数 <span class="keyword" style="color:rgb(178,148,187)">*</span>/</span>
-<span class="line" style="height:20px">    u4  classDefsOff;       /<span class="keyword" style="color:rgb(178,148,187)">*</span> DexClassDef 的文件偏移 <span class="keyword" style="color:rgb(178,148,187)">*</span>/</span>
-<span class="line" style="height:20px">    u4  dataSize;           /<span class="keyword" style="color:rgb(178,148,187)">*</span> 数据段的大小 <span class="keyword" style="color:rgb(178,148,187)">*</span>/</span>
-<span class="line" style="height:20px">    u4  dataOff;            /<span class="keyword" style="color:rgb(178,148,187)">*</span> 数据段的文件偏移 <span class="keyword" style="color:rgb(178,148,187)">*</span>/</span>
-<span class="line" style="height:20px">};</span>
-</pre>
-</td>
-</tr>
-</tbody>
-</table>
-<h4 id="其中：" style="margin:60px 0px 15px; padding:10px 0px 0px; line-height:1">其中：</h4>
-<p style="margin-top:0px; margin-bottom:25px"><strong>magic</strong>&nbsp;： dex文件标识，&#20540;必须为常量&nbsp;<code style="font-family:'Input Mono','PT Mono',Consolas,Monaco,Menlo,monospace; font-size:1em; word-break:break-all; padding:0px 0.3em; background:rgb(238,238,238)">DEX_FILE_MAGIC</code>；</p>
-<table style="border-collapse:collapse; border-spacing:0px; margin:0px; width:auto; border:none; font-size:14px">
-<tbody>
-<tr style="background-color:rgb(249,249,249)">
-<td class="gutter" style="padding:0px; vertical-align:middle; border:none">
-<pre style="overflow:auto; font-family:'Input Mono','PT Mono',Consolas,Monaco,Menlo,monospace; font-size:13px; margin-top:0px; margin-bottom:0px; padding:1px 20px 1px 1px; color:rgb(102,102,102); line-height:1.6; border:none; text-align:right; background:rgb(29,31,33)"><span class="line" style="height:20px">1</span>
-<span class="line" style="height:20px">2</span>
-</pre>
-</td>
-<td class="code" style="padding:0px; vertical-align:middle; border:none">
-<pre style="overflow:auto; font-family:'Input Mono','PT Mono',Consolas,Monaco,Menlo,monospace; font-size:13px; margin-top:0px; margin-bottom:0px; padding:1px; color:rgb(197,200,198); line-height:1.6; border:none; background:rgb(29,31,33)"><span class="line" style="height:20px">ubyte[<span class="number" style="color:rgb(222,147,95)">8</span>] DEX_FILE_MAGIC = { <span class="number" style="color:rgb(222,147,95)">0x64</span> <span class="number" style="color:rgb(222,147,95)">0x65</span> <span class="number" style="color:rgb(222,147,95)">0x78</span> <span class="number" style="color:rgb(222,147,95)">0x0a</span> <span class="number" style="color:rgb(222,147,95)">0x30</span> <span class="number" style="color:rgb(222,147,95)">0x33</span> <span class="number" style="color:rgb(222,147,95)">0x35</span> <span class="number" style="color:rgb(222,147,95)">0x00</span> }</span>
-<span class="line" style="height:20px">                        = <span class="string" style="color:rgb(181,189,104)">&quot;dex\n035\0&quot;</span></span>
-</pre>
-</td>
-</tr>
-</tbody>
-</table>
-<p style="margin-top:0px; margin-bottom:25px"><strong>checkSum</strong>&nbsp;： 对除 magic 和 checkSum 外的剩余文件计算 adler32 校验&#20540;，目的是检测文件是否损坏；</p>
-<p style="margin-top:0px; margin-bottom:25px"><strong>signature</strong>：对除 magic、checkSum 和 signature 外的剩余文件计算 SHA-1 校验&#20540;，用来确定文件的唯一性</p>
-<p style="margin-top:0px; margin-bottom:25px"><strong>fileSize</strong>：以字节为单位，整个文件（包括头部）的大小；</p>
-<p style="margin-top:0px; margin-bottom:25px"><strong>headerSize</strong>：头部大小，0x70 字节，已经考虑到兼容性；</p>
-<p style="margin-top:0px; margin-bottom:25px"><strong>endianTag</strong>：两种字节序取&#20540;；</p>
-<table style="border-collapse:collapse; border-spacing:0px; margin:0px; width:auto; border:none; font-size:14px">
-<tbody>
-<tr style="background-color:rgb(249,249,249)">
-<td class="gutter" style="padding:0px; vertical-align:middle; border:none">
-<pre style="overflow:auto; font-family:'Input Mono','PT Mono',Consolas,Monaco,Menlo,monospace; font-size:13px; margin-top:0px; margin-bottom:0px; padding:1px 20px 1px 1px; color:rgb(102,102,102); line-height:1.6; border:none; text-align:right; background:rgb(29,31,33)"><span class="line" style="height:20px">1</span>
-<span class="line" style="height:20px">2</span>
-</pre>
-</td>
-<td class="code" style="padding:0px; vertical-align:middle; border:none">
-<pre style="overflow:auto; font-family:'Input Mono','PT Mono',Consolas,Monaco,Menlo,monospace; font-size:13px; margin-top:0px; margin-bottom:0px; padding:1px; color:rgb(197,200,198); line-height:1.6; border:none; background:rgb(29,31,33)"><span class="line" style="height:20px">uint ENDIAN_CONSTANT = <span class="number" style="color:rgb(222,147,95)">0x12345678</span><span class="comment" style="color:rgb(150,152,150)">;</span></span>
-<span class="line" style="height:20px">uint REVERSE_ENDIAN_CONSTANT = <span class="number" style="color:rgb(222,147,95)">0x78563412</span><span class="comment" style="color:rgb(150,152,150)">;</span></span>
-</pre>
-</td>
-</tr>
-</tbody>
-</table>
-<p style="margin-top:0px; margin-bottom:25px"><strong>linkSize</strong>：链接段的大小，如果没有使用静态链接，&#20540;为0；</p>
-<p style="margin-top:0px; margin-bottom:25px"><strong>linkOff</strong>：链接段的文件偏移，指向链接数据段内，如果&nbsp;<code style="font-family:'Input Mono','PT Mono',Consolas,Monaco,Menlo,monospace; font-size:1em; word-break:break-all; padding:0px 0.3em; background:rgb(238,238,238)">linkSize</code>&nbsp;为
- 0，则为 0；</p>
-<p style="margin-top:0px; margin-bottom:25px"><strong>mapOff</strong>：map item 的文件偏移，指向数据段内，数据结构为&nbsp;<code style="font-family:'Input Mono','PT Mono',Consolas,Monaco,Menlo,monospace; font-size:1em; word-break:break-all; padding:0px 0.3em; background:rgb(238,238,238)">mapList</code>，如果没有
- map，&#20540;为 0；</p>
-<p style="margin-top:0px; margin-bottom:25px"><strong>stringIdsSize</strong>：字符串 id 的个数；</p>
-<p style="margin-top:0px; margin-bottom:25px"><strong>stringIdsOff</strong>：字符串 id 清单的文件偏移，指向&nbsp;<code style="font-family:'Input Mono','PT Mono',Consolas,Monaco,Menlo,monospace; font-size:1em; word-break:break-all; padding:0px 0.3em; background:rgb(238,238,238)">stringIds</code>&nbsp;的起始地址，如果
- stringIdsSize 为 0，&#20540;为0；</p>
-<p style="margin-top:0px; margin-bottom:25px"><strong>typeIdsSize</strong>：类型标识符的个数；</p>
-<p style="margin-top:0px; margin-bottom:25px"><strong>typeIdsOff</strong>：类型标识符清单的文件偏移，指向&nbsp;<code style="font-family:'Input Mono','PT Mono',Consolas,Monaco,Menlo,monospace; font-size:1em; word-break:break-all; padding:0px 0.3em; background:rgb(238,238,238)">typeIds</code>&nbsp;的起始地址，如果
- typeIdsSize 为 0，&#20540;为 0 (<em>这就很奇怪了哟</em>)；</p>
-<p style="margin-top:0px; margin-bottom:25px"><strong>protoIdsSize</strong>：原型标识符的个数；</p>
-<p style="margin-top:0px; margin-bottom:25px"><strong>protoIdsOff</strong>：原型标识符清单的文件偏移，指向&nbsp;<code style="font-family:'Input Mono','PT Mono',Consolas,Monaco,Menlo,monospace; font-size:1em; word-break:break-all; padding:0px 0.3em; background:rgb(238,238,238)">protoIds</code>&nbsp;的起始地址，如果
- protoIdsSize 为 0，&#20540;为 0 (<em>这就很奇怪了哟</em>)；</p>
-<p style="margin-top:0px; margin-bottom:25px"><strong>fieldIdsSize</strong>：字段标识符的个数；</p>
-<p style="margin-top:0px; margin-bottom:25px"><strong>fieldIdsOff</strong>：字段标识符清单的文件偏移，指向&nbsp;<code style="font-family:'Input Mono','PT Mono',Consolas,Monaco,Menlo,monospace; font-size:1em; word-break:break-all; padding:0px 0.3em; background:rgb(238,238,238)">fieldIds</code>&nbsp;的起始地址，如果
- fieldIdsSize 为 0，&#20540;为 0；</p>
-<p style="margin-top:0px; margin-bottom:25px"><strong>methodIdsSize</strong>：方法标识符的个数；</p>
-<p style="margin-top:0px; margin-bottom:25px"><strong>methodIdsOff</strong>：方法标识符清单的文件偏移，指向&nbsp;<code style="font-family:'Input Mono','PT Mono',Consolas,Monaco,Menlo,monospace; font-size:1em; word-break:break-all; padding:0px 0.3em; background:rgb(238,238,238)">methodIds</code>&nbsp;的起始地址，如果
- methodIdsSize 为 0，&#20540;为 0；</p>
-<p style="margin-top:0px; margin-bottom:25px"><strong>classDefsSize</strong>：类的个数；</p>
-<p style="margin-top:0px; margin-bottom:25px"><strong>classDefsOff</strong>：类清单的文件偏移，指向&nbsp;<code style="font-family:'Input Mono','PT Mono',Consolas,Monaco,Menlo,monospace; font-size:1em; word-break:break-all; padding:0px 0.3em; background:rgb(238,238,238)">classDefs</code>&nbsp;的起始地址，如果
- classDefsSize 为 0，&#20540;为 0 (<em>这就很奇怪了哟</em>)；</p>
-<p style="margin-top:0px; margin-bottom:25px"><strong>dataSize</strong>：数据段的大小，以字节为单位，并且是 sizeof(uint) 的偶数倍；</p>
-<p style="margin-top:0px; margin-bottom:25px"><strong>dataOff</strong>：数据段的文件偏移。</p>
-<hr style="height:3px; margin:40px 0px; border:none; background-color:rgb(221,221,221)">
-<h3 id="手工查找" style="margin:60px 0px 15px; padding:10px 0px 0px; line-height:1; font-size:18px">
-手工查找</h3>
-<table style="border-collapse:collapse; border-spacing:0px; margin:0px; width:auto; border:none; font-size:14px">
-<tbody>
-<tr style="background-color:rgb(249,249,249)">
-<td class="gutter" style="padding:0px; vertical-align:middle; border:none">
-<pre style="overflow:auto; font-family:'Input Mono','PT Mono',Consolas,Monaco,Menlo,monospace; font-size:13px; margin-top:0px; margin-bottom:0px; padding:1px 20px 1px 1px; color:rgb(102,102,102); line-height:1.6; border:none; text-align:right; background:rgb(29,31,33)"><span class="line" style="height:20px">1</span>
-<span class="line" style="height:20px">2</span>
-<span class="line" style="height:20px">3</span>
-<span class="line" style="height:20px">4</span>
-<span class="line" style="height:20px">5</span>
-<span class="line" style="height:20px">6</span>
-<span class="line" style="height:20px">7</span>
-</pre>
-</td>
-<td class="code" style="padding:0px; vertical-align:middle; border:none">
-<pre style="overflow:auto; font-family:'Input Mono','PT Mono',Consolas,Monaco,Menlo,monospace; font-size:13px; margin-top:0px; margin-bottom:0px; padding:1px; color:rgb(197,200,198); line-height:1.6; border:none; background:rgb(29,31,33)"><span class="line" style="height:20px"><span class="number" style="color:rgb(222,147,95)">00000000</span>  <span class="number" style="color:rgb(222,147,95)">64</span> <span class="number" style="color:rgb(222,147,95)">65</span> <span class="number" style="color:rgb(222,147,95)">78</span> <span class="number" style="color:rgb(222,147,95)">0</span>a <span class="number" style="color:rgb(222,147,95)">30</span> <span class="number" style="color:rgb(222,147,95)">33</span> <span class="number" style="color:rgb(222,147,95)">35</span> <span class="number" style="color:rgb(222,147,95)">00</span>  <span class="number" style="color:rgb(222,147,95)">3</span>b ba fe c3 <span class="number" style="color:rgb(222,147,95)">83</span> <span class="number" style="color:rgb(222,147,95)">7</span>e aa be  |dex<span class="number" style="color:rgb(222,147,95)">.035</span>.;....~..|</span>
-<span class="line" style="height:20px"><span class="number" style="color:rgb(222,147,95)">00000010</span>  <span class="number" style="color:rgb(222,147,95)">09</span> <span class="number" style="color:rgb(222,147,95)">97</span> <span class="number" style="color:rgb(222,147,95)">71</span> <span class="number" style="color:rgb(222,147,95)">1</span>e <span class="number" style="color:rgb(222,147,95)">17</span> <span class="number" style="color:rgb(222,147,95)">96</span> <span class="number" style="color:rgb(222,147,95)">9f</span> e9  <span class="number" style="color:rgb(222,147,95)">0</span>c bd <span class="number" style="color:rgb(222,147,95)">01</span> <span class="number" style="color:rgb(222,147,95)">60</span> b4 <span class="number" style="color:rgb(222,147,95)">2</span>a <span class="number" style="color:rgb(222,147,95)">1</span>a c9  |..q........`.*..|</span>
-<span class="line" style="height:20px"><span class="number" style="color:rgb(222,147,95)">00000020</span>  c4 <span class="number" style="color:rgb(222,147,95)">10</span> <span class="number" style="color:rgb(222,147,95)">00</span> <span class="number" style="color:rgb(222,147,95)">00</span> <span class="number" style="color:rgb(222,147,95)">70</span> <span class="number" style="color:rgb(222,147,95)">00</span> <span class="number" style="color:rgb(222,147,95)">00</span> <span class="number" style="color:rgb(222,147,95)">00</span>  <span class="number" style="color:rgb(222,147,95)">78</span> <span class="number" style="color:rgb(222,147,95)">56</span> <span class="number" style="color:rgb(222,147,95)">34</span> <span class="number" style="color:rgb(222,147,95)">12</span> <span class="number" style="color:rgb(222,147,95)">00</span> <span class="number" style="color:rgb(222,147,95)">00</span> <span class="number" style="color:rgb(222,147,95)">00</span> <span class="number" style="color:rgb(222,147,95)">00</span>  |....p...xV4.....|</span>
-<span class="line" style="height:20px"><span class="number" style="color:rgb(222,147,95)">00000030</span>  <span class="number" style="color:rgb(222,147,95)">00</span> <span class="number" style="color:rgb(222,147,95)">00</span> <span class="number" style="color:rgb(222,147,95)">00</span> <span class="number" style="color:rgb(222,147,95)">00</span> <span class="number" style="color:rgb(222,147,95)">00</span> <span class="number" style="color:rgb(222,147,95)">10</span> <span class="number" style="color:rgb(222,147,95)">00</span> <span class="number" style="color:rgb(222,147,95)">00</span>  <span class="number" style="color:rgb(222,147,95)">5</span>c <span class="number" style="color:rgb(222,147,95)">00</span> <span class="number" style="color:rgb(222,147,95)">00</span> <span class="number" style="color:rgb(222,147,95)">00</span> <span class="number" style="color:rgb(222,147,95)">70</span> <span class="number" style="color:rgb(222,147,95)">00</span> <span class="number" style="color:rgb(222,147,95)">00</span> <span class="number" style="color:rgb(222,147,95)">00</span>  |........\...p...|</span>
-<span class="line" style="height:20px"><span class="number" style="color:rgb(222,147,95)">00000040</span>  <span class="number" style="color:rgb(222,147,95)">19</span> <span class="number" style="color:rgb(222,147,95)">00</span> <span class="number" style="color:rgb(222,147,95)">00</span> <span class="number" style="color:rgb(222,147,95)">00</span> e0 <span class="number" style="color:rgb(222,147,95)">01</span> <span class="number" style="color:rgb(222,147,95)">00</span> <span class="number" style="color:rgb(222,147,95)">00</span>  <span class="number" style="color:rgb(222,147,95)">12</span> <span class="number" style="color:rgb(222,147,95)">00</span> <span class="number" style="color:rgb(222,147,95)">00</span> <span class="number" style="color:rgb(222,147,95)">00</span> <span class="number" style="color:rgb(222,147,95)">44</span> <span class="number" style="color:rgb(222,147,95)">02</span> <span class="number" style="color:rgb(222,147,95)">00</span> <span class="number" style="color:rgb(222,147,95)">00</span>  |............D...|</span>
-<span class="line" style="height:20px"><span class="number" style="color:rgb(222,147,95)">00000050</span>  <span class="number" style="color:rgb(222,147,95)">01</span> <span class="number" style="color:rgb(222,147,95)">00</span> <span class="number" style="color:rgb(222,147,95)">00</span> <span class="number" style="color:rgb(222,147,95)">00</span> <span class="number" style="color:rgb(222,147,95)">1</span>c <span class="number" style="color:rgb(222,147,95)">03</span> <span class="number" style="color:rgb(222,147,95)">00</span> <span class="number" style="color:rgb(222,147,95)">00</span>  <span class="number" style="color:rgb(222,147,95)">2</span>b <span class="number" style="color:rgb(222,147,95)">00</span> <span class="number" style="color:rgb(222,147,95)">00</span> <span class="number" style="color:rgb(222,147,95)">00</span> <span class="number" style="color:rgb(222,147,95)">24</span> <span class="number" style="color:rgb(222,147,95)">03</span> <span class="number" style="color:rgb(222,147,95)">00</span> <span class="number" style="color:rgb(222,147,95)">00</span>  |........&#43;...$...|</span>
-<span class="line" style="height:20px"><span class="number" style="color:rgb(222,147,95)">00000060</span>  <span class="number" style="color:rgb(222,147,95)">02</span> <span class="number" style="color:rgb(222,147,95)">00</span> <span class="number" style="color:rgb(222,147,95)">00</span> <span class="number" style="color:rgb(222,147,95)">00</span> <span class="number" style="color:rgb(222,147,95)">7</span>c <span class="number" style="color:rgb(222,147,95)">04</span> <span class="number" style="color:rgb(222,147,95)">00</span> <span class="number" style="color:rgb(222,147,95)">00</span>  <span class="number" style="color:rgb(222,147,95)">08</span> <span class="number" style="color:rgb(222,147,95)">0</span>c <span class="number" style="color:rgb(222,147,95)">00</span> <span class="number" style="color:rgb(222,147,95)">00</span> bc <span class="number" style="color:rgb(222,147,95)">04</span> <span class="number" style="color:rgb(222,147,95)">00</span> <span class="number" style="color:rgb(222,147,95)">00</span>  |....|...........|</span>
-</pre>
-</td>
-</tr>
-</tbody>
-</table>
-<table style="border-collapse:collapse; border-spacing:0px; margin:20px 0px; width:899px; border:1px solid rgb(221,221,221); font-size:14px">
-<thead>
-<tr>
-<th style="padding:8px 8px 10px; vertical-align:middle; border-bottom-width:3px; border-bottom-style:solid; border-bottom-color:rgb(221,221,221); border-right-width:1px; border-right-style:solid; border-right-color:rgb(238,238,238)">
-binary</th>
-<th style="padding:8px 8px 10px; vertical-align:middle; border-bottom-width:3px; border-bottom-style:solid; border-bottom-color:rgb(221,221,221); border-right-width:1px; border-right-style:solid; border-right-color:rgb(238,238,238)">
-field</th>
-</tr>
-</thead>
-<tbody>
-<tr style="background-color:rgb(249,249,249)">
-<td style="padding:8px; vertical-align:middle; border-bottom-width:1px; border-bottom-style:solid; border-bottom-color:rgb(221,221,221); border-right-width:1px; border-right-style:solid; border-right-color:rgb(238,238,238)">
-64 65 78 0a 30 33 35 00</td>
-<td style="padding:8px; vertical-align:middle; border-bottom-width:1px; border-bottom-style:solid; border-bottom-color:rgb(221,221,221); border-right-width:1px; border-right-style:solid; border-right-color:rgb(238,238,238)">
-magic</td>
-</tr>
-<tr>
-<td style="padding:8px; vertical-align:middle; border-bottom-width:1px; border-bottom-style:solid; border-bottom-color:rgb(221,221,221); border-right-width:1px; border-right-style:solid; border-right-color:rgb(238,238,238)">
-3b ba fe c3</td>
-<td style="padding:8px; vertical-align:middle; border-bottom-width:1px; border-bottom-style:solid; border-bottom-color:rgb(221,221,221); border-right-width:1px; border-right-style:solid; border-right-color:rgb(238,238,238)">
-checksum</td>
-</tr>
-<tr style="background-color:rgb(249,249,249)">
-<td style="padding:8px; vertical-align:middle; border-bottom-width:1px; border-bottom-style:solid; border-bottom-color:rgb(221,221,221); border-right-width:1px; border-right-style:solid; border-right-color:rgb(238,238,238)">
-83 7e aa be 09 97 71 1e 17 96 9f e9 0c bd 01 60 b4 2a 1a c9</td>
-<td style="padding:8px; vertical-align:middle; border-bottom-width:1px; border-bottom-style:solid; border-bottom-color:rgb(221,221,221); border-right-width:1px; border-right-style:solid; border-right-color:rgb(238,238,238)">
-signature</td>
-</tr>
-<tr>
-<td style="padding:8px; vertical-align:middle; border-bottom-width:1px; border-bottom-style:solid; border-bottom-color:rgb(221,221,221); border-right-width:1px; border-right-style:solid; border-right-color:rgb(238,238,238)">
-c4 10 00 00</td>
-<td style="padding:8px; vertical-align:middle; border-bottom-width:1px; border-bottom-style:solid; border-bottom-color:rgb(221,221,221); border-right-width:1px; border-right-style:solid; border-right-color:rgb(238,238,238)">
-fileSize</td>
-</tr>
-<tr style="background-color:rgb(249,249,249)">
-<td style="padding:8px; vertical-align:middle; border-bottom-width:1px; border-bottom-style:solid; border-bottom-color:rgb(221,221,221); border-right-width:1px; border-right-style:solid; border-right-color:rgb(238,238,238)">
-70 00 00 00</td>
-<td style="padding:8px; vertical-align:middle; border-bottom-width:1px; border-bottom-style:solid; border-bottom-color:rgb(221,221,221); border-right-width:1px; border-right-style:solid; border-right-color:rgb(238,238,238)">
-headerSize</td>
-</tr>
-<tr>
-<td style="padding:8px; vertical-align:middle; border-bottom-width:1px; border-bottom-style:solid; border-bottom-color:rgb(221,221,221); border-right-width:1px; border-right-style:solid; border-right-color:rgb(238,238,238)">
-78 56 34 12</td>
-<td style="padding:8px; vertical-align:middle; border-bottom-width:1px; border-bottom-style:solid; border-bottom-color:rgb(221,221,221); border-right-width:1px; border-right-style:solid; border-right-color:rgb(238,238,238)">
-endianTag</td>
-</tr>
-<tr style="background-color:rgb(249,249,249)">
-<td style="padding:8px; vertical-align:middle; border-bottom-width:1px; border-bottom-style:solid; border-bottom-color:rgb(221,221,221); border-right-width:1px; border-right-style:solid; border-right-color:rgb(238,238,238)">
-00 00 00 00</td>
-<td style="padding:8px; vertical-align:middle; border-bottom-width:1px; border-bottom-style:solid; border-bottom-color:rgb(221,221,221); border-right-width:1px; border-right-style:solid; border-right-color:rgb(238,238,238)">
-linkSize</td>
-</tr>
-<tr>
-<td style="padding:8px; vertical-align:middle; border-bottom-width:1px; border-bottom-style:solid; border-bottom-color:rgb(221,221,221); border-right-width:1px; border-right-style:solid; border-right-color:rgb(238,238,238)">
-00 00 00 00</td>
-<td style="padding:8px; vertical-align:middle; border-bottom-width:1px; border-bottom-style:solid; border-bottom-color:rgb(221,221,221); border-right-width:1px; border-right-style:solid; border-right-color:rgb(238,238,238)">
-linkOff</td>
-</tr>
-<tr style="background-color:rgb(249,249,249)">
-<td style="padding:8px; vertical-align:middle; border-bottom-width:1px; border-bottom-style:solid; border-bottom-color:rgb(221,221,221); border-right-width:1px; border-right-style:solid; border-right-color:rgb(238,238,238)">
-00 10 00 00</td>
-<td style="padding:8px; vertical-align:middle; border-bottom-width:1px; border-bottom-style:solid; border-bottom-color:rgb(221,221,221); border-right-width:1px; border-right-style:solid; border-right-color:rgb(238,238,238)">
-mapOff</td>
-</tr>
-<tr>
-<td style="padding:8px; vertical-align:middle; border-bottom-width:1px; border-bottom-style:solid; border-bottom-color:rgb(221,221,221); border-right-width:1px; border-right-style:solid; border-right-color:rgb(238,238,238)">
-5c 00 00 00</td>
-<td style="padding:8px; vertical-align:middle; border-bottom-width:1px; border-bottom-style:solid; border-bottom-color:rgb(221,221,221); border-right-width:1px; border-right-style:solid; border-right-color:rgb(238,238,238)">
-stringIdsSize</td>
-</tr>
-<tr style="background-color:rgb(249,249,249)">
-<td style="padding:8px; vertical-align:middle; border-bottom-width:1px; border-bottom-style:solid; border-bottom-color:rgb(221,221,221); border-right-width:1px; border-right-style:solid; border-right-color:rgb(238,238,238)">
-70 00 00 00</td>
-<td style="padding:8px; vertical-align:middle; border-bottom-width:1px; border-bottom-style:solid; border-bottom-color:rgb(221,221,221); border-right-width:1px; border-right-style:solid; border-right-color:rgb(238,238,238)">
-stringIdsOff</td>
-</tr>
-<tr>
-<td style="padding:8px; vertical-align:middle; border-bottom-width:1px; border-bottom-style:solid; border-bottom-color:rgb(221,221,221); border-right-width:1px; border-right-style:solid; border-right-color:rgb(238,238,238)">
-19 00 00 00</td>
-<td style="padding:8px; vertical-align:middle; border-bottom-width:1px; border-bottom-style:solid; border-bottom-color:rgb(221,221,221); border-right-width:1px; border-right-style:solid; border-right-color:rgb(238,238,238)">
-typeIdsSize</td>
-</tr>
-<tr style="background-color:rgb(249,249,249)">
-<td style="padding:8px; vertical-align:middle; border-bottom-width:1px; border-bottom-style:solid; border-bottom-color:rgb(221,221,221); border-right-width:1px; border-right-style:solid; border-right-color:rgb(238,238,238)">
-e0 01 00 00</td>
-<td style="padding:8px; vertical-align:middle; border-bottom-width:1px; border-bottom-style:solid; border-bottom-color:rgb(221,221,221); border-right-width:1px; border-right-style:solid; border-right-color:rgb(238,238,238)">
-typeIdsOff</td>
-</tr>
-<tr>
-<td style="padding:8px; vertical-align:middle; border-bottom-width:1px; border-bottom-style:solid; border-bottom-color:rgb(221,221,221); border-right-width:1px; border-right-style:solid; border-right-color:rgb(238,238,238)">
-12 00 00 00</td>
-<td style="padding:8px; vertical-align:middle; border-bottom-width:1px; border-bottom-style:solid; border-bottom-color:rgb(221,221,221); border-right-width:1px; border-right-style:solid; border-right-color:rgb(238,238,238)">
-protoIdsSize</td>
-</tr>
-<tr style="background-color:rgb(249,249,249)">
-<td style="padding:8px; vertical-align:middle; border-bottom-width:1px; border-bottom-style:solid; border-bottom-color:rgb(221,221,221); border-right-width:1px; border-right-style:solid; border-right-color:rgb(238,238,238)">
-44 02 00 00</td>
-<td style="padding:8px; vertical-align:middle; border-bottom-width:1px; border-bottom-style:solid; border-bottom-color:rgb(221,221,221); border-right-width:1px; border-right-style:solid; border-right-color:rgb(238,238,238)">
-protoIdsOff</td>
-</tr>
-<tr>
-<td style="padding:8px; vertical-align:middle; border-bottom-width:1px; border-bottom-style:solid; border-bottom-color:rgb(221,221,221); border-right-width:1px; border-right-style:solid; border-right-color:rgb(238,238,238)">
-01 00 00 00</td>
-<td style="padding:8px; vertical-align:middle; border-bottom-width:1px; border-bottom-style:solid; border-bottom-color:rgb(221,221,221); border-right-width:1px; border-right-style:solid; border-right-color:rgb(238,238,238)">
-fieldIdsSize</td>
-</tr>
-<tr style="background-color:rgb(249,249,249)">
-<td style="padding:8px; vertical-align:middle; border-bottom-width:1px; border-bottom-style:solid; border-bottom-color:rgb(221,221,221); border-right-width:1px; border-right-style:solid; border-right-color:rgb(238,238,238)">
-1c 03 00 00</td>
-<td style="padding:8px; vertical-align:middle; border-bottom-width:1px; border-bottom-style:solid; border-bottom-color:rgb(221,221,221); border-right-width:1px; border-right-style:solid; border-right-color:rgb(238,238,238)">
-fieldIdsOff</td>
-</tr>
-<tr>
-<td style="padding:8px; vertical-align:middle; border-bottom-width:1px; border-bottom-style:solid; border-bottom-color:rgb(221,221,221); border-right-width:1px; border-right-style:solid; border-right-color:rgb(238,238,238)">
-2b 00 00 00</td>
-<td style="padding:8px; vertical-align:middle; border-bottom-width:1px; border-bottom-style:solid; border-bottom-color:rgb(221,221,221); border-right-width:1px; border-right-style:solid; border-right-color:rgb(238,238,238)">
-methodIdsSize</td>
-</tr>
-<tr style="background-color:rgb(249,249,249)">
-<td style="padding:8px; vertical-align:middle; border-bottom-width:1px; border-bottom-style:solid; border-bottom-color:rgb(221,221,221); border-right-width:1px; border-right-style:solid; border-right-color:rgb(238,238,238)">
-24 03 00 00</td>
-<td style="padding:8px; vertical-align:middle; border-bottom-width:1px; border-bottom-style:solid; border-bottom-color:rgb(221,221,221); border-right-width:1px; border-right-style:solid; border-right-color:rgb(238,238,238)">
-methodIdsOff</td>
-</tr>
-<tr>
-<td style="padding:8px; vertical-align:middle; border-bottom-width:1px; border-bottom-style:solid; border-bottom-color:rgb(221,221,221); border-right-width:1px; border-right-style:solid; border-right-color:rgb(238,238,238)">
-02 00 00 00</td>
-<td style="padding:8px; vertical-align:middle; border-bottom-width:1px; border-bottom-style:solid; border-bottom-color:rgb(221,221,221); border-right-width:1px; border-right-style:solid; border-right-color:rgb(238,238,238)">
-classDefsSize</td>
-</tr>
-<tr style="background-color:rgb(249,249,249)">
-<td style="padding:8px; vertical-align:middle; border-bottom-width:1px; border-bottom-style:solid; border-bottom-color:rgb(221,221,221); border-right-width:1px; border-right-style:solid; border-right-color:rgb(238,238,238)">
-7c 04 00 00</td>
-<td style="padding:8px; vertical-align:middle; border-bottom-width:1px; border-bottom-style:solid; border-bottom-color:rgb(221,221,221); border-right-width:1px; border-right-style:solid; border-right-color:rgb(238,238,238)">
-classDefsOff</td>
-</tr>
-<tr>
-<td style="padding:8px; vertical-align:middle; border-bottom-width:1px; border-bottom-style:solid; border-bottom-color:rgb(221,221,221); border-right-width:1px; border-right-style:solid; border-right-color:rgb(238,238,238)">
-08 0c 00 00</td>
-<td style="padding:8px; vertical-align:middle; border-bottom-width:1px; border-bottom-style:solid; border-bottom-color:rgb(221,221,221); border-right-width:1px; border-right-style:solid; border-right-color:rgb(238,238,238)">
-dataSize</td>
-</tr>
-<tr style="background-color:rgb(249,249,249)">
-<td style="padding:8px; vertical-align:middle; border-bottom-width:1px; border-bottom-style:solid; border-bottom-color:rgb(221,221,221); border-right-width:1px; border-right-style:solid; border-right-color:rgb(238,238,238)">
-bc 04 00 00</td>
-<td style="padding:8px; vertical-align:middle; border-bottom-width:1px; border-bottom-style:solid; border-bottom-color:rgb(221,221,221); border-right-width:1px; border-right-style:solid; border-right-color:rgb(238,238,238)">
-dataOff</td>
-</tr>
-</tbody>
-</table>
-<hr style="height:3px; margin:40px 0px; border:none; background-color:rgb(221,221,221)">
-<h3 id="写程序解析_DexHeader" style="margin:60px 0px 15px; padding:10px 0px 0px; line-height:1; font-size:18px">
-写程序解析 DexHeader</h3>
-<table style="border-collapse:collapse; border-spacing:0px; margin:0px; width:auto; border:none; font-size:14px">
-<tbody>
-<tr style="background-color:rgb(249,249,249)">
-<td class="gutter" style="padding:0px; vertical-align:middle; border:none">
-<pre style="overflow:auto; font-family:'Input Mono','PT Mono',Consolas,Monaco,Menlo,monospace; font-size:13px; margin-top:0px; margin-bottom:0px; padding:1px 20px 1px 1px; color:rgb(102,102,102); line-height:1.6; border:none; text-align:right; background:rgb(29,31,33)"><span class="line" style="height:20px">1</span>
-<span class="line" style="height:20px">2</span>
-<span class="line" style="height:20px">3</span>
-<span class="line" style="height:20px">4</span>
-<span class="line" style="height:20px">5</span>
-<span class="line" style="height:20px">6</span>
-<span class="line" style="height:20px">7</span>
-<span class="line" style="height:20px">8</span>
-<span class="line" style="height:20px">9</span>
-<span class="line" style="height:20px">10</span>
-<span class="line" style="height:20px">11</span>
-<span class="line" style="height:20px">12</span>
-<span class="line" style="height:20px">13</span>
-<span class="line" style="height:20px">14</span>
-<span class="line" style="height:20px">15</span>
-<span class="line" style="height:20px">16</span>
-<span class="line" style="height:20px">17</span>
-<span class="line" style="height:20px">18</span>
-<span class="line" style="height:20px">19</span>
-<span class="line" style="height:20px">20</span>
-<span class="line" style="height:20px">21</span>
-<span class="line" style="height:20px">22</span>
-<span class="line" style="height:20px">23</span>
-<span class="line" style="height:20px">24</span>
-<span class="line" style="height:20px">25</span>
-<span class="line" style="height:20px">26</span>
-<span class="line" style="height:20px">27</span>
-<span class="line" style="height:20px">28</span>
-<span class="line" style="height:20px">29</span>
-<span class="line" style="height:20px">30</span>
-<span class="line" style="height:20px">31</span>
-<span class="line" style="height:20px">32</span>
-<span class="line" style="height:20px">33</span>
-<span class="line" style="height:20px">34</span>
-<span class="line" style="height:20px">35</span>
-<span class="line" style="height:20px">36</span>
-<span class="line" style="height:20px">37</span>
-<span class="line" style="height:20px">38</span>
-<span class="line" style="height:20px">39</span>
-<span class="line" style="height:20px">40</span>
-<span class="line" style="height:20px">41</span>
-<span class="line" style="height:20px">42</span>
-<span class="line" style="height:20px">43</span>
-<span class="line" style="height:20px">44</span>
-<span class="line" style="height:20px">45</span>
-<span class="line" style="height:20px">46</span>
-<span class="line" style="height:20px">47</span>
-<span class="line" style="height:20px">48</span>
-<span class="line" style="height:20px">49</span>
-<span class="line" style="height:20px">50</span>
-<span class="line" style="height:20px">51</span>
-<span class="line" style="height:20px">52</span>
-<span class="line" style="height:20px">53</span>
-<span class="line" style="height:20px">54</span>
-<span class="line" style="height:20px">55</span>
-<span class="line" style="height:20px">56</span>
-<span class="line" style="height:20px">57</span>
-<span class="line" style="height:20px">58</span>
-<span class="line" style="height:20px">59</span>
-<span class="line" style="height:20px">60</span>
-<span class="line" style="height:20px">61</span>
-<span class="line" style="height:20px">62</span>
-<span class="line" style="height:20px">63</span>
-<span class="line" style="height:20px">64</span>
-<span class="line" style="height:20px">65</span>
-<span class="line" style="height:20px">66</span>
-<span class="line" style="height:20px">67</span>
-<span class="line" style="height:20px">68</span>
-<span class="line" style="height:20px">69</span>
-<span class="line" style="height:20px">70</span>
-</pre>
-</td>
-<td class="code" style="padding:0px; vertical-align:middle; border:none">
-<pre style="overflow:auto; font-family:'Input Mono','PT Mono',Consolas,Monaco,Menlo,monospace; font-size:13px; margin-top:0px; margin-bottom:0px; padding:1px; color:rgb(197,200,198); line-height:1.6; border:none; background:rgb(29,31,33)"><span class="line" style="height:20px"><span class="atom">import</span> <span class="atom">struct</span></span>
-<span class="line" style="height:20px"></span>
-<span class="line" style="height:20px"><span class="atom">class</span> <span class="name">DexStruct</span>(<span class="atom">object</span>):</span>
-<span class="line" style="height:20px">    <span class="name">DexHeader</span> = {</span>
-<span class="line" style="height:20px">          <span class="string" style="color:rgb(181,189,104)">&quot;magic&quot;</span>: <span class="number" style="color:rgb(222,147,95)">0</span>,</span>
-<span class="line" style="height:20px">          <span class="string" style="color:rgb(181,189,104)">&quot;checkSum&quot;</span>: <span class="number" style="color:rgb(222,147,95)">0</span>,</span>
-<span class="line" style="height:20px">          <span class="string" style="color:rgb(181,189,104)">'signature'</span>: <span class="number" style="color:rgb(222,147,95)">0</span>,</span>
-<span class="line" style="height:20px">          <span class="string" style="color:rgb(181,189,104)">'fileSize'</span>: <span class="number" style="color:rgb(222,147,95)">0</span>,</span>
-<span class="line" style="height:20px">          <span class="string" style="color:rgb(181,189,104)">&quot;headerSize&quot;</span>: <span class="number" style="color:rgb(222,147,95)">0</span>,</span>
-<span class="line" style="height:20px">          <span class="string" style="color:rgb(181,189,104)">&quot;endianTag&quot;</span>: <span class="number" style="color:rgb(222,147,95)">0</span>,</span>
-<span class="line" style="height:20px">          <span class="string" style="color:rgb(181,189,104)">&quot;linkSize&quot;</span>: <span class="number" style="color:rgb(222,147,95)">0</span>,</span>
-<span class="line" style="height:20px">          <span class="string" style="color:rgb(181,189,104)">&quot;linkOff&quot;</span>: <span class="number" style="color:rgb(222,147,95)">0</span>,</span>
-<span class="line" style="height:20px">          <span class="string" style="color:rgb(181,189,104)">&quot;mapOff&quot;</span>: <span class="number" style="color:rgb(222,147,95)">0</span>,</span>
-<span class="line" style="height:20px">          <span class="string" style="color:rgb(181,189,104)">&quot;stringIdsSize&quot;</span>: <span class="number" style="color:rgb(222,147,95)">0</span>,</span>
-<span class="line" style="height:20px">          <span class="string" style="color:rgb(181,189,104)">&quot;stringIdsOff&quot;</span>: <span class="number" style="color:rgb(222,147,95)">0</span>,</span>
-<span class="line" style="height:20px">          <span class="string" style="color:rgb(181,189,104)">&quot;typeIdsSize&quot;</span>: <span class="number" style="color:rgb(222,147,95)">0</span>,</span>
-<span class="line" style="height:20px">          <span class="string" style="color:rgb(181,189,104)">&quot;typeIdsOff&quot;</span>: <span class="number" style="color:rgb(222,147,95)">0</span>,</span>
-<span class="line" style="height:20px">          <span class="string" style="color:rgb(181,189,104)">&quot;protoIdsSize&quot;</span>: <span class="number" style="color:rgb(222,147,95)">0</span>,</span>
-<span class="line" style="height:20px">          <span class="string" style="color:rgb(181,189,104)">&quot;protoIdsOff&quot;</span>: <span class="number" style="color:rgb(222,147,95)">0</span>,</span>
-<span class="line" style="height:20px">          <span class="string" style="color:rgb(181,189,104)">&quot;fieldIdsSize&quot;</span>: <span class="number" style="color:rgb(222,147,95)">0</span>,</span>
-<span class="line" style="height:20px">          <span class="string" style="color:rgb(181,189,104)">&quot;fieldIdsOff&quot;</span>: <span class="number" style="color:rgb(222,147,95)">0</span>,</span>
-<span class="line" style="height:20px">          <span class="string" style="color:rgb(181,189,104)">&quot;methodIdsSize&quot;</span>: <span class="number" style="color:rgb(222,147,95)">0</span>,</span>
-<span class="line" style="height:20px">          <span class="string" style="color:rgb(181,189,104)">&quot;methodIdsOff&quot;</span>: <span class="number" style="color:rgb(222,147,95)">0</span>,</span>
-<span class="line" style="height:20px">          <span class="string" style="color:rgb(181,189,104)">&quot;classDefsSize&quot;</span>: <span class="number" style="color:rgb(222,147,95)">0</span>,</span>
-<span class="line" style="height:20px">          <span class="string" style="color:rgb(181,189,104)">&quot;classDefsOff&quot;</span>: <span class="number" style="color:rgb(222,147,95)">0</span>,</span>
-<span class="line" style="height:20px">          <span class="string" style="color:rgb(181,189,104)">&quot;dataSize&quot;</span>: <span class="number" style="color:rgb(222,147,95)">0</span>,</span>
-<span class="line" style="height:20px">          <span class="string" style="color:rgb(181,189,104)">&quot;dataOff&quot;</span>: <span class="number" style="color:rgb(222,147,95)">0</span>,   }</span>
-<span class="line" style="height:20px"></span>
-<span class="line" style="height:20px"></span>
-<span class="line" style="height:20px"><span class="atom">def</span> <span class="atom">parseHeader</span>(<span class="atom">header_data</span>):</span>
-<span class="line" style="height:20px"></span>
-<span class="line" style="height:20px">        <span class="atom">header_list</span> = [<span class="atom">header_data</span>[<span class="atom">i</span>:<span class="atom">i</span>&#43;<span class="number" style="color:rgb(222,147,95)">4</span>] <span class="atom">for</span> <span class="atom">i</span> <span class="atom">in</span> <span class="atom">range</span>(<span class="number" style="color:rgb(222,147,95)">32</span>,<span class="number" style="color:rgb(222,147,95)">112</span>,<span class="number" style="color:rgb(222,147,95)">4</span>)]</span>
-<span class="line" style="height:20px">        <span class="atom">header_list</span>.<span class="atom">insert</span>(<span class="number" style="color:rgb(222,147,95)">0</span>,<span class="atom">header_data</span>[<span class="number" style="color:rgb(222,147,95)">12</span>:<span class="number" style="color:rgb(222,147,95)">32</span>])</span>
-<span class="line" style="height:20px">        <span class="atom">header_list</span>.<span class="atom">insert</span>(<span class="number" style="color:rgb(222,147,95)">0</span>,<span class="atom">header_data</span>[<span class="number" style="color:rgb(222,147,95)">8</span>:<span class="number" style="color:rgb(222,147,95)">12</span>])</span>
-<span class="line" style="height:20px">        <span class="atom">header_list</span>.<span class="atom">insert</span>(<span class="number" style="color:rgb(222,147,95)">0</span>,<span class="atom">header_data</span>[:<span class="number" style="color:rgb(222,147,95)">8</span>])</span>
-<span class="line" style="height:20px"></span>
-<span class="line" style="height:20px">        <span class="name">DexStruct</span>.<span class="name">DexHeader</span>[<span class="string" style="color:rgb(181,189,104)">'magic'</span>] = <span class="atom">struct</span>.<span class="atom">unpack</span>(<span class="string" style="color:rgb(181,189,104)">'8s'</span>,<span class="atom">header_list</span>[<span class="number" style="color:rgb(222,147,95)">0</span>])[<span class="number" style="color:rgb(222,147,95)">0</span>]</span>
-<span class="line" style="height:20px">        <span class="atom">if</span> <span class="name">DexStruct</span>.<span class="name">DexHeader</span>[<span class="string" style="color:rgb(181,189,104)">'magic'</span>] != <span class="string" style="color:rgb(181,189,104)">&quot;dex\n035\0&quot;</span>:</span>
-<span class="line" style="height:20px">            <span class="atom">print</span> <span class="string" style="color:rgb(181,189,104)">'invalid dex file.'</span></span>
-<span class="line" style="height:20px">            <span class="atom">exit</span>(-<span class="number" style="color:rgb(222,147,95)">1</span>)</span>
-<span class="line" style="height:20px">        <span class="name">DexStruct</span>.<span class="name">DexHeader</span>[<span class="string" style="color:rgb(181,189,104)">'checkSum'</span>] = <span class="atom">struct</span>.<span class="atom">unpack</span>(<span class="string" style="color:rgb(181,189,104)">'I'</span>,<span class="atom">header_list</span>[<span class="number" style="color:rgb(222,147,95)">1</span>])[<span class="number" style="color:rgb(222,147,95)">0</span>]</span>
-<span class="line" style="height:20px">        <span class="name">DexStruct</span>.<span class="name">DexHeader</span>[<span class="string" style="color:rgb(181,189,104)">'signature'</span>] = <span class="atom">struct</span>.<span class="atom">unpack</span>(<span class="string" style="color:rgb(181,189,104)">'20s'</span>,<span class="atom">header_list</span>[<span class="number" style="color:rgb(222,147,95)">2</span>])[<span class="number" style="color:rgb(222,147,95)">0</span>]</span>
-<span class="line" style="height:20px">        <span class="name">DexStruct</span>.<span class="name">DexHeader</span>[<span class="string" style="color:rgb(181,189,104)">'fileSize'</span>] = <span class="atom">struct</span>.<span class="atom">unpack</span>(<span class="string" style="color:rgb(181,189,104)">'I'</span>,<span class="atom">header_list</span>[<span class="number" style="color:rgb(222,147,95)">3</span>])[<span class="number" style="color:rgb(222,147,95)">0</span>]</span>
-<span class="line" style="height:20px">        <span class="name">DexStruct</span>.<span class="name">DexHeader</span>[<span class="string" style="color:rgb(181,189,104)">'headerSize'</span>] = <span class="atom">struct</span>.<span class="atom">unpack</span>(<span class="string" style="color:rgb(181,189,104)">'I'</span>,<span class="atom">header_list</span>[<span class="number" style="color:rgb(222,147,95)">4</span>])[<span class="number" style="color:rgb(222,147,95)">0</span>]</span>
-<span class="line" style="height:20px">        <span class="name">DexStruct</span>.<span class="name">DexHeader</span>[<span class="string" style="color:rgb(181,189,104)">'endianTag'</span>] = <span class="atom">struct</span>.<span class="atom">unpack</span>(<span class="string" style="color:rgb(181,189,104)">'I'</span>,<span class="atom">header_list</span>[<span class="number" style="color:rgb(222,147,95)">5</span>])[<span class="number" style="color:rgb(222,147,95)">0</span>]</span>
-<span class="line" style="height:20px">        <span class="name">DexStruct</span>.<span class="name">DexHeader</span>[<span class="string" style="color:rgb(181,189,104)">'linkSize'</span>] = <span class="atom">struct</span>.<span class="atom">unpack</span>(<span class="string" style="color:rgb(181,189,104)">'I'</span>,<span class="atom">header_list</span>[<span class="number" style="color:rgb(222,147,95)">6</span>])[<span class="number" style="color:rgb(222,147,95)">0</span>]</span>
-<span class="line" style="height:20px">        <span class="name">DexStruct</span>.<span class="name">DexHeader</span>[<span class="string" style="color:rgb(181,189,104)">'linkOff'</span>] = <span class="atom">struct</span>.<span class="atom">unpack</span>(<span class="string" style="color:rgb(181,189,104)">'I'</span>,<span class="atom">header_list</span>[<span class="number" style="color:rgb(222,147,95)">7</span>])[<span class="number" style="color:rgb(222,147,95)">0</span>]</span>
-<span class="line" style="height:20px">        <span class="name">DexStruct</span>.<span class="name">DexHeader</span>[<span class="string" style="color:rgb(181,189,104)">'mapOff'</span>] = <span class="atom">struct</span>.<span class="atom">unpack</span>(<span class="string" style="color:rgb(181,189,104)">'I'</span>,<span class="atom">header_list</span>[<span class="number" style="color:rgb(222,147,95)">8</span>])[<span class="number" style="color:rgb(222,147,95)">0</span>]</span>
-<span class="line" style="height:20px">        <span class="name">DexStruct</span>.<span class="name">DexHeader</span>[<span class="string" style="color:rgb(181,189,104)">'stringIdsSize'</span>] = <span class="atom">struct</span>.<span class="atom">unpack</span>(<span class="string" style="color:rgb(181,189,104)">'I'</span>,<span class="atom">header_list</span>[<span class="number" style="color:rgb(222,147,95)">9</span>])[<span class="number" style="color:rgb(222,147,95)">0</span>]</span>
-<span class="line" style="height:20px">        <span class="name">DexStruct</span>.<span class="name">DexHeader</span>[<span class="string" style="color:rgb(181,189,104)">'stringIdsOff'</span>] = <span class="atom">struct</span>.<span class="atom">unpack</span>(<span class="string" style="color:rgb(181,189,104)">'I'</span>,<span class="atom">header_list</span>[<span class="number" style="color:rgb(222,147,95)">10</span>])[<span class="number" style="color:rgb(222,147,95)">0</span>]</span>
-<span class="line" style="height:20px">        <span class="name">DexStruct</span>.<span class="name">DexHeader</span>[<span class="string" style="color:rgb(181,189,104)">'typeIdsSize'</span>] = <span class="atom">struct</span>.<span class="atom">unpack</span>(<span class="string" style="color:rgb(181,189,104)">'I'</span>,<span class="atom">header_list</span>[<span class="number" style="color:rgb(222,147,95)">11</span>])[<span class="number" style="color:rgb(222,147,95)">0</span>]</span>
-<span class="line" style="height:20px">        <span class="name">DexStruct</span>.<span class="name">DexHeader</span>[<span class="string" style="color:rgb(181,189,104)">'typeIdsOff'</span>] = <span class="atom">struct</span>.<span class="atom">unpack</span>(<span class="string" style="color:rgb(181,189,104)">'I'</span>,<span class="atom">header_list</span>[<span class="number" style="color:rgb(222,147,95)">12</span>])[<span class="number" style="color:rgb(222,147,95)">0</span>]</span>
-<span class="line" style="height:20px">        <span class="name">DexStruct</span>.<span class="name">DexHeader</span>[<span class="string" style="color:rgb(181,189,104)">'protoIdsSize'</span>] = <span class="atom">struct</span>.<span class="atom">unpack</span>(<span class="string" style="color:rgb(181,189,104)">'I'</span>,<span class="atom">header_list</span>[<span class="number" style="color:rgb(222,147,95)">13</span>])[<span class="number" style="color:rgb(222,147,95)">0</span>]</span>
-<span class="line" style="height:20px">        <span class="name">DexStruct</span>.<span class="name">DexHeader</span>[<span class="string" style="color:rgb(181,189,104)">'protoIdsOff'</span>] = <span class="atom">struct</span>.<span class="atom">unpack</span>(<span class="string" style="color:rgb(181,189,104)">'I'</span>,<span class="atom">header_list</span>[<span class="number" style="color:rgb(222,147,95)">14</span>])[<span class="number" style="color:rgb(222,147,95)">0</span>]</span>
-<span class="line" style="height:20px">        <span class="name">DexStruct</span>.<span class="name">DexHeader</span>[<span class="string" style="color:rgb(181,189,104)">'fieldIdsSize'</span>] = <span class="atom">struct</span>.<span class="atom">unpack</span>(<span class="string" style="color:rgb(181,189,104)">'I'</span>,<span class="atom">header_list</span>[<span class="number" style="color:rgb(222,147,95)">15</span>])[<span class="number" style="color:rgb(222,147,95)">0</span>]</span>
-<span class="line" style="height:20px">        <span class="name">DexStruct</span>.<span class="name">DexHeader</span>[<span class="string" style="color:rgb(181,189,104)">'fieldIdsOff'</span>] = <span class="atom">struct</span>.<span class="atom">unpack</span>(<span class="string" style="color:rgb(181,189,104)">'I'</span>,<span class="atom">header_list</span>[<span class="number" style="color:rgb(222,147,95)">16</span>])[<span class="number" style="color:rgb(222,147,95)">0</span>]</span>
-<span class="line" style="height:20px">        <span class="name">DexStruct</span>.<span class="name">DexHeader</span>[<span class="string" style="color:rgb(181,189,104)">'methodIdsSize'</span>] = <span class="atom">struct</span>.<span class="atom">unpack</span>(<span class="string" style="color:rgb(181,189,104)">'I'</span>,<span class="atom">header_list</span>[<span class="number" style="color:rgb(222,147,95)">17</span>])[<span class="number" style="color:rgb(222,147,95)">0</span>]</span>
-<span class="line" style="height:20px">        <span class="name">DexStruct</span>.<span class="name">DexHeader</span>[<span class="string" style="color:rgb(181,189,104)">'methodIdsOff'</span>] = <span class="atom">struct</span>.<span class="atom">unpack</span>(<span class="string" style="color:rgb(181,189,104)">'I'</span>,<span class="atom">header_list</span>[<span class="number" style="color:rgb(222,147,95)">18</span>])[<span class="number" style="color:rgb(222,147,95)">0</span>]</span>
-<span class="line" style="height:20px">        <span class="name">DexStruct</span>.<span class="name">DexHeader</span>[<span class="string" style="color:rgb(181,189,104)">'classDefsSize'</span>] = <span class="atom">struct</span>.<span class="atom">unpack</span>(<span class="string" style="color:rgb(181,189,104)">'I'</span>,<span class="atom">header_list</span>[<span class="number" style="color:rgb(222,147,95)">19</span>])[<span class="number" style="color:rgb(222,147,95)">0</span>]</span>
-<span class="line" style="height:20px">        <span class="name">DexStruct</span>.<span class="name">DexHeader</span>[<span class="string" style="color:rgb(181,189,104)">'classDefsOff'</span>] = <span class="atom">struct</span>.<span class="atom">unpack</span>(<span class="string" style="color:rgb(181,189,104)">'I'</span>,<span class="atom">header_list</span>[<span class="number" style="color:rgb(222,147,95)">20</span>])[<span class="number" style="color:rgb(222,147,95)">0</span>]</span>
-<span class="line" style="height:20px">        <span class="name">DexStruct</span>.<span class="name">DexHeader</span>[<span class="string" style="color:rgb(181,189,104)">'dataSize'</span>] = <span class="atom">struct</span>.<span class="atom">unpack</span>(<span class="string" style="color:rgb(181,189,104)">'I'</span>,<span class="atom">header_list</span>[<span class="number" style="color:rgb(222,147,95)">21</span>])[<span class="number" style="color:rgb(222,147,95)">0</span>]</span>
-<span class="line" style="height:20px">        <span class="name">DexStruct</span>.<span class="name">DexHeader</span>[<span class="string" style="color:rgb(181,189,104)">'dataOff'</span>] = <span class="atom">struct</span>.<span class="atom">unpack</span>(<span class="string" style="color:rgb(181,189,104)">'I'</span>,<span class="atom">header_list</span>[<span class="number" style="color:rgb(222,147,95)">22</span>])[<span class="number" style="color:rgb(222,147,95)">0</span>]</span>
-<span class="line" style="height:20px"></span>
-<span class="line" style="height:20px"></span>
-<span class="line" style="height:20px"><span class="atom">if</span> <span class="name">__name__</span> == <span class="string" style="color:rgb(181,189,104)">'__main__'</span>:</span>
-<span class="line" style="height:20px"></span>
-<span class="line" style="height:20px">    <span class="atom">with</span> <span class="atom">open</span>(<span class="string" style="color:rgb(181,189,104)">&quot;classes.dex&quot;</span>, <span class="string" style="color:rgb(181,189,104)">'rb'</span>) <span class="atom">as</span> <span class="atom">f</span>:</span>
-<span class="line" style="height:20px">        <span class="atom">parseHeader</span>(<span class="atom">f</span>.<span class="atom">read</span>(<span class="number" style="color:rgb(222,147,95)">0x70</span>))</span>
-<span class="line" style="height:20px">        <span class="atom">for</span> <span class="atom">x</span> <span class="atom">in</span> <span class="name">DexStruct</span>.<span class="name">DexHeader</span>:</span>
-<span class="line" style="height:20px">            <span class="atom">print</span> <span class="atom">x</span>, <span class="atom">hex</span>(<span class="name">DexStruct</span>.<span class="name">DexHeader</span>[<span class="atom">x</span>])</span>
-</pre>
-</td>
-</tr>
-</tbody>
-</table>
-<hr style="height:3px; margin:40px 0px; border:none; background-color:rgb(221,221,221)">
-<h3 id="Reference" style="margin:60px 0px 15px; padding:10px 0px 0px; line-height:1; font-size:18px">
-Reference</h3>
-<p style="margin-top:0px; margin-bottom:25px"><a target="_blank" href="http://www.ituring.com.cn/book/1131" rel="external" style="color:rgb(85,85,85); text-decoration:none; border-bottom-width:1px; border-bottom-style:solid; border-bottom-color:rgb(153,153,153); word-wrap:break-word; background-color:transparent">《Android
- 软件安全与逆向分析》</a></p>
-<p style="margin-top:0px; margin-bottom:25px"><a target="_blank" href="http://www.blogfshare.com/dex-format.html" rel="external" style="color:rgb(85,85,85); text-decoration:none; border-bottom-width:1px; border-bottom-style:solid; border-bottom-color:rgb(153,153,153); word-wrap:break-word; background-color:transparent">Android安全–Dex文件&#26684;式详解</a></p>
-</div>
-<div class="post-tags" style="margin-top:40px; text-align:center"><a target="_blank" href="http://kiya-z.github.io/tags/Android-%E5%AE%89%E5%85%A8/" rel="tag" style="color:rgb(85,85,85); text-decoration:none; border-bottom-width:1px; border-bottom-style:solid; border-bottom-color:rgb(153,153,153); word-wrap:break-word; display:inline-block; margin-right:10px; font-size:13px; background-color:transparent">#Android
- 安全</a>&nbsp;<a target="_blank" href="http://kiya-z.github.io/tags/dex/" rel="tag" style="color:rgb(85,85,85); text-decoration:none; border-bottom-width:1px; border-bottom-style:solid; border-bottom-color:rgb(153,153,153); word-wrap:break-word; display:inline-block; margin-right:10px; font-size:13px; background-color:transparent">#dex</a></div>
-<br>
-<p></p>
 ]]></content>
     <summary type="html">
     <![CDATA[ ]]>

@@ -4,7 +4,7 @@
   <subtitle><![CDATA[coding]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://hanks.xyz/"/>
-  <updated>2016-01-03T15:34:21.468Z</updated>
+  <updated>2016-01-03T15:54:03.812Z</updated>
   <id>http://hanks.xyz/</id>
   
   <author>
@@ -19,8 +19,8 @@
     <link href="http://hanks.xyz/2016/01/03/android-hotfix/"/>
     <id>http://hanks.xyz/2016/01/03/android-hotfix/</id>
     <published>2016-01-03T15:27:05.000Z</published>
-    <updated>2016-01-03T15:34:21.468Z</updated>
-    <content type="html"><![CDATA[<p>前段时间热修复这个词编的非常火,当时只是大体看了一下,今天抽空好好看了一下具体原理.<br><a id="more"></a></p>
+    <updated>2016-01-03T15:54:03.812Z</updated>
+    <content type="html"><![CDATA[<p>前段时间热修复这个词非常火,当时只是大体看了一下,今天抽空好好看了一下具体原理.<br><a id="more"></a></p>
 <h3 id="什么是热修复?">什么是热修复?</h3><p>简单的说就是用户不用重新下载一个新的apk安装,而是直接下载一个补丁包,通过补丁来替换一些出现bug的类, 当然下载补丁的过程用户一般是感觉不到的,表面上看是直接修复了bug.</p>
 <h3 id="原理">原理</h3><p>类似与插件开发,关于插件开发原理,看这篇<a href="http://www.alloyteam.com/2014/04/android-cha-jian-yuan-li-pou-xi/" target="_blank" rel="external">Android插件原理剖析</a>,其中介绍了一下java中的类加载器和android中的类加载器. 热修复就是利用android中的 <code>DexClassLoader</code>类加载器,动态加载补丁dex,替换有bug的类</p>
 <p>已有的热修复解决方案:</p>
@@ -59,7 +59,7 @@
 </ul>
 ]]></content>
     <summary type="html">
-    <![CDATA[<p>前段时间热修复这个词编的非常火,当时只是大体看了一下,今天抽空好好看了一下具体原理.<br>]]>
+    <![CDATA[<p>前段时间热修复这个词非常火,当时只是大体看了一下,今天抽空好好看了一下具体原理.<br>]]>
     
     </summary>
     

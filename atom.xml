@@ -4,7 +4,7 @@
   <subtitle><![CDATA[coding]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://hanks.xyz/"/>
-  <updated>2016-01-03T15:54:03.812Z</updated>
+  <updated>2016-01-05T14:48:03.000Z</updated>
   <id>http://hanks.xyz/</id>
   
   <author>
@@ -15,11 +15,43 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title><![CDATA[Android 动手实现热修复]]></title>
+    <link href="http://hanks.xyz/2016/01/05/android-myhotfix/"/>
+    <id>http://hanks.xyz/2016/01/05/android-myhotfix/</id>
+    <published>2016-01-04T17:46:39.000Z</published>
+    <updated>2016-01-05T14:48:03.000Z</updated>
+    <content type="html"><![CDATA[<p>有了前面文章的理论支持,下面动手自己写一下热修复.<br><a id="more"></a></p>
+<h2 id="创建工程">创建工程</h2><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">├── main                                                                                      </span><br><span class="line">│   ├── AndroidManifest<span class="class">.xml</span>                                                                   </span><br><span class="line">│   ├── java                                                                                  </span><br><span class="line">│   │   └── xyz                                                                               </span><br><span class="line">│   │       └── hanks                                                                         </span><br><span class="line">│   │           └── fix                                                                       </span><br><span class="line">│   │               ├── BugClass<span class="class">.java</span>                                                         </span><br><span class="line">│   │               ├── FixApplication<span class="class">.java</span>                                                   </span><br><span class="line">│   │               └── MainActivity.java</span><br></pre></td></tr></table></figure>
+<p>通过Android Studio创建一个工程. <code>BugClass</code> 类是需要修复的类, <code>MainActivity</code>是主Activity, <code>FixApplication</code>是自定义的Application. 初始的MainActivity如下</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MainActivity</span> <span class="keyword">extends</span> <span class="title">AppCompatActivity</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="annotation">@Override</span> <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState);</span><br><span class="line">        setContentView(R.layout.activity_main);</span><br><span class="line">        TextView textView = (TextView) findViewById(R.id.text);</span><br><span class="line">        textView.setText(<span class="keyword">new</span> BugClass().showToast(<span class="string">"Happy new year"</span>));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span><br><span class="line"> * Created by hanks on 16-1-2.</span><br><span class="line"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BugClass</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">showToast</span><span class="params">(String content)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> content;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>现在运行程序,界面的文本显示成文字 <strong>Happy new year</strong>,<code>MainActivity</code>类会被加上 <strong>CLASS_ISPREVERIFIED</strong> 标志,因为BugClass 和 MainActivity 都属于同一个dex. 如果现在直接加载补丁包中的 <strong>BugClass</strong> 类,那么就会出现 <code>Class ref in pre-verified class resolved to unexpected implementation</code> 错误.</p>
+<h2 id="引用hack-dex,防止类加上CLASS_ISPREVERIFIED">引用hack.dex,防止类加上CLASS_ISPREVERIFIED</h2><p>因为我们要修复<code>BugClass</code>类,而调用是在<code>MainActivity</code>中,也就是说,当打上补丁包之后,<code>MainActivity</code>调用的<code>BugClass</code>将会是补丁包中的<code>BugClass</code>(也就是来自于其他的dex),那么我就就需要防止<code>MainActivity</code>被加上 <strong>CLASS_ISPREVERIFIED</strong> 标志. 那么怎么防止呢? 需要在<code>MainActivity</code>中引用别的dex(hack.dex)中的一个类.那么代码如下:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MainActivity</span> <span class="keyword">extends</span> <span class="title">AppCompatActivity</span> </span>&#123;</span><br><span class="line">    <span class="annotation">@Override</span> <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState);</span><br><span class="line">        setContentView(R.layout.activity_main);</span><br><span class="line">        TextView textView = (TextView) findViewById(R.id.text);</span><br><span class="line">        System.out.print(Hack.class); <span class="comment">// 引用 hack.dex中的Hack类</span></span><br><span class="line">        textView.setText(<span class="keyword">new</span> BugClass().showToast(<span class="string">"Happy new year"</span>));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面代码只是简单的引用了一下 <code>Hack.class</code>, 这样程序运行起来就不会把<code>MainActivity</code>加上 <strong>CLASS_ISPREVERIFIED</strong>. 注意现在的代码是编译不过的. 引用我们的程序中没有<code>Hack.class</code>, 要想编译通过,那么我们就得有 <code>Hack.class</code>, 于是新建一个library, 然后app这个依赖与这个library, 但是注意不要使用 <strong>compile</strong>, 使用 <strong>provided</strong> 关键字,这样标示这个library这是提供引用,并不被编译到apk中(不在MainActivity的dex中).这样就解决了编译问题.<br>现在运行起来程序还是有错误, 因为<code>MainActivity</code>引用了<code>Hack.class</code>,虽然编译通过了,但是实际上是没有这个类的,所以这个时候就需要在调用Hack这个类之前,先动态加载进来.</p>
+<h2 id="先加载Hack-dex,保证引用不会出错">先加载Hack.dex,保证引用不会出错</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span><br><span class="line"> * 加载</span><br><span class="line"> * Created by hanks on 16-1-3.</span><br><span class="line"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FixApplication</span> <span class="keyword">extends</span> <span class="title">Application</span> </span>&#123;</span><br><span class="line">    <span class="annotation">@Override</span> <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.onCreate();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">             PathClassLoader pathClassLoader = (PathClassLoader) getClassLoader();</span><br><span class="line">             String hackFilePath = Environment.getExternalStorageDirectory().getAbsolutePath() +<span class="string">"/hack.dex"</span>; <span class="comment">// hack.dex的路径</span></span><br><span class="line">             Object a = combineArray(getDexElements(getPathList(pathClassLoader)), <span class="comment">// 原有的 dex</span></span><br><span class="line">                     getDexElements(getPathList(<span class="keyword">new</span> DexClassLoader(hackFilePath, getDir(<span class="string">"dex"</span>, <span class="number">0</span>).getAbsolutePath(), hackFilePath, getClassLoader()))));  <span class="comment">// 将新的dex插入到dexElements数组的前面</span></span><br><span class="line">             Object a2 = getPathList(pathClassLoader);</span><br><span class="line">             setField(a2, a2.getClass(), <span class="string">"dexElements"</span>, a); <span class="comment">// 通过反射修改dexElements数组</span></span><br><span class="line">             pathClassLoader.loadClass(<span class="string">"xyz.hanks.Hack"</span>);</span><br><span class="line">         &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">             e.printStackTrace();</span><br><span class="line">         &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这样程序就正常运行起来了.</p>
+<h2 id="生成补丁包">生成补丁包</h2><p>现在<code>BugClass</code>出现bug了. 修改一下, 然后将修改后的<code>BugClass</code>导出jar包,然后通过<code>dx</code>工具转换成dex,就叫做 <strong>patch.dex</strong> 吧.然后放入到sdcard目录下.</p>
+<p>现在可以加载补丁包了.<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span><br><span class="line"> * 加载</span><br><span class="line"> * Created by hanks on 16-1-3.</span><br><span class="line"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FixApplication</span> <span class="keyword">extends</span> <span class="title">Application</span> </span>&#123;</span><br><span class="line">    <span class="annotation">@Override</span> <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.onCreate();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">             PathClassLoader pathClassLoader = (PathClassLoader) getClassLoader();</span><br><span class="line">             String hackFilePath = Environment.getExternalStorageDirectory().getAbsolutePath() +<span class="string">"/hack.dex"</span>; <span class="comment">// hack.dex的路径</span></span><br><span class="line">             Object a = combineArray(getDexElements(getPathList(pathClassLoader)), <span class="comment">// 原有的 dex</span></span><br><span class="line">                     getDexElements(getPathList(<span class="keyword">new</span> DexClassLoader(hackFilePath, getDir(<span class="string">"dex"</span>, <span class="number">0</span>).getAbsolutePath(), hackFilePath, getClassLoader()))));  <span class="comment">// 将新的dex插入到dexElements数组的前面</span></span><br><span class="line">             Object a2 = getPathList(pathClassLoader);</span><br><span class="line">             setField(a2, a2.getClass(), <span class="string">"dexElements"</span>, a); <span class="comment">// 通过反射修改dexElements数组</span></span><br><span class="line">             pathClassLoader.loadClass(<span class="string">"xyz.hanks.Hack"</span>);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">             <span class="comment">// 加载补丁包</span></span><br><span class="line">             String patchFilePath = Environment.getExternalStorageDirectory()</span><br><span class="line">                     .getAbsolutePath() + <span class="string">"/patch.dex"</span>;</span><br><span class="line">             Object a3 = combineArray(getDexElements(getPathList(pathClassLoader)), <span class="comment">// 原有的 dex</span></span><br><span class="line">                     getDexElements(getPathList(<span class="keyword">new</span> DexClassLoader(patchFilePath, getDir(<span class="string">"dex"</span>, <span class="number">0</span>).getAbsolutePath(), patchFilePath, getClassLoader()))));</span><br><span class="line">             Object a4 = getPathList(pathClassLoader);</span><br><span class="line">             setField(a4, a4.getClass(), <span class="string">"dexElements"</span>, a3);</span><br><span class="line">             pathClassLoader.loadClass(<span class="string">"xyz.hanks.fix.BugClass"</span>);</span><br><span class="line"></span><br><span class="line">         &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">             e.printStackTrace();</span><br><span class="line">         &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>每次修改BugClass类之后,生产补丁,放到sdcard,重启程序即可成效(不一定重启程序,目的是要在bugclass被第一次加载之前,加载补丁中的bugclass)</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>有了前面文章的理论支持,下面动手自己写一下热修复.<br>]]>
+    
+    </summary>
+    
+      <category term="Android" scheme="http://hanks.xyz/tags/Android/"/>
+    
+      <category term="热修复" scheme="http://hanks.xyz/tags/%E7%83%AD%E4%BF%AE%E5%A4%8D/"/>
+    
+  </entry>
+  
+  <entry>
     <title><![CDATA[Android 热修复总结]]></title>
     <link href="http://hanks.xyz/2016/01/03/android-hotfix/"/>
     <id>http://hanks.xyz/2016/01/03/android-hotfix/</id>
     <published>2016-01-03T15:27:05.000Z</published>
-    <updated>2016-01-03T15:54:03.812Z</updated>
+    <updated>2016-01-05T14:48:03.000Z</updated>
     <content type="html"><![CDATA[<p>前段时间热修复这个词非常火,当时只是大体看了一下,今天抽空好好看了一下具体原理.<br><a id="more"></a></p>
 <h3 id="什么是热修复?">什么是热修复?</h3><p>简单的说就是用户不用重新下载一个新的apk安装,而是直接下载一个补丁包,通过补丁来替换一些出现bug的类, 当然下载补丁的过程用户一般是感觉不到的,表面上看是直接修复了bug.</p>
 <h3 id="原理">原理</h3><p>类似与插件开发,关于插件开发原理,看这篇<a href="http://www.alloyteam.com/2014/04/android-cha-jian-yuan-li-pou-xi/" target="_blank" rel="external">Android插件原理剖析</a>,其中介绍了一下java中的类加载器和android中的类加载器. 热修复就是利用android中的 <code>DexClassLoader</code>类加载器,动态加载补丁dex,替换有bug的类</p>
@@ -74,7 +106,7 @@
     <link href="http://hanks.xyz/2015/12/31/2015/"/>
     <id>http://hanks.xyz/2015/12/31/2015/</id>
     <published>2015-12-31T12:41:17.000Z</published>
-    <updated>2015-12-31T13:20:53.833Z</updated>
+    <updated>2015-12-31T13:20:52.000Z</updated>
     <content type="html"><![CDATA[<blockquote>
 <p>2015的最后一天，我选择了辞职</p>
 </blockquote>
@@ -113,7 +145,7 @@
     <link href="http://hanks.xyz/2015/12/30/snowfall/"/>
     <id>http://hanks.xyz/2015/12/30/snowfall/</id>
     <published>2015-12-30T09:58:41.000Z</published>
-    <updated>2015-12-30T10:14:08.780Z</updated>
+    <updated>2015-12-30T10:14:08.000Z</updated>
     <content type="html"><![CDATA[<blockquote>
 <ul>
 <li>原文链接 :  <a href="https://blog.stylingandroid.com/snowfall/" target="_blank" rel="external">Snowfall</a></li>
@@ -171,7 +203,7 @@
     <link href="http://hanks.xyz/2015/12/30/react-zhihu/"/>
     <id>http://hanks.xyz/2015/12/30/react-zhihu/</id>
     <published>2015-12-30T09:27:03.000Z</published>
-    <updated>2015-12-30T09:46:10.492Z</updated>
+    <updated>2015-12-30T09:46:10.000Z</updated>
     <content type="html"><![CDATA[<p>主要练习从服务器获取数据,然后展示到界面,最外层用ScrollView包裹起来顶部是一个ViewPager,api使用的知乎日报的api,在这里只使用了一个<a href="http://news-at.zhihu.com/api/4/themes" target="_blank" rel="external">主题日报列表查看</a>的api,获取到json数据之后,显示到ListView中.最终效果如下:</p>
 <p><img src="http://file.bmob.cn/M02/2B/29/oYYBAFaDpFCAC55oAEUmvcxK3O0625.gif" alt="zhihu"></p>
 <a id="more"></a>
@@ -200,7 +232,7 @@
     <link href="http://hanks.xyz/2015/12/29/react-userinfo/"/>
     <id>http://hanks.xyz/2015/12/29/react-userinfo/</id>
     <published>2015-12-29T10:35:03.000Z</published>
-    <updated>2015-12-29T10:39:36.576Z</updated>
+    <updated>2016-01-03T16:01:32.000Z</updated>
     <content type="html"><![CDATA[<p>wuwu. 好饿~~<br>直接看效果图L:</p>
 <p><img src="http://file.bmob.cn/M02/28/D4/oYYBAFaCYr6AIlcRAALzw1jyVMk263.png" alt="用户信息界面"><br><a id="more"></a></p>
 <p>代码:</p>
@@ -225,7 +257,7 @@
     <link href="http://hanks.xyz/2015/12/29/react-viewpager/"/>
     <id>http://hanks.xyz/2015/12/29/react-viewpager/</id>
     <published>2015-12-29T10:11:29.000Z</published>
-    <updated>2015-12-29T10:40:04.768Z</updated>
+    <updated>2015-12-29T10:40:04.000Z</updated>
     <content type="html"><![CDATA[<p>ViewPager在Android中的使用率也算是非常高的,React-Native也提供了类似Android的ViewPager组件,<code>ViewPagerAndroid</code> , 使用 <code>ViewPagerAndroid</code>可以轻松实现Android中的ViewPager.<br><img src="http://file.bmob.cn/M02/28/37/oYYBAFaCLeqAHyUJABoVzaZyVT0309.gif" alt="ViewPager"><br><a id="more"></a><br>使用 uiautomatorviewer 来查看一下布局,确实也就是Android原生的 <code>ViewPager</code>.<br><img src="http://file.bmob.cn/M02/28/37/oYYBAFaCLgiAUKPYAAOGa8ySm0w899.png" alt="ViewPager"></p>
 <p><strong>声明ViewPagerAndroid</strong><br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable"><span class="keyword">var</span> &#123;</span><br><span class="line">  ViewPagerAndroid,</span><br><span class="line">&#125;</span> = React;</span><br></pre></td></tr></table></figure></p>
 <p>声明之后就可以使用了.在render 函数中返回 <code>&lt;ViewPagerAndroid&gt;&lt;/ViewPagerAndroid&gt;</code></p>
@@ -254,7 +286,7 @@
     <link href="http://hanks.xyz/2015/12/24/react-navigator/"/>
     <id>http://hanks.xyz/2015/12/24/react-navigator/</id>
     <published>2015-12-24T11:08:08.000Z</published>
-    <updated>2015-12-29T10:41:41.884Z</updated>
+    <updated>2015-12-29T10:41:40.000Z</updated>
     <content type="html"><![CDATA[<p>例子:<br><img src="http://file.bmob.cn/M02/17/17/oYYBAFZ70QWAYn4DABTb3uKu6GM103.gif" alt="界面跳转"></p>
 <p>回顾一下,一个简单的界面包含一下几块<br><a id="more"></a></p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span><br><span class="line"> * Sample React Native App</span><br><span class="line"> * https://github.com/hanks-zyh</span><br><span class="line"> */</span></span><br><span class="line"><span class="pi"></span><br><span class="line">'use strict'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> React = <span class="built_in">require</span>(<span class="string">'react-native'</span>);</span><br><span class="line"><span class="keyword">var</span> &#123;</span><br><span class="line">  AppRegistry,</span><br><span class="line">  StyleSheet,</span><br><span class="line">  Text,</span><br><span class="line">&#125; =  React;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> AwesomeProject = React.createClass(&#123;</span><br><span class="line">  render: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">      <span class="keyword">return</span> (<span class="xml"><span class="tag">&lt;<span class="title">Text</span>&gt;</span>Hello, hanks<span class="tag">&lt;/<span class="title">Text</span>&gt;</span>)</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> styles = StyleSheet.create(&#123;</span><br><span class="line"></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">AppRegistry.registerComponent(<span class="string">'AwesomeProject'</span>, () =&gt; AwesomeProject);</span><br></pre></td></tr></table></figure>
@@ -283,7 +315,7 @@
     <link href="http://hanks.xyz/2015/12/23/react-network/"/>
     <id>http://hanks.xyz/2015/12/23/react-network/</id>
     <published>2015-12-23T09:53:43.000Z</published>
-    <updated>2015-12-23T10:56:24.544Z</updated>
+    <updated>2015-12-23T10:56:24.000Z</updated>
     <content type="html"><![CDATA[<p>大部分的app都需要进行网络连接,通过网络获取服务器的数据,然后更新app的界面展示内容,React-Native自然拥有网络的相关操作.<br><a href="https://facebook.github.io/react-native/docs/network.html#content" target="_blank" rel="external">官方文档</a><br><a id="more"></a></p>
 <h2 id="fetch">fetch</h2><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">fetch</span><span class="params">(<span class="string">'https://mywebsite.com/endpoint/'</span>)</span></span></span><br></pre></td></tr></table></figure>
 <p>自定义请求的方法,请求头,请求体</p>
@@ -313,7 +345,7 @@
     <link href="http://hanks.xyz/2015/12/22/react-components/"/>
     <id>http://hanks.xyz/2015/12/22/react-components/</id>
     <published>2015-12-22T10:58:22.000Z</published>
-    <updated>2015-12-22T11:01:38.014Z</updated>
+    <updated>2015-12-22T11:01:38.000Z</updated>
     <content type="html"><![CDATA[<p>参照官方例子练习组件的使用,练习View Image Text 还有Android平台的DrawerLayoutAndroid<br>效果图:<br><img src="http://file.bmob.cn/M02/11/DF/oYYBAFZ5LF6AVgO5AIY4EJ1JHfk120.gif" alt="React-Native"></p>
 <h2 id="React-Native_中的_width,height的_100%">React-Native  中的 width,height的 100%</h2><p>在React-Native 中没有百分比这样的宽高,但是有替代的,具体见 <a href="https://github.com/facebook/css-layout/issues/57#ref-issue-86696744" target="_blank" rel="external">issue</a><br><code>flex:1</code> 相当于 <code>height:100%</code><br><code>alignSelf:&#39;stretch&#39;</code> 相当于 <code>width:100%</code></p>
 <a id="more"></a>
@@ -361,7 +393,7 @@
     <link href="http://hanks.xyz/2015/12/21/react-flexbox/"/>
     <id>http://hanks.xyz/2015/12/21/react-flexbox/</id>
     <published>2015-12-21T07:11:14.000Z</published>
-    <updated>2015-12-29T14:10:13.985Z</updated>
+    <updated>2015-12-29T14:10:12.000Z</updated>
     <content type="html"><![CDATA[<p>React-Native 使用 FlexBox布局来放置元素</p>
 <blockquote>
 <p>Flex是Flexible Box的缩写，意为”弹性布局”，用来为盒状模型提供最大的灵活性。<br>任何一个容器都可以指定为Flex布局。</p>
@@ -408,7 +440,7 @@
     <link href="http://hanks.xyz/2015/12/18/atom-nuclide/"/>
     <id>http://hanks.xyz/2015/12/18/atom-nuclide/</id>
     <published>2015-12-18T04:10:29.000Z</published>
-    <updated>2015-12-18T04:37:25.666Z</updated>
+    <updated>2015-12-18T04:37:24.000Z</updated>
     <content type="html"><![CDATA[<p><a href="http://nuclide.io/" target="_blank" rel="external"><strong>Nuclide</strong></a> 是Facebook 基于Atom开发的IDE,本地环境Ubuntu 64位, 通过Atom的setting界面安装 nuclide 总出错, 出错后打开atom巨卡,然后通过手动安装成功. 包括安装 <a href="http://flowtype.org" target="_blank" rel="external">flow</a>同样也是手动安装成功.</p>
 <a id="more"></a>
 <h2 id="手动安装_Nuclide">手动安装 Nuclide</h2><ol>
@@ -453,7 +485,7 @@
     <link href="http://hanks.xyz/2015/12/18/react-native-UIExplorer/"/>
     <id>http://hanks.xyz/2015/12/18/react-native-UIExplorer/</id>
     <published>2015-12-17T17:16:28.000Z</published>
-    <updated>2015-12-18T03:18:27.882Z</updated>
+    <updated>2015-12-18T03:18:26.000Z</updated>
     <content type="html"><![CDATA[<p>运行 FaceBook 给出的例子UIExplorer, 由于网络问题折腾了半天, 在公司网络死活不行,到家一小会儿搞定. 原因是我使用 npm install 的时候 直接 <code>ctrl+c</code> 断掉了, 需要把目录下的<code>node_modules</code>文件夹删除再重新安装.</p>
 <a id="more"></a>
 <h3 id="关于NPM">关于NPM</h3><p><a href="http://www.cnblogs.com/chyingp/p/npm.html?utm_source=tuicool&amp;utm_medium=referral" target="_blank" rel="external">NPM小结</a></p>
@@ -489,7 +521,7 @@
     <link href="http://hanks.xyz/2015/12/15/react-native-start-md/"/>
     <id>http://hanks.xyz/2015/12/15/react-native-start-md/</id>
     <published>2015-12-15T04:07:52.000Z</published>
-    <updated>2015-12-18T02:55:33.874Z</updated>
+    <updated>2015-12-18T02:55:32.000Z</updated>
     <content type="html"><![CDATA[<p>尝试在　<code>Ubuntu 14.04</code>　上面进行 react-native 的开发, 安装<a href="https://facebook.github.io/react-native/docs/getting-started.html" target="_blank" rel="external">官方文档</a>进行配置,记录配置流程</p>
 <h2 id="安装_node-js">安装 node.js</h2><p>在<a href="https://nodejs.org/en/" target="_blank" rel="external">官网</a>下载源码安装即可, 安装后查看版本<br><figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="keyword">node</span><span class="identifier"> </span><span class="title">-v</span></span><br></pre></td></tr></table></figure></p>
 <h2 id="安装_watchman">安装 watchman</h2><p><a href="https://facebook.github.io/watchman/docs/install.html" target="_blank" rel="external">文档</a></p>
@@ -531,7 +563,7 @@
     <link href="http://hanks.xyz/2015/12/08/refactoring-plaid-1/"/>
     <id>http://hanks.xyz/2015/12/08/refactoring-plaid-1/</id>
     <published>2015-12-08T10:17:00.000Z</published>
-    <updated>2015-12-10T02:03:26.241Z</updated>
+    <updated>2015-12-10T02:03:26.000Z</updated>
     <content type="html"><![CDATA[<p>Nick Butcher 在 <a href="https://github.com/nickbutcher/plaid" target="_blank" rel="external">github</a> 上开源了Plaid。这个app不仅很酷,还拥有极致的 UI / UX。如此炫酷的app的代码对开发者来说copy下来阅读一下可谓是最佳实践。于是我也copy下来,决定深入Plaid的代码。和往常一样，你会发现里面的一些代码可以用其他的方式实现。因此不只是谈论代码,我决定花一些时间来重构Plaid的部分源代码。我将写3篇文章来分享我关于如何重构Plaid的,这篇文章是第一部分。</p>
 <p>前言: 开始我以为自己能重构整个app. 然而,事实是我太天真了,我低估了这个应用的复杂度和新特性的数量。在我花了几个小时阅读 Nick Butcher 的代码之后, 我发现有些功能仅仅通过使用应用程序很难发现。一句话: 我意识到我没有时间把所有的想法付诸行动。因此我的“重构”集中于应用程序的“主页”和“搜索屏幕”。本来想看看有没有更多模块可以重构，但是我没有太多空闲时间来做了。重构代码可以在<a href="https://github.com/sockeqwe/plaid" target="_blank" rel="external">github上</a>找到</p>
 <a id="more"></a>
@@ -632,7 +664,7 @@
     <link href="http://hanks.xyz/2015/12/06/rx_thread/"/>
     <id>http://hanks.xyz/2015/12/06/rx_thread/</id>
     <published>2015-12-06T15:26:00.000Z</published>
-    <updated>2015-12-10T02:01:55.013Z</updated>
+    <updated>2015-12-10T02:01:54.000Z</updated>
     <content type="html"><![CDATA[<p>初学者在使用<code>RxJava</code>的过程中，经常搞不清Observable的事件序列和每次操作应该怎样切换线程，切换哪个线程<br>首先需要搞懂在<code>RxJava</code> 中<code>.subscribeOn()</code> 和  <code>observeOn()</code> 之间的区别：</p>
 <ul>
 <li><code>.subscribeOn()</code> 用来指定<code>Observable</code>应该操作的调度器(<code>Scheduler</code>)</li>
@@ -725,7 +757,7 @@
     <link href="http://hanks.xyz/2015/12/04/mac_java_enviroment/"/>
     <id>http://hanks.xyz/2015/12/04/mac_java_enviroment/</id>
     <published>2015-12-04T15:50:26.000Z</published>
-    <updated>2015-12-04T16:10:58.548Z</updated>
+    <updated>2015-12-04T16:10:58.000Z</updated>
     <content type="html"><![CDATA[<p>类似Linux下Java环境的配置,流程就是 <code>下载</code> -&gt; <code>解压</code> -&gt; <code>配置环境变量文件</code></p>
 <h3 id="下载_jdk">下载 jdk</h3><p>到oracle官网下最新 jdk <a href="http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html" target="_blank" rel="external">下载链接</a>,  注意下载的是jdk(Java Development Kit ),不是jre(Java Runtime Environment)</p>
 <h3 id="配置Java环境变量">配置Java环境变量</h3><p>安装过jdk之后, 查看jdk的安装路径, 一般在 <code>/Library/Java/JavaVirtualMachines</code>目录下面<br>然后编辑环境变量, 打开文件 <code>/etc/profile</code></p>
@@ -755,7 +787,7 @@
     <link href="http://hanks.xyz/2015/12/02/mac-os-in-Ubuntu/"/>
     <id>http://hanks.xyz/2015/12/02/mac-os-in-Ubuntu/</id>
     <published>2015-12-02T15:50:26.000Z</published>
-    <updated>2015-12-03T03:11:09.312Z</updated>
+    <updated>2015-12-03T03:11:08.000Z</updated>
     <content type="html"><![CDATA[<p>看到<a href="http://bbs.feng.com/read-htm-tid-9908410.html" target="_blank" rel="external">论坛</a>里有人在windows平台上面利用 <code>VirtualBox</code> 成功安装了 <code>OS X 10.11</code>,(我的是Ubuntu 14.04)于是尝试一下虚拟机装mac,既然 <code>VirtualBox</code> 有linux版, 于是尝试在Ubuntu下装mac os虚拟机.<br><a id="more"></a></p>
 <h3 id="下载_VirtualBox">下载 <code>VirtualBox</code></h3><p>到 <a href="https://www.virtualbox.org/wiki/Downloads" target="_blank" rel="external">VirtualBox 官网</a>下载, 我已经安装过了,版本是 5.0.8, 最新的 5.0.10</p>
 <h3 id="下载_mac_os_虚拟机文件">下载 mac os 虚拟机文件</h3><p>到这个论坛里下载安装好的<a href="http://bbs.feng.com/read-htm-tid-9908410.html" target="_blank" rel="external">OS X 10.11 El Capitan GM by TechReviews.vmdk</a></p>
@@ -799,7 +831,7 @@
     <link href="http://hanks.xyz/2015/12/01/ReactiveX/"/>
     <id>http://hanks.xyz/2015/12/01/ReactiveX/</id>
     <published>2015-12-01T14:28:34.000Z</published>
-    <updated>2015-12-08T14:09:30.189Z</updated>
+    <updated>2015-12-08T14:09:30.000Z</updated>
     <content type="html"><![CDATA[<blockquote>
 <p>An API for asynchronous programming with observable streams</p>
 </blockquote>
@@ -896,7 +928,7 @@
     <link href="http://hanks.xyz/2015/11/29/rx_ux/"/>
     <id>http://hanks.xyz/2015/11/29/rx_ux/</id>
     <published>2015-11-29T14:28:34.000Z</published>
-    <updated>2015-12-06T15:43:13.858Z</updated>
+    <updated>2015-12-06T15:43:12.000Z</updated>
     <content type="html"><![CDATA[<blockquote>
 <p>原文链接：<a href="https://medium.com/@diolor/improving-ux-with-rxjava-4440a13b157f#.qdhu122d1" target="_blank" rel="external">https://medium.com/@diolor/improving-ux-with-rxjava-4440a13b157f#.qdhu122d1</a><br><br>翻译： <a href="https://github.com/hanks-zyh" target="_blank" rel="external">hanks</a></p>
 </blockquote>
@@ -948,90 +980,6 @@
     </summary>
     
       <category term="RxJava" scheme="http://hanks.xyz/tags/RxJava/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[利器 -- 抓包工具总结]]></title>
-    <link href="http://hanks.xyz/2015/11/26/%E5%88%A9%E5%99%A8_--_%E6%8A%93%E5%8C%85%E5%B7%A5%E5%85%B7%E6%80%BB%E7%BB%93/"/>
-    <id>http://hanks.xyz/2015/11/26/利器_--_抓包工具总结/</id>
-    <published>2015-11-26T05:38:00.000Z</published>
-    <updated>2015-12-04T17:20:04.324Z</updated>
-    <content type="html"><![CDATA[<p>[github 地址] (<a href="https://github.com/hanks-zyh/capturedata" target="_blank" rel="external">https://github.com/hanks-zyh/capturedata</a>)</p>
-<blockquote>
-<p>抓包工具整理</p>
-</blockquote>
-<h1 id="抓包工具_–_Charles">抓包工具 – Charles</h1><p>基于Java 跨平台： Linux , Mac OS X, Windows<br><a href="https://www.charlesproxy.com/" target="_blank" rel="external">官网</a></p>
-<blockquote>
-<p>Charles is an HTTP proxy / HTTP monitor / Reverse Proxy that enables a developer to view all of the HTTP and SSL / HTTPS traffic between their machine and the Internet. This includes requests, responses and the HTTP headers (which contain the cookies and caching information).</p>
-</blockquote>
-<p><img src="https://www.charlesproxy.com/assets/img/sm/23/image/mac_screen_321.png?k=f28bf8eff3" alt=""></p>
-<hr>
-<p><strong>以下为Linux 平台</strong></p>
-<h2 id="安装">安装</h2><p><a href="https://www.charlesproxy.com/latest-release/download.do" target="_blank" rel="external">下载 charles-proxy-3.11.2.tar.gz</a></p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor"># 解压</span></span><br><span class="line">tar zxvf charles-proxy-<span class="number">3.11</span><span class="number">.2</span>.tar.gz</span><br><span class="line"></span><br><span class="line"><span class="preprocessor"># 启动 charles</span></span><br><span class="line">./charles/bin/charles</span><br></pre></td></tr></table></figure>
-<h2 id="手机抓包">手机抓包</h2><p><strong>前提：使手机和电脑在一个局域网内，不一定非要是一个ip段，只要是同一个路由下就可以了，比如电脑连接的有线网ip为192.168.16.12，然后手机链接的wifi ip为192.168.1.103，但是这个有线网和无线网的最终都是来自于一个外部ip，这样的话也是可以的。</strong></p>
-<p>在安卓手机的 <code>设置 -&gt; wlan -&gt; 长按连接的wifi -&gt; 修改网络 -&gt;  高级选项 -&gt; 代理选手动</code> ， 填入电脑的 ip 和 charles 监听的 端口（默认为 8888）</p>
-<blockquote>
-<p>查看电脑端口 ： <code>ifconfig</code><br>查看/修改 charles 监听端口： charles的 <code>Proxy -&gt; Proxy Setting</code></p>
-</blockquote>
-<p>设置好之后Charles弹出确认框，点击Allow按钮即可</p>
-<p> <img src="https://dn-coding-net-production-pp.qbox.me/ad193bbb-4d55-4feb-9e55-0634aa6dbfce.png" alt="图片"> </p>
-<p> <img src="https://dn-coding-net-production-pp.qbox.me/c48ee820-f6ae-4814-b505-ff4870db1f5b.png" alt="图片"> </p>
-<h2 id="抓取_https">抓取 https</h2><p> <img src="https://dn-coding-net-production-pp.qbox.me/027d34d1-c783-4aca-8db3-e0066bf4ca1b.png" alt="图片"> </p>
-<h3 id="安装证书">安装证书</h3><p>charles的 Help -&gt; SSL Proxy -&gt; Install charles Root</p>
-<h3 id="设置_ssl_enable">设置 ssl enable</h3><p>在需要抓取的 https 链接上 右键 <code>enable ssl proxy</code><br><img src="https://dn-coding-net-production-pp.qbox.me/4b91cf2a-e35b-4b9b-96ac-047eafe607e6.png" alt="图片"> </p>
-<p>参考 <a href="http://drops.wooyun.org/tips/2423" target="_blank" rel="external">charles使用教程指南</a></p>
-<h1 id="抓包工具_–_mitmproxy">抓包工具 – mitmproxy</h1><p>基于python 跨平台： linux, windows，    OSX (Mountain Lion and later)<br><a href="https://mitmproxy.org/" target="_blank" rel="external">官网</a></p>
-<blockquote>
-<p>Mitmproxy是一个基于python的中间人代理的框架。做过渗透测试的肯定很熟悉工具burpsuite或Fiddler，这些工具能够拦截并修改http或https的数据包，对于分析数据包交互的应用来说是非常有用的。但是这些工具都是整套给我们做好了。比如如果想自己定制一套这样的工具，添加一些自己需要的功能的话，那么我想，mitmproxy将是一个比较好的选择，因为它提供了一个可供用户调用的库libmproxy（注意该库目前只支持linux系统）。</p>
-</blockquote>
-<p><img src="https://dn-coding-net-production-pp.qbox.me/a2d09a30-ea72-42a1-818e-0982f7227784.png" alt="图片"></p>
-<p><img src="https://dn-coding-net-production-pp.qbox.me/85e1f4e1-c914-4ac1-9984-4492aad7096f.png" alt="图片"></p>
-<p><img src="https://dn-coding-net-production-pp.qbox.me/6992699a-cb21-44b7-9114-38d1b10f0272.png" alt="图片"></p>
-<hr>
-<p><strong>以下基于Linux台（Ubuntu14.04）</strong></p>
-<h2 id="下载">下载</h2><figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo pip <span class="keyword">install</span> mitmproxy</span><br></pre></td></tr></table></figure>
-<p>如果下载速度慢可以下载<a href="https://mitmproxy.org/download/mitmproxy-0.14.0.tar.gz" target="_blank" rel="external">tar包</a></p>
-<h2 id="启动">启动</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ mitmproxy -b <span class="number">192.168</span><span class="number">.1</span><span class="number">.29</span> -p <span class="number">9999</span></span><br></pre></td></tr></table></figure>
-<p>输入 <code>？</code> 查看帮助， <code>q</code>返回<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">A      accept all intercepted flows</span><br><span class="line">a      accept this intercepted flow</span><br><span class="line">b      save request/response body</span><br><span class="line">C      clear flow list or eventlog</span><br><span class="line">d      <span class="operator"><span class="keyword">delete</span> flow</span><br><span class="line"><span class="keyword">D</span>      <span class="keyword">duplicate</span> flow</span><br><span class="line"><span class="keyword">e</span>      toggle eventlog</span><br><span class="line"><span class="keyword">F</span>      toggle follow flow <span class="keyword">list</span></span><br><span class="line"><span class="keyword">l</span>      <span class="keyword">set</span> <span class="keyword">limit</span> filter pattern</span><br><span class="line"><span class="keyword">L</span>      <span class="keyword">load</span> saved flows</span><br><span class="line"><span class="keyword">m</span>      toggle flow mark</span><br><span class="line"><span class="keyword">n</span>      <span class="keyword">create</span> a <span class="keyword">new</span> request</span><br><span class="line"><span class="keyword">P</span>      copy flow <span class="keyword">to</span> clipboard</span><br><span class="line">r      replay request</span><br><span class="line">U      unmark all marked flows</span><br><span class="line">V      revert changes <span class="keyword">to</span> request</span><br><span class="line">w      <span class="keyword">save</span> flows</span><br><span class="line">W      stream flows <span class="keyword">to</span> <span class="keyword">file</span></span><br><span class="line">X      <span class="keyword">kill</span> <span class="keyword">and</span> <span class="keyword">delete</span> flow, even <span class="keyword">if</span> it<span class="string">'s mid-intercept</span><br><span class="line">tab    tab between eventlog and flow list</span><br><span class="line">enter  view flow</span><br><span class="line">|      run script on this flow</span></span></span><br></pre></td></tr></table></figure></p>
-<p>手机设置好代理，界面上就可以看到请求了<br><img src="https://dn-coding-net-production-pp.qbox.me/c5446754-1d45-4d7d-ba48-44b6e26d3b4f.png" alt="图片"></p>
-<h2 id="mitmproxy_查看http请求响应">mitmproxy 查看http请求响应</h2><p><code>C (大写)</code> 清除抓包结果</p>
-<p><code>j</code>  <code>k</code> 选择请求， 回车查看详细信息</p>
-<p> <img src="https://dn-coding-net-production-pp.qbox.me/5cfa3fd1-879b-4db6-8f05-f8885d730964.png" alt="图片"></p>
-<p><code>tab</code>   切换 <strong>Request</strong> 和 <strong>Response</strong></p>
-<p><code>m</code> Display Mode 美化信息<br> <img src="https://dn-coding-net-production-pp.qbox.me/70e7c4ad-f7c0-4e7a-bea6-2c4cdd36d50b.png" alt="图片"><br> 上图输入 m，在输入 s，便可以以json形式展示</p>
-<p><code>e</code> 编辑<br>Edit request (cookies,query,path,url,header,form,raw body,method)?<br>Edit response (cookies,code,message,header,raw body)?</p>
-<h3 id="mitmproxy拦截_(Intercept)">mitmproxy拦截 (Intercept)</h3><p>相当于在客户端和服务器做中间人，可以修改客户端请求，修改服务器返回</p>
-<p>输入 <code>i</code>（代表Intercept filter）即可，此时界面便会让你输入想要拦截的条件：</p>
-<p>mitmproxy的条件拦截在默认情况下是过滤抓包的URL的。也就是说当你直接输入要拦截的条件（比如输入“weibo”），那么接下来要出现抓包会将匹配的抓包整体变黄：</p>
-<p>mitmproxy条件过滤效果<br>mitmproxy条件拦截效果<br>这些橘黄色的数据包都代表被拦截了，还未发送给服务器，这个时候你就可以对这些数据包进行修改，我们选择一个数据包enter进入：</p>
-<p>mitmproxy 拦截 选择数据包<br>与之前的类似，输入“e”，进行request编辑模式，然后输入“h”代表要编辑request的头部:</p>
-<p>mitmproxy 编辑拦截包的头部<br>输入enter便可对高亮的User-Agent的值进行修改，上图的weibo版本之前是5.0的，被我改成了6.0 。我们还可以对header进行添加属性，输入“a”即可，然后使用tab分别键入key和value。这里我添加了“test－test”键值对：</p>
-<p>mitmproxy 拦截header添加键值对<br>至此，我对拦截的request header已经修改完毕，现在要做的就是我要认可接受这个修改，然后发给服务器。所以我们输入“a”（代表“accept”）即可，等到服务器响应后，注意，mitmproxy便又了拦截服务器发过来的response（注意那个“Response intercepted”）：</p>
-<p>mitmproxy 拦截response<br>现在如果你想修改这个response也可以，方式同上面修改request一样。这个时候我再输入“a”，代表我接受了这个response，然后这个response便可发给客户端了:</p>
-<p>mitmproxy 拦截response之后accept</p>
-<p>更多类型的mitmproxy拦截</p>
-<p>同时mitmproxy还支持不同类型的条件过滤，之前在拦截字符串前面加上特定的参数比如我要拦截所有的POST request怎么办？输入：~m POST 即可（m代表method）：</p>
-<p>mitmproxy 拦截特定的request 方法</p>
-<p>拦截所有的request： ~q</p>
-<p>拦截特定的header： ~h</p>
-<p>拦截特定的domain： ~d</p>
-<p>拦截特定的响应代码（404之类的）： ~c</p>
-<p>mitmproxy官方文档。</p>
-<hr>
-<h1 id="抓包工具_–_Fiddler">抓包工具 – Fiddler</h1><p>基于C#  windows, Linux看这里 <a href="http://fiddler.wikidot.com/mono" target="_blank" rel="external">Mono Fiddler</a></p>
-<hr>
-<h2 id="下载-1">下载</h2><p>直接下载，安装即可</p>
-<h2 id="手机抓包-1">手机抓包</h2><p><img src="https://imququ.com/static/uploads/2013/09/Snip20130913_20.png.webp" alt=""></p>
-<hr>
-<h1 id="抓包工具_–_wireshark">抓包工具 – wireshark</h1><p>跨平台：Windows，OS X ，Linux</p>
-<p><a href="https://www.wireshark.org/" target="_blank" rel="external">官网</a></p>
-]]></content>
-    <summary type="html">
-    <![CDATA[ ]]>
-    
-    </summary>
     
   </entry>
   

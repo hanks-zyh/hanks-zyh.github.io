@@ -77,12 +77,48 @@
           <aside id="sidebar">
   
     
+  <div class="widget-wrap">
+    <h3 class="widget-title">关于我</h3>
+    <div class="widget ">
+      <p>90后,Android开发,正在学习的东西python,js,react-native....</p>
+      <div class="me">
+              <div class="me-item">
+                  <a href="http://weibo.com/u/2359002991"><img src="http://hkcoding.sinaapp.com/static/images/ico_05_1.jpg" style="width:52px;height:52px"></a>
+                  <p>微博</p>
+              </div>
+              <div class="me-item">
+                  <a href="http://www.zhihu.com/people/yuhan-zhang-36"><img src="http://hkcoding.sinaapp.com/static/images/ico_zhihu.png" style="width:52px;height:52px"></a>
+                  <p>知乎</p>
+              </div>
+                 <div class="me-item">
+                 <a href="http://www.zhihu.com/people/yuhan-zhang-36"> <img src="http://hkcoding.sinaapp.com/static/images/ico_04_1.jpg" style="width:52px;height:52px"></a>
+                  <p>RSS</p>
+              </div>
+      </div>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">新浪微博</h3>
+    <div class="widget">
+<iframe width="100%" height="270" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=270&fansRow=1&ptype=0&speed=0&skin=5&isTitle=0&noborder=1&isWeibo=1&isFans=0&uid=2359002991&verifier=05864e99&colors=e5e5e5,ffffff,2c3e50,42b983,ecfbfd&dpc=1"></iframe>
+    </div>
+  </div>
+
+
   
     
   <div class="widget-wrap">
     <h3 class="widget-title">Recents</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2016/01/05/android-myhotfix/">Android 动手实现热修复</a>
+          </li>
         
           <li>
             <a href="/2016/01/03/android-hotfix/">Android 热修复总结</a>
@@ -120,15 +156,13 @@
             <a href="/2015/12/22/react-components/">React-Native 组件练习-购物app侧滑菜单</a>
           </li>
         
-          <li>
-            <a href="/2015/12/21/react-flexbox/">React-Native中的布局</a>
-          </li>
-        
       </ul>
     </div>
   </div>
 
 
+  
+    
   
     
   <div class="widget-wrap">
@@ -146,6 +180,10 @@
       <ul>
         
           <li>
+            <a href="https://github.com/hanks-zyh">hanks-zyh</a>
+          </li>
+        
+          <li>
             <a href="http://kiya.space">kiya-z</a>
           </li>
         
@@ -161,6 +199,49 @@
 </aside>
         
         <section id="main">
+  
+    <article id="post-react-flexbox" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/12/21/react-flexbox/" class="article-date">
+  <time datetime="2015-12-21T07:11:14.000Z" itemprop="datePublished">2015-12-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/12/21/react-flexbox/">React-Native中的布局</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>React-Native 使用 FlexBox布局来放置元素</p>
+<blockquote>
+<p>Flex是Flexible Box的缩写，意为”弹性布局”，用来为盒状模型提供最大的灵活性。<br>任何一个容器都可以指定为Flex布局。</p>
+</blockquote>
+<p><a href="http://facebook.github.io/react-native/docs/flexbox.html#content">Flexbox</a></p>
+<figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">alignItems <span class="class"><span class="keyword">enum</span>('<span class="title">flex</span>-<span class="title">start</span>', '<span class="title">flex</span>-<span class="title">end</span>', '<span class="title">center</span>', '<span class="title">stretch</span>')</span></span><br><span class="line"></span><br><span class="line">alignSelf <span class="class"><span class="keyword">enum</span>('<span class="title">auto</span>', '<span class="title">flex</span>-<span class="title">start</span>', '<span class="title">flex</span>-<span class="title">end</span>', '<span class="title">center</span>', '<span class="title">stretch</span>')</span></span><br><span class="line"></span><br><span class="line">flex number</span><br><span class="line"></span><br><span class="line">flexDirection <span class="class"><span class="keyword">enum</span>('<span class="title">row</span>', '<span class="title">column</span>')</span></span><br><span class="line"></span><br><span class="line">flexWrap <span class="class"><span class="keyword">enum</span>('<span class="title">wrap</span>', '<span class="title">nowrap</span>')</span></span><br><span class="line"></span><br><span class="line">justifyContent <span class="class"><span class="keyword">enum</span>('<span class="title">flex</span>-<span class="title">start</span>', '<span class="title">flex</span>-<span class="title">end</span>', '<span class="title">center</span>', '<span class="title">space</span>-<span class="title">between</span>', '<span class="title">space</span>-<span class="title">around</span>')</span></span><br></pre></td></tr></table></figure>
+        
+            
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/React-Native/">React-Native</a></li></ul>
+
+  
+        
+      
+    </div>
+
+  
+</article>
+
+  
+
   
     <article id="post-atom-nuclide" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
@@ -513,42 +594,6 @@
             
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/RxJava/">RxJava</a></li></ul>
 
-  
-        
-      
-    </div>
-
-  
-</article>
-
-  
-
-  
-    <article id="post-利器_--_抓包工具总结" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2015/11/26/利器_--_抓包工具总结/" class="article-date">
-  <time datetime="2015-11-26T05:38:00.000Z" itemprop="datePublished">2015-11-26</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/11/26/利器_--_抓包工具总结/">利器 -- 抓包工具总结</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-         
-        
-            
   
         
       

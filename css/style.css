@@ -1476,6 +1476,8 @@ pre .javascript .function {
   line-height: 28px;
   word-wrap: normal;
   font-size: 0.9em;
+  border: 1px #eee dashed;
+  padding: 10px;
 }
 .widget:before,
 .widget:after {

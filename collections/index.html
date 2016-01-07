@@ -356,7 +356,7 @@
          console.log(i+"more"+moreCount);
          $("#more"+i).text(moreCount +" more");
          $("#more"+i).click(function(){
-            $("#ul"+this.id.substring(4)).children().slice(3).toggle(400);
+            $("#ul"+this.id.substring(4)).children().slice(limit).toggle(400);
          });
        }
     </script>

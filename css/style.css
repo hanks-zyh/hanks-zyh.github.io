@@ -196,6 +196,9 @@ body {
   }
 }
 #main {
+  float: left;
+}
+#sidebar {
   float: right;
 }
 .article-date,
@@ -1441,6 +1444,7 @@ pre .javascript .function {
     float: left;
     width: 23.333333333333332%;
     margin: 0 0.833333333333333%;
+    float: right;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;

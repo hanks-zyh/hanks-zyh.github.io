@@ -519,7 +519,7 @@ body {
   display: none;
 }
 .article {
-  margin: 50px 0;
+  margin-bottom: 35px;
 }
 .article-inner {
   overflow: hidden;

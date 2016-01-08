@@ -25,7 +25,7 @@
   $('input[type=search]').removeAttr('results');
 
   function startWindowAnim(){
-    $('#header').addClass('open');
+    $('#header').addClass('open mdl-shadow--2dp');
     $('#wrap > .outer').addClass('open');
     $('#footer').addClass('open');
   }

@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>React-Native 鬼畜表情包app | Hanks.xyz</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="QQ群,微信群，各种大神，各种表情，每到半夜，斗图大会，八仙过海，各显神通，良辰日天齐上阵。不服，下载鬼畜表情，参加到战斗中，无奈啊，app做的不是太方便，想起抓包把图片一下都下载下来，想起最近看到RN，正好练练手。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="React-Native 鬼畜表情包app">
+<meta property="og:url" content="http://hanks.xyz/2016/01/11/react-native-23333/index.html">
+<meta property="og:site_name" content="Hanks.xyz">
+<meta property="og:description" content="QQ群,微信群，各种大神，各种表情，每到半夜，斗图大会，八仙过海，各显神通，良辰日天齐上阵。不服，下载鬼畜表情，参加到战斗中，无奈啊，app做的不是太方便，想起抓包把图片一下都下载下来，想起最近看到RN，正好练练手。">
+<meta property="og:image" content="https://github.com/hanks-zyh/233333/raw/master/2333.gif">
+<meta property="og:updated_time" content="2016-01-11T03:55:16.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="React-Native 鬼畜表情包app">
+<meta name="twitter:description" content="QQ群,微信群，各种大神，各种表情，每到半夜，斗图大会，八仙过海，各显神通，良辰日天齐上阵。不服，下载鬼畜表情，参加到战斗中，无奈啊，app做的不是太方便，想起抓包把图片一下都下载下来，想起最近看到RN，正好练练手。">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <!-- <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600' rel='stylesheet' type='text/css'> -->
+  <!-- <link href="//fonts.googleapis.com/css?family=Source+Code+Pro:400,700" rel="stylesheet" type="text/css"> -->
+  <link href="//fonts.useso.com/css?family=Source+Code+Pro:400,700" rel="stylesheet" type="text/css">
+  <link href='//fonts.useso.com/css?family=Open+Sans:300,600' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo">Hanks.xyz</a>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">首页</a>
+        
+          <a class="main-nav-link" href="/archives">归档</a>
+        
+          <a class="main-nav-link" href="/about/index.html">关于</a>
+        
+          <a class="main-nav-link" href="/collections">收集</a>
+        
+          <a class="main-nav-link" href="/atom.xml">RSS</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        <div id="search-form-wrap">
+          <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://hanks.xyz"></form>
+        </div>
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+        
+        
+          <a id="nav-github-link" class="nav-icon" href="https://github.com/hanks-zyh" title="Fork me on GitHub"></a>
+        
+      </nav>
+    </div>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/" class="mobile-nav-link">首页</a>
+  
+    <a href="/archives" class="mobile-nav-link">归档</a>
+  
+    <a href="/about/index.html" class="mobile-nav-link">关于</a>
+  
+    <a href="/collections" class="mobile-nav-link">收集</a>
+  
+    <a href="/atom.xml" class="mobile-nav-link">RSS</a>
+  
+  <div id="search-form-wrap-mobile">
+    <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://hanks.xyz"></form>
+  </div>
+</nav>
+      <div class="outer">
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap mdl-shadow--2dp">
+    <h3 class="widget-title">关于我</h3>
+    <div class="widget ">
+      <p>90后,Android开发,正在学习的东西python,js,react-native....</p>
+      <div class="me">
+              <div class="me-item">
+                  <a href="http://weibo.com/u/2359002991"><img src="http://hkcoding.sinaapp.com/static/images/ico_05_1.jpg" style="width:40px;height:40px"></a>
+                  <p>微博</p>
+              </div>
+              <div class="me-item">
+                  <a href="http://www.zhihu.com/people/yuhan-zhang-36"><img src="http://hkcoding.sinaapp.com/static/images/ico_zhihu.png" style="width:40px;height:40px"></a>
+                  <p>知乎</p>
+              </div>
+                 <div class="me-item">
+                 <a href="http://hanks.xyz/atom.xml"> <img src="http://hkcoding.sinaapp.com/static/images/ico_04_1.jpg" style="width:40px;height:40px"></a>
+                  <p>RSS</p>
+              </div>
+      </div>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap mdl-shadow--2dp">
+    <h3 class="widget-title">最新发布</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2016/01/11/react-native-23333/">React-Native 鬼畜表情包app</a>
+          </li>
+        
+          <li>
+            <a href="/2016/01/05/android-myhotfix/">Android 动手实现热修复</a>
+          </li>
+        
+          <li>
+            <a href="/2016/01/03/android-hotfix/">Android 热修复总结</a>
+          </li>
+        
+          <li>
+            <a href="/2015/12/31/2015/">2015回顾@hanks</a>
+          </li>
+        
+          <li>
+            <a href="/2015/12/30/snowfall/">Android 下雪动画</a>
+          </li>
+        
+          <li>
+            <a href="/2015/12/30/react-zhihu/">React-Native 知乎日报首页</a>
+          </li>
+        
+          <li>
+            <a href="/2015/12/29/react-userinfo/">React-Native 练习用户信息界面</a>
+          </li>
+        
+          <li>
+            <a href="/2015/12/29/react-viewpager/">React-Native 实现Android中的ViewPager</a>
+          </li>
+        
+          <li>
+            <a href="/2015/12/24/react-navigator/">React-Native 的Navigator控制界面跳转</a>
+          </li>
+        
+          <li>
+            <a href="/2015/12/23/react-network/">React-Native 网络请求</a>
+          </li>
+        
+          <li>
+            <a href="/2015/12/22/react-components/">React-Native 组件练习-购物app侧滑菜单</a>
+          </li>
+        
+          <li>
+            <a href="/2015/12/21/react-flexbox/">React-Native中的布局</a>
+          </li>
+        
+          <li>
+            <a href="/2015/12/18/atom-nuclide/">Atom安装Nuclide</a>
+          </li>
+        
+          <li>
+            <a href="/2015/12/18/react-native-UIExplorer/">运行React-Native例子UIExplorer</a>
+          </li>
+        
+          <li>
+            <a href="/2015/12/15/react-native-start-md/">Ubuntu进行 React-Native 的开发</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap mdl-shadow--2dp">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Android/">Android</a> <a href="/tags/Atom/">Atom</a> <a href="/tags/Java/">Java</a> <a href="/tags/OS-X/">OS X</a> <a href="/tags/React-Native/">React-Native</a> <a href="/tags/Refactoring/">Refactoring</a> <a href="/tags/Rx/">Rx</a> <a href="/tags/RxJava/">RxJava</a> <a href="/tags/Rxandroid/">Rxandroid</a> <a href="/tags/Rxjava/">Rxjava</a> <a href="/tags/Ubuntu/">Ubuntu</a> <a href="/tags/mac-os/">mac os</a> <a href="/tags/virtualBox/">virtualBox</a> <a href="/tags/必备知识/">必备知识</a> <a href="/tags/热修复/">热修复</a>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap mdl-shadow--2dp">
+    <div class="widget">
+     <iframe width="100%" height="200" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=550&fansRow=1&ptype=0&speed=0&skin=1&isTitle=0&noborder=0&isWeibo=0&isFans=1&uid=2359002991&verifier=05864e99&colors=4ABC88,ffffff,2C3E50,4ABC88,ecfbfd&dpc=1"></iframe>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap mdl-shadow--2dp">
+    <h3 class="widget-title">友情链接</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="https://github.com/hanks-zyh">hanks-zyh</a>
+          </li>
+        
+          <li>
+            <a href="http://kiya.space">kiya-z</a>
+          </li>
+        
+          <li>
+            <a href="http://hexo.io">Hexo</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+
+  
+</aside>
+        
+        <section id="main" class="mdl-shadow--2dp"><article id="post-react-native-23333" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/01/11/react-native-23333/" class="article-date">
+  <time datetime="2016-01-11T03:33:17.000Z" itemprop="datePublished">2016-01-11</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      React-Native 鬼畜表情包app
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>QQ群,微信群，各种大神，各种表情，每到半夜，斗图大会，八仙过海，各显神通，良辰日天齐上阵。不服，下载鬼畜表情，参加到战斗中，无奈啊，app做的不是太方便，想起抓包把图片一下都下载下来，想起最近看到RN，正好练练手。<br><a id="more"></a></p>
+<h3 id="单文件批量抓取">单文件批量抓取</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span><br><span class="line"> * Sample React Native App</span><br><span class="line"> * https://github.com/hanks-zyh/233333</span><br><span class="line"> */</span></span><br><span class="line"><span class="pi">'use strict'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> React = <span class="built_in">require</span>(<span class="string">'react-native'</span>);</span><br><span class="line"><span class="keyword">var</span> &#123;</span><br><span class="line">  AppRegistry,</span><br><span class="line">  StyleSheet,</span><br><span class="line">  Text,</span><br><span class="line">  View,</span><br><span class="line">  TouchableOpacity,</span><br><span class="line">&#125; = React;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> AwesomeProject = React.createClass(&#123;</span><br><span class="line">  getImage: <span class="function"><span class="keyword">function</span>(<span class="params">tid</span>)</span>&#123;</span><br><span class="line">    fetch(<span class="string">'https://face.ersansan.cn/collection/'</span>+tid)</span><br><span class="line">    .then((respose) =&gt; respose.text())</span><br><span class="line">    .then((responseText) =&gt; &#123;</span><br><span class="line">          <span class="keyword">var</span> result = <span class="built_in">eval</span>(<span class="string">'('</span> + responseText +     <span class="string">')'</span>);</span><br><span class="line">          <span class="keyword">var</span> list = result.picList;</span><br><span class="line">          <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;list.length;i++)&#123;</span><br><span class="line">            <span class="keyword">var</span> item = list[i];</span><br><span class="line">            <span class="built_in">console</span>.warn(item.link);</span><br><span class="line">          &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">    .catch((error) =&gt; &#123;</span><br><span class="line">      <span class="built_in">console</span>.warn(error);</span><br><span class="line">    &#125;).done;</span><br><span class="line">  &#125;,</span><br><span class="line">  getSunCollection: <span class="function"><span class="keyword">function</span>(<span class="params">tid</span>)</span>&#123;</span><br><span class="line">    fetch(<span class="string">'https://face.ersansan.cn/collection/'</span>+tid)</span><br><span class="line">    .then((respose) =&gt; respose.text())</span><br><span class="line">    .then((responseText) =&gt; &#123;</span><br><span class="line">          <span class="keyword">var</span> result = <span class="built_in">eval</span>(<span class="string">'('</span> + responseText +     <span class="string">')'</span>);</span><br><span class="line">          <span class="keyword">var</span> list = result.subcollection;</span><br><span class="line">          <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;list.length;i++)&#123;</span><br><span class="line">            <span class="keyword">var</span> item = list[i];</span><br><span class="line">            <span class="keyword">this</span>.getImage(item.tid);</span><br><span class="line">          &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">    .catch((error) =&gt; &#123;</span><br><span class="line">      <span class="built_in">console</span>.warn(error);</span><br><span class="line">    &#125;).done;</span><br><span class="line">  &#125;,</span><br><span class="line">  _downLoad: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">      fetch(<span class="string">'https://face.ersansan.cn/collection'</span>)</span><br><span class="line">      .then((respose) =&gt; respose.text())</span><br><span class="line">      .then((responseText) =&gt; &#123;</span><br><span class="line">            <span class="keyword">var</span> result = <span class="built_in">eval</span>(<span class="string">'('</span> + responseText +     <span class="string">')'</span>);</span><br><span class="line">            <span class="keyword">var</span> list = result.List;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;list.length;i++)&#123;</span><br><span class="line">              <span class="keyword">var</span> item = list[i];</span><br><span class="line">              <span class="built_in">console</span>.warn(item.tid+item.title);</span><br><span class="line">              <span class="keyword">this</span>.getSunCollection(item.tid);</span><br><span class="line">            &#125;</span><br><span class="line">      &#125;)</span><br><span class="line">      .catch((error) =&gt; &#123;</span><br><span class="line">        <span class="built_in">console</span>.warn(error);</span><br><span class="line">      &#125;).done;</span><br><span class="line">  &#125;,</span><br><span class="line">  render: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      <span class="xml"><span class="tag">&lt;<span class="title">View</span> <span class="attribute">style</span>=<span class="value">&#123;&#123;</span> <span class="attribute">flex:1</span>, <span class="attribute">alignItems:</span>'<span class="attribute">center</span>', <span class="attribute">justifyContent:</span>'<span class="attribute">center</span>'&#125;&#125;&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">TouchableOpacity</span> <span class="attribute">style</span>=<span class="value">&#123;&#123;</span></span><br><span class="line">           <span class="attribute">backgroundColor:</span>"##<span class="attribute">234234</span>", <span class="attribute">height:50</span>, <span class="attribute">width:80</span>,  <span class="attribute">alignItems:</span>'<span class="attribute">center</span>',  <span class="attribute">justifyContent:</span>'<span class="attribute">center</span>'</span><br><span class="line">         &#125;&#125; <span class="attribute">onPress</span>=<span class="value">&#123;</span> <span class="attribute">this._downLoad</span> &#125;&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="title">Text</span> <span class="attribute">style</span>=<span class="value">&#123;&#123;</span> <span class="attribute">fontSize:20</span>,  <span class="attribute">color:</span>'<span class="attribute">white</span>' &#125;&#125;&gt;</span>下载<span class="tag">&lt;/<span class="title">Text</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;/<span class="title">TouchableOpacity</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="title">View</span>&gt;</span></span><br><span class="line">    )</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> styles = StyleSheet.create(&#123;</span><br><span class="line"></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">AppRegistry.registerComponent(<span class="string">'AwesomeProject'</span>, () =&gt; AwesomeProject);</span><br></pre></td></tr></table></figure>
+<h3 id="仿app界面">仿app界面</h3><p><img src="https://github.com/hanks-zyh/233333/raw/master/2333.gif" alt="2333"></p>
+<p><strong>首页：</strong><br>外部<code>ScrollView</code><br>顶部图片+ListView<br>给ListView每个item的title设置点击进入专题</p>
+<p><strong>专题：</strong><br>简单的<code>ListView</code><br>每个item设置点击进入图片列表</p>
+<p><strong>图片列表</strong><br>还是ListView，每个<code>ListView</code>的item分3个图片<br>根据D<code>imensions</code>计算宽高<br>不够3个的有几个显示几个<br>每个图片设置点击打开浏览器下载 <code>IntentAndroid.openURL(url);</code></p>
+<p>源码：<a href="https://github.com/hanks-zyh/233333" target="_blank" rel="external">https://github.com/hanks-zyh/233333</a></p>
+<blockquote>
+<p>文章来自： <a href="http://hanks.xyz">http://hanks.xyz</a></p>
+</blockquote>
+
+      
+    </div>
+
+  
+  
+</article>
+
+  
+<section id="comments">
+    <!-- 多说分享框 -->
+    <div class="ds-share flat" data-thread-key="/2016/01/11/react-native-23333/" data-title="React-Native 鬼畜表情包app" data-images="https://raw.githubusercontent.com/Hankiya/LoveOnline/master/Rich%20Format%20Vertical.png" data-content="React-Native 鬼畜表情包app" data-url="http://hanks.xyz//2016/01/11/react-native-23333/">
+    <div class="ds-share-inline">
+      <ul  class="ds-share-icons-16">
+
+      	<li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+        <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+        <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+        <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+        <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+      </ul>
+      <div class="ds-share-icons-more">
+      </div>
+    </div>
+   </div>
+    <!-- 多说评论框 start -->
+   	<div class="ds-thread" data-thread-key="/2016/01/11/react-native-23333/" data-title="React-Native 鬼畜表情包app" data-url="http://hanks.xyz//2016/01/11/react-native-23333/"></div>
+   <!-- 多说评论框 end -->
+   <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+   <script type="text/javascript">
+   var duoshuoQuery = {short_name:"hanks-zyh"};
+   	(function() {
+   		var ds = document.createElement('script');
+   		ds.type = 'text/javascript';ds.async = true;
+   		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+   		ds.charset = 'UTF-8';
+   		(document.getElementsByTagName('head')[0]
+   		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+   	})();
+   	</script>
+   <!-- 多说公共JS代码 end -->
+</section>
+
+</section>
+      </div>
+      <footer id="footer">
+  
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      &copy; 2016 Hanks<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+  </br>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    
+
+<script src="/js/jquery.min.js" type="text/javascript"></script>
+<script src="/js/jquery.scrollLoading.js" type="text/javascript"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+  <script src="/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+
+
+<script src="/js/script.js" type="text/javascript"></script>
+
+  </div>
+</body>
+</html>

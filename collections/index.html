@@ -187,7 +187,8 @@
               </li>
             </ul>
             <i class="fa fa-hand-o-right  "></i><button class="more" id="more1" name="button">more</button>
-        </div>
+        </div> 
+        
       </div>
       <!-- 第二列 -->
       <div class="column">
@@ -201,7 +202,7 @@
                 </a>
                 <p>FaceBook出品</p>
                </div>
-             </li>
+              </li>
               <li class="link">
                 <div class="cell">
                 <a href="http://wiki.jikexueyuan.com/project/material-design/">Glide (图片)</a>
@@ -291,7 +292,7 @@
               </a>
               <p>上面常年隐匿者各种大牛</p>
             </div>
-           </li>
+            </li>
             <li class="link">
               <div class="cell">
               <a href="http://www.proginn.com/Index/user">
@@ -302,7 +303,148 @@
             </li>
           </ul>
           <i class="fa fa-hand-o-right  "></i><button class="more" id="more3" name="button">more</button>
+        </div>
       </div>
+      <!-- 第三列 -->
+      <div class="column">
+        <div class="card mdl-shadow--2dp ">
+            <h2>在线工具</h2>
+            <ul class="list" id="ul4">
+
+                    <li class="link">
+                        <div class="cell">
+                          <a href="https://snapdrop.net/">
+                            snapdrop
+                          </a>
+                          <p>
+                            局域网在线传输,只需局域网内的设备们同时打开此网页
+                          </p>
+                        </div>
+                    </li>
+
+                    <li class="link">
+                        <div class="cell">
+                          <a href="http://asciiflow.com/">
+                            asciiflow
+                          </a>
+                          <p>
+                            ascii字符流程图,可保存在google硬盘，炫酷首选
+                          </p>
+                        </div>
+                    </li>
+
+                    <li class="link">
+                        <div class="cell">
+                          <a href="https://drive.draw.io/">
+                            draw.io
+                          </a>
+                          <p>
+                            流程图,思维导图,UI原型图,UML等各种图,需翻墙但功能强大,存于google硬盘
+                          </p>
+                        </div>
+                    </li>
+
+                    <li class="link" >
+                        <div class="cell">
+                          <a href="https://www.processon.com/i/55658f46e4b07104f5954b4a">
+                            processon
+                          </a>
+                          <p>
+                            类似于draw.io，国内版,无需翻墙但有存储数量限制
+                          </p>
+                        </div>
+                    </li>
+
+                    <li class="link"  >
+                        <div class="cell">
+                          <a href="http://www.iconpng.com/">
+                            图标网
+                          </a>
+                          <p>
+                            各种图标,感觉不错,略有广告
+                          </p>
+                        </div>
+                    </li>
+
+                    <li class="link"  >
+                        <div class="cell">
+                          <a href="http://www.flaticon.com/">
+                            flaticon
+                          </a>
+                          <p>
+                            扁平图标
+                          </p>
+                        </div>
+                    </li>
+
+                    <li class="link"  >
+                        <div class="cell">
+                          <a href="http://www.atool.org/">
+                            atool
+                          </a>
+                          <p>
+                            在线工具大集合
+                          </p>
+                        </div>
+                    </li>
+
+                    <li class="link" >
+                        <div class="cell">
+                          <a href="http://tool.oschina.net/">
+                            oschina
+                          </a>
+                          <p>
+                            在线工具大集合
+                          </p>
+                        </div>
+                    </li>
+
+                    <li class="link" >
+                        <div class="cell">
+                          <a href="http://tool.chinaz.com/">
+                            站长工具
+                          </a>
+                          <p>
+                            在线工具大集合
+                          </p>
+                        </div>
+                    </li>
+
+                    <li class="link" >
+                        <div class="cell">
+                          <a href="https://color.adobe.com/zh/create/color-wheel">
+                            adode 色彩搭配轮
+                          </a>
+                          <p>
+                            如题
+                          </p>
+                        </div>
+                    </li>
+
+                    <li class="link" >
+                        <div class="cell">
+                          <a href="http://colrd.com/">
+                            colrd
+                          </a>
+                          <p>
+                            根据照片搭配颜色1
+                          </p>
+                        </div>
+                    </li>
+
+                    <li class="link" >
+                        <div class="cell">
+                          <a href="http://www.palettefx.com">
+                            palettefx
+                          </a>
+                          <p>
+                            根据照片搭配颜色2
+                          </p>
+                        </div>
+                    </li>
+            </ul>
+            <i class="fa fa-hand-o-right  "></i><button class="more" id="more4" >more</button>
+        </div>
       </div>
     </div>
   <div class="comments">
@@ -341,7 +483,7 @@
   </div>
     <script type="text/javascript">
        var limit = 5;
-        $(document).ready(function(){
+       $(document).ready(function(){
          var ulLength = $("ul").length;
          for(var i=0;i<ulLength;i++){
            $("#ul"+i).children().slice(limit).hide();
@@ -349,16 +491,17 @@
        });
        var ulLength = $("ul").length;
        for(var i=0;i<ulLength;i++){
-
          var moreCount = $("#ul"+i).children().length;
          moreCount = moreCount -limit < 0 ? 0 : moreCount -limit ;
-
-         console.log(i+"more"+moreCount);
          $("#more"+i).text(moreCount +" more");
+         $("#more"+i).attr("moreCount",moreCount);
          $("#more"+i).click(function(){
+            var now = $("#"+this.id).text()
+            now.includes("more") ? $("#"+this.id).text("less") : $("#"+this.id).text($("#"+this.id).attr("moreCount") + " more");
             $("#ul"+this.id.substring(4)).children().slice(limit).toggle(400);
          });
-       }
+       } 
+       
     </script>
   </body>
 </html>

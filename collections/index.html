@@ -3,10 +3,22 @@
   <head>
     <meta charset="utf-8">
     <title>资源收集</title>
+    <script src="https://cdn.bootcss.com/jquery/2.1.4/jquery.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.6/material.indigo-pink.min.css">
+    <script src="https://storage.googleapis.com/code.getmdl.io/1.0.6/material.min.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <style type="text/css">
       body{
         background-color: #F5F5F5;
         padding: 10px;
+      }
+      h2{
+        font-size: 20px;
+        line-height: 0px;
+      }
+      i.material-icons {
+          color: #000000;
       }
       .mdl-shadow--2dp {
         box-shadow: 0 2px 2px 0 rgba(0,0,0,.14),0 3px 1px -2px rgba(0,0,0,.2),0 1px 5px 0 rgba(0,0,0,.12);
@@ -19,7 +31,7 @@
         margin: 0 auto;
       }
       .column{
-        width: 45%;
+        width: 28%;
         display: flex;
         flex-direction: column;
       }
@@ -48,7 +60,7 @@
           max-width: 400px;
           overflow: hidden;
           text-overflow: ellipsis;
-          white-space: nowrap;
+          // white-space: nowrap;
       }
 
       .list {
@@ -67,10 +79,14 @@
          margin-bottom: 50px;
       }
     </style>
-    <script src="https://cdn.bootcss.com/jquery/2.1.4/jquery.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
   </head>
   <body>
+    <div class="head">
+      <!-- FAB button -->
+      <button class="mdl-button mdl-js-button mdl-button--fab">
+        <a href="http://hanks.xyz"><i class="material-icons">arrow_back</i></a>
+      </button>
+    </div>
     <div class="container">
       <!-- 第一列 -->
       <div class="column">
@@ -111,7 +127,7 @@
                   Android官方培训课程中文版
                 </a>
                 <p>
-                  Google I/O 2014 发布 Material Design，1sters 于 2014-09-09 上线中文版，并稳稳占据百度和 Google material design 关键字的第一名。
+                  啥也不说，赞赞赞！
                 </p>
               </div>
             </li>

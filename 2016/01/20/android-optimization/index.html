@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Android性能优化 | Hanks.xyz</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="布局优化,绘制优化,内存泄露优化,响应速度优化,listview优化,bitmap优化,多线程优化">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android性能优化">
+<meta property="og:url" content="http://hanks.xyz/2016/01/20/android-optimization/index.html">
+<meta property="og:site_name" content="Hanks.xyz">
+<meta property="og:description" content="布局优化,绘制优化,内存泄露优化,响应速度优化,listview优化,bitmap优化,多线程优化">
+<meta property="og:image" content="http://www.splitshire.com/wp-content/uploads/2015/03/SplitShire-5390-1800x1200-970x500.jpg">
+<meta property="og:updated_time" content="2016-01-20T13:58:35.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android性能优化">
+<meta name="twitter:description" content="布局优化,绘制优化,内存泄露优化,响应速度优化,listview优化,bitmap优化,多线程优化">
+  
+  
+    <link rel="icon" href="/images/favicon.png">
+  
+  <!-- <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600' rel='stylesheet' type='text/css'> -->
+  <!-- <link href="//fonts.googleapis.com/css?family=Source+Code+Pro:400,700" rel="stylesheet" type="text/css"> -->
+  <link href="//fonts.useso.com/css?family=Source+Code+Pro:400,700" rel="stylesheet" type="text/css">
+  <link href='//fonts.useso.com/css?family=Open+Sans:300,600' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo">Hanks.xyz</a>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">首页</a>
+        
+          <a class="main-nav-link" href="/archives">归档</a>
+        
+          <a class="main-nav-link" href="/about/index.html">关于</a>
+        
+          <a class="main-nav-link" href="/collections">收集</a>
+        
+          <a class="main-nav-link" href="/atom.xml">RSS</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        <div id="search-form-wrap">
+          <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://hanks.xyz"></form>
+        </div>
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+        
+        
+          <a id="nav-github-link" class="nav-icon" href="https://github.com/hanks-zyh" title="Fork me on GitHub"></a>
+        
+      </nav>
+    </div>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/" class="mobile-nav-link">首页</a>
+  
+    <a href="/archives" class="mobile-nav-link">归档</a>
+  
+    <a href="/about/index.html" class="mobile-nav-link">关于</a>
+  
+    <a href="/collections" class="mobile-nav-link">收集</a>
+  
+    <a href="/atom.xml" class="mobile-nav-link">RSS</a>
+  
+  <div id="search-form-wrap-mobile">
+    <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://hanks.xyz"></form>
+  </div>
+</nav>
+      <div class="outer">
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap mdl-shadow--2dp">
+    <div class="info">
+     <div class="content">
+       <div>
+         <a href="https://github.com/hanks-zyh"><img class="avatar" src="https://avatars2.githubusercontent.com/u/6268322?v=3&s=460" alt="" /></a>
+       </div>
+       <div class="name">
+         <h2 >Hanks</h2>
+       </div>
+       <p>90后,Android,学习永无止境！</p>
+       <div class="account">
+         <div class="account-item">
+           <a href="http://weibo.com/u/2359002991"><img src="http://hkcoding.sinaapp.com/static/images/ico_05_1.jpg" style="width:40px;height:40px"></a>
+         </div>
+         <div class="account-item">
+              <a href="http://www.zhihu.com/people/yuhan-zhang-36"><img src="http://hkcoding.sinaapp.com/static/images/ico_zhihu.png" style="width:40px;height:40px"></a>
+         </div>
+         <div class="account-item">
+           <a href="http://hanks.xyz/atom.xml"> <img src="http://hkcoding.sinaapp.com/static/images/ico_04_1.jpg" style="width:40px;height:40px"></a>
+         </div>
+       </div>
+     </div>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap mdl-shadow--2dp">
+    <h3 class="widget-title">最新发布</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2016/01/20/android-optimization/">Android性能优化</a>
+          </li>
+        
+          <li>
+            <a href="/2016/01/14/framework-application/">Framework分析-Application的onCreate</a>
+          </li>
+        
+          <li>
+            <a href="/2016/01/11/react-native-23333/">React-Native 鬼畜表情包app</a>
+          </li>
+        
+          <li>
+            <a href="/2016/01/05/android-myhotfix/">Android 动手实现热修复</a>
+          </li>
+        
+          <li>
+            <a href="/2016/01/03/android-hotfix/">Android 热修复总结</a>
+          </li>
+        
+          <li>
+            <a href="/2015/12/31/2015/">2015回顾@hanks</a>
+          </li>
+        
+          <li>
+            <a href="/2015/12/30/snowfall/">Android 下雪动画</a>
+          </li>
+        
+          <li>
+            <a href="/2015/12/30/react-zhihu/">React-Native 知乎日报首页</a>
+          </li>
+        
+          <li>
+            <a href="/2015/12/29/react-userinfo/">React-Native 练习用户信息界面</a>
+          </li>
+        
+          <li>
+            <a href="/2015/12/29/react-viewpager/">React-Native 实现Android中的ViewPager</a>
+          </li>
+        
+          <li>
+            <a href="/2015/12/24/react-navigator/">React-Native 的Navigator控制界面跳转</a>
+          </li>
+        
+          <li>
+            <a href="/2015/12/23/react-network/">React-Native 网络请求</a>
+          </li>
+        
+          <li>
+            <a href="/2015/12/22/react-components/">React-Native 组件练习-购物app侧滑菜单</a>
+          </li>
+        
+          <li>
+            <a href="/2015/12/21/react-flexbox/">React-Native中的布局</a>
+          </li>
+        
+          <li>
+            <a href="/2015/12/18/atom-nuclide/">Atom安装Nuclide</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap mdl-shadow--2dp">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Android/">Android</a> <a href="/tags/Atom/">Atom</a> <a href="/tags/Framework/">Framework</a> <a href="/tags/Java/">Java</a> <a href="/tags/OS-X/">OS X</a> <a href="/tags/React-Native/">React-Native</a> <a href="/tags/Refactoring/">Refactoring</a> <a href="/tags/Rx/">Rx</a> <a href="/tags/RxJava/">RxJava</a> <a href="/tags/Rxandroid/">Rxandroid</a> <a href="/tags/Rxjava/">Rxjava</a> <a href="/tags/Ubuntu/">Ubuntu</a> <a href="/tags/mac-os/">mac os</a> <a href="/tags/virtualBox/">virtualBox</a> <a href="/tags/必备知识/">必备知识</a> <a href="/tags/性能优化/">性能优化</a> <a href="/tags/热修复/">热修复</a>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap mdl-shadow--2dp">
+    <div class="widget">
+     <iframe width="100%" height="200" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=550&fansRow=1&ptype=0&speed=0&skin=1&isTitle=0&noborder=0&isWeibo=0&isFans=1&uid=2359002991&verifier=05864e99&colors=4ABC88,ffffff,2C3E50,4ABC88,ecfbfd&dpc=1"></iframe>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap mdl-shadow--2dp">
+    <h3 class="widget-title">友情链接</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="https://github.com/hanks-zyh">hanks-zyh</a>
+          </li>
+        
+          <li>
+            <a href="http://kiya.space">kiya-z</a>
+          </li>
+        
+          <li>
+            <a href="http://hexo.io">Hexo</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+
+  
+</aside>
+        
+        <section id="main" class="mdl-shadow--2dp"><article id="post-android-optimization" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/01/20/android-optimization/" class="article-date">
+  <time datetime="2016-01-20T13:51:09.000Z" itemprop="datePublished">2016-01-20</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Android性能优化
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>布局优化,绘制优化,内存泄露优化,响应速度优化,listview优化,bitmap优化,多线程优化<br><a id="more"></a><br><a href="http://bugly.qq.com/blog/?p=166" target="_blank" rel="external">量化流畅度</a></p>
+<ul>
+<li><p>布局优化<br>include 重用布局<br>merge 减少层级嵌套<br>viewstub 延迟加载<br>space 空白占位</p>
+</li>
+<li><p>绘制优化<br>(onMeasure,onLayout,onDraw)<br>ondraw<br>过度绘制</p>
+</li>
+<li><p>内存泄露优化<br><a href="http://yq.aliyun.com/articles/3009" target="_blank" rel="external">Android 内存泄漏总结</a><br>分析工具MAT, leakcanary<br>静态变量引用<br>单例模式<br>属性动画</p>
+</li>
+<li><p>响应速度优化<br>anr, 分析/dat/anr下的traces.txt<br>启动时间，冷启动</p>
+</li>
+<li><p>listview优化<br>复用view<br>viewholder<br>滑动状态不同加载策略<br>getview不要耗时操作<br>大的item分成小的item<br>创建多种viewtype<br>item的布局嵌套<br>item子view的大小<br>RecyclerView</p>
+</li>
+<li><p>bitmap优化<br>重新采样 缩放<br>模糊：缩小，模糊，放大</p>
+</li>
+<li><p>多线程优化<br>Java内存模型<br>线程池</p>
+</li>
+</ul>
+<p><img src="http://www.splitshire.com/wp-content/uploads/2015/03/SplitShire-5390-1800x1200-970x500.jpg" alt=""></p>
+<blockquote>
+<p>文章来自： <a href="http://hanks.xyz">http://hanks.xyz</a></p>
+</blockquote>
+
+      
+    </div>
+
+  
+  
+</article>
+
+  
+<section id="comments">
+    <!-- 多说分享框 -->
+    <div class="ds-share flat" data-thread-key="/2016/01/20/android-optimization/" data-title="Android性能优化" data-images="https://raw.githubusercontent.com/Hankiya/LoveOnline/master/Rich%20Format%20Vertical.png" data-content="Android性能优化" data-url="http://hanks.xyz//2016/01/20/android-optimization/">
+    <div class="ds-share-inline">
+      <ul  class="ds-share-icons-16">
+
+      	<li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+        <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+        <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+        <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+        <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+      </ul>
+      <div class="ds-share-icons-more">
+      </div>
+    </div>
+   </div>
+    <!-- 多说评论框 start -->
+   	<div class="ds-thread" data-thread-key="/2016/01/20/android-optimization/" data-title="Android性能优化" data-url="http://hanks.xyz//2016/01/20/android-optimization/"></div>
+   <!-- 多说评论框 end -->
+   <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+   <script type="text/javascript">
+   var duoshuoQuery = {short_name:"hanks-zyh"};
+   	(function() {
+   		var ds = document.createElement('script');
+   		ds.type = 'text/javascript';ds.async = true;
+   		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+   		ds.charset = 'UTF-8';
+   		(document.getElementsByTagName('head')[0]
+   		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+   	})();
+   	</script>
+   <!-- 多说公共JS代码 end -->
+</section>
+
+</section>
+      </div>
+      <footer id="footer">
+  
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      &copy; 2016 Hanks<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+  </br>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    
+
+<script src="/js/jquery.min.js" type="text/javascript"></script>
+<script src="/js/jquery.scrollLoading.js" type="text/javascript"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+  <script src="/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+
+
+<script src="/js/script.js" type="text/javascript"></script>
+
+  </div>
+</body>
+</html>

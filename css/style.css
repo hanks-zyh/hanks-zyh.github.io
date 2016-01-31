@@ -1433,6 +1433,12 @@ pre .javascript .function {
   #footer {
     margin-top: 0px;
   }
+  .mdl-shadow--2dp {
+    padding: 0;
+    padding-top: 20px;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+  }
 }
 @media only screen and (-webkit-min-device-pixel-ratio: 1.5), only screen and (min--moz-device-pixel-ratio: 1.5), only screen and (min-device-pixel-ratio: 1.5) {
   .img-wrap:before {

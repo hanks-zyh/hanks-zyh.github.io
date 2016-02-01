@@ -4,7 +4,7 @@
   <subtitle><![CDATA[coding]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://hanks.xyz/"/>
-  <updated>2016-01-31T01:54:17.000Z</updated>
+  <updated>2016-02-01T16:27:17.000Z</updated>
   <id>http://hanks.xyz/</id>
   
   <author>
@@ -13,6 +13,55 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[Framework分析-点击Launcher中的图标启动Activity]]></title>
+    <link href="http://hanks.xyz/2016/02/01/framework-activity-oncreate/"/>
+    <id>http://hanks.xyz/2016/02/01/framework-activity-oncreate/</id>
+    <published>2016-02-01T15:50:11.000Z</published>
+    <updated>2016-02-01T16:27:17.000Z</updated>
+    <content type="html"><![CDATA[<p>Launcher也是一个应用，点击一个图标，开启一个新的应用。分析从点击图标到新的应用的Activity执行onCreate的执行流程.注意学习Binder机制<br> <img src="https://dn-coding-net-production-pp.qbox.me/29c9c5db-a084-4667-863e-912e07a27a73.png" alt="图片"> </p>
+<a id="more"></a>
+<p><img src="http://file.bmob.cn/M02/77/98/oYYBAFavgz6AfVmFAAR8ykLhngM223.png" alt="Laucher启动一个新的应用"></p>
+<ol>
+<li>无论是通过Launcher来启动Activity，还是通过Activity内部调用startActivity接口来启动新的Activity，都通过Binder进程间通信进入到ActivityManagerService进程中，并且调用ActivityManagerService.startActivity接口； </li>
+<li>ActivityManagerService调用ActivityStack.startActivityMayWait来做准备要启动的Activity的相关信息；</li>
+<li>ActivityStack通知ApplicationThread要进行Activity启动调度了，这里的ApplicationThread代表的是调用ActivityManagerService.startActivity接口的进程，对于通过点击应用程序图标的情景来说，这个进程就是Launcher了，而对于通过在Activity内部调用startActivity的情景来说，这个进程就是这个Activity所在的进程了；</li>
+<li>ApplicationThread不执行真正的启动操作，它通过调用ActivityManagerService.activityPaused接口进入到ActivityManagerService进程中，看看是否需要创建新的进程来启动Activity；</li>
+<li>对于通过点击应用程序图标来启动Activity的情景来说，ActivityManagerService在这一步中，会调用startProcessLocked来创建一个新的进程，而对于通过在Activity内部调用startActivity来启动新的Activity来说，这一步是不需要执行的，因为新的Activity就在原来的Activity所在的进程中进行启动；</li>
+<li>ActivityManagerServic调用ApplicationThread.scheduleLaunchActivity接口，通知相应的进程执行启动Activity的操作；</li>
+<li>ApplicationThread把这个启动Activity的操作转发给ActivityThread，ActivityThread通过ClassLoader导入相应的Activity类，然后把它启动起来。</li>
+</ol>
+<p><img src="http://file.bmob.cn/M02/77/98/oYYBAFavgy2AbDNJAAIS5AMX0Hw805.png" alt="详细流程"></p>
+<ol>
+<li>Launcher 通过 Binder进程间通信机制通知 ActivityManagerService，它要启动一个Activity；</li>
+<li>ActivityManagerService通过Binder进程间通信机制通知Launcher进入Paused状态；</li>
+<li>Launcher通过Binder进程间通信机制通知ActivityManagerService，它已经准备就绪进入Paused状态，于是ActivityManagerService就创建一个新的进程，用来启动一个ActivityThread实例，即将要启动的Activity就是在这个ActivityThread实例中运行；</li>
+<li>ActivityThread通过Binder进程间通信机制将一个ApplicationThread类型的Binder对象传递给ActivityManagerService，以便以后ActivityManagerService能够通过这个Binder对象和它进行通信；</li>
+<li>ActivityManagerService 通过 Binder 进程间通信机制通知 ActivityThread, 现在一切准备就绪，它可以真正执行Activity的启动操作了。</li>
+</ol>
+<p><strong>ActivityThread</strong>:ActivityThread类有一个main方法，它是应用程序的入口，每启动一个应用进程，都会创建ActivityThread与之对应的实例，是应用程序的UI线程，Android进程启动时会建立消息循环。</p>
+<p><strong>ApplicationThread &amp; ApplicatinThreadNative</strong>:ApplicationThread用来实现AMS(ActivityManagerService)与AT(ActivityThread)之间的交互。在AMS需要管理相关Application中的Activity的生命周期时，通过ApplicationThread与AT通讯，ApplicationThreadNative是ApplicationThread在客户端的实现(binder机制)。</p>
+<p><strong>ApplicationThreadProxy</strong>:ApplicationThreadProxy是ApplicationThread在服务器端的代理。负责和服务器端的ApplicatingThreadNative通讯。 AMS就是通过该代理与ActivityThread进行通信的(binder机制)。</p>
+<p><strong>Activity &amp; Intrumentation</strong>:Activity是应用程序真正做事情的类，每一个应用程序只有一个Instrumentation对象，每个Activity内都有一个对该对象的引用(也就是说mInstrumentation是Activity类的成员变量，前文图解中也有说明)。<br><code>Instrumentation</code>用来监控应用程序和系统的交互，可以理解为应用进程的管家，AT要创建或暂停某个Activity时，都需要通过Instrumentation。 通俗的理解，<code>Instrumentation</code> 与AT的区别，前者像是一个“家庭”里的“管家”，后者是负责创建这个“家庭”，并负责对外打交道，比如接收AMS的通知等。</p>
+<p>推荐<a href="https://www.websequencediagrams.com/" target="_blank" rel="external">在线时序图网站:https://www.websequencediagrams.com/</a></p>
+<p><img src="http://www.splitshire.com/wp-content/uploads/2016/02/SplitShire-2404.jpg" alt="欣赏"></p>
+<blockquote>
+<p>文章来自： <a href="http://hanks.xyz">http://hanks.xyz</a></p>
+</blockquote>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>Launcher也是一个应用，点击一个图标，开启一个新的应用。分析从点击图标到新的应用的Activity执行onCreate的执行流程.注意学习Binder机制<br> <img src="https://dn-coding-net-production-pp.qbox.me/29c9c5db-a084-4667-863e-912e07a27a73.png" alt="图片"> </p>]]>
+    
+    </summary>
+    
+      <category term="Activity" scheme="http://hanks.xyz/tags/Activity/"/>
+    
+      <category term="Android" scheme="http://hanks.xyz/tags/Android/"/>
+    
+      <category term="Framework" scheme="http://hanks.xyz/tags/Framework/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[Android性能优化]]></title>
@@ -855,36 +904,6 @@
       <category term="Rxandroid" scheme="http://hanks.xyz/tags/Rxandroid/"/>
     
       <category term="Rxjava" scheme="http://hanks.xyz/tags/Rxjava/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[OS X中Java环境变量配置]]></title>
-    <link href="http://hanks.xyz/2015/12/04/mac_java_enviroment/"/>
-    <id>http://hanks.xyz/2015/12/04/mac_java_enviroment/</id>
-    <published>2015-12-04T15:50:26.000Z</published>
-    <updated>2015-12-04T16:10:58.000Z</updated>
-    <content type="html"><![CDATA[<p>类似Linux下Java环境的配置,流程就是 <code>下载</code> -&gt; <code>解压</code> -&gt; <code>配置环境变量文件</code></p>
-<h3 id="下载_jdk">下载 jdk</h3><p>到oracle官网下最新 jdk <a href="http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html" target="_blank" rel="external">下载链接</a>,  注意下载的是jdk(Java Development Kit ),不是jre(Java Runtime Environment)</p>
-<h3 id="配置Java环境变量">配置Java环境变量</h3><p>安装过jdk之后, 查看jdk的安装路径, 一般在 <code>/Library/Java/JavaVirtualMachines</code>目录下面<br>然后编辑环境变量, 打开文件 <code>/etc/profile</code></p>
-<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo <span class="keyword">vim</span> /etc/<span class="keyword">profile</span></span><br></pre></td></tr></table></figure>
-<a id="more"></a>
-<p>在底部添加下面的环境变量, windows上面是图形化的编辑, linux 和 mac 下都是 添加到 <code>/etc/profile</code>文件中</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">JAVA_HOME=<span class="string">"/Library/Java/JavaVirtualMachines/jdk1.8.0_40.jdk/Contents/Home/"</span></span><br><span class="line">CLASS_PATH=<span class="string">"<span class="variable">$JAVA_HOME</span>/lib"</span></span><br><span class="line">PATH=<span class="string">".;<span class="variable">$PATH</span>:<span class="variable">$JAVA_HOME</span>/bin"</span></span><br></pre></td></tr></table></figure>
-<h3 id="验证配置">验证配置</h3><figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -<span class="property">version</span></span><br></pre></td></tr></table></figure>
-<p>看到版本信息则为配置成功.</p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<p>类似Linux下Java环境的配置,流程就是 <code>下载</code> -&gt; <code>解压</code> -&gt; <code>配置环境变量文件</code></p>
-<h3 id="下载_jdk">下载 jdk</h3><p>到oracle官网下最新 jdk <a href="http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html">下载链接</a>,  注意下载的是jdk(Java Development Kit ),不是jre(Java Runtime Environment)</p>
-<h3 id="配置Java环境变量">配置Java环境变量</h3><p>安装过jdk之后, 查看jdk的安装路径, 一般在 <code>/Library/Java/JavaVirtualMachines</code>目录下面<br>然后编辑环境变量, 打开文件 <code>/etc/profile</code></p>
-<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo <span class="keyword">vim</span> /etc/<span class="keyword">profile</span></span><br></pre></td></tr></table></figure>]]>
-    
-    </summary>
-    
-      <category term="Java" scheme="http://hanks.xyz/tags/Java/"/>
-    
-      <category term="OS X" scheme="http://hanks.xyz/tags/OS-X/"/>
     
   </entry>
   

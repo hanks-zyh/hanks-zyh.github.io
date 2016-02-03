@@ -4,7 +4,7 @@
   <subtitle><![CDATA[coding]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://hanks.xyz/"/>
-  <updated>2016-02-01T16:27:17.000Z</updated>
+  <updated>2016-02-03T13:49:52.000Z</updated>
   <id>http://hanks.xyz/</id>
   
   <author>
@@ -19,7 +19,7 @@
     <link href="http://hanks.xyz/2016/02/01/framework-activity-oncreate/"/>
     <id>http://hanks.xyz/2016/02/01/framework-activity-oncreate/</id>
     <published>2016-02-01T15:50:11.000Z</published>
-    <updated>2016-02-01T16:27:17.000Z</updated>
+    <updated>2016-02-03T13:49:52.000Z</updated>
     <content type="html"><![CDATA[<p>Launcher也是一个应用，点击一个图标，开启一个新的应用。分析从点击图标到新的应用的Activity执行onCreate的执行流程.注意学习Binder机制<br> <img src="https://dn-coding-net-production-pp.qbox.me/29c9c5db-a084-4667-863e-912e07a27a73.png" alt="图片"> </p>
 <a id="more"></a>
 <p><img src="http://file.bmob.cn/M02/77/98/oYYBAFavgz6AfVmFAAR8ykLhngM223.png" alt="Laucher启动一个新的应用"></p>
@@ -45,6 +45,8 @@
 <p><strong>ApplicationThreadProxy</strong>:ApplicationThreadProxy是ApplicationThread在服务器端的代理。负责和服务器端的ApplicatingThreadNative通讯。 AMS就是通过该代理与ActivityThread进行通信的(binder机制)。</p>
 <p><strong>Activity &amp; Intrumentation</strong>:Activity是应用程序真正做事情的类，每一个应用程序只有一个Instrumentation对象，每个Activity内都有一个对该对象的引用(也就是说mInstrumentation是Activity类的成员变量，前文图解中也有说明)。<br><code>Instrumentation</code>用来监控应用程序和系统的交互，可以理解为应用进程的管家，AT要创建或暂停某个Activity时，都需要通过Instrumentation。 通俗的理解，<code>Instrumentation</code> 与AT的区别，前者像是一个“家庭”里的“管家”，后者是负责创建这个“家庭”，并负责对外打交道，比如接收AMS的通知等。</p>
 <p>推荐<a href="https://www.websequencediagrams.com/" target="_blank" rel="external">在线时序图网站:https://www.websequencediagrams.com/</a></p>
+<p>参考链接</p>
+<p><a href="http://blog.csdn.net/luoshengyang/article/details/6689748" target="_blank" rel="external">Android应用程序启动过程源代码分析</a><br><a href="http://www.bubuko.com/infodetail-278447.html" target="_blank" rel="external">图解Activity启动流程</a></p>
 <p><img src="http://www.splitshire.com/wp-content/uploads/2016/02/SplitShire-2404.jpg" alt="欣赏"></p>
 <blockquote>
 <p>文章来自： <a href="http://hanks.xyz">http://hanks.xyz</a></p>

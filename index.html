@@ -118,6 +118,10 @@
       <ul>
         
           <li>
+            <a href="/2016/02/17/kotlin-rxjava/">Kotlin + RxJava = Functional Powerhouse</a>
+          </li>
+        
+          <li>
             <a href="/2016/02/01/framework-activity-oncreate/">Framework分析-点击Launcher中的图标启动Activity</a>
           </li>
         
@@ -173,10 +177,6 @@
             <a href="/2015/12/22/react-components/">React-Native 组件练习-购物app侧滑菜单</a>
           </li>
         
-          <li>
-            <a href="/2015/12/21/react-flexbox/">React-Native中的布局</a>
-          </li>
-        
       </ul>
     </div>
   </div>
@@ -187,7 +187,7 @@
   <div class="widget-wrap mdl-shadow--2dp">
     <h3 class="widget-title">标签云</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Activity/">Activity</a> <a href="/tags/Android/">Android</a> <a href="/tags/Atom/">Atom</a> <a href="/tags/Framework/">Framework</a> <a href="/tags/Java/">Java</a> <a href="/tags/OS-X/">OS X</a> <a href="/tags/React-Native/">React-Native</a> <a href="/tags/Refactoring/">Refactoring</a> <a href="/tags/Rx/">Rx</a> <a href="/tags/RxJava/">RxJava</a> <a href="/tags/Rxandroid/">Rxandroid</a> <a href="/tags/Rxjava/">Rxjava</a> <a href="/tags/Ubuntu/">Ubuntu</a> <a href="/tags/mac-os/">mac os</a> <a href="/tags/virtualBox/">virtualBox</a> <a href="/tags/必备知识/">必备知识</a> <a href="/tags/性能优化/">性能优化</a> <a href="/tags/热修复/">热修复</a>
+      <a href="/tags/Activity/">Activity</a> <a href="/tags/Android/">Android</a> <a href="/tags/Atom/">Atom</a> <a href="/tags/Framework/">Framework</a> <a href="/tags/Java/">Java</a> <a href="/tags/Kotlin/">Kotlin</a> <a href="/tags/OS-X/">OS X</a> <a href="/tags/React-Native/">React-Native</a> <a href="/tags/Refactoring/">Refactoring</a> <a href="/tags/Rx/">Rx</a> <a href="/tags/RxJava/">RxJava</a> <a href="/tags/Rxandroid/">Rxandroid</a> <a href="/tags/Rxjava/">Rxjava</a> <a href="/tags/Ubuntu/">Ubuntu</a> <a href="/tags/mac-os/">mac os</a> <a href="/tags/virtualBox/">virtualBox</a> <a href="/tags/必备知识/">必备知识</a> <a href="/tags/性能优化/">性能优化</a> <a href="/tags/热修复/">热修复</a>
     </div>
   </div>
 
@@ -233,6 +233,49 @@
 </aside>
         
         <section id="main" class="mdl-shadow--2dp">
+  
+    <article id="post-kotlin-rxjava" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/02/17/kotlin-rxjava/" class="article-date">
+  <time datetime="2016-02-17T14:13:18.000Z" itemprop="datePublished">2016-02-17</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/02/17/kotlin-rxjava/">Kotlin + RxJava = Functional Powerhouse</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>原文链接 : <a href="http://tomstechnicalblog.blogspot.com/2016/02/kotlin-rxjava-what-rxjava-should-be.html">Kotlin + RxJava = Functional Powerhouse</a><br>原文作者 : <a href="http://tomstechnicalblog.blogspot.com/2016/02/kotlin-rxjava-what-rxjava-should-be.html">Thomas Nield</a><br>译文出自 : <a href="http://hanks.xyz">Hanks.xyz</a><br>译者 : <a href="https://github.com/hanks-zyh/">hanks-zyh</a></p>
+</blockquote>
+<p>作为一个软件开发人员,我总是寻找方法来达到更少的代码做更多的事情。如果我只要修改一点代码就可以不断适应业务需求变化那就更好了，所以我必须把代码重写。</p>
+<p>Java语言一直是我的首选,因为它实用、可伸缩的、高性能、便携和静态类型。我在项目中熟练的运用Java,但我开始感到它比较麻烦(我一直关注着C#)。幸好去年我发现了RxJava，响应式编程使我完成的任务。</p>
+<p>我几乎在我所有的项目总使用RxJava,我变得更高效,我的应用程序的质量也得到提高。但我慢慢开始意识到Java语言的局限性阻碍了RxJava。尽管Java 8提供了lambdas ,一些函数式编程任务还是非常冗长。<br>
+        
+            
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Kotlin/">Kotlin</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/RxJava/">RxJava</a></li></ul>
+
+
+        
+      
+    </div>
+
+  
+</article>
+
+  
+
   
     <article id="post-framework-activity-oncreate" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
@@ -576,45 +619,6 @@
       
         <p>主要练习从服务器获取数据,然后展示到界面,最外层用ScrollView包裹起来顶部是一个ViewPager,api使用的知乎日报的api,在这里只使用了一个<a href="http://news-at.zhihu.com/api/4/themes">主题日报列表查看</a>的api,获取到json数据之后,显示到ListView中.最终效果如下:</p>
 <p><img src="http://file.bmob.cn/M02/2B/29/oYYBAFaDpFCAC55oAEUmvcxK3O0625.gif" alt="zhihu"></p>
-        
-            
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/React-Native/">React-Native</a></li></ul>
-
-
-        
-      
-    </div>
-
-  
-</article>
-
-  
-
-  
-    <article id="post-react-userinfo" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2015/12/29/react-userinfo/" class="article-date">
-  <time datetime="2015-12-29T10:35:03.000Z" itemprop="datePublished">2015-12-29</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/12/29/react-userinfo/">React-Native 练习用户信息界面</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>wuwu. 好饿~~<br>直接看效果图L:</p>
-<p><img src="http://file.bmob.cn/M02/28/D4/oYYBAFaCYr6AIlcRAALzw1jyVMk263.png" alt="用户信息界面"><br>
         
             
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/React-Native/">React-Native</a></li></ul>

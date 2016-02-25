@@ -162,7 +162,7 @@ body {
 }
 #wrap {
   width: 100%;
-  background: #fff;
+  background: #eee;
 }
 #container #wrap > .outer {
   padding: 0px 20px;
@@ -191,6 +191,7 @@ body {
   padding: 20px;
   -webkit-box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.2), 0 1px 5px 0 rgba(0,0,0,0.12);
   box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.2), 0 1px 5px 0 rgba(0,0,0,0.12);
+  background: #fff;
 }
 @media screen and (min-width: 768px) {
   #main {
@@ -1379,6 +1380,16 @@ pre .javascript .function {
   #footer {
     margin-top: 0px;
   }
+  .mdl-shadow--2dp {
+    padding: 0;
+    padding-top: 20px;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+  }
+  #wrap {
+    width: 100%;
+    background: #fff;
+  }
 }
 @media screen and (max-width: 479px) {
   #main {
@@ -1441,6 +1452,10 @@ pre .javascript .function {
     padding-top: 20px;
     -webkit-box-shadow: none;
     box-shadow: none;
+  }
+  #wrap {
+    width: 100%;
+    background: #fff;
   }
 }
 @media only screen and (-webkit-min-device-pixel-ratio: 1.5), only screen and (min--moz-device-pixel-ratio: 1.5), only screen and (min-device-pixel-ratio: 1.5) {

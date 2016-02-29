@@ -118,6 +118,10 @@
       <ul>
         
           <li>
+            <a href="/2016/02/29/ubuntu-swift/">Ubuntu 14.04 搭建Swift3.0 开发环境</a>
+          </li>
+        
+          <li>
             <a href="/2016/02/17/kotlin-rxjava/">Kotlin + RxJava = Functional Powerhouse</a>
           </li>
         
@@ -173,10 +177,6 @@
             <a href="/2015/12/23/react-network/">React-Native 网络请求</a>
           </li>
         
-          <li>
-            <a href="/2015/12/22/react-components/">React-Native 组件练习-购物app侧滑菜单</a>
-          </li>
-        
       </ul>
     </div>
   </div>
@@ -187,7 +187,7 @@
   <div class="widget-wrap mdl-shadow--2dp">
     <h3 class="widget-title">标签云</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Activity/">Activity</a> <a href="/tags/Android/">Android</a> <a href="/tags/Atom/">Atom</a> <a href="/tags/Framework/">Framework</a> <a href="/tags/Java/">Java</a> <a href="/tags/Kotlin/">Kotlin</a> <a href="/tags/OS-X/">OS X</a> <a href="/tags/React-Native/">React-Native</a> <a href="/tags/Refactoring/">Refactoring</a> <a href="/tags/Rx/">Rx</a> <a href="/tags/RxJava/">RxJava</a> <a href="/tags/Rxandroid/">Rxandroid</a> <a href="/tags/Rxjava/">Rxjava</a> <a href="/tags/Ubuntu/">Ubuntu</a> <a href="/tags/mac-os/">mac os</a> <a href="/tags/virtualBox/">virtualBox</a> <a href="/tags/必备知识/">必备知识</a> <a href="/tags/性能优化/">性能优化</a> <a href="/tags/热修复/">热修复</a>
+      <a href="/tags/Activity/">Activity</a> <a href="/tags/Android/">Android</a> <a href="/tags/Atom/">Atom</a> <a href="/tags/Framework/">Framework</a> <a href="/tags/Java/">Java</a> <a href="/tags/Kotlin/">Kotlin</a> <a href="/tags/OS-X/">OS X</a> <a href="/tags/React-Native/">React-Native</a> <a href="/tags/Refactoring/">Refactoring</a> <a href="/tags/Rx/">Rx</a> <a href="/tags/RxJava/">RxJava</a> <a href="/tags/Rxandroid/">Rxandroid</a> <a href="/tags/Rxjava/">Rxjava</a> <a href="/tags/Swift/">Swift</a> <a href="/tags/Ubuntu/">Ubuntu</a> <a href="/tags/mac-os/">mac os</a> <a href="/tags/virtualBox/">virtualBox</a> <a href="/tags/必备知识/">必备知识</a> <a href="/tags/性能优化/">性能优化</a> <a href="/tags/热修复/">热修复</a>
     </div>
   </div>
 
@@ -233,6 +233,46 @@
 </aside>
         
         <section id="main" class="mdl-shadow--2dp">
+  
+    <article id="post-ubuntu-swift" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/02/29/ubuntu-swift/" class="article-date">
+  <time datetime="2016-02-29T14:38:53.000Z" itemprop="datePublished">2016-02-29</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/02/29/ubuntu-swift/">Ubuntu 14.04 搭建Swift3.0 开发环境</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Swift已经出了3.0，开发文档有linux环境的，简单玩一下</p>
+<h2 id="下载">下载</h2><p>下载压缩包：<a href="https://swift.org/download/">https://swift.org/download/</a></p>
+<p>选择自己的环境，下载对应的压缩包，我这里下载 <strong>wift-DEVELOPMENT-SNAPSHOT-2016-02-25-a-ubuntu14.04.tar.gz</strong><br>到<code>~/Download/Swift</code> 目录下</p>
+        
+            
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Swift/">Swift</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Ubuntu/">Ubuntu</a></li></ul>
+
+
+        
+      
+    </div>
+
+  
+</article>
+
+  
+
   
     <article id="post-kotlin-rxjava" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
@@ -583,45 +623,6 @@
         
             
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
-
-
-        
-      
-    </div>
-
-  
-</article>
-
-  
-
-  
-    <article id="post-react-zhihu" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2015/12/30/react-zhihu/" class="article-date">
-  <time datetime="2015-12-30T09:27:03.000Z" itemprop="datePublished">2015-12-30</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/12/30/react-zhihu/">React-Native 知乎日报首页</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>主要练习从服务器获取数据,然后展示到界面,最外层用ScrollView包裹起来顶部是一个ViewPager,api使用的知乎日报的api,在这里只使用了一个<a href="http://news-at.zhihu.com/api/4/themes">主题日报列表查看</a>的api,获取到json数据之后,显示到ListView中.最终效果如下:</p>
-<p><img src="http://file.bmob.cn/M02/2B/29/oYYBAFaDpFCAC55oAEUmvcxK3O0625.gif" alt="zhihu"></p>
-        
-            
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/React-Native/">React-Native</a></li></ul>
 
 
         

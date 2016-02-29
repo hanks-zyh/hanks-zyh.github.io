@@ -118,6 +118,10 @@
       <ul>
         
           <li>
+            <a href="/2016/02/29/ubuntu-swift/">Ubuntu 14.04 搭建Swift3.0 开发环境</a>
+          </li>
+        
+          <li>
             <a href="/2016/02/17/kotlin-rxjava/">Kotlin + RxJava = Functional Powerhouse</a>
           </li>
         
@@ -173,10 +177,6 @@
             <a href="/2015/12/23/react-network/">React-Native 网络请求</a>
           </li>
         
-          <li>
-            <a href="/2015/12/22/react-components/">React-Native 组件练习-购物app侧滑菜单</a>
-          </li>
-        
       </ul>
     </div>
   </div>
@@ -187,7 +187,7 @@
   <div class="widget-wrap mdl-shadow--2dp">
     <h3 class="widget-title">标签云</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Activity/">Activity</a> <a href="/tags/Android/">Android</a> <a href="/tags/Atom/">Atom</a> <a href="/tags/Framework/">Framework</a> <a href="/tags/Java/">Java</a> <a href="/tags/Kotlin/">Kotlin</a> <a href="/tags/OS-X/">OS X</a> <a href="/tags/React-Native/">React-Native</a> <a href="/tags/Refactoring/">Refactoring</a> <a href="/tags/Rx/">Rx</a> <a href="/tags/RxJava/">RxJava</a> <a href="/tags/Rxandroid/">Rxandroid</a> <a href="/tags/Rxjava/">Rxjava</a> <a href="/tags/Ubuntu/">Ubuntu</a> <a href="/tags/mac-os/">mac os</a> <a href="/tags/virtualBox/">virtualBox</a> <a href="/tags/必备知识/">必备知识</a> <a href="/tags/性能优化/">性能优化</a> <a href="/tags/热修复/">热修复</a>
+      <a href="/tags/Activity/">Activity</a> <a href="/tags/Android/">Android</a> <a href="/tags/Atom/">Atom</a> <a href="/tags/Framework/">Framework</a> <a href="/tags/Java/">Java</a> <a href="/tags/Kotlin/">Kotlin</a> <a href="/tags/OS-X/">OS X</a> <a href="/tags/React-Native/">React-Native</a> <a href="/tags/Refactoring/">Refactoring</a> <a href="/tags/Rx/">Rx</a> <a href="/tags/RxJava/">RxJava</a> <a href="/tags/Rxandroid/">Rxandroid</a> <a href="/tags/Rxjava/">Rxjava</a> <a href="/tags/Swift/">Swift</a> <a href="/tags/Ubuntu/">Ubuntu</a> <a href="/tags/mac-os/">mac os</a> <a href="/tags/virtualBox/">virtualBox</a> <a href="/tags/必备知识/">必备知识</a> <a href="/tags/性能优化/">性能优化</a> <a href="/tags/热修复/">热修复</a>
     </div>
   </div>
 
@@ -233,6 +233,45 @@
 </aside>
         
         <section id="main" class="mdl-shadow--2dp">
+  
+    <article id="post-refactoring-plaid-1" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/12/08/refactoring-plaid-1/" class="article-date">
+  <time datetime="2015-12-08T10:17:00.000Z" itemprop="datePublished">2015-12-08</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/12/08/refactoring-plaid-1/">重构 Plaid app - 响应式的MVP模式(一)</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Nick Butcher 在 <a href="https://github.com/nickbutcher/plaid">github</a> 上开源了Plaid。这个app不仅很酷,还拥有极致的 UI / UX。如此炫酷的app的代码对开发者来说copy下来阅读一下可谓是最佳实践。于是我也copy下来,决定深入Plaid的代码。和往常一样，你会发现里面的一些代码可以用其他的方式实现。因此不只是谈论代码,我决定花一些时间来重构Plaid的部分源代码。我将写3篇文章来分享我关于如何重构Plaid的,这篇文章是第一部分。</p>
+<p>前言: 开始我以为自己能重构整个app. 然而,事实是我太天真了,我低估了这个应用的复杂度和新特性的数量。在我花了几个小时阅读 Nick Butcher 的代码之后, 我发现有些功能仅仅通过使用应用程序很难发现。一句话: 我意识到我没有时间把所有的想法付诸行动。因此我的“重构”集中于应用程序的“主页”和“搜索屏幕”。本来想看看有没有更多模块可以重构，但是我没有太多空闲时间来做了。重构代码可以在<a href="https://github.com/sockeqwe/plaid">github上</a>找到</p>
+        
+            
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Refactoring/">Refactoring</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Rxjava/">Rxjava</a></li></ul>
+
+
+        
+      
+    </div>
+
+  
+</article>
+
+  
+
   
     <article id="post-rx_thread" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
@@ -573,53 +612,6 @@
          
         
             
-
-        
-      
-    </div>
-
-  
-</article>
-
-  
-
-  
-    <article id="post-capture" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2015/11/02/capture/" class="article-date">
-  <time datetime="2015-11-02T08:36:49.000Z" itemprop="datePublished">2015-11-02</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/11/02/capture/">抓包工具整理</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><a href="https://github.com/hanks-zyh/capturedata">github 地址</a></p>
-<blockquote>
-<p>抓包工具整理</p>
-</blockquote>
-<h1 id="抓包工具_–_Charles">抓包工具 – Charles</h1><p>基于Java 跨平台： Linux , Mac OS X, Windows<br><a href="https://www.charlesproxy.com/">官网</a></p>
-<blockquote>
-<p>Charles is an HTTP proxy / HTTP monitor / Reverse Proxy that enables a developer to view all of the HTTP and SSL / HTTPS traffic between their machine and the Internet. This includes requests, responses and the HTTP headers (which contain the cookies and caching information).</p>
-</blockquote>
-<p><img src="https://www.charlesproxy.com/assets/img/sm/23/image/mac_screen_321.png?k=f28bf8eff3" alt=""></p>
-<hr>
-        
-            
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/必备知识/">必备知识</a></li></ul>
-
 
         
       

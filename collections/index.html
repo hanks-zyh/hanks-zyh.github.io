@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.6/material.indigo-pink.min.css">
     <script src="https://storage.googleapis.com/code.getmdl.io/1.0.6/material.min.js"></script>
+    <script src="https://coding.net/u/zhangyuhan/p/Bmob/git/raw/master/girls.js"></script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <style type="text/css">
       body{
@@ -78,6 +79,54 @@
          margin-top: 50px;
          margin-bottom: 50px;
       }
+
+      .spig {
+        display: block;
+        width: 150px;
+        height: 190px;
+        position: absolute;
+        top: -200px;
+        left: 160px;
+        z-index: 9999;
+     }
+     #message {
+        color: #191919;
+        border: 1px solid #c4c4c4;
+        background: #ddd;
+        -moz-border-radius: 5px;
+        -webkit-border-radius: 5px;
+        border-radius: 5px;
+        min-height: 1em;
+        padding: 5px;
+        top: -30px;
+        position: absolute;
+        text-align: center;
+        width: auto !important;
+        z-index: 10000;
+        -moz-box-shadow: 0 0 15px #eeeeee;
+        -webkit-box-shadow: 0 0 15px #eeeeee;
+        border-color: #eeeeee;
+        box-shadow: 0 0 15px #eeeeee;
+        outline: none;
+    }
+
+    .mumu {
+        width: 150px;
+        height: 190px;
+        cursor: move;
+        background: url('http://i.imgur.com/Gsk04v3.png') no-repeat;
+    }
+
+    #footer {
+        font-size: 12px;
+        padding: 20px 0 20px 0;
+        clear: both;
+        width: 100%;
+        background: #33363B;
+        margin: 40px 0 0 0;
+        color: #888;
+        border-top: 12px solid #494C54;
+    }
     </style>
   </head>
   <body>
@@ -544,6 +593,13 @@
       <!-- 多说公共JS代码 end -->
     </section>
   </div>
+  <!-- footer -->
+  <footer>
+    <div id="spig" class="spig" style="top: 300px; left: 300px;">
+      <div id="message" style="display: block; opacity: 0.552056;">爹，他摸我！！！ 呜呜呜呜~~~</div>
+      <div id="mumu" class="mumu" style="opacity: 1;"></div>
+    </div>  
+  </footer>
     <script type="text/javascript">
        var limit = 5;
        $(document).ready(function(){
@@ -564,7 +620,6 @@
             $("#ul"+this.id.substring(4)).children().slice(limit).toggle(400);
          });
        } 
-       
     </script>
   </body>
 </html>

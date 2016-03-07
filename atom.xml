@@ -4,7 +4,7 @@
   <subtitle><![CDATA[coding]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://hanks.xyz/"/>
-  <updated>2016-03-07T17:11:07.000Z</updated>
+  <updated>2016-03-07T17:18:20.000Z</updated>
   <id>http://hanks.xyz/</id>
   
   <author>
@@ -19,9 +19,10 @@
     <link href="http://hanks.xyz/2016/03/08/material-interpolator/"/>
     <id>http://hanks.xyz/2016/03/08/material-interpolator/</id>
     <published>2016-03-07T16:53:41.000Z</published>
-    <updated>2016-03-07T17:11:07.000Z</updated>
+    <updated>2016-03-07T17:18:20.000Z</updated>
     <content type="html"><![CDATA[<p>material design 规范中，一个重要方面在于如何在“动作”完整的展现物体的各个真实的特性，譬如优雅、简约、美观和神奇的无缝的用户体验，下面的动画将帮助大家理解这些理念。</p>
 <p> <img src="https://dn-coding-net-production-pp.qbox.me/7a258a47-be74-49da-894a-70c0cfdb2e3c.gif" alt="动画"> </p>
+<a id="more"></a>
 <p>推荐一个网站: <a href="http://inloop.github.io/interpolator/" target="_blank" rel="external">http://inloop.github.io/interpolator/</a></p>
 <p>填入函数，即可立即查看效果</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(x&lt;=<span class="number">0.5</span>)&#123;</span><br><span class="line">    <span class="number">4</span>*x*x*x</span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    <span class="number">4</span>*(x-<span class="number">1</span>)*(x-<span class="number">1</span>)*(x-<span class="number">1</span>) + <span class="number">1</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -35,7 +36,8 @@
 </blockquote>
 ]]></content>
     <summary type="html">
-    <![CDATA[ ]]>
+    <![CDATA[<p>material design 规范中，一个重要方面在于如何在“动作”完整的展现物体的各个真实的特性，譬如优雅、简约、美观和神奇的无缝的用户体验，下面的动画将帮助大家理解这些理念。</p>
+<p> <img src="https://dn-coding-net-production-pp.qbox.me/7a258a47-be74-49da-894a-70c0cfdb2e3c.gif" alt="动画"> </p>]]>
     
     </summary>
     

@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>使用 setUserVisibleHint 方法判断 Fragment 是否可见 | Hanks.xyz</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="场景：ViewPager中嵌套多个Fragment，判断Fragment是否可见">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用 setUserVisibleHint 方法判断 Fragment 是否可见">
+<meta property="og:url" content="http://hanks.xyz/2016/03/08/Fragment-setUserVisibleHint/index.html">
+<meta property="og:site_name" content="Hanks.xyz">
+<meta property="og:description" content="场景：ViewPager中嵌套多个Fragment，判断Fragment是否可见">
+<meta property="og:image" content="https://dn-coding-net-production-pp.qbox.me/8bf10795-f85a-4da1-9bbb-995b73aa74a2.gif">
+<meta property="og:updated_time" content="2016-03-08T15:31:41.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="使用 setUserVisibleHint 方法判断 Fragment 是否可见">
+<meta name="twitter:description" content="场景：ViewPager中嵌套多个Fragment，判断Fragment是否可见">
+  
+  
+    <link rel="icon" href="/images/favicon.png">
+  
+  <!-- <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600' rel='stylesheet' type='text/css'> -->
+  <!-- <link href="//fonts.googleapis.com/css?family=Source+Code+Pro:400,700" rel="stylesheet" type="text/css"> -->
+  <link href="//fonts.useso.com/css?family=Source+Code+Pro:400,700" rel="stylesheet" type="text/css">
+  <link href='//fonts.useso.com/css?family=Open+Sans:300,600' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo">Hanks.xyz</a>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">首页</a>
+        
+          <a class="main-nav-link" href="/archives">归档</a>
+        
+          <a class="main-nav-link" href="/about/index.html">关于</a>
+        
+          <a class="main-nav-link" href="/collections">收集</a>
+        
+          <a class="main-nav-link" href="/atom.xml">RSS</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        <div id="search-form-wrap">
+          <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://hanks.xyz"></form>
+        </div>
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+        
+        
+          <a id="nav-github-link" class="nav-icon" href="https://github.com/hanks-zyh" title="Fork me on GitHub"></a>
+        
+      </nav>
+    </div>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/" class="mobile-nav-link">首页</a>
+  
+    <a href="/archives" class="mobile-nav-link">归档</a>
+  
+    <a href="/about/index.html" class="mobile-nav-link">关于</a>
+  
+    <a href="/collections" class="mobile-nav-link">收集</a>
+  
+    <a href="/atom.xml" class="mobile-nav-link">RSS</a>
+  
+  <div id="search-form-wrap-mobile">
+    <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://hanks.xyz"></form>
+  </div>
+</nav>
+      <div class="outer">
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap mdl-shadow--2dp">
+    <div class="info">
+     <div class="content">
+       <div>
+         <a href="https://github.com/hanks-zyh"><img class="avatar" src="https://avatars2.githubusercontent.com/u/6268322?v=3&s=460" alt="" /></a>
+       </div>
+       <div class="name">
+         <h2 >Hanks</h2>
+       </div>
+       <p>90后,Android,学习永无止境！</p>
+       <div class="account">
+         <div class="account-item">
+           <a href="http://weibo.com/u/2359002991"><img src="http://hkcoding.sinaapp.com/static/images/ico_05_1.jpg" style="width:40px;height:40px"></a>
+         </div>
+         <div class="account-item">
+              <a href="http://www.zhihu.com/people/yuhan-zhang-36"><img src="http://hkcoding.sinaapp.com/static/images/ico_zhihu.png" style="width:40px;height:40px"></a>
+         </div>
+         <div class="account-item">
+           <a href="http://hanks.xyz/atom.xml"> <img src="http://hkcoding.sinaapp.com/static/images/ico_04_1.jpg" style="width:40px;height:40px"></a>
+         </div>
+       </div>
+     </div>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap mdl-shadow--2dp">
+    <h3 class="widget-title">最新发布</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2016/03/08/Fragment-setUserVisibleHint/">使用 setUserVisibleHint 方法判断 Fragment 是否可见</a>
+          </li>
+        
+          <li>
+            <a href="/2016/03/08/kotlin-for-android-00/">Kotlin for Android - 0x00 配置</a>
+          </li>
+        
+          <li>
+            <a href="/2016/03/08/material-interpolator/">创建 Material Design 的真实动画</a>
+          </li>
+        
+          <li>
+            <a href="/2016/02/29/ubuntu-swift/">Ubuntu 14.04 搭建Swift3.0 开发环境</a>
+          </li>
+        
+          <li>
+            <a href="/2016/02/17/kotlin-rxjava/">Kotlin + RxJava = Functional Powerhouse</a>
+          </li>
+        
+          <li>
+            <a href="/2016/02/01/framework-activity-oncreate/">Framework分析-点击Launcher中的图标启动Activity</a>
+          </li>
+        
+          <li>
+            <a href="/2016/01/20/android-optimization/">Android性能优化</a>
+          </li>
+        
+          <li>
+            <a href="/2016/01/14/framework-application/">Framework分析-Application的onCreate</a>
+          </li>
+        
+          <li>
+            <a href="/2016/01/11/react-native-23333/">React-Native 鬼畜表情包app</a>
+          </li>
+        
+          <li>
+            <a href="/2016/01/05/android-myhotfix/">Android 动手实现热修复</a>
+          </li>
+        
+          <li>
+            <a href="/2016/01/03/android-hotfix/">Android 热修复总结</a>
+          </li>
+        
+          <li>
+            <a href="/2015/12/31/2015/">2015回顾@hanks</a>
+          </li>
+        
+          <li>
+            <a href="/2015/12/30/snowfall/">Android 下雪动画</a>
+          </li>
+        
+          <li>
+            <a href="/2015/12/30/react-zhihu/">React-Native 知乎日报首页</a>
+          </li>
+        
+          <li>
+            <a href="/2015/12/29/react-userinfo/">React-Native 练习用户信息界面</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap mdl-shadow--2dp">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Activity/">Activity</a> <a href="/tags/Andorid/">Andorid</a> <a href="/tags/Android/">Android</a> <a href="/tags/Atom/">Atom</a> <a href="/tags/Fragment/">Fragment</a> <a href="/tags/Framework/">Framework</a> <a href="/tags/Java/">Java</a> <a href="/tags/Kotlin/">Kotlin</a> <a href="/tags/OS-X/">OS X</a> <a href="/tags/React-Native/">React-Native</a> <a href="/tags/Refactoring/">Refactoring</a> <a href="/tags/Rx/">Rx</a> <a href="/tags/RxJava/">RxJava</a> <a href="/tags/Rxandroid/">Rxandroid</a> <a href="/tags/Rxjava/">Rxjava</a> <a href="/tags/Swift/">Swift</a> <a href="/tags/Ubuntu/">Ubuntu</a> <a href="/tags/interpolator/">interpolator</a> <a href="/tags/mac-os/">mac os</a> <a href="/tags/virtualBox/">virtualBox</a> <a href="/tags/必备知识/">必备知识</a> <a href="/tags/性能优化/">性能优化</a> <a href="/tags/热修复/">热修复</a>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap mdl-shadow--2dp">
+    <div class="widget">
+     <iframe width="100%" height="200" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=550&fansRow=1&ptype=0&speed=0&skin=1&isTitle=0&noborder=0&isWeibo=0&isFans=1&uid=2359002991&verifier=05864e99&colors=4ABC88,ffffff,2C3E50,4ABC88,ecfbfd&dpc=1"></iframe>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap mdl-shadow--2dp">
+    <h3 class="widget-title">友情链接</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="https://github.com/hanks-zyh">hanks-zyh</a>
+          </li>
+        
+          <li>
+            <a href="http://kiya.space">Kiya‘s space</a>
+          </li>
+        
+          <li>
+            <a href="http://rocko.xyz/">Rocko&#39;s blog</a>
+          </li>
+        
+          <li>
+            <a href="http://hexo.io">Hexo</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+
+  
+</aside>
+        
+        <section id="main" class="mdl-shadow--2dp"><article id="post-Fragment-setUserVisibleHint" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/03/08/Fragment-setUserVisibleHint/" class="article-date">
+  <time datetime="2016-03-08T15:12:43.000Z" itemprop="datePublished">2016-03-08</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      使用 setUserVisibleHint 方法判断 Fragment 是否可见
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>场景：ViewPager中嵌套多个Fragment，判断Fragment是否可见<br><a id="more"></a><br>以下为Kotlin代码</p>
+<p><code>MainActivity.kt</code><br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> xyz.hanks.fragmentvisiable</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> android.os.Bundle</span><br><span class="line"><span class="keyword">import</span> android.support.v4.app.Fragment</span><br><span class="line"><span class="keyword">import</span> android.support.v4.app.FragmentManager</span><br><span class="line"><span class="keyword">import</span> android.support.v4.app.FragmentPagerAdapter</span><br><span class="line"><span class="keyword">import</span> android.support.v7.app.AppCompatActivity</span><br><span class="line"><span class="keyword">import</span> kotlinx.android.synthetic.main.activity_main.*</span><br><span class="line"></span><br><span class="line"><span class="variable"><span class="keyword">var</span> fragmentList</span>: List<span class="type">&lt;Fragment&gt;</span> ? = <span class="literal">null</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MainActivity</span> : <span class="typename">AppCompatActivity</span></span>() &#123;</span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onCreate</span><span class="params">(savedInstanceState: <span class="typename">Bundle?</span>)</span> &#123;</span></span><br><span class="line">        super.onCreate(savedInstanceState)</span><br><span class="line">        setContentView(R.layout.activity_main)</span><br><span class="line">        fragmentList = listOf<span class="type">&lt;Fragment&gt;</span>(Fragment01(),Fragment02(),Fragment03()) <span class="comment">// 创建Fragment集合</span></span><br><span class="line">        viewPager.adapter = MainFragmentPageAdapter(supportFragmentManager) <span class="comment">// 给ViewPager设置Adapter</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">internal <span class="class"><span class="keyword">class</span> <span class="title">MainFragmentPageAdapter</span></span>(fragmentManager: FragmentManager) : FragmentPagerAdapter(fragmentManager) &#123;</span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">getItem</span><span class="params">(p0: <span class="typename">Int</span>)</span>: Fragment? = fragmentList?.<span class="title">get</span><span class="params">(p0)</span></span></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">getCount</span><span class="params">()</span>: Int = fragmentList!!.size</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>使用了 <code>Kotlin</code> 的特性，代码简洁很多。</p>
+<p><code>layout_main.xml</code></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="pi">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">RelativeLayout</span></span><br><span class="line">    <span class="attribute">xmlns:android</span>=<span class="value">"http://schemas.android.com/apk/res/android"</span></span><br><span class="line">    <span class="attribute">android:layout_width</span>=<span class="value">"match_parent"</span></span><br><span class="line">    <span class="attribute">android:layout_height</span>=<span class="value">"match_parent"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="title">android.support.v4.view.ViewPager</span></span><br><span class="line">        <span class="attribute">android:id</span>=<span class="value">"@+id/viewPager"</span></span><br><span class="line">        <span class="attribute">android:layout_width</span>=<span class="value">"match_parent"</span></span><br><span class="line">        <span class="attribute">android:layout_height</span>=<span class="value">"match_parent"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">RelativeLayout</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><code>Fragment02.kt</code><br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> xyz.hanks.fragmentvisiable</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> android.os.Bundle</span><br><span class="line"><span class="keyword">import</span> android.support.v4.app.Fragment</span><br><span class="line"><span class="keyword">import</span> android.util.Log</span><br><span class="line"><span class="keyword">import</span> android.util.TypedValue</span><br><span class="line"><span class="keyword">import</span> android.view.LayoutInflater</span><br><span class="line"><span class="keyword">import</span> android.view.View</span><br><span class="line"><span class="keyword">import</span> android.view.ViewGroup</span><br><span class="line"><span class="keyword">import</span> android.widget.TextView</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span><br><span class="line"> * Created by hanks on 16/3/8.</span><br><span class="line"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Fragment02</span> : <span class="typename">Fragment</span></span>()&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onCreateView</span><span class="params">(inflater: <span class="typename">LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?</span>)</span>: View? &#123;</span></span><br><span class="line">        <span class="variable"><span class="keyword">val</span> view</span> = TextView(context)</span><br><span class="line">        view.text = <span class="string">"Fragment02"</span></span><br><span class="line">        view.setTextSize(TypedValue.COMPLEX_UNIT_SP,<span class="number">30</span>f)</span><br><span class="line">        <span class="keyword">return</span> view</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 重写 setUserVisibleHint</span></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">setUserVisibleHint</span><span class="params">(isVisibleToUser: <span class="typename">Boolean</span>)</span> &#123;</span></span><br><span class="line">        super.setUserVisibleHint(isVisibleToUser)</span><br><span class="line">        Log.d(<span class="string">"Fragment"</span>,<span class="string">"Fragment02 $isVisibleToUser"</span>) <span class="comment">// 打印isVisibleToUser</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>Fragment01 Fragment03与Fragment02类似</p>
+<p> <img src="https://dn-coding-net-production-pp.qbox.me/8bf10795-f85a-4da1-9bbb-995b73aa74a2.gif" alt="gif"> </p>
+<p>结果：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">`启动时`：                : <span class="number">03</span>-<span class="number">08</span> <span class="number">10</span>:<span class="number">18</span>:<span class="number">19.238</span> <span class="number">20377</span>-<span class="number">20377</span>/xyz.hanks.fragmentvisiable D/Fragment: Fragment02 <span class="literal">false</span></span><br><span class="line">`Fragment01-&gt;Fragment02` : <span class="number">03</span>-<span class="number">08</span> <span class="number">10</span>:<span class="number">19</span>:<span class="number">15.586</span> <span class="number">20377</span>-<span class="number">20377</span>/xyz.hanks.fragmentvisiable D/Fragment: Fragment02 <span class="literal">true</span></span><br><span class="line">`Fragment02-&gt;Fragment03` : <span class="number">03</span>-<span class="number">08</span> <span class="number">10</span>:<span class="number">20</span>:<span class="number">01.038</span> <span class="number">20377</span>-<span class="number">20377</span>/xyz.hanks.fragmentvisiable D/Fragment: Fragment02 <span class="literal">false</span></span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>文章来自： <a href="http://hanks.xyz">http://hanks.xyz</a></p>
+</blockquote>
+
+      
+    </div>
+
+  
+  
+</article>
+
+  
+<section id="comments">
+    <!-- 多说分享框 -->
+    <div class="ds-share flat" data-thread-key="/2016/03/08/Fragment-setUserVisibleHint/" data-title="使用 setUserVisibleHint 方法判断 Fragment 是否可见" data-images="https://raw.githubusercontent.com/Hankiya/LoveOnline/master/Rich%20Format%20Vertical.png" data-content="使用 setUserVisibleHint 方法判断 Fragment 是否可见" data-url="http://hanks.xyz//2016/03/08/Fragment-setUserVisibleHint/">
+    <div class="ds-share-inline">
+      <ul  class="ds-share-icons-16">
+
+      	<li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+        <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+        <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+        <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+        <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+      </ul>
+      <div class="ds-share-icons-more">
+      </div>
+    </div>
+   </div>
+    <!-- 多说评论框 start -->
+   	<div class="ds-thread" data-thread-key="/2016/03/08/Fragment-setUserVisibleHint/" data-title="使用 setUserVisibleHint 方法判断 Fragment 是否可见" data-url="http://hanks.xyz//2016/03/08/Fragment-setUserVisibleHint/"></div>
+   <!-- 多说评论框 end -->
+   <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+   <script type="text/javascript">
+   var duoshuoQuery = {short_name:"hanks-zyh"};
+   	(function() {
+   		var ds = document.createElement('script');
+   		ds.type = 'text/javascript';ds.async = true;
+   		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+   		ds.charset = 'UTF-8';
+   		(document.getElementsByTagName('head')[0]
+   		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+   	})();
+   	</script>
+   <!-- 多说公共JS代码 end -->
+</section>
+
+</section>
+      </div>
+      <footer id="footer">
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      &copy; 2016 <a href="https://github.com/hanks-zyh"> Hanks</a></br></br>
+	  <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+	  <span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+	  Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+	  </br>
+	  </br>
+	  <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1257826513'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s95.cnzz.com/z_stat.php%3Fid%3D1257826513%26online%3D1%26show%3Dline' type='text/javascript'%3E%3C/script%3E"));</script> 
+   </div>
+  </div>
+</footer>
+
+    </div>
+    
+
+<script src="/js/jquery.min.js" type="text/javascript"></script>
+<script src="/js/jquery.scrollLoading.js" type="text/javascript"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+  <script src="/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+
+
+<script src="/js/script.js" type="text/javascript"></script>
+
+  </div>
+</body>
+</html>

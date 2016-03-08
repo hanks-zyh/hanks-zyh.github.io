@@ -2,8 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://hanks.xyz/2016/03/08/Fragment-setUserVisibleHint/</loc>
+    <lastmod>2016-03-08T15:31:41.000Z</lastmod>
+  </url>
+  
+  <url>
     <loc>http://hanks.xyz/2016/03/08/kotlin-for-android-00/</loc>
-    <lastmod>2016-03-08T14:49:31.000Z</lastmod>
+    <lastmod>2016-03-08T15:30:10.000Z</lastmod>
   </url>
   
   <url>
@@ -187,11 +192,6 @@
   </url>
   
   <url>
-    <loc>http://hanks.xyz/2015/04/03/%E8%AE%A9%E5%8A%A8%E7%94%BB%E6%B4%BB%E8%BF%87%E6%9D%A5---Robound/</loc>
-    <lastmod>2015-12-06T04:32:36.000Z</lastmod>
-  </url>
-  
-  <url>
     <loc>http://hanks.xyz/2015/05/15/%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8E%A7%E4%BB%B6--%E5%B8%A6%E5%8A%A8%E7%94%BB%E7%9A%84CheckBox/</loc>
     <lastmod>2015-12-06T04:32:36.000Z</lastmod>
   </url>
@@ -227,6 +227,11 @@
   </url>
   
   <url>
+    <loc>http://hanks.xyz/2015/04/03/%E8%AE%A9%E5%8A%A8%E7%94%BB%E6%B4%BB%E8%BF%87%E6%9D%A5---Robound/</loc>
+    <lastmod>2015-12-06T04:32:36.000Z</lastmod>
+  </url>
+  
+  <url>
     <loc>http://hanks.xyz/2015/01/25/%E9%A2%9C%E8%89%B2%E6%8F%90%E5%8F%96%E5%99%A8------Palette/</loc>
     <lastmod>2015-12-06T04:32:36.000Z</lastmod>
   </url>
@@ -237,7 +242,7 @@
   </url>
   
   <url>
-    <loc>http://hanks.xyz/2015/02/06/%E6%8E%A2%E7%B4%A2Material_Design/</loc>
+    <loc>http://hanks.xyz/2015/04/07/Android_MVP_%E5%AD%A6%E4%B9%A0/</loc>
     <lastmod>2015-12-06T03:19:40.000Z</lastmod>
   </url>
   
@@ -253,6 +258,11 @@
   
   <url>
     <loc>http://hanks.xyz/2013/07/31/%E5%B7%B2%E7%9F%A5%E6%A0%91%E7%9A%84%E5%89%8D%E5%BA%8F%E5%92%8C%E4%B8%AD%E5%BA%8F%E6%B1%82%E5%90%8E%E5%BA%8F_hdu_%E9%A2%98%E7%9B%AE1710_Binary_Tree_Traversals/</loc>
+    <lastmod>2015-12-06T03:19:40.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://hanks.xyz/2015/02/06/%E6%8E%A2%E7%B4%A2Material_Design/</loc>
     <lastmod>2015-12-06T03:19:40.000Z</lastmod>
   </url>
   
@@ -467,17 +477,12 @@
   </url>
   
   <url>
-    <loc>http://hanks.xyz/2015/04/07/Android_MVP_%E5%AD%A6%E4%B9%A0/</loc>
-    <lastmod>2015-12-06T03:19:40.000Z</lastmod>
-  </url>
-  
-  <url>
     <loc>http://hanks.xyz/2015/08/17/HTTPie__a_CLI,_cURL-like_tool_for_humans/</loc>
     <lastmod>2015-12-04T17:21:40.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://hanks.xyz/2014/02/24/%E5%A4%A7%E6%95%B0%E7%B1%BB/</loc>
+    <loc>http://hanks.xyz/2013/08/09/hdu_%E9%A2%98%E7%9B%AE1078FatMouse_and_Cheese%EF%BC%88%E8%AE%B0%E5%BF%86%E6%90%9C%E7%B4%A2%EF%BC%89/</loc>
     <lastmod>2015-12-04T17:20:04.000Z</lastmod>
   </url>
   
@@ -517,16 +522,6 @@
   </url>
   
   <url>
-    <loc>http://hanks.xyz/2014/02/25/%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E7%9A%84%E8%BF%90%E7%AE%97/</loc>
-    <lastmod>2015-12-04T17:20:04.000Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://hanks.xyz/2013/07/31/%E5%9B%9E%E6%BA%AF%E6%B3%95_N%E7%9A%87%E5%90%8E%E9%97%AE%E9%A2%98_hud%E9%A2%98%E7%9B%AE2553/</loc>
-    <lastmod>2015-12-04T17:20:04.000Z</lastmod>
-  </url>
-  
-  <url>
     <loc>http://hanks.xyz/2015/03/23/%E5%90%91%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%8F%90%E4%BA%A4%E6%97%B6%E7%9A%843%E7%A7%8DContent-Type/</loc>
     <lastmod>2015-12-04T17:20:04.000Z</lastmod>
   </url>
@@ -543,6 +538,11 @@
   
   <url>
     <loc>http://hanks.xyz/2014/03/04/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92-%E7%9F%A9%E9%98%B5%E8%BF%9E%E4%B9%98/</loc>
+    <lastmod>2015-12-04T17:20:04.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://hanks.xyz/2014/02/19/%E5%B8%B8%E7%94%A8%E5%AD%97%E7%AC%A6%EF%BC%8C%E6%95%B4%E5%BD%A2%EF%BC%8C%E6%B5%AE%E7%82%B9%E5%9E%8B%E7%9B%B8%E4%BA%92%E8%A3%85%E6%8D%A2%E5%87%BD%E2%80%A6/</loc>
     <lastmod>2015-12-04T17:20:04.000Z</lastmod>
   </url>
   
@@ -577,7 +577,7 @@
   </url>
   
   <url>
-    <loc>http://hanks.xyz/2014/02/19/%E5%B8%B8%E7%94%A8%E5%AD%97%E7%AC%A6%EF%BC%8C%E6%95%B4%E5%BD%A2%EF%BC%8C%E6%B5%AE%E7%82%B9%E5%9E%8B%E7%9B%B8%E4%BA%92%E8%A3%85%E6%8D%A2%E5%87%BD%E2%80%A6/</loc>
+    <loc>http://hanks.xyz/2015/11/26/%E5%88%A9%E5%99%A8_--_%E6%8A%93%E5%8C%85%E5%B7%A5%E5%85%B7%E6%80%BB%E7%BB%93/</loc>
     <lastmod>2015-12-04T17:20:04.000Z</lastmod>
   </url>
   
@@ -592,12 +592,12 @@
   </url>
   
   <url>
-    <loc>http://hanks.xyz/2015/11/26/%E5%88%A9%E5%99%A8_--_%E6%8A%93%E5%8C%85%E5%B7%A5%E5%85%B7%E6%80%BB%E7%BB%93/</loc>
+    <loc>http://hanks.xyz/2014/02/19/%E5%B7%B2%E7%9F%A5%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E4%B8%AD%E5%BA%8F%E9%81%8D%E5%8E%86%E5%92%8C%E5%89%8D%E5%BA%8F%E9%81%8D%E5%8E%86%EF%BC%8C%E2%80%A6/</loc>
     <lastmod>2015-12-04T17:20:04.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://hanks.xyz/2014/09/26/%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8E%A7%E4%BB%B6_---_DeletableEditText%E5%B8%A6%E5%88%A0%E9%99%A4%E6%8C%89%E9%92%AE%E7%9A%84EditText/</loc>
+    <loc>http://hanks.xyz/2014/02/19/%E5%B7%B2%E7%9F%A5%E4%BA%8C%E5%8F%89%E6%A0%91%E5%89%8D%E3%80%81%E4%B8%AD%E5%BA%8F%E9%81%8D%E5%8E%86%EF%BC%8C%E6%B1%82%E2%80%A6/</loc>
     <lastmod>2015-12-04T17:20:04.000Z</lastmod>
   </url>
   
@@ -672,7 +672,7 @@
   </url>
   
   <url>
-    <loc>http://hanks.xyz/2014/02/19/%E8%A1%A8%E8%BE%BE%E5%BC%8F%E6%B1%82%E5%80%BC/</loc>
+    <loc>http://hanks.xyz/2014/09/26/%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8E%A7%E4%BB%B6_---_DeletableEditText%E5%B8%A6%E5%88%A0%E9%99%A4%E6%8C%89%E9%92%AE%E7%9A%84EditText/</loc>
     <lastmod>2015-12-04T17:20:04.000Z</lastmod>
   </url>
   
@@ -787,12 +787,12 @@
   </url>
   
   <url>
-    <loc>http://hanks.xyz/2014/02/19/%E6%8B%AC%E5%8F%B7%E9%85%8D%E5%AF%B9/</loc>
+    <loc>http://hanks.xyz/2013/11/23/hdu_%E9%A2%98%E7%9B%AE1114_Piggy-Bank%EF%BC%88%E5%AE%8C%E5%85%A8%E8%83%8C%E5%8C%85%EF%BC%89/</loc>
     <lastmod>2015-12-04T17:20:04.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://hanks.xyz/2013/08/09/hdu_%E9%A2%98%E7%9B%AE1078FatMouse_and_Cheese%EF%BC%88%E8%AE%B0%E5%BF%86%E6%90%9C%E7%B4%A2%EF%BC%89/</loc>
+    <loc>http://hanks.xyz/2014/02/19/%E5%BE%AA%E7%8E%AF%E9%98%9F%E5%88%97/</loc>
     <lastmod>2015-12-04T17:20:04.000Z</lastmod>
   </url>
   
@@ -847,12 +847,12 @@
   </url>
   
   <url>
-    <loc>http://hanks.xyz/2013/08/12/%E8%AE%A1%E7%AE%97%E5%A4%9A%E8%BE%B9%E5%BD%A2%E7%9A%84%E9%9D%A2%E7%A7%AF/</loc>
+    <loc>http://hanks.xyz/2014/02/19/%E8%A1%A8%E8%BE%BE%E5%BC%8F%E6%B1%82%E5%80%BC/</loc>
     <lastmod>2015-12-04T17:20:04.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://hanks.xyz/2013/07/26/%E8%B4%AA%E5%BF%83%E2%80%94%E2%80%94HDU%E9%A2%98%E7%9B%AE1009_FatMouse'_Trade/</loc>
+    <loc>http://hanks.xyz/2013/08/12/%E8%AE%A1%E7%AE%97%E5%A4%9A%E8%BE%B9%E5%BD%A2%E7%9A%84%E9%9D%A2%E7%A7%AF/</loc>
     <lastmod>2015-12-04T17:20:04.000Z</lastmod>
   </url>
   
@@ -877,12 +877,17 @@
   </url>
   
   <url>
-    <loc>http://hanks.xyz/2013/07/25/%E8%B4%AA%E5%BF%83%E2%80%94%E2%80%94NYOJ_%E9%A2%98%E7%9B%AE14_%E4%BC%9A%E5%9C%BA%E5%AE%89%E6%8E%92%E9%97%AE%E9%A2%98/</loc>
+    <loc>http://hanks.xyz/2013/07/26/%E8%B4%AA%E5%BF%83%E2%80%94%E2%80%94HDU%E9%A2%98%E7%9B%AE1009_FatMouse'_Trade/</loc>
     <lastmod>2015-12-04T17:20:04.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://hanks.xyz/2013/08/25/hdu_%E9%A2%98%E7%9B%AE1907_Johu_%EF%BC%88%E5%8F%96%E7%81%AB%E6%9F%B4%E6%B8%B8%E6%88%8F%EF%BC%8C%E5%8F%96%E6%9C%80%E5%90%8E%E4%B8%80%E4%B8%AA%E8%83%9C%EF%BC%89/</loc>
+    <loc>http://hanks.xyz/2014/02/09/%E5%85%AB%E7%9A%87%E5%90%8E/</loc>
+    <lastmod>2015-12-04T17:20:04.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://hanks.xyz/2013/07/25/%E8%B4%AA%E5%BF%83%E2%80%94%E2%80%94NYOJ_%E9%A2%98%E7%9B%AE14_%E4%BC%9A%E5%9C%BA%E5%AE%89%E6%8E%92%E9%97%AE%E9%A2%98/</loc>
     <lastmod>2015-12-04T17:20:04.000Z</lastmod>
   </url>
   
@@ -897,12 +902,7 @@
   </url>
   
   <url>
-    <loc>http://hanks.xyz/2013/07/25/%E8%B4%AA%E5%BF%83%E2%80%94%E2%80%94NYOJ_%E9%A2%98%E7%9B%AE71_%E7%8B%AC%E6%9C%A8%E8%88%9F%E4%B8%8A%E7%9A%84%E6%97%85%E8%A1%8C/</loc>
-    <lastmod>2015-12-04T17:20:04.000Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://hanks.xyz/2014/02/19/%E5%BE%AA%E7%8E%AF%E9%98%9F%E5%88%97/</loc>
+    <loc>http://hanks.xyz/2014/09/12/%E5%B0%8F%E8%AE%B0/</loc>
     <lastmod>2015-12-04T17:20:04.000Z</lastmod>
   </url>
   
@@ -922,7 +922,22 @@
   </url>
   
   <url>
-    <loc>http://hanks.xyz/2014/02/09/%E5%85%AB%E7%9A%87%E5%90%8E/</loc>
+    <loc>http://hanks.xyz/2015/02/23/%E5%B0%8F%E7%AA%9D%E6%90%AD%E5%BB%BA/</loc>
+    <lastmod>2015-12-04T17:20:04.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://hanks.xyz/2013/07/25/%E8%B4%AA%E5%BF%83%E2%80%94%E2%80%94NYOJ_%E9%A2%98%E7%9B%AE71_%E7%8B%AC%E6%9C%A8%E8%88%9F%E4%B8%8A%E7%9A%84%E6%97%85%E8%A1%8C/</loc>
+    <lastmod>2015-12-04T17:20:04.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://hanks.xyz/2013/07/15/%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E8%BE%93%E5%85%A5/</loc>
+    <lastmod>2015-12-04T17:20:04.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://hanks.xyz/2015/11/17/%E5%A6%82%E4%BD%95%E8%BF%90%E8%A1%8C_.smali_%E7%A8%8B%E5%BA%8F/</loc>
     <lastmod>2015-12-04T17:20:04.000Z</lastmod>
   </url>
   
@@ -932,22 +947,7 @@
   </url>
   
   <url>
-    <loc>http://hanks.xyz/2014/02/19/%E5%B7%B2%E7%9F%A5%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E4%B8%AD%E5%BA%8F%E9%81%8D%E5%8E%86%E5%92%8C%E5%89%8D%E5%BA%8F%E9%81%8D%E5%8E%86%EF%BC%8C%E2%80%A6/</loc>
-    <lastmod>2015-12-04T17:20:04.000Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://hanks.xyz/2014/02/19/%E5%B7%B2%E7%9F%A5%E4%BA%8C%E5%8F%89%E6%A0%91%E5%89%8D%E3%80%81%E4%B8%AD%E5%BA%8F%E9%81%8D%E5%8E%86%EF%BC%8C%E6%B1%82%E2%80%A6/</loc>
-    <lastmod>2015-12-04T17:20:04.000Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://hanks.xyz/2014/02/19/%E9%93%BE%E6%A0%88/</loc>
-    <lastmod>2015-12-04T17:20:04.000Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://hanks.xyz/2014/09/12/%E5%B0%8F%E8%AE%B0/</loc>
+    <loc>http://hanks.xyz/2015/03/20/%E6%8E%A7%E5%88%B6View%E7%9A%84OnClick_OnTouch%E6%9D%A5%E5%AE%9E%E7%8E%B0LsitView%E7%9A%84Item%E7%9A%84%E4%BE%A7%E6%BB%91%E5%87%BA%E7%8E%B0%E5%88%A0%E9%99%A4/</loc>
     <lastmod>2015-12-04T17:20:04.000Z</lastmod>
   </url>
   
@@ -1112,7 +1112,7 @@
   </url>
   
   <url>
-    <loc>http://hanks.xyz/2015/02/23/%E5%B0%8F%E7%AA%9D%E6%90%AD%E5%BB%BA/</loc>
+    <loc>http://hanks.xyz/2013/07/31/%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%B1%82%E6%AC%A1%E9%81%8D%E5%8E%86%EF%BC%88%E7%9B%B8%E5%BD%93%E4%BA%8E%E5%B9%BF%E5%BA%A6%E9%81%8D%E5%8E%86%EF%BC%89_SJTU_OJ_%E9%A2%98%E7%9B%AE_1040%E4%BA%8C%E5%8F%89%E6%A0%91%E5%B1%82%E6%AC%A1%E9%81%8D%E5%8E%86/</loc>
     <lastmod>2015-12-04T17:20:04.000Z</lastmod>
   </url>
   
@@ -1127,17 +1127,17 @@
   </url>
   
   <url>
-    <loc>http://hanks.xyz/2015/08/29/%E6%8F%90%E9%AB%98%E6%95%88%E7%8E%87_Emmet.vim/</loc>
-    <lastmod>2015-12-04T17:20:04.000Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://hanks.xyz/2013/07/31/%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%B1%82%E6%AC%A1%E9%81%8D%E5%8E%86%EF%BC%88%E7%9B%B8%E5%BD%93%E4%BA%8E%E5%B9%BF%E5%BA%A6%E9%81%8D%E5%8E%86%EF%BC%89_SJTU_OJ_%E9%A2%98%E7%9B%AE_1040%E4%BA%8C%E5%8F%89%E6%A0%91%E5%B1%82%E6%AC%A1%E9%81%8D%E5%8E%86/</loc>
-    <lastmod>2015-12-04T17:20:04.000Z</lastmod>
-  </url>
-  
-  <url>
     <loc>http://hanks.xyz/2014/02/19/%E4%BA%8C%E5%8F%89%E6%A0%91/</loc>
+    <lastmod>2015-12-04T17:20:04.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://hanks.xyz/2014/02/19/%E4%BA%8C%E5%8F%89%E6%8E%92%E5%BA%8F%E6%A0%91/</loc>
+    <lastmod>2015-12-04T17:20:04.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://hanks.xyz/2014/02/19/%E4%BA%8C%E5%8F%89%E5%B9%B3%E8%A1%A1%E6%A0%91/</loc>
     <lastmod>2015-12-04T17:20:04.000Z</lastmod>
   </url>
   
@@ -1162,7 +1162,7 @@
   </url>
   
   <url>
-    <loc>http://hanks.xyz/2014/02/19/%E4%BA%8C%E5%8F%89%E6%8E%92%E5%BA%8F%E6%A0%91/</loc>
+    <loc>http://hanks.xyz/2014/02/19/%E4%B8%AD%E7%BC%80%E8%A1%A8%E8%BE%BE%E5%BC%8F%E8%BD%AC%E6%8D%A2%E4%B8%BA%E5%90%8E%E7%BC%80%E8%A1%A8%E8%BE%BE%E5%BC%8F/</loc>
     <lastmod>2015-12-04T17:20:04.000Z</lastmod>
   </url>
   
@@ -1202,17 +1202,22 @@
   </url>
   
   <url>
-    <loc>http://hanks.xyz/2014/02/19/%E4%BA%8C%E5%8F%89%E5%B9%B3%E8%A1%A1%E6%A0%91/</loc>
-    <lastmod>2015-12-04T17:20:04.000Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://hanks.xyz/2014/02/19/%E4%B8%AD%E7%BC%80%E8%A1%A8%E8%BE%BE%E5%BC%8F%E8%BD%AC%E6%8D%A2%E4%B8%BA%E5%90%8E%E7%BC%80%E8%A1%A8%E8%BE%BE%E5%BC%8F/</loc>
-    <lastmod>2015-12-04T17:20:04.000Z</lastmod>
-  </url>
-  
-  <url>
     <loc>http://hanks.xyz/2013/07/26/%E4%B8%AD%E7%BC%80%E5%BC%8F%E8%BD%AC%E5%90%8E%E7%BC%80%E8%A1%A8%E8%BE%BE%E5%BC%8F_-NYOJ_%E9%A2%98%E7%9B%AE267%E9%83%81%E9%97%B7%E7%9A%84C%E5%B0%8F%E5%8A%A0%EF%BC%88%E4%BA%8C%EF%BC%89/</loc>
+    <lastmod>2015-12-04T17:20:04.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://hanks.xyz/2014/02/19/%E4%B8%A4%E4%B8%AA%E5%8D%81%E5%AD%97%E9%93%BE%E8%A1%A8%E7%9B%B8%E5%8A%A0/</loc>
+    <lastmod>2015-12-04T17:20:04.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://hanks.xyz/2014/02/19/%E6%8B%AC%E5%8F%B7%E9%85%8D%E5%AF%B9/</loc>
+    <lastmod>2015-12-04T17:20:04.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://hanks.xyz/2014/02/19/%E9%93%BE%E6%A0%88/</loc>
     <lastmod>2015-12-04T17:20:04.000Z</lastmod>
   </url>
   
@@ -1242,22 +1247,12 @@
   </url>
   
   <url>
-    <loc>http://hanks.xyz/2014/02/19/%E4%B8%A4%E4%B8%AA%E5%8D%81%E5%AD%97%E9%93%BE%E8%A1%A8%E7%9B%B8%E5%8A%A0/</loc>
-    <lastmod>2015-12-04T17:20:04.000Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://hanks.xyz/2013/07/15/%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E8%BE%93%E5%85%A5/</loc>
+    <loc>http://hanks.xyz/2015/08/29/%E6%8F%90%E9%AB%98%E6%95%88%E7%8E%87_Emmet.vim/</loc>
     <lastmod>2015-12-04T17:20:04.000Z</lastmod>
   </url>
   
   <url>
     <loc>http://hanks.xyz/2014/02/19/%E6%97%A0%E5%90%91%E5%9B%BE%E7%9A%84%E9%82%BB%E6%8E%A5%E8%A1%A8%E5%88%9B%E5%BB%BA%E4%BB%A5%E5%8F%8A%E5%9B%BE%E7%9A%84%E6%B7%B1%E5%BA%A6%E5%92%8C%E2%80%A6/</loc>
-    <lastmod>2015-12-04T17:20:04.000Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://hanks.xyz/2013/07/29/%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84_Dijksstra%E7%AE%97%E6%B3%95%E6%B1%82%E6%9C%80%E7%9F%AD%E8%B7%AF/</loc>
     <lastmod>2015-12-04T17:20:04.000Z</lastmod>
   </url>
   
@@ -1277,17 +1272,27 @@
   </url>
   
   <url>
-    <loc>http://hanks.xyz/2013/07/30/%E9%93%BE%E8%A1%A8%E2%80%94%E2%80%94%E7%BA%A6%E7%91%9F%E5%A4%AB%E9%97%AE%E9%A2%98_%E7%99%BE%E7%BB%832746/</loc>
-    <lastmod>2015-12-04T17:20:04.000Z</lastmod>
-  </url>
-  
-  <url>
     <loc>http://hanks.xyz/2014/09/15/%E3%80%90_%E7%AE%80%E5%8D%95%E5%AE%9E%E7%8E%B0%E5%8F%8C%E5%87%BB%EF%BC%8C3%E5%87%BB%EF%BC%8C___N%E5%87%BB_%E3%80%91Android%E7%B3%BB%E7%BB%9F%E6%BA%90%E7%A0%81/</loc>
     <lastmod>2015-12-04T17:20:04.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://hanks.xyz/2015/11/17/%E5%A6%82%E4%BD%95%E8%BF%90%E8%A1%8C_.smali_%E7%A8%8B%E5%BA%8F/</loc>
+    <loc>http://hanks.xyz/2014/02/24/%E5%A4%A7%E6%95%B0%E7%B1%BB/</loc>
+    <lastmod>2015-12-04T17:20:04.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://hanks.xyz/2013/07/30/%E9%93%BE%E8%A1%A8%E2%80%94%E2%80%94%E7%BA%A6%E7%91%9F%E5%A4%AB%E9%97%AE%E9%A2%98_%E7%99%BE%E7%BB%832746/</loc>
+    <lastmod>2015-12-04T17:20:04.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://hanks.xyz/2013/07/29/%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84_Dijksstra%E7%AE%97%E6%B3%95%E6%B1%82%E6%9C%80%E7%9F%AD%E8%B7%AF/</loc>
+    <lastmod>2015-12-04T17:20:04.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://hanks.xyz/2014/02/25/%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E7%9A%84%E8%BF%90%E7%AE%97/</loc>
     <lastmod>2015-12-04T17:20:04.000Z</lastmod>
   </url>
   
@@ -1302,7 +1307,7 @@
   </url>
   
   <url>
-    <loc>http://hanks.xyz/2015/03/20/%E6%8E%A7%E5%88%B6View%E7%9A%84OnClick_OnTouch%E6%9D%A5%E5%AE%9E%E7%8E%B0LsitView%E7%9A%84Item%E7%9A%84%E4%BE%A7%E6%BB%91%E5%87%BA%E7%8E%B0%E5%88%A0%E9%99%A4/</loc>
+    <loc>http://hanks.xyz/2013/07/31/%E5%9B%9E%E6%BA%AF%E6%B3%95_N%E7%9A%87%E5%90%8E%E9%97%AE%E9%A2%98_hud%E9%A2%98%E7%9B%AE2553/</loc>
     <lastmod>2015-12-04T17:20:04.000Z</lastmod>
   </url>
   
@@ -1312,7 +1317,7 @@
   </url>
   
   <url>
-    <loc>http://hanks.xyz/2013/11/23/hdu_%E9%A2%98%E7%9B%AE1114_Piggy-Bank%EF%BC%88%E5%AE%8C%E5%85%A8%E8%83%8C%E5%8C%85%EF%BC%89/</loc>
+    <loc>http://hanks.xyz/2013/08/25/hdu_%E9%A2%98%E7%9B%AE1907_Johu_%EF%BC%88%E5%8F%96%E7%81%AB%E6%9F%B4%E6%B8%B8%E6%88%8F%EF%BC%8C%E5%8F%96%E6%9C%80%E5%90%8E%E4%B8%80%E4%B8%AA%E8%83%9C%EF%BC%89/</loc>
     <lastmod>2015-12-04T17:20:04.000Z</lastmod>
   </url>
   

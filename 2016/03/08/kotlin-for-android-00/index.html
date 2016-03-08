@@ -14,7 +14,7 @@
 <meta property="og:image" content="https://dn-coding-net-production-pp.qbox.me/f4726bb1-04c7-43a9-8877-e701bdb29d61.png">
 <meta property="og:image" content="https://dn-coding-net-production-pp.qbox.me/066cdf44-c2e5-4688-a2eb-c5e8c86a2334.png">
 <meta property="og:image" content="https://dn-coding-net-production-pp.qbox.me/eb7770ec-3c4a-4ba2-b6ff-33535c985628.png">
-<meta property="og:updated_time" content="2016-03-08T14:49:31.000Z">
+<meta property="og:updated_time" content="2016-03-08T15:30:10.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Kotlin for Android - 0x00 配置">
 <meta name="twitter:description" content="Kotlin 发布了1.0.0正式版，准备使用 Kotlin重写下项目, 先拿一些简单的例子练习。">
@@ -122,6 +122,10 @@
       <ul>
         
           <li>
+            <a href="/2016/03/08/Fragment-setUserVisibleHint/">使用 setUserVisibleHint 方法判断 Fragment 是否可见</a>
+          </li>
+        
+          <li>
             <a href="/2016/03/08/kotlin-for-android-00/">Kotlin for Android - 0x00 配置</a>
           </li>
         
@@ -177,10 +181,6 @@
             <a href="/2015/12/29/react-userinfo/">React-Native 练习用户信息界面</a>
           </li>
         
-          <li>
-            <a href="/2015/12/29/react-viewpager/">React-Native 实现Android中的ViewPager</a>
-          </li>
-        
       </ul>
     </div>
   </div>
@@ -191,7 +191,7 @@
   <div class="widget-wrap mdl-shadow--2dp">
     <h3 class="widget-title">标签云</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Activity/">Activity</a> <a href="/tags/Andorid/">Andorid</a> <a href="/tags/Android/">Android</a> <a href="/tags/Atom/">Atom</a> <a href="/tags/Framework/">Framework</a> <a href="/tags/Java/">Java</a> <a href="/tags/Kotlin/">Kotlin</a> <a href="/tags/OS-X/">OS X</a> <a href="/tags/React-Native/">React-Native</a> <a href="/tags/Refactoring/">Refactoring</a> <a href="/tags/Rx/">Rx</a> <a href="/tags/RxJava/">RxJava</a> <a href="/tags/Rxandroid/">Rxandroid</a> <a href="/tags/Rxjava/">Rxjava</a> <a href="/tags/Swift/">Swift</a> <a href="/tags/Ubuntu/">Ubuntu</a> <a href="/tags/interpolator/">interpolator</a> <a href="/tags/mac-os/">mac os</a> <a href="/tags/virtualBox/">virtualBox</a> <a href="/tags/必备知识/">必备知识</a> <a href="/tags/性能优化/">性能优化</a> <a href="/tags/热修复/">热修复</a>
+      <a href="/tags/Activity/">Activity</a> <a href="/tags/Andorid/">Andorid</a> <a href="/tags/Android/">Android</a> <a href="/tags/Atom/">Atom</a> <a href="/tags/Fragment/">Fragment</a> <a href="/tags/Framework/">Framework</a> <a href="/tags/Java/">Java</a> <a href="/tags/Kotlin/">Kotlin</a> <a href="/tags/OS-X/">OS X</a> <a href="/tags/React-Native/">React-Native</a> <a href="/tags/Refactoring/">Refactoring</a> <a href="/tags/Rx/">Rx</a> <a href="/tags/RxJava/">RxJava</a> <a href="/tags/Rxandroid/">Rxandroid</a> <a href="/tags/Rxjava/">Rxjava</a> <a href="/tags/Swift/">Swift</a> <a href="/tags/Ubuntu/">Ubuntu</a> <a href="/tags/interpolator/">interpolator</a> <a href="/tags/mac-os/">mac os</a> <a href="/tags/virtualBox/">virtualBox</a> <a href="/tags/必备知识/">必备知识</a> <a href="/tags/性能优化/">性能优化</a> <a href="/tags/热修复/">热修复</a>
     </div>
   </div>
 
@@ -266,6 +266,7 @@
 <p> <img src="https://dn-coding-net-production-pp.qbox.me/eb7770ec-3c4a-4ba2-b6ff-33535c985628.png" alt="插件配置Kotlin"> </p>
 <p><strong><code>app/build.gradle</code></strong><br><figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">apply plugin: <span class="string">'com.android.application'</span></span><br><span class="line">apply plugin: <span class="string">'kotlin-android'</span>               <span class="comment">// kotlin 插件</span></span><br><span class="line">apply plugin: <span class="string">'kotlin-android-extensions'</span>    <span class="comment">// 对Android的扩展</span></span><br><span class="line"></span><br><span class="line">android &#123;</span><br><span class="line">    compileSdkVersion <span class="number">23</span></span><br><span class="line">    buildToolsVersion <span class="string">"23.0.2"</span></span><br><span class="line"></span><br><span class="line">    defaultConfig &#123;</span><br><span class="line">        applicationId <span class="string">"xyz.hanks.fragmentvisiable"</span></span><br><span class="line">        minSdkVersion <span class="number">14</span></span><br><span class="line">        targetSdkVersion <span class="number">23</span></span><br><span class="line">        versionCode <span class="number">1</span></span><br><span class="line">        versionName <span class="string">"1.0"</span></span><br><span class="line">    &#125;</span><br><span class="line">    buildTypes &#123;</span><br><span class="line">        release &#123;</span><br><span class="line">            minifyEnabled <span class="keyword">false</span></span><br><span class="line">            proguardFiles getDefaultProguardFile(<span class="string">'proguard-android.txt'</span>), <span class="string">'proguard-rules.pro'</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">sourceSets</span> &#123;</span><br><span class="line">        main.java.srcDirs += <span class="string">'src/main/kotlin'</span> <span class="comment">// 添加kotlin目录为源文件目录</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">dependencies</span> &#123;</span><br><span class="line">    <span class="keyword">compile</span> <span class="keyword">fileTree</span>(dir: <span class="string">'libs'</span>, <span class="keyword">include</span>: [<span class="string">'*.jar'</span>])</span><br><span class="line">    testCompile <span class="string">'junit:junit:4.12'</span></span><br><span class="line">    <span class="keyword">compile</span> <span class="string">'com.android.support:appcompat-v7:23.2.0'</span></span><br><span class="line">    <span class="keyword">compile</span> <span class="string">"org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"</span> <span class="comment">// 设置依赖库</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">buildscript</span> &#123;</span><br><span class="line">    ext.kotlin_version = <span class="string">'1.0.0'</span>    <span class="comment">// kotlin 版本</span></span><br><span class="line">    <span class="keyword">repositories</span> &#123;</span><br><span class="line">        mavenCentral()</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">dependencies</span> &#123;</span><br><span class="line">        <span class="keyword">classpath</span> <span class="string">"org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"</span>       <span class="comment">// </span></span><br><span class="line">        <span class="keyword">classpath</span> <span class="string">"org.jetbrains.kotlin:kotlin-android-extensions:$kotlin_version"</span>  <span class="comment">// </span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">repositories</span> &#123;</span><br><span class="line">    mavenCentral()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>接下来就可以使用Kotlin进行Android开发了。</p>
+<p>关于使用Anko库，可以查看这篇<a href="http://hanks.xyz/2015/10/21/Anko_for_Android/">Anko for Android</a></p>
 <blockquote>
 <p>文章来自： <a href="http://hanks.xyz">http://hanks.xyz</a></p>
 </blockquote>

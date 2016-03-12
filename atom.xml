@@ -4,7 +4,7 @@
   <subtitle><![CDATA[coding]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://hanks.xyz/"/>
-  <updated>2016-03-12T16:35:18.000Z</updated>
+  <updated>2016-03-12T17:22:20.000Z</updated>
   <id>http://hanks.xyz/</id>
   
   <author>
@@ -19,8 +19,8 @@
     <link href="http://hanks.xyz/2016/03/13/kotlin-for-android-extensions/"/>
     <id>http://hanks.xyz/2016/03/13/kotlin-for-android-extensions/</id>
     <published>2016-03-12T16:28:58.000Z</published>
-    <updated>2016-03-12T16:35:18.000Z</updated>
-    <content type="html"><![CDATA[<h2 id="Kotlin_中的_Extensions">Kotlin 中的 Extensions</h2><p>在 Kotlin 中， 提供了一个很方便的功能，可以在不继承父类，也不使用类似装饰器这样的设计模式的情况下对指定类进行扩展，扩展新的方法、属性。</p>
+    <updated>2016-03-12T17:22:20.000Z</updated>
+    <content type="html"><![CDATA[<p>在 Kotlin 中， 提供了一个很方便的功能，可以在不继承父类，也不使用类似装饰器这样的设计模式的情况下对指定类进行扩展，扩展新的方法、属性。</p>
 <a id="more"></a>
 <h3 id="扩展方法">扩展方法</h3><p>用法：<code>类名.方法名</code></p>
 <p>例子</p>
@@ -50,7 +50,7 @@
 </blockquote>
 ]]></content>
     <summary type="html">
-    <![CDATA[<h2 id="Kotlin_中的_Extensions">Kotlin 中的 Extensions</h2><p>在 Kotlin 中， 提供了一个很方便的功能，可以在不继承父类，也不使用类似装饰器这样的设计模式的情况下对指定类进行扩展，扩展新的方法、属性。</p>]]>
+    <![CDATA[<p>在 Kotlin 中， 提供了一个很方便的功能，可以在不继承父类，也不使用类似装饰器这样的设计模式的情况下对指定类进行扩展，扩展新的方法、属性。</p>]]>
     
     </summary>
     

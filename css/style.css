@@ -847,7 +847,7 @@ a.article-title:hover {
 @media screen and (min-width: 768px) {
   #article-nav-newer {
     float: left;
-    text-align: right;
+    text-align: left;
     padding-right: 20px;
   }
 }
@@ -869,7 +869,7 @@ a.article-title:hover {
   margin-right: -2px;
 }
 .article-nav-title {
-  font-size: 0.85em;
+  font-size: 1em;
   line-height: 28px;
   margin-top: 0.5em;
 }

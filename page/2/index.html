@@ -122,6 +122,10 @@
       <ul>
         
           <li>
+            <a href="/2016/03/17/mac-node-config/">Mac 上配置 Node.js 环境</a>
+          </li>
+        
+          <li>
             <a href="/2016/03/15/kotlin-companion/">Kotlin 中创建类似 Java 的静态方法</a>
           </li>
         
@@ -177,10 +181,6 @@
             <a href="/2015/12/31/2015/">2015回顾@hanks</a>
           </li>
         
-          <li>
-            <a href="/2015/12/30/snowfall/">Android 下雪动画</a>
-          </li>
-        
       </ul>
     </div>
   </div>
@@ -191,7 +191,7 @@
   <div class="widget-wrap mdl-shadow--2dp">
     <h3 class="widget-title">标签云</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Activity/">Activity</a> <a href="/tags/Android/">Android</a> <a href="/tags/Atom/">Atom</a> <a href="/tags/Fragment/">Fragment</a> <a href="/tags/Framework/">Framework</a> <a href="/tags/Java/">Java</a> <a href="/tags/Kotlin/">Kotlin</a> <a href="/tags/OS-X/">OS X</a> <a href="/tags/React-Native/">React-Native</a> <a href="/tags/Refactoring/">Refactoring</a> <a href="/tags/Rx/">Rx</a> <a href="/tags/RxJava/">RxJava</a> <a href="/tags/Rxandroid/">Rxandroid</a> <a href="/tags/Rxjava/">Rxjava</a> <a href="/tags/Swift/">Swift</a> <a href="/tags/Ubuntu/">Ubuntu</a> <a href="/tags/interpolator/">interpolator</a> <a href="/tags/mac-os/">mac os</a> <a href="/tags/virtualBox/">virtualBox</a> <a href="/tags/必备知识/">必备知识</a> <a href="/tags/性能优化/">性能优化</a> <a href="/tags/热修复/">热修复</a>
+      <a href="/tags/Activity/">Activity</a> <a href="/tags/Android/">Android</a> <a href="/tags/Atom/">Atom</a> <a href="/tags/Fragment/">Fragment</a> <a href="/tags/Framework/">Framework</a> <a href="/tags/Java/">Java</a> <a href="/tags/Kotlin/">Kotlin</a> <a href="/tags/Node-js/">Node.js</a> <a href="/tags/OS-X/">OS X</a> <a href="/tags/React-Native/">React-Native</a> <a href="/tags/Refactoring/">Refactoring</a> <a href="/tags/Rx/">Rx</a> <a href="/tags/RxJava/">RxJava</a> <a href="/tags/Rxandroid/">Rxandroid</a> <a href="/tags/Rxjava/">Rxjava</a> <a href="/tags/Swift/">Swift</a> <a href="/tags/Ubuntu/">Ubuntu</a> <a href="/tags/interpolator/">interpolator</a> <a href="/tags/mac-os/">mac os</a> <a href="/tags/virtualBox/">virtualBox</a> <a href="/tags/必备知识/">必备知识</a> <a href="/tags/性能优化/">性能优化</a> <a href="/tags/热修复/">热修复</a>
     </div>
   </div>
 
@@ -247,6 +247,48 @@
 </aside>
         
         <section id="main" class="mdl-shadow--2dp">
+  
+    <article id="post-framework-application" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/01/14/framework-application/" class="article-date">
+  <time datetime="2016-01-14T09:49:35.000Z" itemprop="datePublished">2016-01-14</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/01/14/framework-application/">Framework分析-Application的onCreate</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>ActivityThread并不是一个Thread，而是一个单纯的Java类，查看一下 <code>ActivityThread</code> 的源码<code>final class ActivityThread</code>，并没有继承Thread或者实现Runnable接口，<code>ActivityThread</code> 其中包含 <code>main</code> 方法,程序的入口地方，怎么看出来的呢? 我们开发过程中总会出现程序异常信息，细心看一下log，查看最下面的几行，最终问题出在 <code>android.app.ActivityThread.main</code>.<br>
+        
+            
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Framework/">Framework</a></li></ul>
+
+
+        
+      
+    </div>
+</article>
+ 
+ <!-- 上一页 下一页 -->
+
+
+<!-- 相关文章 -->
+
+
+
+
   
     <article id="post-react-native-23333" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
@@ -624,48 +666,6 @@
       
         <p>例子:<br><img src="http://file.bmob.cn/M02/17/17/oYYBAFZ70QWAYn4DABTb3uKu6GM103.gif" alt="界面跳转"></p>
 <p>回顾一下,一个简单的界面包含一下几块<br>
-        
-            
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/React-Native/">React-Native</a></li></ul>
-
-
-        
-      
-    </div>
-</article>
- 
- <!-- 上一页 下一页 -->
-
-
-<!-- 相关文章 -->
-
-
-
-
-  
-    <article id="post-react-network" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2015/12/23/react-network/" class="article-date">
-  <time datetime="2015-12-23T09:53:43.000Z" itemprop="datePublished">2015-12-23</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/12/23/react-network/">React-Native 网络请求</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>大部分的app都需要进行网络连接,通过网络获取服务器的数据,然后更新app的界面展示内容,React-Native自然拥有网络的相关操作.<br><a href="https://facebook.github.io/react-native/docs/network.html#content">官方文档</a><br>
         
             
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/React-Native/">React-Native</a></li></ul>

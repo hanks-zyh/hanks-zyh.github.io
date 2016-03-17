@@ -4,7 +4,7 @@
   <subtitle><![CDATA[coding]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://hanks.xyz/"/>
-  <updated>2016-03-15T16:13:22.000Z</updated>
+  <updated>2016-03-15T16:27:54.000Z</updated>
   <id>http://hanks.xyz/</id>
   
   <author>
@@ -19,12 +19,14 @@
     <link href="http://hanks.xyz/2016/03/15/kotlin-companion/"/>
     <id>http://hanks.xyz/2016/03/15/kotlin-companion/</id>
     <published>2016-03-15T15:41:01.000Z</published>
-    <updated>2016-03-15T16:13:22.000Z</updated>
-    <content type="html"><![CDATA[<p>在 <code>Java</code> 中经常会写个 <code>Utils</code> 工具类来将代码中常用的功能抽出来。代码就类似下面的这种：</p>
+    <updated>2016-03-15T16:27:54.000Z</updated>
+    <content type="html"><![CDATA[<p>在 <code>Java</code> 中经常会写个 <code>Utils</code> 工具类来将代码中常用的功能抽出来。在 <code>Kotlin</code> 中该怎么写呢？ 代码就类似下面的这种：</p>
 <a id="more"></a>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Utils</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">isEmpty</span><span class="params">(String string)</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> string != <span class="keyword">null</span> &amp;&amp; string.length() == <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">isWeakEmpty</span><span class="params">(String string)</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> isEmpty(string) &amp;&amp; string.trim().length() == <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>使用起来当然就是:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">boolean</span> result = Utils.isEmpty(name);</span><br><span class="line">``` </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">在 `Kotlin` 中没有 <span class="keyword">static</span> 类型的 fun，但是我们可以使用 `Companion Objects` 。</span><br><span class="line"></span><br><span class="line">```kotlin</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyClass</span> </span>&#123;</span><br><span class="line">  companion object Factory &#123;</span><br><span class="line">    <span class="function">fun <span class="title">create</span><span class="params">()</span>: MyClass </span>= MyClass()</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使用起来当然就是：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">boolean</span> result = Utils.isEmpty(name);</span><br></pre></td></tr></table></figure>
+<p>在 <code>Kotlin</code> 中没有 static 类型的 fun，但是我们可以使用 <code>Companion Objects</code> 。</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyClass</span> </span>&#123;</span><br><span class="line">  <span class="keyword">companion</span> <span class="keyword">object</span> Factory &#123;</span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">create</span><span class="params">()</span>: MyClass = <span class="title">MyClass</span><span class="params">()</span></span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><code>companion object</code> 的名字可以省略</p>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyClass</span> </span>&#123;</span><br><span class="line">  <span class="keyword">companion</span> <span class="keyword">object</span> &#123;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="variable"><span class="keyword">val</span> x</span> = MyClass.Companion</span><br></pre></td></tr></table></figure>
 <p>使用起来就是：<br><figure class="highlight smali"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">val<span class="instruction"> instance </span>=<span class="function"> MyClass.create(</span><span class="function">)</span></span><br></pre></td></tr></table></figure></p>
@@ -39,7 +41,7 @@
 </blockquote>
 ]]></content>
     <summary type="html">
-    <![CDATA[<p>在 <code>Java</code> 中经常会写个 <code>Utils</code> 工具类来将代码中常用的功能抽出来。代码就类似下面的这种：</p>]]>
+    <![CDATA[<p>在 <code>Java</code> 中经常会写个 <code>Utils</code> 工具类来将代码中常用的功能抽出来。在 <code>Kotlin</code> 中该怎么写呢？ 代码就类似下面的这种：</p>]]>
     
     </summary>
     

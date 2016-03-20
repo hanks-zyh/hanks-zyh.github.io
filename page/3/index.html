@@ -122,6 +122,10 @@
       <ul>
         
           <li>
+            <a href="/2016/03/20/kotlin-dagger2/">kotlin-dagger2</a>
+          </li>
+        
+          <li>
             <a href="/2016/03/19/scrapy-jianshu-it/">Scrapy 抓取简书专题下的文章</a>
           </li>
         
@@ -177,10 +181,6 @@
             <a href="/2016/01/05/android-myhotfix/">Android 动手实现热修复</a>
           </li>
         
-          <li>
-            <a href="/2016/01/03/android-hotfix/">Android 热修复总结</a>
-          </li>
-        
       </ul>
     </div>
   </div>
@@ -191,7 +191,7 @@
   <div class="widget-wrap mdl-shadow--2dp">
     <h3 class="widget-title">标签云</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Activity/">Activity</a> <a href="/tags/Android/">Android</a> <a href="/tags/Atom/">Atom</a> <a href="/tags/Fragment/">Fragment</a> <a href="/tags/Framework/">Framework</a> <a href="/tags/Java/">Java</a> <a href="/tags/Kotlin/">Kotlin</a> <a href="/tags/Node-js/">Node.js</a> <a href="/tags/OS-X/">OS X</a> <a href="/tags/React-Native/">React-Native</a> <a href="/tags/Refactoring/">Refactoring</a> <a href="/tags/Rx/">Rx</a> <a href="/tags/RxJava/">RxJava</a> <a href="/tags/Rxandroid/">Rxandroid</a> <a href="/tags/Rxjava/">Rxjava</a> <a href="/tags/Swift/">Swift</a> <a href="/tags/Ubuntu/">Ubuntu</a> <a href="/tags/interpolator/">interpolator</a> <a href="/tags/mac-os/">mac os</a> <a href="/tags/virtualBox/">virtualBox</a> <a href="/tags/必备知识/">必备知识</a> <a href="/tags/性能优化/">性能优化</a> <a href="/tags/热修复/">热修复</a> <a href="/tags/爬虫/">爬虫</a>
+      <a href="/tags/Activity/">Activity</a> <a href="/tags/Android/">Android</a> <a href="/tags/Atom/">Atom</a> <a href="/tags/Dagger2/">Dagger2</a> <a href="/tags/Fragment/">Fragment</a> <a href="/tags/Framework/">Framework</a> <a href="/tags/Java/">Java</a> <a href="/tags/Kotlin/">Kotlin</a> <a href="/tags/Node-js/">Node.js</a> <a href="/tags/OS-X/">OS X</a> <a href="/tags/React-Native/">React-Native</a> <a href="/tags/Refactoring/">Refactoring</a> <a href="/tags/Rx/">Rx</a> <a href="/tags/RxJava/">RxJava</a> <a href="/tags/Rxandroid/">Rxandroid</a> <a href="/tags/Rxjava/">Rxjava</a> <a href="/tags/Swift/">Swift</a> <a href="/tags/Ubuntu/">Ubuntu</a> <a href="/tags/interpolator/">interpolator</a> <a href="/tags/mac-os/">mac os</a> <a href="/tags/virtualBox/">virtualBox</a> <a href="/tags/必备知识/">必备知识</a> <a href="/tags/性能优化/">性能优化</a> <a href="/tags/热修复/">热修复</a> <a href="/tags/爬虫/">爬虫</a>
     </div>
   </div>
 
@@ -247,6 +247,48 @@
 </aside>
         
         <section id="main" class="mdl-shadow--2dp">
+  
+    <article id="post-react-viewpager" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/12/29/react-viewpager/" class="article-date">
+  <time datetime="2015-12-29T10:11:29.000Z" itemprop="datePublished">2015-12-29</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/12/29/react-viewpager/">React-Native 实现Android中的ViewPager</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>ViewPager在Android中的使用率也算是非常高的,React-Native也提供了类似Android的ViewPager组件,<code>ViewPagerAndroid</code> , 使用 <code>ViewPagerAndroid</code>可以轻松实现Android中的ViewPager.<br><img src="http://file.bmob.cn/M02/28/37/oYYBAFaCLeqAHyUJABoVzaZyVT0309.gif" alt="ViewPager"><br>
+        
+            
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/React-Native/">React-Native</a></li></ul>
+
+
+        
+      
+    </div>
+</article>
+ 
+ <!-- 上一页 下一页 -->
+
+
+<!-- 相关文章 -->
+
+
+
+
   
     <article id="post-react-navigator" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
@@ -643,55 +685,10 @@
 
 
   
-    <article id="post-mac_java_enviroment" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2015/12/04/mac_java_enviroment/" class="article-date">
-  <time datetime="2015-12-04T15:50:26.000Z" itemprop="datePublished">2015-12-04</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/12/04/mac_java_enviroment/">OS X中Java环境变量配置</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>类似Linux下Java环境的配置,流程就是 <code>下载</code> -&gt; <code>解压</code> -&gt; <code>配置环境变量文件</code></p>
-<h3 id="下载_jdk">下载 jdk</h3><p>到oracle官网下最新 jdk <a href="http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html">下载链接</a>,  注意下载的是jdk(Java Development Kit ),不是jre(Java Runtime Environment)</p>
-<h3 id="配置Java环境变量">配置Java环境变量</h3><p>安装过jdk之后, 查看jdk的安装路径, 一般在 <code>/Library/Java/JavaVirtualMachines</code>目录下面<br>然后编辑环境变量, 打开文件 <code>/etc/profile</code></p>
-<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo <span class="keyword">vim</span> /etc/<span class="keyword">profile</span></span><br></pre></td></tr></table></figure>
-        
-            
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OS-X/">OS X</a></li></ul>
-
-
-        
-      
-    </div>
-</article>
- 
- <!-- 上一页 下一页 -->
-
-
-<!-- 相关文章 -->
-
-
-
-
-  
 
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/2/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/27/">27</a><a class="extend next" rel="next" href="/page/4/">Next &raquo;</a>
+      <a class="extend prev" rel="prev" href="/page/2/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/28/">28</a><a class="extend next" rel="next" href="/page/4/">Next &raquo;</a>
     </nav>
   
 

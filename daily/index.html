@@ -1,91 +1,173 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-	<meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Android 开发者日报（第 0x00 期）</title>
 
-	<style type="text/css" media="screen">
-		.container{
-			background-color: #f5f5f5;
-			padding: 20px 0;
-		}
-		.subscribe{
-			color: red;
-		}
+	<head>
 
-		.title01{
-			margin: 0 0 6px 0;
-			font-size: 25px;
-			font-weight: bold;
-			letter-spacing: -1px;
-		}
-		.title02{
-			margin:0 0 18px 0;color:#444;font-size:14px;font-weight:normal;
-		}
-		.title03{
-			margin:24px 0 12px 0;border-bottom:1px solid #e0e0e0;padding-bottom:6px; color:#555; font-size:16px;
-		}
-		.title04{
-			margin:0;margin-bottom:6px;margin-top:6px;
-		}
-		.title04 a{
-			font-size:14px;line-height:22px;font-weight:bold;text-decoration:none;color:#259;border:none;outline:none;
-		}
-		p{
-			margin:0;font-size:13px;line-height:20px;padding-bottom:10px;border-bottom:1px dotted #eee;
-		}
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Android 开发者日报（第 0x00 期）</title>
 
-		a{
-			color:#07c;text-decoration:none
-		}
-		.quote{
-			padding-left: 10px; border-left: solid 2px #ccc;
-		}
-		.bottom_p{
-			margin:0; color:#444; font-size:12px; line-height:20px; margin-bottom:18px;
-			border-top:1px solid #e0e0e0;  margin-top:36px;padding-top:12px;
-		}
-	</style>
-</head>
-<body>
-    <div class="container">
-        <div style="color:#333;margin:0 auto;padding:24px;max-width:700px;font-family:'Helvetica Neue',Helvetica,Arial,Sans-serif;font-size:13px;line-height:1.7;background-color:#fff">
-        <a href="../index.html" class="subscribe">我要订阅</a>
-            <h1 class="title01">Android 开发者日报（第 0x00 期）</h1>
-            <h2 class="title02">~~~以下内容暂时属于瞎编~~~~</h2>
-            <br /><br />
-            <div class="quote">
-	            目前周刊由<a href="http://hanks.xyz/daily" target="_blank"> Hanks </a>维护，每天推送最新的 Android 文章和开源项目，帮助大家提高 Android 姿势水平。
-	            <br />请把<a href="http://hanks.xyz/daily" target="_blank"> Android 开发者日报 </a>推荐给你的朋友，你的支持是我们最大的动力！
-            </div>
-            <h3 class="title03">优秀文章</h3>
-            <h4 class="title04"><a target="_blank" href="https://realm.io/cn/news/oredev-jake-wharton-kotlin-advancing-android-dev/">Kotlin 语言高级安卓开发入门（ with Jake Wharton ）</a>&nbsp;&nbsp;</h4>
-            <p>翻译组的原创文章，每周整理 Stack Overflow 和 Android 官方论坛中的提问及回答，推荐阅读。</p>
+		<style type="text/css" media="screen">
+			.container {
+				background-color: #f5f5f5;
+				padding: 20px 0;
+			}
+			
+			.subscribe {
+				color: red;
+			}
+			
+			.title01 {
+				margin: 0 0 6px 0;
+				font-size: 25px;
+				font-weight: bold;
+				letter-spacing: -1px;
+			}
+			
+			.title02 {
+				margin: 0 0 18px 0;
+				color: #444;
+				font-size: 14px;
+				font-weight: normal;
+			}
+			
+			.title03 {
+				margin: 24px 0 12px 0;
+				border-bottom: 1px solid #e0e0e0;
+				padding-bottom: 6px;
+				color: #555;
+				font-size: 16px;
+			}
+			
+			.title04 {
+				margin: 0;
+				margin-bottom: 6px;
+				margin-top: 6px;
+			}
+			
+			.title04 a {
+				font-size: 14px;
+				line-height: 22px;
+				font-weight: bold;
+				text-decoration: none;
+				color: #259;
+				border: none;
+				outline: none;
+			}
+			
+			p {
+				margin: 0;
+				font-size: 13px;
+				line-height: 20px;
+				padding-bottom: 10px;
+				border-bottom: 1px dotted #eee;
+			}
+			
+			a {
+				color: #07c;
+				text-decoration: none
+			}
+			
+			.quote {
+				padding-left: 10px;
+				border-left: solid 2px #ccc;
+			}
+			
+			.bottom_p {
+				margin: 0;
+				color: #444;
+				font-size: 12px;
+				line-height: 20px;
+				margin-bottom: 18px;
+				border-top: 1px solid #e0e0e0;
+				margin-top: 36px;
+				padding-top: 12px;
+			}
+		</style>
+	</head>
 
-            <h3 class="title03">Android 开源项目</h3>
-            <h4 class="title04"><a target="_blank" href="https://github.com/dustturtle/RealReachability">RealReachability：监控后端连接状态 (@dustturtle)</a>&nbsp;&nbsp;</h4><p>Reachability 只能监控本地连接的状态，这个项目更进一步，通过 ping 来保证到后端的连接也可用。如果你的应用对网络环境敏感，一定要看看这个项目。</p>
+	<body>
+		<div class="container">
+			<div style="color:#333;margin:0 auto;padding:24px;max-width:700px;font-family:'Helvetica Neue',Helvetica,Arial,Sans-serif;font-size:13px;line-height:1.7;background-color:#fff">
+				<a href="../index.html" class="subscribe">我要订阅</a>
+				<h1 class="title01">Android 开发者日报（第 0x00 期）</h1>
+				<h2 class="title02">~~~以下内容暂时属于瞎编~~~~</h2>
+				<br /><br />
+				<div class="quote">
+					目前周刊由<a href="http://hanks.xyz/daily" target="_blank"> Hanks </a>维护，每天推送最新的 Android 文章和开源项目，帮助大家提高 Android 姿势水平。
+					<br />请把<a href="http://hanks.xyz/daily" target="_blank"> Android 开发者日报 </a>推荐给你的朋友，你的支持是我们最大的动力！
+				</div>
+				<h3 class="title03">简书文章</h3>
+				<ul id="articleList">
+					<li v-for="article in articles">
+						<h4 class="title04"><a target="_blank" href="{{ article.article_url }}">{{ article.title }}</a>&nbsp;&nbsp;</h4>
+						<p></p>
+						<p>{{ article.subtitle }}</p>
+					</li>
+				</ul>
 
-            <h3 class="title03">跨平台开源项目</h3>
-            <h4 class="title04"><a target="_blank" href="https://github.com/crossroadlabs/Express">Express：Web 服务器 (@crossroadlabs)</a>&nbsp;&nbsp;</h4><p>上上周我们介绍了一个模仿 Express.js 的 blackfish，这周直接来了一个 Express！顾名思义，Express 的 Android 版本。项目刚起步，有待观察。</p>
-           
-            <br />
-            <a href="../index.html"><font color="red">我要订阅</font></a>
-            <br />
-            <br />
-            <div class="quote">
-            目前周刊由<a href="http://hanks.xyz/daily" target="_blank"> AndroidGG 翻译组 </a>维护，每周推送最新的 Android 文章和开源项目，帮助大家提高 Android 姿势水平。
-            <br />请把<a href="http://hanks.xyz/daily" target="_blank"> Android 开发者周刊 </a>推荐给你的朋友，你的支持是我们最大的动力！
-            </div>
-            <p class="bottom_p">因为你曾经订阅了<a href="http://hanks.xyz/daily" style="color:#07c;text-decoration:none" target="_blank"> Android 开发者周刊 </a>， 所以你会收到这封邮件。
-                <br/> 我们保证你的邮箱地址将只用于 Android 开发者周刊，你也可以随时取消订阅。
-                <br/> 我们尊重并保护你的隐私。
-                <br/> 如果你不愿意继续接收 Android 开发者周刊，请点击
-                <a href="%%user_defined_unsubscribe_link%%" style="color:#07c;text-decoration:none" target="_blank"> 退订 </a>。
-                <br/> 本邮件服务提供商：
-                <a href="http://sendcloud.sohu.com" style="color:#07c;text-decoration:none" target="_blank">SendCloud</a>。
-            </p>
-        </div>
-    </div>
-</body>
+				<h3 class="title03">Android 开源项目</h3>
+				<h4 class="title04"><a target="_blank" href="https://github.com/dustturtle/RealReachability">RealReachability：监控后端连接状态 (@dustturtle)</a>&nbsp;&nbsp;</h4>
+				<p>Reachability 只能监控本地连接的状态，这个项目更进一步，通过 ping 来保证到后端的连接也可用。如果你的应用对网络环境敏感，一定要看看这个项目。</p>
+
+				<h3 class="title03">跨平台开源项目</h3>
+				<h4 class="title04"><a target="_blank" href="https://github.com/crossroadlabs/Express">Express：Web 服务器 (@crossroadlabs)</a>&nbsp;&nbsp;</h4>
+				<p>上上周我们介绍了一个模仿 Express.js 的 blackfish，这周直接来了一个 Express！顾名思义，Express 的 Android 版本。项目刚起步，有待观察。</p>
+
+				<br />
+				<a href="../index.html">
+					<font color="red">我要订阅</font>
+				</a>
+				<br />
+				<br />
+				<div class="quote">
+					目前周刊由<a href="http://hanks.xyz/daily" target="_blank"> AndroidGG 翻译组 </a>维护，每周推送最新的 Android 文章和开源项目，帮助大家提高 Android 姿势水平。
+					<br />请把<a href="http://hanks.xyz/daily" target="_blank"> Android 开发者周刊 </a>推荐给你的朋友，你的支持是我们最大的动力！
+				</div>
+				<p class="bottom_p">因为你曾经订阅了<a href="http://hanks.xyz/daily" style="color:#07c;text-decoration:none" target="_blank"> Android 开发者周刊 </a>， 所以你会收到这封邮件。
+					<br/> 我们保证你的邮箱地址将只用于 Android 开发者周刊，你也可以随时取消订阅。
+					<br/> 我们尊重并保护你的隐私。
+					<br/> 如果你不愿意继续接收 Android 开发者周刊，请点击
+					<a href="%%user_defined_unsubscribe_link%%" style="color:#07c;text-decoration:none" target="_blank"> 退订 </a>。
+					<br/> 本邮件服务提供商：
+					<a href="http://sendcloud.sohu.com" style="color:#07c;text-decoration:none" target="_blank">SendCloud</a>。
+				</p>
+			</div>
+		</div>
+
+		<script src="https://cdn1.lncld.net/static/js/av-mini-0.6.4.js"></script>
+		<script src="http://cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
+		<script src="http://cdnjs.cloudflare.com/ajax/libs/vue/1.0.18/vue.min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			AV.initialize('RI9y3H5x69wdwmC6Nw1J9erS-gzGzoHsz', 'nflt3xUGTePUKx6aBcvAwpf2');
+			var app = new Vue({
+				el: "#articleList",
+				data: {
+					message: "hello hanks!",
+					articles: [],
+					get: function() {
+						var that = this;
+						var query = new AV.Query('Article');
+						query.find().then(function(results) {
+							// 处理返回的结果数据
+							for (var i = 0; i < results.length; i++) {
+								var object = results[i];
+								that.articles.push({
+									title: object.get('title'),
+									subtitle: object.get('subtitle'),
+									article_url: object.get('url'),
+								})
+							}
+						}, function(error) {
+							console.log('Error: ' + error.code + ' ' + error.message);
+						});
+					}
+				}
+			});
+			$(document).ready(function() {
+				app.get();
+			});
+		</script>
+	</body>
+
 </html>

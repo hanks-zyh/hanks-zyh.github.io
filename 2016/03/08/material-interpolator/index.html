@@ -14,7 +14,9 @@
 <meta property="og:image" content="https://dn-coding-net-production-pp.qbox.me/7a258a47-be74-49da-894a-70c0cfdb2e3c.gif">
 <meta property="og:image" content="https://dn-coding-net-production-pp.qbox.me/cb75178e-fe7f-46d9-9a72-79b4f190454d.gif">
 <meta property="og:image" content="https://dn-coding-net-production-pp.qbox.me/b5aefe9e-514d-4d6f-8959-26254160f51d.gif">
-<meta property="og:updated_time" content="2016-03-07T17:18:20.000Z">
+<meta property="og:image" content="https://github.com/MasayukiSuda/EasingInterpolator/raw/master/art/easing.png">
+<meta property="og:image" content="https://github.com/MasayukiSuda/EasingInterpolator/raw/master/art/FPSAnimator1.gif">
+<meta property="og:updated_time" content="2016-03-24T08:05:53.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="创建 Material Design 的真实动画">
 <meta name="twitter:description" content="material design 规范中，一个重要方面在于如何在“动作”完整的展现物体的各个真实的特性，譬如优雅、简约、美观和神奇的无缝的用户体验，下面的动画将帮助大家理解这些理念。">
@@ -283,6 +285,8 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span><br><span class="line"> * Created by hanks on 2016/3/7.</span><br><span class="line"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MaterialInterpolator</span> <span class="keyword">implements</span> <span class="title">Interpolator</span> </span>&#123;</span><br><span class="line">    <span class="annotation">@Override</span> <span class="function"><span class="keyword">public</span> <span class="keyword">float</span> <span class="title">getInterpolation</span><span class="params">(<span class="keyword">float</span> x)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(x&lt;=<span class="number">0.5</span>)&#123;</span><br><span class="line">           <span class="keyword">return</span> <span class="number">4</span>*x*x*x;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">4</span>*(x-<span class="number">1</span>)*(x-<span class="number">1</span>)*(x-<span class="number">1</span>) + <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p> <img src="https://dn-coding-net-production-pp.qbox.me/b5aefe9e-514d-4d6f-8959-26254160f51d.gif" alt="MaterialInterpolator"></p>
 <p>Lollipop在 <code>android.R.interpolator</code> 中加入了几个 interpolator，包括<code>fast_out_linear_in</code> , <code>fast_out_slow_in</code>,和<code>linear_out_slow_in</code> ：对于产生逼真的物理效果至关重要。现在我们可以通过使用兼容包中的 <code>FastOutLinearInInterpolator</code>,  <code>FastOutSlowInInterpolator</code> , <code>LinearOutSlowInInterpolator</code> 类来达到同样的效果。 除此之外，我们还可以使用 <code>PathInterpolatorCompat</code> 来制造二次方或三次方的贝塞尔曲线动画。</p>
+<p>更多 Interpolator</p>
+<p><img src="https://github.com/MasayukiSuda/EasingInterpolator/raw/master/art/easing.png" alt="图片"><br><img src="https://github.com/MasayukiSuda/EasingInterpolator/raw/master/art/FPSAnimator1.gif" alt="图片"><br><a href="https://github.com/MasayukiSuda/EasingInterpolator" target="_blank" rel="external">github</a></p>
 <blockquote>
 <p>文章来自： <a href="http://hanks.xyz">http://hanks.xyz</a></p>
 </blockquote>

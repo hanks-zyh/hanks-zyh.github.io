@@ -3,7 +3,12 @@
   
   <url>
     <loc>http://hanks.xyz/daily/index.html</loc>
-    <lastmod>2016-03-23T17:44:57.000Z</lastmod>
+    <lastmod>2016-03-24T15:00:31.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://hanks.xyz/2016/03/08/material-interpolator/</loc>
+    <lastmod>2016-03-24T08:05:53.000Z</lastmod>
   </url>
   
   <url>
@@ -44,11 +49,6 @@
   <url>
     <loc>http://hanks.xyz/2016/03/08/Fragment-setUserVisibleHint/</loc>
     <lastmod>2016-03-08T15:31:41.000Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://hanks.xyz/2016/03/08/material-interpolator/</loc>
-    <lastmod>2016-03-07T17:18:20.000Z</lastmod>
   </url>
   
   <url>

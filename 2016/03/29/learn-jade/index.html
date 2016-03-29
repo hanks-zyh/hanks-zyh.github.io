@@ -1,0 +1,976 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>学习 Jade | Hanks.xyz</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="优秀的模板引擎 Jade ，超强可读性，提升开发效率。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="学习 Jade">
+<meta property="og:url" content="http://hanks.xyz/2016/03/29/learn-jade/index.html">
+<meta property="og:site_name" content="Hanks.xyz">
+<meta property="og:description" content="优秀的模板引擎 Jade ，超强可读性，提升开发效率。">
+<meta property="og:image" content="https://dn-coding-net-production-pp.qbox.me/8ca2aa51-11a2-4ae7-ab3e-671fc10629d1.png">
+<meta property="og:image" content="https://dn-coding-net-production-pp.qbox.me/82be566f-3cde-441b-87be-e6d2f028e48b.png">
+<meta property="og:updated_time" content="2016-03-29T15:24:58.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="学习 Jade">
+<meta name="twitter:description" content="优秀的模板引擎 Jade ，超强可读性，提升开发效率。">
+  
+  
+    <link rel="icon" href="/images/favicon.png">
+  
+  <!-- <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600' rel='stylesheet' type='text/css'> -->
+  <!-- <link href="//fonts.googleapis.com/css?family=Source+Code+Pro:400,700" rel="stylesheet" type="text/css"> -->
+  <link href="//fonts.useso.com/css?family=Source+Code+Pro:400,700" rel="stylesheet" type="text/css">
+  <link href='//fonts.useso.com/css?family=Open+Sans:300,600' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo">Hanks.xyz</a>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">首页</a>
+        
+          <a class="main-nav-link" href="/archives">归档</a>
+        
+          <a class="main-nav-link" href="/daily">日报</a>
+        
+          <a class="main-nav-link" href="/collections">收集</a>
+        
+          <a class="main-nav-link" href="/about">关于</a>
+        
+          <a class="main-nav-link" href="/atom.xml">RSS</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        <div id="search-form-wrap">
+          <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://hanks.xyz"></form>
+        </div>
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+        
+        
+          <a id="nav-github-link" class="nav-icon" href="https://github.com/hanks-zyh" title="Fork me on GitHub"></a>
+        
+      </nav>
+    </div>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/" class="mobile-nav-link">首页</a>
+  
+    <a href="/archives" class="mobile-nav-link">归档</a>
+  
+    <a href="/daily" class="mobile-nav-link">日报</a>
+  
+    <a href="/collections" class="mobile-nav-link">收集</a>
+  
+    <a href="/about" class="mobile-nav-link">关于</a>
+  
+    <a href="/atom.xml" class="mobile-nav-link">RSS</a>
+  
+  <div id="search-form-wrap-mobile">
+    <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://hanks.xyz"></form>
+  </div>
+</nav>
+      <div class="outer">
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap mdl-shadow--2dp">
+    <div class="info">
+     <div class="content">
+       <div>
+         <a href="https://github.com/hanks-zyh"><img class="avatar" src="https://avatars2.githubusercontent.com/u/6268322?v=3&s=460" alt="" /></a>
+       </div>
+       <div class="name">
+         <h2 >Hanks</h2>
+       </div>
+       <p>90后，奋青，Android ……</p>
+       <div class="account">
+         <div class="account-item">
+           <a href="http://weibo.com/u/2359002991"><img src="http://hkcoding.sinaapp.com/static/images/ico_05_1.jpg" style="width:40px;height:40px"></a>
+         </div>
+         <div class="account-item">
+              <a href="http://www.zhihu.com/people/yuhan-zhang-36"><img src="http://hkcoding.sinaapp.com/static/images/ico_zhihu.png" style="width:40px;height:40px"></a>
+         </div>
+         <div class="account-item">
+           <a href="http://hanks.xyz/atom.xml"> <img src="http://hkcoding.sinaapp.com/static/images/ico_04_1.jpg" style="width:40px;height:40px"></a>
+         </div>
+       </div>
+     </div>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap mdl-shadow--2dp">
+    <h3 class="widget-title">最新发布</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2016/03/29/learn-jade/">学习 Jade</a>
+          </li>
+        
+          <li>
+            <a href="/2016/03/28/mac-launchctl/">Mac 上利用 launchctl 开启定时任务</a>
+          </li>
+        
+          <li>
+            <a href="/2016/03/26/color-board/">一张图让开发人员理解色相、亮度、饱和度</a>
+          </li>
+        
+          <li>
+            <a href="/2016/03/21/scrapy-mediuem-android/">Scrapy 抓取 Mediuem 网站 Android 标签下的文章</a>
+          </li>
+        
+          <li>
+            <a href="/2016/03/20/kotlin-dagger2/">kotlin-dagger2</a>
+          </li>
+        
+          <li>
+            <a href="/2016/03/19/scrapy-jianshu-it/">Scrapy 抓取简书专题下的文章</a>
+          </li>
+        
+          <li>
+            <a href="/2016/03/17/mac-node-config/">Mac 上配置 Node.js 环境</a>
+          </li>
+        
+          <li>
+            <a href="/2016/03/15/kotlin-companion/">Kotlin 中创建类似 Java 的静态方法</a>
+          </li>
+        
+          <li>
+            <a href="/2016/03/13/kotlin-for-android-extensions/">Kotlin for Android - 0x01 有趣的扩展</a>
+          </li>
+        
+          <li>
+            <a href="/2016/03/08/Fragment-setUserVisibleHint/">使用 setUserVisibleHint 方法判断 Fragment 是否可见</a>
+          </li>
+        
+          <li>
+            <a href="/2016/03/08/kotlin-for-android-00/">Kotlin for Android - 0x00 配置</a>
+          </li>
+        
+          <li>
+            <a href="/2016/03/08/material-interpolator/">创建 Material Design 的真实动画</a>
+          </li>
+        
+          <li>
+            <a href="/2016/02/29/ubuntu-swift/">Ubuntu 14.04 搭建Swift3.0 开发环境</a>
+          </li>
+        
+          <li>
+            <a href="/2016/02/17/kotlin-rxjava/">Kotlin + RxJava = Functional Powerhouse</a>
+          </li>
+        
+          <li>
+            <a href="/2016/02/01/framework-activity-oncreate/">Framework分析-点击Launcher中的图标启动Activity</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap mdl-shadow--2dp">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Activity/">Activity</a> <a href="/tags/Android/">Android</a> <a href="/tags/Atom/">Atom</a> <a href="/tags/Dagger2/">Dagger2</a> <a href="/tags/Fragment/">Fragment</a> <a href="/tags/Framework/">Framework</a> <a href="/tags/Jade/">Jade</a> <a href="/tags/Java/">Java</a> <a href="/tags/Kotlin/">Kotlin</a> <a href="/tags/Mac/">Mac</a> <a href="/tags/Node-js/">Node.js</a> <a href="/tags/OS-X/">OS X</a> <a href="/tags/Python/">Python</a> <a href="/tags/React-Native/">React-Native</a> <a href="/tags/Refactoring/">Refactoring</a> <a href="/tags/Rx/">Rx</a> <a href="/tags/RxJava/">RxJava</a> <a href="/tags/Rxandroid/">Rxandroid</a> <a href="/tags/Rxjava/">Rxjava</a> <a href="/tags/Scrapy/">Scrapy</a> <a href="/tags/Swift/">Swift</a> <a href="/tags/Ubuntu/">Ubuntu</a> <a href="/tags/interpolator/">interpolator</a> <a href="/tags/mac-os/">mac os</a> <a href="/tags/virtualBox/">virtualBox</a> <a href="/tags/学习/">学习</a> <a href="/tags/必备知识/">必备知识</a> <a href="/tags/性能优化/">性能优化</a> <a href="/tags/热修复/">热修复</a> <a href="/tags/设计/">设计</a>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap mdl-shadow--2dp">
+    <div class="widget">
+     <iframe width="100%" height="200" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=550&fansRow=1&ptype=0&speed=0&skin=1&isTitle=0&noborder=0&isWeibo=0&isFans=1&uid=2359002991&verifier=05864e99&colors=4ABC88,ffffff,2C3E50,4ABC88,ecfbfd&dpc=1"></iframe>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap mdl-shadow--2dp">
+    <h3 class="widget-title">友情链接</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="https://github.com/hanks-zyh">hanks-zyh</a>
+          </li>
+        
+          <li>
+            <a href="http://kiya.space">Kiya‘s space</a>
+          </li>
+        
+          <li>
+            <a href="http://rocko.xyz/">Rocko&#39;s blog</a>
+          </li>
+        
+          <li>
+            <a href="http://hexo.io">Hexo</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap mdl-shadow--2dp">
+    <div class="wx">
+      <h3 class="widget-title">微信公众号</h3>
+      <img src='https://coding.net/u/zhangyuhan/p/Bmob/git/raw/master/wx_qrcode.jpg' height="100%" width="100%" >
+    </div>
+  </div>
+
+
+  
+</aside>
+        
+        <section id="main" class="mdl-shadow--2dp"><article id="post-learn-jade" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/03/29/learn-jade/" class="article-date">
+  <time datetime="2016-03-29T14:13:38.000Z" itemprop="datePublished">2016-03-29</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      学习 Jade
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>优秀的模板引擎 <code>Jade</code> ，超强可读性，提升开发效率。</p>
+<a id="more"></a>
+<h2 id="为什么需要_Jade_？">为什么需要 Jade ？</h2><p>减少写代码，提高可读性，提高生活质量。。。</p>
+<p> <img src="https://dn-coding-net-production-pp.qbox.me/8ca2aa51-11a2-4ae7-ab3e-671fc10629d1.png" alt="html">  </p>
+<p>这一层一层的。。。</p>
+<p> <img src="https://dn-coding-net-production-pp.qbox.me/82be566f-3cde-441b-87be-e6d2f028e48b.png" alt="图片"> </p>
+<p>看 <code>jade</code> 的这个拼接。</p>
+<p>Jade 优点： </p>
+<ul>
+<li>超强的可读性</li>
+<li>灵活的缩进</li>
+<li>块扩展</li>
+<li>代码默认经过编码处理以增强安全性</li>
+<li>编译及运行时的上下文错误报告</li>
+<li>命令行的编译支持</li>
+<li>HTML5 模式</li>
+<li>可选的内存缓存</li>
+<li>利用过滤器解析树的处理</li>
+</ul>
+<p>后面说的什么鬼其实我也不懂，但是最大优点: <strong>超强的可读性</strong>，<strong>提升开发效率</strong>。</p>
+<p>需要 Node.js 环境， 没有装的可以参考<a href="http://hanks.xyz/2016/03/17/mac-node-config/">Mac 上配置 Node.js 环境</a></p>
+<h2 id="安装_Jade">安装 Jade</h2><figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 通过 npm 安装 jade</span></span><br><span class="line">$ npm <span class="keyword">install</span> jade -g</span><br></pre></td></tr></table></figure>
+<h2 id="开始使用">开始使用</h2><p>创建 <code>index.jade</code> 文件</p>
+<p><code>index.jade</code><br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">doctype <span class="tag">html</span></span><br><span class="line"><span class="tag">html</span></span><br><span class="line">  head</span><br><span class="line">    title hanks<span class="class">.xyz</span></span><br><span class="line">  <span class="tag">body</span></span><br><span class="line">    <span class="tag">p</span> welcome to hanks.xyz</span><br></pre></td></tr></table></figure></p>
+<p>就是这么简单，下面开始将 <code>jade</code> 文件渲染为 <code>html</code> 文件<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ jade index.jade</span><br><span class="line"></span><br><span class="line">  rendered index.html</span><br><span class="line"></span><br><span class="line">$ cat index.html</span><br><span class="line"></span><br><span class="line"><span class="doctype">&lt;!DOCTYPE html&gt;</span><span class="tag">&lt;<span class="title">html</span>&gt;</span><span class="tag">&lt;<span class="title">head</span>&gt;</span><span class="tag">&lt;<span class="title">title</span>&gt;</span>hanks.xyz<span class="tag">&lt;/<span class="title">title</span>&gt;</span><span class="tag">&lt;/<span class="title">head</span>&gt;</span><span class="tag">&lt;<span class="title">body</span>&gt;</span><span class="tag">&lt;<span class="title">p</span>&gt;</span>welcome to hanks.xyz<span class="tag">&lt;/<span class="title">p</span>&gt;</span><span class="tag">&lt;/<span class="title">body</span>&gt;</span><span class="tag">&lt;/<span class="title">html</span>&gt;</span>%</span><br></pre></td></tr></table></figure></p>
+<p>可以看到渲染出来的 <code>index.html</code> 文件是经过压缩过的。我们可以加速 <code>-P</code> 参数格式化渲染的 <code>index.html</code></p>
+<figure class="highlight axapta"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ jade -P <span class="keyword">index</span>.jade</span><br></pre></td></tr></table></figure>
+<p>html:<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="doctype">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">html</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">title</span>&gt;</span>hanks.xyz<span class="tag">&lt;/<span class="title">title</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="title">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">p</span>&gt;</span>welcome to hanks.xyz<span class="tag">&lt;/<span class="title">p</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="title">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">html</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>还可以加上 <code>-w</code> 参数监听 jade 文件的变化，自动渲染刷新 html 文件</p>
+<figure class="highlight axapta"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ jade -P -w <span class="keyword">index</span>.jade</span><br></pre></td></tr></table></figure>
+<h2 id="基本语法">基本语法</h2><h3 id="标签">标签</h3><p>默认，每行开始的<strong>第一个单词</strong>代表一个标签，可以是自定义的标签<br>jade:<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">p</span> welcome to hanks<span class="class">.xyz</span></span><br><span class="line"><span class="tag">h1</span> <span class="tag">h1</span> 标题</span><br><span class="line"><span class="tag">h2</span> <span class="tag">h2</span> 标题</span><br></pre></td></tr></table></figure></p>
+<p>html:<br><figure class="highlight pf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">&lt;p&gt;</span>welcome <span class="keyword">to</span> hanks.xyz<span class="variable">&lt;/p&gt;</span></span><br><span class="line"><span class="variable">&lt;h1&gt;</span>h1 标题<span class="variable">&lt;/h1&gt;</span></span><br><span class="line"><span class="variable">&lt;h2&gt;</span>h2 标题<span class="variable">&lt;/h2&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>使用<strong>缩进</strong>代表标签嵌套关系</p>
+<p>jade:<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">div</span><span class="class">.title</span></span><br><span class="line">  <span class="tag">h1</span> title2</span><br><span class="line">  <span class="tag">p</span>  something</span><br><span class="line"><span class="tag">div</span></span><br><span class="line">  <span class="tag">div</span></span><br><span class="line">    <span class="tag">div</span>.<span class="function"><span class="title">info</span><span class="params">(name=<span class="string">"hanks"</span>)</span></span></span><br></pre></td></tr></table></figure></p>
+<p>html:<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"title"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">h1</span>&gt;</span>title2<span class="tag">&lt;/<span class="title">h1</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">p</span>&gt;</span> something<span class="tag">&lt;/<span class="title">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">name</span>=<span class="value">"hanks"</span> <span class="attribute">class</span>=<span class="value">"info"</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="class_和_id">class 和 id</h3><p>jade:<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">h1</span><span class="class">.title</span></span><br><span class="line">h2<span class="id">#title</span></span><br><span class="line"><span class="id">#t_id</span></span><br><span class="line"><span class="id">#t_id</span>.title</span><br></pre></td></tr></table></figure></p>
+<p>html:<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">h1</span> <span class="attribute">class</span>=<span class="value">"title"</span>&gt;</span><span class="tag">&lt;/<span class="title">h1</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">h2</span> <span class="attribute">id</span>=<span class="value">"title"</span>&gt;</span><span class="tag">&lt;/<span class="title">h2</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"t_id"</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"t_id"</span> <span class="attribute">class</span>=<span class="value">"title"</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>﻿### 属性</p>
+<p>jade:<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">a</span><span class="params">(herf=<span class="string">"http://hanks.xyz"</span>)</span></span> hanks<span class="class">.xyz</span></span><br><span class="line">input#<span class="function"><span class="title">username</span><span class="params">(name=<span class="string">"username"</span>,type=<span class="string">"text"</span>,vaule=<span class="string">"jade"</span>)</span></span></span><br></pre></td></tr></table></figure></p>
+<p>html:<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">a</span> <span class="attribute">herf</span>=<span class="value">"http://hanks.xyz"</span>&gt;</span>hanks.xyz<span class="tag">&lt;/<span class="title">a</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">input</span> <span class="attribute">id</span>=<span class="value">"username"</span> <span class="attribute">name</span>=<span class="value">"username"</span> <span class="attribute">type</span>=<span class="value">"text"</span> <span class="attribute">vaule</span>=<span class="value">"jade"</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="Plain_Text">Plain Text</h3><p>jade:<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">p</span>.</span><br><span class="line">  <span class="number">1</span><span class="class">.aa</span></span><br><span class="line">  <span class="number">2</span><span class="class">.vv</span></span><br><span class="line">  <span class="number">3</span>.cc</span><br></pre></td></tr></table></figure></p>
+<p>html:<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">p</span>&gt;</span></span><br><span class="line">  1.aa</span><br><span class="line">  2.vv</span><br><span class="line">  3.cc</span><br><span class="line"><span class="tag">&lt;/<span class="title">p</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>注意 <code>p</code> 标签后面紧跟着一个 <code>.</code></p>
+<p>jade:<br><figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">p.</span><br><span class="line">  1.aa<span class="variable">&lt;strong&gt;</span>AA<span class="variable">&lt;/strong&gt;</span></span><br><span class="line">  2.vv</span><br><span class="line">  3.cc</span><br><span class="line">p</span><br><span class="line">  |<span class="string"> 1.aa</span><br><span class="line">  strong AA</span><br><span class="line">  </span>|<span class="string"> 2.vv</span><br><span class="line">  </span>|<span class="string"> 3.cc</span></span><br></pre></td></tr></table></figure></p>
+<p>html:<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">p</span>&gt;</span></span><br><span class="line">  1.aa<span class="tag">&lt;<span class="title">strong</span>&gt;</span>AA<span class="tag">&lt;/<span class="title">strong</span>&gt;</span></span><br><span class="line">  2.vv</span><br><span class="line">  3.cc</span><br><span class="line"><span class="tag">&lt;/<span class="title">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">p</span>&gt;</span>1.aa<span class="tag">&lt;<span class="title">strong</span>&gt;</span>AA<span class="tag">&lt;/<span class="title">strong</span>&gt;</span>2.vv</span><br><span class="line">  3.cc</span><br><span class="line"><span class="tag">&lt;/<span class="title">p</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="注释">注释</h3><p>jade:<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">div</span></span><br><span class="line">  <span class="comment">// h1 单行注释，输出到源文件</span></span><br><span class="line">  <span class="comment">//- h3 非缓冲注释</span></span><br><span class="line">  <span class="comment">//</span></span><br><span class="line">    这是一个</span><br><span class="line">    多行注释</span><br></pre></td></tr></table></figure></p>
+<p>html:<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">div</span>&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- h1 单行注释，输出到源文件--&gt;</span></span><br><span class="line">  <span class="comment">&lt;!--</span><br><span class="line">  这是一个</span><br><span class="line">  多行注释</span><br><span class="line">  --&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>jade 使用双斜线 <code>//</code>进行单行注释；<br>如果不想让注释的内容显示到生成的 html 代码中，可以在双斜线 <code>//</code> 后跟一个单横线<code>-</code>；<br>双斜线 <code>//</code> 后面的注释内容换行并缩进可进行块级注释</p>
+<p>参考文章：<br><a href="http://blog.jayself.com/2014/07/28/Jade/" target="_blank" rel="external">Jade中文教程</a><br><a href="http://www.imooc.com/learn/259" target="_blank" rel="external">慕课网视频-带你学习Jade模板引擎</a></p>
+<blockquote>
+<p>文章来自： <a href="http://hanks.xyz">http://hanks.xyz</a></p>
+</blockquote>
+
+      
+    </div>
+</article>
+ 
+ <!-- 上一页 下一页 -->
+
+  
+<nav id="article-nav">
+  
+  
+    <a href="/2016/03/28/mac-launchctl/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>下一篇</span>
+      <div class="article-nav-title">Mac 上利用 launchctl 开启定时任务</div>
+    </a>
+  
+</nav>
+
+
+
+<!-- 相关文章 -->
+
+  <!--
+
+    
+      		
+      			<a href="/2016/03/29/learn-jade/">学习 Jade</a>
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+
+-->
+
+
+
+<section id="comments">
+    <!-- 多说分享框 -->
+    <div class="ds-share flat" data-thread-key="/2016/03/29/learn-jade/" data-title="学习 Jade" data-images="https://raw.githubusercontent.com/Hankiya/LoveOnline/master/Rich%20Format%20Vertical.png" data-content="学习 Jade" data-url="http://hanks.xyz//2016/03/29/learn-jade/">
+    <div class="ds-share-inline">
+      <ul  class="ds-share-icons-16">
+
+      	<li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+        <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+        <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+        <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+        <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+      </ul>
+      <div class="ds-share-icons-more">
+      </div>
+    </div>
+   </div>
+    <!-- 多说评论框 start -->
+   	<div class="ds-thread" data-thread-key="/2016/03/29/learn-jade/" data-title="学习 Jade" data-url="http://hanks.xyz//2016/03/29/learn-jade/"></div>
+   <!-- 多说评论框 end -->
+   <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+   <script type="text/javascript">
+   var duoshuoQuery = {short_name:"hanks-zyh"};
+   	(function() {
+   		var ds = document.createElement('script');
+   		ds.type = 'text/javascript';ds.async = true;
+   		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+   		ds.charset = 'UTF-8';
+   		(document.getElementsByTagName('head')[0]
+   		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+   	})();
+   	</script>
+   <!-- 多说公共JS代码 end -->
+</section>
+
+</section>
+      </div>
+      <footer id="footer">
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      &copy; 2016 <a href="https://github.com/hanks-zyh"> Hanks</a></br></br>
+	  <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+	  <span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+	  Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+	  </br>
+	  </br>
+	  <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1257826513'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s95.cnzz.com/z_stat.php%3Fid%3D1257826513%26online%3D1%26show%3Dline' type='text/javascript'%3E%3C/script%3E"));</script> 
+   </div>
+  </div>
+ <div id="share">
+  <a id="totop" title="" style="display: block;">返回顶部</a>
+ </div>
+</footer>
+
+    </div>
+    
+
+<script src="/js/jquery.min.js" type="text/javascript"></script>
+<script src="/js/jquery.scrollLoading.js" type="text/javascript"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+  <script src="/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+
+
+<script src="/js/script.js" type="text/javascript"></script>
+
+  </div>
+</body>
+</html>

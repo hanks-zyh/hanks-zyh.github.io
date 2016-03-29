@@ -4,7 +4,7 @@
   <subtitle><![CDATA[coding]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://hanks.xyz/"/>
-  <updated>2016-03-29T15:24:58.000Z</updated>
+  <updated>2016-03-29T15:32:32.000Z</updated>
   <id>http://hanks.xyz/</id>
   
   <author>
@@ -19,8 +19,8 @@
     <link href="http://hanks.xyz/2016/03/29/learn-jade/"/>
     <id>http://hanks.xyz/2016/03/29/learn-jade/</id>
     <published>2016-03-29T14:13:38.000Z</published>
-    <updated>2016-03-29T15:24:58.000Z</updated>
-    <content type="html"><![CDATA[<p>优秀的模板引擎 <code>Jade</code> ，超强可读性，提升开发效率。</p>
+    <updated>2016-03-29T15:32:32.000Z</updated>
+    <content type="html"><![CDATA[<p>优秀的模板引擎 <code>Jade</code> ，减少写代码，提高可读性，提高生活质量。。。</p>
 <a id="more"></a>
 <h2 id="为什么需要_Jade_？">为什么需要 Jade ？</h2><p>减少写代码，提高可读性，提高生活质量。。。</p>
 <p> <img src="https://dn-coding-net-production-pp.qbox.me/8ca2aa51-11a2-4ae7-ab3e-671fc10629d1.png" alt="html">  </p>
@@ -44,12 +44,14 @@
 <h2 id="安装_Jade">安装 Jade</h2><figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 通过 npm 安装 jade</span></span><br><span class="line">$ npm <span class="keyword">install</span> jade -g</span><br></pre></td></tr></table></figure>
 <h2 id="开始使用">开始使用</h2><p>创建 <code>index.jade</code> 文件</p>
 <p><code>index.jade</code><br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">doctype <span class="tag">html</span></span><br><span class="line"><span class="tag">html</span></span><br><span class="line">  head</span><br><span class="line">    title hanks<span class="class">.xyz</span></span><br><span class="line">  <span class="tag">body</span></span><br><span class="line">    <span class="tag">p</span> welcome to hanks.xyz</span><br></pre></td></tr></table></figure></p>
-<p>就是这么简单，下面开始将 <code>jade</code> 文件渲染为 <code>html</code> 文件<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ jade index.jade</span><br><span class="line"></span><br><span class="line">  rendered index.html</span><br><span class="line"></span><br><span class="line">$ cat index.html</span><br><span class="line"></span><br><span class="line"><span class="doctype">&lt;!DOCTYPE html&gt;</span><span class="tag">&lt;<span class="title">html</span>&gt;</span><span class="tag">&lt;<span class="title">head</span>&gt;</span><span class="tag">&lt;<span class="title">title</span>&gt;</span>hanks.xyz<span class="tag">&lt;/<span class="title">title</span>&gt;</span><span class="tag">&lt;/<span class="title">head</span>&gt;</span><span class="tag">&lt;<span class="title">body</span>&gt;</span><span class="tag">&lt;<span class="title">p</span>&gt;</span>welcome to hanks.xyz<span class="tag">&lt;/<span class="title">p</span>&gt;</span><span class="tag">&lt;/<span class="title">body</span>&gt;</span><span class="tag">&lt;/<span class="title">html</span>&gt;</span>%</span><br></pre></td></tr></table></figure></p>
+<p>就是这么简单，下面开始将 <code>jade</code> 文件渲染为 <code>html</code> 文件<br><figure class="highlight axapta"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ jade <span class="keyword">index</span>.jade</span><br></pre></td></tr></table></figure></p>
+<p>html:<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="doctype">&lt;!DOCTYPE html&gt;</span><span class="tag">&lt;<span class="title">html</span>&gt;</span><span class="tag">&lt;<span class="title">head</span>&gt;</span><span class="tag">&lt;<span class="title">title</span>&gt;</span>hanks.xyz<span class="tag">&lt;/<span class="title">title</span>&gt;</span><span class="tag">&lt;/<span class="title">head</span>&gt;</span><span class="tag">&lt;<span class="title">body</span>&gt;</span><span class="tag">&lt;<span class="title">p</span>&gt;</span>welcome to hanks.xyz<span class="tag">&lt;/<span class="title">p</span>&gt;</span><span class="tag">&lt;/<span class="title">body</span>&gt;</span><span class="tag">&lt;/<span class="title">html</span>&gt;</span>%</span><br></pre></td></tr></table></figure></p>
 <p>可以看到渲染出来的 <code>index.html</code> 文件是经过压缩过的。我们可以加速 <code>-P</code> 参数格式化渲染的 <code>index.html</code></p>
 <figure class="highlight axapta"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ jade -P <span class="keyword">index</span>.jade</span><br></pre></td></tr></table></figure>
 <p>html:<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="doctype">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">html</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">title</span>&gt;</span>hanks.xyz<span class="tag">&lt;/<span class="title">title</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="title">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">p</span>&gt;</span>welcome to hanks.xyz<span class="tag">&lt;/<span class="title">p</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="title">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">html</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
 <p>还可以加上 <code>-w</code> 参数监听 jade 文件的变化，自动渲染刷新 html 文件</p>
 <figure class="highlight axapta"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ jade -P -w <span class="keyword">index</span>.jade</span><br></pre></td></tr></table></figure>
+<p> <img src="https://dn-coding-net-production-pp.qbox.me/62b171d5-8d4d-45e6-9d55-e40ffacb5140.gif" alt="动态渲染"> </p>
 <h2 id="基本语法">基本语法</h2><h3 id="标签">标签</h3><p>默认，每行开始的<strong>第一个单词</strong>代表一个标签，可以是自定义的标签<br>jade:<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">p</span> welcome to hanks<span class="class">.xyz</span></span><br><span class="line"><span class="tag">h1</span> <span class="tag">h1</span> 标题</span><br><span class="line"><span class="tag">h2</span> <span class="tag">h2</span> 标题</span><br></pre></td></tr></table></figure></p>
 <p>html:<br><figure class="highlight pf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">&lt;p&gt;</span>welcome <span class="keyword">to</span> hanks.xyz<span class="variable">&lt;/p&gt;</span></span><br><span class="line"><span class="variable">&lt;h1&gt;</span>h1 标题<span class="variable">&lt;/h1&gt;</span></span><br><span class="line"><span class="variable">&lt;h2&gt;</span>h2 标题<span class="variable">&lt;/h2&gt;</span></span><br></pre></td></tr></table></figure></p>
 <p>使用<strong>缩进</strong>代表标签嵌套关系</p>
@@ -74,7 +76,7 @@
 </blockquote>
 ]]></content>
     <summary type="html">
-    <![CDATA[<p>优秀的模板引擎 <code>Jade</code> ，超强可读性，提升开发效率。</p>]]>
+    <![CDATA[<p>优秀的模板引擎 <code>Jade</code> ，减少写代码，提高可读性，提高生活质量。。。</p>]]>
     
     </summary>
     

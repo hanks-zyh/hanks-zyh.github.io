@@ -2,6 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://hanks.xyz/daily/index.html</loc>
+    <lastmod>2016-03-31T15:30:02.000Z</lastmod>
+  </url>
+  
+  <url>
     <loc>http://hanks.xyz/2016/03/29/learn-jade/</loc>
     <lastmod>2016-03-29T15:32:32.000Z</lastmod>
   </url>
@@ -14,11 +19,6 @@
   <url>
     <loc>http://hanks.xyz/2016/03/26/color-board/</loc>
     <lastmod>2016-03-26T04:47:15.000Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://hanks.xyz/daily/index.html</loc>
-    <lastmod>2016-03-25T14:55:47.000Z</lastmod>
   </url>
   
   <url>

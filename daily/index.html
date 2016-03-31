@@ -98,6 +98,13 @@
 					目前周刊由<a href="http://hanks.xyz/daily" target="_blank"> Hanks </a>维护，每天推送最新的 Android 文章和开源项目，帮助大家提高 Android 姿势水平。
 					<br />请把<a href="http://hanks.xyz/daily" target="_blank"> Android 开发者日报 </a>推荐给你的朋友，你的支持是我们最大的动力！
 				</div>
+				<nav id="navigation">
+					<ul class="cd-pagination no-space move-buttons custom-icons">
+						<li class="button"><a href="#0">{{currentDay}}</a>
+					</ul>
+				</nav> 
+				<!-- cd-pagination-wrapper -->
+
 				<h3 class="title03">文章</h3>
 				<div id="articleList">
 					<article v-for="article in articles">
@@ -105,17 +112,6 @@
 						<p>{{ article.subtitle }}</p>
 					</article>
 				</div>
-
-				<!--
-				<h3 class="title03">Android 开源项目</h3>
-				<h4 class="title04"><a target="_blank" href="https://github.com/dustturtle/RealReachability">RealReachability：监控后端连接状态 (@dustturtle)</a>&nbsp;&nbsp;</h4>
-				<p>Reachability 只能监控本地连接的状态，这个项目更进一步，通过 ping 来保证到后端的连接也可用。如果你的应用对网络环境敏感，一定要看看这个项目。</p>
-
-				<h3 class="title03">跨平台开源项目</h3>
-				<h4 class="title04"><a target="_blank" href="https://github.com/crossroadlabs/Express">Express：Web 服务器 (@crossroadlabs)</a>&nbsp;&nbsp;</h4>
-				<p>上上周我们介绍了一个模仿 Express.js 的 blackfish，这周直接来了一个 Express！顾名思义，Express 的 Android 版本。项目刚起步，有待观察。</p>
-				-->
-
 				<br />
 				<a href="../index.html">
 					<font color="red">我要订阅</font>
@@ -139,6 +135,29 @@
 		<script src="http://cdnjs.cloudflare.com/ajax/libs/vue/1.0.18/vue.min.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
 			AV.initialize('RI9y3H5x69wdwmC6Nw1J9erS-gzGzoHsz', 'nflt3xUGTePUKx6aBcvAwpf2');
+
+			var pagination = new Vue({
+				el: "#navigation",
+				data:{
+					currentDay:'',
+				},
+				created: function(){
+					this.initData();	
+				},
+				methods:{
+					initData: function(){
+						var today = new Date(); 
+						today.setDate(today.getDate() + 1);
+						var dd = today.getDate();
+						var mm = today.getMonth()+1; //January is 0!
+						var yyyy = today.getFullYear();
+						if(dd<10) {  dd='0'+dd; } 
+						if(mm<10) { mm = '0' + mm; }
+						this.currentDay = yyyy + '-' + mm + '-' + dd;
+					},
+					 
+				}
+			});
 			var app = new Vue({
 				el: "#articleList",
 				data: {
@@ -151,7 +170,19 @@
 				methods: {
 					initData: function() {
 						var that = this;
-						var query = new AV.Query('Article');
+						var today = new Date(); 
+						today.setDate(today.getDate() + 1);
+						var dd = today.getDate();
+						var mm = today.getMonth()+1; //January is 0!
+						var yyyy = today.getFullYear();
+						if(dd<10) {  dd='0'+dd; } 
+						if(mm<10) { mm = '0' + mm; }
+						var currentDay = yyyy + '-' + mm + '-' + dd;
+ 
+					    var query = new AV.Query('Article');
+						query.addDescending('createdAt');
+						query.greaterThan('createdAt', new Date(getLessDate(currentDay)));
+						query.lessThan('createdAt', new Date(getGaeaterDate(currentDay)));
 						query.addDescending('createdAt');
 						query.find().then(function(results) {
 							// 处理返回的结果数据

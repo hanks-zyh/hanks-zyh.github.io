@@ -195,11 +195,11 @@
 						if(dd<10) {  dd='0'+dd; } 
 						if(mm<10) { mm = '0' + mm; }
 						var currentDay = yyyy + '-' + mm + '-' + dd;
- 
-					    var query = new AV.Query('Article');
+					   
+ 						var query = new AV.Query('Article');
 						query.addDescending('createdAt');
-						query.greaterThan('createdAt', new Date(getLessDate(currentDay)));
-						query.lessThan('createdAt', new Date(getGaeaterDate(currentDay)));
+						query.greaterThan('createdAt', new Date(this.getLessDate(currentDay)));
+						query.lessThan('createdAt', new Date(this.getGaeaterDate(currentDay)));
 						query.addDescending('createdAt');
 						query.find().then(function(results) {
 							// 处理返回的结果数据

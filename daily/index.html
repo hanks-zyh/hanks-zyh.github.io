@@ -9,6 +9,9 @@
                 margin: 0;
                 padding: 0;
             }
+            a{
+            	text-decoration: none;
+            }
             body {
                 background: #ebecee;
             }
@@ -229,6 +232,7 @@
             <section>
                 <div id="articleList">
                     <article v-for="article in articles">
+                        <a href="{{ article.article_url }}">
                         <div class="article-item">
                             <h1>{{ article.title }}</h1>
                             <p>{{ article.subtitle }}</p>
@@ -240,6 +244,7 @@
                             </div>
                             <div class="divider"></div>
                         </div>
+                        </a>
                     </article>
                 </div>
             </section>

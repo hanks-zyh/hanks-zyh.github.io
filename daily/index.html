@@ -1,247 +1,443 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>Android 开发者日报（第 0x00 期）</title>
-		<style type="text/css" media="screen">
-			.container {
-				background-color: #f5f5f5;
-				padding: 20px 0;
-			}
 
-			.subscribe {
-				color: red;
-			}
-			
-			.title01 {
-				margin: 0 0 6px 0;
-				font-size: 25px;
-				font-weight: bold;
-				letter-spacing: -1px;
-			}
-			
-			.title02 {
-				margin: 0 0 18px 0;
-				color: #444;
-				font-size: 14px;
-				font-weight: normal;
-			}
-			
-			.title03 {
-				margin: 24px 0 12px 0;
-				border-bottom: 1px solid #e0e0e0;
-				padding-bottom: 6px;
-				color: #555;
-				font-size: 16px;
-			}
-			
-			.title04 {
-				margin: 0;
-				margin-bottom: 6px;
-				margin-top: 6px;
-			}
-			
-			.title04 a {
-				font-size: 14px;
-				line-height: 22px;
-				font-weight: bold;
-				text-decoration: none;
-				color: #259;
-				border: none;
-				outline: none;
-			}
-			
-			p {
-				margin: 0;
-				font-size: 13px;
-				line-height: 20px;
-				padding-bottom: 10px;
-				border-bottom: 1px dotted #eee;
-			}
-			
-			a {
-				color: #07c;
-				text-decoration: none
-			}
-			
-			.quote {
-				padding-left: 10px;
-				border-left: solid 2px #ccc;
-			}
-			
-			.bottom_p {
-				margin: 0;
-				color: #444;
-				font-size: 12px;
-				line-height: 20px;
-				margin-bottom: 18px;
-				border-top: 1px solid #e0e0e0;
-				margin-top: 36px;
-				padding-top: 12px;
-			}
-			
-			current{
-				color: red;
-			}
-			
-		</style>
-	</head>
+    <head>
+        <meta charset="UTF-8">
+        <title>Android日报</title>
+        <style type="text/css">
+            * {
+                margin: 0;
+                padding: 0;
+            }
+            body {
+                background: #ebecee;
+            }
+            .main-header {
+                background: white;
+                padding-left: 100px;
+                padding-right: 100px;
+                padding-top: 20px;
+                padding-bottom: 50px;
+            }
+            .logo {
+                font-family: Arial-BoldMT;
+                font-size: 30px;
+                color: #2f3edf;
+                text-decoration: none;
+            }
+            
+            .avatar {
+                width: 35px;
+                height: 35px;
+                border-radius: 50%;
+                float: right;
+                clear: both;
+                margin-left: 10px;
+            }
+            
+            .admin-name {
+                margin-top: 10px;
+                font-family: ArialMT;
+                font-size: 17px;
+                color: #787EC1;
+                float: right;
+            }
+            
+            .welcome h1 {
+                font-family: ArialMT;
+                font-size: 30px;
+                color: #474b6a;
+                text-align: center;
+                margin-top: 100px;
+            }
+            
+            .welcome p {
+                font-family: ArialMT;
+                font-size: 12px;
+                color: #474b6a;
+                text-align: center;
+                margin-top: 8px;
+            }
+            
+            .number {
+                display: flex;
+                margin-top: 60px;
+            }
+            
+            .newpost {
+                text-align: center;
+                width: 30%;
+            }
+            
+            .newpost h2 {
+                font-family: ArialMT;
+                font-size: 37px;
+                color: #26dfc0;
+            }
+            
+            .newpost p {
+                font-family: PingFangSC-Regular;
+                font-size: 15px;
+                color: #82828e;
+            }
+            
+            .line {
+                width: 1px;
+                background: #E0E0E0;
+            }
+            
+            .article-container {
+                padding-top: 55px;
+                padding-left: 155px;
+                padding-right: 155px;
+            }
+            /*文章列表 日历*/
+            
+            .topbar {
+                display: flex;
+                justify-content: space-between;
+            }
+            
+            .calander {
+                list-style: none;
+                display: flex;
+                align-items: center;
+            }
+            
+            .summary {
+                font-family: PingFangSC-Regular;
+                font-size: 17px;
+                color: #474b6a;
+                margin: 26px;
+            }
+            
+            .calander li {
+                border-radius: 36px;
+                background-color: #7c90e3;
+                padding: 10px 15px;
+                font-size: 14px;
+                list-style: none;
+                color: #ffffff;
+            }
+            /*文章*/
+            
+            .article-item {
+                background: #ffffff;
+                padding-left: 90px;
+                padding-right: 90px;
+                padding-top: 25px;
+            }
+            
+            .article-item h1 {
+                font-family: HelveticaNeue-Bold;
+                font-size: 17px;
+                line-height: 1.3;
+                color: #727487;
+            }
+            
+            .article-item p {
+                font-family: HelveticaNeue-Bold;
+                font-size: 11px;
+                color: #a2a2b0;
+                margin-top: 10px;
+            }
+            
+            .article-item img {
+                height: 20px;
+                width: 20px;
+            }
+            
+            .info {
+                display: flex;
+                margin-top: 15px;
+                align-items: center;
+            }
+            
+            .divider {
+                margin-top: 20px;
+                border: solid 1px #f1f1f3;
+            }
+            
+            .author {
+                font-family: HelveticaNeue;
+                font-size: 12px;
+                color: #a3a5b4;
+                margin-left: 20px;
+            }
+            
+            .publish-date {
+                font-family: HelveticaNeue;
+                font-size: 10px;
+                color: #b2b5bc;
+                margin-left: 15px;
+            }
+            
+            .main-footer {
+                height: 100px;
+                background: white;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                color: #e1e1e1;
+                margin-top: 50px;
+            }
+        </style>
+    </head>
 
-	<body>
-		<div class="container">
-			<div style="color:#333;margin:0 auto;padding:24px;max-width:700px;font-family:'Helvetica Neue',Helvetica,Arial,Sans-serif;font-size:13px;line-height:1.7;background-color:#fff">
-				<a href="../index.html" class="subscribe">我要订阅</a>
-				<h1 class="title01">Android 开发者日报（第 0x00 期）</h1>
-				<br />
-				<div class="quote">
-					目前周刊由<a href="http://hanks.xyz/daily" target="_blank"> Hanks </a>维护，每天推送最新的 Android 文章和开源项目，帮助大家提高 Android 姿势水平。
-					<br />请把<a href="http://hanks.xyz/daily" target="_blank"> Android 开发者日报 </a>推荐给你的朋友，你的支持是我们最大的动力！
-				</div>
-				
-				<nav id="navigation">
-					<ul class="cd-pagination no-space move-buttons custom-icons">
-						<li class="button"><a href="#0">{{currentDay}}</a>
-						<li><a  @click="getData(2016-03-30)">2016-03-30</a>
-						<li><a @click="getData(2016-03-29) href="#0">2016-03-29</a>
-					</ul>
-				</nav> <!-- cd-pagination-wrapper -->
-				<h3 class="title03">文章</h3>
-				<div id="articleList">
-					<article v-for="article in articles">
-						<h4 class="title04"><a target="_blank" href="{{ article.article_url }}">{{ article.title }}</a>&nbsp;&nbsp;</h4>
-						<p>{{ article.subtitle }}</p>
-					</article>
-				</div>
-				<br />
-				<a href="../index.html">
-					<font color="red">我要订阅</font>
-				</a>
-				<br />
-				<br />
-				<div class="quote">
-					目前周刊由<a href="http://hanks.xyz/daily" target="_blank"> Hanks </a>维护，每日推送最新的 Android 文章和开源项目，帮助大家提高 Android 姿势水平。
-					<br />请把<a href="http://hanks.xyz/daily" target="_blank"> Android 开发者周刊 </a>推荐给你的朋友，你的支持是我们最大的动力！
-				</div>
-				<p class="bottom_p">因为你曾经订阅了<a href="http://hanks.xyz/daily" style="color:#07c;text-decoration:none" target="_blank"> Android 开发者周刊 </a>， 所以你会收到这封邮件。
-					<br/> 我们保证你的邮箱地址将只用于 Android 开发者周刊，你也可以随时取消订阅。
-					<br/> 我们尊重并保护你的隐私。
-					<br/> 如果你不愿意继续接收 Android 开发者周刊，请点击
-					<a href="%%user_defined_unsubscribe_link%%" style="color:#07c;text-decoration:none" target="_blank"> 退订 </a>。
-				</p>
-			</div>
-		</div>
+    <body>
+        <header class="main-header" >
+            <nav>
+                <a class="logo" href="http://hanks.xyz">Hanks.xyz</a>
+                <a href="https://github.com/hanks-zyh"><img src="http://file.bmob.cn/M03/0C/37/oYYBAFb-fZuAC873AADG5Y6ZAAE408.png" class="avatar">
+                </a>
+                <span class="admin-name">hanks</span>
+            </nav>
+            <div class="welcome">
+                <h1>Welcome to Android daily !</h1>
+                <p>you have new post to review.</p>
+            </div>
+            <div class="number" id="number">
+                <div class="newpost">
+                    <h2>{{ todayCount }}</h2>
+                    <p>今日文章数量</p>
+                </div>
+                <div class="line"></div>
+                <div class="newpost">
+                    <h2>{{ totalCount }}</h2>
+                    <p>总文章数量</p>
+                </div>
+                <div class="line"></div>
+                <div class="newpost">
+                    <h2>{{yesterdayCount}}</h2>
+                    <p>昨日文章数量</p>
+                </div>
+            </div>
+        </header>
+        <div class="article-container">
+            <div class="topbar">
+                <div class="summary">
+                    文章列表
+                </div>
+                <div class="calander">
+                    <nav id="navigation">
+                        <ul class="cd-pagination no-space move-buttons custom-icons">
+                            <li class="button">{{currentDay}}</li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+            <section>
+                <div id="articleList">
+                    <article v-for="article in articles">
+                        <div class="article-item">
+                            <h1>{{ article.title }}</h1>
+                            <p>{{ article.subtitle }}</p>
+                            <div class="info">
+                                <img v-if="article.article_from == 'jianshu' " src="http://file.bmob.cn/M03/0C/37/oYYBAFb-fbiAEJQGAAB6nie4SOk353.jpg">
+                                <img v-if="article.article_from == 'medium' " src="http://file.bmob.cn/M03/0C/38/oYYBAFb-fc2AdJjCAAAkM0vHqfQ373.png">
+                                <span class="author">{{ article.author_name }}</span>
+                                <!--<span class="publish-date">{{ article.created_at }}</span>-->
+                            </div>
+                            <div class="divider"></div>
+                        </div>
+                    </article>
+                </div>
+            </section>
+        </div>
+        <footer>
+            <div class="main-footer">hanks.xyz --- Android Daily</div>
+        </footer>
 
-		<script src="https://cdn1.lncld.net/static/js/av-mini-0.6.4.js"></script>
-		<script src="http://cdnjs.cloudflare.com/ajax/libs/vue/1.0.18/vue.min.js" type="text/javascript" charset="utf-8"></script>
-		<script type="text/javascript">
-		 
-			AV.initialize('RI9y3H5x69wdwmC6Nw1J9erS-gzGzoHsz', 'nflt3xUGTePUKx6aBcvAwpf2');
-			var pagination = new Vue({
-				el: "#navigation",
-				data:{
-					currentDay:'',
-				},
-				
-				created: function(){
-					this.initData();	
-				},
-				
-				methods:{
-					initData: function(){
-						
-						Date.prototype.Format = function (fmt) { //author: meizz 
-					    var o = {
-						        "M+": this.getMonth() + 1, //月份 
-						        "d+": this.getDate(), //日 
-						        "h+": this.getHours(), //小时 
-						        "m+": this.getMinutes(), //分 
-						        "s+": this.getSeconds(), //秒 
-						        "q+": Math.floor((this.getMonth() + 3) / 3), //季度 
-						        "S": this.getMilliseconds() //毫秒 
-						    };
-						    if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
-						    for (var k in o)
-						    if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
-						    return fmt;
-						}
-						this.currentDay = new Date().Format("yyyy-MM-dd");
-					},
-					 
-				}
-			});
-			var app = new Vue({
-				el: "#articleList",
-				data: {
-					message: "hello hanks!", 
-					articles: [],
-				},
-				created: function() {
-					this.initData();
-				},
-				methods: {
-					initData: function() {
-						var that = this;
-						
-						
-						var today = new Date();
-						var dd = today.getDate();
-						var mm = today.getMonth()+1; //January is 0!
-						var yyyy = today.getFullYear();
-						
-						if(dd<10) {
-						    dd='0'+dd
-						} 
+        <script src="https://cdn1.lncld.net/static/js/av-mini-0.6.4.js"></script>
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/vue/1.0.18/vue.min.js" type="text/javascript" charset="utf-8"></script>
+        <script type="text/javascript">
+            AV.initialize('RI9y3H5x69wdwmC6Nw1J9erS-gzGzoHsz', 'nflt3xUGTePUKx6aBcvAwpf2');
+            
+            var pagination = new Vue({
+                el: "#navigation",
+                data: {
+                    currentDay: '',
+                },
+                created: function() {
+                    this.initData();
+                },
+                methods: {
+                    initData: function() {
+                        Date.prototype.Format = function(fmt) { //author: meizz 
+                            var o = {
+                                "M+": this.getMonth() + 1, //月份 
+                                "d+": this.getDate(), //日 
+                                "h+": this.getHours(), //小时 
+                                "m+": this.getMinutes(), //分 
+                                "s+": this.getSeconds(), //秒 
+                                "q+": Math.floor((this.getMonth() + 3) / 3), //季度 
+                                "S": this.getMilliseconds() //毫秒 
+                            };
+                            if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+                            for (var k in o)
+                                if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+                            return fmt;
+                        }
+                        this.currentDay = new Date().Format("yyyy-MM-dd");
+                    },
+                }
+            });
+            var app = new Vue({
+                el: "#articleList",
+                data: {
+                    message: "hello hanks!",
+                    articles: [],
+                },
+                created: function() {
+                    this.initData();
+                },
+                methods: {
+                    initData: function() {
+                        var that = this;
+                        var today = new Date();
+                        var dd = today.getDate();
+                        var mm = today.getMonth() + 1; //January is 0!
+                        var yyyy = today.getFullYear();
+                        if (dd < 10) {
+                            dd = '0' + dd
+                        }
+                        if (mm < 10) {
+                            mm = '0' + mm
+                        }
+                        var currentDay = yyyy + '-' + mm + '-' + dd;
+                        var query = new AV.Query('Article');
+                        query.addDescending('createdAt');
+                        query.greaterThan('createdAt', new Date(this.getLessDate(currentDay)));
+                        query.lessThan('createdAt', new Date(this.getGaeaterDate(currentDay)));
+                        query.find().then(function(results) {
+                            // 处理返回的结果数据
+                            for (var i = 0; i < results.length; i++) {
+                                var object = results[i];
+                                that.articles.push({
+                                    title: object.get('title'),
+                                    subtitle: object.get('subtitle'),
+                                    article_url: object.get('url'),
+                                    author_name: object.get('author_name'),
+                                    created_at: object.getCreatedAt(),
+                                    article_from: object.get('article_from'),
+                                })
+                            }
+                        }, function(error) {
+                            console.log('Error: ' + error.code + ' ' + error.message);
+                        });
+                    },
+                    getLessDate: function(currentDate) {
+                        return currentDate + ' 00:00:00';
+                    },
+                    getGaeaterDate: function(currentDate) {
+                        var today = new Date(currentDate);
+                        today.setDate(today.getDate() + 1);
+                        var dd = today.getDate();
+                        var mm = today.getMonth() + 1; //January is 0!
+                        var yyyy = today.getFullYear();
+                        if (dd < 10) {
+                            dd = '0' + dd
+                        }
+                        if (mm < 10) {
+                            mm = '0' + mm
+                        }
+                        return yyyy + '-' + mm + '-' + dd + ' 00:00:00';
+                    },
+                    
+                }
+            });
+            var number = new Vue({
+                el: "#number",
+                data: {
+                    totalCount: 9999,
+                    todayCount: 9999,
+                    yesterdayCount: 9999,
+                },
+                created: function() {
+                    this.initData();
+                },
+                methods: {
+                    initData: function() {
+                        var that = this;
+                        
+                        // 总文章个数
+                        var query = new AV.Query('Article');
+                        query.count().then(function(count) {
+                            that.totalCount =  count;
+                        }, function(error) {
+                            that.totalCount = 9999;
+                        });
+                        
+                        // 今天文章个数
+                        var today = new Date();
+                        var dd = today.getDate();
+                        var mm = today.getMonth() + 1; //January is 0!
+                        var yyyy = today.getFullYear();
+                        if (dd < 10) {
+                            dd = '0' + dd
+                        }
+                        if (mm < 10) {
+                            mm = '0' + mm
+                        }
+                        var currentDay = yyyy + '-' + mm + '-' + dd;
+                        var query1 = new AV.Query('Article');
+                        query1.addDescending('createdAt');
+                        query1.greaterThan('createdAt', new Date(this.getLessDate(currentDay)));
+                        query1.lessThan('createdAt', new Date(this.getGaeaterDate(currentDay)));
+                        query1.count().then(function(count) {
+                            that.todayCount =  count;
+                        }, function(error) {
+                            that.todayCount = 9999;
+                        });
+                        
+                        // 本周文章个数
+                        var query2 = new AV.Query('Article');
+                        query2.addDescending('createdAt');
+                        query2.greaterThan('createdAt', new Date(this.getYesterday(currentDay)));
+                        query2.lessThan('createdAt', new Date(this.getGaeaterDate(currentDay)));
+                        query2.count().then(function(count) {
+                            that.yesterdayCount =  count;
+                        }, function(error) {
+                            that.yesterdayCount = 9999;
+                        });
+                    },
+                    
+                    getLessDate: function(currentDate) {
+                        return currentDate + ' 00:00:00';
+                    },
+                    getGaeaterDate: function(currentDate) {
+                        var today = new Date(currentDate);
+                        today.setDate(today.getDate() + 1);
+                        var dd = today.getDate();
+                        var mm = today.getMonth() + 1; //January is 0!
+                        var yyyy = today.getFullYear();
+                        if (dd < 10) {
+                            dd = '0' + dd
+                        }
+                        if (mm < 10) {
+                            mm = '0' + mm
+                        }
+                        return yyyy + '-' + mm + '-' + dd + ' 00:00:00';
+                    },
+                    getYesterday: function(currentDate) {
+                        var today = new Date(currentDate);
+                        today.setDate(today.getDate() - 1);
+                        var dd = today.getDate();
+                        var mm = today.getMonth() + 1; //January is 0!
+                        var yyyy = today.getFullYear();
+                        if (dd < 10) {
+                            dd = '0' + dd
+                        }
+                        if (mm < 10) {
+                            mm = '0' + mm
+                        }
+                        return yyyy + '-' + mm + '-' + dd + ' 00:00:00';
+                    },
+                     
+                }
+            });
+        </script>
 
-						if(mm<10) {
-						    mm='0'+mm
-						} 
-						
-						var currentDay = yyyy + '-' + mm + '-' + dd;
-						
- 						var query = new AV.Query('Article');
-						query.addDescending('createdAt');
-						query.greaterThan('createdAt', new Date(this.getLessDate(currentDay)));
-						query.lessThan('createdAt', new Date(this.getGaeaterDate(currentDay)));
-						query.find().then(function(results) {
-							// 处理返回的结果数据
-							for (var i = 0; i < results.length; i++) {
-								var object = results[i];
-								that.articles.push({
-									title: object.get('title'),
-									subtitle: object.get('subtitle'),
-									article_url: object.get('url'),
-								})
-							}
-						}, function(error) {
-							console.log('Error: ' + error.code + ' ' + error.message);
-						});
-					},
-					
-					getLessDate: function(currentDate){
-						return currentDate + ' 00:00:00';
-					},
-					
-					getGaeaterDate: function(currentDate){
-						var today = new Date(currentDate); 
-						today.setDate(today.getDate() + 1);
-						var dd = today.getDate();
-						var mm = today.getMonth()+1; //January is 0!
-						var yyyy = today.getFullYear();
-
-						if(dd<10) {
-						    dd='0'+dd
-						} 
-
-						if(mm<10) {
-						    mm='0'+mm
-						} 
-						 
-						return  yyyy + '-' + mm + '-' + dd + ' 00:00:00';
-					},
-				}
-			});
-		</script>
-	</body>
+    </body>
 
 </html>

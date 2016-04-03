@@ -15,6 +15,9 @@
             body {
                 background: #ebecee;
             }
+            .header{
+              
+            }
             .main-header {
                 background: white;
                 padding-left: 100px;
@@ -48,7 +51,7 @@
             
             .welcome h1 {
                 font-family: ArialMT;
-                font-size: 30px;
+                font-size: 2rem;
                 color: #474b6a;
                 text-align: center;
                 margin-top: 100px;
@@ -56,7 +59,7 @@
             
             .welcome p {
                 font-family: ArialMT;
-                font-size: 12px;
+                font-size: 1rem;
                 color: #474b6a;
                 text-align: center;
                 margin-top: 8px;
@@ -99,6 +102,7 @@
             .topbar {
                 display: flex;
                 justify-content: space-between;
+                align-items: center;
             }
             
             .calander {
@@ -114,13 +118,24 @@
                 margin: 26px;
             }
             
-            .calander li {
+            .button {
                 border-radius: 36px;
                 background-color: #7c90e3;
                 padding: 10px 15px;
+                margin: 5px;
+                font-size: 14px;
+                color: #ffffff;
+            }
+            .next-button{
+                padding: 10px 15px;
+                margin: 5px;
                 font-size: 14px;
                 list-style: none;
-                color: #ffffff;
+                color: #7c90e3;
+            }
+            .next-button:hover{
+                 background-color: #7c90e3;
+                 color: #ffffff;
             }
             /*文章*/
             
@@ -176,18 +191,29 @@
             }
             
             .main-footer {
-                height: 100px;
+                height: 150px;
                 background: white;
                 display: flex;
+                flex-direction: column;
                 justify-content: center;
                 align-items: center;
-                color: #e1e1e1;
+                color: #797676;
                 margin-top: 50px;
+            }
+            .main-footer span{
+                margin: 5px;
+            }
+            .background-cover{
+                background-position:50%;
+                background-repeat:no-repeat no-repeat;
+                background-size:cover;
             }
         </style>
     </head>
 
     <body>
+      <div id="app">
+        <div class="header background-cover">
         <header class="main-header" >
             <nav>
                 <a class="logo" href="http://hanks.xyz">Hanks.xyz</a>
@@ -197,34 +223,37 @@
             </nav>
             <div class="welcome">
                 <h1>Welcome to Android daily !</h1>
-                <p>you have new post to review.</p>
+                <p>以下为 {{ currentDay }} 的文章。</p>
             </div>
             <div class="number" id="number">
                 <div class="newpost">
                     <h2>{{ todayCount }}</h2>
-                    <p>今日文章数量</p>
+                    <p>今日收录文章数量</p>
                 </div>
                 <div class="line"></div>
                 <div class="newpost">
                     <h2>{{ totalCount }}</h2>
-                    <p>总文章数量</p>
+                    <p>收录文章总数量</p>
                 </div>
                 <div class="line"></div>
                 <div class="newpost">
                     <h2>{{yesterdayCount}}</h2>
-                    <p>昨日文章数量</p>
+                    <p>昨日收录文章数量</p>
                 </div>
             </div>
         </header>
+        </div>
         <div class="article-container">
             <div class="topbar">
                 <div class="summary">
                     文章列表
                 </div>
-                <div class="calander">
+                <div>
                     <nav id="navigation">
-                        <ul class="cd-pagination no-space move-buttons custom-icons">
+                        <ul class="calander no-space move-buttons custom-icons">
+                            <li @click="getNext(currentDay)" class="next-button">❮</li>
                             <li class="button">{{currentDay}}</li>
+                            <li @click="getPre(currentDay)" class="next-button">❯</li>
                         </ul>
                     </nav>
                 </div>
@@ -250,72 +279,78 @@
             </section>
         </div>
         <footer>
-            <div class="main-footer">hanks.xyz --- Android Daily</div>
+            <div class="main-footer">
+                <span>Android Daily</span>
+                <span>Support by hanks.xyz</span>
+            </div>
         </footer>
-
+      </div>
         <script src="https://cdn1.lncld.net/static/js/av-mini-0.6.4.js"></script>
         <script src="http://cdnjs.cloudflare.com/ajax/libs/vue/1.0.18/vue.min.js" type="text/javascript" charset="utf-8"></script>
         <script type="text/javascript">
             AV.initialize('RI9y3H5x69wdwmC6Nw1J9erS-gzGzoHsz', 'nflt3xUGTePUKx6aBcvAwpf2');
-            
-            var pagination = new Vue({
-                el: "#navigation",
-                data: {
-                    currentDay: '',
-                },
+            new Vue({
+                el: "#app",
                 created: function() {
-                    this.initData();
+                    this.initData(null);
+                },
+                data:{
+                     currentDay: '',
+                     totalCount: 9999,
+                     todayCount: 9999,
+                     yesterdayCount: 9999,
+                     articles: [],
                 },
                 methods: {
-                    initData: function() {
-                        Date.prototype.Format = function(fmt) { //author: meizz 
-                            var o = {
-                                "M+": this.getMonth() + 1, //月份 
-                                "d+": this.getDate(), //日 
-                                "h+": this.getHours(), //小时 
-                                "m+": this.getMinutes(), //分 
-                                "s+": this.getSeconds(), //秒 
-                                "q+": Math.floor((this.getMonth() + 3) / 3), //季度 
-                                "S": this.getMilliseconds() //毫秒 
-                            };
-                            if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
-                            for (var k in o)
-                                if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
-                            return fmt;
+                    initData: function(cur) {
+                        var today;
+                        if(cur){
+                            today = new Date(cur);
+                        }else{
+                            today = new Date();
                         }
-                        this.currentDay = new Date().Format("yyyy-MM-dd");
+                        this.currentDay = this.formatDate(today.getFullYear(),today.getMonth()+1,today.getDate());
+                        this.getArticlesByDay(this.currentDay,this);
+                        var that  = this;
+                        // 总文章个数
+                        var query0 = new AV.Query('Article');
+                        query0.count().then(function(count) {
+                            that.totalCount =  count;
+                        }, function(error) {
+                            that.totalCount = 9999;
+                        });
+                        
+                        // 今天文章个数
+                        var query1 = new AV.Query('Article');
+                        query1.addDescending('createdAt');
+                        query1.greaterThan('createdAt', new Date(this.getLessDate(this.currentDay)));
+                        query1.lessThan('createdAt', new Date(this.getGaeaterDate(this.currentDay)));
+                        query1.count().then(function(count) {
+                            that.todayCount =  count;
+                        }, function(error) {
+                            that.todayCount = 9999;
+                        });
+                        
+                        // 本周文章个数
+                        var query2 = new AV.Query('Article');
+                        query2.addDescending('createdAt');
+                        query2.greaterThan('createdAt', new Date(this.getYesterday(this.currentDay)));
+                        query2.lessThan('createdAt', new Date(this.getGaeaterDate(this.currentDay)));
+                        query2.count().then(function(count) {
+                            that.yesterdayCount =  count;
+                        }, function(error) {
+                            that.yesterdayCount = 9999;
+                        });
                     },
-                }
-            });
-            var app = new Vue({
-                el: "#articleList",
-                data: {
-                    message: "hello hanks!",
-                    articles: [],
-                },
-                created: function() {
-                    this.initData();
-                },
-                methods: {
-                    initData: function() {
-                        var that = this;
-                        var today = new Date();
-                        var dd = today.getDate();
-                        var mm = today.getMonth() + 1; //January is 0!
-                        var yyyy = today.getFullYear();
-                        if (dd < 10) {
-                            dd = '0' + dd
-                        }
-                        if (mm < 10) {
-                            mm = '0' + mm
-                        }
-                        var currentDay = yyyy + '-' + mm + '-' + dd;
+                    getArticlesByDay: function(currentDay, theModel){
+                        var that = theModel;
                         var query = new AV.Query('Article');
                         query.addDescending('createdAt');
-                        query.greaterThan('createdAt', new Date(this.getLessDate(currentDay)));
-                        query.lessThan('createdAt', new Date(this.getGaeaterDate(currentDay)));
+                        query.greaterThan('createdAt', new Date(this.getLessDate(this.currentDay)));
+                        query.lessThan('createdAt', new Date(this.getGaeaterDate(this.currentDay)));
                         query.find().then(function(results) {
                             // 处理返回的结果数据
+                            that.articles.length = 0;
                             for (var i = 0; i < results.length; i++) {
                                 var object = results[i];
                                 that.articles.push({
@@ -332,115 +367,44 @@
                         });
                     },
                     getLessDate: function(currentDate) {
-                        return currentDate + ' 00:00:00';
+                        return currentDate + " 00:00:00";
                     },
                     getGaeaterDate: function(currentDate) {
                         var today = new Date(currentDate);
                         today.setDate(today.getDate() + 1);
-                        var dd = today.getDate();
-                        var mm = today.getMonth() + 1; //January is 0!
-                        var yyyy = today.getFullYear();
-                        if (dd < 10) {
-                            dd = '0' + dd
-                        }
-                        if (mm < 10) {
-                            mm = '0' + mm
-                        }
-                        return yyyy + '-' + mm + '-' + dd + ' 00:00:00';
-                    },
-                    
-                }
-            });
-            var number = new Vue({
-                el: "#number",
-                data: {
-                    totalCount: 9999,
-                    todayCount: 9999,
-                    yesterdayCount: 9999,
-                },
-                created: function() {
-                    this.initData();
-                },
-                methods: {
-                    initData: function() {
-                        var that = this;
-                        
-                        // 总文章个数
-                        var query = new AV.Query('Article');
-                        query.count().then(function(count) {
-                            that.totalCount =  count;
-                        }, function(error) {
-                            that.totalCount = 9999;
-                        });
-                        
-                        // 今天文章个数
-                        var today = new Date();
-                        var dd = today.getDate();
-                        var mm = today.getMonth() + 1; //January is 0!
-                        var yyyy = today.getFullYear();
-                        if (dd < 10) {
-                            dd = '0' + dd
-                        }
-                        if (mm < 10) {
-                            mm = '0' + mm
-                        }
-                        var currentDay = yyyy + '-' + mm + '-' + dd;
-                        var query1 = new AV.Query('Article');
-                        query1.addDescending('createdAt');
-                        query1.greaterThan('createdAt', new Date(this.getLessDate(currentDay)));
-                        query1.lessThan('createdAt', new Date(this.getGaeaterDate(currentDay)));
-                        query1.count().then(function(count) {
-                            that.todayCount =  count;
-                        }, function(error) {
-                            that.todayCount = 9999;
-                        });
-                        
-                        // 本周文章个数
-                        var query2 = new AV.Query('Article');
-                        query2.addDescending('createdAt');
-                        query2.greaterThan('createdAt', new Date(this.getYesterday(currentDay)));
-                        query2.lessThan('createdAt', new Date(this.getGaeaterDate(currentDay)));
-                        query2.count().then(function(count) {
-                            that.yesterdayCount =  count;
-                        }, function(error) {
-                            that.yesterdayCount = 9999;
-                        });
-                    },
-                    
-                    getLessDate: function(currentDate) {
-                        return currentDate + ' 00:00:00';
-                    },
-                    getGaeaterDate: function(currentDate) {
-                        var today = new Date(currentDate);
-                        today.setDate(today.getDate() + 1);
-                        var dd = today.getDate();
-                        var mm = today.getMonth() + 1; //January is 0!
-                        var yyyy = today.getFullYear();
-                        if (dd < 10) {
-                            dd = '0' + dd
-                        }
-                        if (mm < 10) {
-                            mm = '0' + mm
-                        }
-                        return yyyy + '-' + mm + '-' + dd + ' 00:00:00';
+                        return this.formatDate(today.getFullYear(),today.getMonth()+1,today.getDate()) + " 00:00:00";
                     },
                     getYesterday: function(currentDate) {
                         var today = new Date(currentDate);
                         today.setDate(today.getDate() - 1);
-                        var dd = today.getDate();
-                        var mm = today.getMonth() + 1; //January is 0!
-                        var yyyy = today.getFullYear();
-                        if (dd < 10) {
-                            dd = '0' + dd
-                        }
-                        if (mm < 10) {
-                            mm = '0' + mm
-                        }
-                        return yyyy + '-' + mm + '-' + dd + ' 00:00:00';
+                         
+                        return this.formatDate(today.getFullYear(),today.getMonth()+1,today.getDate()) + " 00:00:00";
                     },
-                     
+                    getNext: function(dateStr){
+                        var d = new Date(dateStr);
+                        d.setDate(d.getDate()+1);
+                        this.initData(this.formatDate(d.getFullYear(),d.getMonth()+1, d.getDate()));
+                    },
+                    getPre: function(dateStr){
+                        var d = new Date(dateStr);
+                        d.setDate(d.getDate()-1);
+                        this.initData(this.formatDate(d.getFullYear(),d.getMonth()+1, d.getDate()));
+                    },
+                    fetchArticles: function(dateStr){
+                    },
+                    // 返回 类似 2016-01-02 格式的字符串
+                    formatDate: function(year,month,day){
+                        var y  = year;
+                        var m = month;
+                        if(m<10) m = "0" + m;
+                        var d = day;
+                        if(d<10) d = "0" + d;
+                        return y+"-"+m+"-"+d
+                    },
                 }
             });
+         
+           
         </script>
 
     </body>

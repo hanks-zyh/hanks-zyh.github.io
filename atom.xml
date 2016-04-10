@@ -4,7 +4,7 @@
   <subtitle><![CDATA[coding]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://hanks.xyz/"/>
-  <updated>2016-04-07T16:13:17.000Z</updated>
+  <updated>2016-04-10T14:45:03.000Z</updated>
   <id>http://hanks.xyz/</id>
   
   <author>
@@ -13,6 +13,33 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[开发一款 Android 应用要有计划哦]]></title>
+    <link href="http://hanks.xyz/2016/04/10/app-need/"/>
+    <id>http://hanks.xyz/2016/04/10/app-need/</id>
+    <published>2016-04-10T14:37:18.000Z</published>
+    <updated>2016-04-10T14:45:03.000Z</updated>
+    <content type="html"><![CDATA[<p>封装一些常用类，根据项目需求确定库的选择，项目整体架构，后续扩展的考虑，组件化开发移植到其他平台的可能。</p>
+<a id="more"></a>
+<h3 id="Before">Before</h3><p>产品需求文档<br>产品原型<br>设计图</p>
+<h3 id="Common">Common</h3><p>Toast<br>Log<br>SharedPerference<br>Dialog<br>Time<br>Sdcard<br>File<br>Database<br>Net<br>ImageLoader<br>camera</p>
+<h3 id="List">List</h3><p>Refresh<br>Load more<br>Load finish</p>
+<h3 id="Common_View">Common View</h3><p>Loading<br>Empty<br>Net error</p>
+<h3 id="Better">Better</h3><p>Analysis<br>CrushReport<br>PushServer<br>Share<br>Animation Interactive</p>
+<h3 id="Other">Other</h3><p>git<br>android studio<br>gradle<br>ci<br>optimize</p>
+<blockquote>
+<p>文章来自： <a href="http://hanks.xyz">http://hanks.xyz</a></p>
+</blockquote>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>封装一些常用类，根据项目需求确定库的选择，项目整体架构，后续扩展的考虑，组件化开发移植到其他平台的可能。</p>]]>
+    
+    </summary>
+    
+      <category term="Android" scheme="http://hanks.xyz/tags/Android/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[开发过程的一些总结]]></title>
@@ -752,32 +779,6 @@
       <category term="Android" scheme="http://hanks.xyz/tags/Android/"/>
     
       <category term="Framework" scheme="http://hanks.xyz/tags/Framework/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[React-Native 鬼畜表情包app]]></title>
-    <link href="http://hanks.xyz/2016/01/11/react-native-23333/"/>
-    <id>http://hanks.xyz/2016/01/11/react-native-23333/</id>
-    <published>2016-01-11T03:33:17.000Z</published>
-    <updated>2016-01-11T03:55:16.000Z</updated>
-    <content type="html"><![CDATA[<p>QQ群,微信群，各种大神，各种表情，每到半夜，斗图大会，八仙过海，各显神通，良辰日天齐上阵。不服，下载鬼畜表情，参加到战斗中，无奈啊，app做的不是太方便，想起抓包把图片一下都下载下来，想起最近看到RN，正好练练手。<br><a id="more"></a></p>
-<h3 id="单文件批量抓取">单文件批量抓取</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span><br><span class="line"> * Sample React Native App</span><br><span class="line"> * https://github.com/hanks-zyh/233333</span><br><span class="line"> */</span></span><br><span class="line"><span class="pi">'use strict'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> React = <span class="built_in">require</span>(<span class="string">'react-native'</span>);</span><br><span class="line"><span class="keyword">var</span> &#123;</span><br><span class="line">  AppRegistry,</span><br><span class="line">  StyleSheet,</span><br><span class="line">  Text,</span><br><span class="line">  View,</span><br><span class="line">  TouchableOpacity,</span><br><span class="line">&#125; = React;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> AwesomeProject = React.createClass(&#123;</span><br><span class="line">  getImage: <span class="function"><span class="keyword">function</span>(<span class="params">tid</span>)</span>&#123;</span><br><span class="line">    fetch(<span class="string">'https://face.ersansan.cn/collection/'</span>+tid)</span><br><span class="line">    .then((respose) =&gt; respose.text())</span><br><span class="line">    .then((responseText) =&gt; &#123;</span><br><span class="line">          <span class="keyword">var</span> result = <span class="built_in">eval</span>(<span class="string">'('</span> + responseText +     <span class="string">')'</span>);</span><br><span class="line">          <span class="keyword">var</span> list = result.picList;</span><br><span class="line">          <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;list.length;i++)&#123;</span><br><span class="line">            <span class="keyword">var</span> item = list[i];</span><br><span class="line">            <span class="built_in">console</span>.warn(item.link);</span><br><span class="line">          &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">    .catch((error) =&gt; &#123;</span><br><span class="line">      <span class="built_in">console</span>.warn(error);</span><br><span class="line">    &#125;).done;</span><br><span class="line">  &#125;,</span><br><span class="line">  getSunCollection: <span class="function"><span class="keyword">function</span>(<span class="params">tid</span>)</span>&#123;</span><br><span class="line">    fetch(<span class="string">'https://face.ersansan.cn/collection/'</span>+tid)</span><br><span class="line">    .then((respose) =&gt; respose.text())</span><br><span class="line">    .then((responseText) =&gt; &#123;</span><br><span class="line">          <span class="keyword">var</span> result = <span class="built_in">eval</span>(<span class="string">'('</span> + responseText +     <span class="string">')'</span>);</span><br><span class="line">          <span class="keyword">var</span> list = result.subcollection;</span><br><span class="line">          <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;list.length;i++)&#123;</span><br><span class="line">            <span class="keyword">var</span> item = list[i];</span><br><span class="line">            <span class="keyword">this</span>.getImage(item.tid);</span><br><span class="line">          &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">    .catch((error) =&gt; &#123;</span><br><span class="line">      <span class="built_in">console</span>.warn(error);</span><br><span class="line">    &#125;).done;</span><br><span class="line">  &#125;,</span><br><span class="line">  _downLoad: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">      fetch(<span class="string">'https://face.ersansan.cn/collection'</span>)</span><br><span class="line">      .then((respose) =&gt; respose.text())</span><br><span class="line">      .then((responseText) =&gt; &#123;</span><br><span class="line">            <span class="keyword">var</span> result = <span class="built_in">eval</span>(<span class="string">'('</span> + responseText +     <span class="string">')'</span>);</span><br><span class="line">            <span class="keyword">var</span> list = result.List;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;list.length;i++)&#123;</span><br><span class="line">              <span class="keyword">var</span> item = list[i];</span><br><span class="line">              <span class="built_in">console</span>.warn(item.tid+item.title);</span><br><span class="line">              <span class="keyword">this</span>.getSunCollection(item.tid);</span><br><span class="line">            &#125;</span><br><span class="line">      &#125;)</span><br><span class="line">      .catch((error) =&gt; &#123;</span><br><span class="line">        <span class="built_in">console</span>.warn(error);</span><br><span class="line">      &#125;).done;</span><br><span class="line">  &#125;,</span><br><span class="line">  render: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      <span class="xml"><span class="tag">&lt;<span class="title">View</span> <span class="attribute">style</span>=<span class="value">&#123;&#123;</span> <span class="attribute">flex:1</span>, <span class="attribute">alignItems:</span>'<span class="attribute">center</span>', <span class="attribute">justifyContent:</span>'<span class="attribute">center</span>'&#125;&#125;&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">TouchableOpacity</span> <span class="attribute">style</span>=<span class="value">&#123;&#123;</span></span><br><span class="line">           <span class="attribute">backgroundColor:</span>"##<span class="attribute">234234</span>", <span class="attribute">height:50</span>, <span class="attribute">width:80</span>,  <span class="attribute">alignItems:</span>'<span class="attribute">center</span>',  <span class="attribute">justifyContent:</span>'<span class="attribute">center</span>'</span><br><span class="line">         &#125;&#125; <span class="attribute">onPress</span>=<span class="value">&#123;</span> <span class="attribute">this._downLoad</span> &#125;&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="title">Text</span> <span class="attribute">style</span>=<span class="value">&#123;&#123;</span> <span class="attribute">fontSize:20</span>,  <span class="attribute">color:</span>'<span class="attribute">white</span>' &#125;&#125;&gt;</span>下载<span class="tag">&lt;/<span class="title">Text</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;/<span class="title">TouchableOpacity</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="title">View</span>&gt;</span></span><br><span class="line">    )</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> styles = StyleSheet.create(&#123;</span><br><span class="line"></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">AppRegistry.registerComponent(<span class="string">'AwesomeProject'</span>, () =&gt; AwesomeProject);</span><br></pre></td></tr></table></figure>
-<h3 id="仿app界面">仿app界面</h3><p><img src="https://github.com/hanks-zyh/233333/raw/master/2333.gif" alt="2333"></p>
-<p><strong>首页：</strong><br>外部<code>ScrollView</code><br>顶部图片+ListView<br>给ListView每个item的title设置点击进入专题</p>
-<p><strong>专题：</strong><br>简单的<code>ListView</code><br>每个item设置点击进入图片列表</p>
-<p><strong>图片列表</strong><br>还是ListView，每个<code>ListView</code>的item分3个图片<br>根据D<code>imensions</code>计算宽高<br>不够3个的有几个显示几个<br>每个图片设置点击打开浏览器下载 <code>IntentAndroid.openURL(url);</code></p>
-<p>源码：<a href="https://github.com/hanks-zyh/233333" target="_blank" rel="external">https://github.com/hanks-zyh/233333</a></p>
-<blockquote>
-<p>文章来自： <a href="http://hanks.xyz">http://hanks.xyz</a></p>
-</blockquote>
-]]></content>
-    <summary type="html">
-    <![CDATA[<p>QQ群,微信群，各种大神，各种表情，每到半夜，斗图大会，八仙过海，各显神通，良辰日天齐上阵。不服，下载鬼畜表情，参加到战斗中，无奈啊，app做的不是太方便，想起抓包把图片一下都下载下来，想起最近看到RN，正好练练手。<br>]]>
-    
-    </summary>
-    
-      <category term="React-Native" scheme="http://hanks.xyz/tags/React-Native/"/>
     
   </entry>
   

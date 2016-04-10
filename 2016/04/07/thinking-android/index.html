@@ -11,9 +11,9 @@
 <meta property="og:url" content="http://hanks.xyz/2016/04/07/thinking-android/index.html">
 <meta property="og:site_name" content="Hanks.xyz">
 <meta property="og:description" content="记录一些开发过程中的一些感悟。开发一个 App，如 Android，iOS，Web App 等，也就是处理两部分：界面，数据，还有比较难处理的是数据和界面元素之间的关系。">
-<meta property="og:image" content="http://www.splitshire.com/wp-content/uploads/2014/02/SplitShire_IMG_6131-768x506.jpg">
-<meta property="og:image" content="http://www.splitshire.com/wp-content/uploads/2016/02/SplitShire-3236-1440x960.jpg">
-<meta property="og:updated_time" content="2016-04-07T16:13:17.000Z">
+<meta property="og:image" content="https://dn-coding-net-production-pp.qbox.me/08d0f516-4609-4843-a652-65513af76eab.png">
+<meta property="og:image" content="https://dn-coding-net-production-pp.qbox.me/e358e4e6-809b-407c-8604-65bcaec5f829.png">
+<meta property="og:updated_time" content="2016-04-10T14:55:51.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="开发过程的一些总结">
 <meta name="twitter:description" content="记录一些开发过程中的一些感悟。开发一个 App，如 Android，iOS，Web App 等，也就是处理两部分：界面，数据，还有比较难处理的是数据和界面元素之间的关系。">
@@ -273,10 +273,10 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>记录一些开发过程中的一些感悟。开发一个 App，如 Android，iOS，Web App 等，也就是处理两部分：<strong>界面</strong>，<strong>数据</strong>，还有比较难处理的是数据和界面元素之间的关系。</p>
-<p><img src="http://www.splitshire.com/wp-content/uploads/2014/02/SplitShire_IMG_6131-768x506.jpg" alt="MacBook Air I"><br><a id="more"></a><br>一部分时间在开发界面上的东西，文本，图片，列表，如何布局，如何应用动画到各个元素。另一部分在处理数据，从服务器或者其他数据源拿到数据，中间可能经过各种协议，加密解密，这些属于后台逻辑的东西。但是这些都属于基本功，如果基本功不错的话，这两部分应该不难处理。</p>
+<p> <img src="https://dn-coding-net-production-pp.qbox.me/08d0f516-4609-4843-a652-65513af76eab.png" alt="MacBook Air I"><br><a id="more"></a><br>一部分时间在开发界面上的东西，文本，图片，列表，如何布局，如何应用动画到各个元素。另一部分在处理数据，从服务器或者其他数据源拿到数据，中间可能经过各种协议，加密解密，这些属于后台逻辑的东西。但是这些都属于基本功，如果基本功不错的话，这两部分应该不难处理。</p>
 <p>随着开发时间的累积，开发的应用开始变得复杂，界面多了起来，数据接口的个数也翻了好几倍，这个时候就需要处理数据与界面的对应关系了，考虑什么样的数据显示什么样的界面，于是要把整个应用拆分，处理数据的部分，处理界面元素的部分，还有最重要的<strong>连接数据和界面</strong>的部分。拆分过程重要的一点就是自己一定要分清各部分职责。拿一个简单的点赞按钮，对于界面部分，只处理两个状态，点过赞的状态和没有点过赞的状态，对于数据的逻辑部分，分为发送点赞请求，和取消点赞请求，可能还包含获取是否赞过的接口，然后中间的控制层拿到数据，进行一系列的逻辑处理，来控制界面的显示状态。</p>
 <p>开发中理清各部分的关系，尽可能的降低耦合性，对后期维护会有很大帮助。</p>
-<p><img src="http://www.splitshire.com/wp-content/uploads/2016/02/SplitShire-3236-1440x960.jpg" alt="MacBook iPad iPhone Vintage Camera"></p>
+<p> <img src="https://dn-coding-net-production-pp.qbox.me/e358e4e6-809b-407c-8604-65bcaec5f829.png" alt="MacBook iPad iPhone Vintage Camera"> </p>
 <blockquote>
 <p>文章来自： <a href="http://hanks.xyz">http://hanks.xyz</a></p>
 </blockquote>

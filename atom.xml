@@ -4,7 +4,7 @@
   <subtitle><![CDATA[coding]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://hanks.xyz/"/>
-  <updated>2016-04-10T14:45:03.000Z</updated>
+  <updated>2016-04-10T14:49:59.000Z</updated>
   <id>http://hanks.xyz/</id>
   
   <author>
@@ -15,13 +15,16 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title><![CDATA[开发一款 Android 应用要有计划哦]]></title>
+    <title><![CDATA[开发一款 APP 要有计划哦]]></title>
     <link href="http://hanks.xyz/2016/04/10/app-need/"/>
     <id>http://hanks.xyz/2016/04/10/app-need/</id>
     <published>2016-04-10T14:37:18.000Z</published>
-    <updated>2016-04-10T14:45:03.000Z</updated>
+    <updated>2016-04-10T14:49:59.000Z</updated>
     <content type="html"><![CDATA[<p>封装一些常用类，根据项目需求确定库的选择，项目整体架构，后续扩展的考虑，组件化开发移植到其他平台的可能。</p>
 <a id="more"></a>
+<blockquote>
+<p>下面的以<code>Android</code> 为例`</p>
+</blockquote>
 <h3 id="Before">Before</h3><p>产品需求文档<br>产品原型<br>设计图</p>
 <h3 id="Common">Common</h3><p>Toast<br>Log<br>SharedPerference<br>Dialog<br>Time<br>Sdcard<br>File<br>Database<br>Net<br>ImageLoader<br>camera</p>
 <h3 id="List">List</h3><p>Refresh<br>Load more<br>Load finish</p>

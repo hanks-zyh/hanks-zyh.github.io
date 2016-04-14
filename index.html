@@ -271,7 +271,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-         
+        <p>onNext, onComplete, onError，<code>onError</code> 在 <code>Observable</code> 序列传递过程中出现异常时被调用，然后终止<code>Observable</code> 序列的传递，以此通知所有的观察者发生了一个不可恢复的错误。但是有好多时候需要我们手动去终止序列，例如当序列传递时不满足某个条件了就不在进行后续的操作，这可能并不是一个异常，需要我们手动抛出。<br>
         
             
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/RxJava/">RxJava</a></li></ul>

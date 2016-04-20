@@ -4,7 +4,7 @@
   <subtitle><![CDATA[coding]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://hanks.xyz/"/>
-  <updated>2016-04-20T17:17:12.000Z</updated>
+  <updated>2016-04-20T17:18:54.000Z</updated>
   <id>http://hanks.xyz/</id>
   
   <author>
@@ -19,7 +19,7 @@
     <link href="http://hanks.xyz/2016/04/21/iOS-TableView/"/>
     <id>http://hanks.xyz/2016/04/21/iOS-TableView/</id>
     <published>2016-04-20T16:30:29.000Z</published>
-    <updated>2016-04-20T17:17:12.000Z</updated>
+    <updated>2016-04-20T17:18:54.000Z</updated>
     <content type="html"><![CDATA[<p><code>iOS</code> 中的列表对应的控件为 <code>UITableView</code> ，可以通过给 <code>UITableView</code> 设置数据源来显示不同的数据。结合 Android 开发给 RecyclerView 或者 ListView 显示数据的步骤:</p>
 <ol>
 <li>界面中添加 ListView （xml）</li>
@@ -38,6 +38,7 @@
 <li>设置 UITableView 对应每个位置的 cell 显示的内容（数据源的每一项）</li>
 <li>刷新界面 tableview 的 reloadData()</li>
 </ol>
+<a id="more"></a>
 <h3 id="设置两个协议（类似于接口）：">设置两个协议（类似于接口）：</h3><ul>
 <li><strong>UITableViewDataSource</strong>（data source），用于设置数据  </li>
 <li><strong>UITableViewDelegate</strong>（delegate），用于处理 TableView 的交互（比如点击，添加、删除、移动，header、footer等）</li>
@@ -53,7 +54,24 @@
 </blockquote>
 ]]></content>
     <summary type="html">
-    <![CDATA[ ]]>
+    <![CDATA[<p><code>iOS</code> 中的列表对应的控件为 <code>UITableView</code> ，可以通过给 <code>UITableView</code> 设置数据源来显示不同的数据。结合 Android 开发给 RecyclerView 或者 ListView 显示数据的步骤:</p>
+<ol>
+<li>界面中添加 ListView （xml）</li>
+<li>代码中拿到 ListView 的引用（findViewById）</li>
+<li>设置 ListView 的 item 的个数（一般为数据源的个数）</li>
+<li>创建每个 item 的布局（xml）</li>
+<li>设置 ListView 对应每个位置的 item 显示的内容（数据源的每一项）</li>
+<li>刷新界面 adapter 的 notifyDataSetChanged()</li>
+</ol>
+<p>iOS 使用 UITableView 的步骤：</p>
+<ol>
+<li>界面中添加 UITableView （storyboard）</li>
+<li>代码中拿到 UITableView 的引用 （按住 ctrl 拖动控件到代码中引用）</li>
+<li>设置 UITableView 的 cell 的个数（一般为数据源的个数）</li>
+<li>创建每个 item 的布局 （xib）</li>
+<li>设置 UITableView 对应每个位置的 cell 显示的内容（数据源的每一项）</li>
+<li>刷新界面 tableview 的 reloadData()</li>
+</ol>]]>
     
     </summary>
     

@@ -5,16 +5,31 @@
   
   <title>学习 iOS 中 UITableView | Hanks.xyz</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description">
+  <meta name="description" content="iOS 中的列表对应的控件为 UITableView ，可以通过给 UITableView 设置数据源来显示不同的数据。结合 Android 开发给 RecyclerView 或者 ListView 显示数据的步骤:
+
+界面中添加 ListView （xml）
+代码中拿到 ListView 的引用（findViewById）
+设置 ListView 的 item 的个数（一般为数据源的个数）
+创建">
 <meta property="og:type" content="article">
 <meta property="og:title" content="学习 iOS 中 UITableView">
 <meta property="og:url" content="http://hanks.xyz/2016/04/21/iOS-TableView/index.html">
 <meta property="og:site_name" content="Hanks.xyz">
-<meta property="og:description">
-<meta property="og:updated_time" content="2016-04-20T17:17:12.000Z">
+<meta property="og:description" content="iOS 中的列表对应的控件为 UITableView ，可以通过给 UITableView 设置数据源来显示不同的数据。结合 Android 开发给 RecyclerView 或者 ListView 显示数据的步骤:
+
+界面中添加 ListView （xml）
+代码中拿到 ListView 的引用（findViewById）
+设置 ListView 的 item 的个数（一般为数据源的个数）
+创建">
+<meta property="og:updated_time" content="2016-04-20T17:18:54.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="学习 iOS 中 UITableView">
-<meta name="twitter:description">
+<meta name="twitter:description" content="iOS 中的列表对应的控件为 UITableView ，可以通过给 UITableView 设置数据源来显示不同的数据。结合 Android 开发给 RecyclerView 或者 ListView 显示数据的步骤:
+
+界面中添加 ListView （xml）
+代码中拿到 ListView 的引用（findViewById）
+设置 ListView 的 item 的个数（一般为数据源的个数）
+创建">
   
   
     <link rel="icon" href="/images/favicon.png">
@@ -288,6 +303,7 @@
 <li>设置 UITableView 对应每个位置的 cell 显示的内容（数据源的每一项）</li>
 <li>刷新界面 tableview 的 reloadData()</li>
 </ol>
+<a id="more"></a>
 <h3 id="设置两个协议（类似于接口）：">设置两个协议（类似于接口）：</h3><ul>
 <li><strong>UITableViewDataSource</strong>（data source），用于设置数据  </li>
 <li><strong>UITableViewDelegate</strong>（delegate），用于处理 TableView 的交互（比如点击，添加、删除、移动，header、footer等）</li>

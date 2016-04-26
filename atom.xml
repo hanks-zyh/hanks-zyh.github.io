@@ -4,7 +4,7 @@
   <subtitle><![CDATA[coding]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://hanks.xyz/"/>
-  <updated>2016-04-20T17:18:54.000Z</updated>
+  <updated>2016-04-26T16:25:19.000Z</updated>
   <id>http://hanks.xyz/</id>
   
   <author>
@@ -13,6 +13,80 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[Android 中 NestedScrollingParent 接口]]></title>
+    <link href="http://hanks.xyz/2016/04/27/NestedScrollingParent/"/>
+    <id>http://hanks.xyz/2016/04/27/NestedScrollingParent/</id>
+    <published>2016-04-26T16:20:37.000Z</published>
+    <updated>2016-04-26T16:25:19.000Z</updated>
+    <content type="html"><![CDATA[<h2 id="NestedScrollingParent_接口">NestedScrollingParent 接口</h2><p><strong>接口</strong>（android.support.v4.view.NestedScrollingParent）</p>
+<blockquote>
+<p>Nested : 嵌套的</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">几个实现类</th>
+<th style="text-align:left">介绍</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">CoordinatorLayout</td>
+<td style="text-align:left">非常强大，协调它里面 View 的嵌套滑动</td>
+</tr>
+<tr>
+<td style="text-align:left">NestedScrollView</td>
+<td style="text-align:left">类似 ScrollView, 但是支持嵌套滑动的</td>
+</tr>
+<tr>
+<td style="text-align:left">SwipeRefreshLayout</td>
+<td style="text-align:left">SwipeRefreshLayout 支持竖直方向的下拉刷新控件</td>
+</tr>
+</tbody>
+</table>
+<a id="more"></a>
+<h2 id="方法介绍">方法介绍</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">/**</span><br><span class="line"> 当你希望自己的自定义布局支持嵌套子视图并且处理滚动操作，就可以实现该接口。</span><br><span class="line"> 实现这个接口后可以创建一个 NestedScrollingParentHelper 字段，使用它来帮助你处理大部分的方法。</span><br><span class="line"> 处理嵌套的滚动时应该使用  `ViewCompat`，`ViewGroupCompat`或`ViewParentCompat` 中的方法来处理，这是一些兼容库，</span><br><span class="line"> 他们保证 Android 5.0之前的兼容性垫片的静态方法，这样可以兼容 Android 5.0 之前的版本。</span><br><span class="line"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">NestedScrollingParent</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span><br><span class="line">     * 当子视图调用 startNestedScroll(View, int) 后调用该方法。返回 true 表示响应子视图的滚动。</span><br><span class="line">     * 实现这个方法来声明支持嵌套滚动，如果返回 true，那么这个视图将要配合子视图嵌套滚动。当嵌套滚动结束时会调用到 onStopNestedScroll(View)。</span><br><span class="line">     *</span><br><span class="line">     * <span class="doctag">@param</span> child 可滚动的子视图</span><br><span class="line">     * <span class="doctag">@param</span> target NestedScrollingParent 的直接可滚动的视图，一般情况就是 child</span><br><span class="line">     * <span class="doctag">@param</span> nestedScrollAxes 包含 ViewCompat#SCROLL_AXIS_HORIZONTAL, ViewCompat#SCROLL_AXIS_VERTICAL 或者两个值都有。</span><br><span class="line">     * <span class="doctag">@return</span> 返回 true 表示响应子视图的滚动。</span><br><span class="line">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">onStartNestedScroll</span><span class="params">(View child, View target, <span class="keyword">int</span> nestedScrollAxes)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span><br><span class="line">     * 如果 onStartNestedScroll 返回 true ，然后走该方法，这个方法里可以做一些初始化。</span><br><span class="line">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onNestedScrollAccepted</span><span class="params">(View child, View target, <span class="keyword">int</span> nestedScrollAxes)</span></span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span><br><span class="line">     * 子视图开始滚动前会调用这个方法。这时候父布局（也就是当前的 NestedScrollingParent 的实现类）可以通过这个方法来配合子视图同时处理滚动事件。</span><br><span class="line">     *</span><br><span class="line">     * <span class="doctag">@param</span> target 滚动的子视图</span><br><span class="line">     * <span class="doctag">@param</span> dx 绝对值为手指在x方向滑动的距离，dx&lt;0 表示手指在屏幕向右滑动</span><br><span class="line">     * <span class="doctag">@param</span> dy 绝对值为手指在y方向滑动的距离，dy&lt;0 表示手指在屏幕向下滑动</span><br><span class="line">     * <span class="doctag">@param</span> consumed 一个数组，值用来表示父布局消耗了多少距离，未消耗前为[0,0], 如果父布局想处理滚动事件，就可以在这个方法的实现中为consumed[0]，consumed[1]赋值。</span><br><span class="line">     *                 分别表示x和y方向消耗的距离。如父布局想在竖直方向（y）完全拦截子视图，那么让 consumed[1] = dy，就把手指产生的触摸事件给拦截了，子视图便响应不到触摸事件了 。</span><br><span class="line">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onNestedPreScroll</span><span class="params">(View target, <span class="keyword">int</span> dx, <span class="keyword">int</span> dy, <span class="keyword">int</span>[] consumed)</span></span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  <span class="comment">/**</span><br><span class="line">     * 这个方法表示子视图正在滚动，并且把滚动距离回调用到该方法，前提是 onStartNestedScroll 返回了 true。</span><br><span class="line">     * &lt;p&gt;Both the consumed and unconsumed portions of the scroll distance are reported to the</span><br><span class="line">     * ViewParent. An implementation may choose to use the consumed portion to match or chase scroll</span><br><span class="line">     * position of multiple child elements, for example. The unconsumed portion may be used to</span><br><span class="line">     * allow continuous dragging of multiple scrolling or draggable elements, such as scrolling</span><br><span class="line">     * a list within a vertical drawer where the drawer begins dragging once the edge of inner</span><br><span class="line">     * scrolling content is reached.&lt;/p&gt;</span><br><span class="line">     *</span><br><span class="line">     * <span class="doctag">@param</span> target 滚动的子视图</span><br><span class="line">     * <span class="doctag">@param</span> dxConsumed 手指产生的触摸距离中，子视图消耗的x方向的距离</span><br><span class="line">     * <span class="doctag">@param</span> dyConsumed 手指产生的触摸距离中，子视图消耗的y方向的距离 ，如果 onNestedPreScroll 中 dy = 20， consumed[0] = 8，那么 dy = 12</span><br><span class="line">      * <span class="doctag">@param</span> dxUnconsumed 手指产生的触摸距离中，未被子视图消耗的x方向的距离</span><br><span class="line">     * <span class="doctag">@param</span> dyUnconsumed 手指产生的触摸距离中，未被子视图消耗的y方向的距离</span><br><span class="line">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onNestedScroll</span><span class="params">(View target, <span class="keyword">int</span> dxConsumed, <span class="keyword">int</span> dyConsumed,<span class="keyword">int</span> dxUnconsumed, <span class="keyword">int</span> dyUnconsumed)</span></span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span><br><span class="line">     * 响应嵌套滚动结束</span><br><span class="line">     *</span><br><span class="line">     * 当一个嵌套滚动结束后（如MotionEvent#ACTION_UP， MotionEvent#ACTION_CANCEL）会调用该方法，在这里可有做一些收尾工作，比如变量重置</span><br><span class="line">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onStopNestedScroll</span><span class="params">(View target)</span></span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span><br><span class="line">     * 手指在屏幕快速滑触发Fling前回调，如果前面 onNestedPreScroll 中父布局消耗了事件，那么这个也会被触发</span><br><span class="line">     * 返回true表示父布局完全处理 fling 事件</span><br><span class="line">     *</span><br><span class="line">     * <span class="doctag">@param</span> target 滚动的子视图</span><br><span class="line">     * <span class="doctag">@param</span> velocityX x方向的速度（px/s）</span><br><span class="line">     * <span class="doctag">@param</span> velocityY y方向的速度</span><br><span class="line">     * <span class="doctag">@return</span> true if this parent consumed the fling ahead of the target view</span><br><span class="line">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">onNestedPreFling</span><span class="params">(View target, <span class="keyword">float</span> velocityX, <span class="keyword">float</span> velocityY)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span><br><span class="line">     * 子视图fling 时回调，父布局可以选择监听子视图的 fling。</span><br><span class="line">     * true 表示父布局处理 fling，false表示父布局监听子视图的fling</span><br><span class="line">     *</span><br><span class="line">     * <span class="doctag">@param</span> target View that initiated the nested scroll</span><br><span class="line">     * <span class="doctag">@param</span> velocityX Horizontal velocity in pixels per second</span><br><span class="line">     * <span class="doctag">@param</span> velocityY Vertical velocity in pixels per second</span><br><span class="line">     * <span class="doctag">@param</span> consumed true 表示子视图处理了fling</span><br><span class="line"></span><br><span class="line">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">onNestedFling</span><span class="params">(View target, <span class="keyword">float</span> velocityX, <span class="keyword">float</span> velocityY, <span class="keyword">boolean</span> consumed)</span></span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span><br><span class="line">     * 返回当前 NestedScrollingParent 的滚动方向，</span><br><span class="line">     *</span><br><span class="line">     * <span class="doctag">@return</span></span><br><span class="line">     * <span class="doctag">@see</span> ViewCompat#SCROLL_AXIS_HORIZONTAL</span><br><span class="line">     * <span class="doctag">@see</span> ViewCompat#SCROLL_AXIS_VERTICAL</span><br><span class="line">     * <span class="doctag">@see</span> ViewCompat#SCROLL_AXIS_NONE</span><br><span class="line">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getNestedScrollAxes</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>文章来自： <a href="http://hanks.xyz">http://hanks.xyz</a></p>
+</blockquote>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h2 id="NestedScrollingParent_接口">NestedScrollingParent 接口</h2><p><strong>接口</strong>（android.support.v4.view.NestedScrollingParent）</p>
+<blockquote>
+<p>Nested : 嵌套的</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">几个实现类</th>
+<th style="text-align:left">介绍</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">CoordinatorLayout</td>
+<td style="text-align:left">非常强大，协调它里面 View 的嵌套滑动</td>
+</tr>
+<tr>
+<td style="text-align:left">NestedScrollView</td>
+<td style="text-align:left">类似 ScrollView, 但是支持嵌套滑动的</td>
+</tr>
+<tr>
+<td style="text-align:left">SwipeRefreshLayout</td>
+<td style="text-align:left">SwipeRefreshLayout 支持竖直方向的下拉刷新控件</td>
+</tr>
+</tbody>
+</table>]]>
+    
+    </summary>
+    
+      <category term="Android" scheme="http://hanks.xyz/tags/Android/"/>
+    
+      <category term="NestedScrolling" scheme="http://hanks.xyz/tags/NestedScrolling/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[学习 iOS 中 UITableView]]></title>
@@ -706,40 +780,6 @@
       <category term="Android" scheme="http://hanks.xyz/tags/Android/"/>
     
       <category term="interpolator" scheme="http://hanks.xyz/tags/interpolator/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[Ubuntu 14.04 搭建Swift3.0 开发环境]]></title>
-    <link href="http://hanks.xyz/2016/02/29/ubuntu-swift/"/>
-    <id>http://hanks.xyz/2016/02/29/ubuntu-swift/</id>
-    <published>2016-02-29T14:38:53.000Z</published>
-    <updated>2016-02-29T15:06:26.000Z</updated>
-    <content type="html"><![CDATA[<p>Swift已经出了3.0，开发文档有linux环境的，简单玩一下<br><img src="https://dn-coding-net-production-pp.qbox.me/9225762d-fab3-4ba9-a62e-5c4dc9e4a761.png" alt="Ubuntu+Swift"> </p>
-<h2 id="下载">下载</h2><p>下载压缩包：<a href="https://swift.org/download/" target="_blank" rel="external">https://swift.org/download/</a></p>
-<p>选择自己的环境，下载对应的压缩包，我这里下载 <strong>swift-DEVELOPMENT-SNAPSHOT-2016-02-25-a-ubuntu14.04.tar.gz</strong><br>到<code>~/Download/Swift</code> 目录下</p>
-<a id="more"></a>
-<p><img src="https://dn-coding-net-production-pp.qbox.me/f660d089-4996-4bb7-9f05-678e5bebf094.png" alt="下载"> </p>
-<h2 id="解压缩">解压缩</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ cd ~/Download/swift</span><br><span class="line"><span class="preprocessor"># 解压缩</span></span><br><span class="line">$ tar zxvf swift-DEVELOPMENT-SNAPSHOT-<span class="number">2016</span>-<span class="number">02</span>-<span class="number">25</span>-a-ubuntu14<span class="number">.04</span>.tar.gz</span><br></pre></td></tr></table></figure>
-<h2 id="配置环境变量">配置环境变量</h2><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 编辑 .bashrc </span></span><br><span class="line"><span class="title">vim</span> ~/.bashrc</span><br></pre></td></tr></table></figure>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor"># 在文件底部插入环境变量</span></span><br><span class="line"><span class="keyword">export</span> SWIFT_HOME=~/Downloads/swift/swift-DEVELOPMENT-SNAPSHOT-<span class="number">2016</span>-<span class="number">02</span>-<span class="number">25</span>-a-ubuntu14<span class="number">.04</span></span><br><span class="line"><span class="keyword">export</span> PATH=$SWIFT_HOME/usr/bin:$PATH</span><br></pre></td></tr></table></figure>
-<h2 id="验证环境变量">验证环境变量</h2><figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="keyword">swift </span>--version</span><br><span class="line"><span class="keyword">Swift </span>version <span class="number">3</span>.<span class="number">0</span>-dev (LLVM <span class="keyword">b361b0fc05, </span>Clang <span class="number">11493</span>b0f62, <span class="keyword">Swift </span>fc261045a5)</span><br><span class="line"><span class="label">Target</span>: x86_64-unknown-linux-gnu</span><br></pre></td></tr></table></figure>
-<p><a href="http://swift.org/" target="_blank" rel="external">swift官网</a></p>
-<p> <img src="https://dn-coding-net-production-pp.qbox.me/ad395462-1494-4ffb-8744-6fd7256d51c0.png" alt="图片"> </p>
-<blockquote>
-<p>文章来自： <a href="http://hanks.xyz">http://hanks.xyz</a></p>
-</blockquote>
-]]></content>
-    <summary type="html">
-    <![CDATA[<p>Swift已经出了3.0，开发文档有linux环境的，简单玩一下<br><img src="https://dn-coding-net-production-pp.qbox.me/9225762d-fab3-4ba9-a62e-5c4dc9e4a761.png" alt="Ubuntu+Swift"> </p>
-<h2 id="下载">下载</h2><p>下载压缩包：<a href="https://swift.org/download/">https://swift.org/download/</a></p>
-<p>选择自己的环境，下载对应的压缩包，我这里下载 <strong>swift-DEVELOPMENT-SNAPSHOT-2016-02-25-a-ubuntu14.04.tar.gz</strong><br>到<code>~/Download/Swift</code> 目录下</p>]]>
-    
-    </summary>
-    
-      <category term="Swift" scheme="http://hanks.xyz/tags/Swift/"/>
-    
-      <category term="Ubuntu" scheme="http://hanks.xyz/tags/Ubuntu/"/>
     
   </entry>
   

@@ -4,7 +4,7 @@
   <subtitle><![CDATA[coding]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://hanks.xyz/"/>
-  <updated>2016-04-26T16:25:19.000Z</updated>
+  <updated>2016-05-02T15:05:16.000Z</updated>
   <id>http://hanks.xyz/</id>
   
   <author>
@@ -13,6 +13,43 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[Linux 的 Crontab 定时重复任务]]></title>
+    <link href="http://hanks.xyz/2016/05/02/crontab/"/>
+    <id>http://hanks.xyz/2016/05/02/crontab/</id>
+    <published>2016-05-02T14:09:47.000Z</published>
+    <updated>2016-05-02T15:05:16.000Z</updated>
+    <content type="html"><![CDATA[<p><code>cron</code> (crond) 工具是 Linux 上面的用来执行周期性任务的工具，比如每天凌晨进行数据统计，定期备份数据库，写缓存数据到硬盘、日志清理等。<br><a id="more"></a></p>
+<p>以下环境在 Ubuntu 14.04 64位</p>
+<h2 id="基本组成">基本组成</h2><ul>
+<li>系统服务 ：<code>cron</code>（crond） （crond 进程每分钟会定期检查是否有要执行的任务，如果有要执行的任务，则自动执行该任务）</li>
+<li>配置文件：以文件方式设置定时任务（在/etc目录下有一个crontab文件，这个就是系统任务调度的配置文件）</li>
+<li>配置工具 ：<code>crontab</code> 用于调整任务</li>
+</ul>
+<figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看当前任务</span></span><br><span class="line"><span class="variable">$ </span>crontab -l</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看 cron 服务的状态</span></span><br><span class="line"><span class="variable">$ </span>service cron status</span><br></pre></td></tr></table></figure>
+<h2 id="添加任务">添加任务</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ crontab <span class="operator">-e</span></span><br></pre></td></tr></table></figure>
+<p>出现一个文件，在文件末尾添加一个任务：每天的 04:20 执行一行命令，输出 ‘hello world’ 到 /var/tmp/log 文件</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"># minute (m), hour (h), day of month (dom), month (mon),</span><br><span class="line"># and day of week (dow) or <span class="operator"><span class="keyword">use</span> <span class="string">'*'</span> <span class="keyword">in</span> these <span class="keyword">fields</span> (<span class="keyword">for</span> <span class="string">'any'</span>).#</span><br><span class="line"># <span class="keyword">Notice</span> that tasks will be started based <span class="keyword">on</span> the cron<span class="string">'s system</span><br><span class="line"># daemon'</span>s notion <span class="keyword">of</span> <span class="keyword">time</span> <span class="keyword">and</span> timezones.</span><br><span class="line">#</span><br><span class="line"># <span class="keyword">Output</span> <span class="keyword">of</span> the crontab jobs (<span class="keyword">including</span> <span class="keyword">errors</span>) <span class="keyword">is</span> sent <span class="keyword">through</span></span><br><span class="line"># email <span class="keyword">to</span> the <span class="keyword">user</span> the crontab <span class="keyword">file</span> belongs <span class="keyword">to</span> (unless redirected).</span><br><span class="line">#</span><br><span class="line"># <span class="keyword">For</span> example, you can run a <span class="keyword">backup</span> <span class="keyword">of</span> all your <span class="keyword">user</span> accounts</span><br><span class="line"># <span class="keyword">at</span> <span class="number">5</span> a.<span class="keyword">m</span> every <span class="keyword">week</span> <span class="keyword">with</span>:</span><br><span class="line"># <span class="number">0</span> <span class="number">5</span> * * <span class="number">1</span> tar -zcf /<span class="keyword">var</span>/backups/home.tgz /home/</span><br><span class="line">#</span><br><span class="line"># <span class="keyword">For</span> more information see the <span class="keyword">manual</span> pages <span class="keyword">of</span> crontab(<span class="number">5</span>) <span class="keyword">and</span> cron(<span class="number">8</span>)</span><br><span class="line">#</span><br><span class="line"># <span class="keyword">m</span> h  dom mon dow   command</span><br><span class="line"><span class="number">20</span> <span class="number">4</span> * * *  echo <span class="string">'hello world'</span> &gt;&gt; /<span class="keyword">var</span>/tmp/<span class="keyword">log</span></span></span><br></pre></td></tr></table></figure>
+<p>添加一条任务的格式</p>
+<figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">*</span>  <span class="keyword">*</span>  <span class="keyword">*</span>  <span class="keyword">*</span>  <span class="keyword">*</span>     COMMAND</span><br><span class="line">|<span class="string">  </span>|<span class="string">  </span>|<span class="string">  </span>|<span class="string">  </span>|</span><br><span class="line">|<span class="string">  </span>|<span class="string">  </span>|<span class="string">  </span>|<span class="string">  +--&gt; 星 期 0 ~ 7 ( 0 或 7 表 示 星 期 天 )</span><br><span class="line"></span>|<span class="string">  </span>|<span class="string">  </span>|<span class="string">  +-----&gt; 月 份 1 ~ 12</span><br><span class="line"></span>|<span class="string">  </span>|<span class="string">  +--------&gt; 日 期 1 ~ 31</span><br><span class="line"></span>|<span class="string">  +-----------&gt; 小 时 0 ~ 23</span><br><span class="line">+--------------&gt; 分 钟 0 ~ 59</span></span><br></pre></td></tr></table></figure>
+<p>crontab 文件的一些例子：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor"># 每晚的 <span class="number">21</span>:<span class="number">30</span> 重启 apache</span></span><br><span class="line">$ <span class="number">30</span> <span class="number">21</span> * * * /usr/local/etc/rc.d/lighttpd restart </span><br><span class="line"></span><br><span class="line"><span class="preprocessor"># 每月 <span class="number">1</span>、<span class="number">10</span>、<span class="number">22</span> 日的 <span class="number">4</span>:<span class="number">45</span> 重启 apache</span></span><br><span class="line">$ <span class="number">45</span> <span class="number">4</span> <span class="number">1</span>,<span class="number">10</span>,<span class="number">22</span> * * /usr/local/etc/rc.d/lighttpd restart </span><br><span class="line"></span><br><span class="line"><span class="preprocessor"># 每周六、周日的 <span class="number">1</span>:<span class="number">10</span> 重启 apache</span></span><br><span class="line">$ <span class="number">10</span> <span class="number">1</span> * * <span class="number">6</span>,<span class="number">0</span> /usr/local/etc/rc.d/lighttpd restart </span><br><span class="line"></span><br><span class="line"><span class="preprocessor"># 每天 <span class="number">18</span>:<span class="number">00</span> 至 <span class="number">23</span>:<span class="number">00</span> 之间每隔 <span class="number">30</span> 分钟重启 apache</span></span><br><span class="line">$ <span class="number">0</span>,<span class="number">30</span> <span class="number">18</span>-<span class="number">23</span> * * * /usr/local/etc/rc.d/lighttpd restart </span><br><span class="line"></span><br><span class="line"><span class="preprocessor"># 每星期六的 <span class="number">23</span>:<span class="number">00</span> 重启 apache</span></span><br><span class="line">$<span class="number">0</span> <span class="number">23</span> * * <span class="number">6</span> /usr/local/etc/rc.d/lighttpd restart </span><br><span class="line"></span><br><span class="line"><span class="preprocessor"># 每一小时重启 apache </span></span><br><span class="line">$ * */<span class="number">1</span> * * * /usr/local/etc/rc.d/lighttpd restart </span><br><span class="line"></span><br><span class="line"><span class="preprocessor"># <span class="number">23</span> 点到早上 <span class="number">7</span> 点之间，每隔一小时重启 apache </span></span><br><span class="line">$ * <span class="number">23</span>-<span class="number">7</span>/<span class="number">1</span> * * * /usr/local/etc/rc.d/lighttpd restart</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 列出用户目前的crontab</span></span><br><span class="line">$ crontab <span class="operator">-l</span></span><br></pre></td></tr></table></figure>
+<h1 id="其他配置">其他配置</h1><p>所有用户定义的 crontab 文件都被保存在 <code>/var/spool/cron</code> 目录中。其文件名与用户名一致。<br>使用者权限文件：<br>文件：<code>/etc/cron.deny</code> ，该文件中所列用户不允许使用 crontab 命令<br>文件：<code>/etc/cron.allow</code> ，该文件中所列用户允许使用 crontab 命令<br>文件：<code>/var/spool/cron/</code> ，所有用户 crontab 文件存放的目录,以用户名命名</p>
+<blockquote>
+<p>文章来自： <a href="http://hanks.xyz">http://hanks.xyz</a></p>
+</blockquote>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p><code>cron</code> (crond) 工具是 Linux 上面的用来执行周期性任务的工具，比如每天凌晨进行数据统计，定期备份数据库，写缓存数据到硬盘、日志清理等。<br>]]>
+    
+    </summary>
+    
+      <category term="Crontab" scheme="http://hanks.xyz/tags/Crontab/"/>
+    
+      <category term="Linux" scheme="http://hanks.xyz/tags/Linux/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[Android 中 NestedScrollingParent 接口]]></title>
@@ -745,41 +782,6 @@
       <category term="Android" scheme="http://hanks.xyz/tags/Android/"/>
     
       <category term="Kotlin" scheme="http://hanks.xyz/tags/Kotlin/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[创建 Material Design 的真实动画]]></title>
-    <link href="http://hanks.xyz/2016/03/08/material-interpolator/"/>
-    <id>http://hanks.xyz/2016/03/08/material-interpolator/</id>
-    <published>2016-03-07T16:53:41.000Z</published>
-    <updated>2016-03-24T08:05:53.000Z</updated>
-    <content type="html"><![CDATA[<p>material design 规范中，一个重要方面在于如何在“动作”完整的展现物体的各个真实的特性，譬如优雅、简约、美观和神奇的无缝的用户体验，下面的动画将帮助大家理解这些理念。</p>
-<p> <img src="https://dn-coding-net-production-pp.qbox.me/7a258a47-be74-49da-894a-70c0cfdb2e3c.gif" alt="动画"> </p>
-<a id="more"></a>
-<p>推荐一个网站: <a href="http://inloop.github.io/interpolator/" target="_blank" rel="external">http://inloop.github.io/interpolator/</a></p>
-<p>填入函数，即可立即查看效果</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(x&lt;=<span class="number">0.5</span>)&#123;</span><br><span class="line">    <span class="number">4</span>*x*x*x</span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    <span class="number">4</span>*(x-<span class="number">1</span>)*(x-<span class="number">1</span>)*(x-<span class="number">1</span>) + <span class="number">1</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p> <img src="https://dn-coding-net-production-pp.qbox.me/cb75178e-fe7f-46d9-9a72-79b4f190454d.gif" alt="动画"> </p>
-<p>以此自定义Interpolator，Interpolator 时间插值类，定义动画变换的速度。Interpolator接口，继承自TimeInterpolator，TimeInterpolator时间插值器允许动画进行非线性运动变换，如加速和限速等，该接口中只有接口中有一个方法 <code>float getInterpolation(float input)</code> 这个方法。传入的值是一个 <code>0.0~1.0</code>的值，返回值可以小于0.0也可以大于1.0。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span><br><span class="line"> * Created by hanks on 2016/3/7.</span><br><span class="line"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MaterialInterpolator</span> <span class="keyword">implements</span> <span class="title">Interpolator</span> </span>&#123;</span><br><span class="line">    <span class="annotation">@Override</span> <span class="function"><span class="keyword">public</span> <span class="keyword">float</span> <span class="title">getInterpolation</span><span class="params">(<span class="keyword">float</span> x)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(x&lt;=<span class="number">0.5</span>)&#123;</span><br><span class="line">           <span class="keyword">return</span> <span class="number">4</span>*x*x*x;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">4</span>*(x-<span class="number">1</span>)*(x-<span class="number">1</span>)*(x-<span class="number">1</span>) + <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p> <img src="https://dn-coding-net-production-pp.qbox.me/b5aefe9e-514d-4d6f-8959-26254160f51d.gif" alt="MaterialInterpolator"></p>
-<p>Lollipop在 <code>android.R.interpolator</code> 中加入了几个 interpolator，包括<code>fast_out_linear_in</code> , <code>fast_out_slow_in</code>,和<code>linear_out_slow_in</code> ：对于产生逼真的物理效果至关重要。现在我们可以通过使用兼容包中的 <code>FastOutLinearInInterpolator</code>,  <code>FastOutSlowInInterpolator</code> , <code>LinearOutSlowInInterpolator</code> 类来达到同样的效果。 除此之外，我们还可以使用 <code>PathInterpolatorCompat</code> 来制造二次方或三次方的贝塞尔曲线动画。</p>
-<p>更多 Interpolator</p>
-<p><img src="https://github.com/MasayukiSuda/EasingInterpolator/raw/master/art/easing.png" alt="图片"><br><img src="https://github.com/MasayukiSuda/EasingInterpolator/raw/master/art/FPSAnimator1.gif" alt="图片"><br><a href="https://github.com/MasayukiSuda/EasingInterpolator" target="_blank" rel="external">github</a></p>
-<blockquote>
-<p>文章来自： <a href="http://hanks.xyz">http://hanks.xyz</a></p>
-</blockquote>
-]]></content>
-    <summary type="html">
-    <![CDATA[<p>material design 规范中，一个重要方面在于如何在“动作”完整的展现物体的各个真实的特性，譬如优雅、简约、美观和神奇的无缝的用户体验，下面的动画将帮助大家理解这些理念。</p>
-<p> <img src="https://dn-coding-net-production-pp.qbox.me/7a258a47-be74-49da-894a-70c0cfdb2e3c.gif" alt="动画"> </p>]]>
-    
-    </summary>
-    
-      <category term="Android" scheme="http://hanks.xyz/tags/Android/"/>
-    
-      <category term="interpolator" scheme="http://hanks.xyz/tags/interpolator/"/>
     
   </entry>
   

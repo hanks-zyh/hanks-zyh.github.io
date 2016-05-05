@@ -4,7 +4,7 @@
   <subtitle><![CDATA[coding]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://hanks.xyz/"/>
-  <updated>2016-05-05T15:11:21.000Z</updated>
+  <updated>2016-05-05T15:12:55.000Z</updated>
   <id>http://hanks.xyz/</id>
   
   <author>
@@ -19,12 +19,12 @@
     <link href="http://hanks.xyz/2016/05/05/sqlite-master/"/>
     <id>http://hanks.xyz/2016/05/05/sqlite-master/</id>
     <published>2016-05-05T15:01:26.000Z</published>
-    <updated>2016-05-05T15:11:21.000Z</updated>
+    <updated>2016-05-05T15:12:55.000Z</updated>
     <content type="html"><![CDATA[<p>需求：有一个 SQLite 的 db 数据库文件，现在需要列出这个数据库文件的所有表的信息。</p>
 <a id="more"></a>
 <p>SQLite 的数据库中有一个自动生成的 <code>sqlite_master</code> 表，表中保存数据库表的关键信息。如要查看表概要，可按如下操作：<br>这个表的结构如下：</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> sqlite_master (</span><br><span class="line">  <span class="keyword">type</span> <span class="built_in">text</span>,</span><br><span class="line">  <span class="keyword">name</span> <span class="built_in">text</span>,</span><br><span class="line">  tbl_name <span class="built_in">text</span>,</span><br><span class="line">  rootpage <span class="built_in">integer</span>,</span><br><span class="line">  <span class="keyword">sql</span> <span class="built_in">text</span></span><br><span class="line">);</span></span><br></pre></td></tr></table></figure>
-<p><code>type</code> 字段的值是 <code>table</code>，<code>name</code> 字段是表的名字，<code>tbl_name</code> 字段是表的创建语句。<br>所以想要查看数据库中所有表的信息可以执行以下语句：</p>
+<p><code>type</code> 字段的值是 <code>table</code>，<code>name</code> 字段是表的名字，<code>sql</code> 字段是表的创建语句。<br>所以想要查看数据库中所有表的信息可以执行以下语句：</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator"><span class="keyword">SELECT</span> <span class="keyword">name</span> <span class="keyword">FROM</span> sqlite_master </span><br><span class="line"><span class="keyword">WHERE</span> <span class="keyword">type</span> = <span class="string">'table'</span> </span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> <span class="keyword">name</span>;</span></span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>文章来自： <a href="http://hanks.xyz">http://hanks.xyz</a></p>

@@ -122,6 +122,10 @@
       <ul>
         
           <li>
+            <a href="/2016/05/20/express-project/">Express 做网站</a>
+          </li>
+        
+          <li>
             <a href="/2016/05/19/express-node/">认识 Express</a>
           </li>
         
@@ -175,10 +179,6 @@
         
           <li>
             <a href="/2016/03/26/color-board/">一张图让开发人员理解色相、亮度、饱和度</a>
-          </li>
-        
-          <li>
-            <a href="/2016/03/21/scrapy-mediuem-android/">Scrapy 抓取 Mediuem 网站 Android 标签下的文章</a>
           </li>
         
       </ul>
@@ -248,6 +248,48 @@
 </aside>
         
         <section id="main" class="mdl-shadow--2dp">
+  
+    <article id="post-kotlin-for-android-extensions" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/03/13/kotlin-for-android-extensions/" class="article-date">
+  <time datetime="2016-03-12T16:28:58.000Z" itemprop="datePublished">2016-03-13</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/03/13/kotlin-for-android-extensions/">Kotlin for Android - 0x01 有趣的扩展</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>在 Kotlin 中， 提供了一个很方便的功能，可以在不继承父类，也不使用类似装饰器这样的设计模式的情况下对指定类进行扩展，扩展新的方法、属性。</p>
+        
+            
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Kotlin/">Kotlin</a></li></ul>
+
+
+        
+      
+    </div>
+</article>
+ 
+ <!-- 上一页 下一页 -->
+
+
+<!-- 相关文章 -->
+
+
+
+
   
     <article id="post-Fragment-setUserVisibleHint" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
@@ -1055,53 +1097,6 @@
       
         <p>参照官方例子练习组件的使用,练习View Image Text 还有Android平台的DrawerLayoutAndroid<br>效果图:<br><img src="http://file.bmob.cn/M02/11/DF/oYYBAFZ5LF6AVgO5AIY4EJ1JHfk120.gif" alt="React-Native"></p>
 <h2 id="React-Native_中的_width,height的_100%">React-Native  中的 width,height的 100%</h2><p>在React-Native 中没有百分比这样的宽高,但是有替代的,具体见 <a href="https://github.com/facebook/css-layout/issues/57#ref-issue-86696744">issue</a><br><code>flex:1</code> 相当于 <code>height:100%</code><br><code>alignSelf:&#39;stretch&#39;</code> 相当于 <code>width:100%</code></p>
-        
-            
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/React-Native/">React-Native</a></li></ul>
-
-
-        
-      
-    </div>
-</article>
- 
- <!-- 上一页 下一页 -->
-
-
-<!-- 相关文章 -->
-
-
-
-
-  
-    <article id="post-react-flexbox" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2015/12/21/react-flexbox/" class="article-date">
-  <time datetime="2015-12-21T07:11:14.000Z" itemprop="datePublished">2015-12-21</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/12/21/react-flexbox/">React-Native中的布局</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>React-Native 使用 FlexBox布局来放置元素</p>
-<blockquote>
-<p>Flex是Flexible Box的缩写，意为”弹性布局”，用来为盒状模型提供最大的灵活性。<br>任何一个容器都可以指定为Flex布局。</p>
-</blockquote>
-<p><a href="http://facebook.github.io/react-native/docs/flexbox.html#content">Flexbox</a></p>
-<figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">alignItems <span class="class"><span class="keyword">enum</span>('<span class="title">flex</span>-<span class="title">start</span>', '<span class="title">flex</span>-<span class="title">end</span>', '<span class="title">center</span>', '<span class="title">stretch</span>')</span></span><br><span class="line"></span><br><span class="line">alignSelf <span class="class"><span class="keyword">enum</span>('<span class="title">auto</span>', '<span class="title">flex</span>-<span class="title">start</span>', '<span class="title">flex</span>-<span class="title">end</span>', '<span class="title">center</span>', '<span class="title">stretch</span>')</span></span><br><span class="line"></span><br><span class="line">flex number</span><br><span class="line"></span><br><span class="line">flexDirection <span class="class"><span class="keyword">enum</span>('<span class="title">row</span>', '<span class="title">column</span>')</span></span><br><span class="line"></span><br><span class="line">flexWrap <span class="class"><span class="keyword">enum</span>('<span class="title">wrap</span>', '<span class="title">nowrap</span>')</span></span><br><span class="line"></span><br><span class="line">justifyContent <span class="class"><span class="keyword">enum</span>('<span class="title">flex</span>-<span class="title">start</span>', '<span class="title">flex</span>-<span class="title">end</span>', '<span class="title">center</span>', '<span class="title">space</span>-<span class="title">between</span>', '<span class="title">space</span>-<span class="title">around</span>')</span></span><br></pre></td></tr></table></figure>
         
             
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/React-Native/">React-Native</a></li></ul>

@@ -4,7 +4,7 @@
   <subtitle><![CDATA[coding]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://hanks.xyz/"/>
-  <updated>2016-05-20T16:18:37.000Z</updated>
+  <updated>2016-05-20T16:21:01.000Z</updated>
   <id>http://hanks.xyz/</id>
   
   <author>
@@ -15,11 +15,11 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title><![CDATA[Express 做网站]]></title>
+    <title><![CDATA[Express 网站开发]]></title>
     <link href="http://hanks.xyz/2016/05/20/express-project/"/>
     <id>http://hanks.xyz/2016/05/20/express-project/</id>
     <published>2016-05-20T15:54:30.000Z</published>
-    <updated>2016-05-20T16:18:37.000Z</updated>
+    <updated>2016-05-20T16:21:01.000Z</updated>
     <content type="html"><![CDATA[<p><code>express</code> 开发一个简单的网站，网页模板引擎使用 <code>jade</code>，样式基于 <code>bootstrap</code>，数据库使用 <code>MongoDB</code></p>
 <a id="more"></a>
 <h2 id="环境搭建">环境搭建</h2><figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm <span class="keyword">install</span> express jade mongooes</span><br></pre></td></tr></table></figure>

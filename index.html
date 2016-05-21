@@ -122,6 +122,10 @@
       <ul>
         
           <li>
+            <a href="/2016/05/21/mongoDB/">MongoDB 入门</a>
+          </li>
+        
+          <li>
             <a href="/2016/05/20/express-project/">Express 网站开发</a>
           </li>
         
@@ -177,10 +181,6 @@
             <a href="/2016/03/28/mac-launchctl/">Mac 上利用 launchctl 开启定时任务</a>
           </li>
         
-          <li>
-            <a href="/2016/03/26/color-board/">一张图让开发人员理解色相、亮度、饱和度</a>
-          </li>
-        
       </ul>
     </div>
   </div>
@@ -191,7 +191,7 @@
   <div class="widget-wrap mdl-shadow--2dp">
     <h3 class="widget-title">标签云</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Activity/">Activity</a> <a href="/tags/Android/">Android</a> <a href="/tags/Atom/">Atom</a> <a href="/tags/Dagger2/">Dagger2</a> <a href="/tags/Express/">Express</a> <a href="/tags/Fragment/">Fragment</a> <a href="/tags/Framework/">Framework</a> <a href="/tags/HTML-CSS/">HTML/CSS</a> <a href="/tags/Jade/">Jade</a> <a href="/tags/Java/">Java</a> <a href="/tags/Kotlin/">Kotlin</a> <a href="/tags/LAMP/">LAMP</a> <a href="/tags/Linux/">Linux</a> <a href="/tags/Mac/">Mac</a> <a href="/tags/NestedScrolling/">NestedScrolling</a> <a href="/tags/Node-js/">Node.js</a> <a href="/tags/OS-X/">OS X</a> <a href="/tags/Python/">Python</a> <a href="/tags/React-Native/">React-Native</a> <a href="/tags/Refactoring/">Refactoring</a> <a href="/tags/Rx/">Rx</a> <a href="/tags/RxJava/">RxJava</a> <a href="/tags/Rxandroid/">Rxandroid</a> <a href="/tags/Rxjava/">Rxjava</a> <a href="/tags/SQLite/">SQLite</a> <a href="/tags/Scrapy/">Scrapy</a> <a href="/tags/Swift/">Swift</a> <a href="/tags/Ubuntu/">Ubuntu</a> <a href="/tags/VPS/">VPS</a> <a href="/tags/Vue-js/">Vue.js</a> <a href="/tags/crontab/">crontab</a> <a href="/tags/iOS/">iOS</a> <a href="/tags/interpolator/">interpolator</a> <a href="/tags/mac-os/">mac os</a> <a href="/tags/virtualBox/">virtualBox</a> <a href="/tags/学习/">学习</a> <a href="/tags/必备知识/">必备知识</a> <a href="/tags/性能优化/">性能优化</a> <a href="/tags/总结/">总结</a> <a href="/tags/热修复/">热修复</a> <a href="/tags/设计/">设计</a>
+      <a href="/tags/Activity/">Activity</a> <a href="/tags/Android/">Android</a> <a href="/tags/Atom/">Atom</a> <a href="/tags/Dagger2/">Dagger2</a> <a href="/tags/Express/">Express</a> <a href="/tags/Fragment/">Fragment</a> <a href="/tags/Framework/">Framework</a> <a href="/tags/HTML-CSS/">HTML/CSS</a> <a href="/tags/Jade/">Jade</a> <a href="/tags/Java/">Java</a> <a href="/tags/Kotlin/">Kotlin</a> <a href="/tags/LAMP/">LAMP</a> <a href="/tags/Linux/">Linux</a> <a href="/tags/Mac/">Mac</a> <a href="/tags/MongoDB/">MongoDB</a> <a href="/tags/NestedScrolling/">NestedScrolling</a> <a href="/tags/Node-js/">Node.js</a> <a href="/tags/OS-X/">OS X</a> <a href="/tags/Python/">Python</a> <a href="/tags/React-Native/">React-Native</a> <a href="/tags/Refactoring/">Refactoring</a> <a href="/tags/Rx/">Rx</a> <a href="/tags/RxJava/">RxJava</a> <a href="/tags/Rxandroid/">Rxandroid</a> <a href="/tags/Rxjava/">Rxjava</a> <a href="/tags/SQLite/">SQLite</a> <a href="/tags/Scrapy/">Scrapy</a> <a href="/tags/Swift/">Swift</a> <a href="/tags/Ubuntu/">Ubuntu</a> <a href="/tags/VPS/">VPS</a> <a href="/tags/Vue-js/">Vue.js</a> <a href="/tags/crontab/">crontab</a> <a href="/tags/iOS/">iOS</a> <a href="/tags/interpolator/">interpolator</a> <a href="/tags/mac-os/">mac os</a> <a href="/tags/virtualBox/">virtualBox</a> <a href="/tags/学习/">学习</a> <a href="/tags/必备知识/">必备知识</a> <a href="/tags/性能优化/">性能优化</a> <a href="/tags/总结/">总结</a> <a href="/tags/热修复/">热修复</a> <a href="/tags/设计/">设计</a>
     </div>
   </div>
 
@@ -248,6 +248,48 @@
 </aside>
         
         <section id="main" class="mdl-shadow--2dp">
+  
+    <article id="post-mongoDB" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/05/21/mongoDB/" class="article-date">
+  <time datetime="2016-05-21T07:38:33.000Z" itemprop="datePublished">2016-05-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/05/21/mongoDB/">MongoDB 入门</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>什么是 <code>MongoDB</code> ?<br>MongoDB 是由C++语言编写的，是一个基于分布式文件存储的开源数据库系统。<br>在高负载的情况下，添加更多的节点，可以保证服务器性能。<br>MongoDB 旨在为 WEB 应用提供可扩展的高性能数据存储解决方案。<br>MongoDB 将数据存储为一个文档，数据结构由键值 (key=&gt;value) 对组成。MongoDB 文档类似于 <code>JSON 对象</code>。字段值可以包含其他文档，数组及文档数组。<br>
+        
+            
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MongoDB/">MongoDB</a></li></ul>
+
+
+        
+      
+    </div>
+</article>
+ 
+ <!-- 上一页 下一页 -->
+
+
+<!-- 相关文章 -->
+
+
+
+
   
     <article id="post-express-project" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
@@ -1076,48 +1118,6 @@
         
             
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Node-js/">Node.js</a></li></ul>
-
-
-        
-      
-    </div>
-</article>
- 
- <!-- 上一页 下一页 -->
-
-
-<!-- 相关文章 -->
-
-
-
-
-  
-    <article id="post-kotlin-companion" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2016/03/15/kotlin-companion/" class="article-date">
-  <time datetime="2016-03-15T15:41:01.000Z" itemprop="datePublished">2016-03-15</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/03/15/kotlin-companion/">Kotlin 中创建类似 Java 的静态方法</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>在 <code>Java</code> 中经常会写个 <code>Utils</code> 工具类来将代码中常用的功能抽出来。在 <code>Kotlin</code> 中该怎么写呢？ 代码就类似下面的这种：</p>
-        
-            
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Kotlin/">Kotlin</a></li></ul>
 
 
         

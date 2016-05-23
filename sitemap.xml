@@ -2,6 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://hanks.xyz/daily/index.html</loc>
+    <lastmod>2016-05-23T13:49:50.000Z</lastmod>
+  </url>
+  
+  <url>
     <loc>http://hanks.xyz/2016/05/21/mongoDB/</loc>
     <lastmod>2016-05-21T09:06:42.000Z</lastmod>
   </url>
@@ -34,11 +39,6 @@
   <url>
     <loc>http://hanks.xyz/2016/04/21/iOS-TableView/</loc>
     <lastmod>2016-04-20T17:18:54.000Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://hanks.xyz/daily/index.html</loc>
-    <lastmod>2016-04-16T16:13:17.000Z</lastmod>
   </url>
   
   <url>

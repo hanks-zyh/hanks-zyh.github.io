@@ -4,7 +4,7 @@
   <subtitle><![CDATA[coding]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://hanks.xyz/"/>
-  <updated>2016-06-18T11:39:11.000Z</updated>
+  <updated>2016-06-21T16:10:34.000Z</updated>
   <id>http://hanks.xyz/</id>
   
   <author>
@@ -13,6 +13,49 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[利用 Android 手机打造来电通知计划]]></title>
+    <link href="http://hanks.xyz/2016/06/21/motifyme/"/>
+    <id>http://hanks.xyz/2016/06/21/motifyme/</id>
+    <published>2016-06-21T15:38:27.000Z</published>
+    <updated>2016-06-21T16:10:34.000Z</updated>
+    <content type="html"><![CDATA[<p>最近住的地方总在晚上停电，还让不让人活了，大热天的，于是就晚上在外面先找个凉快的地方呆着，但是来电的时间不确定，有时候感觉应该来电了，回去了还是没电，那个热啊。那么问题来了，要是屋里来电了有人告诉我就好了！于是计划写一个小程序让它在屋里来电后通知。<br><a id="more"></a><br>利用现用资源：一台<strong>退休的手机</strong><br>大概思路是这样的：家里的路由器是一直连着电源的，老手机是一直开着 wifi 的，来电后路由器通电，自动连接上网络，这个时候手机也检测到网络，连接上了 wifi，然后后台程序通过此判断来电了，再让老手机给我发短信通知，收到来电通知后我就可以回去了吹电扇了！</p>
+<p>来来来，开始写程序</p>
+<ol>
+<li>首先开启一个后台服务 <code>NetCheckService</code>，1分钟执行一次。记得 AndroidMenifest.xml 注册。</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span><br><span class="line"> * Created by hanks on 16/6/21.</span><br><span class="line"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">NetCheckService</span> <span class="keyword">extends</span> <span class="title">Service</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String LAST_STATUS = <span class="string">"lastStatus"</span>; </span><br><span class="line">    <span class="annotation">@Nullable</span> <span class="annotation">@Override</span> <span class="function"><span class="keyword">public</span> IBinder <span class="title">onBind</span><span class="params">(Intent intent)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 服务开启</span></span><br><span class="line">    <span class="annotation">@Override</span> <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">onStartCommand</span><span class="params">(Intent intent, <span class="keyword">int</span> flags, <span class="keyword">int</span> startId)</span> </span>&#123;</span><br><span class="line">        handleIntent();</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">super</span>.onStartCommand(intent, flags, startId);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">handleIntent</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">new</span> Thread()&#123;</span><br><span class="line">            <span class="annotation">@Override</span> <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                <span class="keyword">while</span> (<span class="keyword">true</span>)&#123; </span><br><span class="line">                    System.out.println(<span class="string">"onStart"</span>);</span><br><span class="line">                    </span><br><span class="line">                    <span class="comment">// 判断是否来电了</span></span><br><span class="line">                    handleStatus();</span><br><span class="line"></span><br><span class="line">                    <span class="keyword">try</span> &#123;</span><br><span class="line">                        Thread.sleep(<span class="number">60</span>*<span class="number">1000</span>);</span><br><span class="line">                    &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                        e.printStackTrace();</span><br><span class="line">                    &#125;</span><br><span class="line">                    System.out.println(<span class="string">"----耗时任务执行完成---"</span>);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;.start();</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<ol>
+<li>检测网络</li>
+</ol>
+<figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"> <span class="comment">/**</span><br><span class="line"> * 检测当的网络状态</span><br><span class="line"> * <span class="doctag">@return</span> true 表示网络可用</span><br><span class="line"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="function"><span class="keyword">boolean</span> <span class="title">isNetworkAvailable</span><span class="params">(Context context)</span> </span>&#123;</span><br><span class="line">    ConnectivityManager connectivity = (ConnectivityManager) context</span><br><span class="line">            .getSystemService(Context.CONNECTIVITY_SERVICE);</span><br><span class="line">    <span class="keyword">if</span> (connectivity != <span class="keyword">null</span>) &#123;</span><br><span class="line">        NetworkInfo info = connectivity.getActiveNetworkInfo();</span><br><span class="line">        <span class="keyword">if</span> (info != <span class="keyword">null</span> &amp;&amp; info.isConnected()) &#123;</span><br><span class="line">            <span class="comment">// 当前网络是连接的</span></span><br><span class="line">            <span class="keyword">if</span> (info.getState() == NetworkInfo.State.CONNECTED) &#123;</span><br><span class="line">                <span class="comment">// 当前所连接的网络可用</span></span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol>
+<li>判断是否来电了, <strong>记得注册相应的权限</strong>。</li>
+</ol>
+<figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"> <span class="keyword">private</span> <span class="function"><span class="keyword">boolean</span> <span class="title">getStatus</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());</span><br><span class="line">    <span class="function"><span class="keyword">return</span> sp.<span class="title">getBoolean</span><span class="params">(LAST_STATUS, <span class="keyword">false</span>)</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">void</span> <span class="title">updateStatus</span><span class="params">(<span class="keyword">boolean</span> isAvailable)</span> </span>&#123;</span><br><span class="line">    SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());</span><br><span class="line">    SharedPreferences.Editor editor = sp.edit();</span><br><span class="line">    editor.putBoolean(LAST_STATUS, isAvailable);</span><br><span class="line">    editor.apply();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="function"><span class="keyword">void</span> <span class="title">hanldeStatus</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">boolean</span> lastStatus = getStatus();</span><br><span class="line">    <span class="comment">// 检测网络状况</span></span><br><span class="line">    <span class="keyword">boolean</span> isNetworkAvailable = isNetworkAvailable(getApplicationContext());</span><br><span class="line">    <span class="comment">// 如果原来网络不可用 &amp;&amp; 现在可用了</span></span><br><span class="line">    <span class="keyword">if</span> (!lastStatus &amp;&amp; isNetworkAvailable) &#123;</span><br><span class="line">        <span class="comment">// 发送短信</span></span><br><span class="line">        sendSMS();</span><br><span class="line">    &#125;</span><br><span class="line">    System.out.println(<span class="string">"isNetworkAvailable = "</span> + isNetworkAvailable);</span><br><span class="line">    <span class="comment">// 更新网络状态</span></span><br><span class="line">    updateStatus(isNetworkAvailable);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol>
+<li>定期检测手机连接网络的状态，如果当前网络是可用状态并且上次是不可用状态，那么就说明来电了，然后就发送短信通知我<br>发送短信就使用的 ShareSDK 的。自定义短信模板还要审核，所以暂时用系统默认的。</li>
+</ol>
+<p><img src="http://ww2.sinaimg.cn/large/8c9b876fjw1f53acno7raj20k00zkjss.jpg" alt="收到短信" style="width: 400px;"></p>
+<p>还不完善的地方：</p>
+<ul>
+<li>手机服务很有可能被杀死。</li>
+<li>短信模板。</li>
+</ul>
+<blockquote>
+<p>还有一种思路就是手机一直充着电，检测手机电池状态是否为充电。</p>
+<p>文章来自： <a href="http://hanks.xyz">http://hanks.xyz</a></p>
+</blockquote>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>最近住的地方总在晚上停电，还让不让人活了，大热天的，于是就晚上在外面先找个凉快的地方呆着，但是来电的时间不确定，有时候感觉应该来电了，回去了还是没电，那个热啊。那么问题来了，要是屋里来电了有人告诉我就好了！于是计划写一个小程序让它在屋里来电后通知。<br>]]>
+    
+    </summary>
+    
+      <category term="Android" scheme="http://hanks.xyz/tags/Android/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[SwipeRefreshLayout 源码]]></title>
@@ -777,35 +820,6 @@
     </summary>
     
       <category term="Mac" scheme="http://hanks.xyz/tags/Mac/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[一张图让开发人员理解色相、亮度、饱和度]]></title>
-    <link href="http://hanks.xyz/2016/03/26/color-board/"/>
-    <id>http://hanks.xyz/2016/03/26/color-board/</id>
-    <published>2016-03-26T04:06:26.000Z</published>
-    <updated>2016-03-26T04:47:15.000Z</updated>
-    <content type="html"><![CDATA[<p>作为开发人员经常需要和设计师合（si）作（bi）,虽然设计师给的设计图上给出了颜色，但是有时候会对你说，“这个颜色的 <code>饱和度</code>不够，你再增加一点”，天呐，我可不懂什么是饱和度。<br>还有 <code>色相</code>、<code>亮度</code>、<code>饱和度</code>、<code>透明度</code>（这个还是理解的）等名词。</p>
-<p><strong>色相</strong> ：就是颜色的主色调，比如红、绿、蓝。<br><strong>亮度</strong> ：就是颜色的明暗，就好比你再明亮的光线下看一个红色的纸板很昏暗的光线下看红色纸板那种感觉。<br><strong>饱和度</strong> ：就是颜色的鲜艳程度，饱和度越大，看起来越鲜艳。</p>
-<a id="more"></a>
-<p>下图是 Android Studio 自带的调色板：<br> <img src="https://dn-coding-net-production-pp.qbox.me/7f817dcb-4265-412e-a3af-3c2551893a74.png" alt="调色板"> </p>
-<h3 id="调色相">调色相</h3><p> <img src="https://dn-coding-net-production-pp.qbox.me/1901db88-656f-4799-8c54-62aef45344bd.gif" alt="色相"> </p>
-<h3 id="调整亮度">调整亮度</h3><p> <img src="https://dn-coding-net-production-pp.qbox.me/c1d994d9-a540-4ada-88a1-e01046a4a427.gif" alt="亮度"> </p>
-<h3 id="调整饱和度">调整饱和度</h3><p> <img src="https://dn-coding-net-production-pp.qbox.me/71714b55-9929-4006-b7f6-cb972f15eba5.gif" alt="饱和度"> </p>
-<h3 id="RGB_模式和_CMYK_模式">RGB 模式和 CMYK 模式</h3><p>RGB： red  green blue ， 三原色很好理解<br>CMYK： 印刷四分色模式 ，使用这种模式的颜色都可以被打印出来（rgb模式下有的饱和度大的不能被打印出来）。</p>
-<p>  <img src="https://dn-coding-net-production-pp.qbox.me/f4821853-6867-44e1-a0d5-e6a872f72e62.png" alt="RGB 和 CMYK"> </p>
-<blockquote>
-<p>文章来自： <a href="http://hanks.xyz">http://hanks.xyz</a></p>
-</blockquote>
-]]></content>
-    <summary type="html">
-    <![CDATA[<p>作为开发人员经常需要和设计师合（si）作（bi）,虽然设计师给的设计图上给出了颜色，但是有时候会对你说，“这个颜色的 <code>饱和度</code>不够，你再增加一点”，天呐，我可不懂什么是饱和度。<br>还有 <code>色相</code>、<code>亮度</code>、<code>饱和度</code>、<code>透明度</code>（这个还是理解的）等名词。</p>
-<p><strong>色相</strong> ：就是颜色的主色调，比如红、绿、蓝。<br><strong>亮度</strong> ：就是颜色的明暗，就好比你再明亮的光线下看一个红色的纸板很昏暗的光线下看红色纸板那种感觉。<br><strong>饱和度</strong> ：就是颜色的鲜艳程度，饱和度越大，看起来越鲜艳。</p>]]>
-    
-    </summary>
-    
-      <category term="设计" scheme="http://hanks.xyz/tags/%E8%AE%BE%E8%AE%A1/"/>
     
   </entry>
   

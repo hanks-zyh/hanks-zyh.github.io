@@ -1,0 +1,991 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>学习 Promise （结合 RxJava） | Hanks.xyz</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description">
+<meta property="og:type" content="article">
+<meta property="og:title" content="学习 Promise （结合 RxJava）">
+<meta property="og:url" content="http://hanks.xyz/2016/06/26/promise-by-rx/index.html">
+<meta property="og:site_name" content="Hanks.xyz">
+<meta property="og:description">
+<meta property="og:updated_time" content="2016-06-26T08:26:11.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="学习 Promise （结合 RxJava）">
+<meta name="twitter:description">
+  
+  
+    <link rel="icon" href="/images/favicon.png">
+  
+  <!-- <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600' rel='stylesheet' type='text/css'> -->
+  <!-- <link href="//fonts.googleapis.com/css?family=Source+Code+Pro:400,700" rel="stylesheet" type="text/css"> -->
+  <link href="//fonts.useso.com/css?family=Source+Code+Pro:400,700" rel="stylesheet" type="text/css">
+  <link href='//fonts.useso.com/css?family=Open+Sans:300,600' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo">Hanks.xyz</a>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">首页</a>
+        
+          <a class="main-nav-link" href="/archives">归档</a>
+        
+          <a class="main-nav-link" href="/daily">日报</a>
+        
+          <a class="main-nav-link" href="/collections">收集</a>
+        
+          <a class="main-nav-link" href="/about">关于</a>
+        
+          <a class="main-nav-link" href="/atom.xml">RSS</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        <div id="search-form-wrap">
+          <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://hanks.xyz"></form>
+        </div>
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+        
+        
+          <a id="nav-github-link" class="nav-icon" href="https://github.com/hanks-zyh" title="Fork me on GitHub"></a>
+        
+      </nav>
+    </div>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/" class="mobile-nav-link">首页</a>
+  
+    <a href="/archives" class="mobile-nav-link">归档</a>
+  
+    <a href="/daily" class="mobile-nav-link">日报</a>
+  
+    <a href="/collections" class="mobile-nav-link">收集</a>
+  
+    <a href="/about" class="mobile-nav-link">关于</a>
+  
+    <a href="/atom.xml" class="mobile-nav-link">RSS</a>
+  
+  <div id="search-form-wrap-mobile">
+    <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://hanks.xyz"></form>
+  </div>
+</nav>
+      <div class="outer">
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap mdl-shadow--2dp">
+    <div class="info">
+     <div class="content">
+       <div>
+         <a href="https://github.com/hanks-zyh"><img class="avatar" src="https://avatars2.githubusercontent.com/u/6268322?v=3&s=460" alt="" /></a>
+       </div>
+       <div class="name">
+         <h2 >Hanks</h2>
+       </div>
+       <p>90后，奋青，Android ……</p>
+       <div class="account">
+         <div class="account-item">
+           <a href="http://weibo.com/u/2359002991"><img src="http://ww1.sinaimg.cn/large/8c9b876fjw1f3ik9y4q7hj205k05kdfx.jpg" style="width:40px;height:40px;border-radius: 50%;"></a>
+         </div>
+         <div class="account-item">
+              <a href="http://www.zhihu.com/people/yuhan-zhang-36"><img src="http://ww2.sinaimg.cn/large/8c9b876fjw1f3ik7sv63wj205k05k3yg.jpg" style="width:40px;height:40px;border-radius: 50%;"></a>
+         </div>
+         <div class="account-item">
+           <a href="http://hanks.xyz/atom.xml"> <img src="http://ww3.sinaimg.cn/large/8c9b876fjw1f3ik9kk2ctj205k05kt8n.jpg" style="width:40px;height:40px;border-radius: 50%;"></a>
+         </div>
+       </div>
+     </div>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap mdl-shadow--2dp">
+    <h3 class="widget-title">最新发布</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2016/06/26/promise-by-rx/">学习 Promise （结合 RxJava）</a>
+          </li>
+        
+          <li>
+            <a href="/2016/06/21/motifyme/">利用 Android 手机打造来电通知计划</a>
+          </li>
+        
+          <li>
+            <a href="/2016/06/18/swiperefreshlayout/">SwipeRefreshLayout 源码</a>
+          </li>
+        
+          <li>
+            <a href="/2016/06/05/leancloud-website/">Leancloud 进行网站托管</a>
+          </li>
+        
+          <li>
+            <a href="/2016/06/02/get-activity/">Android 中获取当前的 Activity</a>
+          </li>
+        
+          <li>
+            <a href="/2016/05/26/node-spider/">Node.js 爬微信文章</a>
+          </li>
+        
+          <li>
+            <a href="/2016/05/21/mongoDB/">MongoDB 入门</a>
+          </li>
+        
+          <li>
+            <a href="/2016/05/20/express-project/">Express 网站开发</a>
+          </li>
+        
+          <li>
+            <a href="/2016/05/19/express-node/">认识 Express</a>
+          </li>
+        
+          <li>
+            <a href="/2016/05/05/sqlite-master/">SQLite 中的 sqlite_master 表</a>
+          </li>
+        
+          <li>
+            <a href="/2016/05/02/crontab/">Linux 的 crontab 定时重复任务</a>
+          </li>
+        
+          <li>
+            <a href="/2016/04/27/NestedScrollingParent/">Android 中 NestedScrollingParent 接口</a>
+          </li>
+        
+          <li>
+            <a href="/2016/04/21/iOS-TableView/">学习 iOS 中 UITableView</a>
+          </li>
+        
+          <li>
+            <a href="/2016/04/14/Ubuntu-lamp/">Ubuntu 上搭建 LAMP 环境</a>
+          </li>
+        
+          <li>
+            <a href="/2016/04/14/rxjava-error/">强大的 RxJava 也要进行错误处理</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap mdl-shadow--2dp">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Activity/">Activity</a> <a href="/tags/Android/">Android</a> <a href="/tags/Atom/">Atom</a> <a href="/tags/Dagger2/">Dagger2</a> <a href="/tags/Express/">Express</a> <a href="/tags/Fragment/">Fragment</a> <a href="/tags/Framework/">Framework</a> <a href="/tags/HTML-CSS/">HTML/CSS</a> <a href="/tags/Jade/">Jade</a> <a href="/tags/Java/">Java</a> <a href="/tags/JavaScript/">JavaScript</a> <a href="/tags/Kotlin/">Kotlin</a> <a href="/tags/LAMP/">LAMP</a> <a href="/tags/Linux/">Linux</a> <a href="/tags/Mac/">Mac</a> <a href="/tags/MongoDB/">MongoDB</a> <a href="/tags/NestedScrolling/">NestedScrolling</a> <a href="/tags/Node-js/">Node.js</a> <a href="/tags/OS-X/">OS X</a> <a href="/tags/Promise/">Promise</a> <a href="/tags/Python/">Python</a> <a href="/tags/React-Native/">React-Native</a> <a href="/tags/Refactoring/">Refactoring</a> <a href="/tags/Rx/">Rx</a> <a href="/tags/RxJava/">RxJava</a> <a href="/tags/Rxandroid/">Rxandroid</a> <a href="/tags/Rxjava/">Rxjava</a> <a href="/tags/SQLite/">SQLite</a> <a href="/tags/Scrapy/">Scrapy</a> <a href="/tags/Swift/">Swift</a> <a href="/tags/SwipeRefreshLayout/">SwipeRefreshLayout</a> <a href="/tags/Ubuntu/">Ubuntu</a> <a href="/tags/VPS/">VPS</a> <a href="/tags/Vue-js/">Vue.js</a> <a href="/tags/crontab/">crontab</a> <a href="/tags/iOS/">iOS</a> <a href="/tags/interpolator/">interpolator</a> <a href="/tags/leancloud/">leancloud</a> <a href="/tags/mac-os/">mac os</a> <a href="/tags/virtualBox/">virtualBox</a> <a href="/tags/前端/">前端</a> <a href="/tags/学习/">学习</a> <a href="/tags/必备知识/">必备知识</a> <a href="/tags/性能优化/">性能优化</a> <a href="/tags/总结/">总结</a> <a href="/tags/热修复/">热修复</a> <a href="/tags/设计/">设计</a>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap mdl-shadow--2dp">
+    <div class="widget">
+     <iframe width="100%" height="200" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=550&fansRow=1&ptype=0&speed=0&skin=1&isTitle=0&noborder=0&isWeibo=0&isFans=1&uid=2359002991&verifier=05864e99&colors=4ABC88,ffffff,2C3E50,4ABC88,ecfbfd&dpc=1"></iframe>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap mdl-shadow--2dp">
+    <h3 class="widget-title">友情链接</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="https://github.com/hanks-zyh">hanks-zyh</a>
+          </li>
+        
+          <li>
+            <a href="http://kiya.space">Kiya‘s space</a>
+          </li>
+        
+          <li>
+            <a href="http://rocko.xyz/">Rocko&#39;s blog</a>
+          </li>
+        
+          <li>
+            <a href="http://hexo.io">Hexo</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap mdl-shadow--2dp">
+    <div class="wx">
+      <h3 class="widget-title">微信公众号</h3>
+      <img src='https://coding.net/u/zhangyuhan/p/Bmob/git/raw/master/wx_qrcode.jpg' height="100%" width="100%" >
+      <p>搜索公众号: CodeProvider</p>
+    </div>
+  </div>
+
+
+  
+</aside>
+        
+        <section id="main" class="mdl-shadow--2dp"><article id="post-promise-by-rx" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/06/26/promise-by-rx/" class="article-date">
+  <time datetime="2016-06-26T08:24:37.000Z" itemprop="datePublished">2016-06-26</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      学习 Promise （结合 RxJava）
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="当前的问题">当前的问题</h2><p>在开发过程中不同的语言都有遇到 callback hell（回调地狱）， 回调一般出现在异步操作中。<br>简单的例子:<br>① 从网络获取图片<br>② 将图片进行压缩<br>③ 压缩后的数据保存到本地<br>以上几个操作都属于异步操作，</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">op1</span>(<span class="function">callback</span>()&#123;</span><br><span class="line">    <span class="tag">success</span>()&#123;</span><br><span class="line">        <span class="tag">op2</span>(<span class="function">callback</span>()&#123;</span><br><span class="line">            <span class="tag">success</span>()&#123;</span><br><span class="line">                <span class="tag">op3</span>(<span class="function">callback</span>()&#123;</span><br><span class="line">                    <span class="tag">success</span>()&#123; </span><br><span class="line">                     <span class="comment">// done</span></span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="tag">error</span>(e)&#123;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;)  </span><br><span class="line">            &#125;</span><br><span class="line">            <span class="tag">error</span>(e)&#123;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="tag">error</span>(e)&#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h2 id="解决方案">解决方案</h2><p>不同语言设计针对此都有对应的解决方案，将回调写成流水线，将复杂的操作变成一条线。</p>
+<p><code>Rxjava</code>：java 中处理异步</p>
+<p><code>Promise</code>： JavaScript 中处理异步</p>
+<p>写起来类似于下面的代码：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">op1</span>()</span><br><span class="line">  <span class="class">.then</span>(<span class="tag">op2</span>)</span><br><span class="line">  <span class="class">.then</span>(<span class="tag">op3</span>)</span><br><span class="line">  <span class="class">.catch</span>(<span class="tag">e</span>)</span><br><span class="line">  <span class="class">.done</span>();</span><br></pre></td></tr></table></figure>
+<p><code>Promise</code> 对象代表一个异步操作，有三种状态：<code>Pending</code>（进行中）、<code>Resolved</code>（已完成，又称Fulfilled）和 <code>Rejected</code>（已失败）。</p>
+<h3 id="创建_promise">创建 promise</h3><p><code>rxjava</code></p>
+<figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="label">Observable</span> observable = Observable.create(new Observable.OnSubscribe&lt;<span class="keyword">String&gt;() </span>&#123;</span><br><span class="line">    <span class="comment">@Override</span></span><br><span class="line">    public void call(<span class="keyword">Subscriber&lt;? </span>super <span class="keyword">String&gt; </span><span class="keyword">subscriber) </span>&#123;</span><br><span class="line">      // ... some <span class="preprocessor">code</span></span><br><span class="line">      <span class="preprocessor">if</span> (<span class="comment">/* 异步操作成功 */</span>)&#123;</span><br><span class="line">        <span class="keyword">subscriber.onNext(value);</span><br><span class="line"></span>        <span class="keyword">subscriber.onCompleted();</span><br><span class="line"></span>      &#125; <span class="preprocessor">else</span> &#123;</span><br><span class="line">        <span class="keyword">subscriber.onError(error);</span><br><span class="line"></span>      &#125;</span><br><span class="line">&#125;)<span class="comment">;</span></span><br></pre></td></tr></table></figure>
+<p><code>Promise</code><br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> promise = <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span>(<span class="params">resolve, reject</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// ... some code</span></span><br><span class="line">  <span class="keyword">if</span> (<span class="comment">/* 异步操作成功 */</span>)&#123;</span><br><span class="line">    resolve(value);</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    reject(error);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<h2 id="流水线">流水线</h2><p><code>rxjava</code><br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">observable.doOnNext()</span><br><span class="line">    .<span class="built_in">map</span></span><br><span class="line">    .filter</span><br><span class="line">    .doOnNext()</span><br><span class="line">    .subscribe(</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onCompleted</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            <span class="comment">// ....               </span></span><br><span class="line">        &#125;</span><br><span class="line">     </span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onError</span><span class="params">(Throwable e)</span> </span>&#123;</span><br><span class="line">            <span class="comment">// ...</span></span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onNext</span><span class="params">(AppInfo appInfo)</span> </span>&#123;</span><br><span class="line">            <span class="comment">// ...</span></span><br><span class="line">        &#125;</span><br><span class="line">    );</span><br></pre></td></tr></table></figure></p>
+<p><code>promise</code></p>
+<figure class="highlight scilab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="transposed_variable">promise.</span><span class="keyword">then</span>(<span class="function"><span class="keyword">function</span><span class="params">()</span>&#123;</span></span><br><span class="line"></span><br><span class="line">&#125;).<span class="keyword">then</span>(<span class="function"><span class="keyword">function</span><span class="params">()</span>&#123;</span></span><br><span class="line"></span><br><span class="line">&#125;).<span class="keyword">catch</span>(<span class="function"><span class="keyword">function</span><span class="params">(error)</span>&#123;</span></span><br><span class="line"></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h3 id="all">all</h3><p>类似于 <code>Observable ob  = Observable.merge(ob1,ob2,ob3)</code></p>
+<p>Promise.all方法用于将多个Promise实例，包装成一个新的Promise实例。</p>
+<figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="label">var</span> p = Promise.all([<span class="literal">p1</span>, <span class="literal">p2</span>, <span class="literal">p3</span>])<span class="comment">;</span></span><br></pre></td></tr></table></figure>
+<p>上面代码中，<code>Promise.all</code> 方法接受一个数组作为参数，<code>p1、p2、p3</code> 都是Promise对象的实例。（Promise.all方法的参数可以不是数组，但必须具有Iterator接口，且返回的每个成员都是Promise实例。）</p>
+<p>p的状态由p1、p2、p3决定，分成两种情况。</p>
+<p>（1）只有<code>p1、p2、p3</code>的状态都变成fulfilled，p的状态才会变成fulfilled，此时p1、p2、p3的返回值组成一个数组，传递给p的回调函数。</p>
+<p>（2）只要<code>p1、p2、p3</code>之中有一个被rejected，<code>p的状态就变成rejected</code>，此时第一个被reject的实例的返回值，会传递给p的回调函数。</p>
+<h3 id="race">race</h3><figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="label">var</span> p = Promise.race([<span class="literal">p1</span>,<span class="literal">p2</span>,<span class="literal">p3</span>])<span class="comment">;</span></span><br></pre></td></tr></table></figure>
+<p><code>Promise.race</code> 方法同样是将多个Promise实例，包装成一个新的Promise实例。</p>
+<p>上面代码中，只要<code>p1、p2、p3</code>之中有一个实例率先改变状态，<code>p的状态就跟着改变</code>。那个率先改变的Promise实例的返回值，就传递给p的回调函数。</p>
+<h3 id="finally">finally</h3><p>不管 <code>Promise</code> 对象最后状态如何，都会执行的操作 。</p>
+<h3 id="参考链接">参考链接</h3><p><a href="http://es6.ruanyifeng.com/?search=fetch&amp;x=0&amp;y=0#docs/promise" target="_blank" rel="external">http://es6.ruanyifeng.com/?search=fetch&amp;x=0&amp;y=0#docs/promise</a></p>
+<p><a href="https://mcxiaoke.gitbooks.io/rxdocs/content/operators/Merge.html" target="_blank" rel="external">https://mcxiaoke.gitbooks.io/rxdocs/content/operators/Merge.html</a></p>
+<blockquote>
+<p>文章来自： <a href="http://hanks.xyz">http://hanks.xyz</a></p>
+</blockquote>
+
+      
+    </div>
+</article>
+ 
+ <!-- 上一页 下一页 -->
+
+  
+<nav id="article-nav">
+  
+  
+    <a href="/2016/06/21/motifyme/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>下一篇</span>
+      <div class="article-nav-title">利用 Android 手机打造来电通知计划</div>
+    </a>
+  
+</nav>
+
+
+
+<!-- 相关文章 -->
+
+  <!--
+
+    
+      		
+      			<a href="/2016/06/26/promise-by-rx/">学习 Promise （结合 RxJava）</a>
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+
+-->
+
+
+
+<section id="comments">
+    <!-- 多说分享框 -->
+    <div class="ds-share flat" data-thread-key="/2016/06/26/promise-by-rx/" data-title="学习 Promise （结合 RxJava）" data-images="https://raw.githubusercontent.com/Hankiya/LoveOnline/master/Rich%20Format%20Vertical.png" data-content="学习 Promise （结合 RxJava）" data-url="http://hanks.xyz//2016/06/26/promise-by-rx/">
+    <div class="ds-share-inline">
+      <ul  class="ds-share-icons-16">
+
+      	<li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+        <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+        <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+        <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+        <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+      </ul>
+      <div class="ds-share-icons-more">
+      </div>
+    </div>
+   </div>
+    <!-- 多说评论框 start -->
+   	<div class="ds-thread" data-thread-key="/2016/06/26/promise-by-rx/" data-title="学习 Promise （结合 RxJava）" data-url="http://hanks.xyz//2016/06/26/promise-by-rx/"></div>
+   <!-- 多说评论框 end -->
+   <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+   <script type="text/javascript">
+   var duoshuoQuery = {short_name:"hanks-zyh"};
+   	(function() {
+   		var ds = document.createElement('script');
+   		ds.type = 'text/javascript';ds.async = true;
+   		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+   		ds.charset = 'UTF-8';
+   		(document.getElementsByTagName('head')[0]
+   		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+   	})();
+   	</script>
+   <!-- 多说公共JS代码 end -->
+</section>
+
+</section>
+      </div>
+      <footer id="footer">
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      &copy; 2016 <a href="https://github.com/hanks-zyh"> Hanks</a></br></br>
+	  <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+	  <span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+	  Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+	  </br>
+	  </br>
+	  <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1257826513'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s95.cnzz.com/z_stat.php%3Fid%3D1257826513%26online%3D1%26show%3Dline' type='text/javascript'%3E%3C/script%3E"));</script> 
+   </div>
+  </div>
+ <div id="share">
+  <a id="totop" title="" style="display: block;">返回顶部</a>
+ </div>
+</footer>
+
+    </div>
+    
+
+<script src="/js/jquery.min.js" type="text/javascript"></script>
+<script src="/js/jquery.scrollLoading.js" type="text/javascript"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+  <script src="/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+
+
+<script src="/js/script.js" type="text/javascript"></script>
+
+  </div>
+</body>
+</html>

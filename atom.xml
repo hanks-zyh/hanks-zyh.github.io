@@ -4,7 +4,7 @@
   <subtitle><![CDATA[coding]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://hanks.xyz/"/>
-  <updated>2016-06-26T08:26:11.000Z</updated>
+  <updated>2016-07-06T16:06:15.000Z</updated>
   <id>http://hanks.xyz/</id>
   
   <author>
@@ -13,6 +13,49 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[自动化测试还可以用来干啥]]></title>
+    <link href="http://hanks.xyz/2016/07/07/auto-test/"/>
+    <id>http://hanks.xyz/2016/07/07/auto-test/</id>
+    <published>2016-07-06T16:01:00.000Z</published>
+    <updated>2016-07-06T16:06:15.000Z</updated>
+    <content type="html"><![CDATA[<p>自动化测试就是把一些重复的测试工作利用相关工具自动化，减少重复的劳动。我们不仅可以利用自动化测试工具做测试，还可以利用这些工作做一些其他事情，比如爬数据，曾经抓取过学校的整个学期的课表，空闲教室，帮老爸抓取他的客户联系信息到 excel 表。这种工具不同于一般的脚本爬虫，这相当于正常的用户行为，比如点击输入框，输入文本，点击按钮，而且不用担心动态 js 等问题。</p>
+<a id="more"></a>
+<p>大概搜索了几个自动化测试的工具：<br><a href="http://www.seleniumhq.org/projects/webdriver/" target="_blank" rel="external">selenium</a><br><a href="http://casperjs.org/" target="_blank" rel="external">capserjs</a><br><a href="http://phantomjs.org/best-practices.html" target="_blank" rel="external">phantomjs</a><br><a href="https://launchpad.net/sikuli" target="_blank" rel="external">Sikuli</a><br><a href="http://zombie.js.org/" target="_blank" rel="external">Zombie </a><br><a href="http://watij.com/webspec-api/" target="_blank" rel="external">WebSpec</a></p>
+<p>以前使用的 <code>WebSpec</code> ，支持多种浏览器内核，可开关 GUI。</p>
+<p>下面了解了一下 <a href="https://www.npmjs.com/package/selenium-webdriver" target="_blank" rel="external">selenium-webdrive</a>,支持语言有 <code>java</code> <code>c#</code> <code>python</code> <code>ruby</code><br><code>php</code> <code>perl</code> <code>javascript</code>。</p>
+<p>javascript 版安装很简单<br><figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm <span class="keyword">install</span> selenium-webdriver</span><br></pre></td></tr></table></figure></p>
+<p>这是自带的 firefox 版本的，其他浏览器的可以另行下载。</p>
+<p>看官网的一个例子<br><figure class="highlight oxygene"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> webdriver = <span class="keyword">require</span>(<span class="string">'selenium-webdriver'</span>), <span class="comment">// 引用模块</span></span><br><span class="line">    <span class="keyword">By</span> = webdriver.<span class="keyword">By</span>,</span><br><span class="line">    <span class="keyword">until</span> = webdriver.<span class="keyword">until</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> driver = <span class="keyword">new</span> webdriver.Builder()</span><br><span class="line">    .forBrowser(<span class="string">'firefox'</span>) <span class="comment">// 打开 firfox </span></span><br><span class="line">    .build();</span><br><span class="line"></span><br><span class="line">driver.get(<span class="string">'http://www.google.com/ncr'</span>); <span class="comment">// 打开网页</span></span><br><span class="line">driver.findElement(<span class="keyword">By</span>.name(<span class="string">'q'</span>)).sendKeys(<span class="string">'webdriver'</span>); <span class="comment">// 获取输入框，并输入元素</span></span><br><span class="line">driver.findElement(<span class="keyword">By</span>.name(<span class="string">'btnG'</span>)).click(); <span class="comment">// 获取搜索按钮，并点击</span></span><br><span class="line">driver.wait(<span class="keyword">until</span>.titleIs(<span class="string">'webdriver - Google Search'</span>),  <span class="number">1000</span>); <span class="comment">// 等待网络响应直到网页标题变为webdriver - Google Search</span></span><br><span class="line">driver.quit();</span><br></pre></td></tr></table></figure></p>
+<p>api 都简单易懂，很快就能入手使用。使用中遇到问题是 <code>driver.findElement</code> 有时会出现异常，原因是有的网页是后端动态渲染的，无法一下子获取到对应的元素，需要使用</p>
+<figure class="highlight oxygene"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> button = driver.wait(<span class="keyword">until</span>.elementLocated(<span class="keyword">By</span>.name(<span class="string">'login'</span>)), <span class="number">5</span> * <span class="number">1000</span>)</span><br></pre></td></tr></table></figure>
+<hr>
+<p>计划用自动测试来自动运营微信公众号。大概流程如下（基本就是模拟用户行为）：</p>
+<p>现在需要扫描二维码，那么就将二维码发送到手机然后微信识别登录。</p>
+<ol>
+<li>登录</li>
+<li>获取二维码</li>
+<li>点击群发消息</li>
+<li>点击消息</li>
+<li>编辑文章</li>
+<li>发送</li>
+<li>获取二维码</li>
+<li>文章发布成功</li>
+</ol>
+<p>可以利用 slack 或者 telegram 机器人的 api 来通知自己（比如将验证码图片发送到手机）。</p>
+<blockquote>
+<p>文章来自： <a href="http://hanks.xyz">http://hanks.xyz</a></p>
+</blockquote>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>自动化测试就是把一些重复的测试工作利用相关工具自动化，减少重复的劳动。我们不仅可以利用自动化测试工具做测试，还可以利用这些工作做一些其他事情，比如爬数据，曾经抓取过学校的整个学期的课表，空闲教室，帮老爸抓取他的客户联系信息到 excel 表。这种工具不同于一般的脚本爬虫，这相当于正常的用户行为，比如点击输入框，输入文本，点击按钮，而且不用担心动态 js 等问题。</p>]]>
+    
+    </summary>
+    
+      <category term="自动化" scheme="http://hanks.xyz/tags/%E8%87%AA%E5%8A%A8%E5%8C%96/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[学习 Promise （结合 RxJava）]]></title>
@@ -766,78 +809,6 @@
       <category term="HTML/CSS" scheme="http://hanks.xyz/tags/HTML-CSS/"/>
     
       <category term="Vue.js" scheme="http://hanks.xyz/tags/Vue-js/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[学习 Jade]]></title>
-    <link href="http://hanks.xyz/2016/03/29/learn-jade/"/>
-    <id>http://hanks.xyz/2016/03/29/learn-jade/</id>
-    <published>2016-03-29T14:13:38.000Z</published>
-    <updated>2016-03-29T15:32:32.000Z</updated>
-    <content type="html"><![CDATA[<p>优秀的模板引擎 <code>Jade</code> ，减少写代码，提高可读性，提高生活质量。。。</p>
-<a id="more"></a>
-<h2 id="为什么需要_Jade_？">为什么需要 Jade ？</h2><p>减少写代码，提高可读性，提高生活质量。。。</p>
-<p> <img src="https://dn-coding-net-production-pp.qbox.me/8ca2aa51-11a2-4ae7-ab3e-671fc10629d1.png" alt="html">  </p>
-<p>这一层一层的。。。</p>
-<p> <img src="https://dn-coding-net-production-pp.qbox.me/82be566f-3cde-441b-87be-e6d2f028e48b.png" alt="图片"> </p>
-<p>看 <code>jade</code> 的这个拼接。</p>
-<p>Jade 优点： </p>
-<ul>
-<li>超强的可读性</li>
-<li>灵活的缩进</li>
-<li>块扩展</li>
-<li>代码默认经过编码处理以增强安全性</li>
-<li>编译及运行时的上下文错误报告</li>
-<li>命令行的编译支持</li>
-<li>HTML5 模式</li>
-<li>可选的内存缓存</li>
-<li>利用过滤器解析树的处理</li>
-</ul>
-<p>后面说的什么鬼其实我也不懂，但是最大优点: <strong>超强的可读性</strong>，<strong>提升开发效率</strong>。</p>
-<p>需要 Node.js 环境， 没有装的可以参考<a href="http://hanks.xyz/2016/03/17/mac-node-config/">Mac 上配置 Node.js 环境</a></p>
-<h2 id="安装_Jade">安装 Jade</h2><figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 通过 npm 安装 jade</span></span><br><span class="line">$ npm <span class="keyword">install</span> jade -g</span><br></pre></td></tr></table></figure>
-<h2 id="开始使用">开始使用</h2><p>创建 <code>index.jade</code> 文件</p>
-<p><code>index.jade</code><br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">doctype <span class="tag">html</span></span><br><span class="line"><span class="tag">html</span></span><br><span class="line">  head</span><br><span class="line">    title hanks<span class="class">.xyz</span></span><br><span class="line">  <span class="tag">body</span></span><br><span class="line">    <span class="tag">p</span> welcome to hanks.xyz</span><br></pre></td></tr></table></figure></p>
-<p>就是这么简单，下面开始将 <code>jade</code> 文件渲染为 <code>html</code> 文件<br><figure class="highlight axapta"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ jade <span class="keyword">index</span>.jade</span><br></pre></td></tr></table></figure></p>
-<p>html:<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="doctype">&lt;!DOCTYPE html&gt;</span><span class="tag">&lt;<span class="title">html</span>&gt;</span><span class="tag">&lt;<span class="title">head</span>&gt;</span><span class="tag">&lt;<span class="title">title</span>&gt;</span>hanks.xyz<span class="tag">&lt;/<span class="title">title</span>&gt;</span><span class="tag">&lt;/<span class="title">head</span>&gt;</span><span class="tag">&lt;<span class="title">body</span>&gt;</span><span class="tag">&lt;<span class="title">p</span>&gt;</span>welcome to hanks.xyz<span class="tag">&lt;/<span class="title">p</span>&gt;</span><span class="tag">&lt;/<span class="title">body</span>&gt;</span><span class="tag">&lt;/<span class="title">html</span>&gt;</span>%</span><br></pre></td></tr></table></figure></p>
-<p>可以看到渲染出来的 <code>index.html</code> 文件是经过压缩过的。我们可以加速 <code>-P</code> 参数格式化渲染的 <code>index.html</code></p>
-<figure class="highlight axapta"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ jade -P <span class="keyword">index</span>.jade</span><br></pre></td></tr></table></figure>
-<p>html:<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="doctype">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">html</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">title</span>&gt;</span>hanks.xyz<span class="tag">&lt;/<span class="title">title</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="title">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">p</span>&gt;</span>welcome to hanks.xyz<span class="tag">&lt;/<span class="title">p</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="title">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">html</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>还可以加上 <code>-w</code> 参数监听 jade 文件的变化，自动渲染刷新 html 文件</p>
-<figure class="highlight axapta"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ jade -P -w <span class="keyword">index</span>.jade</span><br></pre></td></tr></table></figure>
-<p> <img src="https://dn-coding-net-production-pp.qbox.me/62b171d5-8d4d-45e6-9d55-e40ffacb5140.gif" alt="动态渲染"> </p>
-<h2 id="基本语法">基本语法</h2><h3 id="标签">标签</h3><p>默认，每行开始的<strong>第一个单词</strong>代表一个标签，可以是自定义的标签<br>jade:<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">p</span> welcome to hanks<span class="class">.xyz</span></span><br><span class="line"><span class="tag">h1</span> <span class="tag">h1</span> 标题</span><br><span class="line"><span class="tag">h2</span> <span class="tag">h2</span> 标题</span><br></pre></td></tr></table></figure></p>
-<p>html:<br><figure class="highlight pf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">&lt;p&gt;</span>welcome <span class="keyword">to</span> hanks.xyz<span class="variable">&lt;/p&gt;</span></span><br><span class="line"><span class="variable">&lt;h1&gt;</span>h1 标题<span class="variable">&lt;/h1&gt;</span></span><br><span class="line"><span class="variable">&lt;h2&gt;</span>h2 标题<span class="variable">&lt;/h2&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>使用<strong>缩进</strong>代表标签嵌套关系</p>
-<p>jade:<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">div</span><span class="class">.title</span></span><br><span class="line">  <span class="tag">h1</span> title2</span><br><span class="line">  <span class="tag">p</span>  something</span><br><span class="line"><span class="tag">div</span></span><br><span class="line">  <span class="tag">div</span></span><br><span class="line">    <span class="tag">div</span>.<span class="function"><span class="title">info</span><span class="params">(name=<span class="string">"hanks"</span>)</span></span></span><br></pre></td></tr></table></figure></p>
-<p>html:<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"title"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">h1</span>&gt;</span>title2<span class="tag">&lt;/<span class="title">h1</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">p</span>&gt;</span> something<span class="tag">&lt;/<span class="title">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">name</span>=<span class="value">"hanks"</span> <span class="attribute">class</span>=<span class="value">"info"</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<h3 id="class_和_id">class 和 id</h3><p>jade:<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">h1</span><span class="class">.title</span></span><br><span class="line">h2<span class="id">#title</span></span><br><span class="line"><span class="id">#t_id</span></span><br><span class="line"><span class="id">#t_id</span>.title</span><br></pre></td></tr></table></figure></p>
-<p>html:<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">h1</span> <span class="attribute">class</span>=<span class="value">"title"</span>&gt;</span><span class="tag">&lt;/<span class="title">h1</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">h2</span> <span class="attribute">id</span>=<span class="value">"title"</span>&gt;</span><span class="tag">&lt;/<span class="title">h2</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"t_id"</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"t_id"</span> <span class="attribute">class</span>=<span class="value">"title"</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>﻿### 属性</p>
-<p>jade:<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">a</span><span class="params">(herf=<span class="string">"http://hanks.xyz"</span>)</span></span> hanks<span class="class">.xyz</span></span><br><span class="line">input#<span class="function"><span class="title">username</span><span class="params">(name=<span class="string">"username"</span>,type=<span class="string">"text"</span>,vaule=<span class="string">"jade"</span>)</span></span></span><br></pre></td></tr></table></figure></p>
-<p>html:<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">a</span> <span class="attribute">herf</span>=<span class="value">"http://hanks.xyz"</span>&gt;</span>hanks.xyz<span class="tag">&lt;/<span class="title">a</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">input</span> <span class="attribute">id</span>=<span class="value">"username"</span> <span class="attribute">name</span>=<span class="value">"username"</span> <span class="attribute">type</span>=<span class="value">"text"</span> <span class="attribute">vaule</span>=<span class="value">"jade"</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<h3 id="Plain_Text">Plain Text</h3><p>jade:<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">p</span>.</span><br><span class="line">  <span class="number">1</span><span class="class">.aa</span></span><br><span class="line">  <span class="number">2</span><span class="class">.vv</span></span><br><span class="line">  <span class="number">3</span>.cc</span><br></pre></td></tr></table></figure></p>
-<p>html:<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">p</span>&gt;</span></span><br><span class="line">  1.aa</span><br><span class="line">  2.vv</span><br><span class="line">  3.cc</span><br><span class="line"><span class="tag">&lt;/<span class="title">p</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>注意 <code>p</code> 标签后面紧跟着一个 <code>.</code></p>
-<p>jade:<br><figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">p.</span><br><span class="line">  1.aa<span class="variable">&lt;strong&gt;</span>AA<span class="variable">&lt;/strong&gt;</span></span><br><span class="line">  2.vv</span><br><span class="line">  3.cc</span><br><span class="line">p</span><br><span class="line">  |<span class="string"> 1.aa</span><br><span class="line">  strong AA</span><br><span class="line">  </span>|<span class="string"> 2.vv</span><br><span class="line">  </span>|<span class="string"> 3.cc</span></span><br></pre></td></tr></table></figure></p>
-<p>html:<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">p</span>&gt;</span></span><br><span class="line">  1.aa<span class="tag">&lt;<span class="title">strong</span>&gt;</span>AA<span class="tag">&lt;/<span class="title">strong</span>&gt;</span></span><br><span class="line">  2.vv</span><br><span class="line">  3.cc</span><br><span class="line"><span class="tag">&lt;/<span class="title">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">p</span>&gt;</span>1.aa<span class="tag">&lt;<span class="title">strong</span>&gt;</span>AA<span class="tag">&lt;/<span class="title">strong</span>&gt;</span>2.vv</span><br><span class="line">  3.cc</span><br><span class="line"><span class="tag">&lt;/<span class="title">p</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<h3 id="注释">注释</h3><p>jade:<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">div</span></span><br><span class="line">  <span class="comment">// h1 单行注释，输出到源文件</span></span><br><span class="line">  <span class="comment">//- h3 非缓冲注释</span></span><br><span class="line">  <span class="comment">//</span></span><br><span class="line">    这是一个</span><br><span class="line">    多行注释</span><br></pre></td></tr></table></figure></p>
-<p>html:<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">div</span>&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- h1 单行注释，输出到源文件--&gt;</span></span><br><span class="line">  <span class="comment">&lt;!--</span><br><span class="line">  这是一个</span><br><span class="line">  多行注释</span><br><span class="line">  --&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>jade 使用双斜线 <code>//</code>进行单行注释；<br>如果不想让注释的内容显示到生成的 html 代码中，可以在双斜线 <code>//</code> 后跟一个单横线<code>-</code>；<br>双斜线 <code>//</code> 后面的注释内容换行并缩进可进行块级注释</p>
-<p>参考文章：<br><a href="http://blog.jayself.com/2014/07/28/Jade/" target="_blank" rel="external">Jade中文教程</a><br><a href="http://www.imooc.com/learn/259" target="_blank" rel="external">慕课网视频-带你学习Jade模板引擎</a></p>
-<blockquote>
-<p>文章来自： <a href="http://hanks.xyz">http://hanks.xyz</a></p>
-</blockquote>
-]]></content>
-    <summary type="html">
-    <![CDATA[<p>优秀的模板引擎 <code>Jade</code> ，减少写代码，提高可读性，提高生活质量。。。</p>]]>
-    
-    </summary>
-    
-      <category term="Jade" scheme="http://hanks.xyz/tags/Jade/"/>
-    
-      <category term="学习" scheme="http://hanks.xyz/tags/%E5%AD%A6%E4%B9%A0/"/>
     
   </entry>
   

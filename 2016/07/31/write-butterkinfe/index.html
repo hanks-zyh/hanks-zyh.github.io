@@ -1,0 +1,1027 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>写一个 ButterKinfe | Hanks.xyz</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="ButterKnife 很多人都用过，能节省很多代码，最多的就是省去了很多 findViewById 语句。接下来自己写一个，就叫 BBKnife 吧。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="写一个 ButterKinfe">
+<meta property="og:url" content="http://hanks.xyz/2016/07/31/write-butterkinfe/index.html">
+<meta property="og:site_name" content="Hanks.xyz">
+<meta property="og:description" content="ButterKnife 很多人都用过，能节省很多代码，最多的就是省去了很多 findViewById 语句。接下来自己写一个，就叫 BBKnife 吧。">
+<meta property="og:image" content="http://ww2.sinaimg.cn/large/8c9b876fjw1f6ch0o8ai8j20fq09g74z.jpg">
+<meta property="og:image" content="http://ww2.sinaimg.cn/large/8c9b876fjw1f6ch5zk9suj20g20ixt9p.jpg">
+<meta property="og:image" content="http://ww3.sinaimg.cn/large/8c9b876fjw1f6ch7emf5sj20700gnaba.jpg">
+<meta property="og:image" content="http://ww3.sinaimg.cn/large/8c9b876fjw1f6ciagzi37j20c6074jrv.jpg">
+<meta property="og:image" content="http://ww3.sinaimg.cn/large/8c9b876fjw1f6cib9hm97j20by025t8t.jpg">
+<meta property="og:image" content="http://ww3.sinaimg.cn/large/8c9b876fjw1f6cihkdt83j20ch0b8js9.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/8c9b876fjw1f6ciom1hxfj20bi09zt9e.jpg">
+<meta property="og:image" content="http://ww3.sinaimg.cn/large/8c9b876fjw1f6citq0ptdj20bu0l2dg4.jpg">
+<meta property="og:updated_time" content="2016-07-30T19:09:43.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="写一个 ButterKinfe">
+<meta name="twitter:description" content="ButterKnife 很多人都用过，能节省很多代码，最多的就是省去了很多 findViewById 语句。接下来自己写一个，就叫 BBKnife 吧。">
+  
+  
+    <link rel="icon" href="/images/favicon.png">
+  
+  <!-- <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600' rel='stylesheet' type='text/css'> -->
+  <!-- <link href="//fonts.googleapis.com/css?family=Source+Code+Pro:400,700" rel="stylesheet" type="text/css"> -->
+  <link href="//fonts.useso.com/css?family=Source+Code+Pro:400,700" rel="stylesheet" type="text/css">
+  <link href='//fonts.useso.com/css?family=Open+Sans:300,600' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo">Hanks.xyz</a>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">首页</a>
+        
+          <a class="main-nav-link" href="/archives">归档</a>
+        
+          <a class="main-nav-link" href="/daily">日报</a>
+        
+          <a class="main-nav-link" href="/collections">收集</a>
+        
+          <a class="main-nav-link" href="/generate-banner">图片生成</a>
+        
+          <a class="main-nav-link" href="/about">关于</a>
+        
+          <a class="main-nav-link" href="/atom.xml">RSS</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        <div id="search-form-wrap">
+          <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://hanks.xyz"></form>
+        </div>
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+        
+        
+          <a id="nav-github-link" class="nav-icon" href="https://github.com/hanks-zyh" title="Fork me on GitHub"></a>
+        
+      </nav>
+    </div>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/" class="mobile-nav-link">首页</a>
+  
+    <a href="/archives" class="mobile-nav-link">归档</a>
+  
+    <a href="/daily" class="mobile-nav-link">日报</a>
+  
+    <a href="/collections" class="mobile-nav-link">收集</a>
+  
+    <a href="/generate-banner" class="mobile-nav-link">图片生成</a>
+  
+    <a href="/about" class="mobile-nav-link">关于</a>
+  
+    <a href="/atom.xml" class="mobile-nav-link">RSS</a>
+  
+  <div id="search-form-wrap-mobile">
+    <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://hanks.xyz"></form>
+  </div>
+</nav>
+      <div class="outer">
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap mdl-shadow--2dp">
+    <div class="info">
+     <div class="content">
+       <div>
+         <a href="https://github.com/hanks-zyh"><img class="avatar" src="https://avatars2.githubusercontent.com/u/6268322?v=3&s=460" alt="" /></a>
+       </div>
+       <div class="name">
+         <h2 >Hanks</h2>
+       </div>
+       <p>90后，奋青，Android ……</p>
+       <div class="account">
+         <div class="account-item">
+           <a href="http://weibo.com/u/2359002991"><img src="http://ww1.sinaimg.cn/large/8c9b876fjw1f3ik9y4q7hj205k05kdfx.jpg" style="width:40px;height:40px;border-radius: 50%;"></a>
+         </div>
+         <div class="account-item">
+              <a href="http://www.zhihu.com/people/yuhan-zhang-36"><img src="http://ww2.sinaimg.cn/large/8c9b876fjw1f3ik7sv63wj205k05k3yg.jpg" style="width:40px;height:40px;border-radius: 50%;"></a>
+         </div>
+         <div class="account-item">
+           <a href="http://hanks.xyz/atom.xml"> <img src="http://ww3.sinaimg.cn/large/8c9b876fjw1f3ik9kk2ctj205k05kt8n.jpg" style="width:40px;height:40px;border-radius: 50%;"></a>
+         </div>
+       </div>
+     </div>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap mdl-shadow--2dp">
+    <h3 class="widget-title">最新发布</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2016/07/31/write-butterkinfe/">写一个 ButterKinfe</a>
+          </li>
+        
+          <li>
+            <a href="/2016/07/24/edittext-cursor/">多行 EditText 的光标高度问题</a>
+          </li>
+        
+          <li>
+            <a href="/2016/07/22/textview-lineheight/">TextView 设置行高并垂直居中</a>
+          </li>
+        
+          <li>
+            <a href="/2016/07/07/auto-test/">自动化测试还可以用来干啥</a>
+          </li>
+        
+          <li>
+            <a href="/2016/06/26/promise-by-rx/">学习 Promise （结合 RxJava）</a>
+          </li>
+        
+          <li>
+            <a href="/2016/06/21/motifyme/">利用 Android 手机打造来电通知计划</a>
+          </li>
+        
+          <li>
+            <a href="/2016/06/18/swiperefreshlayout/">SwipeRefreshLayout 源码</a>
+          </li>
+        
+          <li>
+            <a href="/2016/06/05/leancloud-website/">Leancloud 进行网站托管</a>
+          </li>
+        
+          <li>
+            <a href="/2016/06/02/get-activity/">Android 中获取当前的 Activity</a>
+          </li>
+        
+          <li>
+            <a href="/2016/05/26/node-spider/">Node.js 爬微信文章</a>
+          </li>
+        
+          <li>
+            <a href="/2016/05/21/mongoDB/">MongoDB 入门</a>
+          </li>
+        
+          <li>
+            <a href="/2016/05/20/express-project/">Express 网站开发</a>
+          </li>
+        
+          <li>
+            <a href="/2016/05/19/express-node/">认识 Express</a>
+          </li>
+        
+          <li>
+            <a href="/2016/05/05/sqlite-master/">SQLite 中的 sqlite_master 表</a>
+          </li>
+        
+          <li>
+            <a href="/2016/05/02/crontab/">Linux 的 crontab 定时重复任务</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap mdl-shadow--2dp">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Activity/">Activity</a> <a href="/tags/Android/">Android</a> <a href="/tags/Atom/">Atom</a> <a href="/tags/Dagger2/">Dagger2</a> <a href="/tags/EditText/">EditText</a> <a href="/tags/Express/">Express</a> <a href="/tags/Fragment/">Fragment</a> <a href="/tags/Framework/">Framework</a> <a href="/tags/HTML-CSS/">HTML/CSS</a> <a href="/tags/Jade/">Jade</a> <a href="/tags/Java/">Java</a> <a href="/tags/JavaScript/">JavaScript</a> <a href="/tags/Kotlin/">Kotlin</a> <a href="/tags/LAMP/">LAMP</a> <a href="/tags/Linux/">Linux</a> <a href="/tags/Mac/">Mac</a> <a href="/tags/MongoDB/">MongoDB</a> <a href="/tags/NestedScrolling/">NestedScrolling</a> <a href="/tags/Node-js/">Node.js</a> <a href="/tags/OS-X/">OS X</a> <a href="/tags/Promise/">Promise</a> <a href="/tags/Python/">Python</a> <a href="/tags/React-Native/">React-Native</a> <a href="/tags/Refactoring/">Refactoring</a> <a href="/tags/Rx/">Rx</a> <a href="/tags/RxJava/">RxJava</a> <a href="/tags/Rxandroid/">Rxandroid</a> <a href="/tags/Rxjava/">Rxjava</a> <a href="/tags/SQLite/">SQLite</a> <a href="/tags/Scrapy/">Scrapy</a> <a href="/tags/Swift/">Swift</a> <a href="/tags/SwipeRefreshLayout/">SwipeRefreshLayout</a> <a href="/tags/TextView/">TextView</a> <a href="/tags/Ubuntu/">Ubuntu</a> <a href="/tags/VPS/">VPS</a> <a href="/tags/Vue-js/">Vue.js</a> <a href="/tags/crontab/">crontab</a> <a href="/tags/iOS/">iOS</a> <a href="/tags/interpolator/">interpolator</a> <a href="/tags/leancloud/">leancloud</a> <a href="/tags/mac-os/">mac os</a> <a href="/tags/virtualBox/">virtualBox</a> <a href="/tags/依赖注入/">依赖注入</a> <a href="/tags/前端/">前端</a> <a href="/tags/学习/">学习</a> <a href="/tags/必备知识/">必备知识</a> <a href="/tags/性能优化/">性能优化</a> <a href="/tags/总结/">总结</a> <a href="/tags/热修复/">热修复</a> <a href="/tags/自动化/">自动化</a> <a href="/tags/设计/">设计</a>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap mdl-shadow--2dp">
+    <div class="widget">
+     <iframe width="100%" height="200" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=550&fansRow=1&ptype=0&speed=0&skin=1&isTitle=0&noborder=0&isWeibo=0&isFans=1&uid=2359002991&verifier=05864e99&colors=4ABC88,ffffff,2C3E50,4ABC88,ecfbfd&dpc=1"></iframe>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap mdl-shadow--2dp">
+    <h3 class="widget-title">友情链接</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="https://github.com/hanks-zyh">hanks-zyh</a>
+          </li>
+        
+          <li>
+            <a href="http://kiya.space">Kiya‘s space</a>
+          </li>
+        
+          <li>
+            <a href="http://rocko.xyz/">Rocko&#39;s blog</a>
+          </li>
+        
+          <li>
+            <a href="http://hexo.io">Hexo</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap mdl-shadow--2dp">
+    <div class="wx">
+      <h3 class="widget-title">微信公众号</h3>
+      <img src='https://coding.net/u/zhangyuhan/p/Bmob/git/raw/master/wx_qrcode.jpg' height="100%" width="100%" >
+      <p>搜索公众号: CodeProvider</p>
+    </div>
+  </div>
+
+
+  
+</aside>
+        
+        <section id="main" class="mdl-shadow--2dp"><article id="post-write-butterkinfe" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/07/31/write-butterkinfe/" class="article-date">
+  <time datetime="2016-07-30T19:07:03.000Z" itemprop="datePublished">2016-07-31</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      写一个 ButterKinfe
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a href="http://jakewharton.github.io/butterknife/" target="_blank" rel="external">ButterKnife</a> 很多人都用过，能节省很多代码，最多的就是省去了很多 <code>findViewById</code> 语句。接下来自己写一个，就叫 <code>BBKnife</code> 吧。</p>
+<a id="more"></a>
+<h2 id="分析">分析</h2><p>在使用 ButterKnife 时，需要书写下面的类似代码，以一个 Activity 为例</p>
+<p><code>ExampleActivity.java</code><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ExampleActivity</span> <span class="keyword">extends</span> <span class="title">Activity</span> </span>&#123;</span><br><span class="line">  <span class="annotation">@BindView</span>(R.id.title) TextView title;</span><br><span class="line">  <span class="annotation">@BindView</span>(R.id.subtitle) TextView subtitle;</span><br><span class="line">  <span class="annotation">@BindView</span>(R.id.footer) TextView footer;</span><br><span class="line"></span><br><span class="line">  <span class="annotation">@Override</span> <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">super</span>.onCreate(savedInstanceState);</span><br><span class="line">    setContentView(R.layout.simple_activity);</span><br><span class="line">    ButterKnife.bind(<span class="keyword">this</span>);</span><br><span class="line">    <span class="comment">// TODO Use fields...</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在编译后，会自动生成一个和 Activity 同名的 <code>ExampleActivity$ViewBinder</code> 的辅助类文件，并且生成 findViewById 相关的代码</p>
+<p><code>ExampleActivity$ViewBinder.java</code><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">bind</span><span class="params">(ExampleActivity activity)</span> </span>&#123;</span><br><span class="line">  activity.subtitle = (android.widget.TextView) activity.findViewById(<span class="number">2130968578</span>);</span><br><span class="line">  activity.footer = (android.widget.TextView) activity.findViewById(<span class="number">2130968579</span>);</span><br><span class="line">  activity.title = (android.widget.TextView) activity.findViewById(<span class="number">2130968577</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>那么 <code>BBKnife</code> 库要做的事情就很清楚了，生成辅助类。</p>
+<h2 id="动手开写">动手开写</h2><p>步骤：</p>
+<ol>
+<li>创建注解</li>
+<li>编译期间处理注解</li>
+<li>生成辅助类</li>
+<li>调用辅助类</li>
+</ol>
+<h3 id="0x00_创建工程">0x00 创建工程</h3><p>首先创建一个新的工程</p>
+<p><img src="http://ww2.sinaimg.cn/large/8c9b876fjw1f6ch0o8ai8j20fq09g74z.jpg" alt=""></p>
+<p>然后创建一个 module ， 选择 java Library。</p>
+<p><img src="http://ww2.sinaimg.cn/large/8c9b876fjw1f6ch5zk9suj20g20ixt9p.jpg" alt=""></p>
+<p><img src="http://ww3.sinaimg.cn/large/8c9b876fjw1f6ch7emf5sj20700gnaba.jpg" alt=""></p>
+<h3 id="0x01_创建注解">0x01 创建注解</h3><p>这个注解作用于类的属性上面，包含一个整型的参数，类似于 <code>@BindView(R.id.title)</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span><br><span class="line"> * Created by hanks on 2016/7/31.</span><br><span class="line"> */</span></span><br><span class="line"><span class="annotation">@Documented</span></span><br><span class="line"><span class="annotation">@Retention</span>(RetentionPolicy.CLASS)</span><br><span class="line"><span class="annotation">@Target</span>(ElementType.FIELD)</span><br><span class="line"><span class="keyword">public</span> <span class="annotation">@interface</span> BindView &#123;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">value</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="0x02_编译期间处理注解_&amp;&amp;_生成辅助类">0x02 编译期间处理注解 &amp;&amp; 生成辅助类</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span><br><span class="line"> * 编译期间处理注解</span><br><span class="line"> * Created by hanks on 2016/7/31.</span><br><span class="line"> */</span></span><br><span class="line"><span class="annotation">@SupportedAnnotationTypes</span>(<span class="string">"xyz.hanks.BindView"</span>)</span><br><span class="line"><span class="annotation">@SupportedSourceVersion</span>(SourceVersion.RELEASE_7)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BindViewProcessor</span> <span class="keyword">extends</span> <span class="title">AbstractProcessor</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Messager messager;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String SUFFIX = <span class="string">"$ViewBinder"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="annotation">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">(ProcessingEnvironment processingEnv)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.init(processingEnv);</span><br><span class="line">        messager = processingEnv.getMessager();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="annotation">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">process</span><span class="params">(Set&lt;? extends TypeElement&gt; annotations, RoundEnvironment roundEnv)</span> </span>&#123;</span><br><span class="line">        Map&lt;String, List&lt;VariableElement&gt;&gt; map = <span class="keyword">new</span> HashMap&lt;&gt;(); <span class="comment">// key 是类名，value 是该类的注解元素</span></span><br><span class="line">        <span class="comment">// 遍历 BindView 注解的所有元素</span></span><br><span class="line">        <span class="keyword">for</span> (Element element : roundEnv.getElementsAnnotatedWith(BindView.class)) &#123;</span><br><span class="line">            <span class="keyword">if</span> (element == <span class="keyword">null</span> || !(element <span class="keyword">instanceof</span> VariableElement)) &#123;</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// 给属性添加的注解</span></span><br><span class="line">            VariableElement variableElement = (VariableElement) element;</span><br><span class="line">            <span class="comment">// 获取属性所在的类名</span></span><br><span class="line">            String className = element.getEnclosingElement().getSimpleName().toString();</span><br><span class="line">            List&lt;VariableElement&gt; variableElementList = map.get(className);</span><br><span class="line">            <span class="keyword">if</span> (variableElementList == <span class="keyword">null</span>) &#123;</span><br><span class="line">                variableElementList = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">                map.put(className, variableElementList);</span><br><span class="line">            &#125;</span><br><span class="line">            variableElementList.add(variableElement);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 生成辅助类</span></span><br><span class="line">        generate(map);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">generate</span><span class="params">(Map&lt;String, List&lt;VariableElement&gt;&gt; map)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">null</span> == map || map.size() == <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (String className : map.keySet()) &#123;</span><br><span class="line">            List&lt;VariableElement&gt; variableElementList = map.get(className);</span><br><span class="line">            <span class="keyword">if</span> (variableElementList == <span class="keyword">null</span> || variableElementList.size() &lt;= <span class="number">0</span>) &#123;</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// 获取包名</span></span><br><span class="line">            String packageName = variableElementList.get(<span class="number">0</span>).getEnclosingElement().getEnclosingElement().toString();</span><br><span class="line">            StringBuilder builder = <span class="keyword">new</span> StringBuilder()</span><br><span class="line">                    .append(<span class="string">"package "</span>).append(packageName).append(<span class="string">";\n\n"</span>)</span><br><span class="line">                    .append(<span class="string">"public class "</span>).append(className).append(SUFFIX).append(<span class="string">"&#123;\n"</span>) <span class="comment">// open class</span></span><br><span class="line">                    .append(<span class="string">"    public void bind(Object target) &#123;\n"</span>)</span><br><span class="line">                    .append(<span class="string">"        "</span>).append(className).append(<span class="string">" activity = ("</span>).append(className).append(<span class="string">")target;\n"</span>);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">for</span> (VariableElement variableElement : variableElementList) &#123;</span><br><span class="line">                BindView bindView = variableElement.getAnnotation(BindView.class);</span><br><span class="line">                log(bindView.toString());</span><br><span class="line">                builder.append(<span class="string">"        activity."</span>).append(variableElement.getSimpleName().toString()).append(<span class="string">"=("</span>).append(variableElement.asType()).append(<span class="string">")activity.findViewById("</span>).append(bindView.value()).append(<span class="string">");\n"</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            builder.append(<span class="string">"    &#125;\n&#125;\n"</span>);</span><br><span class="line">            <span class="comment">// write the file</span></span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                String bindViewClassName = packageName + <span class="string">"."</span> + className + SUFFIX;</span><br><span class="line">                JavaFileObject source = processingEnv.getFiler().createSourceFile(bindViewClassName);</span><br><span class="line">                Writer writer = source.openWriter();</span><br><span class="line">                writer.write(builder.toString());</span><br><span class="line">                writer.flush();</span><br><span class="line">                writer.close();</span><br><span class="line">            &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">                log(e.getMessage());</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">log</span><span class="params">(String msg)</span> </span>&#123;</span><br><span class="line">        messager.printMessage(Diagnostic.Kind.WARNING, msg);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>注意点：</p>
+<ul>
+<li>添加 <code>@SupportedAnnotationTypes</code>  <code>@SupportedSourceVersion</code> 注解， 原因: AbstractProcessor 中做了相关校验（看 AbstractProcessor 源码）。</li>
+<li>打印消息是由 <code>processingEnv.getMessager().printMessage</code> 或者输出日志文件，原因：编译期间做的处理，不能使用 System.out 或者 Log.i</li>
+<li>处理注解的时候需要获取类名或者包名，需要注意获取的是全路径还是简单名称。</li>
+<li>依照需要生成辅助类文件。</li>
+</ul>
+<p>在 main 下新建 resources &gt; META_INF &gt; services 目录，创建 javax.annotation.processing.Processor 文件，javac 会自动检查和读取 <code>javax.annotation.processing.Processor</code> 中的内容，并且注册 <code>BindViewProcessor</code> 作为注解处理器。<br><img src="http://ww3.sinaimg.cn/large/8c9b876fjw1f6ciagzi37j20c6074jrv.jpg" alt=""></p>
+<p><img src="http://ww3.sinaimg.cn/large/8c9b876fjw1f6cib9hm97j20by025t8t.jpg" alt=""></p>
+<h3 id="0x03_调用辅助类">0x03 调用辅助类</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BBKnife</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 调用我们生成的辅助类</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">bind</span><span class="params">(Object view)</span></span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            String cla = view.getClass().getName()+BindViewProcessor.SUFFIX<span class="string">"$Injector"</span>;</span><br><span class="line">            Class clazz = Class.forName(cla);</span><br><span class="line">            Constructor constructor = clazz.getConstructor();</span><br><span class="line">            constructor.setAccessible(<span class="keyword">true</span>);</span><br><span class="line">            Object instance = clazzonstructor.newInstance();</span><br><span class="line">            System.out.println(<span class="string">"instance = "</span> + instance.toString());</span><br><span class="line">            Method bind = clazz.getMethod(<span class="string">"bind"</span>,Object.class);</span><br><span class="line">            System.out.println(<span class="string">"bind = "</span> + bind.toString());</span><br><span class="line">            bind.invoke(instance,view);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="导出_bbknife-jar">导出 bbknife.jar</h3><p>在 build/libs 目录下有自动导出的 jar 文件， </p>
+<p><img src="http://ww3.sinaimg.cn/large/8c9b876fjw1f6cihkdt83j20ch0b8js9.jpg" alt=""></p>
+<h2 id="使用">使用</h2><p>复制到 app  下的 libs 进行引用。</p>
+<p><img src="http://ww1.sinaimg.cn/large/8c9b876fjw1f6ciom1hxfj20bi09zt9e.jpg" alt=""></p>
+<p>app 下的 build.gradle<br><figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">apply plugin: <span class="string">'com.android.application'</span></span><br><span class="line">apply plugin: <span class="string">'com.neenbedankt.android-apt'</span> <span class="comment">// 使用 apt</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">buildscript</span> &#123;</span><br><span class="line">    <span class="keyword">repositories</span> &#123;</span><br><span class="line">        jcenter()</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">dependencies</span> &#123;</span><br><span class="line">        <span class="keyword">classpath</span> <span class="string">'com.neenbedankt.gradle.plugins:android-apt:1.8'</span> <span class="comment">// 添加引用</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">android &#123;</span><br><span class="line">    compileSdkVersion <span class="number">24</span></span><br><span class="line">    buildToolsVersion <span class="string">"24.0.1"</span></span><br><span class="line"></span><br><span class="line">    defaultConfig &#123;</span><br><span class="line">        applicationId <span class="string">"xyz.hanks.bbknifeproject"</span></span><br><span class="line">        minSdkVersion <span class="number">15</span></span><br><span class="line">        targetSdkVersion <span class="number">24</span></span><br><span class="line">        versionCode <span class="number">1</span></span><br><span class="line">        versionName <span class="string">"1.0"</span></span><br><span class="line">    &#125;</span><br><span class="line">    buildTypes &#123;</span><br><span class="line">        release &#123;</span><br><span class="line">            minifyEnabled <span class="keyword">false</span></span><br><span class="line">            proguardFiles getDefaultProguardFile(<span class="string">'proguard-android.txt'</span>), <span class="string">'proguard-rules.pro'</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 设置java 版本</span></span><br><span class="line">    compileOptions&#123;</span><br><span class="line">        <span class="keyword">sourceCompatibility</span> JavaVersion.VERSION_1_7</span><br><span class="line">        <span class="keyword">targetCompatibility</span> JavaVersion.VERSION_1_7</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">dependencies</span> &#123;</span><br><span class="line">    <span class="keyword">compile</span> <span class="keyword">fileTree</span>(dir: <span class="string">'libs'</span>, <span class="keyword">include</span>: [<span class="string">'*.jar'</span>])</span><br><span class="line">    testCompile <span class="string">'junit:junit:4.12'</span></span><br><span class="line">    <span class="keyword">compile</span> <span class="string">'com.android.support:appcompat-v7:24.1.1'</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在 MainActivity 使用</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MainActivity</span> <span class="keyword">extends</span> <span class="title">AppCompatActivity</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="annotation">@BindView</span>(R.id.bb_button) Button mButton;</span><br><span class="line">    <span class="annotation">@BindView</span>(R.id.bb_image)  ImageView mImage;</span><br><span class="line">    <span class="annotation">@BindView</span>(R.id.bb_text)   TextView mText;</span><br><span class="line"></span><br><span class="line">    <span class="annotation">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState);</span><br><span class="line">        setContentView(R.layout.activity_main);</span><br><span class="line"></span><br><span class="line">        BBKnife.bind(<span class="keyword">this</span>);</span><br><span class="line"></span><br><span class="line">        mButton.setText(<span class="string">"hanks.xyz"</span>);</span><br><span class="line">        mText.setText(<span class="string">"hanks.xyz"</span>);</span><br><span class="line">        mImage.setImageResource(R.mipmap.ic_launcher);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>看最后生成的辅助类 <code>MainActivity$ViewBinder.java</code><br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> MainActivity$ViewBinder&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">bind</span><span class="params">(Object target)</span> </span>&#123;</span><br><span class="line">        MainActivity activity = (MainActivity)target;</span><br><span class="line">        activity.mButton=(android.widget.Button)activity.findViewById(<span class="number">2131427412</span>);</span><br><span class="line">        activity.mImage=(android.widget.ImageView)activity.findViewById(<span class="number">2131427414</span>);</span><br><span class="line">        activity.mText=(android.widget.TextView)activity.findViewById(<span class="number">2131427413</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><img src="http://ww3.sinaimg.cn/large/8c9b876fjw1f6citq0ptdj20bu0l2dg4.jpg" alt=""></p>
+<h2 id="参考链接">参考链接</h2><p><a href="http://blog.stablekernel.com/the-10-step-guide-to-annotation-processing-in-android-studio" target="_blank" rel="external">http://blog.stablekernel.com/the-10-step-guide-to-annotation-processing-in-android-studio
+</a></p>
+<blockquote>
+<p>文章来自： <a href="http://hanks.xyz">http://hanks.xyz</a></p>
+</blockquote>
+
+      
+    </div>
+</article>
+ 
+ <!-- 上一页 下一页 -->
+
+  
+<nav id="article-nav">
+  
+  
+    <a href="/2016/07/24/edittext-cursor/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>下一篇</span>
+      <div class="article-nav-title">多行 EditText 的光标高度问题</div>
+    </a>
+  
+</nav>
+
+
+
+<!-- 相关文章 -->
+
+  <!--
+
+    
+      		
+      			<a href="/2016/07/31/write-butterkinfe/">写一个 ButterKinfe</a>
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+
+-->
+
+
+
+<section id="comments">
+    <!-- 多说分享框 -->
+    <div class="ds-share flat" data-thread-key="/2016/07/31/write-butterkinfe/" data-title="写一个 ButterKinfe" data-images="https://raw.githubusercontent.com/Hankiya/LoveOnline/master/Rich%20Format%20Vertical.png" data-content="写一个 ButterKinfe" data-url="http://hanks.xyz//2016/07/31/write-butterkinfe/">
+    <div class="ds-share-inline">
+      <ul  class="ds-share-icons-16">
+
+      	<li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+        <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+        <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+        <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+        <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+      </ul>
+      <div class="ds-share-icons-more">
+      </div>
+    </div>
+   </div>
+    <!-- 多说评论框 start -->
+   	<div class="ds-thread" data-thread-key="/2016/07/31/write-butterkinfe/" data-title="写一个 ButterKinfe" data-url="http://hanks.xyz//2016/07/31/write-butterkinfe/"></div>
+   <!-- 多说评论框 end -->
+   <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+   <script type="text/javascript">
+   var duoshuoQuery = {short_name:"hanks-zyh"};
+   	(function() {
+   		var ds = document.createElement('script');
+   		ds.type = 'text/javascript';ds.async = true;
+   		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+   		ds.charset = 'UTF-8';
+   		(document.getElementsByTagName('head')[0]
+   		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+   	})();
+   	</script>
+   <!-- 多说公共JS代码 end -->
+</section>
+
+</section>
+      </div>
+      <footer id="footer">
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      &copy; 2016 <a href="https://github.com/hanks-zyh"> Hanks</a></br></br>
+	  <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+	  <span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+	  Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+	  </br>
+	  </br>
+	  <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1257826513'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s95.cnzz.com/z_stat.php%3Fid%3D1257826513%26online%3D1%26show%3Dline' type='text/javascript'%3E%3C/script%3E"));</script> 
+   </div>
+  </div>
+ <div id="share">
+  <a id="totop" title="" style="display: block;">返回顶部</a>
+ </div>
+</footer>
+
+    </div>
+    
+
+<script src="/js/jquery.min.js" type="text/javascript"></script>
+<script src="/js/jquery.scrollLoading.js" type="text/javascript"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+  <script src="/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+
+
+<script src="/js/script.js" type="text/javascript"></script>
+
+  </div>
+</body>
+</html>

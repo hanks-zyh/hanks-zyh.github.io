@@ -4,7 +4,7 @@
   <subtitle><![CDATA[coding]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://hanks.xyz/"/>
-  <updated>2016-07-31T04:33:51.000Z</updated>
+  <updated>2016-07-31T15:47:58.000Z</updated>
   <id>http://hanks.xyz/</id>
   
   <author>
@@ -15,11 +15,11 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title><![CDATA[写一个 ButterKinfe]]></title>
+    <title><![CDATA[写一个 ButterKnife]]></title>
     <link href="http://hanks.xyz/2016/07/31/write-butterkinfe/"/>
     <id>http://hanks.xyz/2016/07/31/write-butterkinfe/</id>
     <published>2016-07-30T19:07:03.000Z</published>
-    <updated>2016-07-31T04:33:51.000Z</updated>
+    <updated>2016-07-31T15:47:58.000Z</updated>
     <content type="html"><![CDATA[<p><a href="http://jakewharton.github.io/butterknife/" target="_blank" rel="external">ButterKnife</a> 很多人都用过，能节省很多代码，最多的就是省去了很多 <code>findViewById</code> 语句。接下来自己写一个，就叫 <code>BBKnife</code> 吧。</p>
 <a id="more"></a>
 <h2 id="分析">分析</h2><p>在使用 ButterKnife 时，需要书写下面的类似代码，以一个 Activity 为例</p>

@@ -4,7 +4,7 @@
   <subtitle><![CDATA[coding]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://hanks.xyz/"/>
-  <updated>2016-07-31T15:47:58.000Z</updated>
+  <updated>2016-08-04T02:03:53.000Z</updated>
   <id>http://hanks.xyz/</id>
   
   <author>
@@ -13,6 +13,41 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[写一个福利 Telegram 机器人]]></title>
+    <link href="http://hanks.xyz/2016/08/04/telegram-bot/"/>
+    <id>http://hanks.xyz/2016/08/04/telegram-bot/</id>
+    <published>2016-08-04T01:58:03.000Z</published>
+    <updated>2016-08-04T02:03:53.000Z</updated>
+    <content type="html"><![CDATA[<p><img src="http://ww1.sinaimg.cn/large/8c9b876fjw1f6gyh0y6l8j20k00zktb8.jpg" alt="img" width="240" height="427"></p>
+<a id="more"></a>
+<p><a href="https://core.telegram.org/bots/api" target="_blank" rel="external">官网</a></p>
+<h2 id="创建_bot">创建 bot</h2><p>根据文档，在 telegram 里面添加 <a href="https://telegram.me/botfather" target="_blank" rel="external">@BotFather</a>, 然后跟他聊天来创建机器人</p>
+<p><img src="http://ww2.sinaimg.cn/large/8c9b876fjw1f6gyodg5q4j20k00zk782.jpg" alt=""></p>
+<p>拿到 <code>token</code></p>
+<h2 id="测试">测试</h2><p>在浏览器中（翻墙）输入 <code>https://api.telegram.org/botYOU_TOKEN/getMe</code> 测试：<br>返回如下格式，说明成功。</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    "<span class="attribute">ok</span>": <span class="value"><span class="literal">true</span></span>,</span><br><span class="line">    "<span class="attribute">result</span>": <span class="value">&#123;</span><br><span class="line">        "<span class="attribute">id</span>": <span class="value"><span class="number">249208551</span></span>,</span><br><span class="line">        "<span class="attribute">first_name</span>": <span class="value"><span class="string">"LinuxC"</span></span>,</span><br><span class="line">        "<span class="attribute">username</span>": <span class="value"><span class="string">"LinuxC_bot"</span></span><br><span class="line">    </span>&#125;</span><br><span class="line"></span>&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="编写_api">编写 api</h2><p>我使用的 node 写的， 参考 <a href="https://github.com/Naltox/telegram-node-bot" target="_blank" rel="external">telegram-node-bot</a></p>
+<p>首先安装 <code>telegram-node-bot</code></p>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install --save telegram-<span class="keyword">node</span><span class="identifier"></span><span class="title">-bot</span></span><br></pre></td></tr></table></figure>
+<p>然后创建 app.js</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="pi">'use strict'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> api = <span class="built_in">require</span>(<span class="string">'./api'</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> Telegram = <span class="built_in">require</span>(<span class="string">'telegram-node-bot'</span>)</span><br><span class="line"><span class="keyword">const</span> TelegramBaseController = Telegram.TelegramBaseController</span><br><span class="line"><span class="keyword">const</span> tg = <span class="keyword">new</span> Telegram.Telegram(<span class="string">'YOU_TOKEN'</span>)</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">PingController</span> <span class="keyword">extends</span> <span class="title">TelegramBaseController</span></span>&#123;</span><br><span class="line">    pingHandler($)&#123;</span><br><span class="line">        api.getMZ(<span class="function"><span class="keyword">function</span>(<span class="params">data</span>)</span>&#123;</span><br><span class="line">            $.sendMessage(data)</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">    get routes()&#123;</span><br><span class="line">        <span class="keyword">return</span> &#123; <span class="string">'ping'</span>:<span class="string">'pingHandler'</span>&#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">tg.router</span><br><span class="line">  .when([<span class="string">'ping'</span>],<span class="keyword">new</span> PingController())</span><br></pre></td></tr></table></figure>
+<p>抓取图片的 <code>api.js</code>, 抓取图片可以参考前面的文章 <a href="http://hanks.xyz/2016/05/26/node-spider/">Node.js 爬微信文章</a></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="pi"></span><br><span class="line">'use strict'</span></span><br><span class="line"><span class="keyword">var</span> http = <span class="built_in">require</span>(<span class="string">'http'</span>)</span><br><span class="line"><span class="keyword">var</span> cheerio = <span class="built_in">require</span>(<span class="string">'cheerio'</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> url = <span class="string">'http://www.kmeitu.com/'</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getPicture</span>(<span class="params">html</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> array = []</span><br><span class="line">    <span class="keyword">var</span> $ = cheerio.load(html)</span><br><span class="line">    <span class="keyword">var</span> items = $(<span class="string">'.lz-img'</span>)</span><br><span class="line">    items.each(<span class="function"><span class="keyword">function</span> (<span class="params">item</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> url = $(<span class="keyword">this</span>).attr(<span class="string">'data-src'</span>).replace(<span class="regexp">/\s+/g</span>, <span class="string">''</span>)</span><br><span class="line">        array.push(url)</span><br><span class="line">    &#125;) </span><br><span class="line">    <span class="keyword">return</span> array[<span class="built_in">Math</span>.floor(<span class="built_in">Math</span>.random()*array.length)]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">exports.getMZ = <span class="function"><span class="keyword">function</span>(<span class="params">callback</span>)</span>&#123;</span><br><span class="line">    http.get(url, <span class="function"><span class="keyword">function</span> (<span class="params">res</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> html = <span class="string">''</span></span><br><span class="line">        res.on(<span class="string">'data'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">data</span>) </span>&#123;</span><br><span class="line">            html += data</span><br><span class="line">        &#125;)</span><br><span class="line">        res.on(<span class="string">'end'</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">            <span class="comment">//console.log(html)</span></span><br><span class="line">            <span class="keyword">var</span> array = getPicture(html)</span><br><span class="line">            callback(array)</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;).on(<span class="string">'error'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">e</span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'get html error'</span>)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后运行 <code>node app.js</code> 即可<br>注意点： 全程需要 FQ（跟 telegram 连接用）， <code>app.js</code> 方法服务器运行（我使用的 <code>pm2</code> ）。</p>
+<blockquote>
+<p>文章来自： <a href="http://hanks.xyz">http://hanks.xyz</a></p>
+</blockquote>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p><img src="http://ww1.sinaimg.cn/large/8c9b876fjw1f6gyh0y6l8j20k00zktb8.jpg" alt="img" width="240" height="427"></p>]]>
+    
+    </summary>
+    
+      <category term="Telegram" scheme="http://hanks.xyz/tags/Telegram/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[写一个 ButterKnife]]></title>
@@ -848,31 +883,6 @@
     </summary>
     
       <category term="RxJava" scheme="http://hanks.xyz/tags/RxJava/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[购买搬瓦工 VPS]]></title>
-    <link href="http://hanks.xyz/2016/04/12/buy-vps/"/>
-    <id>http://hanks.xyz/2016/04/12/buy-vps/</id>
-    <published>2016-04-12T15:37:51.000Z</published>
-    <updated>2016-04-12T15:59:41.000Z</updated>
-    <content type="html"><![CDATA[<p>买一个搬瓦工的 <code>VPS</code> 玩玩，<a href="https://bandwagonhost.com" target="_blank" rel="external">官网</a><br><a id="more"></a><br><img src="https://dn-coding-net-production-pp.qbox.me/5bf4d6fe-80b2-4353-9c9a-e10bf5e792e5.png" alt="购买"> </p>
-<p>可以使用支付宝付款，买完了在个人的目录下可以看到刚买的 VPS，然后进入控制面板。</p>
-<p><img src="https://dn-coding-net-production-pp.qbox.me/fedb3081-0936-442b-9e8e-f42f6274b3ba.png" alt="进入管理中心"> </p>
-<p><img src="https://dn-coding-net-production-pp.qbox.me/0cea9cc2-0dee-4722-b3c3-18cda88ec47c.png" alt="信息"></p>
-<p><img src="https://dn-coding-net-production-pp.qbox.me/824487f5-7ac8-4083-91e4-1fb45f4edc1d.png" alt="安装操作系统"><br>自带的 <code>Center OS</code>，又重新装了 <code>Ubuntu</code></p>
-<p>重新设置超级管理员的密码，然后使用 <code>adduser hanks</code> 添加一个 hanks 用户，然后就可以通过 <code>ssh</code> 连接了。</p>
-<blockquote>
-<p>文章来自： <a href="http://hanks.xyz">http://hanks.xyz</a></p>
-</blockquote>
-]]></content>
-    <summary type="html">
-    <![CDATA[<p>买一个搬瓦工的 <code>VPS</code> 玩玩，<a href="https://bandwagonhost.com">官网</a><br>]]>
-    
-    </summary>
-    
-      <category term="VPS" scheme="http://hanks.xyz/tags/VPS/"/>
     
   </entry>
   

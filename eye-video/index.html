@@ -222,6 +222,7 @@ new Vue({
       pageList: []
     },
     ready: function(){
+      this.pageList.push(this.url)
       this.getData(this.url)
     },
     methods: {
@@ -229,7 +230,6 @@ new Vue({
         fetch(url)
           .then((response) => response.json())
           .then((json) => {
-            this.pageList.push(url)
             this.nextPageUrl = json.nextPageUrl
             var list = json.dailyList
             if (list.length > 0) {
@@ -257,12 +257,14 @@ new Vue({
     },
     prePage: function() {
       if (this.pageList.length > 0) {
-        var prePageUrl = this.pageList.pop()
+        this.pageList.pop()
+        var prePageUrl = this.pageList[this.pageList.length-1]
         this.getData(prePageUrl)
       }
     },
     nextPage: function() {
       if (this.nextPageUrl) {
+        this.pageList.push(this.nextPageUrl)
         this.getData(this.nextPageUrl)
       }
     },

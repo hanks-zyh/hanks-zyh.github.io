@@ -79,7 +79,7 @@
           that.loading = true;
           var nanobar = new Nanobar();
           nanobar.go( 76 ); // size bar 76%
-          var url = 'https://api.leancloud.cn/1.1/classes/Image?limit='+that.limit+'&skip='+(that.page*that.limit)
+          var url = 'https://api.leancloud.cn/1.1/classes/Image?order=-createdAt&limit='+that.limit+'&skip='+(that.page*that.limit)
           console.log(url)
           fetch(url,{
             headers: {

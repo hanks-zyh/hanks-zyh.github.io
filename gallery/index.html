@@ -42,7 +42,7 @@
     }
     .fav-list > .placeholder{
       flex-grow: 100;
-      flex-basis: 240px;
+      flex-basis: 480px;
       height: 0;
       margin: 0;
     }
@@ -51,7 +51,7 @@
 <body id="app">
   <div class="fav-list">
      <div v-for="img in imgs"
-      style="flex-grow:{{img.width*100/img.height}};flex-basis:{{img.width*240/img.height}}px;">
+      style="flex-grow:{{img.width*100/img.height}};flex-basis:{{img.width*480/img.height}}px;">
         <i style="padding-bottom:{{img.height/img.width*100}}%"></i>
         <img :src="img.src"/>
       </div>
@@ -99,8 +99,8 @@
               var item = json.results[i]
               var img = {}
               img.src = item.url
-              img.width = 768
-              img.height = 506
+              img.width = 720
+              img.height = 1280
               img.title = item.title
               that.imgs.push(img)
             }

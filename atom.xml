@@ -4,7 +4,7 @@
   <subtitle><![CDATA[coding]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://hanks.xyz/"/>
-  <updated>2016-08-29T13:51:57.000Z</updated>
+  <updated>2016-08-29T15:14:19.000Z</updated>
   <id>http://hanks.xyz/</id>
   
   <author>
@@ -19,9 +19,9 @@
     <link href="http://hanks.xyz/2016/08/29/nestedchildparent/"/>
     <id>http://hanks.xyz/2016/08/29/nestedchildparent/</id>
     <published>2016-08-29T13:49:44.000Z</published>
-    <updated>2016-08-29T13:51:57.000Z</updated>
+    <updated>2016-08-29T15:14:19.000Z</updated>
     <content type="html"><![CDATA[<p>最终效果：</p>
-<p><img src="http://ww3.sinaimg.cn/large/8c9b876fjw1f7asx0kp5rg20b40jlx6s.gif" alt=""></p>
+<p><img src="http://ww3.sinaimg.cn/large/8c9b876fjw1f7asx0kp5rg20b40jlx6s.gif" alt="img" width="240" height="427"></p>
 <a id="more"></a>
 <h2 id="1-_接口">1. 接口</h2><p><code>NestedScrollingParent</code> 用来配置子视图（ <code>NestedScrollingChild</code> ）嵌套滚动。</p>
 <p><code>NestedScrollingParent</code> 简称 <code>NP</code><br><code>NestedScrollingChild</code> 简称 <code>NC</code></p>
@@ -45,11 +45,11 @@
 ]]></content>
     <summary type="html">
     <![CDATA[<p>最终效果：</p>
-<p><img src="http://ww3.sinaimg.cn/large/8c9b876fjw1f7asx0kp5rg20b40jlx6s.gif" alt=""></p>]]>
+<p><img src="http://ww3.sinaimg.cn/large/8c9b876fjw1f7asx0kp5rg20b40jlx6s.gif" alt="img" width="240" height="427"></p>]]>
     
     </summary>
     
-      <category term="NestedScrollParent" scheme="http://hanks.xyz/tags/NestedScrollParent/"/>
+      <category term="NestedScrolling" scheme="http://hanks.xyz/tags/NestedScrolling/"/>
     
   </entry>
   

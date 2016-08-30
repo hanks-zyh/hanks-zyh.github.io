@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en" ng-app="app">
 <head>
@@ -15,7 +14,6 @@
       display: flex;
       flex-wrap: wrap;
       margin: 2px;
-      overflow-y: auto;
     }
     /* .fav-list::after{
       content: '';
@@ -40,11 +38,41 @@
       height: 100%;
       object-fit: cover;
     }
+    
     .fav-list > .placeholder{
       flex-grow: 100;
       flex-basis: 480px;
       height: 0;
       margin: 0;
+    }
+
+    .cover {
+        position: absolute;
+        vertical-align: bottom;
+        top: 0;
+        background-color: rgba(0,0,0,0.6);
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        color: white;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        cursor: pointer;
+        opacity: 0;
+        transition: opacity 0.3s; 
+    }
+    .cover:hover{
+      opacity: 1;
+    }
+    .cover > h3{
+      margin: 10px;
+    }
+    .cover > p{
+      margin: 10px;
+      margin-bottom: 20px;
+      line-height: 20px;
+      font-size: 12px;
     }
   </style>
 </head>
@@ -54,6 +82,10 @@
       style="flex-grow:{{img.width*100/img.height}};flex-basis:{{img.width*480/img.height}}px;">
         <i style="padding-bottom:{{img.height/img.width*100}}%"></i>
         <img :src="img.src"/>
+        <div class="cover">
+          <h3>{{ img.title }}</h3>
+          <p>{{ img.content }}</p>
+        </div>
       </div>
   </div>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/nanobar/0.4.2/nanobar.min.js"></script>
@@ -102,6 +134,7 @@
               img.width = 720
               img.height = 1280
               img.title = item.title
+              img.content = item.content
               that.imgs.push(img)
             }
             // size bar 100% and and finish

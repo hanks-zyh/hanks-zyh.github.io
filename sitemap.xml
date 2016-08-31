@@ -2,6 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://hanks.xyz/joke/build.js</loc>
+    <lastmod>2016-08-31T10:16:42.000Z</lastmod>
+  </url>
+  
+  <url>
     <loc>http://hanks.xyz/gallery/index.html</loc>
     <lastmod>2016-08-30T03:40:57.000Z</lastmod>
   </url>
@@ -9,11 +14,6 @@
   <url>
     <loc>http://hanks.xyz/2016/08/29/nestedchildparent/</loc>
     <lastmod>2016-08-30T02:03:37.000Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://hanks.xyz/joke/build.js</loc>
-    <lastmod>2016-08-25T16:49:10.000Z</lastmod>
   </url>
   
   <url>

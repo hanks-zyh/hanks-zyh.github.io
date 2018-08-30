@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>二叉平衡树 | Hanks&#39; Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <meta name="description" content="对于二叉查找树，尽管查找、插入及删除操作的平均运行时间为O(logn)，但是它们的最差运行时间都是O(n),原因在于对树的形状没有限制。
+
+平衡二叉树又称为AVL树，它或者是一棵空树，或者是有下列性质的二叉树：它的左子树和右子树都是平衡二叉树，且左右子树的深度之差的绝对值不超过1。二叉树的的平衡因子BF为：该结点的左子树的深度减去它的右子树的深度，则平衡二叉树的所有结点的平衡因子为只">
+<meta property="og:type" content="article">
+<meta property="og:title" content="二叉平衡树">
+<meta property="og:url" content="https://hanks.pub/2014/02/19/二叉平衡树/index.html">
+<meta property="og:site_name" content="Hanks' Blog">
+<meta property="og:description" content="对于二叉查找树，尽管查找、插入及删除操作的平均运行时间为O(logn)，但是它们的最差运行时间都是O(n),原因在于对树的形状没有限制。
+
+平衡二叉树又称为AVL树，它或者是一棵空树，或者是有下列性质的二叉树：它的左子树和右子树都是平衡二叉树，且左右子树的深度之差的绝对值不超过1。二叉树的的平衡因子BF为：该结点的左子树的深度减去它的右子树的深度，则平衡二叉树的所有结点的平衡因子为只">
+<meta property="og:image" content="https://simg.sinajs.cn/blog7style/images/common/sg_trans.gif">
+<meta property="og:image" content="https://simg.sinajs.cn/blog7style/images/common/sg_trans.gif">
+<meta property="og:image" content="https://simg.sinajs.cn/blog7style/images/common/sg_trans.gif">
+<meta property="og:image" content="https://simg.sinajs.cn/blog7style/images/common/sg_trans.gif">
+<meta property="og:updated_time" content="2018-08-30T15:40:32.499Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="二叉平衡树">
+<meta name="twitter:description" content="对于二叉查找树，尽管查找、插入及删除操作的平均运行时间为O(logn)，但是它们的最差运行时间都是O(n),原因在于对树的形状没有限制。
+
+平衡二叉树又称为AVL树，它或者是一棵空树，或者是有下列性质的二叉树：它的左子树和右子树都是平衡二叉树，且左右子树的深度之差的绝对值不超过1。二叉树的的平衡因子BF为：该结点的左子树的深度减去它的右子树的深度，则平衡二叉树的所有结点的平衡因子为只">
+<meta name="twitter:image" content="https://simg.sinajs.cn/blog7style/images/common/sg_trans.gif">
+  
+  
+    <link rel="icon" href="/images/favicon.png">
+  
+  <!-- <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600' rel='stylesheet' type='text/css'> -->
+  <!-- <link href="//fonts.googleapis.com/css?family=Source+Code+Pro:400,700" rel="stylesheet" type="text/css"> -->
+  <!-- <link href="//fonts.useso.com/css?family=Source+Code+Pro:400,700" rel="stylesheet" type="text/css"> -->
+  <!-- <link href='//fonts.useso.com/css?family=Open+Sans:300,600' rel='stylesheet' type='text/css'> -->
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo"></a>
+    <nav id="main-nav">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      
+        <a class="main-nav-link" href="/archives">归档</a>
+      
+        <a class="main-nav-link" href="/daily">日报</a>
+      
+        <a class="main-nav-link" href="/eye-video">开眼</a>
+      
+        <a class="main-nav-link" href="/joke">joke</a>
+      
+        <a class="main-nav-link" href="/picture-fight">斗图</a>
+      
+        <a class="main-nav-link" href="/atom.xml">RSS</a>
+      
+    </nav>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/archives" class="mobile-nav-link">归档</a>
+  
+    <a href="/daily" class="mobile-nav-link">日报</a>
+  
+    <a href="/eye-video" class="mobile-nav-link">开眼</a>
+  
+    <a href="/joke" class="mobile-nav-link">joke</a>
+  
+    <a href="/picture-fight" class="mobile-nav-link">斗图</a>
+  
+    <a href="/atom.xml" class="mobile-nav-link">RSS</a>
+  
+</nav>
+      <div class="outer">
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap mdl-shadow--2dp">
+    <div class="info">
+     <div class="content">
+       <div>
+         <a href="https://github.com/hanks-zyh"><img class="avatar" src="https://avatars2.githubusercontent.com/u/6268322?v=3&s=460" alt="" /></a>
+       </div>
+       <div class="name">
+         <h2 >Hanks</h2>
+       </div>
+       <p>‭100100011101‬</p>
+       <div class="account">
+         <div class="account-item">
+           <a href="https://weibo.com/u/2359002991"><img src="https://ww1.sinaimg.cn/large/8c9b876fjw1f3ik9y4q7hj205k05kdfx.jpg" style="width:40px;height:40px;border-radius: 50%;"></a>
+         </div>
+         <div class="account-item">
+              <a href="https://www.zhihu.com/people/yuhan-zhang-36"><img src="https://ww2.sinaimg.cn/large/8c9b876fjw1f3ik7sv63wj205k05k3yg.jpg" style="width:40px;height:40px;border-radius: 50%;"></a>
+         </div>
+         <div class="account-item">
+           <a href="https://github.com/hanks-zyh"> <img src="https://ww1.sinaimg.cn/large/8c9b876fly1fe196fbtiqj205k05ka9u.jpg" style="width:40px;height:40px;border-radius: 50%;"></a>
+         </div>
+       </div>
+     </div>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap mdl-shadow--2dp">
+    <h3 class="widget-title">最新发布</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/07/10/proxy-https/">抓包再总结</a>
+          </li>
+        
+          <li>
+            <a href="/2017/10/11/android-night-mode/">Android 夜间模式</a>
+          </li>
+        
+          <li>
+            <a href="/2017/09/28/lua-into-android/">Lua 嵌入 Android 原理</a>
+          </li>
+        
+          <li>
+            <a href="/2017/04/28/lua-in-android/">探究 lua 在 Android 中的应用</a>
+          </li>
+        
+          <li>
+            <a href="/2017/03/26/node-image-recognition/">Node 识别图片中的文字</a>
+          </li>
+        
+          <li>
+            <a href="/2017/03/22/proxy-test/">请求代理</a>
+          </li>
+        
+          <li>
+            <a href="/2017/02/16/android-customview-inputmethod/">Android 自定义 view 连接输入法</a>
+          </li>
+        
+          <li>
+            <a href="/2017/01/10/android-lua/">Android 与 Lua</a>
+          </li>
+        
+          <li>
+            <a href="/2017/01/10/android-markdown-render/">Android 下 Markdown 渲染</a>
+          </li>
+        
+          <li>
+            <a href="/2017/01/09/android-webview-font/">Android 中 webview 自定义字体</a>
+          </li>
+        
+          <li>
+            <a href="/2016/09/25/slack-bot/">slack bot</a>
+          </li>
+        
+          <li>
+            <a href="/2016/09/19/webapp/">让网页更适配移动设备</a>
+          </li>
+        
+          <li>
+            <a href="/2016/09/05/weex-2333/">体验 weex —— 写一个表情包应用</a>
+          </li>
+        
+          <li>
+            <a href="/2016/08/31/nestedscrollchild/">WebView 实现 NestedScrollingChild</a>
+          </li>
+        
+          <li>
+            <a href="/2016/08/29/nestedchildparent/">NestedScrollingParent 实现复杂交互效果</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap mdl-shadow--2dp">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Activity/" style="font-size: 10px;">Activity</a> <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/Atom/" style="font-size: 10px;">Atom</a> <a href="/tags/Dagger2/" style="font-size: 10px;">Dagger2</a> <a href="/tags/EditText/" style="font-size: 10px;">EditText</a> <a href="/tags/Express/" style="font-size: 11.67px;">Express</a> <a href="/tags/Fragment/" style="font-size: 10px;">Fragment</a> <a href="/tags/Framework/" style="font-size: 11.67px;">Framework</a> <a href="/tags/HTML-CSS/" style="font-size: 10px;">HTML/CSS</a> <a href="/tags/Jade/" style="font-size: 10px;">Jade</a> <a href="/tags/Java/" style="font-size: 13.33px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 10px;">JavaScript</a> <a href="/tags/Kotlin/" style="font-size: 15px;">Kotlin</a> <a href="/tags/LAMP/" style="font-size: 10px;">LAMP</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/Lua/" style="font-size: 13.33px;">Lua</a> <a href="/tags/Mac/" style="font-size: 10px;">Mac</a> <a href="/tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="/tags/MongoDB/" style="font-size: 10px;">MongoDB</a> <a href="/tags/NestedScrolling/" style="font-size: 13.33px;">NestedScrolling</a> <a href="/tags/Node-js/" style="font-size: 13.33px;">Node.js</a> <a href="/tags/OS-X/" style="font-size: 10px;">OS X</a> <a href="/tags/Promise/" style="font-size: 10px;">Promise</a> <a href="/tags/Python/" style="font-size: 11.67px;">Python</a> <a href="/tags/React-Native/" style="font-size: 18.33px;">React-Native</a> <a href="/tags/Refactoring/" style="font-size: 10px;">Refactoring</a> <a href="/tags/Rx/" style="font-size: 10px;">Rx</a> <a href="/tags/RxJava/" style="font-size: 13.33px;">RxJava</a> <a href="/tags/Rxandroid/" style="font-size: 10px;">Rxandroid</a> <a href="/tags/Rxjava/" style="font-size: 11.67px;">Rxjava</a> <a href="/tags/SQLite/" style="font-size: 10px;">SQLite</a> <a href="/tags/Scrapy/" style="font-size: 11.67px;">Scrapy</a> <a href="/tags/Swift/" style="font-size: 10px;">Swift</a> <a href="/tags/SwipeRefreshLayout/" style="font-size: 10px;">SwipeRefreshLayout</a> <a href="/tags/Telegram/" style="font-size: 10px;">Telegram</a> <a href="/tags/TextView/" style="font-size: 10px;">TextView</a> <a href="/tags/Ubuntu/" style="font-size: 16.67px;">Ubuntu</a> <a href="/tags/VPS/" style="font-size: 10px;">VPS</a> <a href="/tags/View/" style="font-size: 10px;">View</a> <a href="/tags/Vue-js/" style="font-size: 10px;">Vue.js</a> <a href="/tags/Web/" style="font-size: 10px;">Web</a> <a href="/tags/WebView/" style="font-size: 11.67px;">WebView</a> <a href="/tags/bot/" style="font-size: 10px;">bot</a> <a href="/tags/crontab/" style="font-size: 10px;">crontab</a> <a href="/tags/iOS/" style="font-size: 10px;">iOS</a> <a href="/tags/interpolator/" style="font-size: 10px;">interpolator</a> <a href="/tags/leancloud/" style="font-size: 10px;">leancloud</a> <a href="/tags/mac-os/" style="font-size: 10px;">mac os</a> <a href="/tags/slack/" style="font-size: 10px;">slack</a> <a href="/tags/virtualBox/" style="font-size: 10px;">virtualBox</a> <a href="/tags/weex/" style="font-size: 10px;">weex</a> <a href="/tags/代理/" style="font-size: 10px;">代理</a> <a href="/tags/依赖注入/" style="font-size: 10px;">依赖注入</a> <a href="/tags/前端/" style="font-size: 10px;">前端</a> <a href="/tags/学习/" style="font-size: 10px;">学习</a> <a href="/tags/必备知识/" style="font-size: 11.67px;">必备知识</a> <a href="/tags/性能优化/" style="font-size: 10px;">性能优化</a> <a href="/tags/总结/" style="font-size: 10px;">总结</a> <a href="/tags/抓包/" style="font-size: 10px;">抓包</a> <a href="/tags/热修复/" style="font-size: 11.67px;">热修复</a> <a href="/tags/爬虫/" style="font-size: 10px;">爬虫</a> <a href="/tags/自动化/" style="font-size: 10px;">自动化</a> <a href="/tags/设计/" style="font-size: 10px;">设计</a>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap mdl-shadow--2dp">
+    <h3 class="widget-title">友情链接</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="https://github.com/hanks-zyh">hanks-zyh</a>
+          </li>
+        
+          <li>
+            <a href="https://kiya.space">Kiya‘s space</a>
+          </li>
+        
+          <li>
+            <a href="https://rocko.xyz/">Rocko&#39;s blog</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap mdl-shadow--2dp">
+    <div class="wx">
+      <h3 class="widget-title">微信公众号</h3>
+      <img src='https://ww1.sinaimg.cn/large/8c9b876fly1fe0nnlvokpj20by0bywfi.jpg' height="100%" width="100%" >
+      <p>搜索公众号: CodeProvider</p>
+    </div>
+  </div>
+
+
+  
+</aside>
+        
+        <section id="main" class="mdl-shadow--2dp"><article id="post-二叉平衡树" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      二叉平衡树
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+<div id="sina_keyword_ad_area2" class="articalContent  ">
+			<div>
+<p style="line-height: 26px; margin-top: 0px; margin-right: 0px; margin-bottom: 10px; margin-left: 0px; padding-top: 0px; padding-right: 0px; padding-bottom: 0px; padding-left: 0px; color: rgb(115, 115, 115); font-family: Arial, Helvetica, simsun, u5b8bu4f53; text-align: left; background-color: rgb(255, 255, 255);">
+对于二叉查找树，尽管查找、插入及删除操作的平均运行时间为O(logn)，但是它们的最差运行时间都是O(n),原因在于对树的形状没有限制。<wbr></p>
+<p style="line-height: 26px; margin-top: 0px; margin-right: 0px; margin-bottom: 10px; margin-left: 0px; padding-top: 0px; padding-right: 0px; padding-bottom: 0px; padding-left: 0px; color: rgb(115, 115, 115); font-family: Arial, Helvetica, simsun, u5b8bu4f53; text-align: left; background-color: rgb(255, 255, 255);">
+平衡二叉树又称为AVL树，它或者是一棵空树，或者是有下列性质的二叉树：它的左子树和右子树都是平衡二叉树，且左右子树的深度之差的绝对值不超过1。二叉树的的平衡因子BF为：该结点的左子树的深度减去它的右子树的深度，则平衡二叉树的所有结点的平衡因子为只可能是：-1、0和1</p>
+<p style="line-height: 26px; margin-top: 0px; margin-right: 0px; margin-bottom: 10px; margin-left: 0px; padding-top: 0px; padding-right: 0px; padding-bottom: 0px; padding-left: 0px; color: rgb(115, 115, 115); font-family: Arial, Helvetica, simsun, u5b8bu4f53; text-align: left; background-color: rgb(255, 255, 255);">
+一棵好的平衡二叉树的特征：</p>
+<p style="line-height: 26px; margin-top: 0px; margin-right: 0px; margin-bottom: 10px; margin-left: 0px; padding-top: 0px; padding-right: 0px; padding-bottom: 0px; padding-left: 0px; color: rgb(115, 115, 115); font-family: Arial, Helvetica, simsun, u5b8bu4f53; text-align: left; background-color: rgb(255, 255, 255);">
+（1）保证有n个结点的树的高度为O(logn)</p>
+<p style="line-height: 26px; margin-top: 0px; margin-right: 0px; margin-bottom: 10px; margin-left: 0px; padding-top: 0px; padding-right: 0px; padding-bottom: 0px; padding-left: 0px; color: rgb(115, 115, 115); font-family: Arial, Helvetica, simsun, u5b8bu4f53; text-align: left; background-color: rgb(255, 255, 255);">
+（2）容易维护，也就是说，在做数据项的插入或删除操作时，为平衡树所做的一些辅助操作时间开销为O(1)</p>
+<p style="line-height: 26px; margin-top: 0px; margin-right: 0px; margin-bottom: 10px; margin-left: 0px; padding-top: 0px; padding-right: 0px; padding-bottom: 0px; padding-left: 0px; color: rgb(115, 115, 115); font-family: Arial, Helvetica, simsun, u5b8bu4f53; text-align: left; background-color: rgb(255, 255, 255);">
+一、平衡二叉树的构造</p>
+<p style="line-height: 26px; margin-top: 0px; margin-right: 0px; margin-bottom: 10px; margin-left: 0px; padding-top: 0px; padding-right: 0px; padding-bottom: 0px; padding-left: 0px; color: rgb(115, 115, 115); font-family: Arial, Helvetica, simsun, u5b8bu4f53; text-align: left; background-color: rgb(255, 255, 255);">
+在一棵二叉查找树中插入结点后，调整其为平衡二叉树。若向平衡二叉树中插入一个新结点后破坏了平衡二叉树的平衡性。首先要找出插入新结点后失去平衡的最小子树根结点的指针。然后再调整这个子树中有关结点之间的链接关系，使之成为新的平衡子树。当失去平衡的最小子树被调整为平衡子树后，原有其他所有不平衡子树无需调整，整个二叉排序树就又成为一棵平衡二叉树</p>
+<p style="line-height: 26px; margin-top: 0px; margin-right: 0px; margin-bottom: 10px; margin-left: 0px; padding-top: 0px; padding-right: 0px; padding-bottom: 0px; padding-left: 0px; color: rgb(115, 115, 115); font-family: Arial, Helvetica, simsun, u5b8bu4f53; text-align: left; background-color: rgb(255, 255, 255);">
+1.调整方法</p>
+<p style="line-height: 26px; margin-top: 0px; margin-right: 0px; margin-bottom: 10px; margin-left: 0px; padding-top: 0px; padding-right: 0px; padding-bottom: 0px; padding-left: 0px; color: rgb(115, 115, 115); font-family: Arial, Helvetica, simsun, u5b8bu4f53; text-align: left; background-color: rgb(255, 255, 255);">
+（1）插入点位置必须<font color="#FF0000">满足二叉查找树的性质</font>，即任意一棵子树的左结点都小于根结点，右结点大于根结点</p>
+<p style="line-height: 26px; margin-top: 0px; margin-right: 0px; margin-bottom: 10px; margin-left: 0px; padding-top: 0px; padding-right: 0px; padding-bottom: 0px; padding-left: 0px; color: rgb(115, 115, 115); font-family: Arial, Helvetica, simsun, u5b8bu4f53; text-align: left; background-color: rgb(255, 255, 255);">
+（2）找出插入结点后<strong><font color="#FF0000">不平衡的最小二叉树</font></strong>进行调整，如果是整个树不平衡，才进行整个树的调整。</p>
+<p style="line-height: 26px; margin-top: 0px; margin-right: 0px; margin-bottom: 10px; margin-left: 0px; padding-top: 0px; padding-right: 0px; padding-bottom: 0px; padding-left: 0px; color: rgb(115, 115, 115); font-family: Arial, Helvetica, simsun, u5b8bu4f53; text-align: left; background-color: rgb(255, 255, 255);">
+2.调整方式</p>
+<p style="line-height: 26px; margin-top: 0px; margin-right: 0px; margin-bottom: 10px; margin-left: 0px; padding-top: 0px; padding-right: 0px; padding-bottom: 0px; padding-left: 0px; color: rgb(115, 115, 115); font-family: Arial, Helvetica, simsun, u5b8bu4f53; text-align: left; background-color: rgb(255, 255, 255);">
+（1）LL型</p>
+<p style="line-height: 26px; margin-top: 0px; margin-right: 0px; margin-bottom: 10px; margin-left: 0px; padding-top: 0px; padding-right: 0px; padding-bottom: 0px; padding-left: 0px; color: rgb(115, 115, 115); font-family: Arial, Helvetica, simsun, u5b8bu4f53; text-align: left; background-color: rgb(255, 255, 255);">
+LL型：插入位置<font color="#FF0000"><strong>为左子树的左结点，进行向右旋转</strong></font></p>
+<div style="line-height: 26px; color: rgb(115, 115, 115); font-family: Arial, Helvetica, simsun, u5b8bu4f53; text-align: left; background-color: rgb(255, 255, 255);">
+<img alt="平衡二叉树 - 枫叶 - 枫叶" src="https://simg.sinajs.cn/blog7style/images/common/sg_trans.gif" real_src="https://img115.ph.126.net/SqbMtCG391VVP3FXrnR_bg==/2010012808692889579.gif" style="border-style: initial; border-color: initial; max-width: 100%; margin-top: 0px; margin-right: 10px; margin-bottom: 0px; margin-left: 0px;" title="二叉平衡树"></div>
+<div style="line-height: 26px; color: rgb(115, 115, 115); font-family: Arial, Helvetica, simsun, u5b8bu4f53; text-align: left; background-color: rgb(255, 255, 255);">
+由于在A的左孩子B的左子树上插入结点F，使A的平衡因子由1变为2，成为不平衡的最小二叉树根结点。此时A结点顺时针右旋转，旋转过程中遵循“旋转优先”的规则，A结点替换D结点成为B结点的右子树，D结点成为A结点的左孩子。</div>
+<div style="line-height: 26px; color: rgb(115, 115, 115); font-family: Arial, Helvetica, simsun, u5b8bu4f53; text-align: left; background-color: rgb(255, 255, 255);">
+（2）RR型</div>
+<div style="line-height: 26px; color: rgb(115, 115, 115); font-family: Arial, Helvetica, simsun, u5b8bu4f53; text-align: left; background-color: rgb(255, 255, 255);">
+RR型：插入位置<font color="#FF0000"><strong>为右子树的右孩子，进行向左旋转</strong></font></div>
+<div style="line-height: 26px; color: rgb(115, 115, 115); font-family: Arial, Helvetica, simsun, u5b8bu4f53; text-align: left; background-color: rgb(255, 255, 255);">
+<div style="line-height: 26px;"><img alt="平衡二叉树 - 枫叶 - 枫叶" src="https://simg.sinajs.cn/blog7style/images/common/sg_trans.gif" real_src="https://img609.ph.126.net/hS3sNmPFqzhsRN5AVZQECQ==/1891511843497439874.gif" style="border-style: initial; border-color: initial; max-width: 100%; margin-top: 0px; margin-right: 10px; margin-bottom: 0px; margin-left: 0px;" title="二叉平衡树"></div>
+<div style="line-height: 26px;">
+由于在A的右子树C的右子树插入了结点F，A的平衡因子由-1变为-2，成为不平衡的最小二叉树根结点。此时，A结点逆时针左旋转，遵循“旋转优先”的规则，A结点替换D结点成为C的左子树，D结点成为A的右子树。</div>
+<div style="line-height: 26px;">（3）LR型</div>
+<div style="line-height: 26px;">LR型：插入位置为<font color="#FF0000"><strong>左子树的右孩子，要进行两次旋转，先左旋转，再右旋转；第一次最小不平衡子树的根结点先不动，调整插入结点所在的子树，第二次再调整最小不平衡子树。</strong></font></div>
+<div style="line-height: 26px;">
+<div style="line-height: 26px;"><img alt="平衡二叉树 - 枫叶 - 枫叶" src="https://simg.sinajs.cn/blog7style/images/common/sg_trans.gif" real_src="https://img.ph.126.net/Q-WMPZXSJAhOiyI9OuqXPQ==/3372914645925000410.gif" style="border-style: initial; border-color: initial; max-width: 100%; margin-top: 0px; margin-right: 10px; margin-bottom: 0px; margin-left: 0px;" title="二叉平衡树"></div>
+&nbsp;<wbr></div>
+&nbsp;<wbr>由于在A的左子树B的右子树上插入了结点F，A的平衡因子由1变为了2，成为不平衡的最小二叉树根结点。第一次旋转A结点不动，先将B的右子树的根结点D向左上旋转提升到B结点的位置，然后再把该D结点向右上旋转提升到A结点的位置。</div>
+<div style="line-height: 26px; color: rgb(115, 115, 115); font-family: Arial, Helvetica, simsun, u5b8bu4f53; text-align: left; background-color: rgb(255, 255, 255);">
+（4）RL型</div>
+<div style="line-height: 26px; color: rgb(115, 115, 115); font-family: Arial, Helvetica, simsun, u5b8bu4f53; text-align: left; background-color: rgb(255, 255, 255);">
+RL型：插入位置为右子树的左孩子，进行两次调整，先右旋转再左旋转；处理情况与LR类似。</div>
+<div style="line-height: 26px; color: rgb(115, 115, 115); font-family: Arial, Helvetica, simsun, u5b8bu4f53; text-align: left; background-color: rgb(255, 255, 255);">
+<div style="line-height: 26px;"><img height="222" alt="平衡二叉树 - 枫叶 - 枫叶" src="https://simg.sinajs.cn/blog7style/images/common/sg_trans.gif" real_src="https://img74.ph.126.net/QCtqXv7LRpZ78m-nrdy6zA==/1852386821735086852.gif" width="560" style="border-style: initial; border-color: initial; max-width: 100%; margin-top: 0px; margin-right: 10px; margin-bottom: 0px; margin-left: 0px; width: 547px; height: 229px;" title="二叉平衡树"></div>
+</div>
+</div>
+<div><br></div>
+<div>code：</div>
+<div><br></div>
+<div>#define LH +1</div>
+<div>#define EH 0</div>
+<div>#define RH -1</div>
+<div>#define ElemType int</div>
+<div>#define Status int</div>
+<div>#define EQ(a,b) ((a)==(b))</div>
+<div>#define LT(a,b) ((a)&lt;(b))</div>
+<div>#define LQ(a,b) ((a)&gt;(b))</div>
+<div><br></div>
+<div>typedef struct BSTNode</div>
+<div>{</div>
+<div>ElemType data;</div>
+<div>int bf; // 节点的平衡因子</div>
+<div>struct BSTNode * lchild, * rchild; //左右孩子指针</div>
+<div>}BSTNode, * BSTree;</div>
+<div><br></div>
+<div>#include</div>
+<div>#include</div>
+<div>#include</div>
+<div>using namespace std;</div>
+<div>void R_Rotate(BSTree &amp; p)</div>
+<div>{</div>
+<div>//对以*p 为根的二叉排序树做右旋处理，处理之后p指向新的树根结点，即旋转处理之前的左子树的根结点</div>
+<div>BSTree lc;</div>
+<div>lc = p-&gt;lchild;//lc指向p的左子树</div>
+<div>p-&gt;lchild = lc-&gt;rchild;//p左子树lc的有右子树</div>
+<div>lc-&gt;rchild = p; //lc右子树指向p</div>
+<div>p = lc;//p指向新的根结点</div>
+<div>}//R_Rotate</div>
+<div>void L_Rotate(BSTree &amp; p)</div>
+<div>{</div>
+<div>//对以*p 为根的二叉排序树做左旋处理，处理之后p指向新的树根结点，即旋转处理之前的左子树的根结点</div>
+<div>BSTree rc;</div>
+<div>rc = p-&gt;rchild;//rc指向p的左子树</div>
+<div>p-&gt;rchild = rc-&gt;lchild;//p左子树rc的左子树</div>
+<div>rc-&gt;lchild = p; //rc左子树指向p</div>
+<div>p = rc;//p指向新的根结点</div>
+<div>}//R_Rotate</div>
+<div>void LeftBalance( BSTree &amp; T)</div>
+<div>{</div>
+<div>BSTree lc,rd;</div>
+<div>lc = T-&gt;lchild;</div>
+<div><br></div>
+<div>switch(lc-&gt;bf)</div>
+<div>{</div>
+<div>case LH:</div>
+<div>lc-&gt;bf = T-&gt;bf = EH;</div>
+<div>R_Rotate(T); break;</div>
+<div>case RH:</div>
+<div>rd = lc-&gt;rchild;</div>
+<div>T-&gt;lchild = rd-&gt;rchild;</div>
+<div>lc-&gt;rchild = rd-&gt;lchild;</div>
+<div>rd-&gt;lchild = lc;</div>
+<div>rd-&gt;rchild = T;</div>
+<div><br></div>
+<div>T = rd;</div>
+<div>}//switch(lc-&gt;bf)</div>
+<div>}//LeftBalance</div>
+<div>void RightBalance( BSTree &amp; T)</div>
+<div>{</div>
+<div>BSTree rc,rd;</div>
+<div>rc = T-&gt;rchild;</div>
+<div><br></div>
+<div>switch(rc-&gt;bf)</div>
+<div>{</div>
+<div>case RH:</div>
+<div>rc-&gt;bf = T-&gt;bf = EH;</div>
+<div>L_Rotate(T); break;</div>
+<div>case LH:</div>
+<div>rd = rc-&gt;lchild;</div>
+<div>T-&gt;rchild = rd-&gt;lchild;</div>
+<div>rc-&gt;lchild = rd-&gt;rchild;</div>
+<div>rd-&gt;rchild = rc;</div>
+<div>rd-&gt;lchild = T;</div>
+<div><br></div>
+<div>T = rd;</div>
+<div>}//switch(rc-&gt;bf)</div>
+<div>}//RightBalance</div>
+<div>Status InsertAVL ( BSTree &amp;T , ElemType e, bool
+&amp;taller )</div>
+<div>{//若平衡二叉树中不存在e，则插入新节点e返回1，否则返回0.
+&nbsp;<wbr>若因插入结点使树不平衡，进行旋转，taller代表树是否长高</div>
+<div><br></div>
+<div>if(!T){ //空树，直接插入</div>
+<div>T = (BSTNode *)malloc(sizeof(BSTNode)); T-&gt;data =
+e;&nbsp;<wbr></div>
+<div>T-&gt;lchild = T-&gt;rchild = NULL; T-&gt;bf = EH; taller =
+true;</div>
+<div>}</div>
+<div><br></div>
+<div>else {</div>
+<div>if(EQ(e,T-&gt;data) ){ &nbsp;<wbr> taller= false;
+return 0;} &nbsp;<wbr>//已存在e</div>
+<div>if(LT(e,T-&gt;data) ) { // e&lt;根结点，向左查找左子树</div>
+<div>if(!InsertAVL(T-&gt;lchild,e,taller) ) &nbsp;<wbr>
+&nbsp;<wbr>return 0;///未插入</div>
+<div>if( taller ) &nbsp;<wbr>//已插入左子树并使树长高</div>
+<div>switch (T-&gt;bf)//检察 T 的平衡度</div>
+<div>{</div>
+<div>case LH: //原左子树高于右子树，则左平衡处理</div>
+<div>LeftBalance(T); taller = false; break;</div>
+<div>case EH:</div>
+<div>T-&gt;bf = LH; taller = true; break;</div>
+<div>case RH:</div>
+<div>T-&gt;bf = EH; taller = false; break;</div>
+<div>}</div>
+<div>}//if</div>
+<div>else</div>
+<div>{</div>
+<div>if(!InsertAVL(T-&gt;rchild,e,taller) ) &nbsp;<wbr>
+&nbsp;<wbr>return 0;</div>
+<div>if( taller )</div>
+<div>switch (T-&gt;bf)</div>
+<div>{</div>
+<div>case LH:</div>
+<div>T-&gt;bf = EH;taller = false; break;</div>
+<div>case EH:</div>
+<div>T-&gt;bf = RH; taller = true; break;</div>
+<div>case RH:</div>
+<div>RightBalance(T); taller = false; break;</div>
+<div>}</div>
+<div>}//else</div>
+<div>}//else</div>
+<div>return 1;</div>
+<div>}//InsertAVL</div>
+<div>void InOrderTraverse(BSTree &nbsp;<wbr>T)</div>
+<div>{//中序遍历二叉树，递归</div>
+<div>if(T){</div>
+<div>InOrderTraverse(T-&gt;lchild);</div>
+<div>cout&lt;&lt; T-&gt;data&lt;&lt;" ";</div>
+<div>InOrderTraverse(T-&gt;rchild);</div>
+<div>}</div>
+<div>}</div>
+<div>int main()</div>
+<div>{</div>
+<div>ElemType e;</div>
+<div>int n;</div>
+<div>BSTree T;</div>
+<div>T = NULL;</div>
+<div>bool taller;</div>
+<div>cout&lt;&lt;"请输入二叉平衡树结点个数:";</div>
+<div>cin&gt;&gt;n; &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr>cout&lt;&lt;"请输入"&lt;&lt;n&lt;&lt;"个要插入的元素（空格隔开）：";</div>
+<div>while(n--){</div>
+<div>cin&gt;&gt;e;</div>
+<div>InsertAVL(T,e,taller);</div>
+<div>}</div>
+<div>cout&lt;&lt;"二叉排序树中序遍历为："; InOrderTraverse(T);
+cout&lt;&lt;endl;</div>
+<div>return 0;</div>
+<div>}</div>
+<div><br></div>							
+		</div>
+
+      
+    </div>
+</article>
+ 
+ <!-- 上一页 下一页 -->
+
+  
+<nav id="article-nav">
+  
+    <a href="/2014/02/19/C&nbsp;语言具体的数据类型数值范…/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>上一篇</span>
+      <div class="article-nav-title">
+        
+          C&amp;nbsp;语言具体的数据类型数值范…
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2014/02/19/已知二叉树的中序遍历和前序遍历，…/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>下一篇</span>
+      <div class="article-nav-title">已知二叉树的中序遍历和前序遍历，…</div>
+    </a>
+  
+</nav>
+
+
+
+<!-- 相关文章 -->
+
+  <!--
+
+-->
+
+
+
+<section>
+    <!-- 多说分享框 -->
+    <div id="comment_container"></div>
+    <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+    <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+    <script>
+    var gitment = new Gitment({
+      owner: 'hanks-zyh',
+      repo: 'everthing',
+      oauth: {
+        client_id: '61ce891fdf2e46b32ccc',
+        client_secret: 'a0157770347b23c6c80afb19b997f114ed30f93e',
+      },
+    })
+    gitment.render('comment_container')
+    </script>
+   <!-- 多说公共JS代码 end -->
+</section>
+
+</section>
+      </div>
+      <footer id="footer">
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      &copy; 2018 <a href="https://github.com/hanks-zyh"> Hanks</a>
+	  </div>
+  </div>
+ <div id="share">
+  <a id="totop" title="" style="display: block;">返回顶部</a>
+ </div>
+</footer>
+
+    </div>
+    
+
+<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery.scrollLoading.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

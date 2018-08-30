@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>二叉树的层次遍历（相当于广度遍历） SJTU OJ 题目 1040二叉树层次遍历 | Hanks&#39; Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <meta name="description" content="&amp;nbsp;&amp;nbsp;
+1040. 二叉树层次遍历
+
+
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; Description
+给出一棵二叉树，求它的层次遍历结果。
+[二叉树的遍历问题是一种精神，务必领会]
+
+Input Format
+第一行，N&amp;lt;1000000，表示二叉树节点数。
+默认序号为0的节点为树根。接下来共N-1行，依次表示序号为1，...，N-1的节">
+<meta property="og:type" content="article">
+<meta property="og:title" content="二叉树的层次遍历（相当于广度遍历） SJTU OJ 题目 1040二叉树层次遍历">
+<meta property="og:url" content="https://hanks.pub/2013/07/31/二叉树的层次遍历（相当于广度遍历）_SJTU_OJ_题目_1040二叉树层次遍历/index.html">
+<meta property="og:site_name" content="Hanks' Blog">
+<meta property="og:description" content="&amp;nbsp;&amp;nbsp;
+1040. 二叉树层次遍历
+
+
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; Description
+给出一棵二叉树，求它的层次遍历结果。
+[二叉树的遍历问题是一种精神，务必领会]
+
+Input Format
+第一行，N&amp;lt;1000000，表示二叉树节点数。
+默认序号为0的节点为树根。接下来共N-1行，依次表示序号为1，...，N-1的节">
+<meta property="og:image" content="https://img.blog.csdn.net/20130731143430859?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMTI4MjA2OQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center">
+<meta property="og:updated_time" content="2018-08-30T15:40:32.504Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="二叉树的层次遍历（相当于广度遍历） SJTU OJ 题目 1040二叉树层次遍历">
+<meta name="twitter:description" content="&amp;nbsp;&amp;nbsp;
+1040. 二叉树层次遍历
+
+
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; Description
+给出一棵二叉树，求它的层次遍历结果。
+[二叉树的遍历问题是一种精神，务必领会]
+
+Input Format
+第一行，N&amp;lt;1000000，表示二叉树节点数。
+默认序号为0的节点为树根。接下来共N-1行，依次表示序号为1，...，N-1的节">
+<meta name="twitter:image" content="https://img.blog.csdn.net/20130731143430859?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMTI4MjA2OQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center">
+  
+  
+    <link rel="icon" href="/images/favicon.png">
+  
+  <!-- <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600' rel='stylesheet' type='text/css'> -->
+  <!-- <link href="//fonts.googleapis.com/css?family=Source+Code+Pro:400,700" rel="stylesheet" type="text/css"> -->
+  <!-- <link href="//fonts.useso.com/css?family=Source+Code+Pro:400,700" rel="stylesheet" type="text/css"> -->
+  <!-- <link href='//fonts.useso.com/css?family=Open+Sans:300,600' rel='stylesheet' type='text/css'> -->
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo"></a>
+    <nav id="main-nav">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      
+        <a class="main-nav-link" href="/archives">归档</a>
+      
+        <a class="main-nav-link" href="/daily">日报</a>
+      
+        <a class="main-nav-link" href="/eye-video">开眼</a>
+      
+        <a class="main-nav-link" href="/joke">joke</a>
+      
+        <a class="main-nav-link" href="/picture-fight">斗图</a>
+      
+        <a class="main-nav-link" href="/atom.xml">RSS</a>
+      
+    </nav>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/archives" class="mobile-nav-link">归档</a>
+  
+    <a href="/daily" class="mobile-nav-link">日报</a>
+  
+    <a href="/eye-video" class="mobile-nav-link">开眼</a>
+  
+    <a href="/joke" class="mobile-nav-link">joke</a>
+  
+    <a href="/picture-fight" class="mobile-nav-link">斗图</a>
+  
+    <a href="/atom.xml" class="mobile-nav-link">RSS</a>
+  
+</nav>
+      <div class="outer">
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap mdl-shadow--2dp">
+    <div class="info">
+     <div class="content">
+       <div>
+         <a href="https://github.com/hanks-zyh"><img class="avatar" src="https://avatars2.githubusercontent.com/u/6268322?v=3&s=460" alt="" /></a>
+       </div>
+       <div class="name">
+         <h2 >Hanks</h2>
+       </div>
+       <p>‭100100011101‬</p>
+       <div class="account">
+         <div class="account-item">
+           <a href="https://weibo.com/u/2359002991"><img src="https://ww1.sinaimg.cn/large/8c9b876fjw1f3ik9y4q7hj205k05kdfx.jpg" style="width:40px;height:40px;border-radius: 50%;"></a>
+         </div>
+         <div class="account-item">
+              <a href="https://www.zhihu.com/people/yuhan-zhang-36"><img src="https://ww2.sinaimg.cn/large/8c9b876fjw1f3ik7sv63wj205k05k3yg.jpg" style="width:40px;height:40px;border-radius: 50%;"></a>
+         </div>
+         <div class="account-item">
+           <a href="https://github.com/hanks-zyh"> <img src="https://ww1.sinaimg.cn/large/8c9b876fly1fe196fbtiqj205k05ka9u.jpg" style="width:40px;height:40px;border-radius: 50%;"></a>
+         </div>
+       </div>
+     </div>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap mdl-shadow--2dp">
+    <h3 class="widget-title">最新发布</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/07/10/proxy-https/">抓包再总结</a>
+          </li>
+        
+          <li>
+            <a href="/2017/10/11/android-night-mode/">Android 夜间模式</a>
+          </li>
+        
+          <li>
+            <a href="/2017/09/28/lua-into-android/">Lua 嵌入 Android 原理</a>
+          </li>
+        
+          <li>
+            <a href="/2017/04/28/lua-in-android/">探究 lua 在 Android 中的应用</a>
+          </li>
+        
+          <li>
+            <a href="/2017/03/26/node-image-recognition/">Node 识别图片中的文字</a>
+          </li>
+        
+          <li>
+            <a href="/2017/03/22/proxy-test/">请求代理</a>
+          </li>
+        
+          <li>
+            <a href="/2017/02/16/android-customview-inputmethod/">Android 自定义 view 连接输入法</a>
+          </li>
+        
+          <li>
+            <a href="/2017/01/10/android-lua/">Android 与 Lua</a>
+          </li>
+        
+          <li>
+            <a href="/2017/01/10/android-markdown-render/">Android 下 Markdown 渲染</a>
+          </li>
+        
+          <li>
+            <a href="/2017/01/09/android-webview-font/">Android 中 webview 自定义字体</a>
+          </li>
+        
+          <li>
+            <a href="/2016/09/25/slack-bot/">slack bot</a>
+          </li>
+        
+          <li>
+            <a href="/2016/09/19/webapp/">让网页更适配移动设备</a>
+          </li>
+        
+          <li>
+            <a href="/2016/09/05/weex-2333/">体验 weex —— 写一个表情包应用</a>
+          </li>
+        
+          <li>
+            <a href="/2016/08/31/nestedscrollchild/">WebView 实现 NestedScrollingChild</a>
+          </li>
+        
+          <li>
+            <a href="/2016/08/29/nestedchildparent/">NestedScrollingParent 实现复杂交互效果</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap mdl-shadow--2dp">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Activity/" style="font-size: 10px;">Activity</a> <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/Atom/" style="font-size: 10px;">Atom</a> <a href="/tags/Dagger2/" style="font-size: 10px;">Dagger2</a> <a href="/tags/EditText/" style="font-size: 10px;">EditText</a> <a href="/tags/Express/" style="font-size: 11.67px;">Express</a> <a href="/tags/Fragment/" style="font-size: 10px;">Fragment</a> <a href="/tags/Framework/" style="font-size: 11.67px;">Framework</a> <a href="/tags/HTML-CSS/" style="font-size: 10px;">HTML/CSS</a> <a href="/tags/Jade/" style="font-size: 10px;">Jade</a> <a href="/tags/Java/" style="font-size: 13.33px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 10px;">JavaScript</a> <a href="/tags/Kotlin/" style="font-size: 15px;">Kotlin</a> <a href="/tags/LAMP/" style="font-size: 10px;">LAMP</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/Lua/" style="font-size: 13.33px;">Lua</a> <a href="/tags/Mac/" style="font-size: 10px;">Mac</a> <a href="/tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="/tags/MongoDB/" style="font-size: 10px;">MongoDB</a> <a href="/tags/NestedScrolling/" style="font-size: 13.33px;">NestedScrolling</a> <a href="/tags/Node-js/" style="font-size: 13.33px;">Node.js</a> <a href="/tags/OS-X/" style="font-size: 10px;">OS X</a> <a href="/tags/Promise/" style="font-size: 10px;">Promise</a> <a href="/tags/Python/" style="font-size: 11.67px;">Python</a> <a href="/tags/React-Native/" style="font-size: 18.33px;">React-Native</a> <a href="/tags/Refactoring/" style="font-size: 10px;">Refactoring</a> <a href="/tags/Rx/" style="font-size: 10px;">Rx</a> <a href="/tags/RxJava/" style="font-size: 13.33px;">RxJava</a> <a href="/tags/Rxandroid/" style="font-size: 10px;">Rxandroid</a> <a href="/tags/Rxjava/" style="font-size: 11.67px;">Rxjava</a> <a href="/tags/SQLite/" style="font-size: 10px;">SQLite</a> <a href="/tags/Scrapy/" style="font-size: 11.67px;">Scrapy</a> <a href="/tags/Swift/" style="font-size: 10px;">Swift</a> <a href="/tags/SwipeRefreshLayout/" style="font-size: 10px;">SwipeRefreshLayout</a> <a href="/tags/Telegram/" style="font-size: 10px;">Telegram</a> <a href="/tags/TextView/" style="font-size: 10px;">TextView</a> <a href="/tags/Ubuntu/" style="font-size: 16.67px;">Ubuntu</a> <a href="/tags/VPS/" style="font-size: 10px;">VPS</a> <a href="/tags/View/" style="font-size: 10px;">View</a> <a href="/tags/Vue-js/" style="font-size: 10px;">Vue.js</a> <a href="/tags/Web/" style="font-size: 10px;">Web</a> <a href="/tags/WebView/" style="font-size: 11.67px;">WebView</a> <a href="/tags/bot/" style="font-size: 10px;">bot</a> <a href="/tags/crontab/" style="font-size: 10px;">crontab</a> <a href="/tags/iOS/" style="font-size: 10px;">iOS</a> <a href="/tags/interpolator/" style="font-size: 10px;">interpolator</a> <a href="/tags/leancloud/" style="font-size: 10px;">leancloud</a> <a href="/tags/mac-os/" style="font-size: 10px;">mac os</a> <a href="/tags/slack/" style="font-size: 10px;">slack</a> <a href="/tags/virtualBox/" style="font-size: 10px;">virtualBox</a> <a href="/tags/weex/" style="font-size: 10px;">weex</a> <a href="/tags/代理/" style="font-size: 10px;">代理</a> <a href="/tags/依赖注入/" style="font-size: 10px;">依赖注入</a> <a href="/tags/前端/" style="font-size: 10px;">前端</a> <a href="/tags/学习/" style="font-size: 10px;">学习</a> <a href="/tags/必备知识/" style="font-size: 11.67px;">必备知识</a> <a href="/tags/性能优化/" style="font-size: 10px;">性能优化</a> <a href="/tags/总结/" style="font-size: 10px;">总结</a> <a href="/tags/抓包/" style="font-size: 10px;">抓包</a> <a href="/tags/热修复/" style="font-size: 11.67px;">热修复</a> <a href="/tags/爬虫/" style="font-size: 10px;">爬虫</a> <a href="/tags/自动化/" style="font-size: 10px;">自动化</a> <a href="/tags/设计/" style="font-size: 10px;">设计</a>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap mdl-shadow--2dp">
+    <h3 class="widget-title">友情链接</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="https://github.com/hanks-zyh">hanks-zyh</a>
+          </li>
+        
+          <li>
+            <a href="https://kiya.space">Kiya‘s space</a>
+          </li>
+        
+          <li>
+            <a href="https://rocko.xyz/">Rocko&#39;s blog</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap mdl-shadow--2dp">
+    <div class="wx">
+      <h3 class="widget-title">微信公众号</h3>
+      <img src='https://ww1.sinaimg.cn/large/8c9b876fly1fe0nnlvokpj20by0bywfi.jpg' height="100%" width="100%" >
+      <p>搜索公众号: CodeProvider</p>
+    </div>
+  </div>
+
+
+  
+</aside>
+        
+        <section id="main" class="mdl-shadow--2dp"><article id="post-二叉树的层次遍历（相当于广度遍历）_SJTU_OJ_题目_1040二叉树层次遍历" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      二叉树的层次遍历（相当于广度遍历） SJTU OJ 题目 1040二叉树层次遍历
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+<p>&nbsp;&nbsp;</p>
+<h1 class="page-header" align="center" style="">1040. 二叉树层次遍历</h1>
+<div class="row" style="">
+<h2 style="line-height:36px; margin:0px; font-family:inherit; font-size:24px; font-weight:bold">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Description</h2>
+<p style="margin:0px 0px 9px">给出一棵二叉树，求它的层次遍历结果。</p>
+<p style="margin:0px 0px 9px">[二叉树的遍历问题是一种精神，务必领会]</p>
+<h2 style="line-height:36px; margin:0px; font-family:inherit; font-size:24px; font-weight:bold">
+Input Format</h2>
+<p style="margin:0px 0px 9px">第一行，N&lt;1000000，表示二叉树节点数。</p>
+<p style="margin:0px 0px 9px">默认序号为0的节点为树根。接下来共N-1行，依次表示序号为1，...，N-1的节点的父亲节点序号。</p>
+<p style="margin:0px 0px 9px">如果一个节点有两个孩子节点，左孩子节点序号总是小于右孩子节点序号。</p>
+<h2 style="line-height:36px; margin:0px; font-family:inherit; font-size:24px; font-weight:bold">
+Output Format</h2>
+<p style="margin:0px 0px 9px">仅一行，二叉树的层次遍历结果。节点序号间用空&#26684;隔开。</p>
+<h2 style="line-height:36px; margin:0px; font-family:inherit; font-size:24px; font-weight:bold">
+Hint</h2>
+<h2 style="line-height:36px; margin:0px; font-family:inherit; font-size:24px; font-weight:bold">
+Sample Input</h2>
+<pre style="border-bottom:1px solid; border-left:1px solid; padding-bottom:8px; line-height:18px; background-color:rgb(245,245,245); margin:0px 0px 9px; padding-left:8px; padding-right:8px; display:block; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; word-wrap:break-word; white-space:pre-wrap; color:rgb(51,51,51); font-size:12px; word-break:break-all; border-top:1px solid; border-right:1px solid; padding-top:8px"><code style="border-bottom:0px; border-left:0px; padding-bottom:0px; background-color:transparent; padding-left:0px; padding-right:0px; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; font-size:12px; border-top:0px; border-right:0px; padding-top:0px">6
+0
+1
+1
+0
+4
+</code></pre>
+<h2 style="line-height:36px; margin:0px; font-family:inherit; font-size:24px; font-weight:bold">
+Sample Output</h2>
+<pre style="border-bottom:1px solid; border-left:1px solid; padding-bottom:8px; line-height:18px; background-color:rgb(245,245,245); margin:0px 0px 9px; padding-left:8px; padding-right:8px; display:block; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; word-wrap:break-word; white-space:pre-wrap; color:rgb(51,51,51); font-size:12px; word-break:break-all; border-top:1px solid; border-right:1px solid; padding-top:8px"><code style="border-bottom:0px; border-left:0px; padding-bottom:0px; background-color:transparent; padding-left:0px; padding-right:0px; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; font-size:12px; border-top:0px; border-right:0px; padding-top:0px">0 1 4 2 3 5</code></pre>
+</div>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p><strong><span style="font-size:18px">&nbsp;分析：一开始我想到直接建一个二维数组，tree[num][2];&nbsp; </span>
+</strong></p>
+<p><strong><span style="font-size:18px">&nbsp; 行标为根结点，每一行第一个为左子树，第二个为右子树；</span></strong></p>
+<p>&nbsp;<img src="https://img.blog.csdn.net/20130731143430859?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMTI4MjA2OQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt=""></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p><strong><span style="font-size:18px">然后从o结点开始遍历，遍历完两个子树，然后从左子树开始遍历，遍历左子树两个子树，但是很难确定什么时候当前节点的堂兄弟是否都已经遍历，</span></strong></p>
+<p><strong><span style="font-size:18px">后来问问女朋友，她说我肯定是没看它的博客，我到她的新浪博客找找看，结果找到了</span></strong><a target="_blank" href="https://blog.sina.com.cn/s/blog_abecef150101jpxb.html"><strong><span style="font-size:18px">二叉树遍历问题</span></strong></a><strong><span style="font-size:18px">，下面看看是怎么实现的层次遍历</span></strong></p>
+<p><strong><span style="font-size:18px">建立一个队列 queue &lt;int &gt;Q;&nbsp; (头文件#include&lt;queue&gt;),</span></strong></p>
+<p><strong><span style="font-size:18px">1.首先将根节点0入队，</span></strong></p>
+<p><strong><span style="font-size:18px">2.将队首元素的两个子树入队，</span></strong></p>
+<p><strong><span style="font-size:18px">3.将队首元素输出，出队，然后重复步骤2，直到队列为空（或者直到所有元素输出）</span></strong></p>
+<p><strong><span style="font-size:18px"></span></strong>&nbsp;</p>
+<p><strong><span style="font-size:18px">代码：</span></strong></p>
+<p>&nbsp;</p>
+<pre class="cpp" name="code">#include &lt;queue&gt;
+#include &lt;iostream&gt;
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+
+
+
+using namespace std;
+
+int tree[1000002][2];//注意题目中的N&lt;1000000;额这里我一开始设置的小了，提交一直RUN TIME ERROR 
+int cnt=0;
+
+queue &lt; int&gt; Q;
+
+void Traverse(int n)
+{
+	cnt++;
+	if(cnt&gt;n) return ;
+	//将对头元素的两个子树入队 
+	if(tree[Q.front()][0]!=-1) Q.push(tree[Q.front()][0]);
+	if(tree[Q.front()][1]!=-1) Q.push(tree[Q.front()][1]);
+	
+	printf(&quot;%d&quot;,Q.front());
+	if(cnt&lt;n) printf(&quot; &quot;);
+	Q.pop();
+	Traverse(n);
+}
+int main()
+{
+	int i,n,parent;
+	scanf(&quot;%d&quot;,&amp;n);
+	
+	cnt=0;
+//	while( !Q.empty() ) Q.pop();
+	for(i=0;i&lt;n;i++) 
+		tree[i][0] = tree[i][1] = -1;
+	
+	for(i=1;i&lt;n;i++)
+	{
+		scanf(&quot;%d&quot;,&amp;parent);
+		if(tree[parent][0]!=-1 )  //0位置有元素
+		{
+			if(tree[parent][0]&gt;i)//比较xiao的放到0位置， 
+			{
+				tree[parent][1] = tree[parent][0]; 
+				tree[parent][0]	= i; 
+			}
+			else tree[parent][1] = i; 
+		}
+		else tree[parent][0]=i;
+	}	
+	Q.push(0);
+//	for(i=0;i&lt;n;i++)printf(&quot;%4d %4d\n&quot;,tree[i][0],tree[i][1]);
+	Traverse(n);
+	printf(&quot;\n&quot;);
+	
+	return 0;
+}</pre>
+<p><br>
+&nbsp;</p>
+
+      
+    </div>
+</article>
+ 
+ <!-- 上一页 下一页 -->
+
+  
+<nav id="article-nav">
+  
+    <a href="/2013/07/31/hud1805_题目_Expression_（数组创建二叉树_树的层次遍历/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>上一篇</span>
+      <div class="article-nav-title">
+        
+          hud1805 题目 Expression （数组创建二叉树+树的层次遍历
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2013/07/31/已知树的前序和中序求后序_hdu_题目1710_Binary_Tree_Traversals/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>下一篇</span>
+      <div class="article-nav-title">已知树的前序和中序求后序 hdu 题目1710 Binary Tree Traversals</div>
+    </a>
+  
+</nav>
+
+
+
+<!-- 相关文章 -->
+
+  <!--
+
+-->
+
+
+
+<section>
+    <!-- 多说分享框 -->
+    <div id="comment_container"></div>
+    <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+    <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+    <script>
+    var gitment = new Gitment({
+      owner: 'hanks-zyh',
+      repo: 'everthing',
+      oauth: {
+        client_id: '61ce891fdf2e46b32ccc',
+        client_secret: 'a0157770347b23c6c80afb19b997f114ed30f93e',
+      },
+    })
+    gitment.render('comment_container')
+    </script>
+   <!-- 多说公共JS代码 end -->
+</section>
+
+</section>
+      </div>
+      <footer id="footer">
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      &copy; 2018 <a href="https://github.com/hanks-zyh"> Hanks</a>
+	  </div>
+  </div>
+ <div id="share">
+  <a id="totop" title="" style="display: block;">返回顶部</a>
+ </div>
+</footer>
+
+    </div>
+    
+
+<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery.scrollLoading.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>HDU 题目1166 敌兵布阵 | Hanks&#39; Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <meta name="description" content="敌兵布阵
+Time Limit: 2000/1000 MS (Java/Others)&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Memory Limit: 65536/32768 K (Java/Others)
+Total Submission(s): 29945&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Accepted Submission(s): 12848
+
+
+
+Pro">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HDU 题目1166 敌兵布阵">
+<meta property="og:url" content="https://hanks.pub/2013/08/04/HDU_题目1166_敌兵布阵/index.html">
+<meta property="og:site_name" content="Hanks' Blog">
+<meta property="og:description" content="敌兵布阵
+Time Limit: 2000/1000 MS (Java/Others)&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Memory Limit: 65536/32768 K (Java/Others)
+Total Submission(s): 29945&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Accepted Submission(s): 12848
+
+
+
+Pro">
+<meta property="og:updated_time" content="2018-08-30T15:40:32.034Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="HDU 题目1166 敌兵布阵">
+<meta name="twitter:description" content="敌兵布阵
+Time Limit: 2000/1000 MS (Java/Others)&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Memory Limit: 65536/32768 K (Java/Others)
+Total Submission(s): 29945&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Accepted Submission(s): 12848
+
+
+
+Pro">
+  
+  
+    <link rel="icon" href="/images/favicon.png">
+  
+  <!-- <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600' rel='stylesheet' type='text/css'> -->
+  <!-- <link href="//fonts.googleapis.com/css?family=Source+Code+Pro:400,700" rel="stylesheet" type="text/css"> -->
+  <!-- <link href="//fonts.useso.com/css?family=Source+Code+Pro:400,700" rel="stylesheet" type="text/css"> -->
+  <!-- <link href='//fonts.useso.com/css?family=Open+Sans:300,600' rel='stylesheet' type='text/css'> -->
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo"></a>
+    <nav id="main-nav">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      
+        <a class="main-nav-link" href="/archives">归档</a>
+      
+        <a class="main-nav-link" href="/daily">日报</a>
+      
+        <a class="main-nav-link" href="/eye-video">开眼</a>
+      
+        <a class="main-nav-link" href="/joke">joke</a>
+      
+        <a class="main-nav-link" href="/picture-fight">斗图</a>
+      
+        <a class="main-nav-link" href="/atom.xml">RSS</a>
+      
+    </nav>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/archives" class="mobile-nav-link">归档</a>
+  
+    <a href="/daily" class="mobile-nav-link">日报</a>
+  
+    <a href="/eye-video" class="mobile-nav-link">开眼</a>
+  
+    <a href="/joke" class="mobile-nav-link">joke</a>
+  
+    <a href="/picture-fight" class="mobile-nav-link">斗图</a>
+  
+    <a href="/atom.xml" class="mobile-nav-link">RSS</a>
+  
+</nav>
+      <div class="outer">
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap mdl-shadow--2dp">
+    <div class="info">
+     <div class="content">
+       <div>
+         <a href="https://github.com/hanks-zyh"><img class="avatar" src="https://avatars2.githubusercontent.com/u/6268322?v=3&s=460" alt="" /></a>
+       </div>
+       <div class="name">
+         <h2 >Hanks</h2>
+       </div>
+       <p>‭100100011101‬</p>
+       <div class="account">
+         <div class="account-item">
+           <a href="https://weibo.com/u/2359002991"><img src="https://ww1.sinaimg.cn/large/8c9b876fjw1f3ik9y4q7hj205k05kdfx.jpg" style="width:40px;height:40px;border-radius: 50%;"></a>
+         </div>
+         <div class="account-item">
+              <a href="https://www.zhihu.com/people/yuhan-zhang-36"><img src="https://ww2.sinaimg.cn/large/8c9b876fjw1f3ik7sv63wj205k05k3yg.jpg" style="width:40px;height:40px;border-radius: 50%;"></a>
+         </div>
+         <div class="account-item">
+           <a href="https://github.com/hanks-zyh"> <img src="https://ww1.sinaimg.cn/large/8c9b876fly1fe196fbtiqj205k05ka9u.jpg" style="width:40px;height:40px;border-radius: 50%;"></a>
+         </div>
+       </div>
+     </div>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap mdl-shadow--2dp">
+    <h3 class="widget-title">最新发布</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/07/10/proxy-https/">抓包再总结</a>
+          </li>
+        
+          <li>
+            <a href="/2017/10/11/android-night-mode/">Android 夜间模式</a>
+          </li>
+        
+          <li>
+            <a href="/2017/09/28/lua-into-android/">Lua 嵌入 Android 原理</a>
+          </li>
+        
+          <li>
+            <a href="/2017/04/28/lua-in-android/">探究 lua 在 Android 中的应用</a>
+          </li>
+        
+          <li>
+            <a href="/2017/03/26/node-image-recognition/">Node 识别图片中的文字</a>
+          </li>
+        
+          <li>
+            <a href="/2017/03/22/proxy-test/">请求代理</a>
+          </li>
+        
+          <li>
+            <a href="/2017/02/16/android-customview-inputmethod/">Android 自定义 view 连接输入法</a>
+          </li>
+        
+          <li>
+            <a href="/2017/01/10/android-lua/">Android 与 Lua</a>
+          </li>
+        
+          <li>
+            <a href="/2017/01/10/android-markdown-render/">Android 下 Markdown 渲染</a>
+          </li>
+        
+          <li>
+            <a href="/2017/01/09/android-webview-font/">Android 中 webview 自定义字体</a>
+          </li>
+        
+          <li>
+            <a href="/2016/09/25/slack-bot/">slack bot</a>
+          </li>
+        
+          <li>
+            <a href="/2016/09/19/webapp/">让网页更适配移动设备</a>
+          </li>
+        
+          <li>
+            <a href="/2016/09/05/weex-2333/">体验 weex —— 写一个表情包应用</a>
+          </li>
+        
+          <li>
+            <a href="/2016/08/31/nestedscrollchild/">WebView 实现 NestedScrollingChild</a>
+          </li>
+        
+          <li>
+            <a href="/2016/08/29/nestedchildparent/">NestedScrollingParent 实现复杂交互效果</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap mdl-shadow--2dp">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Activity/" style="font-size: 10px;">Activity</a> <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/Atom/" style="font-size: 10px;">Atom</a> <a href="/tags/Dagger2/" style="font-size: 10px;">Dagger2</a> <a href="/tags/EditText/" style="font-size: 10px;">EditText</a> <a href="/tags/Express/" style="font-size: 11.67px;">Express</a> <a href="/tags/Fragment/" style="font-size: 10px;">Fragment</a> <a href="/tags/Framework/" style="font-size: 11.67px;">Framework</a> <a href="/tags/HTML-CSS/" style="font-size: 10px;">HTML/CSS</a> <a href="/tags/Jade/" style="font-size: 10px;">Jade</a> <a href="/tags/Java/" style="font-size: 13.33px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 10px;">JavaScript</a> <a href="/tags/Kotlin/" style="font-size: 15px;">Kotlin</a> <a href="/tags/LAMP/" style="font-size: 10px;">LAMP</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/Lua/" style="font-size: 13.33px;">Lua</a> <a href="/tags/Mac/" style="font-size: 10px;">Mac</a> <a href="/tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="/tags/MongoDB/" style="font-size: 10px;">MongoDB</a> <a href="/tags/NestedScrolling/" style="font-size: 13.33px;">NestedScrolling</a> <a href="/tags/Node-js/" style="font-size: 13.33px;">Node.js</a> <a href="/tags/OS-X/" style="font-size: 10px;">OS X</a> <a href="/tags/Promise/" style="font-size: 10px;">Promise</a> <a href="/tags/Python/" style="font-size: 11.67px;">Python</a> <a href="/tags/React-Native/" style="font-size: 18.33px;">React-Native</a> <a href="/tags/Refactoring/" style="font-size: 10px;">Refactoring</a> <a href="/tags/Rx/" style="font-size: 10px;">Rx</a> <a href="/tags/RxJava/" style="font-size: 13.33px;">RxJava</a> <a href="/tags/Rxandroid/" style="font-size: 10px;">Rxandroid</a> <a href="/tags/Rxjava/" style="font-size: 11.67px;">Rxjava</a> <a href="/tags/SQLite/" style="font-size: 10px;">SQLite</a> <a href="/tags/Scrapy/" style="font-size: 11.67px;">Scrapy</a> <a href="/tags/Swift/" style="font-size: 10px;">Swift</a> <a href="/tags/SwipeRefreshLayout/" style="font-size: 10px;">SwipeRefreshLayout</a> <a href="/tags/Telegram/" style="font-size: 10px;">Telegram</a> <a href="/tags/TextView/" style="font-size: 10px;">TextView</a> <a href="/tags/Ubuntu/" style="font-size: 16.67px;">Ubuntu</a> <a href="/tags/VPS/" style="font-size: 10px;">VPS</a> <a href="/tags/View/" style="font-size: 10px;">View</a> <a href="/tags/Vue-js/" style="font-size: 10px;">Vue.js</a> <a href="/tags/Web/" style="font-size: 10px;">Web</a> <a href="/tags/WebView/" style="font-size: 11.67px;">WebView</a> <a href="/tags/bot/" style="font-size: 10px;">bot</a> <a href="/tags/crontab/" style="font-size: 10px;">crontab</a> <a href="/tags/iOS/" style="font-size: 10px;">iOS</a> <a href="/tags/interpolator/" style="font-size: 10px;">interpolator</a> <a href="/tags/leancloud/" style="font-size: 10px;">leancloud</a> <a href="/tags/mac-os/" style="font-size: 10px;">mac os</a> <a href="/tags/slack/" style="font-size: 10px;">slack</a> <a href="/tags/virtualBox/" style="font-size: 10px;">virtualBox</a> <a href="/tags/weex/" style="font-size: 10px;">weex</a> <a href="/tags/代理/" style="font-size: 10px;">代理</a> <a href="/tags/依赖注入/" style="font-size: 10px;">依赖注入</a> <a href="/tags/前端/" style="font-size: 10px;">前端</a> <a href="/tags/学习/" style="font-size: 10px;">学习</a> <a href="/tags/必备知识/" style="font-size: 11.67px;">必备知识</a> <a href="/tags/性能优化/" style="font-size: 10px;">性能优化</a> <a href="/tags/总结/" style="font-size: 10px;">总结</a> <a href="/tags/抓包/" style="font-size: 10px;">抓包</a> <a href="/tags/热修复/" style="font-size: 11.67px;">热修复</a> <a href="/tags/爬虫/" style="font-size: 10px;">爬虫</a> <a href="/tags/自动化/" style="font-size: 10px;">自动化</a> <a href="/tags/设计/" style="font-size: 10px;">设计</a>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap mdl-shadow--2dp">
+    <h3 class="widget-title">友情链接</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="https://github.com/hanks-zyh">hanks-zyh</a>
+          </li>
+        
+          <li>
+            <a href="https://kiya.space">Kiya‘s space</a>
+          </li>
+        
+          <li>
+            <a href="https://rocko.xyz/">Rocko&#39;s blog</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap mdl-shadow--2dp">
+    <div class="wx">
+      <h3 class="widget-title">微信公众号</h3>
+      <img src='https://ww1.sinaimg.cn/large/8c9b876fly1fe0nnlvokpj20by0bywfi.jpg' height="100%" width="100%" >
+      <p>搜索公众号: CodeProvider</p>
+    </div>
+  </div>
+
+
+  
+</aside>
+        
+        <section id="main" class="mdl-shadow--2dp"><article id="post-HDU_题目1166_敌兵布阵" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      HDU 题目1166 敌兵布阵
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+<p><br>
+</p>
+<p></p>
+<h1 style="color:rgb(26,92,200); text-align:center; font-family:'Times New Roman'">
+敌兵布阵</h1>
+<span style="font-family:'Times New Roman'; font-size:14px"><strong><span style="font-family:Arial; font-size:12px; color:green">Time Limit: 2000/1000 MS (Java/Others)&nbsp;&nbsp;&nbsp;&nbsp;Memory Limit: 65536/32768 K (Java/Others)<br>
+Total Submission(s): 29945&nbsp;&nbsp;&nbsp;&nbsp;Accepted Submission(s): 12848<br>
+</span></strong></span><br style="font-family:'Times New Roman'; font-size:14px">
+<br style="font-family:'Times New Roman'; font-size:14px">
+<div class="panel_title" align="left" style="height:38px; background-color:transparent; padding:0px 14px; color:rgb(124,169,237); font-size:18px; font-family:Arial; font-weight:bold">
+Problem Description</div>
+<div class="panel_content" style="height:auto; margin:0px; padding:0px 20px; font-size:14px; font-family:'Times New Roman'">
+C国的死对头A国这段时间正在进行军事演习，所以C国间谍头子Derek和他手下Tidy又开始忙乎了。A国在海岸线沿直线布置了N个工兵营地,Derek和Tidy的任务就是要监视这些工兵营地的活动情况。由于采取了某种先进的监测手段，所以每个工兵营地的人数C国都掌握的一清二楚,每个工兵营地的人数都有可能发生变动，可能增加或减少若干人手,但这些都逃不过C国的监视。<br>
+中央情报局要研究敌人究竟演习什么战术,所以Tidy要随时向Derek汇报某一段连续的工兵营地一共有多少人,例如Derek问:“Tidy,马上汇报第3个营地到第10个营地共有多少人!”Tidy就要马上开始计算这一段的总人数并汇报。但敌兵营地的人数经常变动，而Derek每次询问的段都不一样，所以Tidy不得不每次都一个一个营地的去数，很快就精疲力尽了，Derek对Tidy的计算速度越来越不满:&quot;你个死肥仔，算得这么慢，我炒你鱿鱼!”Tidy想：“你自己来算算看，这可真是一项累人的工作!我恨不得你炒我鱿鱼呢!”无奈之下，Tidy只好打电话向计算机专家Windbreaker求救,Windbreaker说：“死肥仔，叫你平时做多点acm题和看多点算法书，现在尝到苦果了吧!”Tidy说：&quot;我知错了。。。&quot;但Windbreaker已经挂掉电话了。Tidy很苦恼，这么算他真的会崩溃的，聪明的读者，你能写个程序帮他完成这项工作吗？不过如果你的程序效率不够高的话，Tidy还是会受到Derek的责骂的.<br>
+</div>
+<div class="panel_bottom" style="height:auto; margin:0px; font-family:'Times New Roman'; font-size:14px">
+&nbsp;</div>
+<br style="font-family:'Times New Roman'; font-size:14px">
+<div class="panel_title" align="left" style="height:38px; background-color:transparent; padding:0px 14px; color:rgb(124,169,237); font-size:18px; font-family:Arial; font-weight:bold">
+Input</div>
+<div class="panel_content" style="height:auto; margin:0px; padding:0px 20px; font-size:14px; font-family:'Times New Roman'">
+第一行一个整数T，表示有T组数据。<br>
+每组数据第一行一个正整数N（N&lt;=50000）,表示敌人有N个工兵营地，接下来有N个正整数,第i个正整数ai代表第i个工兵营地里开始时有ai个人（1&lt;=ai&lt;=50）。<br>
+接下来每行有一条命令，命令有4种形式：<br>
+(1) Add i j,i和j为正整数,表示第i个营地增加j个人（j不超过30）<br>
+(2)Sub i j ,i和j为正整数,表示第i个营地减少j个人（j不超过30）;<br>
+(3)Query i j ,i和j为正整数,i&lt;=j，表示询问第i到第j个营地的总人数;<br>
+(4)End 表示结束，这条命令在每组数据最后出现;<br>
+每组数据最多有40000条命令<br>
+</div>
+<div class="panel_bottom" style="height:auto; margin:0px; font-family:'Times New Roman'; font-size:14px">
+&nbsp;</div>
+<br style="font-family:'Times New Roman'; font-size:14px">
+<div class="panel_title" align="left" style="height:38px; background-color:transparent; padding:0px 14px; color:rgb(124,169,237); font-size:18px; font-family:Arial; font-weight:bold">
+Output</div>
+<div class="panel_content" style="height:auto; margin:0px; padding:0px 20px; font-size:14px; font-family:'Times New Roman'">
+对第i组数据,首先输出“Case i:”和回车,<br>
+对于每个Query询问，输出一个整数并回车,表示询问的段中的总人数,这个数保持在int以内。<br>
+</div>
+<div class="panel_bottom" style="height:auto; margin:0px; font-family:'Times New Roman'; font-size:14px">
+&nbsp;</div>
+<br style="font-family:'Times New Roman'; font-size:14px">
+<div class="panel_title" align="left" style="height:38px; background-color:transparent; padding:0px 14px; color:rgb(124,169,237); font-size:18px; font-family:Arial; font-weight:bold">
+Sample Input</div>
+<div class="panel_content" style="height:auto; margin:0px; padding:0px 20px; font-size:14px; font-family:'Times New Roman'">
+<pre style="margin-top:0px; margin-bottom:0px"><div style="font-family:'Courier New',Courier,monospace">1
+10
+1 2 3 4 5 6 7 8 9 10
+Query 1 3
+Add 3 6
+Query 2 7
+Sub 10 2
+Add 6 3
+Query 3 10
+End </div></pre>
+</div>
+<div class="panel_bottom" style="height:auto; margin:0px; font-family:'Times New Roman'; font-size:14px">
+&nbsp;</div>
+<br style="font-family:'Times New Roman'; font-size:14px">
+<div class="panel_title" align="left" style="height:38px; background-color:transparent; padding:0px 14px; color:rgb(124,169,237); font-size:18px; font-family:Arial; font-weight:bold">
+Sample Output</div>
+<div class="panel_content" style="height:auto; margin:0px; padding:0px 20px; font-size:14px; font-family:'Times New Roman'">
+<pre style="margin-top:0px; margin-bottom:0px"><div style="font-family:'Courier New',Courier,monospace">Case 1:
+6
+33
+59</div></pre>
+</div>
+<div class="panel_bottom" style="height:auto; margin:0px; font-family:'Times New Roman'; font-size:14px">
+&nbsp;</div>
+<div><br>
+</div>
+<br>
+<p></p>
+<p><strong><span style="font-size:18px">分析：树状数组的典型应用</span></strong></p>
+<p><strong><span style="font-size:18px">tree[ ] 存放树状数组，c[ ] 存放原始数据 ,</span></strong></p>
+<p><strong><span style="font-size:18px">tree[1] = c[1]; &nbsp;&nbsp;</span></strong></p>
+<p><strong><span style="font-size:18px">tree[2] = c[1]&#43;c[2]; &nbsp; &nbsp;&nbsp;</span><span style="font-size:18px">&nbsp;// lowbit( 2 ) = 2;</span></strong></p>
+<p><strong><span style="font-size:18px">tree[3] = c[3];</span></strong></p>
+<p><strong><span style="font-size:18px">tree[4] = c[1]&#43;c[2]&#43;c[3]&#43;c[4]; &nbsp;&nbsp;<strong><span style="font-size:18px">&nbsp;// lowbit( 4 ) = 4 ;</span></strong></span></strong></p>
+<p><strong><span style="font-size:18px">tree[5] = c[5];</span></strong></p>
+<p><strong><span style="font-size:18px">tree[6] = c[5]&#43;c[6]; &nbsp;&nbsp;<strong><span style="font-size:18px">&nbsp;// lowbit( 6 ) = 2;</span></strong></span></strong></p>
+<p><strong><span style="font-size:18px">tree[7] = c[7];</span></strong></p>
+<p><strong><span style="font-size:18px">tree[8] = c[1]&#43;c[2]&#43;c[3]&#43;c[4]&#43;c[5]&#43;c[6]&#43;c[7]&#43;c[8]; &nbsp; &nbsp;<strong><span style="font-size:18px">&nbsp;// lowbit(8 ) = 8;</span></strong></span></strong></p>
+<p><strong><span style="font-size:18px">;;;;;一次AC&nbsp;</span></strong></p>
+<p><br>
+</p>
+<p><pre name="code" class="cpp">/*
+ 2013/08/04 22:53
+ author :zyh
+ 树状数组 
+*/
+
+#define N 50002
+#include &lt;iostream&gt;
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;string.h&gt;
+using namespace std;
+
+int n;
+int tree[N],c[N];
+
+int lowbit(int x)
+{
+	return x&amp;(-x);//返回值代表tree[i] 里面 包含 c[]里面的几项
+}
+
+void build_tree()
+{
+	int i,j;
+	for(i=1;i&lt;=n;i++)
+	{
+		if(i&amp;1) tree[i] = c[i];    //奇数
+		else
+		{
+			int temp = 0;
+			for(j=i-lowbit(i)+1;j&lt;=i;j++)
+			{
+				temp += c[j];
+			}
+			tree[i] = temp;
+		} 	
+	}
+	
+//	for(i=1;i&lt;=n;i++)  printf(&quot;%d &quot;,tree[i]);
+}
+
+void Add(int a,int b)
+{
+	int i;
+	for(i=a;i&lt;=n;)
+	{
+	 	tree[i] += b;
+	 	i += lowbit(i);
+	}
+//	for(i=1;i&lt;=n;i++)  printf(&quot;%d &quot;,tree[i]);
+}
+
+void Sub(int a,int b)
+{
+	int i;
+	for(i=a;i&lt;=n;)
+	{
+	 	tree[i] -= b;
+	 	i += lowbit(i);
+	}
+//	for(i=1;i&lt;=n;i++)  printf(&quot;%d &quot;,tree[i]);
+}
+
+int Sum(int b)
+{
+	int i,sum=0;
+	for(i=b;i&gt;=1;)
+	{
+		sum += tree[i];
+		i -= lowbit(i); 
+	}
+	return sum;
+}
+
+int main()
+{
+	int t,i,j,a,b;
+	char s[6];
+	scanf(&quot;%d&quot;,&amp;t);
+	for(i=1;i&lt;=t;i++)
+	{
+		memset(tree,0,sizeof(tree));
+		scanf(&quot;%d&quot;,&amp;n);
+		for(j=1;j&lt;=n;j++)
+			scanf(&quot;%d&quot;,&amp;c[j]);
+		build_tree();
+		
+		printf(&quot;Case %d:\n&quot;,i);
+		while(scanf(&quot;%s&quot;,s) &amp;&amp; s[0]!= 'E')
+		{
+			scanf(&quot;%d%d&quot;,&amp;a,&amp;b);
+			
+			switch(s[0])
+			{
+				case 'A':Add(a,b);break;
+				case 'S':Sub(a,b);break;
+				case 'Q':printf(&quot;%d\n&quot;,Sum(b)-Sum(a-1));break;
+			}
+		}
+	}
+	return 0;
+}</pre><br>
+<br>
+</p>
+<p><br>
+</p>
+<p><br>
+</p>
+<p><br>
+</p>
+
+      
+    </div>
+</article>
+ 
+ <!-- 上一页 下一页 -->
+
+  
+<nav id="article-nav">
+  
+    <a href="/2013/08/05/HDU_题目1232_畅通工程_（并查集）/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>上一篇</span>
+      <div class="article-nav-title">
+        
+          HDU 题目1232 畅通工程 （并查集）
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2013/08/04/HDU_题目3791_二叉搜索树/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>下一篇</span>
+      <div class="article-nav-title">HDU 题目3791 二叉搜索树</div>
+    </a>
+  
+</nav>
+
+
+
+<!-- 相关文章 -->
+
+  <!--
+
+-->
+
+
+
+<section>
+    <!-- 多说分享框 -->
+    <div id="comment_container"></div>
+    <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+    <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+    <script>
+    var gitment = new Gitment({
+      owner: 'hanks-zyh',
+      repo: 'everthing',
+      oauth: {
+        client_id: '61ce891fdf2e46b32ccc',
+        client_secret: 'a0157770347b23c6c80afb19b997f114ed30f93e',
+      },
+    })
+    gitment.render('comment_container')
+    </script>
+   <!-- 多说公共JS代码 end -->
+</section>
+
+</section>
+      </div>
+      <footer id="footer">
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      &copy; 2018 <a href="https://github.com/hanks-zyh"> Hanks</a>
+	  </div>
+  </div>
+ <div id="share">
+  <a id="totop" title="" style="display: block;">返回顶部</a>
+ </div>
+</footer>
+
+    </div>
+    
+
+<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery.scrollLoading.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>hdu 题目1241 Oil Deposits（简单DFS） | Hanks&#39; Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <meta name="description" content="Oil Deposits
+Time Limit: 2000/1000 MS (Java/Others)&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Memory Limit: 65536/32768 K (Java/Others)
+Total Submission(s): 8179&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Accepted Submission(s): 4792
+
+
+Pr">
+<meta property="og:type" content="article">
+<meta property="og:title" content="hdu 题目1241 Oil Deposits（简单DFS）">
+<meta property="og:url" content="https://hanks.pub/2013/08/07/hdu_题目1241_Oil_Deposits（简单DFS）/index.html">
+<meta property="og:site_name" content="Hanks' Blog">
+<meta property="og:description" content="Oil Deposits
+Time Limit: 2000/1000 MS (Java/Others)&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Memory Limit: 65536/32768 K (Java/Others)
+Total Submission(s): 8179&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Accepted Submission(s): 4792
+
+
+Pr">
+<meta property="og:updated_time" content="2018-08-30T15:40:32.295Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="hdu 题目1241 Oil Deposits（简单DFS）">
+<meta name="twitter:description" content="Oil Deposits
+Time Limit: 2000/1000 MS (Java/Others)&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Memory Limit: 65536/32768 K (Java/Others)
+Total Submission(s): 8179&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Accepted Submission(s): 4792
+
+
+Pr">
+  
+  
+    <link rel="icon" href="/images/favicon.png">
+  
+  <!-- <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600' rel='stylesheet' type='text/css'> -->
+  <!-- <link href="//fonts.googleapis.com/css?family=Source+Code+Pro:400,700" rel="stylesheet" type="text/css"> -->
+  <!-- <link href="//fonts.useso.com/css?family=Source+Code+Pro:400,700" rel="stylesheet" type="text/css"> -->
+  <!-- <link href='//fonts.useso.com/css?family=Open+Sans:300,600' rel='stylesheet' type='text/css'> -->
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo"></a>
+    <nav id="main-nav">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      
+        <a class="main-nav-link" href="/archives">归档</a>
+      
+        <a class="main-nav-link" href="/daily">日报</a>
+      
+        <a class="main-nav-link" href="/eye-video">开眼</a>
+      
+        <a class="main-nav-link" href="/joke">joke</a>
+      
+        <a class="main-nav-link" href="/picture-fight">斗图</a>
+      
+        <a class="main-nav-link" href="/atom.xml">RSS</a>
+      
+    </nav>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/archives" class="mobile-nav-link">归档</a>
+  
+    <a href="/daily" class="mobile-nav-link">日报</a>
+  
+    <a href="/eye-video" class="mobile-nav-link">开眼</a>
+  
+    <a href="/joke" class="mobile-nav-link">joke</a>
+  
+    <a href="/picture-fight" class="mobile-nav-link">斗图</a>
+  
+    <a href="/atom.xml" class="mobile-nav-link">RSS</a>
+  
+</nav>
+      <div class="outer">
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap mdl-shadow--2dp">
+    <div class="info">
+     <div class="content">
+       <div>
+         <a href="https://github.com/hanks-zyh"><img class="avatar" src="https://avatars2.githubusercontent.com/u/6268322?v=3&s=460" alt="" /></a>
+       </div>
+       <div class="name">
+         <h2 >Hanks</h2>
+       </div>
+       <p>‭100100011101‬</p>
+       <div class="account">
+         <div class="account-item">
+           <a href="https://weibo.com/u/2359002991"><img src="https://ww1.sinaimg.cn/large/8c9b876fjw1f3ik9y4q7hj205k05kdfx.jpg" style="width:40px;height:40px;border-radius: 50%;"></a>
+         </div>
+         <div class="account-item">
+              <a href="https://www.zhihu.com/people/yuhan-zhang-36"><img src="https://ww2.sinaimg.cn/large/8c9b876fjw1f3ik7sv63wj205k05k3yg.jpg" style="width:40px;height:40px;border-radius: 50%;"></a>
+         </div>
+         <div class="account-item">
+           <a href="https://github.com/hanks-zyh"> <img src="https://ww1.sinaimg.cn/large/8c9b876fly1fe196fbtiqj205k05ka9u.jpg" style="width:40px;height:40px;border-radius: 50%;"></a>
+         </div>
+       </div>
+     </div>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap mdl-shadow--2dp">
+    <h3 class="widget-title">最新发布</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/07/10/proxy-https/">抓包再总结</a>
+          </li>
+        
+          <li>
+            <a href="/2017/10/11/android-night-mode/">Android 夜间模式</a>
+          </li>
+        
+          <li>
+            <a href="/2017/09/28/lua-into-android/">Lua 嵌入 Android 原理</a>
+          </li>
+        
+          <li>
+            <a href="/2017/04/28/lua-in-android/">探究 lua 在 Android 中的应用</a>
+          </li>
+        
+          <li>
+            <a href="/2017/03/26/node-image-recognition/">Node 识别图片中的文字</a>
+          </li>
+        
+          <li>
+            <a href="/2017/03/22/proxy-test/">请求代理</a>
+          </li>
+        
+          <li>
+            <a href="/2017/02/16/android-customview-inputmethod/">Android 自定义 view 连接输入法</a>
+          </li>
+        
+          <li>
+            <a href="/2017/01/10/android-lua/">Android 与 Lua</a>
+          </li>
+        
+          <li>
+            <a href="/2017/01/10/android-markdown-render/">Android 下 Markdown 渲染</a>
+          </li>
+        
+          <li>
+            <a href="/2017/01/09/android-webview-font/">Android 中 webview 自定义字体</a>
+          </li>
+        
+          <li>
+            <a href="/2016/09/25/slack-bot/">slack bot</a>
+          </li>
+        
+          <li>
+            <a href="/2016/09/19/webapp/">让网页更适配移动设备</a>
+          </li>
+        
+          <li>
+            <a href="/2016/09/05/weex-2333/">体验 weex —— 写一个表情包应用</a>
+          </li>
+        
+          <li>
+            <a href="/2016/08/31/nestedscrollchild/">WebView 实现 NestedScrollingChild</a>
+          </li>
+        
+          <li>
+            <a href="/2016/08/29/nestedchildparent/">NestedScrollingParent 实现复杂交互效果</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap mdl-shadow--2dp">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Activity/" style="font-size: 10px;">Activity</a> <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/Atom/" style="font-size: 10px;">Atom</a> <a href="/tags/Dagger2/" style="font-size: 10px;">Dagger2</a> <a href="/tags/EditText/" style="font-size: 10px;">EditText</a> <a href="/tags/Express/" style="font-size: 11.67px;">Express</a> <a href="/tags/Fragment/" style="font-size: 10px;">Fragment</a> <a href="/tags/Framework/" style="font-size: 11.67px;">Framework</a> <a href="/tags/HTML-CSS/" style="font-size: 10px;">HTML/CSS</a> <a href="/tags/Jade/" style="font-size: 10px;">Jade</a> <a href="/tags/Java/" style="font-size: 13.33px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 10px;">JavaScript</a> <a href="/tags/Kotlin/" style="font-size: 15px;">Kotlin</a> <a href="/tags/LAMP/" style="font-size: 10px;">LAMP</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/Lua/" style="font-size: 13.33px;">Lua</a> <a href="/tags/Mac/" style="font-size: 10px;">Mac</a> <a href="/tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="/tags/MongoDB/" style="font-size: 10px;">MongoDB</a> <a href="/tags/NestedScrolling/" style="font-size: 13.33px;">NestedScrolling</a> <a href="/tags/Node-js/" style="font-size: 13.33px;">Node.js</a> <a href="/tags/OS-X/" style="font-size: 10px;">OS X</a> <a href="/tags/Promise/" style="font-size: 10px;">Promise</a> <a href="/tags/Python/" style="font-size: 11.67px;">Python</a> <a href="/tags/React-Native/" style="font-size: 18.33px;">React-Native</a> <a href="/tags/Refactoring/" style="font-size: 10px;">Refactoring</a> <a href="/tags/Rx/" style="font-size: 10px;">Rx</a> <a href="/tags/RxJava/" style="font-size: 13.33px;">RxJava</a> <a href="/tags/Rxandroid/" style="font-size: 10px;">Rxandroid</a> <a href="/tags/Rxjava/" style="font-size: 11.67px;">Rxjava</a> <a href="/tags/SQLite/" style="font-size: 10px;">SQLite</a> <a href="/tags/Scrapy/" style="font-size: 11.67px;">Scrapy</a> <a href="/tags/Swift/" style="font-size: 10px;">Swift</a> <a href="/tags/SwipeRefreshLayout/" style="font-size: 10px;">SwipeRefreshLayout</a> <a href="/tags/Telegram/" style="font-size: 10px;">Telegram</a> <a href="/tags/TextView/" style="font-size: 10px;">TextView</a> <a href="/tags/Ubuntu/" style="font-size: 16.67px;">Ubuntu</a> <a href="/tags/VPS/" style="font-size: 10px;">VPS</a> <a href="/tags/View/" style="font-size: 10px;">View</a> <a href="/tags/Vue-js/" style="font-size: 10px;">Vue.js</a> <a href="/tags/Web/" style="font-size: 10px;">Web</a> <a href="/tags/WebView/" style="font-size: 11.67px;">WebView</a> <a href="/tags/bot/" style="font-size: 10px;">bot</a> <a href="/tags/crontab/" style="font-size: 10px;">crontab</a> <a href="/tags/iOS/" style="font-size: 10px;">iOS</a> <a href="/tags/interpolator/" style="font-size: 10px;">interpolator</a> <a href="/tags/leancloud/" style="font-size: 10px;">leancloud</a> <a href="/tags/mac-os/" style="font-size: 10px;">mac os</a> <a href="/tags/slack/" style="font-size: 10px;">slack</a> <a href="/tags/virtualBox/" style="font-size: 10px;">virtualBox</a> <a href="/tags/weex/" style="font-size: 10px;">weex</a> <a href="/tags/代理/" style="font-size: 10px;">代理</a> <a href="/tags/依赖注入/" style="font-size: 10px;">依赖注入</a> <a href="/tags/前端/" style="font-size: 10px;">前端</a> <a href="/tags/学习/" style="font-size: 10px;">学习</a> <a href="/tags/必备知识/" style="font-size: 11.67px;">必备知识</a> <a href="/tags/性能优化/" style="font-size: 10px;">性能优化</a> <a href="/tags/总结/" style="font-size: 10px;">总结</a> <a href="/tags/抓包/" style="font-size: 10px;">抓包</a> <a href="/tags/热修复/" style="font-size: 11.67px;">热修复</a> <a href="/tags/爬虫/" style="font-size: 10px;">爬虫</a> <a href="/tags/自动化/" style="font-size: 10px;">自动化</a> <a href="/tags/设计/" style="font-size: 10px;">设计</a>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap mdl-shadow--2dp">
+    <h3 class="widget-title">友情链接</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="https://github.com/hanks-zyh">hanks-zyh</a>
+          </li>
+        
+          <li>
+            <a href="https://kiya.space">Kiya‘s space</a>
+          </li>
+        
+          <li>
+            <a href="https://rocko.xyz/">Rocko&#39;s blog</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap mdl-shadow--2dp">
+    <div class="wx">
+      <h3 class="widget-title">微信公众号</h3>
+      <img src='https://ww1.sinaimg.cn/large/8c9b876fly1fe0nnlvokpj20by0bywfi.jpg' height="100%" width="100%" >
+      <p>搜索公众号: CodeProvider</p>
+    </div>
+  </div>
+
+
+  
+</aside>
+        
+        <section id="main" class="mdl-shadow--2dp"><article id="post-hdu_题目1241_Oil_Deposits（简单DFS）" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      hdu 题目1241 Oil Deposits（简单DFS）
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+<h1 align="center" style="color:#1a5cc8">Oil Deposits</h1>
+<p align="center"><span size="&#43;0"><strong><span style="font-family:Arial; font-size:12px; color:green; font-weight:bold">Time Limit: 2000/1000 MS (Java/Others)&nbsp;&nbsp;&nbsp;&nbsp;Memory Limit: 65536/32768 K (Java/Others)<br>
+Total Submission(s): 8179&nbsp;&nbsp;&nbsp;&nbsp;Accepted Submission(s): 4792</span></strong></span><br>
+<br>
+</p>
+<div class="panel_title" align="left">Problem Description</div>
+<div class="panel_content">The GeoSurvComp geologic survey company is responsible for detecting underground oil deposits. GeoSurvComp works with one large rectangular region of land at a time, and creates a grid that divides the land into numerous square plots.
+ It then analyzes each plot separately, using sensing equipment to determine whether or not the plot contains oil. A plot containing oil is called a pocket. If two pockets are adjacent, then they are part of the same oil deposit. Oil deposits can be quite large
+ and may contain numerous pockets. Your job is to determine how many different oil deposits are contained in a grid.
+<br>
+</div>
+<div class="panel_bottom">&nbsp;</div>
+<p>&nbsp;</p>
+<div class="panel_title" align="left">Input</div>
+<div class="panel_content">The input file contains one or more grids. Each grid begins with a line containing m and n, the number of rows and columns in the grid, separated by a single space. If m = 0 it signals the end of the input; otherwise 1 &lt;= m &lt;= 100
+ and 1 &lt;= n &lt;= 100. Following this are m lines of n characters each (not counting the end-of-line characters). Each character corresponds to one plot, and is either `*', representing the absence of oil, or `@', representing an oil pocket.<br>
+</div>
+<div class="panel_bottom">&nbsp;<br>
+</div>
+<div class="panel_title" align="left">Output</div>
+<div class="panel_content">For each grid, output the number of distinct oil deposits. Two different pockets are part of the same oil deposit if they are adjacent horizontally, vertically, or diagonally. An oil deposit will not contain more than 100 pockets.<br>
+</div>
+<div class="panel_bottom">&nbsp;</div>
+<p>&nbsp;</p>
+<div class="panel_title" align="left">Sample Input</div>
+<div class="panel_content">
+<pre><div style="font-family:Courier New,Courier,monospace">1 1
+*
+3 5
+*@*@*
+**@**
+*@*@*
+1 8
+@@****@*
+5 5 
+****@
+*@@*@
+*@**@
+@@@*@
+@@**@
+0 0 </div></pre>
+</div>
+<div class="panel_bottom">&nbsp;<br>
+</div>
+<div class="panel_title" align="left">Sample Output</div>
+<div class="panel_content">
+<pre><div style="font-family:Courier New,Courier,monospace">0
+1
+2
+2</div></pre>
+</div>
+<div class="panel_bottom">&nbsp;</div>
+<p>&nbsp;</p>
+<p>原理和<a target="_blank" href="https://blog.csdn.net/hpu_zyh/article/details/9816053">HDU1312 一样</a></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<pre class="cpp" name="code">#include &lt;iostream&gt;
+#include &lt;stdio.h&gt;
+
+using namespace std;
+
+
+int m,n,cnt;
+char a[102][102];
+
+void DFS(int x,int y)
+{
+	a[x][y] = '*';
+	
+	if( x+1&lt;m &amp;&amp; a[x+1][y]=='@' ) DFS(x+1,y);
+	if( y+1&lt;n &amp;&amp; a[x][y+1]=='@' ) DFS(x,y+1);
+	if( x-1&gt;=0 &amp;&amp; a[x-1][y]=='@' ) DFS(x-1,y);
+	if( y-1&gt;=0 &amp;&amp; a[x][y-1]=='@' ) DFS(x,y-1);
+	
+	if( x+1&lt;m &amp;&amp; y+1&lt;n  &amp;&amp; a[x+1][y+1]=='@' ) DFS(x+1,y+1);
+	if( x-1&gt;=0 &amp;&amp; y-1&gt;=0  &amp;&amp; a[x-1][y-1]=='@' ) DFS(x-1,y-1);
+	if( x+1&lt;m &amp;&amp; y-1&gt;=0  &amp;&amp; a[x+1][y-1]=='@' ) DFS(x+1,y-1);
+	if( x-1&gt;=0 &amp;&amp; y+1&lt;n  &amp;&amp; a[x-1][y+1]=='@' ) DFS(x-1,y+1);
+		
+}
+int main()
+{
+	int i,j;
+	while(scanf(&quot;%d%d&quot;,&amp;m,&amp;n),m)
+	{
+		for(i=0;i&lt;m;i++)
+			scanf(&quot;%s&quot;,a[i]);	
+		
+		
+		cnt=0;
+		for(i=0;i&lt;m;i++)
+		{
+			for(j=0;j&lt;n;j++)
+			{
+				if(a[i][j]=='@')
+				{
+					DFS(i,j);cnt++;
+				}				
+			}
+		}
+	
+		printf(&quot;%d\n&quot;,cnt);
+	}
+	return 0;
+}
+
+</pre>
+<p><br>
+&nbsp;</p>
+
+      
+    </div>
+</article>
+ 
+ <!-- 上一页 下一页 -->
+
+  
+<nav id="article-nav">
+  
+    <a href="/2013/08/07/NYOJ_题目488_素数环（DFS）/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>上一篇</span>
+      <div class="article-nav-title">
+        
+          NYOJ 题目488 素数环（DFS）
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2013/08/07/hdu_题目1181_变形课_（简单DFS）/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>下一篇</span>
+      <div class="article-nav-title">hdu 题目1181 变形课 （简单DFS）</div>
+    </a>
+  
+</nav>
+
+
+
+<!-- 相关文章 -->
+
+  <!--
+
+-->
+
+
+
+<section>
+    <!-- 多说分享框 -->
+    <div id="comment_container"></div>
+    <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+    <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+    <script>
+    var gitment = new Gitment({
+      owner: 'hanks-zyh',
+      repo: 'everthing',
+      oauth: {
+        client_id: '61ce891fdf2e46b32ccc',
+        client_secret: 'a0157770347b23c6c80afb19b997f114ed30f93e',
+      },
+    })
+    gitment.render('comment_container')
+    </script>
+   <!-- 多说公共JS代码 end -->
+</section>
+
+</section>
+      </div>
+      <footer id="footer">
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      &copy; 2018 <a href="https://github.com/hanks-zyh"> Hanks</a>
+	  </div>
+  </div>
+ <div id="share">
+  <a id="totop" title="" style="display: block;">返回顶部</a>
+ </div>
+</footer>
+
+    </div>
+    
+
+<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery.scrollLoading.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,15 +22,40 @@ p {
     -webkit-margin-start: 0px;
     -webkit-margin-end: 0px;
 }
+#carousel {
+    width: 100%;
+    overflow: scroll;
+    white-space:nowrap;
+}
+
+#carousel .slide {
+    display: inline-block;
+}
+
+
+#carousel .slide img{
+    width: auto;
+    height: 450px;
+}
 
 </style>
 <body>
 <h3>更加丰富的列表样式</h3>
-<p><img src="http://o6epsoek1.bkt.clouddn.com/note-pro-1.png" width="atuo" height="400px"/></p>
-<p><img src="http://o6epsoek1.bkt.clouddn.com/note-pro-2.png" width="atuo" height="400px"/></p>
-<p><img src="http://o6epsoek1.bkt.clouddn.com/note-pro-3.png" width="atuo" height="400px"/></p>
+<div id="carousel">
+    <div class="slide"><img src="http://o6epsoek1.bkt.clouddn.com/note-pro-5.jpg"/></div>
+    <div class="slide"><img src="http://o6epsoek1.bkt.clouddn.com/note-pro-9.jpg"/></div>
+    <div class="slide"><img src="http://o6epsoek1.bkt.clouddn.com/note-pro-6.jpg"/></div>
+    <div class="slide"><img src="http://o6epsoek1.bkt.clouddn.com/note-pro-12.jpg"/></div>
+    <div class="slide"><img src="http://o6epsoek1.bkt.clouddn.com/note-pro-4.jpg"/></div>
+    <div class="slide"><img src="http://o6epsoek1.bkt.clouddn.com/note-pro-7.jpg"/></div>
+    <div class="slide"><img src="http://o6epsoek1.bkt.clouddn.com/note-pro-8.jpg"/></div>
+    <div class="slide"><img src="http://o6epsoek1.bkt.clouddn.com/note-pro-10.jpg"/></div>
+    <div class="slide"><img src="http://o6epsoek1.bkt.clouddn.com/note-pro-11.jpg"/></div>
+</div>
 <h3>自定义背景</h3>
 <p><img src="http://o6epsoek1.bkt.clouddn.com/note-pro-bg.png" width="atuo" height="400px"/></p>
+<h3>自定义侧边栏背景</h3>
+<p><img src="http://o6epsoek1.bkt.clouddn.com/note-menu-bg.png" width="atuo" height="400px"/></p>
 <h3>标签置顶</h3>
 <p><img src="http://o6epsoek1.bkt.clouddn.com/note-pro-pin.png" width="atuo" height="400px"/></p>
 <h3>快捷工具栏</h3>

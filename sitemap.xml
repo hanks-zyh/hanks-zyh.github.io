@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://hanks.pub/2018/11/19/lua-dev-android/</loc>
+    
+    <lastmod>2018-11-19T01:01:43.700Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://hanks.pub/generate-banner/css/main.css</loc>
     
     <lastmod>2018-08-30T15:40:32.689Z</lastmod>
@@ -884,14 +891,14 @@
   </url>
   
   <url>
-    <loc>https://hanks.pub/2018/07/10/proxy-https/</loc>
+    <loc>https://hanks.pub/2016/06/26/promise-by-rx/</loc>
     
     <lastmod>2018-08-30T15:40:32.411Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://hanks.pub/2016/06/26/promise-by-rx/</loc>
+    <loc>https://hanks.pub/2018/07/10/proxy-https/</loc>
     
     <lastmod>2018-08-30T15:40:32.411Z</lastmod>
     

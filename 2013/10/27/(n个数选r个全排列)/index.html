@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>(n个数选r个全排列) | Hanks&#39; Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <meta name="referrer" content="never">
+  <meta name="description" content="https://acm.nyist.net/JudgeOnline/problem.php?pid=32  输出结果中 不能重复使用（若有543 则不能有345,435等）    /*************************** # 2013-8-22 15:46:46  # Time: 8MS   Memory: 232KB # Author: zyh # Status: Accept">
+<meta property="og:type" content="article">
+<meta property="og:title" content="(n个数选r个全排列)">
+<meta property="og:url" content="https://hanks.pub/2013/10/27/(n个数选r个全排列)/index.html">
+<meta property="og:site_name" content="Hanks&#39; Blog">
+<meta property="og:description" content="https://acm.nyist.net/JudgeOnline/problem.php?pid=32  输出结果中 不能重复使用（若有543 则不能有345,435等）    /*************************** # 2013-8-22 15:46:46  # Time: 8MS   Memory: 232KB # Author: zyh # Status: Accept">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2021-06-16T11:59:22.817Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="(n个数选r个全排列)">
+<meta name="twitter:description" content="https://acm.nyist.net/JudgeOnline/problem.php?pid=32  输出结果中 不能重复使用（若有543 则不能有345,435等）    /*************************** # 2013-8-22 15:46:46  # Time: 8MS   Memory: 232KB # Author: zyh # Status: Accept">
+  
+  
+  <link href="https://fonts.googleapis.com/css?family=Fira+Code|Noto+Serif+SC&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head></html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo"></a>
+    <nav id="main-nav">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      
+        <a class="main-nav-link" href="/archives">Archive</a>
+      
+        <a class="main-nav-link" href="/eye-video">Eye</a>
+      
+        <a class="main-nav-link" href="/atom.xml">Rss</a>
+      
+    </nav>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/archives" class="mobile-nav-link">Archive</a>
+  
+    <a href="/eye-video" class="mobile-nav-link">Eye</a>
+  
+    <a href="/atom.xml" class="mobile-nav-link">Rss</a>
+  
+</nav>
+      <div class="outer">
+        <section id="main"><article id="post-(n个数选r个全排列)" class="article article-type-post" itemscope
+  itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <header class="article-header">
+      
+      
+  
+    <h1 class="article-title" itemprop="name">
+      (n个数选r个全排列)
+    </h1>
+  
+
+      
+    </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+<p>https://acm.nyist.net/JudgeOnline/problem.php?pid=32<br>
+</p>
+<p>输出结果中 不能重复使用（若有543 则不能有345,435等）</p>
+<p><br>
+</p>
+<p></p>
+<pre name="code" class="cpp">/***************************
+# 2013-8-22 15:46:46 
+# Time: 8MS   Memory: 232KB
+# Author: zyh
+# Status: Accepted
+***************************/ 
+
+#include&lt;stdio.h&gt;
+#include&lt;string.h&gt;
+int r,n;
+bool vis[12];
+int s[12];
+void permutation(int t)
+{
+	int i;
+	if(t&gt;r){
+		for(i=1;i&lt;=r;i&#43;&#43;) printf(&quot;%d&quot;,s[i]);
+		puts(&quot;&quot;);	
+		return;
+	} 
+	for(i=n;i&gt;0;i--){
+		if(!vis[i] &amp;&amp; i&lt;s[t-1] ){ //按题意 加上 i&lt;s[t-1] 限制 
+			s[t] = i;
+			vis[i] = 1;
+			permutation(t&#43;1); 
+			vis[i] = 0;
+		}
+	}
+}
+int main()
+{
+	while(~scanf(&quot;%d%d&quot;,&amp;n,&amp;r))
+	{
+		memset(vis,0,sizeof(vis));
+		memset(v,0,sizeof(v));
+		s[0] = 111;
+		permutation(1);
+	}
+	return 0;
+} 
+</pre>
+<br>
+<br>
+<p></p>
+
+      
+    </div>
+</article>
+
+<!-- 上一页 下一页 -->
+
+
+<nav id="article-nav">
+  
+    <a href="/2013/10/29/一个字符串要变成回文串的需要添加的字符最少个数/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>上一篇</span>
+      <div class="article-nav-title">
+        
+          一个字符串要变成回文串的需要添加的字符最少个数
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2013/10/26/NYOJ_题目854_留恋/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>下一篇</span>
+      <div class="article-nav-title">NYOJ 题目854 留恋</div>
+    </a>
+  
+</nav>
+
+
+
+<!-- 相关文章 -->
+
+<!--
+
+-->
+
+
+
+<section>
+  <!-- 多说分享框 -->
+  <div id="disqus_thread"></div>
+  <script>
+    /**
+     *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+     *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+    /*
+    var disqus_config = function () {
+    this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+    this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    */
+    (function () { // DON'T EDIT BELOW THIS LINE
+      var d = document,
+        s = d.createElement('script');
+      s.src = 'https://hanks-zyh.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by
+      Disqus.</a></noscript>
+  <!-- 多说公共JS代码 end -->
+</section>
+</section>
+      </div>
+      <footer id="footer">
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      &copy; 2021 <a href="https://github.com/hanks-zyh"> Hanks</a>
+	  </div>
+  </div>
+ <div id="share">
+  <a id="totop" title="" style="display: block;">返回顶部</a>
+ </div>
+</footer>
+
+    </div>
+    
+
+<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery.scrollLoading.js"></script>
+
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

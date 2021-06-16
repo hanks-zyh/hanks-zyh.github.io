@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>向服务器提交时的3种Content-Type | Hanks&#39; Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <meta name="referrer" content="never">
+  <meta name="description" content="application/x-www-form-urlencoded：窗体数据被编码为key/value的形式。这是标准的编码格式。这是默认的方式。  当action为get时候，浏览器用x-www-form-urlencoded的编码方式把form数据转换成一个字串（name1=value1&amp;amp;name2=value2…），然后把这个字串append到url后面，用 ? 分割，加载这个新的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="向服务器提交时的3种Content-Type">
+<meta property="og:url" content="https://hanks.pub/2015/03/23/向服务器提交时的3种Content-Type/index.html">
+<meta property="og:site_name" content="Hanks&#39; Blog">
+<meta property="og:description" content="application/x-www-form-urlencoded：窗体数据被编码为key/value的形式。这是标准的编码格式。这是默认的方式。  当action为get时候，浏览器用x-www-form-urlencoded的编码方式把form数据转换成一个字串（name1=value1&amp;amp;name2=value2…），然后把这个字串append到url后面，用 ? 分割，加载这个新的">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2021-06-16T11:59:22.953Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="向服务器提交时的3种Content-Type">
+<meta name="twitter:description" content="application/x-www-form-urlencoded：窗体数据被编码为key/value的形式。这是标准的编码格式。这是默认的方式。  当action为get时候，浏览器用x-www-form-urlencoded的编码方式把form数据转换成一个字串（name1=value1&amp;amp;name2=value2…），然后把这个字串append到url后面，用 ? 分割，加载这个新的">
+  
+  
+  <link href="https://fonts.googleapis.com/css?family=Fira+Code|Noto+Serif+SC&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head></html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo"></a>
+    <nav id="main-nav">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      
+        <a class="main-nav-link" href="/archives">Archive</a>
+      
+        <a class="main-nav-link" href="/eye-video">Eye</a>
+      
+        <a class="main-nav-link" href="/atom.xml">Rss</a>
+      
+    </nav>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/archives" class="mobile-nav-link">Archive</a>
+  
+    <a href="/eye-video" class="mobile-nav-link">Eye</a>
+  
+    <a href="/atom.xml" class="mobile-nav-link">Rss</a>
+  
+</nav>
+      <div class="outer">
+        <section id="main"><article id="post-向服务器提交时的3种Content-Type" class="article article-type-post" itemscope
+  itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <header class="article-header">
+      
+      
+  
+    <h1 class="article-title" itemprop="name">
+      向服务器提交时的3种Content-Type
+    </h1>
+  
+
+      
+    </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      <ul>
+<li><p><strong>application/x-www-form-urlencoded</strong>：窗体数据被编码为key/value的形式。这是标准的编码格式。这是默认的方式。</p>
+<blockquote>
+<p>当action为<strong>get</strong>时候，浏览器用x-www-form-urlencoded的编码方式把form数据转换成一个字串（name1=value1&amp;name2=value2…），然后把这个字串append到url后面，用 <strong>?</strong> 分割，加载这个新的url。<br>当action为<strong>post</strong>时候，浏览器把form数据封装到http body中，然后发送到server。 如果没有type=file的控件，用默认的application/x-www-form-urlencoded就可以了。</p>
+</blockquote>
+<p>但是如果有type=file的话，就要用到multipart/form-data了。浏览器会把整个表单以控件为单位分割，并为每个部分加上Content-Disposition(form-data或者file),Content-Type(默认为text/plain),name(控件name)等信息，并加上分割符(boundary)。</p>
+</li>
+</ul>
+<ul>
+<li><p><strong>multipart/form-data</strong>：窗体数据被编码为一条消息，页上的每个控件对应消息中的一个部分。二进制数据传输方式，主要用于上传文件</p>
+<figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">Content-<span class="keyword">Type</span>: multipart/<span class="keyword">form</span>-<span class="keyword">data</span>; boundary=&lt;Boundary&gt;</span><br><span class="line">--&lt;Boundary&gt;</span><br><span class="line"></span><br><span class="line">Content-Disposition: <span class="keyword">form</span>-<span class="keyword">data</span>; <span class="keyword">name</span>=<span class="string">"key"</span></span><br><span class="line">&lt;resource_key&gt;</span><br><span class="line">--&lt;Boundary&gt;</span><br><span class="line"></span><br><span class="line">Content-Disposition: <span class="keyword">form</span>-<span class="keyword">data</span>; <span class="keyword">name</span>=<span class="string">"x:&lt;custom_field_name&gt;"</span></span><br><span class="line">&lt;custom_value&gt;</span><br><span class="line">--&lt;Boundary&gt;</span><br><span class="line"></span><br><span class="line">Content-Disposition: <span class="keyword">form</span>-<span class="keyword">data</span>; <span class="keyword">name</span>=<span class="string">"token"</span></span><br><span class="line">&lt;upload_token&gt;</span><br><span class="line">--&lt;Boundary&gt;</span><br><span class="line"></span><br><span class="line">Content-Disposition: <span class="keyword">form</span>-<span class="keyword">data</span>; <span class="keyword">name</span>=<span class="string">"file"</span>; filename=<span class="string">"[文件名]"</span></span><br><span class="line">Content-<span class="keyword">Type</span>: &lt;MimeType&gt;</span><br><span class="line">[文件内容]</span><br><span class="line">--&lt;Boundary&gt;--</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>text/plain</strong>：窗体数据以纯文本形式进行编码，其中不含任何控件或格式字符。</p>
+</li>
+</ul>
+
+      
+    </div>
+</article>
+
+<!-- 上一页 下一页 -->
+
+
+<nav id="article-nav">
+  
+    <a href="/2015/03/23/HTTP_header_详解/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>上一篇</span>
+      <div class="article-nav-title">
+        
+          HTTP header 详解
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/03/22/使用CSS控制Android控件的样式--pixate-freestyle-android/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>下一篇</span>
+      <div class="article-nav-title">使用CSS控制Android控件的样式--pixate-freestyle-android</div>
+    </a>
+  
+</nav>
+
+
+
+<!-- 相关文章 -->
+
+<!--
+
+-->
+
+
+
+<section>
+  <!-- 多说分享框 -->
+  <div id="disqus_thread"></div>
+  <script>
+    /**
+     *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+     *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+    /*
+    var disqus_config = function () {
+    this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+    this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    */
+    (function () { // DON'T EDIT BELOW THIS LINE
+      var d = document,
+        s = d.createElement('script');
+      s.src = 'https://hanks-zyh.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by
+      Disqus.</a></noscript>
+  <!-- 多说公共JS代码 end -->
+</section>
+</section>
+      </div>
+      <footer id="footer">
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      &copy; 2021 <a href="https://github.com/hanks-zyh"> Hanks</a>
+	  </div>
+  </div>
+ <div id="share">
+  <a id="totop" title="" style="display: block;">返回顶部</a>
+ </div>
+</footer>
+
+    </div>
+    
+
+<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery.scrollLoading.js"></script>
+
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

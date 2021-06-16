@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>Java 中Map的使用，以及遍历 | Hanks&#39; Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <meta name="referrer" content="never">
+  <meta name="description" content="&amp;nbsp; https://poj.org/problem?id=1002 &amp;nbsp; /*  * 1. 用TreeMap&amp;lt;String,Integer&amp;gt;;  * 2. 接收字符串，逐个判断，数字直接相加，字符转换成数字，‘-’不管，组成的字符串放到Map  * 3. 输出Map中value&amp;gt;1的项  *   * */  import java.util.*;  publi">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java 中Map的使用，以及遍历">
+<meta property="og:url" content="https://hanks.pub/2013/11/08/Java_中Map的使用，以及遍历/index.html">
+<meta property="og:site_name" content="Hanks&#39; Blog">
+<meta property="og:description" content="&amp;nbsp; https://poj.org/problem?id=1002 &amp;nbsp; /*  * 1. 用TreeMap&amp;lt;String,Integer&amp;gt;;  * 2. 接收字符串，逐个判断，数字直接相加，字符转换成数字，‘-’不管，组成的字符串放到Map  * 3. 输出Map中value&amp;gt;1的项  *   * */  import java.util.*;  publi">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2021-06-16T11:59:22.841Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java 中Map的使用，以及遍历">
+<meta name="twitter:description" content="&amp;nbsp; https://poj.org/problem?id=1002 &amp;nbsp; /*  * 1. 用TreeMap&amp;lt;String,Integer&amp;gt;;  * 2. 接收字符串，逐个判断，数字直接相加，字符转换成数字，‘-’不管，组成的字符串放到Map  * 3. 输出Map中value&amp;gt;1的项  *   * */  import java.util.*;  publi">
+  
+  
+  <link href="https://fonts.googleapis.com/css?family=Fira+Code|Noto+Serif+SC&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head></html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo"></a>
+    <nav id="main-nav">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      
+        <a class="main-nav-link" href="/archives">Archive</a>
+      
+        <a class="main-nav-link" href="/eye-video">Eye</a>
+      
+        <a class="main-nav-link" href="/atom.xml">Rss</a>
+      
+    </nav>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/archives" class="mobile-nav-link">Archive</a>
+  
+    <a href="/eye-video" class="mobile-nav-link">Eye</a>
+  
+    <a href="/atom.xml" class="mobile-nav-link">Rss</a>
+  
+</nav>
+      <div class="outer">
+        <section id="main"><article id="post-Java_中Map的使用，以及遍历" class="article article-type-post" itemscope
+  itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <header class="article-header">
+      
+      
+  
+    <h1 class="article-title" itemprop="name">
+      Java 中Map的使用，以及遍历
+    </h1>
+  
+
+      
+    </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+<p>&nbsp;</p>
+<p><a target="_blank" href="https://poj.org/problem?id=1002">https://poj.org/problem?id=1002</a></p>
+<p>&nbsp;</p>
+<pre class="java" name="code">/*
+ * 1. 用TreeMap&lt;String,Integer&gt;;
+ * 2. 接收字符串，逐个判断，数字直接相加，字符转换成数字，‘-’不管，组成的字符串放到Map
+ * 3. 输出Map中value&gt;1的项
+ * 
+ * */
+
+import java.util.*;
+
+public class Main {
+	public static void main(String[] args) {
+		//jdk1.6以下的不能这样定义 TreeMap &lt;String,Integer&gt; map = new TreeMap&lt;&gt;();
+		TreeMap &lt;String,Integer&gt; map = new TreeMap&lt;String,Integer&gt;();  
+		Scanner cin = new Scanner(System.in);
+		int t = cin.nextInt();
+		String s,str;
+		char ch;
+		int i;
+		while(t--!=0){
+			s = cin.next();
+			str = &quot;&quot;;
+			for(i=0;i&lt;s.length();i&#43;&#43;){
+				ch = s.charAt(i);
+				if(ch&gt;='0' &amp;&amp; ch&lt;='9') str &#43;= ch&#43;&quot;&quot;;
+				else if(ch=='-') continue;
+				else{
+					switch (ch) {
+						case 'A':case 'B':case 'C':  str &#43;= &quot;2&quot;; break;
+						case 'D':case 'E':case 'F':  str &#43;= &quot;3&quot;; break;
+						case 'G':case 'H':case 'I':  str &#43;= &quot;4&quot;; break;
+						case 'J':case 'K':case 'L':  str &#43;= &quot;5&quot;; break;
+						case 'M':case 'N':case 'O':  str &#43;= &quot;6&quot;; break;
+						case 'P':case 'R':case 'S':  str &#43;= &quot;7&quot;; break;
+						case 'T':case 'U':case 'V':  str &#43;= &quot;8&quot;; break;
+						case 'W':case 'X':case 'Y':  str &#43;= &quot;9&quot;; break;
+					}
+				}
+				if(str.length() == 3) str &#43;= &quot;-&quot;;
+			}
+			int cnt;
+			if(map.containsKey(str))  {
+				cnt = map.get(str)&#43;1;
+				map.remove(str);
+				map.put(str, cnt);
+			}else{
+				map.put(str, 1);
+			}
+		}
+		Iterator&lt;String&gt; it = map.keySet().iterator();
+		String key;int num;
+		int flag = 0;
+		while(it.hasNext()){
+			key = it.next();
+			num = map.get(key);
+			if( num&gt;1 ){
+				flag = 1;System.out.println(key&#43;&quot; &quot;&#43; num);
+			}
+		}
+		if(flag==0)System.out.println(&quot;No duplicates.&quot;);
+	}
+}
+
+</pre>
+<p><br>
+&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+      
+    </div>
+</article>
+
+<!-- 上一页 下一页 -->
+
+
+<nav id="article-nav">
+  
+    <a href="/2013/11/11/c___和_Java_中_set___/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>上一篇</span>
+      <div class="article-nav-title">
+        
+          c++ 和 Java 中 set &lt;&gt;
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2013/10/29/动态规划（练习题目，）/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>下一篇</span>
+      <div class="article-nav-title">动态规划（练习题目，）</div>
+    </a>
+  
+</nav>
+
+
+
+<!-- 相关文章 -->
+
+<!--
+
+-->
+
+
+
+<section>
+  <!-- 多说分享框 -->
+  <div id="disqus_thread"></div>
+  <script>
+    /**
+     *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+     *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+    /*
+    var disqus_config = function () {
+    this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+    this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    */
+    (function () { // DON'T EDIT BELOW THIS LINE
+      var d = document,
+        s = d.createElement('script');
+      s.src = 'https://hanks-zyh.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by
+      Disqus.</a></noscript>
+  <!-- 多说公共JS代码 end -->
+</section>
+</section>
+      </div>
+      <footer id="footer">
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      &copy; 2021 <a href="https://github.com/hanks-zyh"> Hanks</a>
+	  </div>
+  </div>
+ <div id="share">
+  <a id="totop" title="" style="display: block;">返回顶部</a>
+ </div>
+</footer>
+
+    </div>
+    
+
+<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery.scrollLoading.js"></script>
+
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

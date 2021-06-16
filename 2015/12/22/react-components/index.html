@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>React-Native 组件练习-购物app侧滑菜单 | Hanks&#39; Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <meta name="referrer" content="never">
+  <meta name="description" content="参照官方例子练习组件的使用,练习View Image Text 还有Android平台的DrawerLayoutAndroid效果图: React-Native  中的 width,height的 100%在React-Native 中没有百分比这样的宽高,但是有替代的,具体见 issueflex:1 相当于 height:100%alignSelf:&amp;#39;stretch&amp;#39; 相当于 w">
+<meta name="keywords" content="React-Native">
+<meta property="og:type" content="article">
+<meta property="og:title" content="React-Native 组件练习-购物app侧滑菜单">
+<meta property="og:url" content="https://hanks.pub/2015/12/22/react-components/index.html">
+<meta property="og:site_name" content="Hanks&#39; Blog">
+<meta property="og:description" content="参照官方例子练习组件的使用,练习View Image Text 还有Android平台的DrawerLayoutAndroid效果图: React-Native  中的 width,height的 100%在React-Native 中没有百分比这样的宽高,但是有替代的,具体见 issueflex:1 相当于 height:100%alignSelf:&amp;#39;stretch&amp;#39; 相当于 w">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://file.bmob.cn/M02/11/DF/oYYBAFZ5LF6AVgO5AIY4EJ1JHfk120.gif">
+<meta property="og:updated_time" content="2021-06-16T11:59:22.922Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="React-Native 组件练习-购物app侧滑菜单">
+<meta name="twitter:description" content="参照官方例子练习组件的使用,练习View Image Text 还有Android平台的DrawerLayoutAndroid效果图: React-Native  中的 width,height的 100%在React-Native 中没有百分比这样的宽高,但是有替代的,具体见 issueflex:1 相当于 height:100%alignSelf:&amp;#39;stretch&amp;#39; 相当于 w">
+<meta name="twitter:image" content="https://file.bmob.cn/M02/11/DF/oYYBAFZ5LF6AVgO5AIY4EJ1JHfk120.gif">
+  
+  
+  <link href="https://fonts.googleapis.com/css?family=Fira+Code|Noto+Serif+SC&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head></html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo"></a>
+    <nav id="main-nav">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      
+        <a class="main-nav-link" href="/archives">Archive</a>
+      
+        <a class="main-nav-link" href="/eye-video">Eye</a>
+      
+        <a class="main-nav-link" href="/atom.xml">Rss</a>
+      
+    </nav>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/archives" class="mobile-nav-link">Archive</a>
+  
+    <a href="/eye-video" class="mobile-nav-link">Eye</a>
+  
+    <a href="/atom.xml" class="mobile-nav-link">Rss</a>
+  
+</nav>
+      <div class="outer">
+        <section id="main"><article id="post-react-components" class="article article-type-post" itemscope
+  itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <header class="article-header">
+      
+      
+  
+    <h1 class="article-title" itemprop="name">
+      React-Native 组件练习-购物app侧滑菜单
+    </h1>
+  
+
+      
+    </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      <p>参照官方例子练习组件的使用,练习View Image Text 还有Android平台的DrawerLayoutAndroid<br>效果图:<br><img src="https://file.bmob.cn/M02/11/DF/oYYBAFZ5LF6AVgO5AIY4EJ1JHfk120.gif" alt="React-Native"></p>
+<h2 id="React-Native-中的-width-height的-100"><a href="#React-Native-中的-width-height的-100" class="headerlink" title="React-Native  中的 width,height的 100%"></a>React-Native  中的 width,height的 100%</h2><p>在React-Native 中没有百分比这样的宽高,但是有替代的,具体见 <a href="https://github.com/facebook/css-layout/issues/57#ref-issue-86696744" target="_blank" rel="noopener">issue</a><br><code>flex:1</code> 相当于 <code>height:100%</code><br><code>alignSelf:&#39;stretch&#39;</code> 相当于 <code>width:100%</code></p>
+<a id="more"></a>
+<h2 id="React-Native-的style"><a href="#React-Native-的style" class="headerlink" title="React-Native 的style"></a>React-Native 的style</h2><ul>
+<li>直接写在View中</li>
+</ul>
+<figure class="highlight sqf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;<span class="built_in">Text</span> style=&#123;&#123;fontFamily: <span class="string">'notoserif'</span>, fontStyle: <span class="string">'italic'</span>, fontWeight: <span class="string">'bold'</span>&#125;&#125;&gt;</span><br><span class="line">NotoSerif Bold Italic</span><br><span class="line">&lt;/<span class="built_in">Text</span>&gt;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>使用 StyleSheet.createClass 创建</li>
+</ul>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">var</span> <span class="string">styles</span> <span class="string">=</span> <span class="string">StyleSheet.create(&#123;</span></span><br><span class="line"><span class="attr">  base:</span> <span class="string">&#123;</span></span><br><span class="line"><span class="attr">    width:</span> <span class="number">38</span><span class="string">,</span></span><br><span class="line"><span class="attr">    height:</span> <span class="number">38</span><span class="string">,</span></span><br><span class="line">  <span class="string">&#125;,</span></span><br><span class="line"><span class="attr">  background:</span> <span class="string">&#123;</span></span><br><span class="line"><span class="attr">    backgroundColor:</span> <span class="string">'#222222'</span><span class="string">,</span></span><br><span class="line">  <span class="string">&#125;,</span></span><br><span class="line"><span class="attr">  active:</span> <span class="string">&#123;</span></span><br><span class="line"><span class="attr">    borderWidth:</span> <span class="number">2</span><span class="string">,</span></span><br><span class="line"><span class="attr">    borderColor:</span> <span class="string">'#00ff00'</span><span class="string">,</span></span><br><span class="line">  <span class="string">&#125;,</span></span><br><span class="line"><span class="string">&#125;);</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>以上两种混合</li>
+</ul>
+<figure class="highlight sqf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;<span class="built_in">Text</span> style=&#123;[styles.remainder, &#123;color: <span class="string">'#a1a1a1'</span>&#125;]&#125;&gt;</span><br><span class="line">simple <span class="built_in">text</span></span><br><span class="line">&lt;/<span class="built_in">Text</span>&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="Flex"><a href="#Flex" class="headerlink" title="Flex"></a>Flex</h2><p><a href="https://hanks.xyz/2015/12/21/react-flexbox/" target="_blank" rel="noopener">React-Native中的布局 </a></p>
+<h2 id="DrawerLayoutAndroid侧滑菜单"><a href="#DrawerLayoutAndroid侧滑菜单" class="headerlink" title="DrawerLayoutAndroid侧滑菜单"></a>DrawerLayoutAndroid侧滑菜单</h2><p><code>DrawerLayoutAndroid</code> 只在android中,它的 <code>renderNavigationView</code> 代表侧滑菜单内容, 子View代表主界面布局<br>通过<code>ref={(drawer) =&gt; { this.drawer = drawer; }}</code> 获取<code>drawer</code>对象<br>打开: <code>openDrawer()</code><br>关闭: <code>closeDrawer()</code></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">DrawerLayoutAndroid</span></span></span><br><span class="line"><span class="tag">  <span class="attr">drawerWidth</span>=<span class="string">&#123;300&#125;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">drawerPosition</span>=<span class="string">&#123;DrawerLayoutAndroid.positions.Left&#125;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">ref</span>=<span class="string">&#123;(drawer)</span> =&gt;</span> &#123; this.drawer = drawer; &#125;&#125;</span><br><span class="line">  renderNavigationView=&#123;() =&gt; navigationView&#125;&gt;</span><br><span class="line">  <span class="tag">&lt;<span class="name">View</span>&gt;</span><span class="tag">&lt;/<span class="name">View</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">DrawerLayoutAndroid</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="按钮的点击效果"><a href="#按钮的点击效果" class="headerlink" title="按钮的点击效果"></a>按钮的点击效果</h2><ul>
+<li><a href="https://facebook.github.io/react-native/docs/touchablehighlight.html#content" target="_blank" rel="noopener">TouchableHighlight</a></li>
+<li><a href="https://facebook.github.io/react-native/docs/touchablenativefeedback.html#content" target="_blank" rel="noopener">TouchableNativeFeedback</a></li>
+<li><a href="https://facebook.github.io/react-native/docs/touchableopacity.html#content" target="_blank" rel="noopener">TouchableOpacity</a></li>
+<li><a href="https://facebook.github.io/react-native/docs/touchablewithoutfeedback.html#content" target="_blank" rel="noopener">TouchableWithoutFeedback</a></li>
+</ul>
+<p>根据需要的效果选择</p>
+<h2 id="点击函数的触发"><a href="#点击函数的触发" class="headerlink" title="点击函数的触发"></a>点击函数的触发</h2><p>定义函数</p>
+<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">openDrawer: <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.drawer.openDrawer();</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+<p>设置点击事件</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">onPress</span>=&#123;this.openDrawer&#125;</span><br></pre></td></tr></table></figure>
+<p>完整代码</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * hanks</span><br><span class="line"> * https://github.com/hanks-zyh</span><br><span class="line"> */</span><br><span class="line">'use strict';</span><br><span class="line"></span><br><span class="line">var React = require('react-native');</span><br><span class="line">var &#123;</span><br><span class="line">  AppRegistry,</span><br><span class="line">  StyleSheet,</span><br><span class="line">  Text,</span><br><span class="line">  View,</span><br><span class="line">  Image,</span><br><span class="line">  DrawerLayoutAndroid,</span><br><span class="line">  ProgressBarAndroid,</span><br><span class="line">  ScrollView,</span><br><span class="line">  ListView,</span><br><span class="line">  TouchableOpacity,</span><br><span class="line">&#125; = React;</span><br><span class="line">var AwesomeProject = React.createClass(&#123;</span><br><span class="line">  openDrawer: function () &#123;</span><br><span class="line">      this.drawer.openDrawer();</span><br><span class="line">  &#125;,</span><br><span class="line">  getInitialState:function()&#123;</span><br><span class="line">    var ds = new ListView.DataSource( &#123;rowHasChanged: (r1, r2) =&gt; r1 !== r2&#125; );</span><br><span class="line">    return &#123;</span><br><span class="line">      dataSource : ds.cloneWithRows(['CLOTHES','PACKAGES','SHOES',]),</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  render: function() &#123;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    var navigationView = (</span><br><span class="line">      <span class="tag">&lt;<span class="name">View</span> <span class="attr">style</span>=<span class="string">&#123;&#123;flex:</span> <span class="attr">1</span>, <span class="attr">backgroundColor:</span> '#<span class="attr">fff</span>'&#125;&#125;&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">Image</span>  <span class="attr">source</span>= <span class="string">&#123;&#123;</span> <span class="attr">uri:</span> '<span class="attr">https:</span>//<span class="attr">img.hb.aicdn.com</span>/<span class="attr">735afbfa2f6fee24d1a10e1a22b23c63f707ea82281c3-ajdFRe_fw658</span>' &#125;&#125; <span class="attr">style</span>=<span class="string">&#123;&#123;</span>  <span class="attr">height:200</span> &#125;&#125; /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">ListView</span></span></span><br><span class="line"><span class="tag">          <span class="attr">dataSource</span>=<span class="string">&#123;this.state.dataSource&#125;</span></span></span><br><span class="line"><span class="tag">          <span class="attr">renderRow</span>=<span class="string">&#123;</span> (<span class="attr">rowData</span>) =&gt;</span></span><br><span class="line">              <span class="tag">&lt;<span class="name">View</span> <span class="attr">style</span>=<span class="string">&#123;&#123;</span></span></span><br><span class="line"><span class="tag">                <span class="attr">height:</span> <span class="attr">56</span>,</span></span><br><span class="line"><span class="tag">                <span class="attr">flexDirection</span> <span class="attr">:</span> '<span class="attr">row</span>',</span></span><br><span class="line"><span class="tag">                <span class="attr">alignItems:</span>'<span class="attr">center</span>',</span></span><br><span class="line"><span class="tag">                <span class="attr">paddingLeft:</span> <span class="attr">20</span>,</span></span><br><span class="line"><span class="tag">              &#125;&#125;&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">Image</span> <span class="attr">source</span> = <span class="string">&#123;</span> <span class="attr">require</span>('<span class="attr">.</span>/<span class="attr">img</span>/<span class="attr">list4.png</span>') &#125; <span class="attr">style</span>=<span class="string">&#123;&#123;</span> <span class="attr">height:10</span>, <span class="attr">width:10</span>, <span class="attr">margin:8</span> &#125;&#125;/&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">Text</span> <span class="attr">style</span>=<span class="string">&#123;</span> <span class="attr">styles.listItem</span> &#125;&gt;</span>&#123;rowData&#125;<span class="tag">&lt;/<span class="name">Text</span>&gt;</span></span><br><span class="line">             <span class="tag">&lt;/<span class="name">View</span>&gt;</span></span><br><span class="line">           &#125;</span><br><span class="line">        /&gt;</span><br><span class="line">      <span class="tag">&lt;/<span class="name">View</span>&gt;</span></span><br><span class="line">    );</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    return (</span><br><span class="line">      <span class="tag">&lt;<span class="name">DrawerLayoutAndroid</span></span></span><br><span class="line"><span class="tag">        <span class="attr">drawerWidth</span>=<span class="string">&#123;300&#125;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">drawerPosition</span>=<span class="string">&#123;DrawerLayoutAndroid.positions.Left&#125;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">ref</span>=<span class="string">&#123;(drawer)</span> =&gt;</span> &#123; this.drawer = drawer; &#125;&#125;</span><br><span class="line">        renderNavigationView=&#123;() =&gt; navigationView&#125;</span><br><span class="line">        &gt;</span><br><span class="line">      <span class="tag">&lt;<span class="name">ScrollView</span> <span class="attr">contentContainerStyle</span>=<span class="string">&#123;styles.contentContainer&#125;</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">View</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">View</span> <span class="attr">style</span> = <span class="string">&#123;&#123;</span></span></span><br><span class="line"><span class="tag">          <span class="attr">backgroundColor:</span> '#<span class="attr">f4ec34</span>',</span></span><br><span class="line"><span class="tag">          <span class="attr">height:54</span>,</span></span><br><span class="line"><span class="tag">          <span class="attr">flexDirection:</span>'<span class="attr">row</span>',</span></span><br><span class="line"><span class="tag">          <span class="attr">justifyContent:</span>'<span class="attr">space-between</span>',</span></span><br><span class="line"><span class="tag">          <span class="attr">alignItems:</span>'<span class="attr">center</span>',</span></span><br><span class="line"><span class="tag">          <span class="attr">paddingLeft:</span> <span class="attr">20</span>,</span></span><br><span class="line"><span class="tag">          <span class="attr">paddingRight:20</span>,</span></span><br><span class="line"><span class="tag">        &#125;&#125;&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">TouchableOpacity</span> <span class="attr">onPress</span>=<span class="string">&#123;this.openDrawer&#125;</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">Image</span>  <span class="attr">source</span>=<span class="string">&#123;require(</span>'<span class="attr">.</span>/<span class="attr">img</span>/<span class="attr">list4.png</span>')&#125; <span class="attr">style</span>=<span class="string">&#123;&#123;</span>  <span class="attr">width:</span> <span class="attr">20</span>, <span class="attr">height:</span> <span class="attr">20</span>&#125;&#125; /&gt;</span></span><br><span class="line">         <span class="tag">&lt;/<span class="name">TouchableOpacity</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">Text</span> <span class="attr">style</span>=<span class="string">&#123;&#123;</span> <span class="attr">fontSize:18</span>,  <span class="attr">color:</span>'#<span class="attr">484848</span>' &#125;&#125;&gt;</span>SHOP<span class="tag">&lt;/<span class="name">Text</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">Image</span>  <span class="attr">source</span>=<span class="string">&#123;require(</span>'<span class="attr">.</span>/<span class="attr">img</span>/<span class="attr">search.png</span>')&#125; <span class="attr">style</span>=<span class="string">&#123;&#123;</span>  <span class="attr">width:</span> <span class="attr">20</span>, <span class="attr">height:</span> <span class="attr">20</span>&#125;&#125; /&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">View</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">Image</span> <span class="attr">source</span>= <span class="string">&#123;&#123;</span> <span class="attr">uri:</span> '<span class="attr">https:</span>//<span class="attr">img.hb.aicdn.com</span>/<span class="attr">cbf3ebcae08ef62ef02dd61aa2407414dc64e794150313-KRUD1s_fw658</span>' &#125;&#125;</span></span><br><span class="line"><span class="tag">          <span class="attr">style</span>=<span class="string">&#123;&#123;</span> <span class="attr">height:</span> <span class="attr">220</span>, <span class="attr">margin:</span> <span class="attr">20</span>&#125;&#125;  /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">Text</span> <span class="attr">style</span>=<span class="string">&#123;&#123;</span> <span class="attr">fontSize:16</span>,  <span class="attr">color:</span>'#<span class="attr">484848</span>', <span class="attr">alignSelf:</span>'<span class="attr">center</span>' &#125;&#125;&gt;</span>HOT PRODUCTS<span class="tag">&lt;/<span class="name">Text</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">View</span> <span class="attr">style</span>=<span class="string">&#123;</span> <span class="attr">styles.photoRow</span> &#125;&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">View</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">Image</span> <span class="attr">source</span>= <span class="string">&#123;&#123;</span> <span class="attr">uri:</span> '<span class="attr">https:</span>//<span class="attr">gw.alicdn.com</span>/<span class="attr">bao</span>/<span class="attr">uploaded</span>/<span class="attr">TB1YQAPKVXXXXa9XFXXwu0bFXXX.png_270x270Q90.jpg</span>' &#125;&#125;</span></span><br><span class="line"><span class="tag">            <span class="attr">style</span>=<span class="string">&#123;</span> <span class="attr">styles.photoItem</span> &#125;  /&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">Text</span> <span class="attr">style</span>=<span class="string">&#123;styles.photoName</span> &#125;&gt;</span>TEL ORGES<span class="tag">&lt;/<span class="name">Text</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">Text</span> <span class="attr">style</span>=<span class="string">&#123;styles.photoPrice</span> &#125;&gt;</span>$99<span class="tag">&lt;/<span class="name">Text</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;/<span class="name">View</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">View</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">Image</span> <span class="attr">source</span>= <span class="string">&#123;&#123;</span> <span class="attr">uri:</span> '<span class="attr">https:</span>//<span class="attr">gw.alicdn.com</span>/<span class="attr">bao</span>/<span class="attr">uploaded</span>/<span class="attr">TB1DteFKVXXXXXQapXXSutbFXXX.jpg_270x270Q90.jpg</span>' &#125;&#125;</span></span><br><span class="line"><span class="tag">            <span class="attr">style</span>=<span class="string">&#123;</span>  <span class="attr">styles.photoItem</span>  &#125;  /&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">Text</span> <span class="attr">style</span>=<span class="string">&#123;styles.photoName&#125;</span>&gt;</span>ARFL JUYHS<span class="tag">&lt;/<span class="name">Text</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">Text</span> <span class="attr">style</span>=<span class="string">&#123;styles.photoPrice</span> &#125;&gt;</span>$34.2<span class="tag">&lt;/<span class="name">Text</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;/<span class="name">View</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">View</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">Image</span> <span class="attr">source</span>= <span class="string">&#123;&#123;</span> <span class="attr">uri:</span> '<span class="attr">https:</span>//<span class="attr">gw.alicdn.com</span>/<span class="attr">bao</span>/<span class="attr">uploaded</span>/<span class="attr">TB1dQGTKVXXXXaaXVXXSutbFXXX.jpg_270x270Q90.jpg</span>' &#125;&#125;</span></span><br><span class="line"><span class="tag">            <span class="attr">style</span>=<span class="string">&#123;</span> <span class="attr">styles.photoItem</span>  &#125;  /&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">Text</span> <span class="attr">style</span>=<span class="string">&#123;styles.photoName&#125;</span>&gt;</span>TKLL ORGES<span class="tag">&lt;/<span class="name">Text</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">Text</span> <span class="attr">style</span>=<span class="string">&#123;styles.photoPrice</span> &#125;&gt;</span>$182<span class="tag">&lt;/<span class="name">Text</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;/<span class="name">View</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">View</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">Text</span> <span class="attr">style</span>=<span class="string">&#123;&#123;</span> <span class="attr">fontSize:16</span>,  <span class="attr">color:</span>'#<span class="attr">484848</span>',  <span class="attr">alignSelf:</span>'<span class="attr">center</span>' , <span class="attr">marginTop:20</span> &#125;&#125;&gt;</span>NEW COLLECTIONS<span class="tag">&lt;/<span class="name">Text</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">View</span> <span class="attr">style</span>=<span class="string">&#123;</span> <span class="attr">styles.photoRow</span> &#125;&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">View</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">Image</span> <span class="attr">source</span>= <span class="string">&#123;&#123;</span> <span class="attr">uri:</span> '<span class="attr">https:</span>//<span class="attr">gw.alicdn.com</span>/<span class="attr">bao</span>/<span class="attr">uploaded</span>/<span class="attr">TB1rzGNKVXXXXbGXVXXSutbFXXX.jpg_270x270Q90.jpg</span>' &#125;&#125;</span></span><br><span class="line"><span class="tag">            <span class="attr">style</span>=<span class="string">&#123;</span> <span class="attr">styles.photoItem</span>  &#125;  /&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">Text</span> <span class="attr">style</span>=<span class="string">&#123;styles.photoName&#125;</span>&gt;</span>TEL ORGES<span class="tag">&lt;/<span class="name">Text</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">Text</span> <span class="attr">style</span>=<span class="string">&#123;styles.photoPrice</span> &#125;&gt;</span>$99<span class="tag">&lt;/<span class="name">Text</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;/<span class="name">View</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">View</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">Image</span> <span class="attr">source</span>= <span class="string">&#123;&#123;</span> <span class="attr">uri:</span> '<span class="attr">https:</span>//<span class="attr">gw.alicdn.com</span>/<span class="attr">bao</span>/<span class="attr">uploaded</span>/<span class="attr">TB1rzGNKVXXXXbGXVXXSutbFXXX.jpg_270x270Q90.jpg</span>' &#125;&#125;</span></span><br><span class="line"><span class="tag">            <span class="attr">style</span>=<span class="string">&#123;</span> <span class="attr">styles.photoItem</span>  &#125;  /&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">Text</span> <span class="attr">style</span>=<span class="string">&#123;styles.photoName&#125;</span>&gt;</span>ARFL JUYHS<span class="tag">&lt;/<span class="name">Text</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">Text</span> <span class="attr">style</span>=<span class="string">&#123;styles.photoPrice</span> &#125;&gt;</span>$34.2<span class="tag">&lt;/<span class="name">Text</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;/<span class="name">View</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">View</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">Image</span> <span class="attr">source</span>= <span class="string">&#123;&#123;</span> <span class="attr">uri:</span> '<span class="attr">https:</span>//<span class="attr">gw.alicdn.com</span>/<span class="attr">bao</span>/<span class="attr">uploaded</span>/<span class="attr">TB1uBUxKVXXXXcGXpXXSutbFXXX.jpg_270x270Q90.jpg</span>' &#125;&#125;</span></span><br><span class="line"><span class="tag">            <span class="attr">style</span>=<span class="string">&#123;</span> <span class="attr">styles.photoItem</span>  &#125;  /&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">Text</span> <span class="attr">style</span>=<span class="string">&#123;styles.photoName&#125;</span>&gt;</span>TKLL ORGES<span class="tag">&lt;/<span class="name">Text</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">Text</span> <span class="attr">style</span>=<span class="string">&#123;styles.photoPrice</span> &#125;&gt;</span>$182<span class="tag">&lt;/<span class="name">Text</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;/<span class="name">View</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">View</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">Text</span> <span class="attr">style</span>=<span class="string">&#123;&#123;</span> <span class="attr">fontSize:16</span>,  <span class="attr">color:</span>'#<span class="attr">484848</span>',  <span class="attr">alignSelf:</span>'<span class="attr">center</span>' , <span class="attr">marginTop:20</span> &#125;&#125;&gt;</span>MOST POP<span class="tag">&lt;/<span class="name">Text</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">View</span> <span class="attr">style</span>=<span class="string">&#123;</span> <span class="attr">styles.photoRow</span> &#125;&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">View</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">Image</span> <span class="attr">source</span>= <span class="string">&#123;&#123;</span> <span class="attr">uri:</span> '<span class="attr">https:</span>//<span class="attr">gw.alicdn.com</span>/<span class="attr">bao</span>/<span class="attr">uploaded</span>/<span class="attr">TB1Rqa3KVXXXXb6XpXXSutbFXXX.jpg_270x270Q90.jpg</span>' &#125;&#125;</span></span><br><span class="line"><span class="tag">            <span class="attr">style</span>=<span class="string">&#123;</span> <span class="attr">styles.photoItem</span>  &#125;  /&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">Text</span> <span class="attr">style</span>=<span class="string">&#123;styles.photoName&#125;</span>&gt;</span>TEL ORGES<span class="tag">&lt;/<span class="name">Text</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">Text</span> <span class="attr">style</span>=<span class="string">&#123;styles.photoPrice</span> &#125;&gt;</span>$99<span class="tag">&lt;/<span class="name">Text</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;/<span class="name">View</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">View</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">Image</span> <span class="attr">source</span>= <span class="string">&#123;&#123;</span> <span class="attr">uri:</span> '<span class="attr">https:</span>//<span class="attr">gw.alicdn.com</span>/<span class="attr">bao</span>/<span class="attr">uploaded</span>/<span class="attr">TB1Rqa3KVXXXXb6XpXXSutbFXXX.jpg_270x270Q90.jpg</span>' &#125;&#125;</span></span><br><span class="line"><span class="tag">            <span class="attr">style</span>=<span class="string">&#123;</span> <span class="attr">styles.photoItem</span>  &#125;  /&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">Text</span> <span class="attr">style</span>=<span class="string">&#123;styles.photoName&#125;</span>&gt;</span>ARFL JUYHS<span class="tag">&lt;/<span class="name">Text</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">Text</span> <span class="attr">style</span>=<span class="string">&#123;styles.photoPrice</span> &#125;&gt;</span>$34.2<span class="tag">&lt;/<span class="name">Text</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;/<span class="name">View</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">View</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">Image</span> <span class="attr">source</span>= <span class="string">&#123;&#123;</span> <span class="attr">uri:</span> '<span class="attr">https:</span>//<span class="attr">gw.alicdn.com</span>/<span class="attr">bao</span>/<span class="attr">uploaded</span>/<span class="attr">TB1lMksKVXXXXa7XpXXSutbFXXX.jpg_270x270Q90.jpg</span>' &#125;&#125;</span></span><br><span class="line"><span class="tag">            <span class="attr">style</span>=<span class="string">&#123;</span> <span class="attr">styles.photoItem</span>  &#125;  /&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">Text</span> <span class="attr">style</span>=<span class="string">&#123;styles.photoName&#125;</span>&gt;</span>TKLL ORGES<span class="tag">&lt;/<span class="name">Text</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">Text</span> <span class="attr">style</span>=<span class="string">&#123;styles.photoPrice</span> &#125;&gt;</span>$182<span class="tag">&lt;/<span class="name">Text</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;/<span class="name">View</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">View</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">View</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">ScrollView</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;/<span class="name">DrawerLayoutAndroid</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">var styles = StyleSheet.create(&#123;</span><br><span class="line"> contentContainer: &#123;</span><br><span class="line"> &#125;,</span><br><span class="line"> listItem:&#123;</span><br><span class="line"></span><br><span class="line"> &#125;,</span><br><span class="line"> photoRow:&#123;</span><br><span class="line">   flexDirection:'row',</span><br><span class="line">   justifyContent: 'space-between',</span><br><span class="line">   paddingLeft: 20,</span><br><span class="line">   paddingRight: 20,</span><br><span class="line">   marginTop:10,</span><br><span class="line"> &#125;,</span><br><span class="line"> photoItem:&#123;</span><br><span class="line">   height: 120,</span><br><span class="line">   width:90 ,</span><br><span class="line">   alignItems: 'stretch' ,</span><br><span class="line">   alignSelf:'center'</span><br><span class="line"> &#125;,</span><br><span class="line"> photoName:&#123;</span><br><span class="line">   fontSize:14,</span><br><span class="line">   color:'#f39d7f',</span><br><span class="line">   alignSelf:'center',</span><br><span class="line"> &#125;,</span><br><span class="line"> photoPrice:&#123;</span><br><span class="line">   fontSize:12,  color:'#484848', alignSelf:'center'</span><br><span class="line"> &#125;,</span><br><span class="line"></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">AppRegistry.registerComponent('AwesomeProject', () =&gt; AwesomeProject);</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+</article>
+
+<!-- 上一页 下一页 -->
+
+
+<nav id="article-nav">
+  
+    <a href="/2015/12/23/react-network/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>上一篇</span>
+      <div class="article-nav-title">
+        
+          React-Native 网络请求
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/12/21/react-flexbox/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>下一篇</span>
+      <div class="article-nav-title">React-Native中的布局</div>
+    </a>
+  
+</nav>
+
+
+
+<!-- 相关文章 -->
+
+<!--
+
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+      			<a href="/2015/12/22/react-components/">React-Native 组件练习-购物app侧滑菜单</a>
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+
+-->
+
+
+
+<section>
+  <!-- 多说分享框 -->
+  <div id="disqus_thread"></div>
+  <script>
+    /**
+     *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+     *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+    /*
+    var disqus_config = function () {
+    this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+    this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    */
+    (function () { // DON'T EDIT BELOW THIS LINE
+      var d = document,
+        s = d.createElement('script');
+      s.src = 'https://hanks-zyh.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by
+      Disqus.</a></noscript>
+  <!-- 多说公共JS代码 end -->
+</section>
+</section>
+      </div>
+      <footer id="footer">
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      &copy; 2021 <a href="https://github.com/hanks-zyh"> Hanks</a>
+	  </div>
+  </div>
+ <div id="share">
+  <a id="totop" title="" style="display: block;">返回顶部</a>
+ </div>
+</footer>
+
+    </div>
+    
+
+<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery.scrollLoading.js"></script>
+
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>大杀器-RoboBinding | Hanks&#39; Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <meta name="referrer" content="never">
+  <meta name="description" content="###介绍  一个实现了数据绑定 Presentation Model(MVVM) 模式的Android开源框架。 在没有性能损失的前提下(使用源代码生成来替代Java反射)，RoboBinding 帮助你编写更可读，易于测试与维护的UI代码。   通过绑定移除大量不必要的代码(如addXXListener()，findViewById()等) 。 将难于测试的Android代码以及运行过久且不切">
+<meta name="keywords" content="Android">
+<meta property="og:type" content="article">
+<meta property="og:title" content="大杀器-RoboBinding">
+<meta property="og:url" content="https://hanks.pub/2015/05/20/大杀器-RoboBinding/index.html">
+<meta property="og:site_name" content="Hanks&#39; Blog">
+<meta property="og:description" content="###介绍  一个实现了数据绑定 Presentation Model(MVVM) 模式的Android开源框架。 在没有性能损失的前提下(使用源代码生成来替代Java反射)，RoboBinding 帮助你编写更可读，易于测试与维护的UI代码。   通过绑定移除大量不必要的代码(如addXXListener()，findViewById()等) 。 将难于测试的Android代码以及运行过久且不切">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2021-06-16T11:59:22.955Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="大杀器-RoboBinding">
+<meta name="twitter:description" content="###介绍  一个实现了数据绑定 Presentation Model(MVVM) 模式的Android开源框架。 在没有性能损失的前提下(使用源代码生成来替代Java反射)，RoboBinding 帮助你编写更可读，易于测试与维护的UI代码。   通过绑定移除大量不必要的代码(如addXXListener()，findViewById()等) 。 将难于测试的Android代码以及运行过久且不切">
+  
+  
+  <link href="https://fonts.googleapis.com/css?family=Fira+Code|Noto+Serif+SC&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head></html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo"></a>
+    <nav id="main-nav">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      
+        <a class="main-nav-link" href="/archives">Archive</a>
+      
+        <a class="main-nav-link" href="/eye-video">Eye</a>
+      
+        <a class="main-nav-link" href="/atom.xml">Rss</a>
+      
+    </nav>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/archives" class="mobile-nav-link">Archive</a>
+  
+    <a href="/eye-video" class="mobile-nav-link">Eye</a>
+  
+    <a href="/atom.xml" class="mobile-nav-link">Rss</a>
+  
+</nav>
+      <div class="outer">
+        <section id="main"><article id="post-大杀器-RoboBinding" class="article article-type-post" itemscope
+  itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <header class="article-header">
+      
+      
+  
+    <h1 class="article-title" itemprop="name">
+      大杀器-RoboBinding
+    </h1>
+  
+
+      
+    </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      <p>###介绍</p>
+<blockquote>
+<p>一个实现了<strong><code>数据绑定</code></strong> <strong><code>Presentation Model(MVVM)</code></strong> 模式的Android开源框架。 在没有性能损失的前提下(使用<strong>源代码生成来替代Java反射</strong>)，<a href="#">RoboBinding</a> 帮助你编写更可读，易于测试与维护的UI代码。</p>
+</blockquote>
+<ul>
+<li>通过绑定<a href="#">移除大量不必要的代码</a>(如addXXListener()，findViewById()等) 。</li>
+<li>将难于测试的Android代码以及运行过久且不切实际的Android单元测试 变为 pojo PresentationModels 及其普通的JUnit单元测试。</li>
+<li>提供对象类型Cursor来替换 - 关系类型Cursor，因为我们已经习惯于操作对象 。</li>
+<li>可以很容易的为任何自定义组件，第三方组件或Android widget编写属性绑定实现，简化代码，使项目易于维护。</li>
+</ul>
+<hr>
+<h3 id="官网-https-robobinding-org"><a href="#官网-https-robobinding-org" class="headerlink" title="官网:  https://robobinding.org"></a>官网: <a href="https://robobinding.org/" target="_blank" rel="noopener"> https://robobinding.org</a></h3><p>有中文翻译版本,关于详细介绍,移步官网,下面主要填一下使用<a href="#"><strong>Android Studio</strong></a>配置时的一些坑.</p>
+<p>根据官方介绍,我使用了<strong><code>AspectJ</code></strong>(AS上不好配置),也可以不用<br>1.配置 <strong><code>app/build.gradle</code></strong><br><figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">buildscript</span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">repositories</span>&#123;</span><br><span class="line">        mavenCentral()</span><br><span class="line">        maven()&#123;</span><br><span class="line">            name <span class="string">'RoboBinding AspectJPlugin Maven Repository'</span></span><br><span class="line">            url <span class="string">"https://github.com/RoboBinding/RoboBinding-aspectj-plugin/raw/master/mavenRepo"</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">dependencies</span> &#123;</span><br><span class="line">        <span class="keyword">classpath</span> <span class="string">'com.android.tools.build:gradle:1.+'</span></span><br><span class="line">        <span class="keyword">classpath</span> <span class="string">'org.robobinding:aspectj-plugin:0.8.4'</span></span><br><span class="line">        <span class="keyword">classpath</span> <span class="string">'com.neenbedankt.gradle.plugins:android-apt:1.+'</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>注意需要引用v4,我是在libs添加的jar包<br><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">apply <span class="string">plugin:</span> <span class="string">'com.android.application'</span></span><br><span class="line">apply <span class="string">plugin:</span> <span class="string">'com.neenbedankt.android-apt'</span></span><br><span class="line">apply <span class="string">plugin:</span> <span class="string">'org.robobinding.android-aspectj'</span></span><br></pre></td></tr></table></figure></p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">compile</span> (<span class="string">"org.robobinding:robobinding:0.8.9:with-aop-and-dependencies"</span>) &#123;</span><br><span class="line">    <span class="keyword">exclude</span> <span class="keyword">group</span>: <span class="string">'com.google.guava'</span>, module: <span class="string">'guava'</span></span><br><span class="line">&#125;</span><br><span class="line">aspectPath (<span class="string">"org.robobinding:robobinding:0.8.9:with-aop-and-dependencies"</span>) &#123;</span><br><span class="line">    <span class="keyword">exclude</span> <span class="keyword">group</span>: <span class="string">'com.google.guava'</span>, module: <span class="string">'guava'</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">apt <span class="string">"org.robobinding:codegen:0.8.9"</span></span><br><span class="line"></span><br><span class="line">androidTestCompile <span class="string">'com.jayway.android.robotium:robotium-solo:5.2.1'</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">repositories</span> &#123;</span><br><span class="line">    jcenter()</span><br><span class="line">    mavenCentral()</span><br><span class="line">    maven() &#123;</span><br><span class="line">        name <span class="string">'SonaType snapshot repository'</span></span><br><span class="line">        url <span class="string">'https://oss.sonatype.org/content/repositories/snapshots'</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight lasso"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">android &#123;</span><br><span class="line">    <span class="params">...</span>.</span><br><span class="line">    <span class="comment">//这里是禁止xml中使用bind命名空间时报错的</span></span><br><span class="line">    lintOptions &#123;</span><br><span class="line">        disable <span class="string">'UnusedAttribute'</span>, <span class="string">'ValidFragment'</span>, <span class="string">'GradleDependency'</span>, <span class="string">'OnClick'</span>, <span class="string">'MissingPrefix'</span>, <span class="string">'MenuTitle'</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="params">...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>以上片段是需要注意的</p>
+<p>还有就是网络问题,在公司的网络Gradle死活都编译不通,回到家立马就好了<br>接下来就是使用了</p>
+<hr>
+<p>以在Fragment中使用为例(官方的例子用法很全了)</p>
+<ol>
+<li>fragment_demo.xml  <figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;LinearLayout</span><br><span class="line">	<span class="comment">//加上命名空间</span></span><br><span class="line">	xmlns:<span class="keyword">bind</span>=<span class="string">"https://robobinding.org/android"</span></span><br><span class="line"></span><br><span class="line">&lt;TextView</span><br><span class="line">	<span class="keyword">bind</span>:text=<span class="string">"&#123;content&#125;"</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>点击事件 <strong>bind:onClick=”methodName”</strong><br>还支持其他更多属性的绑定</p>
+<ol start="2">
+<li><p>DemoPresentationModel.java</p>
+<figure class="highlight haxe"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//加上注解</span></span><br><span class="line">@PresentationModel</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DemoPresentationModel</span></span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">String</span> content; <span class="comment">//对应xml中bind:text="&#123;content&#125;"</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">String</span> getContent()&#123;</span><br><span class="line">		<span class="keyword">return</span> content;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">String</span> setContent(Content content)&#123;</span><br><span class="line">		<span class="built_in">this</span>.content = content;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>DemoFragment.java</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line">   @Override</span><br><span class="line">   public void onCreate(Bundle savedInstanceState) &#123;</span><br><span class="line">       <span class="attribute">super.onCreate(savedInstanceState);</span></span><br><span class="line"><span class="attribute"></span></span><br><span class="line">       presentationModel = new DemoPresentationModel();</span><br><span class="line">       <span class="attribute">presentationModel.setContent("内容");</span></span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">@Override</span><br><span class="line">   public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) &#123;</span><br><span class="line">       ViewBinder viewBinder = new BinderFactoryBuilder().build().createViewBinder(getActivity());</span><br><span class="line">       View rootView = viewBinder.inflateAndBind(R.layout.fragment_demo, presentationModel);   //xml里面按照上面的要求,不能写错</span><br><span class="line">       return rootView;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>需要更新属性的,让POJO类实现<strong><code>HasPresentationModelChangeSupport</code></strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//加上注解</span></span><br><span class="line"><span class="meta">@PresentationModel</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DemoPresentationModel</span> <span class="keyword">implements</span> <span class="title">HasPresentationModelChangeSupport</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String content; <span class="comment">//对应xml中bind:text="&#123;content&#125;"</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">private</span> PresentationModelChangeSupport changeSupport;</span><br><span class="line">	 <span class="function"><span class="keyword">public</span> <span class="title">DemoPresentationModel</span><span class="params">()</span></span>&#123;</span><br><span class="line">		 changeSupport = <span class="keyword">new</span> PresentationModelChangeSupport(<span class="keyword">this</span>);</span><br><span class="line">	 &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getContent</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> content;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">setContent</span><span class="params">(Content content)</span></span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.content = content;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">updataContent</span><span class="params">(String newContent)</span></span>&#123;</span><br><span class="line">		changeSupport.firePropertyChange(<span class="string">"content"</span>);<span class="comment">//更新content属性</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后我们调用 <strong><code>updataContent</code></strong>来更新视图</p>
+<hr>
+<p>一下子简化好多代码和逻辑,还有其他更强大的功能,<a href="https://robobinding.org" target="_blank" rel="noopener">官网</a>观看,还有中文的视频</p>
+
+      
+    </div>
+</article>
+
+<!-- 上一页 下一页 -->
+
+
+<nav id="article-nav">
+  
+    <a href="/2015/05/24/android-AdvancedRecyclerview/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>上一篇</span>
+      <div class="article-nav-title">
+        
+          android-AdvancedRecyclerview
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/05/15/自定义控件--带动画的CheckBox/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>下一篇</span>
+      <div class="article-nav-title">自定义控件--带动画的CheckBox</div>
+    </a>
+  
+</nav>
+
+
+
+<!-- 相关文章 -->
+
+<!--
+
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+      			<a href="/2015/05/20/大杀器-RoboBinding/">大杀器-RoboBinding</a>
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+
+-->
+
+
+
+<section>
+  <!-- 多说分享框 -->
+  <div id="disqus_thread"></div>
+  <script>
+    /**
+     *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+     *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+    /*
+    var disqus_config = function () {
+    this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+    this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    */
+    (function () { // DON'T EDIT BELOW THIS LINE
+      var d = document,
+        s = d.createElement('script');
+      s.src = 'https://hanks-zyh.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by
+      Disqus.</a></noscript>
+  <!-- 多说公共JS代码 end -->
+</section>
+</section>
+      </div>
+      <footer id="footer">
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      &copy; 2021 <a href="https://github.com/hanks-zyh"> Hanks</a>
+	  </div>
+  </div>
+ <div id="share">
+  <a id="totop" title="" style="display: block;">返回顶部</a>
+ </div>
+</footer>
+
+    </div>
+    
+
+<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery.scrollLoading.js"></script>
+
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

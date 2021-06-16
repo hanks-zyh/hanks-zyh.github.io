@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>Android中的Interpolator | Hanks&#39; Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <meta name="referrer" content="never">
+  <meta name="description" content="首先介绍一个网站 https://www.desmos.com，这是一个通过函数来生成函数图像的网站，使用起来很灵活，可以 同时添加多个函数图像，分别指定他们的定义域。感谢道哥分享！   系统提供的InterpolatorLinearInterpolator 线性插值器123456789101112131415161718public class LinearInterpolator exten">
+<meta name="keywords" content="Android">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android中的Interpolator">
+<meta property="og:url" content="https://hanks.pub/2015/07/22/Android中的Interpolator/index.html">
+<meta property="og:site_name" content="Hanks&#39; Blog">
+<meta property="og:description" content="首先介绍一个网站 https://www.desmos.com，这是一个通过函数来生成函数图像的网站，使用起来很灵活，可以 同时添加多个函数图像，分别指定他们的定义域。感谢道哥分享！   系统提供的InterpolatorLinearInterpolator 线性插值器123456789101112131415161718public class LinearInterpolator exten">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://img.blog.csdn.net/20150722001839478">
+<meta property="og:image" content="https://cogitolearning.co.uk/wp-content/uploads/2013/10/linear_settings.png">
+<meta property="og:image" content="https://img.blog.csdn.net/20150722000557925">
+<meta property="og:image" content="https://cogitolearning.co.uk/wp-content/uploads/2013/10/accelerate_settings.png">
+<meta property="og:image" content="https://img.blog.csdn.net/20150722001105691">
+<meta property="og:image" content="https://cogitolearning.co.uk/wp-content/uploads/2013/10/decelerate_settings.png">
+<meta property="og:image" content="https://img.blog.csdn.net/20150722001638975">
+<meta property="og:image" content="https://cogitolearning.co.uk/wp-content/uploads/2013/10/accelerate_decelerate_settings.png">
+<meta property="og:image" content="https://img.blog.csdn.net/20150722004214712">
+<meta property="og:image" content="https://cogitolearning.co.uk/wp-content/uploads/2013/10/bounce_settings.png">
+<meta property="og:image" content="https://img.blog.csdn.net/20150722002030894">
+<meta property="og:image" content="https://cogitolearning.co.uk/wp-content/uploads/2013/10/anticipate_settings.png">
+<meta property="og:image" content="https://img.blog.csdn.net/20150722004047492">
+<meta property="og:image" content="https://cogitolearning.co.uk/wp-content/uploads/2013/10/anticipate_overshoot_settings.png">
+<meta property="og:image" content="https://img.blog.csdn.net/20150722004311238">
+<meta property="og:image" content="https://cogitolearning.co.uk/wp-content/uploads/2013/10/cycle_settings.png">
+<meta property="og:image" content="https://img.blog.csdn.net/20150722002152522">
+<meta property="og:image" content="https://cogitolearning.co.uk/wp-content/uploads/2013/10/overshoot_settings.png">
+<meta property="og:image" content="https://img.blog.csdn.net/20150722003201447">
+<meta property="og:image" content="https://img.blog.csdn.net/20150722003043764">
+<meta property="og:updated_time" content="2021-06-16T11:59:22.826Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android中的Interpolator">
+<meta name="twitter:description" content="首先介绍一个网站 https://www.desmos.com，这是一个通过函数来生成函数图像的网站，使用起来很灵活，可以 同时添加多个函数图像，分别指定他们的定义域。感谢道哥分享！   系统提供的InterpolatorLinearInterpolator 线性插值器123456789101112131415161718public class LinearInterpolator exten">
+<meta name="twitter:image" content="https://img.blog.csdn.net/20150722001839478">
+  
+  
+  <link href="https://fonts.googleapis.com/css?family=Fira+Code|Noto+Serif+SC&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head></html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo"></a>
+    <nav id="main-nav">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      
+        <a class="main-nav-link" href="/archives">Archive</a>
+      
+        <a class="main-nav-link" href="/eye-video">Eye</a>
+      
+        <a class="main-nav-link" href="/atom.xml">Rss</a>
+      
+    </nav>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/archives" class="mobile-nav-link">Archive</a>
+  
+    <a href="/eye-video" class="mobile-nav-link">Eye</a>
+  
+    <a href="/atom.xml" class="mobile-nav-link">Rss</a>
+  
+</nav>
+      <div class="outer">
+        <section id="main"><article id="post-Android中的Interpolator" class="article article-type-post" itemscope
+  itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <header class="article-header">
+      
+      
+  
+    <h1 class="article-title" itemprop="name">
+      Android中的Interpolator
+    </h1>
+  
+
+      
+    </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      <blockquote>
+<p>首先介绍一个网站 <a href="https://www.desmos.com" target="_blank" rel="noopener">https://www.desmos.com</a>，这是一个通过函数来生成函数图像的网站，使用起来很灵活，可以 同时添加多个函数图像，分别指定他们的定义域。感谢道哥分享！</p>
+</blockquote>
+<hr>
+<h1 id="系统提供的Interpolator"><a href="#系统提供的Interpolator" class="headerlink" title="系统提供的Interpolator"></a>系统提供的Interpolator</h1><h2 id="LinearInterpolator-线性插值器"><a href="#LinearInterpolator-线性插值器" class="headerlink" title="LinearInterpolator 线性插值器"></a>LinearInterpolator 线性插值器</h2><p><img src="https://img.blog.csdn.net/20150722001839478" alt="这里写图片描述"><br><img src="https://cogitolearning.co.uk/wp-content/uploads/2013/10/linear_settings.png" alt="这里写图片描述"><br><figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LinearInterpolator</span> <span class="keyword">extends</span> <span class="title">BaseInterpolator</span> <span class="keyword">implements</span> <span class="title">NativeInterpolatorFactory</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">LinearInterpolator</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">LinearInterpolator</span><span class="params">(Context context, AttributeSet attrs)</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">float</span> <span class="title">getInterpolation</span><span class="params">(<span class="keyword">float</span> input)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> input;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/** <span class="doctag">@hide</span> */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">long</span> <span class="title">createNativeInterpolator</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="function"><span class="keyword">return</span> NativeInterpolatorFactoryHelper.<span class="title">createLinearInterpolator</span><span class="params">()</span></span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="AccelerateInterpolator-加速插值器"><a href="#AccelerateInterpolator-加速插值器" class="headerlink" title="AccelerateInterpolator  加速插值器"></a>AccelerateInterpolator  加速插值器</h2><p> <img src="https://img.blog.csdn.net/20150722000557925" alt="这里写图片描述"><br> <img src="https://cogitolearning.co.uk/wp-content/uploads/2013/10/accelerate_settings.png" alt="这里写图片描述"><br>源代码：<br><figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AccelerateDecelerateInterpolator</span> <span class="keyword">extends</span> <span class="title">BaseInterpolator</span></span></span><br><span class="line"><span class="class">        <span class="keyword">implements</span> <span class="title">NativeInterpolatorFactory</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">AccelerateDecelerateInterpolator</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@SuppressWarnings</span>(&#123;<span class="string">"UnusedDeclaration"</span>&#125;)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">AccelerateDecelerateInterpolator</span><span class="params">(Context context, AttributeSet attrs)</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">float</span> <span class="title">getInterpolation</span><span class="params">(<span class="keyword">float</span> input)</span> </span>&#123; <span class="comment">//这里定义的函数</span></span><br><span class="line">        <span class="keyword">return</span> (<span class="keyword">float</span>)(Math.cos((input + <span class="number">1</span>) * Math.PI) / <span class="number">2.0</span>f) + <span class="number">0.5</span>f;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/** <span class="doctag">@hide</span> */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">long</span> <span class="title">createNativeInterpolator</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="function"><span class="keyword">return</span> NativeInterpolatorFactoryHelper.<span class="title">createAccelerateDecelerateInterpolator</span><span class="params">()</span></span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="减速DecelerateInterpolator"><a href="#减速DecelerateInterpolator" class="headerlink" title="减速DecelerateInterpolator"></a>减速DecelerateInterpolator</h2><p><img src="https://img.blog.csdn.net/20150722001105691" alt="这里写图片描述"><br><img src="https://cogitolearning.co.uk/wp-content/uploads/2013/10/decelerate_settings.png" alt="这里写图片描述"><br>源码：<br><figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * An interpolator where the rate of change starts out quickly and</span></span><br><span class="line"><span class="comment"> * and then decelerates.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@HasNativeInterpolator</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DecelerateInterpolator</span> <span class="keyword">extends</span> <span class="title">BaseInterpolator</span> <span class="keyword">implements</span> <span class="title">NativeInterpolatorFactory</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">DecelerateInterpolator</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Constructor</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> factor Degree to which the animation should be eased. Setting factor to 1.0f produces</span></span><br><span class="line"><span class="comment">     *        an upside-down y=x^2 parabola. Increasing factor above 1.0f makes exaggerates the</span></span><br><span class="line"><span class="comment">     *        ease-out effect (i.e., it starts even faster and ends evens slower)</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">DecelerateInterpolator</span><span class="params">(<span class="keyword">float</span> factor)</span> </span>&#123;</span><br><span class="line">        mFactor = factor;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">DecelerateInterpolator</span><span class="params">(Context context, AttributeSet attrs)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>(context.getResources(), context.getTheme(), attrs);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/** <span class="doctag">@hide</span> */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">DecelerateInterpolator</span><span class="params">(Resources res, Theme theme, AttributeSet attrs)</span> </span>&#123;</span><br><span class="line">        TypedArray a;</span><br><span class="line">        <span class="keyword">if</span> (theme != <span class="keyword">null</span>) &#123;</span><br><span class="line">            a = theme.obtainStyledAttributes(attrs, R.styleable.DecelerateInterpolator, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            a = res.obtainAttributes(attrs, R.styleable.DecelerateInterpolator);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        mFactor = a.getFloat(R.styleable.DecelerateInterpolator_factor, <span class="number">1.0</span>f);</span><br><span class="line">        setChangingConfiguration(a.getChangingConfigurations());</span><br><span class="line">        a.recycle();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">float</span> <span class="title">getInterpolation</span><span class="params">(<span class="keyword">float</span> input)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">float</span> result;</span><br><span class="line">        <span class="keyword">if</span> (mFactor == <span class="number">1.0</span>f) &#123;</span><br><span class="line">            result = (<span class="keyword">float</span>)(<span class="number">1.0</span>f - (<span class="number">1.0</span>f - input) * (<span class="number">1.0</span>f - input));</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            result = (<span class="keyword">float</span>)(<span class="number">1.0</span>f - Math.pow((<span class="number">1.0</span>f - input), <span class="number">2</span> * mFactor));</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">float</span> mFactor = <span class="number">1.0</span>f;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/** <span class="doctag">@hide</span> */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">long</span> <span class="title">createNativeInterpolator</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="function"><span class="keyword">return</span> NativeInterpolatorFactoryHelper.<span class="title">createDecelerateInterpolator</span><span class="params">(mFactor)</span></span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>##AccelerateDecelerateInterpolator  加速减速插值器<br><img src="https://img.blog.csdn.net/20150722001638975" alt="这里写图片描述"><br><img src="https://cogitolearning.co.uk/wp-content/uploads/2013/10/accelerate_decelerate_settings.png" alt="这里写图片描述"><br>源码：<br><figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@HasNativeInterpolator</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AccelerateDecelerateInterpolator</span> <span class="keyword">extends</span> <span class="title">BaseInterpolator</span></span></span><br><span class="line"><span class="class">        <span class="keyword">implements</span> <span class="title">NativeInterpolatorFactory</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">AccelerateDecelerateInterpolator</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@SuppressWarnings</span>(&#123;<span class="string">"UnusedDeclaration"</span>&#125;)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">AccelerateDecelerateInterpolator</span><span class="params">(Context context, AttributeSet attrs)</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">float</span> <span class="title">getInterpolation</span><span class="params">(<span class="keyword">float</span> input)</span> </span>&#123; <span class="comment">//这里定义函数</span></span><br><span class="line">        <span class="keyword">return</span> (<span class="keyword">float</span>)(Math.cos((input + <span class="number">1</span>) * Math.PI) / <span class="number">2.0</span>f) + <span class="number">0.5</span>f;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/** <span class="doctag">@hide</span> */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">long</span> <span class="title">createNativeInterpolator</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="function"><span class="keyword">return</span> NativeInterpolatorFactoryHelper.<span class="title">createAccelerateDecelerateInterpolator</span><span class="params">()</span></span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<hr>
+<h2 id="BounceInterpolator-弹跳插值器"><a href="#BounceInterpolator-弹跳插值器" class="headerlink" title="BounceInterpolator 弹跳插值器"></a>BounceInterpolator 弹跳插值器</h2><p><img src="https://img.blog.csdn.net/20150722004214712" alt="这里写图片描述"><br><img src="https://cogitolearning.co.uk/wp-content/uploads/2013/10/bounce_settings.png" alt="这里写图片描述"><br><figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> android.view.animation;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> android.content.Context;</span><br><span class="line"><span class="keyword">import</span> android.util.AttributeSet;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.android.internal.view.animation.HasNativeInterpolator;</span><br><span class="line"><span class="keyword">import</span> com.android.internal.view.animation.NativeInterpolatorFactory;</span><br><span class="line"><span class="keyword">import</span> com.android.internal.view.animation.NativeInterpolatorFactoryHelper;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * An interpolator where the change bounces at the end.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@HasNativeInterpolator</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BounceInterpolator</span> <span class="keyword">extends</span> <span class="title">BaseInterpolator</span> <span class="keyword">implements</span> <span class="title">NativeInterpolatorFactory</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">BounceInterpolator</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@SuppressWarnings</span>(&#123;<span class="string">"UnusedDeclaration"</span>&#125;)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">BounceInterpolator</span><span class="params">(Context context, AttributeSet attrs)</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="function"><span class="keyword">float</span> <span class="title">bounce</span><span class="params">(<span class="keyword">float</span> t)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> t * t * <span class="number">8.0</span>f;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">float</span> <span class="title">getInterpolation</span><span class="params">(<span class="keyword">float</span> t)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// _b(t) = t * t * 8</span></span><br><span class="line">        <span class="comment">// bs(t) = _b(t) for t &lt; 0.3535</span></span><br><span class="line">        <span class="comment">// bs(t) = _b(t - 0.54719) + 0.7 for t &lt; 0.7408</span></span><br><span class="line">        <span class="comment">// bs(t) = _b(t - 0.8526) + 0.9 for t &lt; 0.9644</span></span><br><span class="line">        <span class="comment">// bs(t) = _b(t - 1.0435) + 0.95 for t &lt;= 1.0</span></span><br><span class="line">        <span class="comment">// b(t) = bs(t * 1.1226)</span></span><br><span class="line">        t *= <span class="number">1.1226</span>f;</span><br><span class="line">        <span class="keyword">if</span> (t &lt; <span class="number">0.3535</span>f) <span class="function"><span class="keyword">return</span> <span class="title">bounce</span><span class="params">(t)</span></span>;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (t &lt; <span class="number">0.7408</span>f) <span class="keyword">return</span> bounce(t - <span class="number">0.54719</span>f) + <span class="number">0.7</span>f;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (t &lt; <span class="number">0.9644</span>f) <span class="keyword">return</span> bounce(t - <span class="number">0.8526</span>f) + <span class="number">0.9</span>f;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">return</span> bounce(t - <span class="number">1.0435</span>f) + <span class="number">0.95</span>f;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/** <span class="doctag">@hide</span> */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">long</span> <span class="title">createNativeInterpolator</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="function"><span class="keyword">return</span> NativeInterpolatorFactoryHelper.<span class="title">createBounceInterpolator</span><span class="params">()</span></span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<hr>
+<p>##AnticipateInterpolator 回荡秋千插值器<br><img src="https://img.blog.csdn.net/20150722002030894" alt="这里写图片描述"><br><img src="https://cogitolearning.co.uk/wp-content/uploads/2013/10/anticipate_settings.png" alt="这里写图片描述"><br><figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AnticipateInterpolator</span> <span class="keyword">extends</span> <span class="title">BaseInterpolator</span> <span class="keyword">implements</span> <span class="title">NativeInterpolatorFactory</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">float</span> mTension;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">AnticipateInterpolator</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        mTension = <span class="number">2.0</span>f;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> tension Amount of anticipation. When tension equals 0.0f, there is</span></span><br><span class="line"><span class="comment">     *                no anticipation and the interpolator becomes a simple</span></span><br><span class="line"><span class="comment">     *                acceleration interpolator.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">AnticipateInterpolator</span><span class="params">(<span class="keyword">float</span> tension)</span> </span>&#123;</span><br><span class="line">        mTension = tension;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">AnticipateInterpolator</span><span class="params">(Context context, AttributeSet attrs)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>(context.getResources(), context.getTheme(), attrs);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/** <span class="doctag">@hide</span> */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">AnticipateInterpolator</span><span class="params">(Resources res, Theme theme, AttributeSet attrs)</span> </span>&#123;</span><br><span class="line">        TypedArray a;</span><br><span class="line">        <span class="keyword">if</span> (theme != <span class="keyword">null</span>) &#123;</span><br><span class="line">            a = theme.obtainStyledAttributes(attrs, R.styleable.AnticipateInterpolator, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            a = res.obtainAttributes(attrs, R.styleable.AnticipateInterpolator);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        mTension = a.getFloat(R.styleable.AnticipateInterpolator_tension, <span class="number">2.0</span>f);</span><br><span class="line">        setChangingConfiguration(a.getChangingConfigurations());</span><br><span class="line">        a.recycle();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">float</span> <span class="title">getInterpolation</span><span class="params">(<span class="keyword">float</span> t)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// a(t) = t * t * ((tension + 1) * t - tension)</span></span><br><span class="line">        <span class="keyword">return</span> t * t * ((mTension + <span class="number">1</span>) * t - mTension);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/** <span class="doctag">@hide</span> */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">long</span> <span class="title">createNativeInterpolator</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="function"><span class="keyword">return</span> NativeInterpolatorFactoryHelper.<span class="title">createAnticipateInterpolator</span><span class="params">(mTension)</span></span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<hr>
+<h2 id="AnticipateOvershootInterpolator"><a href="#AnticipateOvershootInterpolator" class="headerlink" title="AnticipateOvershootInterpolator"></a>AnticipateOvershootInterpolator</h2><p><img src="https://img.blog.csdn.net/20150722004047492" alt="这里写图片描述"><br><img src="https://cogitolearning.co.uk/wp-content/uploads/2013/10/anticipate_overshoot_settings.png" alt><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * An interpolator where the change starts backward then flings forward and overshoots</span></span><br><span class="line"><span class="comment"> * the target value and finally goes back to the final value.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@HasNativeInterpolator</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AnticipateOvershootInterpolator</span> <span class="keyword">extends</span> <span class="title">BaseInterpolator</span></span></span><br><span class="line"><span class="class">        <span class="keyword">implements</span> <span class="title">NativeInterpolatorFactory</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">float</span> mTension;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">AnticipateOvershootInterpolator</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        mTension = <span class="number">2.0f</span> * <span class="number">1.5f</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> tension Amount of anticipation/overshoot. When tension equals 0.0f,</span></span><br><span class="line"><span class="comment">     *                there is no anticipation/overshoot and the interpolator becomes</span></span><br><span class="line"><span class="comment">     *                a simple acceleration/deceleration interpolator.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">AnticipateOvershootInterpolator</span><span class="params">(<span class="keyword">float</span> tension)</span> </span>&#123;</span><br><span class="line">        mTension = tension * <span class="number">1.5f</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> tension Amount of anticipation/overshoot. When tension equals 0.0f,</span></span><br><span class="line"><span class="comment">     *                there is no anticipation/overshoot and the interpolator becomes</span></span><br><span class="line"><span class="comment">     *                a simple acceleration/deceleration interpolator.</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> extraTension Amount by which to multiply the tension. For instance,</span></span><br><span class="line"><span class="comment">     *                     to get the same overshoot as an OvershootInterpolator with</span></span><br><span class="line"><span class="comment">     *                     a tension of 2.0f, you would use an extraTension of 1.5f.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">AnticipateOvershootInterpolator</span><span class="params">(<span class="keyword">float</span> tension, <span class="keyword">float</span> extraTension)</span> </span>&#123;</span><br><span class="line">        mTension = tension * extraTension;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">AnticipateOvershootInterpolator</span><span class="params">(Context context, AttributeSet attrs)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>(context.getResources(), context.getTheme(), attrs);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/** <span class="doctag">@hide</span> */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">AnticipateOvershootInterpolator</span><span class="params">(Resources res, Theme theme, AttributeSet attrs)</span> </span>&#123;</span><br><span class="line">        TypedArray a;</span><br><span class="line">        <span class="keyword">if</span> (theme != <span class="keyword">null</span>) &#123;</span><br><span class="line">            a = theme.obtainStyledAttributes(attrs, AnticipateOvershootInterpolator, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            a = res.obtainAttributes(attrs, AnticipateOvershootInterpolator);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        mTension = a.getFloat(AnticipateOvershootInterpolator_tension, <span class="number">2.0f</span>) *</span><br><span class="line">                a.getFloat(AnticipateOvershootInterpolator_extraTension, <span class="number">1.5f</span>);</span><br><span class="line">        setChangingConfiguration(a.getChangingConfigurations());</span><br><span class="line">        a.recycle();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">float</span> <span class="title">a</span><span class="params">(<span class="keyword">float</span> t, <span class="keyword">float</span> s)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> t * t * ((s + <span class="number">1</span>) * t - s);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">float</span> <span class="title">o</span><span class="params">(<span class="keyword">float</span> t, <span class="keyword">float</span> s)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> t * t * ((s + <span class="number">1</span>) * t + s);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">float</span> <span class="title">getInterpolation</span><span class="params">(<span class="keyword">float</span> t)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// a(t, s) = t * t * ((s + 1) * t - s)</span></span><br><span class="line">        <span class="comment">// o(t, s) = t * t * ((s + 1) * t + s)</span></span><br><span class="line">        <span class="comment">// f(t) = 0.5 * a(t * 2, tension * extraTension), when t &lt; 0.5</span></span><br><span class="line">        <span class="comment">// f(t) = 0.5 * (o(t * 2 - 2, tension * extraTension) + 2), when t &lt;= 1.0</span></span><br><span class="line">        <span class="keyword">if</span> (t &lt; <span class="number">0.5f</span>) <span class="keyword">return</span> <span class="number">0.5f</span> * a(t * <span class="number">2.0f</span>, mTension);</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">return</span> <span class="number">0.5f</span> * (o(t * <span class="number">2.0f</span> - <span class="number">2.0f</span>, mTension) + <span class="number">2.0f</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/** <span class="doctag">@hide</span> */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">long</span> <span class="title">createNativeInterpolator</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> NativeInterpolatorFactoryHelper.createAnticipateOvershootInterpolator(mTension);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<hr>
+<h2 id="CycleInterpolator-正弦周期变化插值器"><a href="#CycleInterpolator-正弦周期变化插值器" class="headerlink" title="CycleInterpolator 正弦周期变化插值器"></a>CycleInterpolator 正弦周期变化插值器</h2><p><img src="https://img.blog.csdn.net/20150722004311238" alt="这里写图片描述"><br><img src="https://cogitolearning.co.uk/wp-content/uploads/2013/10/cycle_settings.png" alt><br><figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"> <span class="meta">@HasNativeInterpolator</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CycleInterpolator</span> <span class="keyword">extends</span> <span class="title">BaseInterpolator</span> <span class="keyword">implements</span> <span class="title">NativeInterpolatorFactory</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">CycleInterpolator</span><span class="params">(<span class="keyword">float</span> cycles)</span> </span>&#123;</span><br><span class="line">        mCycles = cycles;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">CycleInterpolator</span><span class="params">(Context context, AttributeSet attrs)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>(context.getResources(), context.getTheme(), attrs);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/** <span class="doctag">@hide</span> */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">CycleInterpolator</span><span class="params">(Resources resources, Theme theme, AttributeSet attrs)</span> </span>&#123;</span><br><span class="line">        TypedArray a;</span><br><span class="line">        <span class="keyword">if</span> (theme != <span class="keyword">null</span>) &#123;</span><br><span class="line">            a = theme.obtainStyledAttributes(attrs, R.styleable.CycleInterpolator, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            a = resources.obtainAttributes(attrs, R.styleable.CycleInterpolator);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        mCycles = a.getFloat(R.styleable.CycleInterpolator_cycles, <span class="number">1.0</span>f);</span><br><span class="line">        setChangingConfiguration(a.getChangingConfigurations());</span><br><span class="line">        a.recycle();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">float</span> <span class="title">getInterpolation</span><span class="params">(<span class="keyword">float</span> input)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> (<span class="keyword">float</span>)(Math.sin(<span class="number">2</span> * mCycles * Math.PI * input));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">float</span> mCycles;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/** <span class="doctag">@hide</span> */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">long</span> <span class="title">createNativeInterpolator</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="function"><span class="keyword">return</span> NativeInterpolatorFactoryHelper.<span class="title">createCycleInterpolator</span><span class="params">(mCycles)</span></span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<hr>
+<p>##OvershootInterpolator<br><img src="https://img.blog.csdn.net/20150722002152522" alt="这里写图片描述"><br><img src="https://cogitolearning.co.uk/wp-content/uploads/2013/10/overshoot_settings.png" alt="这里写图片描述"><br><figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * An interpolator where the change flings forward and overshoots the last value</span></span><br><span class="line"><span class="comment"> * then comes back.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@HasNativeInterpolator</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">OvershootInterpolator</span> <span class="keyword">extends</span> <span class="title">BaseInterpolator</span> <span class="keyword">implements</span> <span class="title">NativeInterpolatorFactory</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">float</span> mTension;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">OvershootInterpolator</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        mTension = <span class="number">2.0</span>f;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> tension Amount of overshoot. When tension equals 0.0f, there is</span></span><br><span class="line"><span class="comment">     *                no overshoot and the interpolator becomes a simple</span></span><br><span class="line"><span class="comment">     *                deceleration interpolator.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">OvershootInterpolator</span><span class="params">(<span class="keyword">float</span> tension)</span> </span>&#123;</span><br><span class="line">        mTension = tension;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">OvershootInterpolator</span><span class="params">(Context context, AttributeSet attrs)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>(context.getResources(), context.getTheme(), attrs);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/** <span class="doctag">@hide</span> */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">OvershootInterpolator</span><span class="params">(Resources res, Theme theme, AttributeSet attrs)</span> </span>&#123;</span><br><span class="line">        TypedArray a;</span><br><span class="line">        <span class="keyword">if</span> (theme != <span class="keyword">null</span>) &#123;</span><br><span class="line">            a = theme.obtainStyledAttributes(attrs, R.styleable.OvershootInterpolator, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            a = res.obtainAttributes(attrs, R.styleable.OvershootInterpolator);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        mTension = a.getFloat(R.styleable.OvershootInterpolator_tension, <span class="number">2.0</span>f);</span><br><span class="line">        setChangingConfiguration(a.getChangingConfigurations());</span><br><span class="line">        a.recycle();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">float</span> <span class="title">getInterpolation</span><span class="params">(<span class="keyword">float</span> t)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// _o(t) = t * t * ((tension + 1) * t + tension)</span></span><br><span class="line">        <span class="comment">// o(t) = _o(t - 1) + 1</span></span><br><span class="line">        t -= <span class="number">1.0</span>f;</span><br><span class="line">        <span class="keyword">return</span> t * t * ((mTension + <span class="number">1</span>) * t + mTension) + <span class="number">1.0</span>f;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/** <span class="doctag">@hide</span> */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">long</span> <span class="title">createNativeInterpolator</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="function"><span class="keyword">return</span> NativeInterpolatorFactoryHelper.<span class="title">createOvershootInterpolator</span><span class="params">(mTension)</span></span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<hr>
+<p>#自定义Interpolator</p>
+<p>Interpolator源码：<br><figure class="highlight haxe"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> android.view.animation;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> android.animation.TimeInterpolator;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * An interpolator defines the rate of change of an animation. This allows</span></span><br><span class="line"><span class="comment"> * the basic animation effects (alpha, scale, translate, rotate) to be</span></span><br><span class="line"><span class="comment"> * accelerated, decelerated, repeated, etc.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Interpolator</span> <span class="keyword"><span class="keyword">extends</span> <span class="type">TimeInterpolator</span></span> </span>&#123;</span><br><span class="line">    <span class="comment">// A new interface, TimeInterpolator, was introduced for the new android.animation</span></span><br><span class="line">    <span class="comment">// package. This older Interpolator interface extends TimeInterpolator so that users of</span></span><br><span class="line">    <span class="comment">// the new Animator-based animations can use either the old Interpolator implementations or</span></span><br><span class="line">    <span class="comment">// new classes that implement TimeInterpolator directly.</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>我们来写自己的类来实现该接口<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> android.view.animation.Interpolator;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyInterpolator</span> <span class="keyword">implements</span> <span class="title">Interpolator</span> </span>&#123;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">float</span> mFactor;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">int</span> i;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">MyInterpolator</span><span class="params">(<span class="keyword">int</span> i)</span></span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.i = i;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">float</span> <span class="title">getInterpolation</span><span class="params">(<span class="keyword">float</span> input)</span> </span>&#123; <span class="comment">//定义我们的函数，input: 0 ~ 1</span></span><br><span class="line">		<span class="keyword">switch</span>(i)&#123;</span><br><span class="line">			<span class="keyword">case</span> <span class="number">1</span>:mFactor = input;</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">			<span class="keyword">case</span> <span class="number">2</span>:mFactor = input*input*input;</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> mFactor;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>来个复杂的：</p>
+<p>用desmos画一个：<br><img src="https://img.blog.csdn.net/20150722003201447" alt="这里写图片描述"></p>
+<p><img src="https://img.blog.csdn.net/20150722003043764" alt="这里写图片描述"><br><figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">@Override</span><br><span class="line">public <span class="type">float</span> getInterpolation(<span class="type">float</span> t) &#123; <span class="comment">//定义我们的函数，t: 0 ~ 1</span></span><br><span class="line">	if(t&lt;<span class="number">0.2094</span>) return (<span class="type">float</span>)(<span class="number">-34</span>*(t<span class="number">-0.18</span>)*(t<span class="number">-0.18</span>)+<span class="number">1.08</span>);</span><br><span class="line">	else if(t &lt;<span class="number">0.404</span>) return (<span class="type">float</span>)(<span class="number">5.9</span>*(t<span class="number">-0.34</span>)*(t<span class="number">-0.34</span>)+<span class="number">0.95</span>);</span><br><span class="line">	else if(t &lt; <span class="number">0.6045</span>) return (<span class="type">float</span>)(<span class="number">-3</span>*(t<span class="number">-0.53</span>)*(t<span class="number">-0.53</span>)+<span class="number">1.02</span>);</span><br><span class="line">	else if(t &lt; <span class="number">0.8064</span>) return (<span class="type">float</span>)((t<span class="number">-0.72</span>)*(t<span class="number">-0.72</span>)+<span class="number">0.99</span>);</span><br><span class="line">	else return (<span class="type">float</span>)(<span class="number">-0.3</span>*(t<span class="number">-0.915</span>)*(t<span class="number">-0.915</span>)+<span class="number">1.001</span>);</span><br><span class="line">	return mFactor;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+</article>
+
+<!-- 上一页 下一页 -->
+
+
+<nav id="article-nav">
+  
+    <a href="/2015/08/11/来自Gradle的hello_world/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>上一篇</span>
+      <div class="article-nav-title">
+        
+          来自Gradle的hello world
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/07/06/使用Kotlin开发Android应用（II）：创建新工程/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>下一篇</span>
+      <div class="article-nav-title">使用Kotlin开发Android应用（II）：创建新工程</div>
+    </a>
+  
+</nav>
+
+
+
+<!-- 相关文章 -->
+
+<!--
+
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+      			<a href="/2015/07/22/Android中的Interpolator/">Android中的Interpolator</a>
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+
+-->
+
+
+
+<section>
+  <!-- 多说分享框 -->
+  <div id="disqus_thread"></div>
+  <script>
+    /**
+     *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+     *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+    /*
+    var disqus_config = function () {
+    this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+    this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    */
+    (function () { // DON'T EDIT BELOW THIS LINE
+      var d = document,
+        s = d.createElement('script');
+      s.src = 'https://hanks-zyh.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by
+      Disqus.</a></noscript>
+  <!-- 多说公共JS代码 end -->
+</section>
+</section>
+      </div>
+      <footer id="footer">
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      &copy; 2021 <a href="https://github.com/hanks-zyh"> Hanks</a>
+	  </div>
+  </div>
+ <div id="share">
+  <a id="totop" title="" style="display: block;">返回顶部</a>
+ </div>
+</footer>
+
+    </div>
+    
+
+<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery.scrollLoading.js"></script>
+
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

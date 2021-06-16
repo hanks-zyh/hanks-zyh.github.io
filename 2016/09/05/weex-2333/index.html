@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>体验 weex —— 写一个表情包应用 | Hanks&#39; Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <meta name="referrer" content="never">
+  <meta name="description" content="前些时间体验 ReactNative 的时候写了一个 2333 表情包 app，这次使用 weex 写一下。 weex 通过自己的一套 sdk 可以将一个 js 文件渲染成一个 native （android 或 iOS ）的 view 对象。 weex 语法参照 vue ，看过一点 vue 的文档所以写起来可以很快上手。有一点感受 weex 的文档感觉没有 RN 的清晰，还有尺寸单位还没搞清楚，">
+<meta name="keywords" content="weex">
+<meta property="og:type" content="article">
+<meta property="og:title" content="体验 weex —— 写一个表情包应用">
+<meta property="og:url" content="https://hanks.pub/2016/09/05/weex-2333/index.html">
+<meta property="og:site_name" content="Hanks&#39; Blog">
+<meta property="og:description" content="前些时间体验 ReactNative 的时候写了一个 2333 表情包 app，这次使用 weex 写一下。 weex 通过自己的一套 sdk 可以将一个 js 文件渲染成一个 native （android 或 iOS ）的 view 对象。 weex 语法参照 vue ，看过一点 vue 的文档所以写起来可以很快上手。有一点感受 weex 的文档感觉没有 RN 的清晰，还有尺寸单位还没搞清楚，">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://ww2.sinaimg.cn/large/8c9b876fjw1f7j4ktor7hj20z40hqn2y.jpg">
+<meta property="og:image" content="https://o6epsoek1.bkt.clouddn.com/12.gif">
+<meta property="og:image" content="https://o6epsoek1.bkt.clouddn.com/13.gif">
+<meta property="og:updated_time" content="2021-06-16T11:59:22.937Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="体验 weex —— 写一个表情包应用">
+<meta name="twitter:description" content="前些时间体验 ReactNative 的时候写了一个 2333 表情包 app，这次使用 weex 写一下。 weex 通过自己的一套 sdk 可以将一个 js 文件渲染成一个 native （android 或 iOS ）的 view 对象。 weex 语法参照 vue ，看过一点 vue 的文档所以写起来可以很快上手。有一点感受 weex 的文档感觉没有 RN 的清晰，还有尺寸单位还没搞清楚，">
+<meta name="twitter:image" content="https://ww2.sinaimg.cn/large/8c9b876fjw1f7j4ktor7hj20z40hqn2y.jpg">
+  
+  
+  <link href="https://fonts.googleapis.com/css?family=Fira+Code|Noto+Serif+SC&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head></html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo"></a>
+    <nav id="main-nav">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      
+        <a class="main-nav-link" href="/archives">Archive</a>
+      
+        <a class="main-nav-link" href="/eye-video">Eye</a>
+      
+        <a class="main-nav-link" href="/atom.xml">Rss</a>
+      
+    </nav>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/archives" class="mobile-nav-link">Archive</a>
+  
+    <a href="/eye-video" class="mobile-nav-link">Eye</a>
+  
+    <a href="/atom.xml" class="mobile-nav-link">Rss</a>
+  
+</nav>
+      <div class="outer">
+        <section id="main"><article id="post-weex-2333" class="article article-type-post" itemscope
+  itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <header class="article-header">
+      
+      
+  
+    <h1 class="article-title" itemprop="name">
+      体验 weex —— 写一个表情包应用
+    </h1>
+  
+
+      
+    </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      <p>前些时间体验 ReactNative 的时候写了一个 2333 表情包 app，这次使用 <code>weex</code> 写一下。 weex 通过自己的一套 sdk 可以将一个 js 文件渲染成一个 native （android 或 iOS ）的 view 对象。 weex 语法参照 vue ，看过一点 vue 的文档所以写起来可以很快上手。有一点感受 <code>weex</code> 的文档感觉没有 RN 的清晰，还有尺寸单位还没搞清楚，浏览器预览的和生成的 android 版还是有差距，和 iOS 也尺寸不太对。<br><a id="more"></a><br><img src="https://ww2.sinaimg.cn/large/8c9b876fjw1f7j4ktor7hj20z40hqn2y.jpg" alt="weex"></p>
+<p><img src="https://o6epsoek1.bkt.clouddn.com/12.gif" alt="brower"></p>
+<p><img src="https://o6epsoek1.bkt.clouddn.com/13.gif" alt="android"></p>
+<h2 id="安装-weex"><a href="#安装-weex" class="headerlink" title="安装 weex"></a>安装 weex</h2><figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm <span class="keyword">install</span> -g weex-toolkit</span><br></pre></td></tr></table></figure>
+<h2 id="创建-index-we-文件"><a href="#创建-index-we-文件" class="headerlink" title="创建 index.we 文件"></a>创建 index.we 文件</h2><p>和 vue 类似 <code>template</code> 中放布局，<code>style</code> 放css，<code>script</code> 操作数据。</p>
+<figure class="highlight django"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br></pre></td><td class="code"><pre><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span></span><br><span class="line"><span class="xml">   <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"main"</span>&gt;</span></span></span><br><span class="line"><span class="xml">       <span class="tag">&lt;<span class="name">list</span> <span class="attr">class</span>=<span class="string">"main-list"</span>&gt;</span></span></span><br><span class="line"><span class="xml">         <span class="tag">&lt;<span class="name">cell</span>  <span class="attr">class</span>=<span class="string">"</span></span></span><span class="template-variable">&#123;&#123; isSelected ? 'row-select' :'row' &#125;&#125;</span><span class="xml"><span class="tag"><span class="string">"</span> <span class="attr">repeat</span>=<span class="string">"</span></span></span><span class="template-variable">&#123;&#123;rows&#125;&#125;</span><span class="xml"><span class="tag"><span class="string">"</span> <span class="attr">index</span>=<span class="string">"</span></span></span><span class="template-variable">&#123;&#123;$index&#125;&#125;</span><span class="xml"><span class="tag"><span class="string">"</span> <span class="attr">onclick</span>=<span class="string">"changeTid"</span> <span class="attr">tid</span>=</span></span><span class="template-variable">&#123;&#123;tid&#125;&#125;</span><span class="xml"><span class="tag">&gt;</span></span></span><br><span class="line"><span class="xml">           <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"item"</span>&gt;</span></span></span><br><span class="line"><span class="xml">             <span class="tag">&lt;<span class="name">text</span> <span class="attr">class</span>=<span class="string">"item-title"</span>&gt;</span></span><span class="template-variable">&#123;&#123;  title &#125;&#125;</span><span class="xml"><span class="tag">&lt;/<span class="name">text</span>&gt;</span></span></span><br><span class="line"><span class="xml">           <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="xml">         <span class="tag">&lt;/<span class="name">cell</span>&gt;</span></span></span><br><span class="line"><span class="xml">       <span class="tag">&lt;/<span class="name">list</span>&gt;</span></span></span><br><span class="line"><span class="xml">       <span class="tag">&lt;<span class="name">list</span> <span class="attr">class</span>=<span class="string">"main-detail"</span>&gt;</span></span></span><br><span class="line"><span class="xml">         <span class="tag">&lt;<span class="name">cell</span>  <span class="attr">class</span>=<span class="string">"image-row"</span> <span class="attr">repeat</span>=<span class="string">"</span></span></span><span class="template-variable">&#123;&#123; imageList &#125;&#125;</span><span class="xml"><span class="tag"><span class="string">"</span> &gt;</span></span></span><br><span class="line"><span class="xml">           <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"image-item"</span>&gt;</span></span></span><br><span class="line"><span class="xml">             <span class="tag">&lt;<span class="name">div</span> <span class="attr">repeat</span>=<span class="string">"</span></span></span><span class="template-variable">&#123;&#123;data&#125;&#125;</span><span class="xml"><span class="tag"><span class="string">"</span>&gt;</span></span></span><br><span class="line"><span class="xml">               <span class="tag">&lt;<span class="name">image</span> <span class="attr">style</span>=<span class="string">"width:198;height:198;"</span> <span class="attr">src</span>=<span class="string">"</span></span></span><span class="template-variable">&#123;&#123; link &#125;&#125;</span><span class="xml"><span class="tag"><span class="string">"</span>&gt;</span><span class="tag">&lt;/<span class="name">image</span>&gt;</span></span></span><br><span class="line"><span class="xml">             <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="xml">           <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="xml">         <span class="tag">&lt;/<span class="name">cell</span>&gt;</span></span></span><br><span class="line"><span class="xml">       <span class="tag">&lt;/<span class="name">list</span>&gt;</span></span></span><br><span class="line"><span class="xml">   <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span></span></span><br><span class="line"><span class="xml">.main&#123;</span></span><br><span class="line"><span class="xml">  flex-direction: row;</span></span><br><span class="line"><span class="xml">  background-color: #eceff1;</span></span><br><span class="line"><span class="xml">  color: #333333;</span></span><br><span class="line"><span class="xml">&#125;</span></span><br><span class="line"><span class="xml">.main-list&#123;</span></span><br><span class="line"><span class="xml">  flex: 1;</span></span><br><span class="line"><span class="xml">  align-items: stretch;</span></span><br><span class="line"><span class="xml">&#125;</span></span><br><span class="line"><span class="xml">.main-detail&#123;</span></span><br><span class="line"><span class="xml">  flex: 4;</span></span><br><span class="line"><span class="xml">&#125;</span></span><br><span class="line"><span class="xml">.row &#123;</span></span><br><span class="line"><span class="xml">  background-color: white;</span></span><br><span class="line"><span class="xml">&#125;</span></span><br><span class="line"><span class="xml">.row-select &#123;</span></span><br><span class="line"><span class="xml">  background-color: #e1e1e1;</span></span><br><span class="line"><span class="xml">&#125;</span></span><br><span class="line"><span class="xml">.item &#123;</span></span><br><span class="line"><span class="xml">  justify-content: center;</span></span><br><span class="line"><span class="xml">  border-bottom-width: 2;</span></span><br><span class="line"><span class="xml">  border-right-width: 2;</span></span><br><span class="line"><span class="xml">  border-bottom-color: #eceff1;</span></span><br><span class="line"><span class="xml">  border-right-color: #eceff1;</span></span><br><span class="line"><span class="xml">  height: 68;</span></span><br><span class="line"><span class="xml">  padding-left: 10;</span></span><br><span class="line"><span class="xml">  padding-right: 10;</span></span><br><span class="line"><span class="xml">&#125;</span></span><br><span class="line"><span class="xml">.image-item&#123;</span></span><br><span class="line"><span class="xml">  justify-content: space-between;</span></span><br><span class="line"><span class="xml">  flex-direction: row;</span></span><br><span class="line"><span class="xml">  height: 202;</span></span><br><span class="line"><span class="xml">&#125;</span></span><br><span class="line"><span class="xml">.item-title &#123;</span></span><br><span class="line"><span class="xml">  font-size: 24;</span></span><br><span class="line"><span class="xml">  text-overflow: ellipsis;</span></span><br><span class="line"><span class="xml">&#125;</span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml">// 使用的组件</span></span><br><span class="line"><span class="xml">require('weex-components');</span></span><br><span class="line"><span class="xml">module.exports = &#123;</span></span><br><span class="line"><span class="xml">    data: &#123;</span></span><br><span class="line"><span class="xml">      rows: [],</span></span><br><span class="line"><span class="xml">      imageList: [],</span></span><br><span class="line"><span class="xml">      currentTid: 128</span></span><br><span class="line"><span class="xml">    &#125;,</span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml">    created: function () &#123;</span></span><br><span class="line"><span class="xml">        this.getCategory()</span></span><br><span class="line"><span class="xml">        this.getImage(this.currentTid)</span></span><br><span class="line"><span class="xml">    &#125;,</span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml">    methods: &#123;</span></span><br><span class="line"><span class="xml">      getCategory: function(tid) &#123;</span></span><br><span class="line"><span class="xml">        var that = this</span></span><br><span class="line"><span class="xml">        var stream = require('@weex-module/stream');</span></span><br><span class="line"><span class="xml">        // 直接使用 fetch 以及 =&gt; 在预览中没问题，生成的 js 文件在 Android 版本渲染不出来，好像是不能直接支持 ES6 语法</span></span><br><span class="line"><span class="xml">        stream.fetch(&#123;</span></span><br><span class="line"><span class="xml">          method: 'GET',</span></span><br><span class="line"><span class="xml">          url: 'https://api.leancloud.cn/1.1/classes/Category',</span></span><br><span class="line"><span class="xml">          headers: &#123;</span></span><br><span class="line"><span class="xml">            'X-LC-Id': 'ffTooBOPa3NxxjEo91dVYEel-gzGzoHsz',</span></span><br><span class="line"><span class="xml">            'X-LC-Key': 'aysIBDNEvw1n063qpf7Jx9jb',</span></span><br><span class="line"><span class="xml">            'Content-Type': 'application/json'</span></span><br><span class="line"><span class="xml">          &#125;,</span></span><br><span class="line"><span class="xml">        &#125;, function(ret) &#123;</span></span><br><span class="line"><span class="xml">          if(!ret.ok)&#123;</span></span><br><span class="line"><span class="xml">            console.log( "request failed")</span></span><br><span class="line"><span class="xml">          &#125;else&#123;</span></span><br><span class="line"><span class="xml">            var json = JSON.parse(ret.data)</span></span><br><span class="line"><span class="xml">            var list = json.results</span></span><br><span class="line"><span class="xml">            for(var i=0;i <span class="tag">&lt; <span class="attr">list.length</span>; <span class="attr">i</span>++)&#123;</span></span></span><br><span class="line"><span class="xml">                var item = list[i]</span></span><br><span class="line"><span class="xml">                item.isSelected = false</span></span><br><span class="line"><span class="xml">                that.rows.push(item)</span></span><br><span class="line"><span class="xml">              &#125;</span></span><br><span class="line"><span class="xml">          &#125;</span></span><br><span class="line"><span class="xml">        &#125;,function(response)&#123;</span></span><br><span class="line"><span class="xml">          console.log(response);</span></span><br><span class="line"><span class="xml">        &#125;);</span></span><br><span class="line"><span class="xml">      &#125;,</span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml">      getImage: function(tid) &#123;</span></span><br><span class="line"><span class="xml">        var that = this</span></span><br><span class="line"><span class="xml">        var stream = require('@weex-module/stream');</span></span><br><span class="line"><span class="xml">        stream.fetch(&#123;</span></span><br><span class="line"><span class="xml">          method: 'GET',</span></span><br><span class="line"><span class="xml">          url: 'https://api.leancloud.cn/1.1/classes/Image?where=&#123;"tid":'+tid+'&#125;&#125;&amp;order=-update_time',</span></span><br><span class="line"><span class="xml">          headers: &#123;</span></span><br><span class="line"><span class="xml">            'X-LC-Id': 'ffTooBOPa3NxxjEo91dVYEel-gzGzoHsz',</span></span><br><span class="line"><span class="xml">            'X-LC-Key': 'aysIBDNEvw1n063qpf7Jx9jb',</span></span><br><span class="line"><span class="xml">            'Content-Type': 'application/json'</span></span><br><span class="line"><span class="xml">          &#125;,</span></span><br><span class="line"><span class="xml">        &#125;, function(ret) &#123;</span></span><br><span class="line"><span class="xml">          if(!ret.ok)&#123;</span></span><br><span class="line"><span class="xml">            console.log( "request failed")</span></span><br><span class="line"><span class="xml">          &#125;else&#123;</span></span><br><span class="line"><span class="xml">            var json = JSON.parse(ret.data)</span></span><br><span class="line"><span class="xml">            var list = json.results</span></span><br><span class="line"><span class="xml">            that.imageList.length = 0</span></span><br><span class="line"><span class="xml">            for(var i = 0; i <span class="tag">&lt; <span class="attr">list.length</span>; <span class="attr">i</span>++)&#123;</span></span></span><br><span class="line"><span class="xml">              var imageRow;</span></span><br><span class="line"><span class="xml">              if (i % 3 == 0) &#123;</span></span><br><span class="line"><span class="xml">                  imageRow = [];</span></span><br><span class="line"><span class="xml">                  that.imageList.push(&#123;'data':imageRow&#125;);</span></span><br><span class="line"><span class="xml">              &#125;</span></span><br><span class="line"><span class="xml">              imageRow[i%3] = list[i];</span></span><br><span class="line"><span class="xml">            &#125;</span></span><br><span class="line"><span class="xml">            console.log(that.imageList);</span></span><br><span class="line"><span class="xml">          &#125;</span></span><br><span class="line"><span class="xml">        &#125;,function(response)&#123;</span></span><br><span class="line"><span class="xml">          console.log(response);</span></span><br><span class="line"><span class="xml">        &#125;);</span></span><br><span class="line"><span class="xml">      &#125;,</span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml">      changeTid: function (e) &#123;</span></span><br><span class="line"><span class="xml">        console.log(e);</span></span><br><span class="line"><span class="xml">        this.currentTid = e.target.attr.tid</span></span><br><span class="line"><span class="xml">        this.getImage(this.currentTid)</span></span><br><span class="line"><span class="xml">        for (var i = 0; i <span class="tag">&lt; <span class="attr">this.rows.length</span>; <span class="attr">i</span>++) &#123;</span></span></span><br><span class="line"><span class="xml">          var row = this.rows[i]</span></span><br><span class="line"><span class="xml">          row.isSelected = row.tid  ==   this.currentTid</span></span><br><span class="line"><span class="xml">        &#125;</span></span><br><span class="line"><span class="xml">      &#125;</span></span><br><span class="line"><span class="xml">    &#125;</span></span><br><span class="line"><span class="xml">&#125;</span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+<h2 id="运行起来"><a href="#运行起来" class="headerlink" title="运行起来"></a>运行起来</h2><p>浏览器中预览</p>
+<figure class="highlight axapta"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">weex <span class="keyword">index</span>.we</span><br></pre></td></tr></table></figure>
+<p>生成 js 文件</p>
+<figure class="highlight n1ql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">weex <span class="keyword">index</span> -o <span class="keyword">build</span>.js</span><br></pre></td></tr></table></figure>
+<h2 id="跑在-Android-项目中"><a href="#跑在-Android-项目中" class="headerlink" title="跑在 Android 项目中"></a>跑在 Android 项目中</h2><p>新建 Android 项目， 在项目中添加 <code>weex</code> sdk 的依赖库。<br><code>app/build.gradle</code></p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">dependencies</span> &#123;</span><br><span class="line">    <span class="keyword">compile</span> <span class="keyword">fileTree</span>(dir: <span class="string">'libs'</span>, <span class="keyword">include</span>: [<span class="string">'*.jar'</span>])</span><br><span class="line">    testCompile <span class="string">'junit:junit:4.12'</span></span><br><span class="line">    <span class="keyword">compile</span> <span class="string">'com.android.support:appcompat-v7:24.0.0'</span></span><br><span class="line">    <span class="keyword">compile</span> <span class="string">'com.android.support:recyclerview-v7:24.0.0'</span></span><br><span class="line">    <span class="keyword">compile</span> <span class="string">'com.github.bumptech.glide:glide:3.7.0'</span></span><br><span class="line">    <span class="keyword">compile</span> <span class="string">'com.alibaba:fastjson:1.1.46.android'</span></span><br><span class="line">    <span class="keyword">compile</span> <span class="string">'com.taobao.android:weex_sdk:0.7.0'</span> <span class="comment">// weex sdk</span></span><br><span class="line">    <span class="keyword">compile</span> <span class="string">'com.taobao.android:weex_inspector:0.0.2.7'</span> <span class="comment">// weex 调试 sdk ，这个必须得加</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>创建自己的 Application 类，然后 onCreated 中初始化 weex</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Created by hanks on 16/9/5.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyApp</span> <span class="keyword">extends</span> <span class="title">Application</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.onCreate();</span><br><span class="line">        WXEnvironment.addCustomOptions(<span class="string">"appName"</span>, <span class="string">"TBSample"</span>);</span><br><span class="line">        InitConfig config = <span class="keyword">new</span> InitConfig.Builder()</span><br><span class="line">                .setImgAdapter(<span class="keyword">new</span> ImageAdapter())</span><br><span class="line">                .build();</span><br><span class="line">        WXSDKEngine.initialize(<span class="keyword">this</span>, config);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>初始化完成之后就是加载 js 了，将上一步生成的 js 复制到 assets 目录</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MainActivity</span> <span class="keyword">extends</span> <span class="title">AppCompatActivity</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> FrameLayout mContainer;</span><br><span class="line">    <span class="keyword">private</span> WXSDKInstance mWeexInstance;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState);</span><br><span class="line">        setContentView(R.layout.activity_main);</span><br><span class="line"></span><br><span class="line">        mContainer = (FrameLayout) findViewById(R.id.container);</span><br><span class="line">        <span class="comment">// sdk 实例</span></span><br><span class="line">        mWeexInstance = <span class="keyword">new</span> WXSDKInstance(<span class="keyword">this</span>);</span><br><span class="line">        mWeexInstance.registerRenderListener(<span class="keyword">new</span> IWXRenderListener() &#123;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// sdk 将 js 文件渲染成 view 对象回调</span></span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onViewCreated</span><span class="params">(WXSDKInstance wxsdkInstance, View view)</span> </span>&#123;</span><br><span class="line">                <span class="keyword">if</span> (mContainer != <span class="keyword">null</span>) &#123;</span><br><span class="line">                    mContainer.addView(view); <span class="comment">// 添加到界面</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onRenderSuccess</span><span class="params">(WXSDKInstance wxsdkInstance, <span class="keyword">int</span> i, <span class="keyword">int</span> i1)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onRefreshSuccess</span><span class="params">(WXSDKInstance wxsdkInstance, <span class="keyword">int</span> i, <span class="keyword">int</span> i1)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onException</span><span class="params">(WXSDKInstance wxsdkInstance, String s, String s1)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">        <span class="comment">// 加载 js 文件</span></span><br><span class="line">        mWeexInstance.render(<span class="string">"Weex2333"</span>,</span><br><span class="line">                WXFileUtils.loadAsset(<span class="string">"build.js"</span>, <span class="keyword">this</span>),</span><br><span class="line">                <span class="keyword">null</span>, <span class="keyword">null</span>, -<span class="number">1</span>, -<span class="number">1</span>,</span><br><span class="line">                WXRenderStrategy.APPEND_ASYNC);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后运行 Android 项目。</p>
+<p>iOS 工程暂时没有跑起来 &gt;.&lt;</p>
+<blockquote>
+<p>文章来自： <a href="https://hanks.pub">https://hanks.pub</a></p>
+</blockquote>
+
+      
+    </div>
+</article>
+
+<!-- 上一页 下一页 -->
+
+
+<nav id="article-nav">
+  
+    <a href="/2016/09/19/webapp/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>上一篇</span>
+      <div class="article-nav-title">
+        
+          让网页更适配移动设备
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/08/31/nestedscrollchild/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>下一篇</span>
+      <div class="article-nav-title">WebView 实现 NestedScrollingChild</div>
+    </a>
+  
+</nav>
+
+
+
+<!-- 相关文章 -->
+
+<!--
+
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+      			<a href="/2016/09/05/weex-2333/">体验 weex —— 写一个表情包应用</a>
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+
+-->
+
+
+
+<section>
+  <!-- 多说分享框 -->
+  <div id="disqus_thread"></div>
+  <script>
+    /**
+     *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+     *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+    /*
+    var disqus_config = function () {
+    this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+    this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    */
+    (function () { // DON'T EDIT BELOW THIS LINE
+      var d = document,
+        s = d.createElement('script');
+      s.src = 'https://hanks-zyh.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by
+      Disqus.</a></noscript>
+  <!-- 多说公共JS代码 end -->
+</section>
+</section>
+      </div>
+      <footer id="footer">
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      &copy; 2021 <a href="https://github.com/hanks-zyh"> Hanks</a>
+	  </div>
+  </div>
+ <div id="share">
+  <a id="totop" title="" style="display: block;">返回顶部</a>
+ </div>
+</footer>
+
+    </div>
+    
+
+<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery.scrollLoading.js"></script>
+
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

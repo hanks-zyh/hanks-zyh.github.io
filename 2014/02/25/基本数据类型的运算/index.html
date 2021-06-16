@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>基本数据类型的运算 | Hanks&#39; Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <meta name="referrer" content="never">
+  <meta name="description" content="#include &amp;lt;iostream &amp;gt; #include &amp;lt;cstdio&amp;gt; using namespace std; void test_int() { 	printf(&amp;quot;\ntest int:\n&amp;quot;); 	int a = 100000; 	cout &amp;lt;&amp;lt; &amp;quot;100000 * 100000 = &amp;quot; &amp;lt;&amp;lt;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="基本数据类型的运算">
+<meta property="og:url" content="https://hanks.pub/2014/02/25/基本数据类型的运算/index.html">
+<meta property="og:site_name" content="Hanks&#39; Blog">
+<meta property="og:description" content="#include &amp;lt;iostream &amp;gt; #include &amp;lt;cstdio&amp;gt; using namespace std; void test_int() { 	printf(&amp;quot;\ntest int:\n&amp;quot;); 	int a = 100000; 	cout &amp;lt;&amp;lt; &amp;quot;100000 * 100000 = &amp;quot; &amp;lt;&amp;lt;">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2021-06-16T11:59:22.954Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="基本数据类型的运算">
+<meta name="twitter:description" content="#include &amp;lt;iostream &amp;gt; #include &amp;lt;cstdio&amp;gt; using namespace std; void test_int() { 	printf(&amp;quot;\ntest int:\n&amp;quot;); 	int a = 100000; 	cout &amp;lt;&amp;lt; &amp;quot;100000 * 100000 = &amp;quot; &amp;lt;&amp;lt;">
+  
+  
+  <link href="https://fonts.googleapis.com/css?family=Fira+Code|Noto+Serif+SC&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head></html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo"></a>
+    <nav id="main-nav">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      
+        <a class="main-nav-link" href="/archives">Archive</a>
+      
+        <a class="main-nav-link" href="/eye-video">Eye</a>
+      
+        <a class="main-nav-link" href="/atom.xml">Rss</a>
+      
+    </nav>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/archives" class="mobile-nav-link">Archive</a>
+  
+    <a href="/eye-video" class="mobile-nav-link">Eye</a>
+  
+    <a href="/atom.xml" class="mobile-nav-link">Rss</a>
+  
+</nav>
+      <div class="outer">
+        <section id="main"><article id="post-基本数据类型的运算" class="article article-type-post" itemscope
+  itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <header class="article-header">
+      
+      
+  
+    <h1 class="article-title" itemprop="name">
+      基本数据类型的运算
+    </h1>
+  
+
+      
+    </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+<p><br>
+</p>
+<p><pre code_snippet_id="205043" snippet_file_name="blog_20140225_1_6730786" name="code" class="cpp">#include &lt;iostream &gt;
+#include &lt;cstdio&gt;
+using namespace std;
+void test_int()
+{
+	printf(&quot;\ntest int:\n&quot;);
+	int a = 100000;
+	cout &lt;&lt; &quot;100000 * 100000 = &quot; &lt;&lt; a * a &lt;&lt; endl;
+	cout &lt;&lt; &quot; 14  / 5  = &quot; &lt;&lt; 14 / 5 &lt;&lt; endl;
+	cout &lt;&lt; &quot; 14  % 5  = &quot; &lt;&lt; 14 % 5 &lt;&lt; endl;
+	cout &lt;&lt; &quot; -14 / 5  = &quot; &lt;&lt; -14 / 5 &lt;&lt; endl;
+	cout &lt;&lt; &quot; -14 % 5  = &quot; &lt;&lt; -14 % 5 &lt;&lt; endl;
+	cout &lt;&lt; &quot; 14  / -5 = &quot; &lt;&lt; 14 / -5 &lt;&lt; endl;
+	cout &lt;&lt; &quot; 14  % -5 = &quot; &lt;&lt; 14 % -5 &lt;&lt; endl;
+	cout &lt;&lt; &quot; -14 / -5 = &quot; &lt;&lt; -14 / -5 &lt;&lt; endl;
+	cout &lt;&lt; &quot; -14 % -5 = &quot; &lt;&lt; -14 % -5 &lt;&lt; endl;
+}
+void test_double()
+{
+	printf(&quot;\ntest double:\n&quot;);
+	double c, d, z;
+	c = 1.0; d = 0.0;
+	cout &lt;&lt; &quot; 1.0  / 0.0 = &quot; &lt;&lt; c/d &lt;&lt; endl;
+	c = -1.0; d = 0.0;
+	cout &lt;&lt; &quot; -1.0 / 0.0 = &quot; &lt;&lt; c/d &lt;&lt; endl;
+	c = 0.0; d = 0.0;
+	cout &lt;&lt; &quot; 0.0  / 0.0 = &quot; &lt;&lt; c/d &lt;&lt; endl;
+	z = 1.0;
+	cout &lt;&lt; &quot; z = 1.0; z = &quot; &lt;&lt; z &lt;&lt; endl;
+	z /= 12345678912345.0;
+	
+	cout &lt;&lt; &quot; z /= 12345678912345.0; z = &quot; &lt;&lt; z &lt;&lt; endl;
+	z += 1.0;
+	cout &lt;&lt; &quot; z += 1.0; z = &quot; &lt;&lt; z &lt;&lt; endl;
+	z -= 1.0;
+	cout &lt;&lt; &quot; z -= 1.0; z = &quot; &lt;&lt; z &lt;&lt; endl;
+	z *= 12345678912345.0;
+	cout &lt;&lt; &quot; z *= 12345678912345.0; z == &quot; &lt;&lt; z &lt;&lt; endl;
+}
+void test_bool()
+{
+	printf(&quot;\ntest bool:\n&quot;);
+	cout &lt;&lt; &quot;(1 &lt;= 2) = &quot; &lt;&lt; (1 &lt;= 2) &lt;&lt; endl;
+	cout &lt;&lt; &quot;(3 == 4) = &quot; &lt;&lt; (3 == 4) &lt;&lt; endl;
+	cout &lt;&lt; &quot;(5 != 6 &amp;&amp; -7 &lt;= 10) = &quot; &lt;&lt; (5 != 6 &amp;&amp; -7 &lt;= 10) &lt;&lt; endl;
+	cout &lt;&lt; &quot;(1234 &amp; 5678) = &quot; &lt;&lt; (1234 &amp; 5678) &lt;&lt; endl;
+	cout &lt;&lt; &quot;(1 &lt;&lt; 16) = &quot; &lt;&lt; (1 &lt;&lt; 16) &lt;&lt; endl;
+}
+void test_order()
+{
+	printf(&quot;\ntest order:\n&quot;);
+	int a = 2, b = 3;
+	cout &lt;&lt; &quot;(a++) * (a+2*b) * (b++) = &quot; &lt;&lt; (a++) * (a+2*b) * (b++) &lt;&lt; endl;
+}
+void test_char()
+{
+	printf(&quot;\ntest char:\n&quot;);
+	cout &lt;&lt; &quot;'A ' + 2 = &quot; &lt;&lt; 'A' + 2 &lt;&lt; endl;
+	cout &lt;&lt; &quot;(char)('A ' + 2) = &quot; &lt;&lt; (char)('A' + 2) &lt;&lt; endl;
+	cout &lt;&lt; &quot;'z' - 'f' = &quot; &lt;&lt; 'z' - 'f' &lt;&lt; endl;
+}
+int main()
+{
+	test_int();
+	test_double();
+	test_bool();
+	test_char();
+	test_order();
+	
+	return 0;
+}
+
+/*
+
+test int:
+100000 * 100000 = 1410065408
+ 14  / 5  = 2
+ 14  % 5  = 4
+ -14 / 5  = -2
+ -14 % 5  = -4
+ 14  / -5 = -2
+ 14  % -5 = 4
+ -14 / -5 = 2
+ -14 % -5 = -4
+
+test double:
+ 1.0  / 0.0 = inf
+ -1.0 / 0.0 = -inf
+ 0.0  / 0.0 = nan
+ z = 1.0; z = 1
+ z /= 12345678912345.0; z = 8.1e-014
+ z += 1.0; z = 1
+ z -= 1.0; z = 8.10463e-014
+ z *= 12345678912345.0; z == 1.00057
+
+test bool:
+(1 &lt;= 2) = 1
+(3 == 4) = 0
+(5 != 6 &amp;&amp; -7 &lt;= 10) = 1
+(1234 &amp; 5678) = 1026
+(1 &lt;&lt; 16) = 65536
+
+test char:
+'A ' + 2 = 67
+(char)('A ' + 2) = C
+'z' - 'f' = 20
+
+test order:
+(a++) * (a+2*b) * (b++) = 48
+
+*/</pre><br>
+<br>
+</p>
+<p><br>
+</p>
+<p><br>
+</p>
+
+      
+    </div>
+</article>
+
+<!-- 上一页 下一页 -->
+
+
+<nav id="article-nav">
+  
+    <a href="/2014/03/04/动态规划-矩阵连乘/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>上一篇</span>
+      <div class="article-nav-title">
+        
+          动态规划-矩阵连乘
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2014/02/24/大数类/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>下一篇</span>
+      <div class="article-nav-title">大数类</div>
+    </a>
+  
+</nav>
+
+
+
+<!-- 相关文章 -->
+
+<!--
+
+-->
+
+
+
+<section>
+  <!-- 多说分享框 -->
+  <div id="disqus_thread"></div>
+  <script>
+    /**
+     *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+     *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+    /*
+    var disqus_config = function () {
+    this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+    this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    */
+    (function () { // DON'T EDIT BELOW THIS LINE
+      var d = document,
+        s = d.createElement('script');
+      s.src = 'https://hanks-zyh.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by
+      Disqus.</a></noscript>
+  <!-- 多说公共JS代码 end -->
+</section>
+</section>
+      </div>
+      <footer id="footer">
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      &copy; 2021 <a href="https://github.com/hanks-zyh"> Hanks</a>
+	  </div>
+  </div>
+ <div id="share">
+  <a id="totop" title="" style="display: block;">返回顶部</a>
+ </div>
+</footer>
+
+    </div>
+    
+
+<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery.scrollLoading.js"></script>
+
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

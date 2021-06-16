@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>动态规划-矩阵连乘 | Hanks&#39; Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <meta name="referrer" content="never">
+  <meta name="description" content="特征：计算A[i:j]的最优次序所包含的计算矩阵子链 A[i:k]和A[k&amp;#43;1:j]的次序也是最优的。   &amp;nbsp; &amp;nbsp; 如计算 A1*A2*A3*A4*A5*A6  &amp;nbsp;  &amp;nbsp; /** int [] p 存放各个矩阵的列  int [][] m  所需要的最少数乘次数m[i,j] 1≤i≤j≤n, 最后乘法次数为 m[1][n];  int [][] s">
+<meta property="og:type" content="article">
+<meta property="og:title" content="动态规划-矩阵连乘">
+<meta property="og:url" content="https://hanks.pub/2014/03/04/动态规划-矩阵连乘/index.html">
+<meta property="og:site_name" content="Hanks&#39; Blog">
+<meta property="og:description" content="特征：计算A[i:j]的最优次序所包含的计算矩阵子链 A[i:k]和A[k&amp;#43;1:j]的次序也是最优的。   &amp;nbsp; &amp;nbsp; 如计算 A1*A2*A3*A4*A5*A6  &amp;nbsp;  &amp;nbsp; /** int [] p 存放各个矩阵的列  int [][] m  所需要的最少数乘次数m[i,j] 1≤i≤j≤n, 最后乘法次数为 m[1][n];  int [][] s">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://img.blog.csdn.net/20140304203120937">
+<meta property="og:image" content="https://img.blog.csdn.net/20140304201607390">
+<meta property="og:image" content="https://img.blog.csdn.net/20140304202903750">
+<meta property="og:updated_time" content="2021-06-16T11:59:22.952Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="动态规划-矩阵连乘">
+<meta name="twitter:description" content="特征：计算A[i:j]的最优次序所包含的计算矩阵子链 A[i:k]和A[k&amp;#43;1:j]的次序也是最优的。   &amp;nbsp; &amp;nbsp; 如计算 A1*A2*A3*A4*A5*A6  &amp;nbsp;  &amp;nbsp; /** int [] p 存放各个矩阵的列  int [][] m  所需要的最少数乘次数m[i,j] 1≤i≤j≤n, 最后乘法次数为 m[1][n];  int [][] s">
+<meta name="twitter:image" content="https://img.blog.csdn.net/20140304203120937">
+  
+  
+  <link href="https://fonts.googleapis.com/css?family=Fira+Code|Noto+Serif+SC&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head></html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo"></a>
+    <nav id="main-nav">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      
+        <a class="main-nav-link" href="/archives">Archive</a>
+      
+        <a class="main-nav-link" href="/eye-video">Eye</a>
+      
+        <a class="main-nav-link" href="/atom.xml">Rss</a>
+      
+    </nav>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/archives" class="mobile-nav-link">Archive</a>
+  
+    <a href="/eye-video" class="mobile-nav-link">Eye</a>
+  
+    <a href="/atom.xml" class="mobile-nav-link">Rss</a>
+  
+</nav>
+      <div class="outer">
+        <section id="main"><article id="post-动态规划-矩阵连乘" class="article article-type-post" itemscope
+  itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <header class="article-header">
+      
+      
+  
+    <h1 class="article-title" itemprop="name">
+      动态规划-矩阵连乘
+    </h1>
+  
+
+      
+    </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+<p><span style="font-size:24px">特征：计算<span style="color:#ff0000">A[i:j]的最优次序</span>所包含的计算矩阵子链<span style="color:#ff0000"> A[i:k]和A[k&#43;1:j]的次序也是最优的</span>。<br>
+</span></p>
+<p><img src="https://img.blog.csdn.net/20140304203120937" width="564" height="436" alt></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p><span style="font-size:24px">如计算 A1*A2*A3*A4*A5*A6</span></p>
+<p><img src="https://img.blog.csdn.net/20140304201607390" alt></p>
+<p>&nbsp;</p>
+<p><img src="https://img.blog.csdn.net/20140304202903750" alt></p>
+<p>&nbsp;</p>
+<pre code_snippet_id="217450" snippet_file_name="blog_20140304_1_2568125" class="cpp" name="code">/**
+int [] p 存放各个矩阵的列 
+int [][] m  所需要的最少数乘次数m[i,j] 1≤i≤j≤n, 最后乘法次数为 m[1][n]; 
+int [][] s  s[i][j]:存放的值为相对于m[i][j] 的断开位置 
+*/
+void matrixChain(int [] p, int [][] m, int [][] s)
+{
+	
+      for (int i = 1; i &lt;= n; i++) m[i][i] = 0; //自身相乘，次数为0 
+      
+	  for (int r = 2; r &lt;= n; r++) //先计算2个矩阵相乘次数，然后3个，4个... 
+      
+         for (int i = 1; i &lt;= n-r+1; i++) { //  
+            int j=i+r-1; //当前矩阵总个数 
+            m[i][j] = m[i+1][j]+ p[i-1]*p[i]*p[j]; //m[i][j]初始化为 从i分割 ，实际还加了m[i][i],为0 
+            s[i][j] = i; //从i分割 
+            for (int k = i+1; k &lt; j; k++) { //枚举每个位置 为分割点 
+               int t = m[i][k] + m[k+1][j] + p[i-1]*p[k]*p[j];
+               if (t &lt; m[i][j]) {
+                 m[i][j] = t;
+                 s[i][j] = k;}
+               }
+            }
+   }</pre>
+<p><br>
+&nbsp;</p>
+<p>&nbsp;</p>
+<p>下面这种方法在 书上叫 备忘录 ；</p>
+<p>这种方法是自顶向下的</p>
+<p>&nbsp;</p>
+<pre code_snippet_id="217450" snippet_file_name="blog_20140304_2_343278" class="cpp" name="code">int lookupChain(int i,int j){
+	
+	if(m[i][j]&gt;0) return m[i][j];
+	if(i==j) return 0;
+	m[i][j] = lookupChain(i+1,j) + p[i-1]*p[i]*p[j];
+	for(int k=i+1; k&lt;j; k++){
+		int t = lookupChain(i,k) + lookupChain(k+1,j) + p[i-1]*p[k]*p[j]; 
+		if(t&lt;m[i][j]) m[i][j] = t;
+	}
+	return m[i][j];
+}</pre>
+<p><br>
+&nbsp;</p>
+<p>&nbsp;</p>
+
+      
+    </div>
+</article>
+
+<!-- 上一页 下一页 -->
+
+
+<nav id="article-nav">
+  
+    <a href="/2014/03/16/c_c___时间相关函数_include_time_h_/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>上一篇</span>
+      <div class="article-nav-title">
+        
+          c\c++ 时间相关函数 include&lt;time.h&gt;
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2014/02/25/基本数据类型的运算/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>下一篇</span>
+      <div class="article-nav-title">基本数据类型的运算</div>
+    </a>
+  
+</nav>
+
+
+
+<!-- 相关文章 -->
+
+<!--
+
+-->
+
+
+
+<section>
+  <!-- 多说分享框 -->
+  <div id="disqus_thread"></div>
+  <script>
+    /**
+     *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+     *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+    /*
+    var disqus_config = function () {
+    this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+    this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    */
+    (function () { // DON'T EDIT BELOW THIS LINE
+      var d = document,
+        s = d.createElement('script');
+      s.src = 'https://hanks-zyh.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by
+      Disqus.</a></noscript>
+  <!-- 多说公共JS代码 end -->
+</section>
+</section>
+      </div>
+      <footer id="footer">
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      &copy; 2021 <a href="https://github.com/hanks-zyh"> Hanks</a>
+	  </div>
+  </div>
+ <div id="share">
+  <a id="totop" title="" style="display: block;">返回顶部</a>
+ </div>
+</footer>
+
+    </div>
+    
+
+<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery.scrollLoading.js"></script>
+
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

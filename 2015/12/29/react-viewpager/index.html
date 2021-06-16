@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>React-Native 实现Android中的ViewPager | Hanks&#39; Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <meta name="referrer" content="never">
+  <meta name="description" content="ViewPager在Android中的使用率也算是非常高的,React-Native也提供了类似Android的ViewPager组件,ViewPagerAndroid , 使用 ViewPagerAndroid可以轻松实现Android中的ViewPager.">
+<meta name="keywords" content="React-Native">
+<meta property="og:type" content="article">
+<meta property="og:title" content="React-Native 实现Android中的ViewPager">
+<meta property="og:url" content="https://hanks.pub/2015/12/29/react-viewpager/index.html">
+<meta property="og:site_name" content="Hanks&#39; Blog">
+<meta property="og:description" content="ViewPager在Android中的使用率也算是非常高的,React-Native也提供了类似Android的ViewPager组件,ViewPagerAndroid , 使用 ViewPagerAndroid可以轻松实现Android中的ViewPager.">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://file.bmob.cn/M02/28/37/oYYBAFaCLeqAHyUJABoVzaZyVT0309.gif">
+<meta property="og:image" content="https://file.bmob.cn/M02/28/37/oYYBAFaCLgiAUKPYAAOGa8ySm0w899.png">
+<meta property="og:updated_time" content="2021-06-16T11:59:22.925Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="React-Native 实现Android中的ViewPager">
+<meta name="twitter:description" content="ViewPager在Android中的使用率也算是非常高的,React-Native也提供了类似Android的ViewPager组件,ViewPagerAndroid , 使用 ViewPagerAndroid可以轻松实现Android中的ViewPager.">
+<meta name="twitter:image" content="https://file.bmob.cn/M02/28/37/oYYBAFaCLeqAHyUJABoVzaZyVT0309.gif">
+  
+  
+  <link href="https://fonts.googleapis.com/css?family=Fira+Code|Noto+Serif+SC&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head></html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo"></a>
+    <nav id="main-nav">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      
+        <a class="main-nav-link" href="/archives">Archive</a>
+      
+        <a class="main-nav-link" href="/eye-video">Eye</a>
+      
+        <a class="main-nav-link" href="/atom.xml">Rss</a>
+      
+    </nav>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/archives" class="mobile-nav-link">Archive</a>
+  
+    <a href="/eye-video" class="mobile-nav-link">Eye</a>
+  
+    <a href="/atom.xml" class="mobile-nav-link">Rss</a>
+  
+</nav>
+      <div class="outer">
+        <section id="main"><article id="post-react-viewpager" class="article article-type-post" itemscope
+  itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <header class="article-header">
+      
+      
+  
+    <h1 class="article-title" itemprop="name">
+      React-Native 实现Android中的ViewPager
+    </h1>
+  
+
+      
+    </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      <p>ViewPager在Android中的使用率也算是非常高的,React-Native也提供了类似Android的ViewPager组件,<code>ViewPagerAndroid</code> , 使用 <code>ViewPagerAndroid</code>可以轻松实现Android中的ViewPager.<br><img src="https://file.bmob.cn/M02/28/37/oYYBAFaCLeqAHyUJABoVzaZyVT0309.gif" alt="ViewPager"><br><a id="more"></a><br>使用 uiautomatorviewer 来查看一下布局,确实也就是Android原生的 <code>ViewPager</code>.<br><img src="https://file.bmob.cn/M02/28/37/oYYBAFaCLgiAUKPYAAOGa8ySm0w899.png" alt="ViewPager"></p>
+<p><strong>声明ViewPagerAndroid</strong><br><figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> &#123;</span><br><span class="line">  ViewPagerAndroid,</span><br><span class="line">&#125; = React;</span><br></pre></td></tr></table></figure></p>
+<p>声明之后就可以使用了.在render 函数中返回 <code>&lt;ViewPagerAndroid&gt;&lt;/ViewPagerAndroid&gt;</code></p>
+<p><strong>把ViewPagerAndroid添加到界面</strong><br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">ViewPagerAndroid</span></span></span><br><span class="line"><span class="tag">  <span class="attr">style</span>=<span class="string">&#123;styles.viewPager&#125;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">initialPage</span>=<span class="string">&#123;0&#125;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">onPageScroll</span>=<span class="string">&#123;this.onPageScroll&#125;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">onPageSelected</span>=<span class="string">&#123;this.onPageSelected&#125;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">ref</span>=<span class="string">&#123;viewPager</span> =&gt;</span> &#123; this.viewPager = viewPager; &#125;&#125;&gt;</span><br><span class="line">  &#123;pages&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">ViewPagerAndroid</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p><strong>给ViewPagerAndroid添加内容</strong><br>ViewPagerAndroid 的内容是 {pages}, pages是一个数组,里面是一组子view, 通过push方法添加view</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> pages = [];</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; PAGES; i++) &#123;</span><br><span class="line">  <span class="keyword">var</span> pageStyle = &#123;</span><br><span class="line">    backgroundColor: BGCOLOR[i % BGCOLOR.length],</span><br><span class="line">    flex: <span class="number">1</span>,</span><br><span class="line">    alignItems: <span class="string">'stretch'</span></span><br><span class="line">  &#125;;</span><br><span class="line">  pages.push(</span><br><span class="line">    &lt;View key=&#123;i&#125; style=&#123;pageStyle&#125; collapsable=&#123;<span class="literal">false</span>&#125;&gt;</span><br><span class="line">      &lt;Image</span><br><span class="line">        style=&#123;styles.image&#125;</span><br><span class="line">        source=&#123;&#123;<span class="attr">uri</span>: IMAGE_URIS[i % BGCOLOR.length]&#125;&#125;</span><br><span class="line">      /&gt;</span><br><span class="line">   &lt;<span class="regexp">/View&gt;</span></span><br><span class="line"><span class="regexp">  );</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br></pre></td></tr></table></figure>
+<hr>
+<p>代码:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">'use strict'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> React = <span class="built_in">require</span>(<span class="string">'react-native'</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> &#123;</span><br><span class="line">  Image,</span><br><span class="line">  StyleSheet,</span><br><span class="line">  Text,</span><br><span class="line">  TouchableWithoutFeedback,</span><br><span class="line">  TouchableOpacity,</span><br><span class="line">  View,</span><br><span class="line">  ViewPagerAndroid,</span><br><span class="line">  BackAndroid,</span><br><span class="line">&#125; = React;</span><br><span class="line"><span class="keyword">var</span> PAGES = <span class="number">5</span>;</span><br><span class="line"><span class="keyword">var</span> BGCOLOR = [<span class="string">'#fdc08e'</span>, <span class="string">'#fff6b9'</span>, <span class="string">'#99d1b7'</span>, <span class="string">'#dde5fe'</span>, <span class="string">'#f79273'</span>];</span><br><span class="line"><span class="keyword">var</span> IMAGE_URIS = [</span><br><span class="line">  <span class="string">'https://apod.nasa.gov/apod/image/1410/20141008tleBaldridge001h990.jpg'</span>,</span><br><span class="line">  <span class="string">'https://apod.nasa.gov/apod/image/1409/volcanicpillar_vetter_960.jpg'</span>,</span><br><span class="line">  <span class="string">'https://apod.nasa.gov/apod/image/1409/m27_snyder_960.jpg'</span>,</span><br><span class="line">  <span class="string">'https://apod.nasa.gov/apod/image/1409/PupAmulti_rot0.jpg'</span>,</span><br><span class="line">  <span class="string">'https://apod.nasa.gov/apod/image/1510/lunareclipse_27Sep_beletskycrop4.jpg'</span>,</span><br><span class="line">];</span><br><span class="line"></span><br><span class="line">BackAndroid.addEventListener(<span class="string">'hardwareBackPress'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span>(_navigator == <span class="literal">null</span>)&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span>(_navigator.getCurrentRoutes().length === <span class="number">1</span>)&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  _navigator.pop();</span><br><span class="line">  <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> _navigator ;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> ViewPager  = React.createClass(&#123;</span><br><span class="line"></span><br><span class="line">  getInitialState: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    _navigator = <span class="keyword">this</span>.props.navigator;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      page: <span class="number">0</span>,</span><br><span class="line">      animationsAreEnabled: <span class="literal">true</span>,</span><br><span class="line">      progress: &#123;</span><br><span class="line">        position: <span class="number">0</span>,</span><br><span class="line">        offset: <span class="number">0</span>,</span><br><span class="line">      &#125;,</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;,</span><br><span class="line">  onPageSelected: <span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.setState(&#123;<span class="attr">page</span>: e.nativeEvent.position&#125;);</span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  onPageScroll: <span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.setState(&#123;<span class="attr">progress</span>: e.nativeEvent&#125;);</span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  move: <span class="function"><span class="keyword">function</span>(<span class="params">delta</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> page = <span class="keyword">this</span>.state.page + delta;</span><br><span class="line">    <span class="keyword">this</span>.go(page);</span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  go: <span class="function"><span class="keyword">function</span>(<span class="params">page</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>.state.animationsAreEnabled) &#123;</span><br><span class="line">      <span class="keyword">this</span>.viewPager.setPage(page);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">this</span>.viewPager.setPageWithoutAnimation(page);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">this</span>.setState(&#123;page&#125;);</span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  render: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> pages = [];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; PAGES; i++) &#123;</span><br><span class="line">      <span class="keyword">var</span> pageStyle = &#123;</span><br><span class="line">        backgroundColor: BGCOLOR[i % BGCOLOR.length],</span><br><span class="line">        flex: <span class="number">1</span>,</span><br><span class="line">        alignItems: <span class="string">'stretch'</span></span><br><span class="line">      &#125;;</span><br><span class="line">      pages.push(</span><br><span class="line">        &lt;View key=&#123;i&#125; style=&#123;pageStyle&#125; collapsable=&#123;<span class="literal">false</span>&#125;&gt;</span><br><span class="line">          &lt;Image</span><br><span class="line">            style=&#123;styles.image&#125;</span><br><span class="line">            source=&#123;&#123;<span class="attr">uri</span>: IMAGE_URIS[i % BGCOLOR.length]&#125;&#125;</span><br><span class="line">          /&gt;</span><br><span class="line">       &lt;<span class="regexp">/View&gt;</span></span><br><span class="line"><span class="regexp">      );</span></span><br><span class="line"><span class="regexp">    &#125;</span></span><br><span class="line"><span class="regexp">    var &#123; page, animationsAreEnabled &#125; = this.state;</span></span><br><span class="line"><span class="regexp">      return (</span></span><br><span class="line"><span class="regexp">        &lt;View style=&#123;styles.container&#125;&gt;</span></span><br><span class="line"><span class="regexp">         &lt;ViewPagerAndroid</span></span><br><span class="line"><span class="regexp">           style=&#123;styles.viewPager&#125;</span></span><br><span class="line"><span class="regexp">           initialPage=&#123;0&#125;</span></span><br><span class="line"><span class="regexp">           onPageScroll=&#123;this.onPageScroll&#125;</span></span><br><span class="line"><span class="regexp">           onPageSelected=&#123;this.onPageSelected&#125;</span></span><br><span class="line"><span class="regexp">           ref=&#123;viewPager =&gt; &#123; this.viewPager = viewPager; &#125;&#125;&gt;</span></span><br><span class="line"><span class="regexp">           &#123;pages&#125;</span></span><br><span class="line"><span class="regexp">         &lt;/</span>ViewPagerAndroid&gt;</span><br><span class="line"></span><br><span class="line">       &lt;<span class="regexp">/View&gt;</span></span><br><span class="line"><span class="regexp">      );</span></span><br><span class="line"><span class="regexp">  &#125;</span></span><br><span class="line"><span class="regexp">&#125;);</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">var styles = StyleSheet.create(&#123;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">    container: &#123;</span></span><br><span class="line"><span class="regexp">      flex: 1,</span></span><br><span class="line"><span class="regexp">      backgroundColor: 'white',</span></span><br><span class="line"><span class="regexp">    &#125;,</span></span><br><span class="line"><span class="regexp">    imageContainer: &#123;</span></span><br><span class="line"><span class="regexp">      flex: 1,</span></span><br><span class="line"><span class="regexp">      alignItems: 'stretch'</span></span><br><span class="line"><span class="regexp">    &#125;,</span></span><br><span class="line"><span class="regexp">    image: &#123;</span></span><br><span class="line"><span class="regexp">      flex: 1,</span></span><br><span class="line"><span class="regexp">    &#125;,</span></span><br><span class="line"><span class="regexp">    viewPager: &#123;</span></span><br><span class="line"><span class="regexp">      flex: 1,</span></span><br><span class="line"><span class="regexp">    &#125;,</span></span><br><span class="line"><span class="regexp">&#125;);</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">module.exports = ViewPager;</span></span><br></pre></td></tr></table></figure>
+<p><a href="https://github.com/hanks-zyh/Hrn" target="_blank" rel="noopener">github地址</a></p>
+<blockquote>
+<p>文章来自: <a href="https://hanks.xyz" target="_blank" rel="noopener">https://hanks.xyz</a></p>
+</blockquote>
+
+      
+    </div>
+</article>
+
+<!-- 上一页 下一页 -->
+
+
+<nav id="article-nav">
+  
+    <a href="/2015/12/29/react-userinfo/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>上一篇</span>
+      <div class="article-nav-title">
+        
+          React-Native 练习用户信息界面
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/12/24/react-navigator/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>下一篇</span>
+      <div class="article-nav-title">React-Native 的Navigator控制界面跳转</div>
+    </a>
+  
+</nav>
+
+
+
+<!-- 相关文章 -->
+
+<!--
+
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+      			<a href="/2015/12/29/react-viewpager/">React-Native 实现Android中的ViewPager</a>
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+
+-->
+
+
+
+<section>
+  <!-- 多说分享框 -->
+  <div id="disqus_thread"></div>
+  <script>
+    /**
+     *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+     *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+    /*
+    var disqus_config = function () {
+    this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+    this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    */
+    (function () { // DON'T EDIT BELOW THIS LINE
+      var d = document,
+        s = d.createElement('script');
+      s.src = 'https://hanks-zyh.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by
+      Disqus.</a></noscript>
+  <!-- 多说公共JS代码 end -->
+</section>
+</section>
+      </div>
+      <footer id="footer">
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      &copy; 2021 <a href="https://github.com/hanks-zyh"> Hanks</a>
+	  </div>
+  </div>
+ <div id="share">
+  <a id="totop" title="" style="display: block;">返回顶部</a>
+ </div>
+</footer>
+
+    </div>
+    
+
+<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery.scrollLoading.js"></script>
+
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

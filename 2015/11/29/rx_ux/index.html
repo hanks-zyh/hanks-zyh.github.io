@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>使用RxJava 提升用户体验 | Hanks&#39; Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <meta name="referrer" content="never">
+  <meta name="description" content="原文链接：https://medium.com/@diolor/improving-ux-with-rxjava-4440a13b157f#.qdhu122d1翻译： hanks  “网络永连接，服务器不出错，培根没肥肉”">
+<meta name="keywords" content="RxJava">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用RxJava 提升用户体验">
+<meta property="og:url" content="https://hanks.pub/2015/11/29/rx_ux/index.html">
+<meta property="og:site_name" content="Hanks&#39; Blog">
+<meta property="og:description" content="原文链接：https://medium.com/@diolor/improving-ux-with-rxjava-4440a13b157f#.qdhu122d1翻译： hanks  “网络永连接，服务器不出错，培根没肥肉”">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://file.bmob.cn/M02/C6/EF/oYYBAFZbFyCADEAkAAV75iu06QU497.gif">
+<meta property="og:updated_time" content="2021-06-16T11:59:22.928Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="使用RxJava 提升用户体验">
+<meta name="twitter:description" content="原文链接：https://medium.com/@diolor/improving-ux-with-rxjava-4440a13b157f#.qdhu122d1翻译： hanks  “网络永连接，服务器不出错，培根没肥肉”">
+<meta name="twitter:image" content="https://file.bmob.cn/M02/C6/EF/oYYBAFZbFyCADEAkAAV75iu06QU497.gif">
+  
+  
+  <link href="https://fonts.googleapis.com/css?family=Fira+Code|Noto+Serif+SC&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head></html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo"></a>
+    <nav id="main-nav">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      
+        <a class="main-nav-link" href="/archives">Archive</a>
+      
+        <a class="main-nav-link" href="/eye-video">Eye</a>
+      
+        <a class="main-nav-link" href="/atom.xml">Rss</a>
+      
+    </nav>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/archives" class="mobile-nav-link">Archive</a>
+  
+    <a href="/eye-video" class="mobile-nav-link">Eye</a>
+  
+    <a href="/atom.xml" class="mobile-nav-link">Rss</a>
+  
+</nav>
+      <div class="outer">
+        <section id="main"><article id="post-rx_ux" class="article article-type-post" itemscope
+  itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <header class="article-header">
+      
+      
+  
+    <h1 class="article-title" itemprop="name">
+      使用RxJava 提升用户体验
+    </h1>
+  
+
+      
+    </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      <blockquote>
+<p>原文链接：<a href="https://medium.com/@diolor/improving-ux-with-rxjava-4440a13b157f#.qdhu122d1" target="_blank" rel="noopener">https://medium.com/@diolor/improving-ux-with-rxjava-4440a13b157f#.qdhu122d1</a><br><br>翻译： <a href="https://github.com/hanks-zyh" target="_blank" rel="noopener">hanks</a></p>
+</blockquote>
+<p>“网络永连接，服务器不出错，培根没肥肉”</p>
+<p><img src="https://file.bmob.cn/M02/C6/EF/oYYBAFZbFyCADEAkAAV75iu06QU497.gif" alt="Search list animation by Daley P Maasz from Dribbble."></p>
+<a id="more"></a>
+<p>友好的用户体验通常是用户很爽，但开发者很痛苦。 当用户点击一个按钮后，因为后端没有及时响应而卡住界面，这回让用户很失望。<br>现在让我们创建一个更好的搜索功能（当用户在EditText输入文字时进行搜索）：</p>
+<ul>
+<li>尽可能少的网络请求</li>
+<li>尽可能少的错误信息<br>Rx 的逻辑会十分简单并且针对小的细节</li>
+</ul>
+<p>让我们从基本的逻辑开始:<br>让用户输入文字时执行网络请求，当结果返回时进行显示</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">RxTextView</span><span class="selector-class">.textChanges</span>(<span class="selector-tag">searchEditText</span>)</span><br><span class="line">     <span class="selector-class">.flatMap</span>(<span class="selector-tag">Api</span><span class="selector-pseudo">::searchItems)</span></span><br><span class="line">     <span class="selector-class">.subscribe</span>(<span class="selector-tag">this</span><span class="selector-pseudo">::updateList</span>, <span class="selector-tag">t-</span>&gt;<span class="selector-tag">showError</span>());</span><br></pre></td></tr></table></figure>
+<h2 id="1-减少网络请求"><a href="#1-减少网络请求" class="headerlink" title="1. 减少网络请求"></a>1. 减少网络请求</h2><p><strong>有两个问题</strong>：</p>
+<ol>
+<li>输入的文字每变化一个就执行请求（很垃圾），例如： 用户很快的输入 “a”（搜索”a“），然后”b”（搜索“ab”），然后“c”（搜索”abc”），然后又删除”c”（搜索“ab”）， 输入“e”（搜索”abe”）。这个过程执行了5次请求。</li>
+<li>假如网络情况很差， 多个线程同时进行， 这时候就可能发生错误：如当用户输入“a”，然后”ab”，但是搜索“ab”的结果先返回了，之后返回了搜索“a的结果”，这时候输入框的文字是”ab”，但结果却是搜索“a”的</li>
+</ol>
+<p><strong>解决方案</strong>：</p>
+<ol>
+<li>增加 throttling （节流）行为<br><code>debounce()</code> 的作用正是如此， 时间为 100-150ms 为佳，如果服务器返回需要300ms，那么你可以在 500ms时更新UI界面</li>
+</ol>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">RxTextView</span><span class="selector-class">.textChanges</span>(<span class="selector-tag">searchEditText</span>)</span><br><span class="line">     <span class="selector-class">.debounce</span>(150, <span class="selector-tag">MILLISECONDS</span>)</span><br><span class="line">     <span class="selector-class">.flatMap</span>(<span class="selector-tag">Api</span><span class="selector-pseudo">::searchItems)</span></span><br><span class="line">     <span class="selector-class">.subscribe</span>(<span class="selector-tag">this</span><span class="selector-pseudo">::updateList</span>, <span class="selector-tag">t-</span>&gt;<span class="selector-tag">showError</span>());</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>取消之前的请求:<br>使用 <code>switchMap</code>来替代  <code>flatMap</code>， <code>switchMap</code>停止之前发出的请求， 假如在150ms的时候搜索”ab“，在300ms的时候搜索了”abcd“，但是搜索”ab”的请求需要花费超过150ms，那么搜索“abcd”的请求开始的时候将会取消上一个请求，用户只会获取到最后的一次搜索的结果。</li>
+</ol>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">RxTextView</span><span class="selector-class">.textChanges</span>(<span class="selector-tag">searchEditText</span>)</span><br><span class="line">     <span class="selector-class">.debounce</span>(150, <span class="selector-tag">MILLISECONDS</span>)</span><br><span class="line">     <span class="selector-class">.switchMap</span>(<span class="selector-tag">Api</span><span class="selector-pseudo">::searchItems)</span></span><br><span class="line">     <span class="selector-class">.subscribe</span>(<span class="selector-tag">this</span><span class="selector-pseudo">::updateList</span>, <span class="selector-tag">t-</span>&gt;<span class="selector-tag">showError</span>());</span><br></pre></td></tr></table></figure>
+<h2 id="2-没有错误提示-没有网络错误提示"><a href="#2-没有错误提示-没有网络错误提示" class="headerlink" title="2. 没有错误提示/没有网络错误提示"></a>2. 没有错误提示/没有网络错误提示</h2><p>如果网络请求失败，将不再观测文本的变化，（因为调用了OnError，整个事件流中断），这可以通过添加错误捕获函数轻松搞定</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="selector-tag">RxTextView</span><span class="selector-class">.textChanges</span>(<span class="selector-tag">searchEditText</span>)</span><br><span class="line">     <span class="selector-class">.debounce</span>(150, <span class="selector-tag">MILLISECONDS</span>)</span><br><span class="line">     <span class="selector-class">.switchMap</span>(<span class="selector-tag">Api</span><span class="selector-pseudo">::searchItems)</span></span><br><span class="line">     <span class="selector-class">.onErrorResumeNext</span>(<span class="selector-tag">t-</span>&gt; <span class="selector-tag">empty</span>())</span><br><span class="line">     <span class="selector-class">.subscribe</span>(<span class="selector-tag">this</span><span class="selector-pseudo">::updateList)</span>;</span><br></pre></td></tr></table></figure>
+<p>但是不要这样做， 我们需要更好的处理方案。假如   <code>searchItems()</code> api因为网络连接而返回失败的呢？ 或者是因为偶然的连接失败呢？<br>我们需要 <strong>重试机制</strong> :</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">RxTextView</span><span class="selector-class">.textChanges</span>(<span class="selector-tag">searchEditText</span>)</span><br><span class="line">     <span class="selector-class">.debounce</span>(150, <span class="selector-tag">MILLISECONDS</span>)</span><br><span class="line">     <span class="selector-class">.switchMap</span>(<span class="selector-tag">Api</span><span class="selector-pseudo">::searchItems)</span></span><br><span class="line">     <span class="selector-class">.retryWhen</span>(<span class="selector-tag">new</span> <span class="selector-tag">RetryWithConnectivity</span>())</span><br><span class="line">     <span class="selector-class">.subscribe</span>(<span class="selector-tag">this</span><span class="selector-pseudo">::updateList</span>, <span class="selector-tag">t-</span>&gt;<span class="selector-tag">showError</span>());</span><br></pre></td></tr></table></figure>
+<p>如何进一步提升呢？ 通过增加超时时间。 因为我们的 设计师 Lenzing 说 ”即使1s对用户来说也很漫长”，于是我们有做了下面的事情：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">RxTextView</span><span class="selector-class">.textChanges</span>(<span class="selector-tag">searchEditText</span>)</span><br><span class="line">     <span class="selector-class">.debounce</span>(150, <span class="selector-tag">MILLISECONDS</span>)</span><br><span class="line">     <span class="selector-class">.switchMap</span>(<span class="selector-tag">Api</span><span class="selector-pseudo">::searchItems)</span></span><br><span class="line">     <span class="selector-class">.retryWhen</span>(<span class="selector-tag">new</span> <span class="selector-tag">RetryWithConnectivityIncremental</span>(<span class="selector-tag">context</span>, 5, 15, <span class="selector-tag">SECONDS</span>))</span><br><span class="line">     <span class="selector-class">.subscribe</span>(<span class="selector-tag">this</span><span class="selector-pseudo">::updateList</span>, <span class="selector-tag">t-</span>&gt;<span class="selector-tag">showErrorToUser</span>());</span><br></pre></td></tr></table></figure>
+<p>对比 <code>RetryWithConnectivityIncremental</code>  和 <code>RetryWithConnectivity</code> ， <code>RetryWithConnectivityIncremental</code> 更智能，它首先设置了 5 秒的超时时间， 如果这个时候连接失败，如果用户再次重试的话，超时时间会被设置的更长（如上面的15 秒）。</p>
+<p>现在，使用RxJava 提示了用户体验， 请求防抖动， 取消上次请求获取最新的结果， 智能的网络超时重试。这些可能用户不会注意到，但是这是一个好的设计 ;)</p>
+<p>标签： <strong>Android Rxjava UX</strong></p>
+<p>完整代码：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> MainActivity <span class="keyword">extends</span> AppCompatActivity &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bind</span>(R.id.et_keyword) EditText et_keyword;</span><br><span class="line">    <span class="meta">@Bind</span>(R.id.tv_result)  TextView tv_result;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span> <span class="keyword">protected</span> <span class="built_in">void</span> onCreate(Bundle savedInstanceState) &#123;</span><br><span class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState);</span><br><span class="line">        setContentView(R.layout.activity_main);</span><br><span class="line">        ButterKnife.bind(<span class="keyword">this</span>);</span><br><span class="line"></span><br><span class="line">        RestAdapter retrofit = <span class="keyword">new</span> RestAdapter.Builder().setEndpoint(<span class="string">"https://suggest.taobao.com"</span>)</span><br><span class="line">                .setLogLevel(RestAdapter.LogLevel.FULL)</span><br><span class="line">                .setConverter(<span class="keyword">new</span> GsonConverter(<span class="keyword">new</span> Gson()))</span><br><span class="line">                .build();</span><br><span class="line"></span><br><span class="line">        final SearchService service = retrofit.create(SearchService.class);</span><br><span class="line"></span><br><span class="line">        RxTextView.textChanges(et_keyword)</span><br><span class="line">                <span class="comment">// 上面的对 tv_result 的操作需要在主线程</span></span><br><span class="line">                .subscribeOn(AndroidSchedulers.mainThread())</span><br><span class="line">                .debounce(<span class="number">600</span>, TimeUnit.MILLISECONDS, AndroidSchedulers.mainThread())</span><br><span class="line">                .filter(<span class="keyword">new</span> Func1&lt;CharSequence, <span class="built_in">Boolean</span>&gt;() &#123;</span><br><span class="line">                    <span class="meta">@Override</span> <span class="keyword">public</span> <span class="built_in">Boolean</span> call(CharSequence charSequence) &#123;</span><br><span class="line">                        <span class="comment">// 清空搜索出来的结构</span></span><br><span class="line">                        tv_result.setText(<span class="string">""</span>);</span><br><span class="line">                        <span class="comment">//当 EditText 中文字大于0的时候</span></span><br><span class="line">                        <span class="keyword">return</span> charSequence.length() &gt; <span class="number">0</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;)</span><br><span class="line">                .switchMap(<span class="keyword">new</span> Func1&lt;CharSequence, Observable&lt;Data&gt;&gt;() &#123;</span><br><span class="line">                    <span class="meta">@Override</span> <span class="keyword">public</span> Observable&lt;Data&gt; call(CharSequence charSequence) &#123;</span><br><span class="line">                        <span class="comment">// 搜索</span></span><br><span class="line">                        <span class="keyword">return</span> service.searchProdcut(<span class="string">"utf-8"</span>, charSequence.toString());</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;)</span><br><span class="line"><span class="comment">//                .retryWhen(new RetryWithConnectivityIncremental(MainActivity.this, 5, 15, TimeUnit.MILLISECONDS))</span></span><br><span class="line">                <span class="comment">// 网络操作在io线程</span></span><br><span class="line">                .subscribeOn(Schedulers.io())</span><br><span class="line">                <span class="comment">//将 data 转换成 ArrayList&lt;ArrayList&lt;String&gt;&gt;</span></span><br><span class="line">                .map(<span class="keyword">new</span> Func1&lt;Data, ArrayList&lt;ArrayList&lt;<span class="built_in">String</span>&gt;&gt;&gt;() &#123;</span><br><span class="line">                    <span class="meta">@Override</span> <span class="keyword">public</span> ArrayList&lt;ArrayList&lt;<span class="built_in">String</span>&gt;&gt; call(Data data) &#123;</span><br><span class="line">                        <span class="keyword">return</span> data.result;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;)</span><br><span class="line">                <span class="comment">// 将 ArrayList&lt;ArrayList&lt;String&gt;&gt; 中每一项提取出来 ArrayList&lt;String&gt;</span></span><br><span class="line">                .flatMap(<span class="keyword">new</span> Func1&lt;ArrayList&lt;ArrayList&lt;<span class="built_in">String</span>&gt;&gt;, Observable&lt;ArrayList&lt;<span class="built_in">String</span>&gt;&gt;&gt;() &#123;</span><br><span class="line">                    <span class="meta">@Override</span> <span class="keyword">public</span> Observable&lt;ArrayList&lt;<span class="built_in">String</span>&gt;&gt; call(ArrayList&lt;ArrayList&lt;<span class="built_in">String</span>&gt;&gt; arrayLists) &#123;</span><br><span class="line">                        <span class="keyword">return</span> Observable.from(arrayLists);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;)</span><br><span class="line">                .filter(<span class="keyword">new</span> Func1&lt;ArrayList&lt;<span class="built_in">String</span>&gt;, <span class="built_in">Boolean</span>&gt;() &#123;</span><br><span class="line">                    <span class="meta">@Override</span> <span class="keyword">public</span> <span class="built_in">Boolean</span> call(ArrayList&lt;<span class="built_in">String</span>&gt; strings) &#123;</span><br><span class="line">                        <span class="keyword">return</span> strings.size() &gt;= <span class="number">2</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;)</span><br><span class="line">                .map(<span class="keyword">new</span> Func1&lt;ArrayList&lt;<span class="built_in">String</span>&gt;, <span class="built_in">String</span>&gt;() &#123;</span><br><span class="line">                    <span class="meta">@Override</span> <span class="keyword">public</span> <span class="built_in">String</span> call(ArrayList&lt;<span class="built_in">String</span>&gt; strings) &#123;</span><br><span class="line">                        <span class="keyword">return</span> <span class="string">"[商品名称:"</span> + strings.get(<span class="number">0</span>) + <span class="string">", ID:"</span> + strings.get(<span class="number">1</span>) + <span class="string">"]\n"</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;)</span><br><span class="line">                <span class="comment">// 发生错误后不要调用 onError，而是转到 onErrorResumeNext</span></span><br><span class="line">                <span class="comment">/*.onErrorResumeNext(new Func1&lt;Throwable, Observable&lt;? extends String&gt;&gt;() &#123;</span></span><br><span class="line"><span class="comment">                    @Override public Observable&lt;? extends String&gt; call(Throwable throwable) &#123;</span></span><br><span class="line"><span class="comment">                        return Observable.just("error result");</span></span><br><span class="line"><span class="comment">                    &#125;</span></span><br><span class="line"><span class="comment">                &#125;)*/</span></span><br><span class="line"></span><br><span class="line">                .observeOn(AndroidSchedulers.mainThread())</span><br><span class="line">                .subscribe(<span class="keyword">new</span> Action1&lt;<span class="built_in">String</span>&gt;() &#123;</span><br><span class="line">                    <span class="meta">@Override</span> <span class="keyword">public</span> <span class="built_in">void</span> call(<span class="built_in">String</span> charSequence) &#123;</span><br><span class="line">                        showpop(charSequence);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="built_in">void</span> showpop(<span class="built_in">String</span> result) &#123;</span><br><span class="line">        tv_result.append(result);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">interface</span> SearchService &#123;</span><br><span class="line"></span><br><span class="line">        <span class="meta">@GET</span>(<span class="string">"/sug"</span>) Observable&lt;Data&gt; searchProdcut(<span class="meta">@Query</span>(<span class="string">"code"</span>) <span class="built_in">String</span> code, <span class="meta">@Query</span>(<span class="string">"q"</span>) <span class="built_in">String</span> keyword);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">class</span> Data &#123;</span><br><span class="line">        <span class="keyword">public</span> ArrayList&lt;ArrayList&lt;<span class="built_in">String</span>&gt;&gt; result;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//    https://suggest.taobao.com/sug?code=utf-8&amp;q=%E6%89%8B%E6%9C%BA</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>BroadcastObservable.java<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.hanks.rxsearch;</span><br><span class="line"><span class="keyword">import</span> android.content.BroadcastReceiver;</span><br><span class="line"><span class="keyword">import</span> android.content.Context;</span><br><span class="line"><span class="keyword">import</span> android.content.Intent;</span><br><span class="line"><span class="keyword">import</span> android.content.IntentFilter;</span><br><span class="line"><span class="keyword">import</span> android.net.ConnectivityManager;</span><br><span class="line"><span class="keyword">import</span> android.net.NetworkInfo;</span><br><span class="line"><span class="keyword">import</span> android.os.Looper;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> rx.Observable;</span><br><span class="line"><span class="keyword">import</span> rx.Scheduler;</span><br><span class="line"><span class="keyword">import</span> rx.Subscriber;</span><br><span class="line"><span class="keyword">import</span> rx.Subscription;</span><br><span class="line"><span class="keyword">import</span> rx.android.schedulers.AndroidSchedulers;</span><br><span class="line"><span class="keyword">import</span> rx.functions.Action0;</span><br><span class="line"><span class="keyword">import</span> rx.subscriptions.Subscriptions;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Created by hanks on 15-11-29.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BroadcastObservable</span> <span class="keyword">implements</span> <span class="title">Observable</span>.<span class="title">OnSubscribe</span>&lt;<span class="title">Boolean</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Context context;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">BroadcastObservable</span><span class="params">(Context context)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.context = context;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Observable&lt;Boolean&gt; <span class="title">fromConnectivityManager</span><span class="params">(Context context)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> Observable.create(<span class="keyword">new</span> BroadcastObservable(context)).share();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> Subscription <span class="title">unsubscribeInUiThread</span><span class="params">(<span class="keyword">final</span> Action0 unsubscribe)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> Subscriptions.create(<span class="keyword">new</span> Action0() &#123;</span><br><span class="line">            <span class="meta">@Override</span> <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">call</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                <span class="keyword">if</span> (Looper.getMainLooper() == Looper.myLooper()) &#123;</span><br><span class="line">                    unsubscribe.call();</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    <span class="keyword">final</span> Scheduler.Worker inner = AndroidSchedulers.mainThread().createWorker();</span><br><span class="line">                    inner.schedule(<span class="keyword">new</span> Action0() &#123;</span><br><span class="line">                        <span class="meta">@Override</span> <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">call</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                            unsubscribe.call();</span><br><span class="line">                            inner.unsubscribe();</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span> <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">call</span><span class="params">(<span class="keyword">final</span> Subscriber&lt;? <span class="keyword">super</span> Boolean&gt; subscriber)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">final</span> BroadcastReceiver receiver = <span class="keyword">new</span> BroadcastReceiver() &#123;</span><br><span class="line"></span><br><span class="line">            <span class="meta">@Override</span> <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onReceive</span><span class="params">(Context context, Intent intent)</span> </span>&#123;</span><br><span class="line">                subscriber.onNext(isConnectedToInternet());</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line">        context.registerReceiver(receiver, <span class="keyword">new</span> IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));</span><br><span class="line">        subscriber.add(unsubscribeInUiThread(<span class="keyword">new</span> Action0() &#123;</span><br><span class="line">            <span class="meta">@Override</span> <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">call</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                context.unregisterReceiver(receiver);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;));</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> Boolean <span class="title">isConnectedToInternet</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        ConnectivityManager manager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);</span><br><span class="line">        NetworkInfo networkInfo = manager.getActiveNetworkInfo();</span><br><span class="line">        <span class="keyword">return</span> networkInfo != <span class="keyword">null</span> &amp;&amp; networkInfo.isConnected();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>RetryWithConnectivityIncremental.java<br><figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.hanks.rxsearch;</span><br><span class="line"><span class="keyword">import</span> android.content.Context;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.TimeUnit;</span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.TimeoutException;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> retrofit.RetrofitError;</span><br><span class="line"><span class="keyword">import</span> rx.Observable;</span><br><span class="line"><span class="keyword">import</span> rx.functions.Action1;</span><br><span class="line"><span class="keyword">import</span> rx.functions.Func1;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * RetryWithConnectivityIncremental</span></span><br><span class="line"><span class="comment"> * &lt;p/&gt;</span></span><br><span class="line"><span class="comment"> * Created by hanks on 15-11-29.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> RetryWithConnectivityIncremental <span class="keyword">implements</span> Func1&lt;Observable&lt;? <span class="keyword">extends</span> Throwable&gt;, Observable&lt;?&gt;&gt; &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">int</span> startTimeOut;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">int</span> maxTimeOut;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> TimeUnit timeUnit;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> timeOut;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Observable&lt;<span class="keyword">Boolean</span>&gt; isConnected;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> RetryWithConnectivityIncremental(Context context, <span class="keyword">int</span> startTimeOut, <span class="keyword">int</span> maxTimeOut, TimeUnit timeUnit) &#123;</span><br><span class="line">        <span class="keyword">this</span>.startTimeOut = startTimeOut;</span><br><span class="line">        <span class="keyword">this</span>.maxTimeOut = maxTimeOut;</span><br><span class="line">        <span class="keyword">this</span>.timeOut = startTimeOut;</span><br><span class="line">        <span class="keyword">this</span>.timeUnit = timeUnit;</span><br><span class="line">        isConnected = getConnectedObservable(context);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Observable&lt;<span class="keyword">Boolean</span>&gt; getConnectedObservable(Context context) &#123;</span><br><span class="line">        <span class="keyword">return</span> BroadcastObservable.fromConnectivityManager(context)</span><br><span class="line">                .distinctUntilChanged()</span><br><span class="line">                .filter(<span class="keyword">new</span> Func1&lt;<span class="keyword">Boolean</span>, <span class="keyword">Boolean</span>&gt;() &#123;</span><br><span class="line">                    @Override <span class="keyword">public</span> <span class="keyword">Boolean</span> <span class="keyword">call</span>(<span class="keyword">Boolean</span> isConnected) &#123;</span><br><span class="line">                        <span class="keyword">return</span> isConnected;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Observable.Transformer&lt;<span class="keyword">Boolean</span>, <span class="keyword">Boolean</span>&gt; attachIncementalTimeOut() &#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Observable.Transformer&lt;<span class="keyword">Boolean</span>, <span class="keyword">Boolean</span>&gt;() &#123;</span><br><span class="line"></span><br><span class="line">            @Override <span class="keyword">public</span> Observable&lt;<span class="keyword">Boolean</span>&gt; <span class="keyword">call</span>(Observable&lt;<span class="keyword">Boolean</span>&gt; observable) &#123;</span><br><span class="line">                <span class="keyword">return</span> observable.timeout(timeOut, timeUnit).doOnError(<span class="keyword">new</span> Action1&lt;Throwable&gt;() &#123;</span><br><span class="line"></span><br><span class="line">                    @Override <span class="keyword">public</span> <span class="keyword">void</span> <span class="keyword">call</span>(Throwable throwable) &#123;</span><br><span class="line">                        <span class="keyword">if</span> (throwable <span class="keyword">instanceof</span> TimeoutException) &#123;</span><br><span class="line">                            timeOut = timeOut &gt; maxTimeOut ? maxTimeOut : timeOut + startTimeOut;</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line"></span><br><span class="line">                &#125;);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override <span class="keyword">public</span> Observable&lt;?&gt; <span class="keyword">call</span>(<span class="keyword">final</span> Observable&lt;? <span class="keyword">extends</span> Throwable&gt; observable) &#123;</span><br><span class="line">        <span class="keyword">return</span> observable.flatMap(<span class="keyword">new</span> Func1&lt;Throwable, Observable&lt;<span class="keyword">Boolean</span>&gt;&gt;() &#123;</span><br><span class="line">            @Override <span class="keyword">public</span> Observable&lt;<span class="keyword">Boolean</span>&gt; <span class="keyword">call</span>(Throwable throwable) &#123;</span><br><span class="line">                <span class="keyword">if</span> (throwable <span class="keyword">instanceof</span> RetrofitError &amp;&amp; ((RetrofitError) throwable).getKind() == RetrofitError.Kind.NETWORK) &#123;</span><br><span class="line">                    <span class="keyword">return</span> isConnected;</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    <span class="keyword">return</span> Observable.error(throwable);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;).compose(attachIncementalTimeOut());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+</article>
+
+<!-- 上一页 下一页 -->
+
+
+<nav id="article-nav">
+  
+    <a href="/2015/12/01/ReactiveX/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>上一篇</span>
+      <div class="article-nav-title">
+        
+          ReactiveX
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/11/26/利器_--_抓包工具总结/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>下一篇</span>
+      <div class="article-nav-title">利器 -- 抓包工具总结</div>
+    </a>
+  
+</nav>
+
+
+
+<!-- 相关文章 -->
+
+<!--
+
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+      			<a href="/2015/11/29/rx_ux/">使用RxJava 提升用户体验</a>
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+
+-->
+
+
+
+<section>
+  <!-- 多说分享框 -->
+  <div id="disqus_thread"></div>
+  <script>
+    /**
+     *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+     *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+    /*
+    var disqus_config = function () {
+    this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+    this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    */
+    (function () { // DON'T EDIT BELOW THIS LINE
+      var d = document,
+        s = d.createElement('script');
+      s.src = 'https://hanks-zyh.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by
+      Disqus.</a></noscript>
+  <!-- 多说公共JS代码 end -->
+</section>
+</section>
+      </div>
+      <footer id="footer">
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      &copy; 2021 <a href="https://github.com/hanks-zyh"> Hanks</a>
+	  </div>
+  </div>
+ <div id="share">
+  <a id="totop" title="" style="display: block;">返回顶部</a>
+ </div>
+</footer>
+
+    </div>
+    
+
+<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery.scrollLoading.js"></script>
+
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>让 Android 开发像 web 开发一样爽 | Hanks&#39; Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <meta name="referrer" content="never">
+  <meta name="description" content="做移动端开发，做蛋疼的就是不能动态发版，不能像 web 那样发版立即全部用户生效，然而 lua语言 为其提供了可能性。使用 lua 来构建跨平台原生应用有许多好处，比如 lua 语言简洁高效，可移植性好， Lua虚拟机极为轻量，仅占用200到300k的内存空间，且速度极快。">
+<meta name="keywords" content="Android,Lua">
+<meta property="og:type" content="article">
+<meta property="og:title" content="让 Android 开发像 web 开发一样爽">
+<meta property="og:url" content="https://hanks.pub/2018/11/19/lua-dev-android/index.html">
+<meta property="og:site_name" content="Hanks&#39; Blog">
+<meta property="og:description" content="做移动端开发，做蛋疼的就是不能动态发版，不能像 web 那样发版立即全部用户生效，然而 lua语言 为其提供了可能性。使用 lua 来构建跨平台原生应用有许多好处，比如 lua 语言简洁高效，可移植性好， Lua虚拟机极为轻量，仅占用200到300k的内存空间，且速度极快。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/11/18/167261767ddce265?w=424&h=746&f=gif&s=33320">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/11/18/1672617fce0cf29f?w=424&h=746&f=gif&s=112338">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/11/18/16726332b91dafd7?w=424&h=746&f=gif&s=5205132">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/11/18/16726167db0f906f?w=960&h=720&f=jpeg&s=81945">
+<meta property="og:updated_time" content="2018-11-19T01:01:43.701Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="让 Android 开发像 web 开发一样爽">
+<meta name="twitter:description" content="做移动端开发，做蛋疼的就是不能动态发版，不能像 web 那样发版立即全部用户生效，然而 lua语言 为其提供了可能性。使用 lua 来构建跨平台原生应用有许多好处，比如 lua 语言简洁高效，可移植性好， Lua虚拟机极为轻量，仅占用200到300k的内存空间，且速度极快。">
+<meta name="twitter:image" content="https://user-gold-cdn.xitu.io/2018/11/18/167261767ddce265?w=424&h=746&f=gif&s=33320">
+  
+  
+  <link href="https://fonts.googleapis.com/css?family=Fira+Code|Noto+Serif+SC&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head></html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo"></a>
+    <nav id="main-nav">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      
+        <a class="main-nav-link" href="/archives">Archive</a>
+      
+        <a class="main-nav-link" href="/eye-video">Eye</a>
+      
+        <a class="main-nav-link" href="/atom.xml">Rss</a>
+      
+    </nav>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/archives" class="mobile-nav-link">Archive</a>
+  
+    <a href="/eye-video" class="mobile-nav-link">Eye</a>
+  
+    <a href="/atom.xml" class="mobile-nav-link">Rss</a>
+  
+</nav>
+      <div class="outer">
+        <section id="main"><article id="post-lua-dev-android" class="article article-type-post" itemscope
+  itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <header class="article-header">
+      
+      
+  
+    <h1 class="article-title" itemprop="name">
+      让 Android 开发像 web 开发一样爽
+    </h1>
+  
+
+      
+    </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      <p>做移动端开发，做蛋疼的就是不能<strong>动态发版</strong>，不能像 web 那样发版立即全部用户生效，然而 <a href="http://www.runoob.com/manual/lua53doc/" target="_blank" rel="noopener">lua</a>语言 为其提供了可能性。使用 lua 来构建跨平台原生应用有许多好处，比如 lua 语言简洁高效，可移植性好， Lua虚拟机极为轻量，仅占用200到300k的内存空间，且速度极快。</p>
+<a id="more"></a>
+<h2 id="演示"><a href="#演示" class="headerlink" title="演示"></a>演示</h2><p>写一个简单的代码演示一下。新建一个 lua 文件，叫做 <code>view.lua</code>, 放在手机的 sdcard 上，文件目录为 /sdcard/view.lua</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">require</span> <span class="string">"import"</span></span><br><span class="line">import <span class="string">"android.widget.*"</span></span><br><span class="line">import <span class="string">"android.content.*"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getView</span><span class="params">()</span></span></span><br><span class="line">    <span class="keyword">local</span> layout = &#123;</span><br><span class="line">        LinearLayout,</span><br><span class="line">        orientation = <span class="string">"vertical"</span>,</span><br><span class="line">        layout_width = <span class="string">"fill"</span>,</span><br><span class="line">        layout_height = <span class="string">"fill"</span>,</span><br><span class="line">        &#123;</span><br><span class="line">            Button,</span><br><span class="line">            id = <span class="string">"btn"</span>,</span><br><span class="line">            layout_marginTop=<span class="string">"8dp"</span>,</span><br><span class="line">            layout_width = <span class="string">"fill"</span>,</span><br><span class="line">            layout_height = <span class="string">"50dp"</span>,</span><br><span class="line">            text = <span class="string">"click"</span></span><br><span class="line">        &#125;,</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">local</span> view = loadlayout(layout)</span><br><span class="line">    <span class="keyword">return</span> view</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p>运行一下，</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/11/18/167261767ddce265?w=424&amp;h=746&amp;f=gif&amp;s=33320" alt></p>
+<p>屏幕中上半部分是 Android 的 xml 布局中写好的代码，当点击运行按钮时，加载 lua 脚本，返回一个 View 对象，然后添加到布局中。一个简单的 lua 脚本编写的视图就写好了。<br>接下来修改一下，设置个点击事件。</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">require</span> <span class="string">"import"</span></span><br><span class="line">import <span class="string">"android.widget.*"</span></span><br><span class="line">import <span class="string">"android.content.*"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getView</span><span class="params">()</span></span></span><br><span class="line">    <span class="keyword">local</span> layout = &#123;</span><br><span class="line">        LinearLayout,</span><br><span class="line">        orientation = <span class="string">"vertical"</span>,</span><br><span class="line">        layout_width = <span class="string">"fill"</span>,</span><br><span class="line">        layout_height = <span class="string">"fill"</span>,</span><br><span class="line">        &#123;</span><br><span class="line">            Button,</span><br><span class="line">            id = <span class="string">"btn"</span>,</span><br><span class="line">            layout_marginTop=<span class="string">"8dp"</span>,</span><br><span class="line">            layout_width = <span class="string">"fill"</span>,</span><br><span class="line">            layout_height = <span class="string">"50dp"</span>,</span><br><span class="line">            text = <span class="string">"click"</span></span><br><span class="line">        &#125;,</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">local</span> ids = &#123;&#125; <span class="comment">-- store ids to find view</span></span><br><span class="line">    <span class="keyword">local</span> view = loadlayout(layout, ids)</span><br><span class="line">    ids.btn.onClick = <span class="function"><span class="keyword">function</span><span class="params">()</span></span></span><br><span class="line">        Toast.makeText(activity,<span class="string">"2333"</span>,<span class="number">0</span>).show()</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">return</span> view</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p>运行效果</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/11/18/1672617fce0cf29f?w=424&amp;h=746&amp;f=gif&amp;s=112338" alt></p>
+<p>再来个稍微复杂点的例子，写个列表，新建 <code>list.lua</code> 文件，放在手机的 sdcard/list.lua</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">require</span> <span class="string">"import"</span></span><br><span class="line">import <span class="string">"android.widget.*"</span></span><br><span class="line">import <span class="string">"android.content.*"</span></span><br><span class="line">import <span class="string">"android.view.View"</span></span><br><span class="line">import <span class="string">"androlua.LuaHttp"</span></span><br><span class="line">import <span class="string">"androlua.LuaAdapter"</span></span><br><span class="line">import <span class="string">"androlua.LuaImageLoader"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">local</span> JSON = <span class="built_in">require</span>(<span class="string">"cjson"</span>)</span><br><span class="line"><span class="keyword">local</span> uihelper = <span class="built_in">require</span>(<span class="string">'uihelper'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">-- create view table</span></span><br><span class="line"><span class="keyword">local</span> layout = &#123;</span><br><span class="line">    LinearLayout,</span><br><span class="line">    orientation = <span class="string">"vertical"</span>,</span><br><span class="line">    layout_width = <span class="string">"fill"</span>,</span><br><span class="line">    layout_height = <span class="string">"fill"</span>,</span><br><span class="line">    &#123;</span><br><span class="line">        ListView,</span><br><span class="line">        id = <span class="string">"listview"</span>,</span><br><span class="line">        dividerHeight = <span class="number">0</span>,</span><br><span class="line">        layout_width = <span class="string">"fill"</span>,</span><br><span class="line">        layout_height = <span class="string">"fill"</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">local</span> item_view = &#123;</span><br><span class="line">    FrameLayout,</span><br><span class="line">    layout_width = <span class="string">"fill"</span>,</span><br><span class="line">    layout_height = <span class="string">"240dp"</span>,</span><br><span class="line">    &#123;</span><br><span class="line">        ImageView,</span><br><span class="line">        id = <span class="string">"iv_image"</span>,</span><br><span class="line">        layout_width = <span class="string">"fill"</span>,</span><br><span class="line">        layout_height = <span class="string">"fill"</span>,</span><br><span class="line">        scaleType = <span class="string">"centerCrop"</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        TextView,</span><br><span class="line">        id = <span class="string">"tv_title"</span>,</span><br><span class="line">        background = <span class="string">"#66000000"</span>,</span><br><span class="line">        layout_width = <span class="string">"fill"</span>,</span><br><span class="line">        layout_height = <span class="string">"fill"</span>,</span><br><span class="line">        padding = <span class="string">"32dp"</span>,</span><br><span class="line">        gravity = <span class="string">"center"</span>,</span><br><span class="line">        maxLines = <span class="string">"5"</span>,</span><br><span class="line">        lineSpacingMultiplier = <span class="string">'1.2'</span>,</span><br><span class="line">        textSize = <span class="string">"14sp"</span>,</span><br><span class="line">        textColor = <span class="string">"#CCFFFFFF"</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">local</span> data = &#123;</span><br><span class="line">    dailyList = &#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">local</span> adapter</span><br><span class="line"></span><br><span class="line"><span class="keyword">local</span> <span class="function"><span class="keyword">function</span> <span class="title">getData</span><span class="params">()</span></span></span><br><span class="line">    <span class="comment">-- http://baobab.kaiyanapp.com/api/v1/feed</span></span><br><span class="line">    <span class="keyword">local</span> url = data.nextPageUrl</span><br><span class="line">    <span class="keyword">if</span> url == <span class="literal">nil</span> <span class="keyword">then</span> url = <span class="string">'http://baobab.kaiyanapp.com/api/v1/feed?udid=3e7ee30c6fc0004a773dc33b0597b5732b145c04'</span> <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">if</span> url:<span class="built_in">find</span>(<span class="string">'udid='</span>) == <span class="literal">nil</span> <span class="keyword">then</span> url = url .. <span class="string">'&amp;udid=3e7ee30c6fc0004a773dc33b0597b5732b145c04'</span> <span class="keyword">end</span></span><br><span class="line">    <span class="built_in">print</span>(url)</span><br><span class="line">    LuaHttp.request(&#123; url = url &#125;, <span class="function"><span class="keyword">function</span><span class="params">(error, code, body)</span></span></span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">error</span> <span class="keyword">or</span> code ~= <span class="number">200</span> <span class="keyword">then</span></span><br><span class="line">            <span class="built_in">print</span>(<span class="string">'fetch data error'</span>)</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line">        <span class="keyword">local</span> str = JSON.decode(body)</span><br><span class="line">        uihelper.runOnUiThread(activity, <span class="function"><span class="keyword">function</span><span class="params">()</span></span></span><br><span class="line">            data.nextPageUrl = str.nextPageUrl</span><br><span class="line">            <span class="keyword">local</span> list = str.dailyList[<span class="number">1</span>].videoList</span><br><span class="line">            <span class="keyword">for</span> i = <span class="number">1</span>, #list <span class="keyword">do</span></span><br><span class="line">                data.dailyList[#data.dailyList + <span class="number">1</span>] = list[i]</span><br><span class="line">            <span class="keyword">end</span></span><br><span class="line">            adapter.notifyDataSetChanged()</span><br><span class="line">        <span class="keyword">end</span>)</span><br><span class="line">    <span class="keyword">end</span>)</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">local</span> <span class="function"><span class="keyword">function</span> <span class="title">launchDetail</span><span class="params">(item)</span></span></span><br><span class="line">    Toast.makeText(activity, item.title, <span class="number">0</span>).show()</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getView</span><span class="params">()</span></span></span><br><span class="line">    <span class="keyword">local</span> view = loadlayout(layout)</span><br><span class="line">    adapter = LuaAdapter(luajava.createProxy(<span class="string">"androlua.LuaAdapter$AdapterCreator"</span>, &#123;</span><br><span class="line">        getCount = <span class="function"><span class="keyword">function</span><span class="params">()</span></span> <span class="keyword">return</span> #data.dailyList <span class="keyword">end</span>,</span><br><span class="line">        getItem = <span class="function"><span class="keyword">function</span><span class="params">(position)</span></span> <span class="keyword">return</span> <span class="literal">nil</span> <span class="keyword">end</span>,</span><br><span class="line">        getItemId = <span class="function"><span class="keyword">function</span><span class="params">(position)</span></span> <span class="keyword">return</span> position <span class="keyword">end</span>,</span><br><span class="line">        getView = <span class="function"><span class="keyword">function</span><span class="params">(position, convertView, parent)</span></span></span><br><span class="line">            position = position + <span class="number">1</span> <span class="comment">-- lua 索引从 1开始</span></span><br><span class="line">            <span class="keyword">if</span> position == #data.dailyList <span class="keyword">then</span></span><br><span class="line">                getData()</span><br><span class="line">            <span class="keyword">end</span></span><br><span class="line">            <span class="keyword">if</span> convertView == <span class="literal">nil</span> <span class="keyword">then</span></span><br><span class="line">                <span class="keyword">local</span> views = &#123;&#125; <span class="comment">-- store views</span></span><br><span class="line">                convertView = loadlayout(item_view, views, ListView)</span><br><span class="line">                <span class="keyword">if</span> parent <span class="keyword">then</span></span><br><span class="line">                    <span class="keyword">local</span> params = convertView.getLayoutParams()</span><br><span class="line">                    params.width = parent.getWidth()</span><br><span class="line">                <span class="keyword">end</span></span><br><span class="line">                convertView.setTag(views)</span><br><span class="line">            <span class="keyword">end</span></span><br><span class="line">            <span class="keyword">local</span> views = convertView.getTag()</span><br><span class="line">            <span class="keyword">local</span> item = data.dailyList[position]</span><br><span class="line">            <span class="keyword">if</span> item <span class="keyword">then</span></span><br><span class="line">                LuaImageLoader.<span class="built_in">load</span>(views.iv_image, item.coverForFeed)</span><br><span class="line">                views.tv_title.setText(item.title)</span><br><span class="line">            <span class="keyword">end</span></span><br><span class="line">            <span class="keyword">return</span> convertView</span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line">    &#125;))</span><br><span class="line">    listview.setAdapter(adapter)</span><br><span class="line">    listview.setOnItemClickListener(luajava.createProxy(<span class="string">"android.widget.AdapterView$OnItemClickListener"</span>, &#123;</span><br><span class="line">        onItemClick = <span class="function"><span class="keyword">function</span><span class="params">(adapter, view, position, id)</span></span></span><br><span class="line">            launchDetail(data.dailyList[position + <span class="number">1</span>])</span><br><span class="line">        <span class="keyword">end</span>,</span><br><span class="line">    &#125;))</span><br><span class="line">    getData()</span><br><span class="line">    <span class="keyword">return</span> view</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p>创建 listView ， 设置 adapter ，网络请求，刷新列表。看下效果吧。</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/11/18/16726332b91dafd7?w=424&amp;h=746&amp;f=gif&amp;s=5205132" alt></p>
+<p>代码放到了 github 👉 <a href="https://github.com/hanks-zyh/luaDevAndroid" target="_blank" rel="noopener">源码</a></p>
+<h2 id="原理图"><a href="#原理图" class="headerlink" title="原理图"></a>原理图</h2><p><img src="https://user-gold-cdn.xitu.io/2018/11/18/16726167db0f906f?w=960&amp;h=720&amp;f=jpeg&amp;s=81945" alt></p>
+<p>写了几篇文章比较详细的介绍了原理，想了解的可以看一下</p>
+<ul>
+<li><a href="https://juejin.im/post/5beeeb7cf265da616c6530f8" target="_blank" rel="noopener">Android 与 Lua</a></li>
+<li><a href="https://juejin.im/post/5beeeaa651882546150a954f" target="_blank" rel="noopener">探究 lua 在 Android 中的应用</a></li>
+<li><a href="https://hanks.pub/2017/09/28/lua-into-android/">Lua 嵌入 Android 原理</a></li>
+</ul>
+<h2 id="支持-iOS-吗？"><a href="#支持-iOS-吗？" class="headerlink" title="支持 iOS 吗？"></a>支持 iOS 吗？</h2><p>Lua 是用 c 语言开发的，可移植性比较好，想支持 iOS 的话，原理时一样的，不过参考目前已有的跨平台技术。关于跨平台方面的一些个人见解，目前已有的跨平台技术每当涉及到不同平台的特性时，事情就比较蛋疼了，需要单独去适配，还有建立一堆连接库，比如选取本地图片，不同平台的数据库，平台特有 api，真是<strong>一份代码到处运行终是梦，一份儿代码到处采坑才是真</strong>。</p>
+<h2 id="Android-开发能支持到什么程度？"><a href="#Android-开发能支持到什么程度？" class="headerlink" title="Android 开发能支持到什么程度？"></a>Android 开发能支持到什么程度？</h2><p>看到了上面的原理图就可以知道，支持 Android SDK 几乎所有的 API。</p>
+<h2 id="联系我"><a href="#联系我" class="headerlink" title="联系我"></a>联系我</h2><ul>
+<li>github:<a href="https://github.com/hanks-zyh" target="_blank" rel="noopener">hanks-zyh</a></li>
+<li>weibo: <a href="http://weibo.com/hanksZyh" target="_blank" rel="noopener">@D蓝小鱼</a> </li>
+<li>twitter: <a href="https://twitter.com/zhangyuhan3030" target="_blank" rel="noopener">hanks</a></li>
+<li>email: <a href="mailto:zhangyuhan2014@gmail.com" target="_blank" rel="noopener">zhangyuhan2014@gmail.com</a></li>
+</ul>
+<blockquote>
+<p>文章来自： <a href="https://hanks.pub">https://hanks.pub</a></p>
+</blockquote>
+
+      
+    </div>
+</article>
+
+<!-- 上一页 下一页 -->
+
+
+<nav id="article-nav">
+  
+    <a href="/2019/12/18/render-pdf/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>上一篇</span>
+      <div class="article-nav-title">
+        
+          利用 PdfDocument 生成 PDF 文件
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/07/10/proxy-https/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>下一篇</span>
+      <div class="article-nav-title">抓包再总结</div>
+    </a>
+  
+</nav>
+
+
+
+<!-- 相关文章 -->
+
+<!--
+
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+      			<a href="/2018/11/19/lua-dev-android/">让 Android 开发像 web 开发一样爽</a>
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+
+-->
+
+
+
+<section>
+  <!-- 多说分享框 -->
+  <div id="disqus_thread"></div>
+  <script>
+    /**
+     *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+     *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+    /*
+    var disqus_config = function () {
+    this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+    this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    */
+    (function () { // DON'T EDIT BELOW THIS LINE
+      var d = document,
+        s = d.createElement('script');
+      s.src = 'https://hanks-zyh.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by
+      Disqus.</a></noscript>
+  <!-- 多说公共JS代码 end -->
+</section>
+</section>
+      </div>
+      <footer id="footer">
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      &copy; 2021 <a href="https://github.com/hanks-zyh"> Hanks</a>
+	  </div>
+  </div>
+ <div id="share">
+  <a id="totop" title="" style="display: block;">返回顶部</a>
+ </div>
+</footer>
+
+    </div>
+    
+
+<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery.scrollLoading.js"></script>
+
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

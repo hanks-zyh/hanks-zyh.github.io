@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>Scrapy 抓取 Mediuem 网站 Android 标签下的文章 | Hanks&#39; Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <meta name="referrer" content="never">
+  <meta name="description" content="前面实现了对 简书上面的程序员专题抓取文章， 接下来开始 Medium 网站的 Android 标签的文章。">
+<meta name="keywords" content="Android,Scrapy,Python">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Scrapy 抓取 Mediuem 网站 Android 标签下的文章">
+<meta property="og:url" content="https://hanks.pub/2016/03/21/scrapy-mediuem-android/index.html">
+<meta property="og:site_name" content="Hanks&#39; Blog">
+<meta property="og:description" content="前面实现了对 简书上面的程序员专题抓取文章， 接下来开始 Medium 网站的 Android 标签的文章。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2021-06-16T11:59:22.930Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Scrapy 抓取 Mediuem 网站 Android 标签下的文章">
+<meta name="twitter:description" content="前面实现了对 简书上面的程序员专题抓取文章， 接下来开始 Medium 网站的 Android 标签的文章。">
+  
+  
+  <link href="https://fonts.googleapis.com/css?family=Fira+Code|Noto+Serif+SC&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head></html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo"></a>
+    <nav id="main-nav">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      
+        <a class="main-nav-link" href="/archives">Archive</a>
+      
+        <a class="main-nav-link" href="/eye-video">Eye</a>
+      
+        <a class="main-nav-link" href="/atom.xml">Rss</a>
+      
+    </nav>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/archives" class="mobile-nav-link">Archive</a>
+  
+    <a href="/eye-video" class="mobile-nav-link">Eye</a>
+  
+    <a href="/atom.xml" class="mobile-nav-link">Rss</a>
+  
+</nav>
+      <div class="outer">
+        <section id="main"><article id="post-scrapy-mediuem-android" class="article article-type-post" itemscope
+  itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <header class="article-header">
+      
+      
+  
+    <h1 class="article-title" itemprop="name">
+      Scrapy 抓取 Mediuem 网站 Android 标签下的文章
+    </h1>
+  
+
+      
+    </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      <p>前面实现了对 <strong><a href="https://hanks.xyz/2016/03/19/scrapy-jianshu-it/" target="_blank" rel="noopener">简书上面的程序员专题抓取文章</a></strong>， 接下来开始 <strong><a href="https://medium.com/tag/android" target="_blank" rel="noopener">Medium</a></strong> 网站的 <code>Android</code> 标签的文章。</p>
+<a id="more"></a>
+<p><code>medium_spider.py</code> 代码：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"><span class="comment"># -*- coding:utf-8 -*-</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> scrapy</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MediumSpider</span><span class="params">(scrapy.Spider)</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="string">"""docstring for MediumSpider"""</span></span><br><span class="line"></span><br><span class="line">    name = <span class="string">"mediumspider"</span></span><br><span class="line"></span><br><span class="line">    start_urls = [<span class="string">"https://medium.com/tag/android"</span>]</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">parse</span><span class="params">(self, response)</span>:</span></span><br><span class="line">        <span class="keyword">for</span> postitem <span class="keyword">in</span> response.css(<span class="string">'.postItem'</span>):</span><br><span class="line">            url = postitem.css(<span class="string">'article a::attr(href)'</span>).extract()[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line">            <span class="comment"># get title</span></span><br><span class="line">            <span class="keyword">if</span> len( postitem.css(<span class="string">'article h2::text'</span>).extract() ) != <span class="number">0</span> :</span><br><span class="line">                title = postitem.css(<span class="string">'article h2::text'</span>).extract()[<span class="number">0</span>]</span><br><span class="line">            <span class="keyword">elif</span> len( postitem.css(<span class="string">'article h3::text'</span>).extract() ) != <span class="number">0</span> :</span><br><span class="line">                title = postitem.css(<span class="string">'article h3::text'</span>).extract()[<span class="number">0</span>]</span><br><span class="line">            <span class="keyword">elif</span> len( postitem.css(<span class="string">'article h4::text'</span>).extract()) != <span class="number">0</span> :</span><br><span class="line">                title = postitem.css(<span class="string">'article h4::text'</span>).extract()[<span class="number">0</span>]</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                 title = <span class="string">"Error get title"</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">            <span class="comment"># get subtitle</span></span><br><span class="line">            <span class="keyword">if</span> len( postitem.css(<span class="string">'.section-inner h4::text'</span>).extract()) != <span class="number">0</span> :</span><br><span class="line">                subtitle = postitem.css(<span class="string">'.section-inner h4::text'</span>).extract()[<span class="number">0</span>]</span><br><span class="line">            <span class="keyword">elif</span> len( postitem.css(<span class="string">'.section-inner p::text'</span>).extract()) != <span class="number">0</span> :</span><br><span class="line">                subtitle = postitem.css(<span class="string">'.section-inner p::text'</span>).extract()[<span class="number">0</span>]</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                subtitle = <span class="string">"No subtitle"</span></span><br><span class="line"></span><br><span class="line">            <span class="keyword">yield</span> &#123;</span><br><span class="line">                <span class="string">"title"</span>:title,</span><br><span class="line">                <span class="string">"subtitle"</span>:subtitle,</span><br><span class="line">                <span class="string">"url"</span>:url,</span><br><span class="line">            &#125;</span><br></pre></td></tr></table></figure>
+<p>运行 <code>scrapy runspider medium_spider.py -o res.json</code> ，并且导出 <code>json</code>文件。<br><code>res.json</code></p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line">[</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="attr">"url"</span>: <span class="string">"https://medium.com/sebs-top-tips/analyse-data-flows-without-the-debugger-android-studio-protips-3-ef2885aaffd9?source=tags---------1"</span>,</span><br><span class="line">        <span class="attr">"subtitle"</span>: <span class="string">"Did you know that you can figure…"</span>,</span><br><span class="line">        <span class="attr">"title"</span>: <span class="string">"Analyse data flows without the debugger (Android Studio protips #3)"</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="attr">"url"</span>: <span class="string">"https://medium.com/imgur-engineering/design-at-imgur-from-188-colors-to-12-bb6a1a8a26d9?source=tags---------2"</span>,</span><br><span class="line">        <span class="attr">"subtitle"</span>: <span class="string">"Let’s take a little look back in time, through the history of Imgur. In 2009, Imgur started…"</span>,</span><br><span class="line">        <span class="attr">"title"</span>: <span class="string">"Design at Imgur: From 188 Colors to 12"</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="attr">"url"</span>: <span class="string">"https://medium.com/@raveeshbhalla/android-n-notifications-a-design-analysis-cec09f1cc5bf?source=tags---------3"</span>,</span><br><span class="line">        <span class="attr">"subtitle"</span>: <span class="string">"It’s been a few days since Google surprised us all by releasing a developer preview for Android N, more than two months before Google I/O. As "</span>,</span><br><span class="line">        <span class="attr">"title"</span>: <span class="string">"Android N Notifications: A Design Analysis"</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="attr">"url"</span>: <span class="string">"https://medium.com/@shollmann/picasso-universal-image-loader-or-glide-that-s-the-question-af34fa7f5e63?source=tags---------4"</span>,</span><br><span class="line">        <span class="attr">"subtitle"</span>: <span class="string">"No subtitle"</span>,</span><br><span class="line">        <span class="attr">"title"</span>: <span class="string">"Error get title"</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="attr">"url"</span>: <span class="string">"https://medium.com/@cesarmcferreira/building-android-apps-30-things-that-experience-made-me-learn-the-hard-way-313680430bf9?source=tags---------5"</span>,</span><br><span class="line">        <span class="attr">"subtitle"</span>: <span class="string">"No subtitle"</span>,</span><br><span class="line">        <span class="attr">"title"</span>: <span class="string">"Building Android Apps — 30 things that experience made me learn the hard way"</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="attr">"url"</span>: <span class="string">"https://medium.com/@hitherejoe/android-n-introducing-picture-in-picture-for-android-tv-35f2392fb609?source=tags---------6"</span>,</span><br><span class="line">        <span class="attr">"subtitle"</span>: <span class="string">"Last week we saw the surprise release of the…"</span>,</span><br><span class="line">        <span class="attr">"title"</span>: <span class="string">"Android N: Introducing Picture-in-Picture for Android TV"</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="attr">"url"</span>: <span class="string">"https://medium.com/@nielsz/android-quality-with-mvp-espresso-junit-jacoco-and-sonarqube-3430d9ee4a4a?source=tags---------7"</span>,</span><br><span class="line">        <span class="attr">"subtitle"</span>: <span class="string">"In my "</span>,</span><br><span class="line">        <span class="attr">"title"</span>: <span class="string">"Android Quality with MVP, Espresso, JUnit, JaCoCo and SonarQube"</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="attr">"url"</span>: <span class="string">"https://labs.ribot.co.uk/android-application-architecture-8b6e34acda65?source=tags---------8"</span>,</span><br><span class="line">        <span class="attr">"subtitle"</span>: <span class="string">"Our journey from standard Activities and AsyncTasks to a modern MVP-based architecture powered by RxJava."</span>,</span><br><span class="line">        <span class="attr">"title"</span>: <span class="string">"Android Application Architecture"</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="attr">"url"</span>: <span class="string">"https://medium.com/@hamen/android-library-aar-and-javadoc-6859898cad28?source=tags---------9"</span>,</span><br><span class="line">        <span class="attr">"subtitle"</span>: <span class="string">"As an Android developer, I’m used to ask Android Studio/Intellij Idea for documentation constantly. I have even replaced the shortcut: now, it’s F1, the old-fashion help key. When I want to know about a method or a class, I hit F1 and the JavaDoc shows up: smooth. How does…"</span>,</span><br><span class="line">        <span class="attr">"title"</span>: <span class="string">"Android Library AAR and Javadoc"</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="attr">"url"</span>: <span class="string">"https://medium.com/@p.tournaris/rxjava-rxreplayingshare-emit-only-once-b19acd61b469?source=tags---------10"</span>,</span><br><span class="line">        <span class="attr">"subtitle"</span>: <span class="string">"Following up on my "</span>,</span><br><span class="line">        <span class="attr">"title"</span>: <span class="string">"RxJava —RxReplayingShare, Emit only Once"</span></span><br><span class="line">    &#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>文章来自： <a href="https://hanks.pub">https://hanks.pub</a></p>
+</blockquote>
+
+      
+    </div>
+</article>
+
+<!-- 上一页 下一页 -->
+
+
+<nav id="article-nav">
+  
+    <a href="/2016/03/26/color-board/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>上一篇</span>
+      <div class="article-nav-title">
+        
+          一张图让开发人员理解色相、亮度、饱和度
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/03/20/kotlin-dagger2/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>下一篇</span>
+      <div class="article-nav-title">kotlin-dagger2</div>
+    </a>
+  
+</nav>
+
+
+
+<!-- 相关文章 -->
+
+<!--
+
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+      			<a href="/2016/03/21/scrapy-mediuem-android/">Scrapy 抓取 Mediuem 网站 Android 标签下的文章</a>
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+
+-->
+
+
+
+<section>
+  <!-- 多说分享框 -->
+  <div id="disqus_thread"></div>
+  <script>
+    /**
+     *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+     *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+    /*
+    var disqus_config = function () {
+    this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+    this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    */
+    (function () { // DON'T EDIT BELOW THIS LINE
+      var d = document,
+        s = d.createElement('script');
+      s.src = 'https://hanks-zyh.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by
+      Disqus.</a></noscript>
+  <!-- 多说公共JS代码 end -->
+</section>
+</section>
+      </div>
+      <footer id="footer">
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      &copy; 2021 <a href="https://github.com/hanks-zyh"> Hanks</a>
+	  </div>
+  </div>
+ <div id="share">
+  <a id="totop" title="" style="display: block;">返回顶部</a>
+ </div>
+</footer>
+
+    </div>
+    
+
+<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery.scrollLoading.js"></script>
+
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

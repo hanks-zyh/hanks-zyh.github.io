@@ -9,6 +9,9 @@
 </head>
 
 <body>
+
+    <a target="_blank" href="https://qm.qq.com/cgi-bin/qm/qr?k=nGt9NxEwCsTnSlBBLZnbHJzTFqpYvw6k&jump_from=webapi"><img border="0" src="//pub.idqqimg.com/wpa/images/group.png" alt="B站粉丝小组件交流群" title="B站粉丝小组件交流群"></a>
+
     <script>
         function getQueryString(name) {
             var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
@@ -29,6 +32,10 @@
             url = 'http://mp.weixin.qq.com/mp/getmasssendmsg?__biz=MzAwNjgzOTEwNg==#wechat_redirect'
         } else if (type == 'bilibili') {
             url = 'https://space.bilibili.com/14506847'
+        }  else if (type == 'qq') {
+            if (pkg == 'com.android.cf.bzfs') {
+                url = 'https://qm.qq.com/cgi-bin/qm/qr?k=nGt9NxEwCsTnSlBBLZnbHJzTFqpYvw6k&jump_from=webapi'
+            }
         } else if (type == 'update') {
             url = 'https://www.coolapk.com/apk/' + pkg;
         }

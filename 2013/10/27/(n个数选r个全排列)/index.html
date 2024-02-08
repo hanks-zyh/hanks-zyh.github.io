@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>(n个数选r个全排列) | Hanks&#39; Websit</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <script data-ad-client="ca-pub-8165670162444117" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <meta name="referrer" content="never">
+  <meta name="description" content="https:&#x2F;&#x2F;acm.nyist.net&#x2F;JudgeOnline&#x2F;problem.php?pid&#x3D;32  输出结果中 不能重复使用（若有543 则不能有345,435等）    &#x2F;*************************** # 2013-8-22 15:46:46  # Time: 8MS   Memory: 232KB # Author: zyh # Status: Accept">
+<meta property="og:type" content="article">
+<meta property="og:title" content="(n个数选r个全排列)">
+<meta property="og:url" content="https://hanks.pub/2013/10/27/(n%E4%B8%AA%E6%95%B0%E9%80%89r%E4%B8%AA%E5%85%A8%E6%8E%92%E5%88%97)/index.html">
+<meta property="og:site_name" content="Hanks&#39; Websit">
+<meta property="og:description" content="https:&#x2F;&#x2F;acm.nyist.net&#x2F;JudgeOnline&#x2F;problem.php?pid&#x3D;32  输出结果中 不能重复使用（若有543 则不能有345,435等）    &#x2F;*************************** # 2013-8-22 15:46:46  # Time: 8MS   Memory: 232KB # Author: zyh # Status: Accept">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2013-10-27T07:38:00.000Z">
+<meta property="article:modified_time" content="2024-02-08T01:29:02.167Z">
+<meta property="article:author" content="Hanks">
+<meta name="twitter:card" content="summary">
+  
+  
+  <link href="https://fonts.googleapis.com/css?family=Fira+Code|Noto+Serif+SC&display=swap" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8165670162444117"
+     crossorigin="anonymous"></script>
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo"></a>
+    <nav id="main-nav">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      
+        <a class="main-nav-link" href="/archives">Archive</a>
+      
+        <a class="main-nav-link" href="/eye-video">Eye</a>
+      
+        <a class="main-nav-link" href="/atom.xml">Rss</a>
+      
+    </nav>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/archives" class="mobile-nav-link">Archive</a>
+  
+    <a href="/eye-video" class="mobile-nav-link">Eye</a>
+  
+    <a href="/atom.xml" class="mobile-nav-link">Rss</a>
+  
+</nav>
+      <div class="outer">
+        <section id="main"><article id="post-(n个数选r个全排列)" class="article article-type-post" itemscope
+  itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <header class="article-header">
+      
+      
+  
+    <h1 class="article-title" itemprop="name">
+      (n个数选r个全排列)
+    </h1>
+  
+
+      
+    </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+<p>https://acm.nyist.net/JudgeOnline/problem.php?pid=32<br>
+</p>
+<p>输出结果中 不能重复使用（若有543 则不能有345,435等）</p>
+<p><br>
+</p>
+<p></p>
+<pre name="code" class="cpp">/***************************
+# 2013-8-22 15:46:46 
+# Time: 8MS   Memory: 232KB
+# Author: zyh
+# Status: Accepted
+***************************/ 
+
+#include&lt;stdio.h&gt;
+#include&lt;string.h&gt;
+int r,n;
+bool vis[12];
+int s[12];
+void permutation(int t)
+{
+	int i;
+	if(t&gt;r){
+		for(i=1;i&lt;=r;i&#43;&#43;) printf(&quot;%d&quot;,s[i]);
+		puts(&quot;&quot;);	
+		return;
+	} 
+	for(i=n;i&gt;0;i--){
+		if(!vis[i] &amp;&amp; i&lt;s[t-1] ){ //按题意 加上 i&lt;s[t-1] 限制 
+			s[t] = i;
+			vis[i] = 1;
+			permutation(t&#43;1); 
+			vis[i] = 0;
+		}
+	}
+}
+int main()
+{
+	while(~scanf(&quot;%d%d&quot;,&amp;n,&amp;r))
+	{
+		memset(vis,0,sizeof(vis));
+		memset(v,0,sizeof(v));
+		s[0] = 111;
+		permutation(1);
+	}
+	return 0;
+} 
+</pre>
+<br>
+<br>
+<p></p>
+
+      
+    </div>
+</article>
+
+<!-- 上一页 下一页 -->
+
+
+<nav id="article-nav">
+  
+    <a href="/2013/10/29/%E4%B8%80%E4%B8%AA%E5%AD%97%E7%AC%A6%E4%B8%B2%E8%A6%81%E5%8F%98%E6%88%90%E5%9B%9E%E6%96%87%E4%B8%B2%E7%9A%84%E9%9C%80%E8%A6%81%E6%B7%BB%E5%8A%A0%E7%9A%84%E5%AD%97%E7%AC%A6%E6%9C%80%E5%B0%91%E4%B8%AA%E6%95%B0/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>上一篇</span>
+      <div class="article-nav-title">
+        
+          一个字符串要变成回文串的需要添加的字符最少个数
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2013/10/26/NYOJ_%E9%A2%98%E7%9B%AE854_%E7%95%99%E6%81%8B/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>下一篇</span>
+      <div class="article-nav-title">NYOJ 题目854 留恋</div>
+    </a>
+  
+</nav>
+
+
+
+<!-- 相关文章 -->
+
+<!--
+
+-->
+
+
+</section>
+      </div>
+      <footer id="footer">
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      
+      &copy;2024<a target="_blank" rel="noopener" href="https://github.com/hanks-zyh"> Hanks</a>版权所有
+      <br/>
+      <a href="https://beian.miit.gov.cn/" target="_blank">豫ICP备2021022347号</a>
+	  </div>
+  </div>
+ <div id="share">
+  <a id="totop" title="" style="display: block;">返回顶部</a>
+ </div>
+</footer>
+
+    </div>
+    
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/jquery.scrollLoading.js"></script>
+
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/ads.js"></script>
+
+  </div>
+</body>
+</html>

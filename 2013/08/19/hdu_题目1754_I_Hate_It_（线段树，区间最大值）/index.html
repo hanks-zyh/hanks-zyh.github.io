@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>hdu 题目1754 I Hate It （线段树，区间最大值） | Hanks&#39; Websit</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <script data-ad-client="ca-pub-8165670162444117" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <meta name="referrer" content="never">
+  <meta name="description" content="I Hate It Time Limit: 9000&#x2F;3000 MS (Java&#x2F;Others)&nbsp;&nbsp;&nbsp;&nbsp;Memory Limit: 32768&#x2F;32768 K (Java&#x2F;Others) Total Submission(s): 27989&nbsp;&nbsp;&nbsp;&nbsp;Accepted Submission(s): 11104    Pr">
+<meta property="og:type" content="article">
+<meta property="og:title" content="hdu 题目1754 I Hate It （线段树，区间最大值）">
+<meta property="og:url" content="https://hanks.pub/2013/08/19/hdu_%E9%A2%98%E7%9B%AE1754_I_Hate_It_%EF%BC%88%E7%BA%BF%E6%AE%B5%E6%A0%91%EF%BC%8C%E5%8C%BA%E9%97%B4%E6%9C%80%E5%A4%A7%E5%80%BC%EF%BC%89/index.html">
+<meta property="og:site_name" content="Hanks&#39; Websit">
+<meta property="og:description" content="I Hate It Time Limit: 9000&#x2F;3000 MS (Java&#x2F;Others)&nbsp;&nbsp;&nbsp;&nbsp;Memory Limit: 32768&#x2F;32768 K (Java&#x2F;Others) Total Submission(s): 27989&nbsp;&nbsp;&nbsp;&nbsp;Accepted Submission(s): 11104    Pr">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2013-08-19T14:03:00.000Z">
+<meta property="article:modified_time" content="2024-02-08T01:29:02.185Z">
+<meta property="article:author" content="Hanks">
+<meta name="twitter:card" content="summary">
+  
+  
+  <link href="https://fonts.googleapis.com/css?family=Fira+Code|Noto+Serif+SC&display=swap" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8165670162444117"
+     crossorigin="anonymous"></script>
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo"></a>
+    <nav id="main-nav">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      
+        <a class="main-nav-link" href="/archives">Archive</a>
+      
+        <a class="main-nav-link" href="/eye-video">Eye</a>
+      
+        <a class="main-nav-link" href="/atom.xml">Rss</a>
+      
+    </nav>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/archives" class="mobile-nav-link">Archive</a>
+  
+    <a href="/eye-video" class="mobile-nav-link">Eye</a>
+  
+    <a href="/atom.xml" class="mobile-nav-link">Rss</a>
+  
+</nav>
+      <div class="outer">
+        <section id="main"><article id="post-hdu_题目1754_I_Hate_It_（线段树，区间最大值）" class="article article-type-post" itemscope
+  itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <header class="article-header">
+      
+      
+  
+    <h1 class="article-title" itemprop="name">
+      hdu 题目1754 I Hate It （线段树，区间最大值）
+    </h1>
+  
+
+      
+    </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+<h1 align="center" style="color:#1a5cc8">I Hate It</h1>
+<h1 align="center"><span style="background-color:#ffffff"><span style="color:#33cc00"><span size="&#43;0"><span style="font-size:14px">Time Limit: 9000/3000 MS (Java/Others)&nbsp;&nbsp;&nbsp;&nbsp;Memory Limit: 32768/32768 K (Java/Others)<br>
+Total Submission(s): 27989&nbsp;&nbsp;&nbsp;&nbsp;Accepted Submission(s): 11104<br>
+</span></span><br>
+</span></span><br>
+</h1>
+<div class="panel_title" align="left"><span style="font-size:18px; color:#3366ff">Problem Description</span></div>
+<div class="panel_content">很多学校流行一种比较的习惯。老师们很喜欢询问，从某某到某某当中，分数最高的是多少。<br>
+这让很多学生很反感。<br>
+<br>
+不管你喜不喜欢，现在需要你做的是，就是按照老师的要求，写一个程序，模拟老师的询问。当然，老师有时候需要更新某位同学的成绩。</div>
+<div class="panel_bottom">&nbsp;</div>
+<p><br>
+&nbsp;</p>
+<div class="panel_title" align="left"><span style="font-size:18px; color:#3366ff">Input</span></div>
+<div class="panel_content">本题目包含多组测试，请处理到文件结束。<br>
+在每个测试的第一行，有两个正整数 N 和 M ( 0&lt;N&lt;=200000,0&lt;M&lt;5000 )，分别代表学生的数目和操作的数目。<br>
+学生ID编号分别从1编到N。<br>
+第二行包含N个整数，代表这N个学生的初始成绩，其中第i个数代表ID为i的学生的成绩。<br>
+接下来有M行。每一行有一个字符 C (只取'Q'或'U') ，和两个正整数A，B。<br>
+当C为'Q'的时候，表示这是一条询问操作，它询问ID从A到B(包括A,B)的学生当中，成绩最高的是多少。<br>
+当C为'U'的时候，表示这是一条更新操作，要求把ID为A的学生的成绩更改为B。<br>
+</div>
+<div class="panel_bottom">&nbsp;</div>
+<p><br>
+&nbsp;</p>
+<div class="panel_title" align="left"><span style="font-size:18px; color:#3366ff">Output</span></div>
+<div class="panel_content">对于每一次询问操作，在一行里面输出最高成绩。</div>
+<div class="panel_bottom">&nbsp;</div>
+<p><br>
+&nbsp;</p>
+<div class="panel_title" align="left">Sample Input</div>
+<div class="panel_content">
+<pre><div style="font-family:Courier New,Courier,monospace">5 6
+1 2 3 4 5
+Q 1 5
+U 3 6
+Q 3 4
+Q 4 5
+U 2 9
+Q 1 5</div></pre>
+</div>
+<div class="panel_bottom">&nbsp;</div>
+<p><br>
+&nbsp;</p>
+<div class="panel_title" align="left">Sample Output</div>
+<div class="panel_content">
+<pre><div style="font-family:Courier New,Courier,monospace">5
+6
+5
+9
+
+<div style="border-bottom:#b7cbff 1px dashed; border-left:#b7cbff 1px dashed; padding-bottom:6px; background-color:#f4fbff; padding-left:6px; padding-right:6px; font-family:Times New Roman; font-size:14px; border-top:#b7cbff 1px dashed; border-right:#b7cbff 1px dashed; padding-top:6px"><div style="border-bottom:#b7cbff 1px dashed; font-family:Arial; color:#7ca9ed; font-weight:bold"><em>Hint</em></div>Huge input,the C function scanf() will work better than cin</div><em style="font-size:1px"> </em></div></pre>
+</div>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>记录区间最&#20540;，注意3中方向，向左子树，向右子树，分开两边的</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<pre class="cpp" name="code">/********************** 
+2013-8-19 18:35:49  
+Time: 500MS  Memory: 7180K 
+Author: zyh
+Status: Accepted
+**********************/ 
+#define N 200010
+#define MAX(a,b) (a)&gt;(b)?(a):(b)
+#include&lt;iostream&gt;
+#include&lt;stdio.h&gt;
+#include&lt;string.h&gt;
+#include&lt;stdlib.h&gt;
+#include&lt;algorithm&gt;
+
+using namespace std;
+
+struct IntervalTree{
+	int L,R,max;
+}tree[N*3];
+
+int aa[N];
+
+void build(int p,int l,int r){
+	
+	tree[p].L = l; tree[p].R = r;
+
+	if(l==r) {
+		tree[p].max = aa[l];
+		return ;
+	}
+	int mid = (l+r)&gt;&gt;1;
+	
+	build(p&lt;&lt;1,l,mid);
+	build(p&lt;&lt;1|1,mid+1,r);
+
+	tree[p].max = MAX(tree[p&lt;&lt;1].max,tree[p&lt;&lt;1|1].max);
+}
+
+
+void change(int p,int a,int b){
+	
+	if(tree[p].L ==a &amp;&amp;  tree[p].R==a ){
+		tree[p].max = b;
+		return;
+	}
+	if(a&lt;tree[p&lt;&lt;1|1].L)	change(p&lt;&lt;1,a,b);
+	else	change(p&lt;&lt;1|1,a,b);
+	tree[p].max = MAX(tree[p&lt;&lt;1].max,tree[p&lt;&lt;1|1].max); 
+}
+
+int query(int p,int l,int r){
+	
+	if( l == tree[p].L &amp;&amp; r == tree[p].R )	return tree[p].max;
+
+	int mid = (tree[p].L + tree[p].R)&gt;&gt;1;
+	if(r&lt;=mid)	return query(p&lt;&lt;1,l,r);
+	else if(l&gt;mid)	return query(p&lt;&lt;1|1,l,r);
+	else{
+		int tmp1 = query(p&lt;&lt;1,l,mid); // 这里不能直接放在宏定义函数中，不然超时 
+		int tmp2 = query(p&lt;&lt;1|1,mid+1,r);	
+		return MAX(tmp1,tmp2);
+	}	
+	
+}
+
+
+int main()
+{
+	int n,m,i,a,b;
+	char s[2];
+	while(scanf(&quot;%d%d&quot;,&amp;n,&amp;m)!=EOF)
+	{
+		for(i=1;i&lt;=n;i++) scanf(&quot;%d&quot;,&amp;aa[i]);
+		build(1,1,n);
+	
+		while(m--){
+			scanf(&quot;%s&quot;,s);
+			if(s[0]=='Q'){
+				scanf(&quot;%d%d&quot;,&amp;a,&amp;b);
+				printf(&quot;%d\n&quot;,query(1,a,b));
+			}
+			else{
+				scanf(&quot;%d%d&quot;,&amp;a,&amp;b);
+				change(1,a,b);	
+			}
+		}
+	}
+	return 0;
+} </pre>
+<p><br>
+&nbsp;</p>
+<p>&nbsp;</p>
+
+      
+    </div>
+</article>
+
+<!-- 上一页 下一页 -->
+
+
+<nav id="article-nav">
+  
+    <a href="/2013/08/19/poj_%E9%A2%98%E7%9B%AE3468_A_Simple_Problem_with_Integers_%EF%BC%88%E7%BA%BF%E6%AE%B5%E6%A0%91%EF%BC%89/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>上一篇</span>
+      <div class="article-nav-title">
+        
+          poj 题目3468 A Simple Problem with Integers （线段树）
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2013/08/19/hdu_%E9%A2%98%E7%9B%AE4217_Data_Structure_%EF%BC%88%E7%BA%BF%E6%AE%B5%E6%A0%91%EF%BC%8C%E5%8D%95%E7%82%B9%E6%9B%B4%E6%96%B0%EF%BC%89/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>下一篇</span>
+      <div class="article-nav-title">hdu 题目4217 Data Structure?（线段树，单点更新）</div>
+    </a>
+  
+</nav>
+
+
+
+<!-- 相关文章 -->
+
+<!--
+
+-->
+
+
+</section>
+      </div>
+      <footer id="footer">
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      
+      &copy;2024<a target="_blank" rel="noopener" href="https://github.com/hanks-zyh"> Hanks</a>版权所有
+      <br/>
+      <a href="https://beian.miit.gov.cn/" target="_blank">豫ICP备2021022347号</a>
+	  </div>
+  </div>
+ <div id="share">
+  <a id="totop" title="" style="display: block;">返回顶部</a>
+ </div>
+</footer>
+
+    </div>
+    
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/jquery.scrollLoading.js"></script>
+
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/ads.js"></script>
+
+  </div>
+</body>
+</html>

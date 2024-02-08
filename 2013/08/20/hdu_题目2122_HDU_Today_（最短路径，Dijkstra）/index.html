@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>hdu 题目2122 HDU Today （最短路径，Dijkstra） | Hanks&#39; Websit</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <script data-ad-client="ca-pub-8165670162444117" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <meta name="referrer" content="never">
+  <meta name="description" content="HDU Today Time Limit: 15000&#x2F;5000 MS (Java&#x2F;Others)&nbsp;&nbsp;&nbsp;&nbsp;Memory Limit: 32768&#x2F;32768 K (Java&#x2F;Others) Total Submission(s): 11027&nbsp;&nbsp;&nbsp;&nbsp;Accepted Submission(s): 2575    Pr">
+<meta property="og:type" content="article">
+<meta property="og:title" content="hdu 题目2122 HDU Today （最短路径，Dijkstra）">
+<meta property="og:url" content="https://hanks.pub/2013/08/20/hdu_%E9%A2%98%E7%9B%AE2122_HDU_Today_%EF%BC%88%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84%EF%BC%8CDijkstra%EF%BC%89/index.html">
+<meta property="og:site_name" content="Hanks&#39; Websit">
+<meta property="og:description" content="HDU Today Time Limit: 15000&#x2F;5000 MS (Java&#x2F;Others)&nbsp;&nbsp;&nbsp;&nbsp;Memory Limit: 32768&#x2F;32768 K (Java&#x2F;Others) Total Submission(s): 11027&nbsp;&nbsp;&nbsp;&nbsp;Accepted Submission(s): 2575    Pr">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2013-08-20T13:30:00.000Z">
+<meta property="article:modified_time" content="2024-02-08T01:29:02.186Z">
+<meta property="article:author" content="Hanks">
+<meta name="twitter:card" content="summary">
+  
+  
+  <link href="https://fonts.googleapis.com/css?family=Fira+Code|Noto+Serif+SC&display=swap" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8165670162444117"
+     crossorigin="anonymous"></script>
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo"></a>
+    <nav id="main-nav">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      
+        <a class="main-nav-link" href="/archives">Archive</a>
+      
+        <a class="main-nav-link" href="/eye-video">Eye</a>
+      
+        <a class="main-nav-link" href="/atom.xml">Rss</a>
+      
+    </nav>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/archives" class="mobile-nav-link">Archive</a>
+  
+    <a href="/eye-video" class="mobile-nav-link">Eye</a>
+  
+    <a href="/atom.xml" class="mobile-nav-link">Rss</a>
+  
+</nav>
+      <div class="outer">
+        <section id="main"><article id="post-hdu_题目2122_HDU_Today_（最短路径，Dijkstra）" class="article article-type-post" itemscope
+  itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <header class="article-header">
+      
+      
+  
+    <h1 class="article-title" itemprop="name">
+      hdu 题目2122 HDU Today （最短路径，Dijkstra）
+    </h1>
+  
+
+      
+    </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+<h1 align="center" style="color:#1a5cc8">HDU Today</h1>
+<p align="center"><span size="&#43;0"><strong><span style="font-family:Arial; font-size:12px; color:green; font-weight:bold">Time Limit: 15000/5000 MS (Java/Others)&nbsp;&nbsp;&nbsp;&nbsp;Memory Limit: 32768/32768 K (Java/Others)<br>
+Total Submission(s): 11027&nbsp;&nbsp;&nbsp;&nbsp;Accepted Submission(s): 2575<br>
+</span></strong></span><br>
+<br>
+</p>
+<div class="panel_title" align="left"><span style="font-size:18px; color:#3366ff">Problem Description</span></div>
+<div class="panel_content">经过锦囊相助，海东集团终于度过了危机，从此，HDU的发展就一直顺风顺水，到了2050年，集团已经相当规模了，据说进入了钱江肉丝经济开发区500强。这时候，XHD夫妇也退居了二线，并在风景秀美的诸暨市浬浦镇陶姚村买了个房子，开始安度晚年了。<br>
+这样住了一段时间，徐总对当地的交通还是不太了解。有时很郁闷，想去一个地方又不知道应该乘什么公交车，在什么地方转车，在什么地方下车（其实徐总自己有车，却一定要与民同乐，这就是徐总的性&#26684;）。<br>
+徐总经常会问蹩脚的英文问路：“Can you help me?”。看着他那迷茫而又无助的&#30524;神，热心的你能帮帮他吗？<br>
+请帮助他用最短的时间到达目的地（假设每一路公交车都只在起点站和终点站停，而且随时都会开）。<br>
+</div>
+<div class="panel_bottom">&nbsp;</div>
+<p><br>
+&nbsp;</p>
+<div class="panel_title" align="left"><span style="font-size:18px; color:#3366ff">Input</span></div>
+<div class="panel_content">输入数据有多组，每组的第一行是公交车的总数N(0&lt;=N&lt;=10000)；<br>
+第二行有徐总的所在地start，他的目的地end；<br>
+接着有n行，每行有站名s，站名e，以及从s到e的时间整数t(0&lt;t&lt;100)(每个地名是一个长度不超过30的字符串)。<br>
+note：一组数据中地名数不会超过150个。<br>
+如果N==-1，表示输入结束。<br>
+</div>
+<div class="panel_bottom">&nbsp;</div>
+<p><br>
+&nbsp;</p>
+<div class="panel_title" align="left"><span style="font-size:18px; color:#3366ff">Output</span></div>
+<div class="panel_content">如果徐总能到达目的地，输出最短的时间；否则，输出“-1”。<br>
+</div>
+<div class="panel_bottom">&nbsp;</div>
+<p><br>
+&nbsp;</p>
+<div class="panel_title" align="left">Sample Input</div>
+<div class="panel_content">
+<pre><div style="font-family:Courier New,Courier,monospace">6
+xiasha westlake
+xiasha station 60
+xiasha ShoppingCenterofHangZhou 30
+station westlake 20
+ShoppingCenterofHangZhou supermarket 10
+xiasha supermarket 50
+supermarket westlake 10
+-1</div></pre>
+</div>
+<div class="panel_bottom">&nbsp;</div>
+<p><br>
+&nbsp;</p>
+<div class="panel_title" align="left">Sample Output</div>
+<div class="panel_content">
+<pre><div style="font-family:Courier New,Courier,monospace">50
+
+
+Hint:
+The best route is:
+xiasha-&gt;ShoppingCenterofHangZhou-&gt;supermarket-&gt;westlake
+
+</div></pre>
+</div>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>存储各站点信息，最后Dijkstra</p>
+<p>&nbsp;</p>
+<pre class="cpp" name="code">/********************** 
+# 2013-8-20 19:42:14 
+# Time: 562MS   Memory: 396KB
+# Author: zyh
+# Status: Accepted
+**********************/ 
+
+#include&lt;stdio.h&gt;
+#include&lt;string.h&gt;
+#define M 999999999
+
+int map[200][200];
+int dis[200];
+char pl[200][35];
+int k;
+void dijkstra(int s,int n)
+{
+	int vis[200];
+	int min = M,i,j;
+	for(i=0;i&lt;n;i++){
+		vis[i] = 0;
+		dis[i] = map[s][i]; 
+	}
+	dis[s] = 0;
+	vis[s] = 1;
+	
+	for(i=0;i&lt;n;i++)
+	{
+		int loc = s;
+		min = M;
+		for(j=0;j&lt;n;j++)
+		{
+			if(!vis[j] &amp;&amp; dis[j]&lt;min){
+				min = dis[j];
+				loc = j;
+			}
+		}
+		vis[loc] = 1;
+		for(j=0;j&lt;n;j++)
+		{
+			if(!vis[j] &amp;&amp; map[loc][j]&lt;M){
+				int temp = dis[loc] + map[loc][j];
+				if(dis[j] &gt; temp)	dis[j] = temp; 
+			}
+		}		
+	}	
+}
+
+int getid(char * s){
+	
+	int j;
+	for(j=0;j&lt;k;j++){		
+		if(strcmp(pl[j],s)==0){
+			return j;
+		} 
+	}
+	strcpy(pl[k],s);
+	return k++;
+}
+int main()
+{
+	int n,a,b,i,j,val;
+
+	char s[35],e[35],t1[35],t2[35];
+	while(scanf(&quot;%d&quot;,&amp;n),!(n==-1))
+	{
+		scanf(&quot;%s%s&quot;,s,e);
+		k = 0;
+		for(i=0;i&lt;199;i++){
+			for(j=0;j&lt;199;j++)
+				map[i][j] = M;
+		}
+		
+		k =0;
+		for(i=0;i&lt;n;i++){
+			scanf(&quot;%s%s%d&quot;,t1,t2,&amp;val);	
+			a = getid(t1);	b = getid(t2);
+			if(map[a][b]&gt;val || map[b][a]&gt;val)	map[b][a] = map[a][b] = val;
+		}
+		int num = k;
+
+		a = getid(s);
+		b = getid(e);
+				
+		if(a&gt;=num || b&gt;=num){
+			printf(&quot;-1\n&quot;);
+			continue;
+		}	
+		else
+		{
+			dijkstra(a,num);
+			if(dis[b]==M) printf(&quot;-1\n&quot;);
+			else printf(&quot;%d\n&quot;,dis[b]);	
+		}			
+	}
+	return 0;
+} 
+
+/*
+6
+x x
+xiasha station 60
+xiasha ShoppingCenterofHangZhou 30
+station westlake 20
+ShoppingCenterofHangZhou supermarket 10
+xiasha supermarket 50
+supermarket westlake 10
+6
+xiasha xiasha
+xiasha station 60
+xiasha ShoppingCenterofHangZhou 30
+station westlake 20
+ShoppingCenterofHangZhou supermarket 10
+xiasha supermarket 50
+supermarket westlake 10
+3
+x y
+x z 5
+y h 6
+h z 1
+
+*/
+
+</pre>
+<p><br>
+&nbsp;</p>
+
+      
+    </div>
+</article>
+
+<!-- 上一页 下一页 -->
+
+
+<nav id="article-nav">
+  
+    <a href="/2013/08/20/hdu_%E9%A2%98%E7%9B%AE1385_Minimum_Transport_Cost_%EF%BC%88%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84%EF%BC%8C%E8%B7%AF%E5%BE%84%E4%BF%9D%E5%AD%98%E5%8F%8A%E7%AD%9B%E9%80%89%EF%BC%89/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>上一篇</span>
+      <div class="article-nav-title">
+        
+          hdu 题目1385 Minimum Transport Cost （最短路径，路径保存及筛选）
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2013/08/20/hdu_%E9%A2%98%E7%9B%AE1596_find_the_safest_road_%EF%BC%88%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84_dijkstra%EF%BC%89/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>下一篇</span>
+      <div class="article-nav-title">hdu 题目1596 find the safest road （最短路径 dijkstra）</div>
+    </a>
+  
+</nav>
+
+
+
+<!-- 相关文章 -->
+
+<!--
+
+-->
+
+
+</section>
+      </div>
+      <footer id="footer">
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      
+      &copy;2024<a target="_blank" rel="noopener" href="https://github.com/hanks-zyh"> Hanks</a>版权所有
+      <br/>
+      <a href="https://beian.miit.gov.cn/" target="_blank">豫ICP备2021022347号</a>
+	  </div>
+  </div>
+ <div id="share">
+  <a id="totop" title="" style="display: block;">返回顶部</a>
+ </div>
+</footer>
+
+    </div>
+    
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/jquery.scrollLoading.js"></script>
+
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/ads.js"></script>
+
+  </div>
+</body>
+</html>

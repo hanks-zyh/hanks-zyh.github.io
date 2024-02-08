@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>NYOJ题目358 取石子（五）hdu题目2516 取石子游戏 Fibonacci’s Game（斐波那契博弈） | Hanks&#39; Websit</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <script data-ad-client="ca-pub-8165670162444117" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <meta name="referrer" content="never">
+  <meta name="description" content="取石子(五） 时间限制：1000&nbsp;ms &nbsp;|&nbsp; 内存限制：65535&nbsp;KB 难度：4      描述himdd最近很想玩游戏，于是他找到acmj和他一起玩，游戏是这样的：有一堆石子,两个人轮流从其中取走一定的石子,取走最后所有石子的人为赢家,不过得遵循如下规则: 1.第一次取不能取完,至少取1颗.   2.从第二次开始,每个人取的石子数至少为1,至多">
+<meta property="og:type" content="article">
+<meta property="og:title" content="NYOJ题目358 取石子（五）hdu题目2516 取石子游戏 Fibonacci’s Game（斐波那契博弈）">
+<meta property="og:url" content="https://hanks.pub/2013/08/25/NYOJ%E9%A2%98%E7%9B%AE358_%E5%8F%96%E7%9F%B3%E5%AD%90%EF%BC%88%E4%BA%94%EF%BC%89hdu%E9%A2%98%E7%9B%AE2516_%E5%8F%96%E7%9F%B3%E5%AD%90%E6%B8%B8%E6%88%8F_Fibonacci%E2%80%99s_Game%EF%BC%88%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91%E5%8D%9A%E5%BC%88%EF%BC%89/index.html">
+<meta property="og:site_name" content="Hanks&#39; Websit">
+<meta property="og:description" content="取石子(五） 时间限制：1000&nbsp;ms &nbsp;|&nbsp; 内存限制：65535&nbsp;KB 难度：4      描述himdd最近很想玩游戏，于是他找到acmj和他一起玩，游戏是这样的：有一堆石子,两个人轮流从其中取走一定的石子,取走最后所有石子的人为赢家,不过得遵循如下规则: 1.第一次取不能取完,至少取1颗.   2.从第二次开始,每个人取的石子数至少为1,至多">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2013-08-25T10:20:00.000Z">
+<meta property="article:modified_time" content="2024-02-08T01:29:02.176Z">
+<meta property="article:author" content="Hanks">
+<meta name="twitter:card" content="summary">
+  
+  
+  <link href="https://fonts.googleapis.com/css?family=Fira+Code|Noto+Serif+SC&display=swap" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8165670162444117"
+     crossorigin="anonymous"></script>
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo"></a>
+    <nav id="main-nav">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      
+        <a class="main-nav-link" href="/archives">Archive</a>
+      
+        <a class="main-nav-link" href="/eye-video">Eye</a>
+      
+        <a class="main-nav-link" href="/atom.xml">Rss</a>
+      
+    </nav>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/archives" class="mobile-nav-link">Archive</a>
+  
+    <a href="/eye-video" class="mobile-nav-link">Eye</a>
+  
+    <a href="/atom.xml" class="mobile-nav-link">Rss</a>
+  
+</nav>
+      <div class="outer">
+        <section id="main"><article id="post-NYOJ题目358_取石子（五）hdu题目2516_取石子游戏_Fibonacci’s_Game（斐波那契博弈）" class="article article-type-post" itemscope
+  itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <header class="article-header">
+      
+      
+  
+    <h1 class="article-title" itemprop="name">
+      NYOJ题目358 取石子（五）hdu题目2516 取石子游戏 Fibonacci’s Game（斐波那契博弈）
+    </h1>
+  
+
+      
+    </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+<p></p>
+<div class="problem-display" style="font-size:14px; color:rgb(70,70,70); font-family:Tahoma,Arial,sans-serif,simsun">
+<h2 style="margin:0px; padding:0px; font-size:18px; text-align:center; color:rgb(113,32,21); font-family:微软雅黑,黑体">
+取石子(五）</h2>
+<div class="problem-ins" style="text-align:center">时间限制：<span class="editable highlight" id="problem[time_limit]" style="color:rgb(113,32,21)">1000</span>&nbsp;ms &nbsp;|&nbsp; 内存限制：<span class="editable highlight" id="problem[memory_limit]" style="color:rgb(113,32,21)">65535</span>&nbsp;KB</div>
+<div class="problem-ins" style="text-align:center">难度：<span class="editable highlight" style="color:rgb(113,32,21)">4</span></div>
+</div>
+<div class="clr" style="clear:both; color:rgb(70,70,70); font-family:Tahoma,Arial,sans-serif,simsun; font-size:13px; line-height:19px">
+</div>
+<dl class="problem-display" style="margin:0px; padding:0px; font-size:14px; color:rgb(70,70,70); font-family:Tahoma,Arial,sans-serif,simsun">
+<dt style="margin:1em 0px 0.2em; padding:0px; color:rgb(113,32,21); font-size:16px; font-weight:bold">
+描述</dt><dd style="margin:0px; padding:0px"><span style="color:rgb(34,34,34); font-family:Verdana,Arial,Tahoma; line-height:21px">himdd最近很想玩游戏，于是他找到acmj和他一起玩，游戏是这样的：有一堆石子,两个人轮流从其中取走一定的石子,取走最后所有石子的人为赢家,不过得遵循如下规则:<br>
+1.第一次取不能取完,至少取1颗.<br>
+</span>
+<p style="margin-top:1em; margin-bottom:1em; padding-top:0px; padding-bottom:0px">
+<span style="color:rgb(34,34,34); font-family:Verdana,Arial,Tahoma; line-height:21px">2.从第二次开始,每个人取的石子数至少为1,至多为对手刚取的石子数的两倍。</span></p>
+<p style="margin-top:1em; margin-bottom:1em; padding-top:0px; padding-bottom:0px">
+<span style="color:rgb(34,34,34); font-family:Verdana,Arial,Tahoma; line-height:21px">himdd事先想知道自己会不会赢，你能帮帮他吗？（每次himdd先手）</span></p>
+<div class="clr" style="clear:both"></div>
+<dl class="others" style="margin:0px; padding:0px"><dt style="margin:1em 0px 0.2em; padding:0px; color:rgb(113,32,21); font-size:16px; font-weight:bold">
+输入</dt><dd style="margin:0px; padding:0px">有多组测试数据，每组有一个整数n(2&lt;=n&lt;2^64);<br>
+</dd><dt style="margin:1em 0px 0.2em; padding:0px; color:rgb(113,32,21); font-size:16px; font-weight:bold">
+输出</dt><dd style="margin:0px; padding:0px">himdd会赢输出Yes,否则输出No;</dd><dt style="margin:1em 0px 0.2em; padding:0px; color:rgb(113,32,21); font-size:16px; font-weight:bold">
+样例输入</dt><dd style="margin:0px; padding:0px">
+<pre id="sample_input" style="margin-top:0px; margin-bottom:0px; padding:5px 10px; font-family:Consolas,'Courier New','DejaVu Sans Mono','Droid Sans Mono',monospace; background-color:rgb(239,239,239); border:1px solid rgb(204,204,204); min-height:20px; line-height:1.5em">2
+5
+6</pre>
+</dd><dt style="margin:1em 0px 0.2em; padding:0px; color:rgb(113,32,21); font-size:16px; font-weight:bold">
+样例输出</dt><dd style="margin:0px; padding:0px">
+<pre id="sample_output" style="margin-top:0px; margin-bottom:0px; padding:5px 10px; font-family:Consolas,'Courier New','DejaVu Sans Mono','Droid Sans Mono',monospace; background-color:rgb(239,239,239); border:1px solid rgb(204,204,204); min-height:20px; line-height:1.5em">No
+No
+Yes</pre>
+</dd></dl>
+</dd></dl>
+<br>
+<p></p>
+<p><br>
+</p>
+<p>先取者 ：斐波纳契数列为必败点</p>
+<p></p>
+<pre name="code" class="cpp"> 
+/***************************
+# 2013-8-25 11:33:04 
+# Time: 8MS   Memory: 232KB
+# Author: zyh
+# Status: Accepted
+***************************/ 
+
+#include&lt;stdio.h&gt;
+
+long long n,f[100];
+int main()
+{
+
+	f[0] = 2; f[1] = 3;
+	for(int i=2;i&lt;100;i++){
+		f[i] = f[i-1] + f[i-2];
+	}
+	
+	while(scanf(&quot;%lld&quot;,&amp;n)!=EOF)
+	{
+		int flag = 1;
+		for(int i=0;i&lt;100;i++){
+			if(f[i]==n) {
+				flag =0;
+				break;
+			}
+		}
+		printf(&quot;%s\n&quot;,!flag?&quot;No&quot;:&quot;Yes&quot;);
+	}
+	return 0;
+}         </pre><br>
+<br>
+<p></p>
+<p><br>
+</p>
+<p><br>
+</p>
+<p><br>
+</p>
+<p></p>
+<h1 style="text-align:center; color:rgb(26,92,200)">取石子游戏</h1>
+<span size="&#43;0" style=""></span>
+<div style="text-align:center"><span style="color:green; font-family:Arial"><strong>Time Limit: 2000/1000 MS (Java/Others)&nbsp;&nbsp;&nbsp;&nbsp;Memory Limit: 32768/32768 K (Java/Others)</strong></span></div>
+<strong></strong>
+<div style="text-align:center"><span style="color:green; font-family:Arial">Total Submission(s): 2069&nbsp;&nbsp;&nbsp;&nbsp;Accepted Submission(s): 1193</span></div>
+<br>
+<br>
+<div class="panel_title" align="left">Problem Description</div>
+<div class="panel_content">1堆石子有n个,两人轮流取.先取者第1次可以取任意多个，但不能全部取完.以后每次取的石子数不能超过上次取子数的2倍。取完者胜.先取者负输出&quot;Second win&quot;.先取者胜输出&quot;First win&quot;.<br>
+</div>
+<div class="panel_bottom">&nbsp;</div>
+<br>
+<div class="panel_title" align="left">Input</div>
+<div class="panel_content">输入有多组.每组第1行是2&lt;=n&lt;2^31. n=0退出.<br>
+</div>
+<div class="panel_bottom">&nbsp;</div>
+<br>
+<div class="panel_title" align="left">Output</div>
+<div class="panel_content">先取者负输出&quot;Second win&quot;. 先取者胜输出&quot;First win&quot;. <br>
+参看Sample Output.<br>
+</div>
+<div class="panel_bottom">&nbsp;</div>
+<br>
+<div class="panel_title" align="left">Sample Input</div>
+<div class="panel_content">
+<pre><div style="font-family:Courier New,Courier,monospace">2
+13
+10000
+0</div></pre>
+</div>
+<div class="panel_bottom">&nbsp;</div>
+<br>
+<div class="panel_title" align="left">Sample Output</div>
+<div class="panel_content">
+<pre><div style="font-family:Courier New,Courier,monospace">Second win
+Second win
+First win</div></pre>
+</div>
+<div class="panel_bottom">&nbsp;</div>
+<pre name="code" class="cpp">/***************************
+# 2013-8-25 11:33:04 
+# Time: 0MS   Memory: 228KB
+# Author: zyh
+# Status: Accepted
+***************************/ 
+
+#include&lt;iostream&gt;
+#include&lt;stdio.h&gt;
+#include&lt;string.h&gt;
+#include&lt;stdlib.h&gt;
+#include&lt;algorithm&gt;
+
+using namespace std;
+
+long long n,f[50];
+int main()
+{
+
+    f[0] = 2; f[1] = 3;
+    for(int i=2;i&lt;45;i++){
+        f[i] = f[i-1] + f[i-2];
+    }
+    
+    while(scanf(&quot;%lld&quot;,&amp;n),n)
+    {
+        int flag = 1;
+        for(int i=0;i&lt;45;i++){
+            if(f[i]==n) {
+                flag =0;
+                break;
+            }
+        }
+        printf(&quot;%s\n&quot;,!flag?&quot;Second win&quot;:&quot;First win&quot;);
+    }
+    return 0;
+} </pre><br>
+<br>
+<br>
+<p></p>
+<p><br>
+</p>
+
+      
+    </div>
+</article>
+
+<!-- 上一页 下一页 -->
+
+
+<nav id="article-nav">
+  
+    <a href="/2013/08/25/NYOJ%E9%A2%98%E7%9B%AE585_%E5%8F%96%E7%9F%B3%E5%AD%90%EF%BC%88%E5%85%AD%EF%BC%89hdu_%E9%A2%98%E7%9B%AE1850Being_a_Good_Boy_in_Spring_Festival_%E5%B0%BC%E5%A7%86%E5%8D%9A%E5%A5%95%EF%BC%88Nimm_Game%EF%BC%89/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>上一篇</span>
+      <div class="article-nav-title">
+        
+          NYOJ题目585 取石子（六）hdu 题目1850Being a Good Boy in Spring Festival 尼姆博奕（Nimm Game）
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2013/08/25/NYOJ_%E9%A2%98%E7%9B%AE161_%E5%8F%96%E7%9F%B3%E5%AD%90%EF%BC%88%E5%9B%9B%EF%BC%89_%E5%A8%81%E4%BD%90%E5%A4%AB%E5%8D%9A%E5%A5%95%EF%BC%88Wythoff_Game%EF%BC%89/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>下一篇</span>
+      <div class="article-nav-title">NYOJ 题目161 取石子（四） 威佐夫博奕（Wythoff Game）</div>
+    </a>
+  
+</nav>
+
+
+
+<!-- 相关文章 -->
+
+<!--
+
+-->
+
+
+</section>
+      </div>
+      <footer id="footer">
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      
+      &copy;2024<a target="_blank" rel="noopener" href="https://github.com/hanks-zyh"> Hanks</a>版权所有
+      <br/>
+      <a href="https://beian.miit.gov.cn/" target="_blank">豫ICP备2021022347号</a>
+	  </div>
+  </div>
+ <div id="share">
+  <a id="totop" title="" style="display: block;">返回顶部</a>
+ </div>
+</footer>
+
+    </div>
+    
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/jquery.scrollLoading.js"></script>
+
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/ads.js"></script>
+
+  </div>
+</body>
+</html>

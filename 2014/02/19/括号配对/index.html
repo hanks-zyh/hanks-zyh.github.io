@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>括号配对 | Hanks&#39; Websit</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <script data-ad-client="ca-pub-8165670162444117" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <meta name="referrer" content="never">
+  <meta name="description" content="#define TRUE 1 #define FALSE 0 #define STACK_INIT_SIZE 10002 #include &quot;iostream&quot; #include &quot;cstdlib&quot; #include &quot;cstdio&quot; #include &quot;cstring&quot; using namespace std; typedef int Status;&nbsp;&nbsp;&#x2F;&#x2F;Stat">
+<meta property="og:type" content="article">
+<meta property="og:title" content="括号配对">
+<meta property="og:url" content="https://hanks.pub/2014/02/19/%E6%8B%AC%E5%8F%B7%E9%85%8D%E5%AF%B9/index.html">
+<meta property="og:site_name" content="Hanks&#39; Websit">
+<meta property="og:description" content="#define TRUE 1 #define FALSE 0 #define STACK_INIT_SIZE 10002 #include &quot;iostream&quot; #include &quot;cstdlib&quot; #include &quot;cstdio&quot; #include &quot;cstring&quot; using namespace std; typedef int Status;&nbsp;&nbsp;&#x2F;&#x2F;Stat">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2014-02-19T11:16:00.000Z">
+<meta property="article:modified_time" content="2024-02-08T01:29:02.200Z">
+<meta property="article:author" content="Hanks">
+<meta name="twitter:card" content="summary">
+  
+  
+  <link href="https://fonts.googleapis.com/css?family=Fira+Code|Noto+Serif+SC&display=swap" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8165670162444117"
+     crossorigin="anonymous"></script>
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo"></a>
+    <nav id="main-nav">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      
+        <a class="main-nav-link" href="/archives">Archive</a>
+      
+        <a class="main-nav-link" href="/eye-video">Eye</a>
+      
+        <a class="main-nav-link" href="/atom.xml">Rss</a>
+      
+    </nav>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/archives" class="mobile-nav-link">Archive</a>
+  
+    <a href="/eye-video" class="mobile-nav-link">Eye</a>
+  
+    <a href="/atom.xml" class="mobile-nav-link">Rss</a>
+  
+</nav>
+      <div class="outer">
+        <section id="main"><article id="post-括号配对" class="article article-type-post" itemscope
+  itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <header class="article-header">
+      
+      
+  
+    <h1 class="article-title" itemprop="name">
+      括号配对
+    </h1>
+  
+
+      
+    </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+<div id="sina_keyword_ad_area2" class="articalContent  ">
+			<p>#define TRUE 1<br />
+#define FALSE 0<br />
+#define STACK_INIT_SIZE 10002</P>
+<p>#include "iostream"<br />
+#include "cstdlib"<br />
+#include "cstdio"<br />
+#include "cstring"</P>
+<p>using namespace std;</P>
+<p>typedef int Status;&nbsp;<wbr>&nbsp;<wbr>//Status
+相当于 int</P>
+<p>typedef struct Stack<br />
+{<br />
+&nbsp;<wbr>char * base;<br />
+&nbsp;<wbr>char * top;<br />
+}SqStack;&nbsp;<wbr></P>
+<p>//***********************函数的声明*****************************</P>
+<p>void&nbsp;<wbr> InitStack(SqStack
+&amp;S)&nbsp;<wbr>//创建一个空栈<br />
+{</P>
+<p>&nbsp;<wbr>S.base = (char *)malloc(sizeof(char) *
+STACK_INIT_SIZE);<br />
+&nbsp;<wbr>S.top = S.base;<br />
+}</P>
+<p>Status StackEmpty(SqStack S)//判断是否为空<br />
+{<br />
+&nbsp;<wbr>if(S.top == S.base)&nbsp;<wbr>return
+TRUE;<br />
+&nbsp;<wbr>else return FALSE;<br />
+}</P>
+<p>void Push(SqStack &amp;S,char e
+)//插入元素e为新的栈顶元素<br />
+{<br />
+&nbsp;<wbr>* S.top++ = e;<br />
+}<br />
+void Pop(SqStack &amp;S)//出栈<br />
+{<br />
+&nbsp;<wbr> S.top--;<br />
+}</P>
+<p>char GetTop(SqStack S)<br />
+{<br />
+&nbsp;<wbr>return *(S.top-1);<br />
+}</P>
+<p>void Matching()<br />
+{<br />
+&nbsp;<wbr>SqStack S;//定义一个栈<br />
+&nbsp;<wbr>&nbsp;<wbr>InitStack(S);<br />
+&nbsp;<wbr>&nbsp;<wbr>int flag = 1;<br />
+&nbsp;<wbr>&nbsp;<wbr>char str[10002];<br />
+&nbsp;<wbr>&nbsp;<wbr>cout&lt;&lt;"************请出如括号串（只包含“
+(,),{,},[,]
+”）***********"&lt;&lt;endl;<br />
+&nbsp;<wbr>&nbsp;<wbr>cin&gt;&gt;str;<br />
+
+&nbsp;<wbr>&nbsp;<wbr>for(int
+i=0;i&lt;strlen(str); ++i){//&nbsp;<wbr>
+([[]()])<br />
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>if(StackEmpty(S)
+&amp;&amp; (str[i] == ']' || str[i] ==
+')'|| str[i] == '}')){//第一个字符就为‘]’或‘)’，直接输出No<br />
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+flag = 0; break;<br />
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>}<br />
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>if(str[i] ==
+'(' || str[i] == '['|| str[i] == '{'
+)&nbsp;<wbr>&nbsp;<wbr>Push(S,str[i]);//接受到‘（’或‘[’后入栈</P>
+<p>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>if( str[i]
+== ']' ){&nbsp;<wbr>//接受的为‘]’<br />
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>if(GetTop(S)==
+'[')&nbsp;<wbr>Pop(S);//如果栈顶为'['，则出栈，否则括号不匹配，退出循环<br />
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>else
+{ flag = 0; break;}<br />
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>}<br />
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>if( str[i] ==
+')' ){&nbsp;<wbr>//接受的为‘)’<br />
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>if(
+GetTop(S)== '(' ) &nbsp;<wbr>Pop(S);
+//如果栈顶为')'，则出栈，否则括号不匹配，退出循环<br />
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>else&nbsp;<wbr>
+{ flag = 0; break;}<br />
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>}<br />
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>if( str[i] ==
+'}' ){&nbsp;<wbr>//接受的为‘}’<br />
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>if(
+GetTop(S)== '{' ) &nbsp;<wbr>Pop(S);
+//如果栈顶为'}'，则出栈，否则括号不匹配，退出循环<br />
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>else
+{ flag = 0; break;}<br />
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>}<br />
+&nbsp;<wbr>&nbsp;<wbr>}<br />
+&nbsp;<wbr>&nbsp;<wbr>if(flag
+&amp;&amp; StackEmpty(S))
+cout&lt;&lt;"Yes,括号匹配！"&lt;&lt;endl;<br />
+
+&nbsp;<wbr>&nbsp;<wbr>if(!flag || !StackEmpty(S)
+)cout&lt;&lt;"No，括号不匹配！"&lt;&lt;endl;<br />
+
+&nbsp;<wbr>&nbsp;<wbr>free(S.base );<br />
+}<br />
+//***********************主函数*****************************<br />
+int main()<br />
+{<br />
+&nbsp;<wbr>int door = 1;<br />
+&nbsp;<wbr>do{<br />
+&nbsp;<wbr>&nbsp;<wbr>Matching();<br />
+&nbsp;<wbr>&nbsp;<wbr>cout&lt;&lt;"是否要继续检测下一组括号(Y/N)：";<br />
+
+&nbsp;<wbr>&nbsp;<wbr>char ch;<br />
+&nbsp;<wbr>&nbsp;<wbr>cin&gt;&gt;ch;<br />
+
+&nbsp;<wbr>&nbsp;<wbr>if(ch == 'N'|| ch == 'n') door
+= 0;<br />
+&nbsp;<wbr>}while(door);<br />
+&nbsp;<wbr><br />
+&nbsp;<wbr>return 0;<br />
+}</P>
+<p><br />
+&nbsp;<wbr><br /></P>							
+		</div>
+
+      
+    </div>
+</article>
+
+<!-- 上一页 下一页 -->
+
+
+<nav id="article-nav">
+  
+    <a href="/2014/02/19/%E4%B8%80%E5%85%83%E5%A4%9A%E9%A1%B9%E5%BC%8F%E7%9A%84%E7%9B%B8%E5%8A%A0%E3%80%81%E7%9B%B8%E4%B9%98/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>上一篇</span>
+      <div class="article-nav-title">
+        
+          一元多项式的相加、相乘
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2014/02/19/%E9%93%BE%E6%A0%88/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>下一篇</span>
+      <div class="article-nav-title">链栈</div>
+    </a>
+  
+</nav>
+
+
+
+<!-- 相关文章 -->
+
+<!--
+
+-->
+
+
+</section>
+      </div>
+      <footer id="footer">
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      
+      &copy;2024<a target="_blank" rel="noopener" href="https://github.com/hanks-zyh"> Hanks</a>版权所有
+      <br/>
+      <a href="https://beian.miit.gov.cn/" target="_blank">豫ICP备2021022347号</a>
+	  </div>
+  </div>
+ <div id="share">
+  <a id="totop" title="" style="display: block;">返回顶部</a>
+ </div>
+</footer>
+
+    </div>
+    
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/jquery.scrollLoading.js"></script>
+
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/ads.js"></script>
+
+  </div>
+</body>
+</html>

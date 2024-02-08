@@ -1,0 +1,917 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Rx中的线程切换 | Hanks&#39; Websit</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <script data-ad-client="ca-pub-8165670162444117" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <meta name="referrer" content="never">
+  <meta name="description" content="初学者在使用RxJava的过程中，经常搞不清Observable的事件序列和每次操作应该怎样切换线程，切换哪个线程首先需要搞懂在RxJava 中.subscribeOn() 和  observeOn() 之间的区别：  .subscribeOn() 用来指定Observable应该操作的调度器(Scheduler) .observeOn() 指定 Observable在一个指定的调度器(Sched">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Rx中的线程切换">
+<meta property="og:url" content="https://hanks.pub/2015/12/06/rx_thread/index.html">
+<meta property="og:site_name" content="Hanks&#39; Websit">
+<meta property="og:description" content="初学者在使用RxJava的过程中，经常搞不清Observable的事件序列和每次操作应该怎样切换线程，切换哪个线程首先需要搞懂在RxJava 中.subscribeOn() 和  observeOn() 之间的区别：  .subscribeOn() 用来指定Observable应该操作的调度器(Scheduler) .observeOn() 指定 Observable在一个指定的调度器(Sched">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://dn-coding-net-production-pp.qbox.me/37e26756-da0d-46bb-bb2f-9b77ff067957.png">
+<meta property="og:image" content="https://dn-coding-net-production-pp.qbox.me/5004ed8c-6b4d-42fc-93d8-ed22c4af79d3.png">
+<meta property="og:image" content="https://dn-coding-net-production-pp.qbox.me/97cc479d-fd85-4825-bdfa-b3b3b742a829.png">
+<meta property="og:image" content="https://dn-coding-net-production-pp.qbox.me/5abaaea0-babd-490c-abcb-6d404d3aa285.png">
+<meta property="article:published_time" content="2015-12-06T15:26:00.000Z">
+<meta property="article:modified_time" content="2024-02-08T01:29:02.192Z">
+<meta property="article:author" content="Hanks">
+<meta property="article:tag" content="Android">
+<meta property="article:tag" content="Rxjava">
+<meta property="article:tag" content="Rxandroid">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://dn-coding-net-production-pp.qbox.me/37e26756-da0d-46bb-bb2f-9b77ff067957.png">
+  
+  
+  <link href="https://fonts.googleapis.com/css?family=Fira+Code|Noto+Serif+SC&display=swap" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8165670162444117"
+     crossorigin="anonymous"></script>
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo"></a>
+    <nav id="main-nav">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      
+        <a class="main-nav-link" href="/archives">Archive</a>
+      
+        <a class="main-nav-link" href="/eye-video">Eye</a>
+      
+        <a class="main-nav-link" href="/atom.xml">Rss</a>
+      
+    </nav>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/archives" class="mobile-nav-link">Archive</a>
+  
+    <a href="/eye-video" class="mobile-nav-link">Eye</a>
+  
+    <a href="/atom.xml" class="mobile-nav-link">Rss</a>
+  
+</nav>
+      <div class="outer">
+        <section id="main"><article id="post-rx_thread" class="article article-type-post" itemscope
+  itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <header class="article-header">
+      
+      
+  
+    <h1 class="article-title" itemprop="name">
+      Rx中的线程切换
+    </h1>
+  
+
+      
+    </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      <p>初学者在使用<code>RxJava</code>的过程中，经常搞不清Observable的事件序列和每次操作应该怎样切换线程，切换哪个线程<br>首先需要搞懂在<code>RxJava</code> 中<code>.subscribeOn()</code> 和  <code>observeOn()</code> 之间的区别：</p>
+<ul>
+<li><code>.subscribeOn()</code> 用来指定<code>Observable</code>应该操作的调度器(<code>Scheduler</code>)</li>
+<li><code>.observeOn()</code> 指定 <code>Observable</code>在一个指定的调度器(<code>Scheduler</code>)上给观察者发送通知</li>
+<li>默认情况下， 事件序列操作的线程与调用<code>.subscribe()</code>的线程一致</li>
+</ul>
+<p>没理解？</p>
+<span id="more"></span>
+<blockquote>
+<p>英文原文: <a target="_blank" rel="noopener" href="https://medium.com/@diolor/observe-in-the-correct-thread-1939bb9bb9d2#.nn1m7lrb8">https://medium.com/@diolor/observe-in-the-correct-thread-1939bb9bb9d2#.nn1m7lrb8</a></br><br>翻译: <a target="_blank" rel="noopener" href="https://github.com/hanks-zyh">hanks</a><br>注: 不是完全翻译,添加了具体例子</p>
+</blockquote>
+<h2 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h2><h3 id="1-主线程-subscribe-线程"><a href="#1-主线程-subscribe-线程" class="headerlink" title="1.主线程 &#x2F;  .subscribe() 线程"></a>1.主线程 &#x2F;  .subscribe() 线程</h3><p>在 Activity的 <code>onCreate()</code>(主线程) 方法中添加以下代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Observable.just(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>)</span><br><span class="line">  .subscribe();</span><br></pre></td></tr></table></figure>
+<p>调用情况如下：</p>
+<p><img src="https://dn-coding-net-production-pp.qbox.me/37e26756-da0d-46bb-bb2f-9b77ff067957.png" alt="图片"></p>
+<p><strong>实验:</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Observable.just(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>)</span><br><span class="line">            .doOnNext(<span class="keyword">new</span> <span class="title class_">Action1</span>&lt;Integer&gt;() &#123;</span><br><span class="line">                <span class="meta">@Override</span> <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">call</span><span class="params">(Integer integer)</span> &#123;</span><br><span class="line">                    Log.i(<span class="string">&quot;RxThread&quot;</span>, <span class="string">&quot;doOnNext:&quot;</span> + integer +<span class="string">&quot;, run In :&quot;</span> + Thread.currentThread().getName() );</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;)</span><br><span class="line">            .subscribe(<span class="keyword">new</span> <span class="title class_">Action1</span>&lt;Integer&gt;() &#123;</span><br><span class="line">                <span class="meta">@Override</span> <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">call</span><span class="params">(Integer integer)</span> &#123;</span><br><span class="line">                    Log.i(<span class="string">&quot;RxThread&quot;</span>, <span class="string">&quot;get result:&quot;</span> + integer +<span class="string">&quot;, run In :&quot;</span> + Thread.currentThread().getName() );</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;);</span><br></pre></td></tr></table></figure>
+
+<p><strong>输出结果:</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">12-06 16:14:39.225 15603-15603/com.hanks.rxsearch I/RxThread: doOnNext:1, run In :main</span><br><span class="line">12-06 16:14:39.225 15603-15603/com.hanks.rxsearch I/RxThread: get result:1, run In :main</span><br><span class="line">12-06 16:14:39.225 15603-15603/com.hanks.rxsearch I/RxThread: doOnNext:2, run In :main</span><br><span class="line">12-06 16:14:39.225 15603-15603/com.hanks.rxsearch I/RxThread: get result:2, run In :main</span><br><span class="line">12-06 16:14:39.225 15603-15603/com.hanks.rxsearch I/RxThread: doOnNext:3, run In :main</span><br><span class="line">12-06 16:14:39.225 15603-15603/com.hanks.rxsearch I/RxThread: get result:3, run In :main</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-subscribeOn"><a href="#2-subscribeOn" class="headerlink" title="2. .subscribeOn()"></a>2. .subscribeOn()</h3><p>即使你在主线程中添加下面的代码，但是整段代码将运行在 <code>.subscribeOn()</code>定义的线程上</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Observable.just(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>)</span><br><span class="line">  .subscribeOn(Schedulers.newThread())</span><br><span class="line">  .subscribe();</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://dn-coding-net-production-pp.qbox.me/5004ed8c-6b4d-42fc-93d8-ed22c4af79d3.png" alt="图片"></p>
+<p><strong>实验:</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">Observable.just(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>)</span><br><span class="line">           .doOnNext(<span class="keyword">new</span> <span class="title class_">Action1</span>&lt;Integer&gt;() &#123;</span><br><span class="line">               <span class="meta">@Override</span> <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">call</span><span class="params">(Integer integer)</span> &#123;</span><br><span class="line">                   Log.i(<span class="string">&quot;RxThread&quot;</span>, <span class="string">&quot;doOnNext:&quot;</span> + integer +<span class="string">&quot;, run In :&quot;</span> + Thread.currentThread().getName() );</span><br><span class="line">               &#125;</span><br><span class="line">           &#125;)</span><br><span class="line">           .subscribeOn(Schedulers.newThread())</span><br><span class="line">           .subscribe(<span class="keyword">new</span> <span class="title class_">Action1</span>&lt;Integer&gt;() &#123;</span><br><span class="line">               <span class="meta">@Override</span> <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">call</span><span class="params">(Integer integer)</span> &#123;</span><br><span class="line">                   Log.i(<span class="string">&quot;RxThread&quot;</span>, <span class="string">&quot;get result:&quot;</span> + integer +<span class="string">&quot;, run In :&quot;</span> + Thread.currentThread().getName() );</span><br><span class="line">               &#125;</span><br><span class="line">           &#125;);</span><br></pre></td></tr></table></figure>
+
+<p><strong>输出结果:</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">12</span>-<span class="number">06</span> <span class="number">16</span>:<span class="number">13</span>:<span class="number">17.717</span> <span class="number">14294</span>-<span class="number">14319</span>/com.hanks.rxsearch I/RxThread: doOnNext:<span class="number">1</span>, run In :RxNewThreadScheduler-<span class="number">1</span></span><br><span class="line"><span class="number">12</span>-<span class="number">06</span> <span class="number">16</span>:<span class="number">13</span>:<span class="number">17.717</span> <span class="number">14294</span>-<span class="number">14319</span>/com.hanks.rxsearch I/RxThread: get result:<span class="number">1</span>, run In :RxNewThreadScheduler-<span class="number">1</span></span><br><span class="line"><span class="number">12</span>-<span class="number">06</span> <span class="number">16</span>:<span class="number">13</span>:<span class="number">17.717</span> <span class="number">14294</span>-<span class="number">14319</span>/com.hanks.rxsearch I/RxThread: doOnNext:<span class="number">2</span>, run In :RxNewThreadScheduler-<span class="number">1</span></span><br><span class="line"><span class="number">12</span>-<span class="number">06</span> <span class="number">16</span>:<span class="number">13</span>:<span class="number">17.717</span> <span class="number">14294</span>-<span class="number">14319</span>/com.hanks.rxsearch I/RxThread: get result:<span class="number">2</span>, run In :RxNewThreadScheduler-<span class="number">1</span></span><br><span class="line"><span class="number">12</span>-<span class="number">06</span> <span class="number">16</span>:<span class="number">13</span>:<span class="number">17.717</span> <span class="number">14294</span>-<span class="number">14319</span>/com.hanks.rxsearch I/RxThread: doOnNext:<span class="number">3</span>, run In :RxNewThreadScheduler-<span class="number">1</span></span><br><span class="line"><span class="number">12</span>-<span class="number">06</span> <span class="number">16</span>:<span class="number">13</span>:<span class="number">17.717</span> <span class="number">14294</span>-<span class="number">14319</span>/com.hanks.rxsearch I/RxThread: get result:<span class="number">3</span>, run In :RxNewThreadScheduler-<span class="number">1</span></span><br></pre></td></tr></table></figure>
+<h3 id="3-observeOn"><a href="#3-observeOn" class="headerlink" title="3. .observeOn()"></a>3. .observeOn()</h3><p>加入在主线程中添加下面的代码，首先 <code>Observable</code> 将在 <code>.subscribe()</code> 的线程上创建，但是 <code>.observeOn()</code>方法被调用之后，代码将运行在指定的线程上：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Observable.just(1,2,3)</span><br><span class="line">  .observeOn(Schedulers.newThread())</span><br><span class="line">  .subscribe();</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://dn-coding-net-production-pp.qbox.me/97cc479d-fd85-4825-bdfa-b3b3b742a829.png" alt="图片"></p>
+<p><strong>实验:</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> <span class="title class_">Thread</span>() &#123;</span><br><span class="line">           <span class="meta">@Override</span> <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">               Observable.just(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>).doOnNext(<span class="keyword">new</span> <span class="title class_">Action1</span>&lt;Integer&gt;() &#123;</span><br><span class="line">                   <span class="meta">@Override</span> <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">call</span><span class="params">(Integer integer)</span> &#123;</span><br><span class="line">                       Log.i(<span class="string">&quot;RxThread&quot;</span>, <span class="string">&quot;doOnNext:&quot;</span> + integer + <span class="string">&quot;, run In :&quot;</span> + Thread.currentThread()</span><br><span class="line">                               .getName());</span><br><span class="line">                   &#125;</span><br><span class="line">               &#125;)</span><br><span class="line">               .observeOn(AndroidSchedulers.mainThread())</span><br><span class="line">               .subscribe(<span class="keyword">new</span> <span class="title class_">Action1</span>&lt;Integer&gt;() &#123;</span><br><span class="line">                   <span class="meta">@Override</span> <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">call</span><span class="params">(Integer integer)</span> &#123;</span><br><span class="line">                       Log.i(<span class="string">&quot;RxThread&quot;</span>, <span class="string">&quot;get result:&quot;</span> + integer + <span class="string">&quot;, run In :&quot;</span> + Thread.currentThread()</span><br><span class="line">                               .getName());</span><br><span class="line">                   &#125;</span><br><span class="line">               &#125;);</span><br><span class="line"></span><br><span class="line">           &#125;</span><br><span class="line">       &#125;.start();</span><br></pre></td></tr></table></figure>
+<p><strong>输出结果:</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">12</span>-<span class="number">06</span> <span class="number">16</span>:<span class="number">18</span>:<span class="number">06.493</span> <span class="number">18584</span>-<span class="number">18606</span>/com.hanks.rxsearch I/RxThread: doOnNext:<span class="number">1</span>, run In :Thread-<span class="number">155</span></span><br><span class="line"><span class="number">12</span>-<span class="number">06</span> <span class="number">16</span>:<span class="number">18</span>:<span class="number">06.493</span> <span class="number">18584</span>-<span class="number">18606</span>/com.hanks.rxsearch I/RxThread: doOnNext:<span class="number">2</span>, run In :Thread-<span class="number">155</span></span><br><span class="line"><span class="number">12</span>-<span class="number">06</span> <span class="number">16</span>:<span class="number">18</span>:<span class="number">06.493</span> <span class="number">18584</span>-<span class="number">18606</span>/com.hanks.rxsearch I/RxThread: doOnNext:<span class="number">3</span>, run In :Thread-<span class="number">155</span></span><br><span class="line"><span class="number">12</span>-<span class="number">06</span> <span class="number">16</span>:<span class="number">18</span>:<span class="number">06.521</span> <span class="number">18584</span>-<span class="number">18584</span>/com.hanks.rxsearch I/RxThread: get result:<span class="number">1</span>, run In :main</span><br><span class="line"><span class="number">12</span>-<span class="number">06</span> <span class="number">16</span>:<span class="number">18</span>:<span class="number">06.521</span> <span class="number">18584</span>-<span class="number">18584</span>/com.hanks.rxsearch I/RxThread: get result:<span class="number">2</span>, run In :main</span><br><span class="line"><span class="number">12</span>-<span class="number">06</span> <span class="number">16</span>:<span class="number">18</span>:<span class="number">06.521</span> <span class="number">18584</span>-<span class="number">18584</span>/com.hanks.rxsearch I/RxThread: get result:<span class="number">3</span>, run In :main</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-Combined-logic"><a href="#3-Combined-logic" class="headerlink" title="3. Combined logic"></a>3. Combined logic</h3><p>由于操作可以被组合使用,于是有了下面的代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Observable.just(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>)</span><br><span class="line">  .subscribeOn(Schedulers.newThread())</span><br><span class="line">  .observeOn(Schedulers.newThread())</span><br><span class="line">  .subscribe();</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://dn-coding-net-production-pp.qbox.me/5abaaea0-babd-490c-abcb-6d404d3aa285.png" alt="图片"></p>
+<p><strong>实验:</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">new Thread() &#123;</span><br><span class="line">     @Override public void run() &#123;</span><br><span class="line">         Observable.just(1, 2, 3).doOnNext(new Action1&lt;Integer&gt;() &#123;</span><br><span class="line">             @Override public void call(Integer integer) &#123;</span><br><span class="line">                 Log.i(&quot;RxThread&quot;, &quot;doOnNext:&quot; + integer + &quot;, run In :&quot; + Thread.currentThread()</span><br><span class="line">                         .getName());</span><br><span class="line">             &#125;</span><br><span class="line">         &#125;)</span><br><span class="line">         .subscribeOn(Schedulers.newThread())</span><br><span class="line">         .observeOn(AndroidSchedulers.mainThread())</span><br><span class="line">         .subscribe(new Action1&lt;Integer&gt;() &#123;</span><br><span class="line">             @Override public void call(Integer integer) &#123;</span><br><span class="line">                 Log.i(&quot;RxThread&quot;, &quot;get result:&quot; + integer + &quot;, run In :&quot; + Thread.currentThread()</span><br><span class="line">                         .getName());</span><br><span class="line">             &#125;</span><br><span class="line">         &#125;);</span><br><span class="line">     &#125;</span><br><span class="line"> &#125;.start();</span><br></pre></td></tr></table></figure>
+
+<p><strong>输出结果:</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">12</span>-<span class="number">06</span> <span class="number">16</span>:<span class="number">19</span>:<span class="number">53.066</span> <span class="number">20247</span>-<span class="number">20274</span>/com.hanks.rxsearch I/RxThread: doOnNext:<span class="number">1</span>, run In :RxNewThreadScheduler-<span class="number">1</span></span><br><span class="line"><span class="number">12</span>-<span class="number">06</span> <span class="number">16</span>:<span class="number">19</span>:<span class="number">53.066</span> <span class="number">20247</span>-<span class="number">20274</span>/com.hanks.rxsearch I/RxThread: doOnNext:<span class="number">2</span>, run In :RxNewThreadScheduler-<span class="number">1</span></span><br><span class="line"><span class="number">12</span>-<span class="number">06</span> <span class="number">16</span>:<span class="number">19</span>:<span class="number">53.066</span> <span class="number">20247</span>-<span class="number">20274</span>/com.hanks.rxsearch I/RxThread: doOnNext:<span class="number">3</span>, run In :RxNewThreadScheduler-<span class="number">1</span></span><br><span class="line"><span class="number">12</span>-<span class="number">06</span> <span class="number">16</span>:<span class="number">19</span>:<span class="number">53.077</span> <span class="number">20247</span>-<span class="number">20247</span>/com.hanks.rxsearch I/RxThread: get result:<span class="number">1</span>, run In :main</span><br><span class="line"><span class="number">12</span>-<span class="number">06</span> <span class="number">16</span>:<span class="number">19</span>:<span class="number">53.077</span> <span class="number">20247</span>-<span class="number">20247</span>/com.hanks.rxsearch I/RxThread: get result:<span class="number">2</span>, run In :main</span><br><span class="line"><span class="number">12</span>-<span class="number">06</span> <span class="number">16</span>:<span class="number">19</span>:<span class="number">53.077</span> <span class="number">20247</span>-<span class="number">20247</span>/com.hanks.rxsearch I/RxThread: get result:<span class="number">3</span>, run In :main</span><br></pre></td></tr></table></figure>
+<h2 id="Tips-Gotchas"><a href="#Tips-Gotchas" class="headerlink" title="Tips &#x2F; Gotchas:"></a>Tips &#x2F; Gotchas:</h2><h3 id="1-“UI线程运行异常”"><a href="#1-“UI线程运行异常”" class="headerlink" title="1. “UI线程运行异常”"></a>1. “UI线程运行异常”</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Observable.just(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>)</span><br><span class="line">  .subscribeOn(Schedulers.newThread())</span><br><span class="line">  .subscribe(<span class="comment">/** logic which touches ui **/</span>/); <span class="comment">//在newThread中调用</span></span><br></pre></td></tr></table></figure>
+
+<p>obviously.</p>
+<h3 id="2-逻辑处理放在后台-newThread"><a href="#2-逻辑处理放在后台-newThread" class="headerlink" title="2. 逻辑处理放在后台(newThread)"></a>2. 逻辑处理放在后台(newThread)</h3><p>错误姿势：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Observable.just(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>)</span><br><span class="line">  .subscribeOn(Schedulers.newThread())</span><br><span class="line">  .observeOn(AndroidSchedulers.mainThread())</span><br><span class="line">  .flatMap(<span class="comment">/** logic which doesn&#x27;t touch ui **/</span>/)</span><br><span class="line">  .subscribe();</span><br></pre></td></tr></table></figure>
+<p><strong>实验:</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> <span class="title class_">Thread</span>() &#123;</span><br><span class="line">       <span class="meta">@Override</span> <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">           Observable.just(<span class="string">&quot;Android-Picasso&quot;</span>, <span class="string">&quot;Android-Glide&quot;</span>, <span class="string">&quot;Android-Fresco&quot;</span>).doOnNext(<span class="keyword">new</span> <span class="title class_">Action1</span>&lt;String&gt;() &#123;</span><br><span class="line">               <span class="meta">@Override</span> <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">call</span><span class="params">(String str)</span> &#123;</span><br><span class="line">                   Log.i(<span class="string">&quot;RxThread&quot;</span>, <span class="string">&quot;doOnNext:&quot;</span> + str + <span class="string">&quot;, run In :&quot;</span> + Thread.currentThread()</span><br><span class="line">                           .getName());</span><br><span class="line">               &#125;</span><br><span class="line">           &#125;)</span><br><span class="line">           .subscribeOn(Schedulers.newThread())</span><br><span class="line">           .observeOn(AndroidSchedulers.mainThread())</span><br><span class="line">           .flatMap(<span class="keyword">new</span> <span class="title class_">Func1</span>&lt;String, Observable&lt;String&gt;&gt;() &#123;</span><br><span class="line">               <span class="meta">@Override</span> <span class="keyword">public</span> Observable&lt;String&gt; <span class="title function_">call</span><span class="params">(String str)</span> &#123;</span><br><span class="line">                   Log.i(<span class="string">&quot;RxThread&quot;</span>, <span class="string">&quot;flatMap:&quot;</span> + str + <span class="string">&quot;, run In :&quot;</span> + Thread.currentThread());</span><br><span class="line">                   <span class="keyword">return</span> Observable.from(str.split(<span class="string">&quot;-&quot;</span>) ); <span class="comment">// 返回平方</span></span><br><span class="line">               &#125;</span><br><span class="line">           &#125;)</span><br><span class="line">           .subscribe(<span class="keyword">new</span> <span class="title class_">Action1</span>&lt;String&gt;() &#123;</span><br><span class="line">               <span class="meta">@Override</span> <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">call</span><span class="params">(String str)</span> &#123;</span><br><span class="line">                   Log.i(<span class="string">&quot;RxThread&quot;</span>, <span class="string">&quot;get result:&quot;</span> + str + <span class="string">&quot;, run In :&quot;</span> + Thread.currentThread()</span><br><span class="line">                           .getName());</span><br><span class="line">               &#125;</span><br><span class="line">           &#125;);</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;.start();</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p><strong>输出结果:</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">12</span>-<span class="number">06</span> <span class="number">16</span>:<span class="number">43</span>:<span class="number">00.181</span> <span class="number">8161</span>-<span class="number">8190</span>/com.hanks.rxsearch I/RxThread: doOnNext:Android-Picasso, run In :RxNewThreadScheduler-<span class="number">1</span></span><br><span class="line"><span class="number">12</span>-<span class="number">06</span> <span class="number">16</span>:<span class="number">43</span>:<span class="number">00.181</span> <span class="number">8161</span>-<span class="number">8190</span>/com.hanks.rxsearch I/RxThread: doOnNext:Android-Glide, run In :RxNewThreadScheduler-<span class="number">1</span></span><br><span class="line"><span class="number">12</span>-<span class="number">06</span> <span class="number">16</span>:<span class="number">43</span>:<span class="number">00.181</span> <span class="number">8161</span>-<span class="number">8190</span>/com.hanks.rxsearch I/RxThread: doOnNext:Android-Fresco, run In :RxNewThreadScheduler-<span class="number">1</span></span><br><span class="line"><span class="number">12</span>-<span class="number">06</span> <span class="number">16</span>:<span class="number">43</span>:<span class="number">00.243</span> <span class="number">8161</span>-<span class="number">8161</span>/com.hanks.rxsearch I/RxThread: flatMap:Android-Picasso, run In :Thread[main,<span class="number">5</span>,main]</span><br><span class="line"><span class="number">12</span>-<span class="number">06</span> <span class="number">16</span>:<span class="number">43</span>:<span class="number">00.243</span> <span class="number">8161</span>-<span class="number">8161</span>/com.hanks.rxsearch I/RxThread: get result:Android, run In :main</span><br><span class="line"><span class="number">12</span>-<span class="number">06</span> <span class="number">16</span>:<span class="number">43</span>:<span class="number">00.243</span> <span class="number">8161</span>-<span class="number">8161</span>/com.hanks.rxsearch I/RxThread: get result:Picasso, run In :main</span><br><span class="line"><span class="number">12</span>-<span class="number">06</span> <span class="number">16</span>:<span class="number">43</span>:<span class="number">00.243</span> <span class="number">8161</span>-<span class="number">8161</span>/com.hanks.rxsearch I/RxThread: flatMap:Android-Glide, run In :Thread[main,<span class="number">5</span>,main]</span><br><span class="line"><span class="number">12</span>-<span class="number">06</span> <span class="number">16</span>:<span class="number">43</span>:<span class="number">00.243</span> <span class="number">8161</span>-<span class="number">8161</span>/com.hanks.rxsearch I/RxThread: get result:Android, run In :main</span><br><span class="line"><span class="number">12</span>-<span class="number">06</span> <span class="number">16</span>:<span class="number">43</span>:<span class="number">00.243</span> <span class="number">8161</span>-<span class="number">8161</span>/com.hanks.rxsearch I/RxThread: get result:Glide, run In :main</span><br><span class="line"><span class="number">12</span>-<span class="number">06</span> <span class="number">16</span>:<span class="number">43</span>:<span class="number">00.243</span> <span class="number">8161</span>-<span class="number">8161</span>/com.hanks.rxsearch I/RxThread: flatMap:Android-Fresco, run In :Thread[main,<span class="number">5</span>,main]</span><br><span class="line"><span class="number">12</span>-<span class="number">06</span> <span class="number">16</span>:<span class="number">43</span>:<span class="number">00.243</span> <span class="number">8161</span>-<span class="number">8161</span>/com.hanks.rxsearch I/RxThread: get result:Android, run In :main</span><br><span class="line"><span class="number">12</span>-<span class="number">06</span> <span class="number">16</span>:<span class="number">43</span>:<span class="number">00.243</span> <span class="number">8161</span>-<span class="number">8161</span>/com.hanks.rxsearch I/RxThread: get result:Fresco, run In :main</span><br></pre></td></tr></table></figure>
+
+
+<p>正确姿势:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Observable.just(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>)</span><br><span class="line">  .subscribeOn(Schedulers.newThread())</span><br><span class="line">  .flatMap(<span class="comment">/** logic which doesn&#x27;t touch ui **/</span>/)</span><br><span class="line">  .observeOn(AndroidSchedulers.mainThread())</span><br><span class="line">  .subscribe();</span><br></pre></td></tr></table></figure>
+<p>第二段代码中 <code>flatMap</code> (或者其他逻辑处理)将运行在后台线程， 如果是在Android中，这样做不会阻塞UI，阻塞UI的话有可能导致ANR之类的异常。这跟 <code>AsyncTask</code>中的 <code>doInBackground()</code>类似，在 <code>doInBackground()</code>中做耗时操作</p>
+<p><strong>实验:</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> <span class="title class_">Thread</span>() &#123;</span><br><span class="line">       <span class="meta">@Override</span> <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">           Observable.just(<span class="string">&quot;Android-Picasso&quot;</span>, <span class="string">&quot;Android-Glide&quot;</span>, <span class="string">&quot;Android-Fresco&quot;</span>).doOnNext(<span class="keyword">new</span> <span class="title class_">Action1</span>&lt;String&gt;() &#123;</span><br><span class="line">               <span class="meta">@Override</span> <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">call</span><span class="params">(String str)</span> &#123;</span><br><span class="line">                   Log.i(<span class="string">&quot;RxThread&quot;</span>, <span class="string">&quot;doOnNext:&quot;</span> + str + <span class="string">&quot;, run In :&quot;</span> + Thread.currentThread()</span><br><span class="line">                           .getName());</span><br><span class="line">               &#125;</span><br><span class="line">           &#125;)</span><br><span class="line">           .subscribeOn(Schedulers.newThread())</span><br><span class="line">           .flatMap(<span class="keyword">new</span> <span class="title class_">Func1</span>&lt;String, Observable&lt;String&gt;&gt;() &#123;</span><br><span class="line">               <span class="meta">@Override</span> <span class="keyword">public</span> Observable&lt;String&gt; <span class="title function_">call</span><span class="params">(String str)</span> &#123;</span><br><span class="line">                   Log.i(<span class="string">&quot;RxThread&quot;</span>, <span class="string">&quot;flatMap:&quot;</span> + str + <span class="string">&quot;, run In :&quot;</span> + Thread.currentThread());</span><br><span class="line">                   <span class="keyword">return</span> Observable.from(str.split(<span class="string">&quot;-&quot;</span>) ); <span class="comment">// 返回平方</span></span><br><span class="line">               &#125;</span><br><span class="line">           &#125;)</span><br><span class="line">           .observeOn(AndroidSchedulers.mainThread())</span><br><span class="line">           .subscribe(<span class="keyword">new</span> <span class="title class_">Action1</span>&lt;String&gt;() &#123;</span><br><span class="line">               <span class="meta">@Override</span> <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">call</span><span class="params">(String str)</span> &#123;</span><br><span class="line">                   Log.i(<span class="string">&quot;RxThread&quot;</span>, <span class="string">&quot;get result:&quot;</span> + str + <span class="string">&quot;, run In :&quot;</span> + Thread.currentThread()</span><br><span class="line">                           .getName());</span><br><span class="line">               &#125;</span><br><span class="line">           &#125;);</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;.start();</span><br></pre></td></tr></table></figure>
+
+<p><strong>输出结果:</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">12</span>-<span class="number">06</span> <span class="number">16</span>:<span class="number">41</span>:<span class="number">27.025</span> <span class="number">6812</span>-<span class="number">6839</span>/com.hanks.rxsearch I/RxThread: doOnNext:Android-Picasso, run In :RxNewThreadScheduler-<span class="number">1</span></span><br><span class="line"><span class="number">12</span>-<span class="number">06</span> <span class="number">16</span>:<span class="number">41</span>:<span class="number">27.025</span> <span class="number">6812</span>-<span class="number">6839</span>/com.hanks.rxsearch I/RxThread: flatMap:Android-Picasso, run In :Thread[RxNewThreadScheduler-<span class="number">1</span>,<span class="number">5</span>,main]</span><br><span class="line"><span class="number">12</span>-<span class="number">06</span> <span class="number">16</span>:<span class="number">41</span>:<span class="number">27.025</span> <span class="number">6812</span>-<span class="number">6839</span>/com.hanks.rxsearch I/RxThread: doOnNext:Android-Glide, run In :RxNewThreadScheduler-<span class="number">1</span></span><br><span class="line"><span class="number">12</span>-<span class="number">06</span> <span class="number">16</span>:<span class="number">41</span>:<span class="number">27.025</span> <span class="number">6812</span>-<span class="number">6839</span>/com.hanks.rxsearch I/RxThread: flatMap:Android-Glide, run In :Thread[RxNewThreadScheduler-<span class="number">1</span>,<span class="number">5</span>,main]</span><br><span class="line"><span class="number">12</span>-<span class="number">06</span> <span class="number">16</span>:<span class="number">41</span>:<span class="number">27.025</span> <span class="number">6812</span>-<span class="number">6839</span>/com.hanks.rxsearch I/RxThread: doOnNext:Android-Fresco, run In :RxNewThreadScheduler-<span class="number">1</span></span><br><span class="line"><span class="number">12</span>-<span class="number">06</span> <span class="number">16</span>:<span class="number">41</span>:<span class="number">27.025</span> <span class="number">6812</span>-<span class="number">6839</span>/com.hanks.rxsearch I/RxThread: flatMap:Android-Fresco, run In :Thread[RxNewThreadScheduler-<span class="number">1</span>,<span class="number">5</span>,main]</span><br><span class="line"><span class="number">12</span>-<span class="number">06</span> <span class="number">16</span>:<span class="number">41</span>:<span class="number">27.043</span> <span class="number">6812</span>-<span class="number">6812</span>/com.hanks.rxsearch I/RxThread: get result:Android, run In :main</span><br><span class="line"><span class="number">12</span>-<span class="number">06</span> <span class="number">16</span>:<span class="number">41</span>:<span class="number">27.043</span> <span class="number">6812</span>-<span class="number">6812</span>/com.hanks.rxsearch I/RxThread: get result:Picasso, run In :main</span><br><span class="line"><span class="number">12</span>-<span class="number">06</span> <span class="number">16</span>:<span class="number">41</span>:<span class="number">27.043</span> <span class="number">6812</span>-<span class="number">6812</span>/com.hanks.rxsearch I/RxThread: get result:Android, run In :main</span><br><span class="line"><span class="number">12</span>-<span class="number">06</span> <span class="number">16</span>:<span class="number">41</span>:<span class="number">27.043</span> <span class="number">6812</span>-<span class="number">6812</span>/com.hanks.rxsearch I/RxThread: get result:Glide, run In :main</span><br><span class="line"><span class="number">12</span>-<span class="number">06</span> <span class="number">16</span>:<span class="number">41</span>:<span class="number">27.043</span> <span class="number">6812</span>-<span class="number">6812</span>/com.hanks.rxsearch I/RxThread: get result:Android, run In :main</span><br><span class="line"><span class="number">12</span>-<span class="number">06</span> <span class="number">16</span>:<span class="number">41</span>:<span class="number">27.043</span> <span class="number">6812</span>-<span class="number">6812</span>/com.hanks.rxsearch I/RxThread: get result:Fresco, run In :main</span><br></pre></td></tr></table></figure>
+<h3 id="3-最早的-subscribeOn-生效"><a href="#3-最早的-subscribeOn-生效" class="headerlink" title="3. 最早的 .subscribeOn() 生效"></a>3. 最早的 <code>.subscribeOn()</code> 生效</h3><p>看下面的代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Observable.just(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>)</span><br><span class="line">  .subscribeOn(thread1)</span><br><span class="line">  .subscribeOn(thread2)</span><br><span class="line">  .subscribe();</span><br></pre></td></tr></table></figure>
+<p><code>Observable</code> 的创建和  <code>.subscribeOn()</code> 的调用都将在 thread1 上面执行，所以没有必要多次调用 <code>.subscribeOn()</code>,因为只有第一次的是有用的。</p>
+<p><strong>实验:</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> <span class="title class_">Thread</span>() &#123;</span><br><span class="line">      <span class="meta">@Override</span> <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">          Observable.just(<span class="string">&quot;Android-Picasso&quot;</span>, <span class="string">&quot;Android-Glide&quot;</span>, <span class="string">&quot;Android-Fresco&quot;</span>).doOnNext(<span class="keyword">new</span> <span class="title class_">Action1</span>&lt;String&gt;() &#123;</span><br><span class="line">              <span class="meta">@Override</span> <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">call</span><span class="params">(String str)</span> &#123;</span><br><span class="line">                  Log.i(<span class="string">&quot;RxThread&quot;</span>, <span class="string">&quot;doOnNext:&quot;</span> + str + <span class="string">&quot;, run In :&quot;</span> + Thread.currentThread()</span><br><span class="line">                          .getName());</span><br><span class="line">              &#125;</span><br><span class="line">          &#125;)</span><br><span class="line">          .subscribeOn(Schedulers.newThread())</span><br><span class="line">          .subscribeOn(Schedulers.io())</span><br><span class="line">          .subscribeOn(Schedulers.computation())</span><br><span class="line">          .subscribe(<span class="keyword">new</span> <span class="title class_">Action1</span>&lt;String&gt;() &#123;</span><br><span class="line">              <span class="meta">@Override</span> <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">call</span><span class="params">(String str)</span> &#123;</span><br><span class="line">                  Log.i(<span class="string">&quot;RxThread&quot;</span>, <span class="string">&quot;get result:&quot;</span> + str + <span class="string">&quot;, run In :&quot;</span> + Thread.currentThread()</span><br><span class="line">                          .getName());</span><br><span class="line">              &#125;</span><br><span class="line">          &#125;);</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;.start();</span><br></pre></td></tr></table></figure>
+
+<p><strong>输出结果</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">12</span>-<span class="number">06</span> <span class="number">16</span>:<span class="number">51</span>:<span class="number">17.581</span> <span class="number">15622</span>-<span class="number">15652</span>/com.hanks.rxsearch I/RxThread: doOnNext:Android-Picasso, run In :RxNewThreadScheduler-<span class="number">1</span></span><br><span class="line"><span class="number">12</span>-<span class="number">06</span> <span class="number">16</span>:<span class="number">51</span>:<span class="number">17.581</span> <span class="number">15622</span>-<span class="number">15652</span>/com.hanks.rxsearch I/RxThread: get result:Android-Picasso, run In :RxNewThreadScheduler-<span class="number">1</span></span><br><span class="line"><span class="number">12</span>-<span class="number">06</span> <span class="number">16</span>:<span class="number">51</span>:<span class="number">17.581</span> <span class="number">15622</span>-<span class="number">15652</span>/com.hanks.rxsearch I/RxThread: doOnNext:Android-Glide, run In :RxNewThreadScheduler-<span class="number">1</span></span><br><span class="line"><span class="number">12</span>-<span class="number">06</span> <span class="number">16</span>:<span class="number">51</span>:<span class="number">17.581</span> <span class="number">15622</span>-<span class="number">15652</span>/com.hanks.rxsearch I/RxThread: get result:Android-Glide, run In :RxNewThreadScheduler-<span class="number">1</span></span><br><span class="line"><span class="number">12</span>-<span class="number">06</span> <span class="number">16</span>:<span class="number">51</span>:<span class="number">17.581</span> <span class="number">15622</span>-<span class="number">15652</span>/com.hanks.rxsearch I/RxThread: doOnNext:Android-Fresco, run In :RxNewThreadScheduler-<span class="number">1</span></span><br><span class="line"><span class="number">12</span>-<span class="number">06</span> <span class="number">16</span>:<span class="number">51</span>:<span class="number">17.581</span> <span class="number">15622</span>-<span class="number">15652</span>/com.hanks.rxsearch I/RxThread: get result:Android-Fresco, run In :RxNewThreadScheduler-<span class="number">1</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<p><strong>实验</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> <span class="title class_">Thread</span>() &#123;</span><br><span class="line">       <span class="meta">@Override</span> <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">           Observable.just(<span class="string">&quot;Android-Picasso&quot;</span>, <span class="string">&quot;Android-Glide&quot;</span>, <span class="string">&quot;Android-Fresco&quot;</span>).doOnNext(<span class="keyword">new</span> <span class="title class_">Action1</span>&lt;String&gt;() &#123;</span><br><span class="line">               <span class="meta">@Override</span> <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">call</span><span class="params">(String str)</span> &#123;</span><br><span class="line">                   Log.i(<span class="string">&quot;RxThread&quot;</span>, <span class="string">&quot;doOnNext:&quot;</span> + str + <span class="string">&quot;, run In :&quot;</span> + Thread.currentThread()</span><br><span class="line">                           .getName());</span><br><span class="line">               &#125;</span><br><span class="line">           &#125;)</span><br><span class="line">           .subscribeOn(Schedulers.io())</span><br><span class="line">           .subscribeOn(Schedulers.newThread())</span><br><span class="line">           .subscribeOn(Schedulers.computation())</span><br><span class="line">           .subscribe(<span class="keyword">new</span> <span class="title class_">Action1</span>&lt;String&gt;() &#123;</span><br><span class="line">               <span class="meta">@Override</span> <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">call</span><span class="params">(String str)</span> &#123;</span><br><span class="line">                   Log.i(<span class="string">&quot;RxThread&quot;</span>, <span class="string">&quot;get result:&quot;</span> + str + <span class="string">&quot;, run In :&quot;</span> + Thread.currentThread()</span><br><span class="line">                           .getName());</span><br><span class="line">               &#125;</span><br><span class="line">           &#125;);</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;.start();</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p><strong>输出结果</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">12</span>-<span class="number">06</span> <span class="number">16</span>:<span class="number">52</span>:<span class="number">13.378</span> <span class="number">16424</span>-<span class="number">16454</span>/com.hanks.rxsearch I/RxThread: doOnNext:Android-Picasso, run In :RxCachedThreadScheduler-<span class="number">2</span></span><br><span class="line"><span class="number">12</span>-<span class="number">06</span> <span class="number">16</span>:<span class="number">52</span>:<span class="number">13.379</span> <span class="number">16424</span>-<span class="number">16454</span>/com.hanks.rxsearch I/RxThread: get result:Android-Picasso, run In :RxCachedThreadScheduler-<span class="number">2</span></span><br><span class="line"><span class="number">12</span>-<span class="number">06</span> <span class="number">16</span>:<span class="number">52</span>:<span class="number">13.379</span> <span class="number">16424</span>-<span class="number">16454</span>/com.hanks.rxsearch I/RxThread: doOnNext:Android-Glide, run In :RxCachedThreadScheduler-<span class="number">2</span></span><br><span class="line"><span class="number">12</span>-<span class="number">06</span> <span class="number">16</span>:<span class="number">52</span>:<span class="number">13.379</span> <span class="number">16424</span>-<span class="number">16454</span>/com.hanks.rxsearch I/RxThread: get result:Android-Glide, run In :RxCachedThreadScheduler-<span class="number">2</span></span><br><span class="line"><span class="number">12</span>-<span class="number">06</span> <span class="number">16</span>:<span class="number">52</span>:<span class="number">13.379</span> <span class="number">16424</span>-<span class="number">16454</span>/com.hanks.rxsearch I/RxThread: doOnNext:Android-Fresco, run In :RxCachedThreadScheduler-<span class="number">2</span></span><br><span class="line"><span class="number">12</span>-<span class="number">06</span> <span class="number">16</span>:<span class="number">52</span>:<span class="number">13.379</span> <span class="number">16424</span>-<span class="number">16454</span>/com.hanks.rxsearch I/RxThread: get result:Android-Fresco, run In :RxCachedThreadScheduler-<span class="number">2</span></span><br></pre></td></tr></table></figure>
+
+<p><code>Android</code> <code>Rxjava</code> <code>Rxandroid</code></p>
+<blockquote>
+<p><strong>文章出处</strong> (<a target="_blank" rel="noopener" href="https://hanks.xyz/">https://hanks.xyz</a>)</p>
+</blockquote>
+
+      
+    </div>
+</article>
+
+<!-- 上一页 下一页 -->
+
+
+<nav id="article-nav">
+  
+    <a href="/2015/12/08/refactoring-plaid-1/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>上一篇</span>
+      <div class="article-nav-title">
+        
+          重构 Plaid app - 响应式的MVP模式(一)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/12/04/mac_java_enviroment/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>下一篇</span>
+      <div class="article-nav-title">OS X中Java环境变量配置</div>
+    </a>
+  
+</nav>
+
+
+
+<!-- 相关文章 -->
+
+<!--
+
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+      			<a href="/2015/12/06/rx_thread/">Rx中的线程切换</a>
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+
+-->
+
+
+</section>
+      </div>
+      <footer id="footer">
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      
+      &copy;2024<a target="_blank" rel="noopener" href="https://github.com/hanks-zyh"> Hanks</a>版权所有
+      <br/>
+      <a href="https://beian.miit.gov.cn/" target="_blank">豫ICP备2021022347号</a>
+	  </div>
+  </div>
+ <div id="share">
+  <a id="totop" title="" style="display: block;">返回顶部</a>
+ </div>
+</footer>
+
+    </div>
+    
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/jquery.scrollLoading.js"></script>
+
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/ads.js"></script>
+
+  </div>
+</body>
+</html>

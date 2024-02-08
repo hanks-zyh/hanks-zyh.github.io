@@ -1,0 +1,984 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>使用Kotlin开发Android应用（I）：简介 | Hanks&#39; Websit</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <script data-ad-client="ca-pub-8165670162444117" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <meta name="referrer" content="never">
+  <meta name="description" content="转载自：https:&#x2F;&#x2F;www.jianshu.com&#x2F;p&#x2F;b6a2cda2f806 英文原文：https:&#x2F;&#x2F;antonioleiva.com&#x2F;kotlin-for-android-introduction&#x2F;   Kotlin是一门基于JVM的编程语言，它正成长为Android开发中用于替代Java语言的继承者。Java是世界上使用最多的编程语言之一，当其他编程语言为更加便于开发者使用而不断进">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用Kotlin开发Android应用（I）：简介">
+<meta property="og:url" content="https://hanks.pub/2015/07/06/%E4%BD%BF%E7%94%A8Kotlin%E5%BC%80%E5%8F%91Android%E5%BA%94%E7%94%A8%EF%BC%88I%EF%BC%89%EF%BC%9A%E7%AE%80%E4%BB%8B/index.html">
+<meta property="og:site_name" content="Hanks&#39; Websit">
+<meta property="og:description" content="转载自：https:&#x2F;&#x2F;www.jianshu.com&#x2F;p&#x2F;b6a2cda2f806 英文原文：https:&#x2F;&#x2F;antonioleiva.com&#x2F;kotlin-for-android-introduction&#x2F;   Kotlin是一门基于JVM的编程语言，它正成长为Android开发中用于替代Java语言的继承者。Java是世界上使用最多的编程语言之一，当其他编程语言为更加便于开发者使用而不断进">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2015-07-06T05:55:00.000Z">
+<meta property="article:modified_time" content="2024-02-08T01:29:02.197Z">
+<meta property="article:author" content="Hanks">
+<meta property="article:tag" content="Android">
+<meta name="twitter:card" content="summary">
+  
+  
+  <link href="https://fonts.googleapis.com/css?family=Fira+Code|Noto+Serif+SC&display=swap" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8165670162444117"
+     crossorigin="anonymous"></script>
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo"></a>
+    <nav id="main-nav">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      
+        <a class="main-nav-link" href="/archives">Archive</a>
+      
+        <a class="main-nav-link" href="/eye-video">Eye</a>
+      
+        <a class="main-nav-link" href="/atom.xml">Rss</a>
+      
+    </nav>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/archives" class="mobile-nav-link">Archive</a>
+  
+    <a href="/eye-video" class="mobile-nav-link">Eye</a>
+  
+    <a href="/atom.xml" class="mobile-nav-link">Rss</a>
+  
+</nav>
+      <div class="outer">
+        <section id="main"><article id="post-使用Kotlin开发Android应用（I）：简介" class="article article-type-post" itemscope
+  itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <header class="article-header">
+      
+      
+  
+    <h1 class="article-title" itemprop="name">
+      使用Kotlin开发Android应用（I）：简介
+    </h1>
+  
+
+      
+    </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+<p>转载自：<a target="_blank" href="https://www.jianshu.com/p/b6a2cda2f806">https://www.jianshu.com/p/b6a2cda2f806</a></p>
+<p>英文原文：<a target="_blank" href="https://antonioleiva.com/kotlin-for-android-introduction/">https://antonioleiva.com/kotlin-for-android-introduction/</a></p>
+<p></p>
+<p style="margin-top:0px; margin-bottom:25px; text-align:justify; word-break:break-word; color:rgb(47,47,47); font-family:'lucida grande','lucida sans unicode',lucida,helvetica,'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif; font-size:16px; line-height:27.2000007629395px">
+Kotlin是一门基于JVM的编程语言，它正成长为Android开发中用于替代Java语言的继承者。Java是世界上使用最多的编程语言之一，当其他编程语言为更加便于开发者使用而不断进化时，Java并没有像预期那样及时跟进。</p>
+<p style="margin-top:0px; margin-bottom:25px; text-align:justify; word-break:break-word; color:rgb(47,47,47); font-family:'lucida grande','lucida sans unicode',lucida,helvetica,'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif; font-size:16px; line-height:27.2000007629395px">
+Java缺失的很多特性在最新的修订版中逐渐覆盖到了，但Android开发者暂时还没能够使用它们。这就使得类&#20284;Kotlin这样的语言有了用武之地了：在旧的开发环境中使用现代语言的特性。</p>
+<h3 style="margin:0px; font-family:'lucida grande','lucida sans unicode',lucida,helvetica,'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif; line-height:1.8; color:rgb(47,47,47); font-size:22px">
+Kotlin是什么？</h3>
+<p style="margin-top:0px; margin-bottom:25px; text-align:justify; word-break:break-word; color:rgb(47,47,47); font-family:'lucida grande','lucida sans unicode',lucida,helvetica,'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif; font-size:16px; line-height:27.2000007629395px">
+Kotlin是由<a target="_blank" href="https://www.jetbrains.com/" target="_blank" style="color:rgb(64,148,199); text-decoration:none">JetBrains</a>创建的基于JVM的编程语言，IntelliJ正是JetBrains的杰作，而Android Studio是基于IntelliJ修改而来的。Kotlin是一门包含很多函数式编程思想的面向对象编程语言。</p>
+<p style="margin-top:0px; margin-bottom:25px; text-align:justify; word-break:break-word; color:rgb(47,47,47); font-family:'lucida grande','lucida sans unicode',lucida,helvetica,'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif; font-size:16px; line-height:27.2000007629395px">
+Kotlin生来就是为了弥补Java缺失的现代语言的特性，并极大的简化了代码，使得开发者可以编写尽量少的样板代码。</p>
+<h3 style="margin:0px; font-family:'lucida grande','lucida sans unicode',lucida,helvetica,'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif; line-height:1.8; color:rgb(47,47,47); font-size:22px">
+为什么要使用Kotlin？</h3>
+<p style="margin-top:0px; margin-bottom:25px; text-align:justify; word-break:break-word; color:rgb(47,47,47); font-family:'lucida grande','lucida sans unicode',lucida,helvetica,'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif; font-size:16px; line-height:27.2000007629395px">
+首先我必须声明我使用Kotlin的时间并不长，我几乎是边学习边写这一系列博客的。我没有尝试其他替代语言例如Go或者Scala，因此如果你真的想要切换到另一门语言之前，我建议先搜索其他人是如何评价其他语言的。使用Scala开发Android的一个很棒的例子可以在<a target="_blank" href="https://47deg.github.io/translate-bubble-android/" target="_blank" style="color:rgb(64,148,199); text-decoration:none">47deg的Github</a>上面找到。</p>
+<p style="margin-top:0px; margin-bottom:25px; text-align:justify; word-break:break-word; color:rgb(47,47,47); font-family:'lucida grande','lucida sans unicode',lucida,helvetica,'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif; font-size:16px; line-height:27.2000007629395px">
+下面是我为什么选择Kotlin进行学习的理由：</p>
+<ul style="padding:0px; margin:0px 0px 20px 25px; text-align:justify; word-break:break-word; color:rgb(47,47,47); font-family:'lucida grande','lucida sans unicode',lucida,helvetica,'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif; font-size:16px; line-height:27.2000007629395px">
+<li style="line-height:30px"><strong>相对而言更快的学习曲线</strong>：例如相比Scala而言，我们将学得更快。Kotlin限制比较多，但如果你之前没有使用过现代编程语言，那么使用Kotlin入门会更容易。</li><li style="line-height:30px"><strong>轻量级</strong>：相比其他编程语言，Kotlin函数库更小。由于Android存在65K方法数限制，这使得这一点更为重要。虽然使用proguard或者打包成多个dex能够解决这个问题，但是所有这些解决方案都会增加复杂性，并增加调试的时间。Kotlin函数库方法数小于7000个，相当于support-v4的大小。</li><li style="line-height:30px"><strong>高度可互操作</strong>：Kotlin可以和其他Java类库很好的并且简单的互操作。Kotlin团队在开发这门新语言时正是秉承了这个中心思想。他们希望可以使用Kotlin继续开发现有的使用Java语言编程的工程，而不是重写所有代码。因此Kotlin需要能够极好的和Java互操作。</li><li style="line-height:30px"><strong>完美的集成Android Studio以及Gradle</strong>：Kotlin有一个专门用于Android Studio的插件，以及另一个专门用于Gradle的插件，因此在Android工程中开始使用Kotlin并不困难（我将在下一篇文章中进行介绍）。</li></ul>
+<p style="margin-top:0px; margin-bottom:25px; text-align:justify; word-break:break-word; color:rgb(47,47,47); font-family:'lucida grande','lucida sans unicode',lucida,helvetica,'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif; font-size:16px; line-height:27.2000007629395px">
+在你作任何决定之前我推荐先阅读一篇由Jake Wharton写的有趣的文章：<a target="_blank" href="https://docs.google.com/document/d/1ReS3ep-hjxWA8kZi0YqDbEhCqTt29hG8P44aA9W0DM8/edit?hl=es&amp;forcehl=1" target="_blank" style="color:rgb(64,148,199); text-decoration:none">在Android开发中使用Kotlin</a></p>
+<h3 style="margin:0px; font-family:'lucida grande','lucida sans unicode',lucida,helvetica,'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif; line-height:1.8; color:rgb(47,47,47); font-size:22px">
+Kotlin有些什么特性呢？</h3>
+<h4 style="margin:0px; font-family:'lucida grande','lucida sans unicode',lucida,helvetica,'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif; line-height:1.8; color:rgb(47,47,47); font-size:20px">
+1. 表达式</h4>
+<p style="margin-top:0px; margin-bottom:25px; text-align:justify; word-break:break-word; color:rgb(47,47,47); font-family:'lucida grande','lucida sans unicode',lucida,helvetica,'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif; font-size:16px; line-height:27.2000007629395px">
+使用Kotlin可以很容易避免样板代码的编写，因为语言本身已经默认覆盖了大多数典型的情况。</p>
+<p style="margin-top:0px; margin-bottom:25px; text-align:justify; word-break:break-word; color:rgb(47,47,47); font-family:'lucida grande','lucida sans unicode',lucida,helvetica,'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif; font-size:16px; line-height:27.2000007629395px">
+例如，在Java中如果要创建一个典型的数据模型类，我们需要编写（或者至少生成）如下代码：</p>
+<pre style="padding:9.5px; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; font-size:13px; color:rgb(63,63,63); margin-top:0px; margin-bottom:20px; line-height:20px; word-break:normal; word-wrap:normal; white-space:pre-wrap; overflow:auto; background-color:rgb(245,245,245)"><code style="padding:0px; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; font-size:12px; color:rgb(217,111,93); border:none; white-space:pre; background-color:transparent">public class Artist &#123;
+    private long id;
+    private String name;
+    private String url;
+    private String mbid;
+
+    public long getId() &#123;
+        return id;
+    &#125;
+
+    public void setId(long id) &#123;
+        this.id = id;
+    &#125;
+
+    public String getName() &#123;
+        return name;
+    &#125;
+
+    public void setName(String name) &#123;
+        this.name = name;
+    &#125;
+
+    public String getUrl() &#123;
+        return url;
+    &#125;
+
+    public void setUrl(String url) &#123;
+        this.url = url;
+    &#125;
+
+    public String getMbid() &#123;
+        return mbid;
+    &#125;
+
+    public void setMbid(String mbid) &#123;
+        this.mbid = mbid;
+    &#125;
+
+    @Override public String toString() &#123;
+        return &quot;Artist&#123;&quot; &#43;
+                &quot;id=&quot; &#43; id &#43;
+                &quot;, name='&quot; &#43; name &#43; '\'' &#43;
+                &quot;, url='&quot; &#43; url &#43; '\'' &#43;
+                &quot;, mbid='&quot; &#43; mbid &#43; '\'' &#43;
+                '&#125;';
+    &#125;
+&#125;</code></pre>
+<p style="margin-top:0px; margin-bottom:25px; text-align:justify; word-break:break-word; color:rgb(47,47,47); font-family:'lucida grande','lucida sans unicode',lucida,helvetica,'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif; font-size:16px; line-height:27.2000007629395px">
+如果使用Kotlin编写呢？如下所示：</p>
+<pre style="padding:9.5px; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; font-size:13px; color:rgb(63,63,63); margin-top:0px; margin-bottom:20px; line-height:20px; word-break:normal; word-wrap:normal; white-space:pre-wrap; overflow:auto; background-color:rgb(245,245,245)"><code style="padding:0px; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; font-size:12px; color:rgb(217,111,93); border:none; white-space:pre; background-color:transparent">data class Artist(
+    var id: Long,
+    var name: String,
+    var url: String,
+    var mbid: String)</code></pre>
+<h4 style="margin:0px; font-family:'lucida grande','lucida sans unicode',lucida,helvetica,'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif; line-height:1.8; color:rgb(47,47,47); font-size:20px">
+2. 空类型安全</h4>
+<p style="margin-top:0px; margin-bottom:25px; text-align:justify; word-break:break-word; color:rgb(47,47,47); font-family:'lucida grande','lucida sans unicode',lucida,helvetica,'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif; font-size:16px; line-height:27.2000007629395px">
+当我们使用Java进行开发时，大部分代码都是防守型的。我们需要在使用之前不断的检测对象是否为空，如果我们不想在代码运行时得到非预期的NullPointerException。类&#20284;其他很多编程语言，Kotlin是空类型安全的，因此我们需要使用安全调用操作符显式指明对象是否能够为空。</p>
+<p style="margin-top:0px; margin-bottom:25px; text-align:justify; word-break:break-word; color:rgb(47,47,47); font-family:'lucida grande','lucida sans unicode',lucida,helvetica,'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif; font-size:16px; line-height:27.2000007629395px">
+我们可以类&#20284;这样声明：</p>
+<pre style="padding:9.5px; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; font-size:13px; color:rgb(63,63,63); margin-top:0px; margin-bottom:20px; line-height:20px; word-break:normal; word-wrap:normal; white-space:pre-wrap; overflow:auto; background-color:rgb(245,245,245)"><code style="padding:0px; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; font-size:12px; color:rgb(217,111,93); border:none; white-space:pre; background-color:transparent">//This won´t compile. Artist can´t be null
+var notNullArtist: Artist = null
+
+//Artist can be null
+var artist: Artist? = null
+
+// Won´t compile, artist could be null and we need to deal with that
+artist.print()
+
+// Will print only if artist != null
+artist?.print()
+
+// Smart cast. We don´t need to use safe call operator if we previously checked nullity
+if (artist != null) &#123;
+    artist.print()
+&#125;
+
+// Only use it when we are sure it´s not null. Will throw an exception otherwise.
+artist!!.print()
+
+// Use Elvis operator to give an alternative in case the object is null
+val name = artist?.name ?: &quot;empty&quot;</code></pre>
+<h4 style="margin:0px; font-family:'lucida grande','lucida sans unicode',lucida,helvetica,'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif; line-height:1.8; color:rgb(47,47,47); font-size:20px">
+3. 扩展函数</h4>
+<p style="margin-top:0px; margin-bottom:25px; text-align:justify; word-break:break-word; color:rgb(47,47,47); font-family:'lucida grande','lucida sans unicode',lucida,helvetica,'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif; font-size:16px; line-height:27.2000007629395px">
+我们可以为任何类添加新函数。相比我们工程中普遍存在的传统的工具类，扩展函数更具可读性。例如，我们可以为fragments添加一个新函数，用于显示一个toast：</p>
+<pre style="padding:9.5px; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; font-size:13px; color:rgb(63,63,63); margin-top:0px; margin-bottom:20px; line-height:20px; word-break:normal; word-wrap:normal; white-space:pre-wrap; overflow:auto; background-color:rgb(245,245,245)"><code style="padding:0px; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; font-size:12px; color:rgb(217,111,93); border:none; white-space:pre; background-color:transparent">fun Fragment.toast(message: CharSequence, duration: Int = Toast.LENGTH_SHORT) &#123;
+    Toast.makeText(getActivity(), message, duration).show()
+&#125;</code></pre>
+<p style="margin-top:0px; margin-bottom:25px; text-align:justify; word-break:break-word; color:rgb(47,47,47); font-family:'lucida grande','lucida sans unicode',lucida,helvetica,'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif; font-size:16px; line-height:27.2000007629395px">
+然后可以这样调用：</p>
+<pre style="padding:9.5px; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; font-size:13px; color:rgb(63,63,63); margin-top:0px; margin-bottom:20px; line-height:20px; word-break:normal; word-wrap:normal; white-space:pre-wrap; overflow:auto; background-color:rgb(245,245,245)"><code style="padding:0px; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; font-size:12px; color:rgb(217,111,93); border:none; white-space:pre; background-color:transparent">fragment.toast(&quot;Hello world!&quot;)</code></pre>
+<h4 style="margin:0px; font-family:'lucida grande','lucida sans unicode',lucida,helvetica,'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif; line-height:1.8; color:rgb(47,47,47); font-size:20px">
+4. 函数式支持（Lambdas）</h4>
+<p style="margin-top:0px; margin-bottom:25px; text-align:justify; word-break:break-word; color:rgb(47,47,47); font-family:'lucida grande','lucida sans unicode',lucida,helvetica,'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif; font-size:16px; line-height:27.2000007629395px">
+每次当我们创建一个新的listener时，都需要声明一个onClick函数用于处理监听回调，我们可以直接编写监听回调的代码而不用声明onClick函数吗？答案是肯定的。这（包括其他很多有趣的功能）得归功与lambda表达式的运用：</p>
+<pre style="padding:9.5px; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; font-size:13px; color:rgb(63,63,63); margin-top:0px; margin-bottom:20px; line-height:20px; word-break:normal; word-wrap:normal; white-space:pre-wrap; overflow:auto; background-color:rgb(245,245,245)"><code style="padding:0px; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; font-size:12px; color:rgb(217,111,93); border:none; white-space:pre; background-color:transparent">view.setOnClickListener(&#123; toast(&quot;Hello world!&quot;) &#125;)</code></pre>
+<h3 style="margin:0px; font-family:'lucida grande','lucida sans unicode',lucida,helvetica,'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif; line-height:1.8; color:rgb(47,47,47); font-size:22px">
+目前的限制</h3>
+<blockquote style="padding:10px 15px; margin:0px 0px 20px; border-left-width:4px; border-left-style:solid; border-left-color:rgb(153,153,153); position:relative; word-break:break-word; font-size:15px; line-height:30px; color:rgb(47,47,47); font-family:'lucida grande','lucida sans unicode',lucida,helvetica,'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif; background-color:rgb(245,245,245)">
+<p style="margin-top:0px; margin-bottom:0px; line-height:1.7; text-align:justify; word-break:break-word">
+译者注：本小节所列出的限制，在最新版的Kotlin中已经都解决了，仅供读者目睹Kotlin语言的完善和进化过程。</p>
+</blockquote>
+<p style="margin-top:0px; margin-bottom:25px; text-align:justify; word-break:break-word; color:rgb(47,47,47); font-family:'lucida grande','lucida sans unicode',lucida,helvetica,'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif; font-size:16px; line-height:27.2000007629395px">
+Kotlin目前还处于开发阶段，虽然已经很稳定而且最终release版本即将发布（这个夏天），但在Android开发中存在如下限制：</p>
+<ul style="padding:0px; margin:0px 0px 20px 25px; text-align:justify; word-break:break-word; color:rgb(47,47,47); font-family:'lucida grande','lucida sans unicode',lucida,helvetica,'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif; font-size:16px; line-height:27.2000007629395px">
+<li style="line-height:30px"><strong>与自动生成代码的可互操作性</strong>：一些知名的依赖于自动生成代码的Android函数库，例如Dagger或者Butterknife，由于某些不兼容的命名，因此不能正常的使用。Kotlin团队正在解决这些问题，将来某一天将会解决（KT-6444）。不管怎么说，就像我将在下一篇文章中说明的，语言的可表达性能够说服我们不再需要这些函数库。</li></ul>
+<blockquote style="padding:10px 15px; margin:0px 0px 20px; border-left-width:4px; border-left-style:solid; border-left-color:rgb(153,153,153); position:relative; word-break:break-word; font-size:15px; line-height:30px; color:rgb(47,47,47); font-family:'lucida grande','lucida sans unicode',lucida,helvetica,'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif; background-color:rgb(245,245,245)">
+<p style="margin-top:0px; margin-bottom:0px; line-height:1.7; text-align:justify; word-break:break-word">
+更新：在Kotlin M12已经带来了对注解处理的支持。</p>
+</blockquote>
+<ul style="padding:0px; margin:0px 0px 20px 25px; text-align:justify; word-break:break-word; color:rgb(47,47,47); font-family:'lucida grande','lucida sans unicode',lucida,helvetica,'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif; font-size:16px; line-height:27.2000007629395px">
+<li style="line-height:30px"><strong>没有简单的方式声明自定义views</strong>：Kotlin类只能声明一个构造函数，而自定义views一般都有三个重载构造函数。当我们在代码中使用这些自定义views时只有一个构造函数不存在问题，但如果想在xml文件中使用自定义views，只有一个构造函数是不够的。最简单的解决方法是使用Java声明这些自定义views类，并在Kotlin中引用它们。Kotlin团队许诺将在M11发布版中解决这个问题。</li></ul>
+<blockquote style="padding:10px 15px; margin:0px 0px 20px; border-left-width:4px; border-left-style:solid; border-left-color:rgb(153,153,153); position:relative; word-break:break-word; font-size:15px; line-height:30px; color:rgb(47,47,47); font-family:'lucida grande','lucida sans unicode',lucida,helvetica,'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif; background-color:rgb(245,245,245)">
+<p style="margin-top:0px; margin-bottom:0px; line-height:1.7; text-align:justify; word-break:break-word">
+更新：Kotlin M11发布了并包含了<a target="_blank" href="https://kotlinlang.org/docs/reference/classes.html#constructors" target="_blank" style="color:rgb(64,148,199); text-decoration:none">辅助构造函数</a>。</p>
+</blockquote>
+<ul style="padding:0px; margin:0px 0px 20px 25px; text-align:justify; word-break:break-word; color:rgb(47,47,47); font-family:'lucida grande','lucida sans unicode',lucida,helvetica,'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif; font-size:16px; line-height:27.2000007629395px">
+<li style="line-height:30px"><strong>Android工程中的jUnit测试</strong>：Android Studio 1.1引入的这个新特性Kotlin暂时还不支持。但纯粹的Kotlin工程能够完全支持Instrumentation测试和jUnit测试。</li></ul>
+<blockquote style="padding:10px 15px; margin:0px 0px 20px; border-left-width:4px; border-left-style:solid; border-left-color:rgb(153,153,153); position:relative; word-break:break-word; font-size:15px; line-height:30px; color:rgb(47,47,47); font-family:'lucida grande','lucida sans unicode',lucida,helvetica,'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif; background-color:rgb(245,245,245)">
+<p style="margin-top:0px; margin-bottom:0px; line-height:1.7; text-align:justify; word-break:break-word">
+更新：Kotlin M12的gradle plugin现在支持Android Studio中的单元测试了。</p>
+</blockquote>
+<h3 style="margin:0px; font-family:'lucida grande','lucida sans unicode',lucida,helvetica,'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif; line-height:1.8; color:rgb(47,47,47); font-size:22px">
+总结</h3>
+<p style="margin-top:0px; margin-bottom:25px; text-align:justify; word-break:break-word; color:rgb(47,47,47); font-family:'lucida grande','lucida sans unicode',lucida,helvetica,'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif; font-size:16px; line-height:27.2000007629395px">
+Kotlin是开发Android app中使用的Java语言的一个有趣的替换者。下一篇文章我们将描述使用Kotlin如何新建一个新工程，并讲解如何充分利用Kotlin使Android开发更容易。敬请关注！</p>
+<br>
+
+      
+    </div>
+</article>
+
+<!-- 上一页 下一页 -->
+
+
+<nav id="article-nav">
+  
+    <a href="/2015/07/06/%E4%BD%BF%E7%94%A8Kotlin%E5%BC%80%E5%8F%91Android%E5%BA%94%E7%94%A8%EF%BC%88II%EF%BC%89%EF%BC%9A%E5%88%9B%E5%BB%BA%E6%96%B0%E5%B7%A5%E7%A8%8B/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>上一篇</span>
+      <div class="article-nav-title">
+        
+          使用Kotlin开发Android应用（II）：创建新工程
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/07/06/Kotlin%E5%9C%A8Android%E5%B7%A5%E7%A8%8B%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>下一篇</span>
+      <div class="article-nav-title">Kotlin在Android工程中的应用</div>
+    </a>
+  
+</nav>
+
+
+
+<!-- 相关文章 -->
+
+<!--
+
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+      			<a href="/2015/07/06/%E4%BD%BF%E7%94%A8Kotlin%E5%BC%80%E5%8F%91Android%E5%BA%94%E7%94%A8%EF%BC%88I%EF%BC%89%EF%BC%9A%E7%AE%80%E4%BB%8B/">使用Kotlin开发Android应用（I）：简介</a>
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+
+-->
+
+
+</section>
+      </div>
+      <footer id="footer">
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      
+      &copy;2024<a target="_blank" rel="noopener" href="https://github.com/hanks-zyh"> Hanks</a>版权所有
+      <br/>
+      <a href="https://beian.miit.gov.cn/" target="_blank">豫ICP备2021022347号</a>
+	  </div>
+  </div>
+ <div id="share">
+  <a id="totop" title="" style="display: block;">返回顶部</a>
+ </div>
+</footer>
+
+    </div>
+    
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/jquery.scrollLoading.js"></script>
+
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/ads.js"></script>
+
+  </div>
+</body>
+</html>

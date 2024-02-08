@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>hdu 题目1398 Square Coins （母函数及其应用） | Hanks&#39; Websit</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <script data-ad-client="ca-pub-8165670162444117" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <meta name="referrer" content="never">
+  <meta name="description" content="Square Coins Time Limit: 2000&#x2F;1000 MS (Java&#x2F;Others)&nbsp;&nbsp;&nbsp;&nbsp;Memory Limit: 65536&#x2F;32768 K (Java&#x2F;Others) Total Submission(s): 6828&nbsp;&nbsp;&nbsp;&nbsp;Accepted Submission(s): 4613">
+<meta property="og:type" content="article">
+<meta property="og:title" content="hdu 题目1398 Square Coins （母函数及其应用）">
+<meta property="og:url" content="https://hanks.pub/2013/08/27/hdu_%E9%A2%98%E7%9B%AE1398_Square_Coins_%EF%BC%88%E6%AF%8D%E5%87%BD%E6%95%B0%E5%8F%8A%E5%85%B6%E5%BA%94%E7%94%A8%EF%BC%89/index.html">
+<meta property="og:site_name" content="Hanks&#39; Websit">
+<meta property="og:description" content="Square Coins Time Limit: 2000&#x2F;1000 MS (Java&#x2F;Others)&nbsp;&nbsp;&nbsp;&nbsp;Memory Limit: 65536&#x2F;32768 K (Java&#x2F;Others) Total Submission(s): 6828&nbsp;&nbsp;&nbsp;&nbsp;Accepted Submission(s): 4613">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2013-08-27T06:48:00.000Z">
+<meta property="article:modified_time" content="2024-02-08T01:29:02.185Z">
+<meta property="article:author" content="Hanks">
+<meta name="twitter:card" content="summary">
+  
+  
+  <link href="https://fonts.googleapis.com/css?family=Fira+Code|Noto+Serif+SC&display=swap" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8165670162444117"
+     crossorigin="anonymous"></script>
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo"></a>
+    <nav id="main-nav">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      
+        <a class="main-nav-link" href="/archives">Archive</a>
+      
+        <a class="main-nav-link" href="/eye-video">Eye</a>
+      
+        <a class="main-nav-link" href="/atom.xml">Rss</a>
+      
+    </nav>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/archives" class="mobile-nav-link">Archive</a>
+  
+    <a href="/eye-video" class="mobile-nav-link">Eye</a>
+  
+    <a href="/atom.xml" class="mobile-nav-link">Rss</a>
+  
+</nav>
+      <div class="outer">
+        <section id="main"><article id="post-hdu_题目1398_Square_Coins_（母函数及其应用）" class="article article-type-post" itemscope
+  itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <header class="article-header">
+      
+      
+  
+    <h1 class="article-title" itemprop="name">
+      hdu 题目1398 Square Coins （母函数及其应用）
+    </h1>
+  
+
+      
+    </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+<p></p>
+<h1 style="color:rgb(26,92,200); text-align:center; font-family:'Times New Roman'">
+Square Coins</h1>
+<span style="font-family:'Times New Roman'; font-size:14px"><strong><span style="font-family:Arial; font-size:12px; color:green">Time Limit: 2000/1000 MS (Java/Others)&nbsp;&nbsp;&nbsp;&nbsp;Memory Limit: 65536/32768 K (Java/Others)<br>
+Total Submission(s): 6828&nbsp;&nbsp;&nbsp;&nbsp;Accepted Submission(s): 4613<br>
+</span></strong></span><br style="font-family:'Times New Roman'; font-size:14px">
+<br style="font-family:'Times New Roman'; font-size:14px">
+<div class="panel_title" align="left" style="height:38px; background-color:transparent; padding:0px 14px; color:rgb(124,169,237); font-size:18px; font-family:Arial; font-weight:bold">
+Problem Description</div>
+<div class="panel_content" style="height:auto; margin:0px; padding:0px 20px; font-size:14px; font-family:'Times New Roman'">
+People in Silverland use square coins. Not only they have square shapes but also their values are square numbers. Coins with values of all square numbers up to 289 (=17^2), i.e., 1-credit coins, 4-credit coins, 9-credit coins, ..., and 289-credit coins, are
+ available in Silverland.&nbsp;<br>
+There are four combinations of coins to pay ten credits:&nbsp;<br>
+<br>
+ten 1-credit coins,<br>
+one 4-credit coin and six 1-credit coins,<br>
+two 4-credit coins and two 1-credit coins, and<br>
+one 9-credit coin and one 1-credit coin.&nbsp;<br>
+<br>
+Your mission is to count the number of ways to pay a given amount using coins of Silverland.<br>
+</div>
+<div class="panel_bottom" style="height:auto; margin:0px; font-family:'Times New Roman'; font-size:14px">
+&nbsp;</div>
+<br style="font-family:'Times New Roman'; font-size:14px">
+<div class="panel_title" align="left" style="height:38px; background-color:transparent; padding:0px 14px; color:rgb(124,169,237); font-size:18px; font-family:Arial; font-weight:bold">
+Input</div>
+<div class="panel_content" style="height:auto; margin:0px; padding:0px 20px; font-size:14px; font-family:'Times New Roman'">
+The input consists of lines each containing an integer meaning an amount to be paid, followed by a line containing a zero. You may assume that all the amounts are positive and less than 300.<br>
+</div>
+<div class="panel_bottom" style="height:auto; margin:0px; font-family:'Times New Roman'; font-size:14px">
+&nbsp;</div>
+<br style="font-family:'Times New Roman'; font-size:14px">
+<div class="panel_title" align="left" style="height:38px; background-color:transparent; padding:0px 14px; color:rgb(124,169,237); font-size:18px; font-family:Arial; font-weight:bold">
+Output</div>
+<div class="panel_content" style="height:auto; margin:0px; padding:0px 20px; font-size:14px; font-family:'Times New Roman'">
+For each of the given amount, one line containing a single integer representing the number of combinations of coins should be output. No other characters should appear in the output.&nbsp;<br>
+</div>
+<div class="panel_bottom" style="height:auto; margin:0px; font-family:'Times New Roman'; font-size:14px">
+&nbsp;</div>
+<br style="font-family:'Times New Roman'; font-size:14px">
+<div class="panel_title" align="left" style="height:38px; background-color:transparent; padding:0px 14px; color:rgb(124,169,237); font-size:18px; font-family:Arial; font-weight:bold">
+Sample Input</div>
+<div class="panel_content" style="height:auto; margin:0px; padding:0px 20px; font-size:14px; font-family:'Times New Roman'">
+<pre style="margin-top:0px; margin-bottom:0px"><div style="font-family:'Courier New',Courier,monospace">2
+10
+30
+0</div></pre>
+</div>
+<div class="panel_bottom" style="height:auto; margin:0px; font-family:'Times New Roman'; font-size:14px">
+&nbsp;</div>
+<br style="font-family:'Times New Roman'; font-size:14px">
+<div class="panel_title" align="left" style="height:38px; background-color:transparent; padding:0px 14px; color:rgb(124,169,237); font-size:18px; font-family:Arial; font-weight:bold">
+Sample Output</div>
+<div class="panel_content" style="height:auto; margin:0px; padding:0px 20px; font-size:14px; font-family:'Times New Roman'">
+<pre style="margin-top:0px; margin-bottom:0px"><div style="font-family:'Courier New',Courier,monospace">1
+4
+27</div></pre>
+</div>
+<div class="panel_bottom" style="height:auto; margin:0px; font-family:'Times New Roman'; font-size:14px">
+&nbsp;</div>
+<br>
+<p></p>
+<p><br>
+</p>
+<p><br>
+</p>
+<p><span style="font-size:18px">每个元素还是无限个</span></p>
+<p><span style="font-size:18px">只不过每一括号表达式的项的 x 次幂 变化了</span></p>
+<p><span style="font-size:18px">母函数 G(x) = （1&#43; x &#43; x^2 &#43; x^3 &#43;...）（1&#43; x^4 &#43; x^8 &#43;...）（1&#43; x^9 &#43; x^18&#43;...）...</span></p>
+<p><br>
+</p>
+<p><pre name="code" class="cpp">/***************************
+# 2013-8-26 19:22:19 
+# Time: 0MS   Memory:228 KB
+# Author: zyh
+# Status: Accepted
+***************************/ 
+
+#include&lt;iostream&gt;
+#include&lt;stdio.h&gt;
+#include&lt;string.h&gt;
+#include&lt;stdlib.h&gt;
+#include&lt;algorithm&gt;
+
+using namespace std;
+
+int main()
+{
+    int n,i,j,k,c1[305],c2[305]; //第一次数组开300 WA了，，
+    while(scanf(&quot;%d&quot;,&amp;n),n)
+    {
+        for(i=0;i&lt;=n;i++){
+            c1[i] = 1;  //这里初始化应该是第一个括号表达式里 x次幂 的系数
+            c2[i] = 0;
+        }
+        for(i=2;i*i&lt;=n;i++){ //表达式个数，从第二个表达式开始计算
+            for(j=0;j&lt;=n;j++){
+                for(k=0;j+k&lt;=n;k+=(i*i)){
+                    c2[j+k] += c1[j];
+                }
+            }
+            for(j=0;j&lt;=n;j++){
+                c1[j] = c2[j];
+                c2[j] = 0;
+            }
+        }
+        printf(&quot;%d\n&quot;,c1[n]);
+    }
+    return 0;
+} </pre><br>
+<br>
+</p>
+<p><br>
+</p>
+<p><br>
+</p>
+
+      
+    </div>
+</article>
+
+<!-- 上一页 下一页 -->
+
+
+<nav id="article-nav">
+  
+    <a href="/2013/10/20/POJ_1220_%EF%BC%88%E4%B8%A4%E7%A7%8D%E4%BB%BB%E6%84%8F%E8%BF%9B%E5%88%B6%E4%B9%8B%E9%97%B4%E7%9A%84%E8%BD%AC%E6%8D%A2%EF%BC%88%E5%A4%A7%E6%95%B0%EF%BC%89%EF%BC%8Cjava%E7%9A%84BigInteger%EF%BC%89/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>上一篇</span>
+      <div class="article-nav-title">
+        
+          POJ 1220 （两种任意进制之间的转换（大数），java的BigInteger）
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2013/08/27/hdu_%E9%A2%98%E7%9B%AE1028_Ignatius_and_the_Princess_III%EF%BC%88%E6%AF%8D%E5%87%BD%E6%95%B0%E5%8F%8A%E5%85%B6%E5%BA%94%E7%94%A8%EF%BC%89/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>下一篇</span>
+      <div class="article-nav-title">hdu 题目1028 Ignatius and the Princess III（母函数及其应用）</div>
+    </a>
+  
+</nav>
+
+
+
+<!-- 相关文章 -->
+
+<!--
+
+-->
+
+
+</section>
+      </div>
+      <footer id="footer">
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      
+      &copy;2024<a target="_blank" rel="noopener" href="https://github.com/hanks-zyh"> Hanks</a>版权所有
+      <br/>
+      <a href="https://beian.miit.gov.cn/" target="_blank">豫ICP备2021022347号</a>
+	  </div>
+  </div>
+ <div id="share">
+  <a id="totop" title="" style="display: block;">返回顶部</a>
+ </div>
+</footer>
+
+    </div>
+    
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/jquery.scrollLoading.js"></script>
+
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/ads.js"></script>
+
+  </div>
+</body>
+</html>

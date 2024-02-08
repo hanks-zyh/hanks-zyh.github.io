@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Kotlin 中创建类似 Java 的静态方法 | Hanks&#39; Websit</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <script data-ad-client="ca-pub-8165670162444117" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <meta name="referrer" content="never">
+  <meta name="description" content="在 Java 中经常会写个 Utils 工具类来将代码中常用的功能抽出来。在 Kotlin 中该怎么写呢？ 代码就类似下面的这种：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Kotlin 中创建类似 Java 的静态方法">
+<meta property="og:url" content="https://hanks.pub/2016/03/15/kotlin-companion/index.html">
+<meta property="og:site_name" content="Hanks&#39; Websit">
+<meta property="og:description" content="在 Java 中经常会写个 Utils 工具类来将代码中常用的功能抽出来。在 Kotlin 中该怎么写呢？ 代码就类似下面的这种：">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2016-03-15T15:41:01.000Z">
+<meta property="article:modified_time" content="2024-02-08T01:29:02.187Z">
+<meta property="article:author" content="Hanks">
+<meta property="article:tag" content="Java">
+<meta property="article:tag" content="Kotlin">
+<meta name="twitter:card" content="summary">
+  
+  
+  <link href="https://fonts.googleapis.com/css?family=Fira+Code|Noto+Serif+SC&display=swap" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8165670162444117"
+     crossorigin="anonymous"></script>
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo"></a>
+    <nav id="main-nav">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      
+        <a class="main-nav-link" href="/archives">Archive</a>
+      
+        <a class="main-nav-link" href="/eye-video">Eye</a>
+      
+        <a class="main-nav-link" href="/atom.xml">Rss</a>
+      
+    </nav>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/archives" class="mobile-nav-link">Archive</a>
+  
+    <a href="/eye-video" class="mobile-nav-link">Eye</a>
+  
+    <a href="/atom.xml" class="mobile-nav-link">Rss</a>
+  
+</nav>
+      <div class="outer">
+        <section id="main"><article id="post-kotlin-companion" class="article article-type-post" itemscope
+  itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <header class="article-header">
+      
+      
+  
+    <h1 class="article-title" itemprop="name">
+      Kotlin 中创建类似 Java 的静态方法
+    </h1>
+  
+
+      
+    </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      <p>在 <code>Java</code> 中经常会写个 <code>Utils</code> 工具类来将代码中常用的功能抽出来。在 <code>Kotlin</code> 中该怎么写呢？ 代码就类似下面的这种：</p>
+<span id="more"></span>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Utils</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="type">boolean</span> <span class="title function_">isEmpty</span><span class="params">(String string)</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> string != <span class="literal">null</span> &amp;&amp; string.length() == <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="type">boolean</span> <span class="title function_">isWeakEmpty</span><span class="params">(String string)</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> isEmpty(string) &amp;&amp; string.trim().length() == <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>使用起来当然就是：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">boolean</span> <span class="variable">result</span> <span class="operator">=</span> Utils.isEmpty(name);</span><br></pre></td></tr></table></figure>
+
+
+<p>在 <code>Kotlin</code> 中没有 static 类型的 fun，但是我们可以使用 <code>Companion Objects</code> 。</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">MyClass</span> &#123;</span><br><span class="line">  <span class="keyword">companion</span> <span class="keyword">object</span> Factory &#123;</span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">create</span><span class="params">()</span></span>: MyClass = MyClass()</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>companion object</code> 的名字可以省略</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">MyClass</span> &#123;</span><br><span class="line">  <span class="keyword">companion</span> <span class="keyword">object</span> &#123;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">val</span> x = MyClass.Companion</span><br></pre></td></tr></table></figure>
+
+
+<p>使用起来就是：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">val instance = MyClass.create()</span><br></pre></td></tr></table></figure>
+
+<p><strong>注意：</strong> 这只是形式上类似于 Java 的 static ，但是在运行时实际是作为实例对象的成员存在的。</p>
+<p>改造 <code>Utils.java -&gt; Utils.kt</code> </p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">object</span> Utilss &#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">isEmpty</span><span class="params">(string: <span class="type">String</span>?)</span></span>: <span class="built_in">Boolean</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> string != <span class="literal">null</span> &amp;&amp; string.length == <span class="number">0</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">isWeakEmpty</span><span class="params">(string: <span class="type">String</span>)</span></span>: <span class="built_in">Boolean</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> isEmpty(string) &amp;&amp; string.trim &#123; it &lt;= <span class="string">&#x27; &#x27;</span> &#125;.length == <span class="number">0</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>使用了 <code>object</code> 关键字， 代码看起来就是：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">println(Utils.isEmpty(username))</span><br></pre></td></tr></table></figure>
+
+
+<p>参考链接：<br><a target="_blank" rel="noopener" href="https://kotlinlang.org/docs/reference/object-declarations.html">Kotlin文档 - Object Expressions and Declarations</a></p>
+<blockquote>
+<p>文章来自： <a href="https://hanks.pub/">https://hanks.pub</a></p>
+</blockquote>
+
+      
+    </div>
+</article>
+
+<!-- 上一页 下一页 -->
+
+
+<nav id="article-nav">
+  
+    <a href="/2016/03/17/mac-node-config/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>上一篇</span>
+      <div class="article-nav-title">
+        
+          Mac 上配置 Node.js 环境
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/03/13/kotlin-for-android-extensions/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>下一篇</span>
+      <div class="article-nav-title">Kotlin for Android - 0x01 有趣的扩展</div>
+    </a>
+  
+</nav>
+
+
+
+<!-- 相关文章 -->
+
+<!--
+
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+      			<a href="/2016/03/15/kotlin-companion/">Kotlin 中创建类似 Java 的静态方法</a>
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+
+-->
+
+
+</section>
+      </div>
+      <footer id="footer">
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      
+      &copy;2024<a target="_blank" rel="noopener" href="https://github.com/hanks-zyh"> Hanks</a>版权所有
+      <br/>
+      <a href="https://beian.miit.gov.cn/" target="_blank">豫ICP备2021022347号</a>
+	  </div>
+  </div>
+ <div id="share">
+  <a id="totop" title="" style="display: block;">返回顶部</a>
+ </div>
+</footer>
+
+    </div>
+    
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/jquery.scrollLoading.js"></script>
+
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/ads.js"></script>
+
+  </div>
+</body>
+</html>

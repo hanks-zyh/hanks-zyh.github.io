@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>自定义控件--MaterialCheckBox | Hanks&#39; Websit</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <script data-ad-client="ca-pub-8165670162444117" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <meta name="referrer" content="never">
+  <meta name="description" content="演示效果： 源码  原理分析图：  圆形背景;123456789101112131415161718192021222324&lt;?xml version&#x3D;&quot;1.0&quot; encoding&#x3D;&quot;utf-8&quot;?&gt;&lt;selector xmlns:android&#x3D;&quot;https:&#x2F;&#x2F;schemas.android.com&#x2F;apk&#x2F;res&#x2F;andro">
+<meta property="og:type" content="article">
+<meta property="og:title" content="自定义控件--MaterialCheckBox">
+<meta property="og:url" content="https://hanks.pub/2015/07/01/MaterialCheckBox/index.html">
+<meta property="og:site_name" content="Hanks&#39; Websit">
+<meta property="og:description" content="演示效果： 源码  原理分析图：  圆形背景;123456789101112131415161718192021222324&lt;?xml version&#x3D;&quot;1.0&quot; encoding&#x3D;&quot;utf-8&quot;?&gt;&lt;selector xmlns:android&#x3D;&quot;https:&#x2F;&#x2F;schemas.android.com&#x2F;apk&#x2F;res&#x2F;andro">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://github.com/hanks-zyh/MaterialCheckBox/raw/master/demo.gif">
+<meta property="og:image" content="https://img.blog.csdn.net/20150714005029009">
+<meta property="article:published_time" content="2015-06-30T16:55:00.000Z">
+<meta property="article:modified_time" content="2024-02-08T01:29:02.173Z">
+<meta property="article:author" content="Hanks">
+<meta property="article:tag" content="Android">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://github.com/hanks-zyh/MaterialCheckBox/raw/master/demo.gif">
+  
+  
+  <link href="https://fonts.googleapis.com/css?family=Fira+Code|Noto+Serif+SC&display=swap" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8165670162444117"
+     crossorigin="anonymous"></script>
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo"></a>
+    <nav id="main-nav">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      
+        <a class="main-nav-link" href="/archives">Archive</a>
+      
+        <a class="main-nav-link" href="/eye-video">Eye</a>
+      
+        <a class="main-nav-link" href="/atom.xml">Rss</a>
+      
+    </nav>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/archives" class="mobile-nav-link">Archive</a>
+  
+    <a href="/eye-video" class="mobile-nav-link">Eye</a>
+  
+    <a href="/atom.xml" class="mobile-nav-link">Rss</a>
+  
+</nav>
+      <div class="outer">
+        <section id="main"><article id="post-MaterialCheckBox" class="article article-type-post" itemscope
+  itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <header class="article-header">
+      
+      
+  
+    <h1 class="article-title" itemprop="name">
+      自定义控件--MaterialCheckBox
+    </h1>
+  
+
+      
+    </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      <p>演示效果：<br><img src="https://github.com/hanks-zyh/MaterialCheckBox/raw/master/demo.gif" alt="demo"></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/hanks-zyh/MaterialCheckBox">源码</a></p>
+<hr>
+<p>原理分析图：<br><img src="https://img.blog.csdn.net/20150714005029009" alt="calc"></p>
+<hr>
+<h2 id="圆形背景"><a href="#圆形背景" class="headerlink" title="圆形背景;"></a>圆形背景;<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;utf-8&quot;</span>?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">selector</span> <span class="attr">xmlns:android</span>=<span class="string">&quot;https://schemas.android.com/apk/res/android&quot;</span> <span class="attr">android:enterFadeDuration</span>=<span class="string">&quot;200&quot;</span> <span class="attr">android:exitFadeDuration</span>=<span class="string">&quot;200&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">item</span> <span class="attr">android:state_pressed</span>=<span class="string">&quot;false&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">shape</span> <span class="attr">android:shape</span>=<span class="string">&quot;oval&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">solid</span> <span class="attr">android:color</span>=<span class="string">&quot;@android:color/transparent&quot;</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">shape</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">item</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">item</span> <span class="attr">android:state_checked</span>=<span class="string">&quot;true&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">shape</span> <span class="attr">android:shape</span>=<span class="string">&quot;oval&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">solid</span> <span class="attr">android:color</span>=<span class="string">&quot;#881f38fd&quot;</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">shape</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">item</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">item</span> <span class="attr">android:state_focused</span>=<span class="string">&quot;true&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">shape</span> <span class="attr">android:shape</span>=<span class="string">&quot;oval&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">solid</span> <span class="attr">android:color</span>=<span class="string">&quot;#881f38fd&quot;</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">shape</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">item</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">item</span> <span class="attr">android:state_pressed</span>=<span class="string">&quot;true&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">shape</span> <span class="attr">android:shape</span>=<span class="string">&quot;oval&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">solid</span> <span class="attr">android:color</span>=<span class="string">&quot;#881f38fd&quot;</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">shape</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">item</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">selector</span>&gt;</span></span><br></pre></td></tr></table></figure></h2><p>自定义View源码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br><span class="line">291</span><br><span class="line">292</span><br><span class="line">293</span><br><span class="line">294</span><br><span class="line">295</span><br><span class="line">296</span><br><span class="line">297</span><br><span class="line">298</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.nsb.app.ui.view;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> android.animation.ValueAnimator;</span><br><span class="line"><span class="keyword">import</span> android.annotation.TargetApi;</span><br><span class="line"><span class="keyword">import</span> android.content.Context;</span><br><span class="line"><span class="keyword">import</span> android.graphics.Canvas;</span><br><span class="line"><span class="keyword">import</span> android.graphics.Color;</span><br><span class="line"><span class="keyword">import</span> android.graphics.Paint;</span><br><span class="line"><span class="keyword">import</span> android.graphics.RectF;</span><br><span class="line"><span class="keyword">import</span> android.os.Build;</span><br><span class="line"><span class="keyword">import</span> android.util.AttributeSet;</span><br><span class="line"><span class="keyword">import</span> android.view.View;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Created by Hanks on 2015/6/30.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MaterialCheckBox</span> <span class="keyword">extends</span> <span class="title class_">View</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Paint paintBlue;</span><br><span class="line">    <span class="keyword">private</span> Paint paintWithe;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> <span class="variable">borderColor</span> <span class="operator">=</span> Color.GRAY;     <span class="comment">//边框颜色</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> <span class="variable">backgroundColor</span> <span class="operator">=</span> Color.BLUE; <span class="comment">//填充颜色</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> <span class="variable">doneShapeColor</span> <span class="operator">=</span> Color.WHITE; <span class="comment">//对号颜色</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> baseWidth;                    <span class="comment">//checkbox 边框宽度</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> borderWidth;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> width, height;                <span class="comment">//控件宽高</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="type">float</span>[] points = <span class="keyword">new</span> <span class="title class_">float</span>[<span class="number">8</span>];    <span class="comment">//对号的4个点的坐标</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> <span class="variable">DURATION</span> <span class="operator">=</span> <span class="number">200</span>;               <span class="comment">//动画时长</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">boolean</span> checked;                  <span class="comment">//选择状态</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">float</span> correctProgress;            <span class="comment">//划对号的进度</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="type">boolean</span> drawRecting;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">boolean</span> isAnim;</span><br><span class="line">    <span class="keyword">private</span> OnCheckedChangeListener listener;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="type">float</span> padding;                    <span class="comment">//内切圆的边据边框的距离</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">MaterialCheckBox</span><span class="params">(Context context)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>(context, <span class="literal">null</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">MaterialCheckBox</span><span class="params">(Context context, AttributeSet attrs)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>(context, attrs, <span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">MaterialCheckBox</span><span class="params">(Context context, AttributeSet attrs, <span class="type">int</span> defStyleAttr)</span> &#123;</span><br><span class="line">        <span class="built_in">super</span>(context, attrs, defStyleAttr);</span><br><span class="line">        init(context);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@TargetApi(Build.VERSION_CODES.LOLLIPOP)</span></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">MaterialCheckBox</span><span class="params">(Context context, AttributeSet attrs, <span class="type">int</span> defStyleAttr, <span class="type">int</span> defStyleRes)</span> &#123;</span><br><span class="line">        <span class="built_in">super</span>(context, attrs, defStyleAttr, defStyleRes);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * init</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> context</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">init</span><span class="params">(Context context)</span> &#123;</span><br><span class="line"></span><br><span class="line">        borderWidth = baseWidth = dp2px(<span class="number">2</span>);</span><br><span class="line"></span><br><span class="line">        paintBlue = <span class="keyword">new</span> <span class="title class_">Paint</span>(Paint.ANTI_ALIAS_FLAG);</span><br><span class="line">        paintBlue.setColor(borderColor);</span><br><span class="line">        paintBlue.setStrokeWidth(borderWidth);</span><br><span class="line"></span><br><span class="line">        paintWithe = <span class="keyword">new</span> <span class="title class_">Paint</span>(Paint.ANTI_ALIAS_FLAG);</span><br><span class="line">        paintWithe.setColor(doneShapeColor);</span><br><span class="line">        paintWithe.setStrokeWidth(dp2px(<span class="number">2</span>));</span><br><span class="line"></span><br><span class="line">        setOnClickListener(<span class="keyword">new</span> <span class="title class_">OnClickListener</span>() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">onClick</span><span class="params">(View v)</span> &#123;</span><br><span class="line">                setChecked(!isChecked());</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">        drawRecting = <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">onSizeChanged</span><span class="params">(<span class="type">int</span> w, <span class="type">int</span> h, <span class="type">int</span> oldw, <span class="type">int</span> oldh)</span> &#123;</span><br><span class="line">        <span class="built_in">super</span>.onSizeChanged(w, h, oldw, oldh);</span><br><span class="line">        height = width = Math.max(w, h);</span><br><span class="line"></span><br><span class="line">        points[<span class="number">0</span>] = <span class="number">101</span> / <span class="number">378f</span> * width;</span><br><span class="line">        points[<span class="number">1</span>] = <span class="number">0.5f</span> * width;</span><br><span class="line"></span><br><span class="line">        points[<span class="number">2</span>] = <span class="number">163</span> / <span class="number">378f</span> * width;</span><br><span class="line">        points[<span class="number">3</span>] = <span class="number">251</span> / <span class="number">378f</span> * width;</span><br><span class="line"></span><br><span class="line">        points[<span class="number">4</span>] = <span class="number">149</span> / <span class="number">378f</span> * width;</span><br><span class="line">        points[<span class="number">5</span>] = <span class="number">250</span> / <span class="number">378f</span> * width;</span><br><span class="line"></span><br><span class="line">        points[<span class="number">6</span>] = <span class="number">278</span> / <span class="number">378f</span> * width;</span><br><span class="line">        points[<span class="number">7</span>] = <span class="number">122</span> / <span class="number">378f</span> * width;</span><br><span class="line"></span><br><span class="line">        padding = <span class="number">57</span> / <span class="number">378f</span> * width;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * draw checkbox</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> canvas</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">onDraw</span><span class="params">(Canvas canvas)</span> &#123;</span><br><span class="line">        <span class="type">RectF</span> <span class="variable">rect</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">RectF</span>(padding, padding, width - padding, height - padding);</span><br><span class="line">        canvas.drawRoundRect(rect, baseWidth, baseWidth, paintBlue);</span><br><span class="line">        <span class="keyword">if</span> (drawRecting) &#123;</span><br><span class="line">            canvas.drawRect(padding + borderWidth, padding + borderWidth, width - padding - borderWidth, height - padding - borderWidth, paintWithe);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="comment">//画对号</span></span><br><span class="line">            <span class="keyword">if</span> (correctProgress &gt; <span class="number">0</span>) &#123;</span><br><span class="line">                <span class="keyword">if</span> (correctProgress &lt; <span class="number">1</span> / <span class="number">3f</span>) &#123;</span><br><span class="line">                    <span class="type">float</span> <span class="variable">x</span> <span class="operator">=</span> points[<span class="number">0</span>] + (points[<span class="number">2</span>] - points[<span class="number">0</span>]) * correctProgress;</span><br><span class="line">                    <span class="type">float</span> <span class="variable">y</span> <span class="operator">=</span> points[<span class="number">1</span>] + (points[<span class="number">3</span>] - points[<span class="number">1</span>]) * correctProgress;</span><br><span class="line">                    canvas.drawLine(points[<span class="number">0</span>], points[<span class="number">1</span>], x, y, paintWithe);</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    <span class="type">float</span> <span class="variable">x</span> <span class="operator">=</span> points[<span class="number">4</span>] + (points[<span class="number">6</span>] - points[<span class="number">4</span>]) * correctProgress;</span><br><span class="line">                    <span class="type">float</span> <span class="variable">y</span> <span class="operator">=</span> points[<span class="number">5</span>] + (points[<span class="number">7</span>] - points[<span class="number">5</span>]) * correctProgress;</span><br><span class="line">                    canvas.drawLine(points[<span class="number">0</span>], points[<span class="number">1</span>], points[<span class="number">2</span>], points[<span class="number">3</span>], paintWithe);</span><br><span class="line">                    canvas.drawLine(points[<span class="number">4</span>], points[<span class="number">5</span>], x, y, paintWithe);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setBackgroundColor</span><span class="params">(<span class="type">int</span> backgroundColor)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.backgroundColor = backgroundColor;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setDoneShapeColor</span><span class="params">(<span class="type">int</span> doneShapeColor)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.doneShapeColor = doneShapeColor;</span><br><span class="line">        paintWithe.setColor(doneShapeColor);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setBorderColor</span><span class="params">(<span class="type">int</span> borderColor)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.borderColor = borderColor;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setBorderWidth</span><span class="params">(<span class="type">int</span> baseWidth)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.baseWidth = baseWidth;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">isChecked</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> checked;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setChecked</span><span class="params">(<span class="type">boolean</span> checked)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.checked = checked;</span><br><span class="line">        <span class="keyword">if</span> (checked) &#123;</span><br><span class="line">            showRect();</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            hideCorrect();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">hideRect</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (isAnim) &#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        isAnim = <span class="literal">true</span>;</span><br><span class="line">        drawRecting = <span class="literal">true</span>;</span><br><span class="line">        <span class="type">ValueAnimator</span> <span class="variable">va</span> <span class="operator">=</span> ValueAnimator.ofFloat(<span class="number">0</span>, <span class="number">1</span>).setDuration(DURATION);</span><br><span class="line">        va.addUpdateListener(<span class="keyword">new</span> <span class="title class_">ValueAnimator</span>.AnimatorUpdateListener() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">onAnimationUpdate</span><span class="params">(ValueAnimator animation)</span> &#123;</span><br><span class="line">                <span class="type">float</span> <span class="variable">p</span> <span class="operator">=</span> (<span class="type">float</span>) animation.getAnimatedValue();</span><br><span class="line">                <span class="type">float</span> <span class="variable">c</span> <span class="operator">=</span> <span class="number">1f</span> - p;</span><br><span class="line">                borderWidth = (<span class="type">int</span>) (baseWidth + c * (width - baseWidth));</span><br><span class="line">                paintBlue.setColor(evaluate(c, borderColor, backgroundColor));</span><br><span class="line">                invalidate();</span><br><span class="line">                <span class="keyword">if</span> (p &gt;= <span class="number">1</span>) &#123;</span><br><span class="line">                    isAnim = <span class="literal">false</span>;</span><br><span class="line">                    <span class="keyword">if</span> (listener != <span class="literal">null</span>) &#123;</span><br><span class="line">                        checked = <span class="literal">false</span>;</span><br><span class="line">                        listener.onCheckedChanged(MaterialCheckBox.<span class="built_in">this</span>, checked);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">        va.start();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">showRect</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (isAnim) &#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        isAnim = <span class="literal">true</span>;</span><br><span class="line">        drawRecting = <span class="literal">true</span>;</span><br><span class="line">        <span class="type">ValueAnimator</span> <span class="variable">va</span> <span class="operator">=</span> ValueAnimator.ofFloat(<span class="number">0</span>, <span class="number">1</span>).setDuration(DURATION);</span><br><span class="line">        va.addUpdateListener(<span class="keyword">new</span> <span class="title class_">ValueAnimator</span>.AnimatorUpdateListener() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">onAnimationUpdate</span><span class="params">(ValueAnimator animation)</span> &#123;</span><br><span class="line">                <span class="type">float</span> <span class="variable">p</span> <span class="operator">=</span> (<span class="type">float</span>) animation.getAnimatedValue();</span><br><span class="line">                borderWidth = (<span class="type">int</span>) (<span class="number">10</span> + p * (width - <span class="number">10</span>));</span><br><span class="line">                paintBlue.setColor(evaluate(p, borderColor, backgroundColor));</span><br><span class="line">                invalidate();</span><br><span class="line">                <span class="keyword">if</span> (p &gt;= <span class="number">1</span>) &#123;</span><br><span class="line">                    isAnim = <span class="literal">false</span>;</span><br><span class="line">                    drawRecting = <span class="literal">false</span>;</span><br><span class="line">                    showCorrect();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">        va.start();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">showCorrect</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (isAnim) &#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        isAnim = <span class="literal">true</span>;</span><br><span class="line">        correctProgress = <span class="number">0</span>;</span><br><span class="line">        drawRecting = <span class="literal">false</span>;</span><br><span class="line">        <span class="type">ValueAnimator</span> <span class="variable">va</span> <span class="operator">=</span> ValueAnimator.ofFloat(<span class="number">0</span>, <span class="number">1</span>).setDuration(DURATION);</span><br><span class="line">        va.addUpdateListener(<span class="keyword">new</span> <span class="title class_">ValueAnimator</span>.AnimatorUpdateListener() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">onAnimationUpdate</span><span class="params">(ValueAnimator animation)</span> &#123;</span><br><span class="line">                correctProgress = (<span class="type">float</span>) animation.getAnimatedValue();</span><br><span class="line">                invalidate();</span><br><span class="line">                <span class="keyword">if</span> (correctProgress &gt;= <span class="number">1</span>) &#123;</span><br><span class="line">                    isAnim = <span class="literal">false</span>;</span><br><span class="line">                    <span class="keyword">if</span> (listener != <span class="literal">null</span>) &#123;</span><br><span class="line">                        checked = <span class="literal">true</span>;</span><br><span class="line">                        listener.onCheckedChanged(MaterialCheckBox.<span class="built_in">this</span>, checked);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">        va.start();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">hideCorrect</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (isAnim) &#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        isAnim = <span class="literal">true</span>;</span><br><span class="line">        correctProgress = <span class="number">1</span>;</span><br><span class="line">        drawRecting = <span class="literal">false</span>;</span><br><span class="line">        <span class="type">ValueAnimator</span> <span class="variable">va</span> <span class="operator">=</span> ValueAnimator.ofFloat(<span class="number">0</span>, <span class="number">1</span>).setDuration(DURATION);</span><br><span class="line">        va.addUpdateListener(<span class="keyword">new</span> <span class="title class_">ValueAnimator</span>.AnimatorUpdateListener() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">onAnimationUpdate</span><span class="params">(ValueAnimator animation)</span> &#123;</span><br><span class="line">                <span class="type">float</span> <span class="variable">p</span> <span class="operator">=</span> (<span class="type">float</span>) animation.getAnimatedValue();</span><br><span class="line">                correctProgress = <span class="number">1f</span> - p;</span><br><span class="line">                invalidate();</span><br><span class="line">                <span class="keyword">if</span> (p &gt;= <span class="number">1</span>) &#123;</span><br><span class="line">                    isAnim = <span class="literal">false</span>;</span><br><span class="line">                    hideRect();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">        va.start();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setOnCheckedChangedListener</span><span class="params">(OnCheckedChangeListener listener)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.listener = listener;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">interface</span> <span class="title class_">OnCheckedChangeListener</span> &#123;</span><br><span class="line">        <span class="keyword">void</span> <span class="title function_">onCheckedChanged</span><span class="params">(View view, <span class="type">boolean</span> isChecked)</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> <span class="title function_">evaluate</span><span class="params">(<span class="type">float</span> fraction, <span class="type">int</span> startValue, <span class="type">int</span> endValue)</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">startInt</span> <span class="operator">=</span> startValue;</span><br><span class="line">        <span class="type">int</span> <span class="variable">startA</span> <span class="operator">=</span> (startInt &gt;&gt; <span class="number">24</span>) &amp; <span class="number">0xff</span>;</span><br><span class="line">        <span class="type">int</span> <span class="variable">startR</span> <span class="operator">=</span> (startInt &gt;&gt; <span class="number">16</span>) &amp; <span class="number">0xff</span>;</span><br><span class="line">        <span class="type">int</span> <span class="variable">startG</span> <span class="operator">=</span> (startInt &gt;&gt; <span class="number">8</span>) &amp; <span class="number">0xff</span>;</span><br><span class="line">        <span class="type">int</span> <span class="variable">startB</span> <span class="operator">=</span> startInt &amp; <span class="number">0xff</span>;</span><br><span class="line"></span><br><span class="line">        <span class="type">int</span> <span class="variable">endInt</span> <span class="operator">=</span> endValue;</span><br><span class="line">        <span class="type">int</span> <span class="variable">endA</span> <span class="operator">=</span> (endInt &gt;&gt; <span class="number">24</span>) &amp; <span class="number">0xff</span>;</span><br><span class="line">        <span class="type">int</span> <span class="variable">endR</span> <span class="operator">=</span> (endInt &gt;&gt; <span class="number">16</span>) &amp; <span class="number">0xff</span>;</span><br><span class="line">        <span class="type">int</span> <span class="variable">endG</span> <span class="operator">=</span> (endInt &gt;&gt; <span class="number">8</span>) &amp; <span class="number">0xff</span>;</span><br><span class="line">        <span class="type">int</span> <span class="variable">endB</span> <span class="operator">=</span> endInt &amp; <span class="number">0xff</span>;</span><br><span class="line">        <span class="keyword">return</span> ((startA + (<span class="type">int</span>) (fraction * (endA - startA))) &lt;&lt; <span class="number">24</span>)</span><br><span class="line">                | ((startR + (<span class="type">int</span>) (fraction * (endR - startR))) &lt;&lt; <span class="number">16</span>)</span><br><span class="line">                | ((startG + (<span class="type">int</span>) (fraction * (endG - startG))) &lt;&lt; <span class="number">8</span>)</span><br><span class="line">                | ((startB + (<span class="type">int</span>) (fraction * (endB - startB))));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">dp2px</span><span class="params">(<span class="type">float</span> value)</span> &#123;</span><br><span class="line">        <span class="keyword">final</span> <span class="type">float</span> <span class="variable">scale</span> <span class="operator">=</span> getContext().getResources().getDisplayMetrics().densityDpi;</span><br><span class="line">        <span class="keyword">return</span> (<span class="type">int</span>) (value * (scale / <span class="number">160</span>) + <span class="number">0.5f</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+</article>
+
+<!-- 上一页 下一页 -->
+
+
+<nav id="article-nav">
+  
+    <a href="/2015/07/06/Kotlin%E5%9C%A8Android%E5%B7%A5%E7%A8%8B%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>上一篇</span>
+      <div class="article-nav-title">
+        
+          Kotlin在Android工程中的应用
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/06/30/android-percent-support-lib-sample/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>下一篇</span>
+      <div class="article-nav-title">android-percent-support-lib-sample</div>
+    </a>
+  
+</nav>
+
+
+
+<!-- 相关文章 -->
+
+<!--
+
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+      			<a href="/2015/07/01/MaterialCheckBox/">自定义控件--MaterialCheckBox</a>
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+
+-->
+
+
+</section>
+      </div>
+      <footer id="footer">
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      
+      &copy;2024<a target="_blank" rel="noopener" href="https://github.com/hanks-zyh"> Hanks</a>版权所有
+      <br/>
+      <a href="https://beian.miit.gov.cn/" target="_blank">豫ICP备2021022347号</a>
+	  </div>
+  </div>
+ <div id="share">
+  <a id="totop" title="" style="display: block;">返回顶部</a>
+ </div>
+</footer>
+
+    </div>
+    
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/jquery.scrollLoading.js"></script>
+
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/ads.js"></script>
+
+  </div>
+</body>
+</html>

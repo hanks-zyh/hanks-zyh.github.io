@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>贪心——NYOJ 题目71 独木舟上的旅行 | Hanks&#39; Websit</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <script data-ad-client="ca-pub-8165670162444117" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <meta name="referrer" content="never">
+  <meta name="description" content="独木舟上的旅行 时间限制：3000 ms &nbsp;|&nbsp; 内存限制：65535 KB 难度：2  描述  进行一次独木舟的旅行活动，独木舟可以在港口租到，并且之间没有区别。一条独木舟最多只能乘坐两个人，且乘客的总重量不能超过独木舟的最大承载量。我们要尽量减少这次活动中的花销，所以要找出可以安置所有旅客的最少的独木舟条数。现在请写一个程序，读入独木舟的最大承载量、旅客数目和每位旅客的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="贪心——NYOJ 题目71 独木舟上的旅行">
+<meta property="og:url" content="https://hanks.pub/2013/07/25/%E8%B4%AA%E5%BF%83%E2%80%94%E2%80%94NYOJ_%E9%A2%98%E7%9B%AE71_%E7%8B%AC%E6%9C%A8%E8%88%9F%E4%B8%8A%E7%9A%84%E6%97%85%E8%A1%8C/index.html">
+<meta property="og:site_name" content="Hanks&#39; Websit">
+<meta property="og:description" content="独木舟上的旅行 时间限制：3000 ms &nbsp;|&nbsp; 内存限制：65535 KB 难度：2  描述  进行一次独木舟的旅行活动，独木舟可以在港口租到，并且之间没有区别。一条独木舟最多只能乘坐两个人，且乘客的总重量不能超过独木舟的最大承载量。我们要尽量减少这次活动中的花销，所以要找出可以安置所有旅客的最少的独木舟条数。现在请写一个程序，读入独木舟的最大承载量、旅客数目和每位旅客的">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2013-07-25T07:58:00.000Z">
+<meta property="article:modified_time" content="2024-02-08T01:29:02.205Z">
+<meta property="article:author" content="Hanks">
+<meta name="twitter:card" content="summary">
+  
+  
+  <link href="https://fonts.googleapis.com/css?family=Fira+Code|Noto+Serif+SC&display=swap" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8165670162444117"
+     crossorigin="anonymous"></script>
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo"></a>
+    <nav id="main-nav">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      
+        <a class="main-nav-link" href="/archives">Archive</a>
+      
+        <a class="main-nav-link" href="/eye-video">Eye</a>
+      
+        <a class="main-nav-link" href="/atom.xml">Rss</a>
+      
+    </nav>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/archives" class="mobile-nav-link">Archive</a>
+  
+    <a href="/eye-video" class="mobile-nav-link">Eye</a>
+  
+    <a href="/atom.xml" class="mobile-nav-link">Rss</a>
+  
+</nav>
+      <div class="outer">
+        <section id="main"><article id="post-贪心——NYOJ_题目71_独木舟上的旅行" class="article article-type-post" itemscope
+  itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <header class="article-header">
+      
+      
+  
+    <h1 class="article-title" itemprop="name">
+      贪心——NYOJ 题目71 独木舟上的旅行
+    </h1>
+  
+
+      
+    </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+<div>
+<h2>独木舟上的旅行</h2>
+<div>时间限制：<span id="problem[time_limit]">3000</span> ms &nbsp;|&nbsp; 内存限制：<span id="problem[memory_limit]">65535</span> KB</div>
+<div>难度：2</div>
+</div>
+<dl><dt>描述 </dt><dd>
+<p><span style="font-size:12px"><span style="color:black">进行一次独木舟的旅行活动，独木舟可以在港口租到，并且之间没有区别。一条独木舟最多只能乘坐两个人，且乘客的总重量不能超过独木舟的最大承载量。我们要尽量减少这次活动中的花销，所以要找出可以安置所有旅客的最少的独木舟条数。现在请写一个程序，读入独木舟的最大承载量、旅客数目和每位旅客的重量。根据给出的规则，计算要安置所有旅客必须的最少的独木舟条数，并输出结果。</span></span></p>
+<dl><dt>输入 </dt><dd>第一行输入s,表示测试数据的组数；<br>
+每组数据的第一行包括两个整数w，n，80&lt;=w&lt;=200,1&lt;=n&lt;=300，w为一条独木舟的最大承载量,n为人数；<br>
+接下来的一组数据为每个人的重量（不能大于船的承载量）； </dd><dt>输出 </dt><dd>每组人数所需要的最少独木舟的条数。 </dd><dt>样例输入 </dt><dd>
+<pre id="sample_input">3</pre>
+</dd><dd>
+<pre>85 6</pre>
+</dd><dd>
+<pre>5 84 85 80 84 83</pre>
+</dd><dd>
+<pre>90 3</pre>
+</dd><dd>
+<pre>90 45 60</pre>
+</dd><dd>
+<pre>100 5</pre>
+</dd><dd>
+<pre>50 50 90 40 60</pre>
+</dd><dt>样例输出 </dt><dd>
+<pre id="sample_output">5</pre>
+</dd><dd>
+<pre>3</pre>
+</dd><dd>
+<pre>3</pre>
+</dd></dl>
+</dd></dl>
+<dl>
+<p>分析：要求使用的独木舟最少，而且题目是每个最多承载两个人，每个独木舟都有最大载重，故要尽量使每个独木舟装载尽可能多的乘客，可以将乘客质量按总小到大排序，然后以质量大的优先使用独木舟和质量小得结合，以此类推，得到使用最少的独木舟。</p>
+<pre class="cpp" name="code">#include &lt;iostream&gt;
+#include &lt;algorithm&gt;
+#include &lt;cstdio&gt;
+#include &lt;cstdlib&gt;
+
+using namespace std;
+
+int weight[301];
+
+int main()
+{
+    int n,m,w,i,j,cnt;
+    scanf(&quot;%d&quot;,&amp;n);
+    while(n--)
+    {
+              scanf(&quot;%d%d&quot;,&amp;w,&amp;m);
+              for(i=1;i&lt;=m;i++) 
+                   scanf(&quot;%d&quot;,&amp;weight[i]); 
+               sort(weight+1,weight+m+1) ;//质量排序
+		//qsort(weight,m,sizeof(int),cmp); 因为是从下表1到m排序，这样写不对 
+		// for(i=1;i&lt;=m;i++) printf(&quot;%d\n&quot;,weight[i]);
+			 cnt = 0;
+			 for(i=1,j=m;i&lt;j;)
+			 {
+				if(weight[i]+weight[j] &lt;= w)// 质量大的跟质量小的可以乘坐一个 
+				{
+					cnt++;
+					i++;j--; //乘客减少两个 
+				}
+				else  //质量太大不能和小的结合，故自己使用一个 
+				{
+					cnt++;
+					j--; //乘客减少1个 
+				} 
+			}   
+			if(i==j) cnt++; //如果最后剩下中间一个乘客 ，cnt++ 
+			printf(&quot;%d\n&quot;,cnt);    
+    }
+   //system(&quot;pause&quot;);
+ return 0;    
+}</pre>
+<p><br>
+</p>
+<p>&nbsp;</p>
+</dl>
+
+      
+    </div>
+</article>
+
+<!-- 上一页 下一页 -->
+
+
+<nav id="article-nav">
+  
+    <a href="/2013/07/25/%E8%B4%AA%E5%BF%83%E2%80%94%E2%80%94NYOJ%E9%A2%98%E7%9B%AE106_%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>上一篇</span>
+      <div class="article-nav-title">
+        
+          贪心——NYOJ题目106 背包问题
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2013/07/25/%E8%B4%AA%E5%BF%83%E2%80%94%E2%80%94NYOJ_%E9%A2%98%E7%9B%AE6_%E5%96%B7%E6%B0%B4%E8%A3%85%E7%BD%AE%EF%BC%88%E4%B8%80%EF%BC%89/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>下一篇</span>
+      <div class="article-nav-title">贪心——NYOJ 题目6 喷水装置（一）</div>
+    </a>
+  
+</nav>
+
+
+
+<!-- 相关文章 -->
+
+<!--
+
+-->
+
+
+</section>
+      </div>
+      <footer id="footer">
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      
+      &copy;2024<a target="_blank" rel="noopener" href="https://github.com/hanks-zyh"> Hanks</a>版权所有
+      <br/>
+      <a href="https://beian.miit.gov.cn/" target="_blank">豫ICP备2021022347号</a>
+	  </div>
+  </div>
+ <div id="share">
+  <a id="totop" title="" style="display: block;">返回顶部</a>
+ </div>
+</footer>
+
+    </div>
+    
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/jquery.scrollLoading.js"></script>
+
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/ads.js"></script>
+
+  </div>
+</body>
+</html>

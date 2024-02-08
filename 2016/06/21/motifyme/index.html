@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>利用 Android 手机打造来电通知计划 | Hanks&#39; Websit</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <script data-ad-client="ca-pub-8165670162444117" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <meta name="referrer" content="never">
+  <meta name="description" content="最近住的地方总在晚上停电，还让不让人活了，大热天的，于是就晚上在外面先找个凉快的地方呆着，但是来电的时间不确定，有时候感觉应该来电了，回去了还是没电，那个热啊。那么问题来了，要是屋里来电了有人告诉我就好了！于是计划写一个小程序让它在屋里来电后通知。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="利用 Android 手机打造来电通知计划">
+<meta property="og:url" content="https://hanks.pub/2016/06/21/motifyme/index.html">
+<meta property="og:site_name" content="Hanks&#39; Websit">
+<meta property="og:description" content="最近住的地方总在晚上停电，还让不让人活了，大热天的，于是就晚上在外面先找个凉快的地方呆着，但是来电的时间不确定，有时候感觉应该来电了，回去了还是没电，那个热啊。那么问题来了，要是屋里来电了有人告诉我就好了！于是计划写一个小程序让它在屋里来电后通知。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://ww2.sinaimg.cn/large/8c9b876fjw1f53acno7raj20k00zkjss.jpg">
+<meta property="article:published_time" content="2016-06-21T15:38:27.000Z">
+<meta property="article:modified_time" content="2024-02-08T01:29:02.189Z">
+<meta property="article:author" content="Hanks">
+<meta property="article:tag" content="Android">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://ww2.sinaimg.cn/large/8c9b876fjw1f53acno7raj20k00zkjss.jpg">
+  
+  
+  <link href="https://fonts.googleapis.com/css?family=Fira+Code|Noto+Serif+SC&display=swap" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8165670162444117"
+     crossorigin="anonymous"></script>
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo"></a>
+    <nav id="main-nav">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      
+        <a class="main-nav-link" href="/archives">Archive</a>
+      
+        <a class="main-nav-link" href="/eye-video">Eye</a>
+      
+        <a class="main-nav-link" href="/atom.xml">Rss</a>
+      
+    </nav>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/archives" class="mobile-nav-link">Archive</a>
+  
+    <a href="/eye-video" class="mobile-nav-link">Eye</a>
+  
+    <a href="/atom.xml" class="mobile-nav-link">Rss</a>
+  
+</nav>
+      <div class="outer">
+        <section id="main"><article id="post-motifyme" class="article article-type-post" itemscope
+  itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <header class="article-header">
+      
+      
+  
+    <h1 class="article-title" itemprop="name">
+      利用 Android 手机打造来电通知计划
+    </h1>
+  
+
+      
+    </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      <p>最近住的地方总在晚上停电，还让不让人活了，大热天的，于是就晚上在外面先找个凉快的地方呆着，但是来电的时间不确定，有时候感觉应该来电了，回去了还是没电，那个热啊。那么问题来了，要是屋里来电了有人告诉我就好了！于是计划写一个小程序让它在屋里来电后通知。</p>
+<span id="more"></span>
+<p>利用现用资源：一台<strong>退休的手机</strong><br>大概思路是这样的：家里的路由器是一直连着电源的，老手机是一直开着 wifi 的，来电后路由器通电，自动连接上网络，这个时候手机也检测到网络，连接上了 wifi，然后后台程序通过此判断来电了，再让老手机给我发短信通知，收到来电通知后我就可以回去了吹电扇了！</p>
+<p>来来来，开始写程序</p>
+<ol>
+<li>首先开启一个后台服务 <code>NetCheckService</code>，1分钟执行一次。记得 AndroidMenifest.xml 注册。</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Created by hanks on 16/6/21.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">NetCheckService</span> <span class="keyword">extends</span> <span class="title class_">Service</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">LAST_STATUS</span> <span class="operator">=</span> <span class="string">&quot;lastStatus&quot;</span>; </span><br><span class="line">    <span class="meta">@Nullable</span> <span class="meta">@Override</span> <span class="keyword">public</span> IBinder <span class="title function_">onBind</span><span class="params">(Intent intent)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 服务开启</span></span><br><span class="line">    <span class="meta">@Override</span> <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">onStartCommand</span><span class="params">(Intent intent, <span class="type">int</span> flags, <span class="type">int</span> startId)</span> &#123;</span><br><span class="line">        handleIntent();</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">super</span>.onStartCommand(intent, flags, startId);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">handleIntent</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">Thread</span>()&#123;</span><br><span class="line">            <span class="meta">@Override</span> <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">                <span class="keyword">while</span> (<span class="literal">true</span>)&#123; </span><br><span class="line">                    System.out.println(<span class="string">&quot;onStart&quot;</span>);</span><br><span class="line">                    </span><br><span class="line">                    <span class="comment">// 判断是否来电了</span></span><br><span class="line">                    handleStatus();</span><br><span class="line"></span><br><span class="line">                    <span class="keyword">try</span> &#123;</span><br><span class="line">                        Thread.sleep(<span class="number">60</span>*<span class="number">1000</span>);</span><br><span class="line">                    &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                        e.printStackTrace();</span><br><span class="line">                    &#125;</span><br><span class="line">                    System.out.println(<span class="string">&quot;----耗时任务执行完成---&quot;</span>);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;.start();</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>检测网络</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"> /**</span><br><span class="line"> * 检测当的网络状态</span><br><span class="line"> * @return true 表示网络可用</span><br><span class="line"> */</span><br><span class="line">public static boolean isNetworkAvailable(Context context) &#123;</span><br><span class="line">    ConnectivityManager connectivity = (ConnectivityManager) context</span><br><span class="line">            .getSystemService(Context.CONNECTIVITY_SERVICE);</span><br><span class="line">    if (connectivity != null) &#123;</span><br><span class="line">        NetworkInfo info = connectivity.getActiveNetworkInfo();</span><br><span class="line">        if (info != null &amp;&amp; info.isConnected()) &#123;</span><br><span class="line">            // 当前网络是连接的</span><br><span class="line">            if (info.getState() == NetworkInfo.State.CONNECTED) &#123;</span><br><span class="line">                // 当前所连接的网络可用</span><br><span class="line">                return true;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return false;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>判断是否来电了, <strong>记得注册相应的权限</strong>。</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"> private boolean getStatus() &#123;</span><br><span class="line">    SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());</span><br><span class="line">    return sp.getBoolean(LAST_STATUS, false);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public void updateStatus(boolean isAvailable) &#123;</span><br><span class="line">    SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());</span><br><span class="line">    SharedPreferences.Editor editor = sp.edit();</span><br><span class="line">    editor.putBoolean(LAST_STATUS, isAvailable);</span><br><span class="line">    editor.apply();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">private void hanldeStatus() &#123;</span><br><span class="line">    boolean lastStatus = getStatus();</span><br><span class="line">    // 检测网络状况</span><br><span class="line">    boolean isNetworkAvailable = isNetworkAvailable(getApplicationContext());</span><br><span class="line">    // 如果原来网络不可用 &amp;&amp; 现在可用了</span><br><span class="line">    if (!lastStatus &amp;&amp; isNetworkAvailable) &#123;</span><br><span class="line">        // 发送短信</span><br><span class="line">        sendSMS();</span><br><span class="line">    &#125;</span><br><span class="line">    System.out.println(&quot;isNetworkAvailable = &quot; + isNetworkAvailable);</span><br><span class="line">    // 更新网络状态</span><br><span class="line">    updateStatus(isNetworkAvailable);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>定期检测手机连接网络的状态，如果当前网络是可用状态并且上次是不可用状态，那么就说明来电了，然后就发送短信通知我<br>发送短信就使用的 ShareSDK 的。自定义短信模板还要审核，所以暂时用系统默认的。</li>
+</ol>
+<img src="https://ww2.sinaimg.cn/large/8c9b876fjw1f53acno7raj20k00zkjss.jpg" alt="收到短信" style="width: 400px;">
+
+<p>还不完善的地方：</p>
+<ul>
+<li>手机服务很有可能被杀死。</li>
+<li>短信模板。</li>
+</ul>
+<blockquote>
+<p>还有一种思路就是手机一直充着电，检测手机电池状态是否为充电。</p>
+</blockquote>
+<blockquote>
+<p>文章来自： <a href="https://hanks.pub/">https://hanks.pub</a></p>
+</blockquote>
+
+      
+    </div>
+</article>
+
+<!-- 上一页 下一页 -->
+
+
+<nav id="article-nav">
+  
+    <a href="/2016/06/26/promise-by-rx/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>上一篇</span>
+      <div class="article-nav-title">
+        
+          学习 Promise （结合 RxJava）
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/06/18/swiperefreshlayout/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>下一篇</span>
+      <div class="article-nav-title">SwipeRefreshLayout 源码</div>
+    </a>
+  
+</nav>
+
+
+
+<!-- 相关文章 -->
+
+<!--
+
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+      			<a href="/2016/06/21/motifyme/">利用 Android 手机打造来电通知计划</a>
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+
+-->
+
+
+</section>
+      </div>
+      <footer id="footer">
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      
+      &copy;2024<a target="_blank" rel="noopener" href="https://github.com/hanks-zyh"> Hanks</a>版权所有
+      <br/>
+      <a href="https://beian.miit.gov.cn/" target="_blank">豫ICP备2021022347号</a>
+	  </div>
+  </div>
+ <div id="share">
+  <a id="totop" title="" style="display: block;">返回顶部</a>
+ </div>
+</footer>
+
+    </div>
+    
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/jquery.scrollLoading.js"></script>
+
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/ads.js"></script>
+
+  </div>
+</body>
+</html>

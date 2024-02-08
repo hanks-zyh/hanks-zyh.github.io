@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Java 中Map的使用，以及遍历 | Hanks&#39; Websit</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <script data-ad-client="ca-pub-8165670162444117" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <meta name="referrer" content="never">
+  <meta name="description" content="&nbsp; https:&#x2F;&#x2F;poj.org&#x2F;problem?id&#x3D;1002 &nbsp; &#x2F;*  * 1. 用TreeMap&lt;String,Integer&gt;;  * 2. 接收字符串，逐个判断，数字直接相加，字符转换成数字，‘-’不管，组成的字符串放到Map  * 3. 输出Map中value&gt;1的项  *   * *&#x2F;  import java.util.*;  publi">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java 中Map的使用，以及遍历">
+<meta property="og:url" content="https://hanks.pub/2013/11/08/Java_%E4%B8%ADMap%E7%9A%84%E4%BD%BF%E7%94%A8%EF%BC%8C%E4%BB%A5%E5%8F%8A%E9%81%8D%E5%8E%86/index.html">
+<meta property="og:site_name" content="Hanks&#39; Websit">
+<meta property="og:description" content="&nbsp; https:&#x2F;&#x2F;poj.org&#x2F;problem?id&#x3D;1002 &nbsp; &#x2F;*  * 1. 用TreeMap&lt;String,Integer&gt;;  * 2. 接收字符串，逐个判断，数字直接相加，字符转换成数字，‘-’不管，组成的字符串放到Map  * 3. 输出Map中value&gt;1的项  *   * *&#x2F;  import java.util.*;  publi">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2013-11-08T14:21:00.000Z">
+<meta property="article:modified_time" content="2024-02-08T01:29:02.172Z">
+<meta property="article:author" content="Hanks">
+<meta name="twitter:card" content="summary">
+  
+  
+  <link href="https://fonts.googleapis.com/css?family=Fira+Code|Noto+Serif+SC&display=swap" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8165670162444117"
+     crossorigin="anonymous"></script>
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo"></a>
+    <nav id="main-nav">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      
+        <a class="main-nav-link" href="/archives">Archive</a>
+      
+        <a class="main-nav-link" href="/eye-video">Eye</a>
+      
+        <a class="main-nav-link" href="/atom.xml">Rss</a>
+      
+    </nav>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/archives" class="mobile-nav-link">Archive</a>
+  
+    <a href="/eye-video" class="mobile-nav-link">Eye</a>
+  
+    <a href="/atom.xml" class="mobile-nav-link">Rss</a>
+  
+</nav>
+      <div class="outer">
+        <section id="main"><article id="post-Java_中Map的使用，以及遍历" class="article article-type-post" itemscope
+  itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <header class="article-header">
+      
+      
+  
+    <h1 class="article-title" itemprop="name">
+      Java 中Map的使用，以及遍历
+    </h1>
+  
+
+      
+    </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+<p>&nbsp;</p>
+<p><a target="_blank" href="https://poj.org/problem?id=1002">https://poj.org/problem?id=1002</a></p>
+<p>&nbsp;</p>
+<pre class="java" name="code">/*
+ * 1. 用TreeMap&lt;String,Integer&gt;;
+ * 2. 接收字符串，逐个判断，数字直接相加，字符转换成数字，‘-’不管，组成的字符串放到Map
+ * 3. 输出Map中value&gt;1的项
+ * 
+ * */
+
+import java.util.*;
+
+public class Main {
+	public static void main(String[] args) {
+		//jdk1.6以下的不能这样定义 TreeMap &lt;String,Integer&gt; map = new TreeMap&lt;&gt;();
+		TreeMap &lt;String,Integer&gt; map = new TreeMap&lt;String,Integer&gt;();  
+		Scanner cin = new Scanner(System.in);
+		int t = cin.nextInt();
+		String s,str;
+		char ch;
+		int i;
+		while(t--!=0){
+			s = cin.next();
+			str = &quot;&quot;;
+			for(i=0;i&lt;s.length();i&#43;&#43;){
+				ch = s.charAt(i);
+				if(ch&gt;='0' &amp;&amp; ch&lt;='9') str &#43;= ch&#43;&quot;&quot;;
+				else if(ch=='-') continue;
+				else{
+					switch (ch) {
+						case 'A':case 'B':case 'C':  str &#43;= &quot;2&quot;; break;
+						case 'D':case 'E':case 'F':  str &#43;= &quot;3&quot;; break;
+						case 'G':case 'H':case 'I':  str &#43;= &quot;4&quot;; break;
+						case 'J':case 'K':case 'L':  str &#43;= &quot;5&quot;; break;
+						case 'M':case 'N':case 'O':  str &#43;= &quot;6&quot;; break;
+						case 'P':case 'R':case 'S':  str &#43;= &quot;7&quot;; break;
+						case 'T':case 'U':case 'V':  str &#43;= &quot;8&quot;; break;
+						case 'W':case 'X':case 'Y':  str &#43;= &quot;9&quot;; break;
+					}
+				}
+				if(str.length() == 3) str &#43;= &quot;-&quot;;
+			}
+			int cnt;
+			if(map.containsKey(str))  {
+				cnt = map.get(str)&#43;1;
+				map.remove(str);
+				map.put(str, cnt);
+			}else{
+				map.put(str, 1);
+			}
+		}
+		Iterator&lt;String&gt; it = map.keySet().iterator();
+		String key;int num;
+		int flag = 0;
+		while(it.hasNext()){
+			key = it.next();
+			num = map.get(key);
+			if( num&gt;1 ){
+				flag = 1;System.out.println(key&#43;&quot; &quot;&#43; num);
+			}
+		}
+		if(flag==0)System.out.println(&quot;No duplicates.&quot;);
+	}
+}
+
+</pre>
+<p><br>
+&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+      
+    </div>
+</article>
+
+<!-- 上一页 下一页 -->
+
+
+<nav id="article-nav">
+  
+    <a href="/2013/11/11/c___%E5%92%8C_Java_%E4%B8%AD_set___/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>上一篇</span>
+      <div class="article-nav-title">
+        
+          c++ 和 Java 中 set &lt;&gt;
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2013/10/29/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%EF%BC%88%E7%BB%83%E4%B9%A0%E9%A2%98%E7%9B%AE%EF%BC%8C%EF%BC%89/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>下一篇</span>
+      <div class="article-nav-title">动态规划（练习题目，）</div>
+    </a>
+  
+</nav>
+
+
+
+<!-- 相关文章 -->
+
+<!--
+
+-->
+
+
+</section>
+      </div>
+      <footer id="footer">
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      
+      &copy;2024<a target="_blank" rel="noopener" href="https://github.com/hanks-zyh"> Hanks</a>版权所有
+      <br/>
+      <a href="https://beian.miit.gov.cn/" target="_blank">豫ICP备2021022347号</a>
+	  </div>
+  </div>
+ <div id="share">
+  <a id="totop" title="" style="display: block;">返回顶部</a>
+ </div>
+</footer>
+
+    </div>
+    
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/jquery.scrollLoading.js"></script>
+
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/ads.js"></script>
+
+  </div>
+</body>
+</html>

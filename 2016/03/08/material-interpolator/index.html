@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>创建 Material Design 的真实动画 | Hanks&#39; Websit</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <script data-ad-client="ca-pub-8165670162444117" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <meta name="referrer" content="never">
+  <meta name="description" content="material design 规范中，一个重要方面在于如何在“动作”完整的展现物体的各个真实的特性，譬如优雅、简约、美观和神奇的无缝的用户体验，下面的动画将帮助大家理解这些理念。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="创建 Material Design 的真实动画">
+<meta property="og:url" content="https://hanks.pub/2016/03/08/material-interpolator/index.html">
+<meta property="og:site_name" content="Hanks&#39; Websit">
+<meta property="og:description" content="material design 规范中，一个重要方面在于如何在“动作”完整的展现物体的各个真实的特性，譬如优雅、简约、美观和神奇的无缝的用户体验，下面的动画将帮助大家理解这些理念。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://dn-coding-net-production-pp.qbox.me/7a258a47-be74-49da-894a-70c0cfdb2e3c.gif">
+<meta property="og:image" content="https://dn-coding-net-production-pp.qbox.me/cb75178e-fe7f-46d9-9a72-79b4f190454d.gif">
+<meta property="og:image" content="https://dn-coding-net-production-pp.qbox.me/b5aefe9e-514d-4d6f-8959-26254160f51d.gif">
+<meta property="og:image" content="https://github.com/MasayukiSuda/EasingInterpolator/raw/master/art/easing.png">
+<meta property="og:image" content="https://github.com/MasayukiSuda/EasingInterpolator/raw/master/art/FPSAnimator1.gif">
+<meta property="article:published_time" content="2016-03-07T16:53:41.000Z">
+<meta property="article:modified_time" content="2024-02-08T01:29:02.189Z">
+<meta property="article:author" content="Hanks">
+<meta property="article:tag" content="Android">
+<meta property="article:tag" content="interpolator">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://dn-coding-net-production-pp.qbox.me/7a258a47-be74-49da-894a-70c0cfdb2e3c.gif">
+  
+  
+  <link href="https://fonts.googleapis.com/css?family=Fira+Code|Noto+Serif+SC&display=swap" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8165670162444117"
+     crossorigin="anonymous"></script>
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo"></a>
+    <nav id="main-nav">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      
+        <a class="main-nav-link" href="/archives">Archive</a>
+      
+        <a class="main-nav-link" href="/eye-video">Eye</a>
+      
+        <a class="main-nav-link" href="/atom.xml">Rss</a>
+      
+    </nav>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/archives" class="mobile-nav-link">Archive</a>
+  
+    <a href="/eye-video" class="mobile-nav-link">Eye</a>
+  
+    <a href="/atom.xml" class="mobile-nav-link">Rss</a>
+  
+</nav>
+      <div class="outer">
+        <section id="main"><article id="post-material-interpolator" class="article article-type-post" itemscope
+  itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <header class="article-header">
+      
+      
+  
+    <h1 class="article-title" itemprop="name">
+      创建 Material Design 的真实动画
+    </h1>
+  
+
+      
+    </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      <p>material design 规范中，一个重要方面在于如何在“动作”完整的展现物体的各个真实的特性，譬如优雅、简约、美观和神奇的无缝的用户体验，下面的动画将帮助大家理解这些理念。</p>
+<p> <img src="https://dn-coding-net-production-pp.qbox.me/7a258a47-be74-49da-894a-70c0cfdb2e3c.gif" alt="动画"> </p>
+<span id="more"></span>
+
+<p>推荐一个网站: <a target="_blank" rel="noopener" href="https://inloop.github.io/interpolator/">https://inloop.github.io/interpolator/</a></p>
+<p>填入函数，即可立即查看效果</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">if(x&lt;=0.5)&#123;</span><br><span class="line">    4*x*x*x</span><br><span class="line">&#125;else&#123;</span><br><span class="line">    4*(x-1)*(x-1)*(x-1) + 1</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p> <img src="https://dn-coding-net-production-pp.qbox.me/cb75178e-fe7f-46d9-9a72-79b4f190454d.gif" alt="动画"> </p>
+<p>以此自定义Interpolator，Interpolator 时间插值类，定义动画变换的速度。Interpolator接口，继承自TimeInterpolator，TimeInterpolator时间插值器允许动画进行非线性运动变换，如加速和限速等，该接口中只有接口中有一个方法 <code>float getInterpolation(float input)</code> 这个方法。传入的值是一个 <code>0.0~1.0</code>的值，返回值可以小于0.0也可以大于1.0。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Created by hanks on 2016/3/7.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MaterialInterpolator</span> <span class="keyword">implements</span> <span class="title class_">Interpolator</span> &#123;</span><br><span class="line">    <span class="meta">@Override</span> <span class="keyword">public</span> <span class="type">float</span> <span class="title function_">getInterpolation</span><span class="params">(<span class="type">float</span> x)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span>(x&lt;=<span class="number">0.5</span>)&#123;</span><br><span class="line">           <span class="keyword">return</span> <span class="number">4</span>*x*x*x;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">4</span>*(x-<span class="number">1</span>)*(x-<span class="number">1</span>)*(x-<span class="number">1</span>) + <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p> <img src="https://dn-coding-net-production-pp.qbox.me/b5aefe9e-514d-4d6f-8959-26254160f51d.gif" alt="MaterialInterpolator"></p>
+<p>Lollipop在 <code>android.R.interpolator</code> 中加入了几个 interpolator，包括<code>fast_out_linear_in</code> , <code>fast_out_slow_in</code>,和<code>linear_out_slow_in</code> ：对于产生逼真的物理效果至关重要。现在我们可以通过使用兼容包中的 <code>FastOutLinearInInterpolator</code>,  <code>FastOutSlowInInterpolator</code> , <code>LinearOutSlowInInterpolator</code> 类来达到同样的效果。 除此之外，我们还可以使用 <code>PathInterpolatorCompat</code> 来制造二次方或三次方的贝塞尔曲线动画。</p>
+<p>更多 Interpolator</p>
+<p><img src="https://github.com/MasayukiSuda/EasingInterpolator/raw/master/art/easing.png" alt="图片"><br><img src="https://github.com/MasayukiSuda/EasingInterpolator/raw/master/art/FPSAnimator1.gif" alt="图片"><br><a target="_blank" rel="noopener" href="https://github.com/MasayukiSuda/EasingInterpolator">github</a></p>
+<blockquote>
+<p>文章来自： <a href="https://hanks.pub/">https://hanks.pub</a></p>
+</blockquote>
+
+      
+    </div>
+</article>
+
+<!-- 上一页 下一页 -->
+
+
+<nav id="article-nav">
+  
+    <a href="/2016/03/08/kotlin-for-android-00/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>上一篇</span>
+      <div class="article-nav-title">
+        
+          Kotlin for Android - 0x00 配置
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/02/29/ubuntu-swift/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>下一篇</span>
+      <div class="article-nav-title">Ubuntu 14.04 搭建Swift3.0 开发环境</div>
+    </a>
+  
+</nav>
+
+
+
+<!-- 相关文章 -->
+
+<!--
+
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+      			<a href="/2016/03/08/material-interpolator/">创建 Material Design 的真实动画</a>
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+
+-->
+
+
+</section>
+      </div>
+      <footer id="footer">
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      
+      &copy;2024<a target="_blank" rel="noopener" href="https://github.com/hanks-zyh"> Hanks</a>版权所有
+      <br/>
+      <a href="https://beian.miit.gov.cn/" target="_blank">豫ICP备2021022347号</a>
+	  </div>
+  </div>
+ <div id="share">
+  <a id="totop" title="" style="display: block;">返回顶部</a>
+ </div>
+</footer>
+
+    </div>
+    
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/jquery.scrollLoading.js"></script>
+
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/ads.js"></script>
+
+  </div>
+</body>
+</html>

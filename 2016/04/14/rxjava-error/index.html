@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>强大的 RxJava 也要进行错误处理 | Hanks&#39; Websit</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <script data-ad-client="ca-pub-8165670162444117" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <meta name="referrer" content="never">
+  <meta name="description" content="onNext, onComplete, onError，onError 在 Observable 序列传递过程中出现异常时被调用，然后终止Observable 序列的传递，以此通知所有的观察者发生了一个不可恢复的错误。但是有好多时候需要我们手动去终止序列，例如当序列传递时不满足某个条件了就不在进行后续的操作，这可能并不是一个异常，需要我们手动抛出。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="强大的 RxJava 也要进行错误处理">
+<meta property="og:url" content="https://hanks.pub/2016/04/14/rxjava-error/index.html">
+<meta property="og:site_name" content="Hanks&#39; Websit">
+<meta property="og:description" content="onNext, onComplete, onError，onError 在 Observable 序列传递过程中出现异常时被调用，然后终止Observable 序列的传递，以此通知所有的观察者发生了一个不可恢复的错误。但是有好多时候需要我们手动去终止序列，例如当序列传递时不满足某个条件了就不在进行后续的操作，这可能并不是一个异常，需要我们手动抛出。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2016-04-14T14:35:16.000Z">
+<meta property="article:modified_time" content="2024-02-08T01:29:02.192Z">
+<meta property="article:author" content="Hanks">
+<meta property="article:tag" content="RxJava">
+<meta name="twitter:card" content="summary">
+  
+  
+  <link href="https://fonts.googleapis.com/css?family=Fira+Code|Noto+Serif+SC&display=swap" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8165670162444117"
+     crossorigin="anonymous"></script>
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo"></a>
+    <nav id="main-nav">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      
+        <a class="main-nav-link" href="/archives">Archive</a>
+      
+        <a class="main-nav-link" href="/eye-video">Eye</a>
+      
+        <a class="main-nav-link" href="/atom.xml">Rss</a>
+      
+    </nav>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/archives" class="mobile-nav-link">Archive</a>
+  
+    <a href="/eye-video" class="mobile-nav-link">Eye</a>
+  
+    <a href="/atom.xml" class="mobile-nav-link">Rss</a>
+  
+</nav>
+      <div class="outer">
+        <section id="main"><article id="post-rxjava-error" class="article article-type-post" itemscope
+  itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <header class="article-header">
+      
+      
+  
+    <h1 class="article-title" itemprop="name">
+      强大的 RxJava 也要进行错误处理
+    </h1>
+  
+
+      
+    </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      <p>onNext, onComplete, onError，<code>onError</code> 在 <code>Observable</code> 序列传递过程中出现异常时被调用，然后终止<code>Observable</code> 序列的传递，以此通知所有的观察者发生了一个不可恢复的错误。但是有好多时候需要我们手动去终止序列，例如当序列传递时不满足某个条件了就不在进行后续的操作，这可能并不是一个异常，需要我们手动抛出。</p>
+<span id="more"></span>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Observable.just(1, 2, 3, 4, null, 6)</span><br><span class="line">          .doOnNext(integer1 -&gt; System.out.println(1.0 / integer1))</span><br><span class="line">          .subscribe(integer -&gt; System.out.println(&quot;integer = &quot; + integer),</span><br><span class="line">                     throwable -&gt; System.out.println(&quot;throwable = &quot; + throwable));</span><br></pre></td></tr></table></figure>
+
+<p>输出</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">1.0</span><br><span class="line">integer = 1</span><br><span class="line">0.5</span><br><span class="line">integer = 2</span><br><span class="line">0.3333333333333333</span><br><span class="line">integer = 3</span><br><span class="line">0.25</span><br><span class="line">integer = 4</span><br><span class="line">throwable = java.lang.NullPointerException</span><br></pre></td></tr></table></figure>
+
+
+<p>正常情况下，<code>Observable</code> 序列在传递过程中出现错误会调用 <code>onError</code> 终止序列。 看下面的情况：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Observable.just(&quot;file1&quot;, &quot;file2&quot;,&quot;file3&quot;)</span><br><span class="line">        .doOnNext(fileName-&gt;&#123;</span><br><span class="line">            try &#123;</span><br><span class="line">                new FileInputStream(fileName);</span><br><span class="line">            &#125; catch (FileNotFoundException e) &#123;</span><br><span class="line">                // e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;)</span><br><span class="line">        .subscribe(filename -&gt; System.out.println(&quot;filename = &quot; + filename),</span><br><span class="line">                throwable -&gt; System.out.println(&quot;throwable = &quot; + throwable));</span><br></pre></td></tr></table></figure>
+<p>输出</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">filename = file1</span><br><span class="line">filename = file2</span><br><span class="line">filename = file3</span><br></pre></td></tr></table></figure>
+
+<p>因为使用了 <code>FileInputStream</code> 所以必须进行 <code>try ... catch</code>，但是我想在出现 <code>FileNotFoundException</code> 的异常时回调给 <code>Observable</code> 的 <code>onError</code> 统一处理，这时候就需要将异常抛出。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Observable.just(&quot;file1&quot;, &quot;file2&quot;,&quot;file3&quot;)</span><br><span class="line">               .doOnNext(fileName-&gt;&#123;</span><br><span class="line">                   try &#123;</span><br><span class="line">                       new FileInputStream(fileName);</span><br><span class="line">                   &#125; catch (FileNotFoundException e) &#123;</span><br><span class="line">                       throw Exceptions.propagate(new Throwable(&quot;文件找不到&quot;)); // 抛出异常来中断序列</span><br><span class="line">                   &#125;</span><br><span class="line">               &#125;)</span><br><span class="line">               .subscribe(filename -&gt; System.out.println(&quot;filename = &quot; + filename),</span><br><span class="line">                       throwable -&gt; System.out.println(&quot;throwable = &quot; + throwable));</span><br></pre></td></tr></table></figure>
+
+<p>输出</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">throwable = java.lang.RuntimeException: java.lang.Throwable: 文件找不到</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>通过 <code>throw</code> 关键字抛出异常</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Observable.just(&quot;Hello!&quot;)  </span><br><span class="line">  .map(input -&gt; &#123; throw new RuntimeException(); &#125;)</span><br><span class="line">  .subscribe(</span><br><span class="line">    System.out::println,</span><br><span class="line">    error -&gt; System.out.println(&quot;Error!&quot;)</span><br><span class="line">  );</span><br></pre></td></tr></table></figure>
+
+
+<p>当在 <code>FlatMap</code> 中想终止序列，使用 <code>Observable.error()</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Observable.just(&quot;Hello!&quot;)  </span><br><span class="line">  .flatMap(input -&gt; &#123;</span><br><span class="line">    try &#123;</span><br><span class="line">      return Observable.just(transform(input));</span><br><span class="line">    &#125; catch (Throwable t) &#123;</span><br><span class="line">      return Observable.error(t);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br></pre></td></tr></table></figure>
+
+
+<p>高级异常处理：</p>
+<p><code>onErrorReturn</code> ：当发生错误的时候，发射一个默认值然后结束数据流。所以 Subscriber 看不到异常信息，看到的是正常的数据流结束状态。<br><code>onErrorResumeNext</code> ：当错误发生的时候，使用另外一个数据流继续发射数据。在返回的 Observable 中是看不到错误信息的。<br><code>onExceptionResumeNext</code> ：onExceptionResumeNext 和 onErrorResumeNext 的区别是只捕获 Exception；<br><code>retry</code> ：如果发生了不定性的异常，则通常会重试一下看看是否正常了。 retry 的功能就算重新订阅到事件流，并重头重新开始发射数据。<br><code>retryWhen</code> ： retryWhen 的参数是一个函数， 该函数的输入参数为一个异常 Observable，返回值为另外一个 Observable。<br><code>using</code> ：用来管理资源的，如果一个 Observable 需要使用一个资源来发射数据（比如 需要使用一个文件资源，从文件中读取内容），当该 Observable 结束的时候（不管是正常结束还是异常结束）就释放该资源。这样你就不用自己管理资源了， 用 Rx 的方式来管理资源。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">.flatMap(...)</span><br><span class="line">.flatMap(...)</span><br><span class="line">.onErrorResumeNext(new Func1&lt;Throwable, Observable&lt;?&gt;&gt;() &#123;</span><br><span class="line">    @Override</span><br><span class="line">    public Observable&lt;?&gt; call(Throwable throwable) &#123;</span><br><span class="line">        // Here simply return an Observable which will emit the Throwable of your liking</span><br><span class="line">        return Observable.error(new Throwable(...));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line">.flatMap(...);</span><br></pre></td></tr></table></figure>
+
+<p>参考链接</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://blog.danlew.net/2015/12/08/error-handling-in-rxjava/">Error handling in RxJava</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.chengyunfeng.com/?p=970">RxJava 教程第三部分：驯服数据流之 高级错误处理</a></li>
+</ul>
+<blockquote>
+<p>文章来自： <a href="https://hanks.pub/">https://hanks.pub</a></p>
+</blockquote>
+
+      
+    </div>
+</article>
+
+<!-- 上一页 下一页 -->
+
+
+<nav id="article-nav">
+  
+    <a href="/2016/04/14/Ubuntu-lamp/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>上一篇</span>
+      <div class="article-nav-title">
+        
+          Ubuntu 上搭建 LAMP 环境
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/04/12/buy-vps/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>下一篇</span>
+      <div class="article-nav-title">购买搬瓦工 VPS</div>
+    </a>
+  
+</nav>
+
+
+
+<!-- 相关文章 -->
+
+<!--
+
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+      			<a href="/2016/04/14/rxjava-error/">强大的 RxJava 也要进行错误处理</a>
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+
+-->
+
+
+</section>
+      </div>
+      <footer id="footer">
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      
+      &copy;2024<a target="_blank" rel="noopener" href="https://github.com/hanks-zyh"> Hanks</a>版权所有
+      <br/>
+      <a href="https://beian.miit.gov.cn/" target="_blank">豫ICP备2021022347号</a>
+	  </div>
+  </div>
+ <div id="share">
+  <a id="totop" title="" style="display: block;">返回顶部</a>
+ </div>
+</footer>
+
+    </div>
+    
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/jquery.scrollLoading.js"></script>
+
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/ads.js"></script>
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>hdu 题目1241 Oil Deposits（简单DFS） | Hanks&#39; Websit</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <script data-ad-client="ca-pub-8165670162444117" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <meta name="referrer" content="never">
+  <meta name="description" content="Oil Deposits Time Limit: 2000&#x2F;1000 MS (Java&#x2F;Others)&nbsp;&nbsp;&nbsp;&nbsp;Memory Limit: 65536&#x2F;32768 K (Java&#x2F;Others) Total Submission(s): 8179&nbsp;&nbsp;&nbsp;&nbsp;Accepted Submission(s): 4792   Pr">
+<meta property="og:type" content="article">
+<meta property="og:title" content="hdu 题目1241 Oil Deposits（简单DFS）">
+<meta property="og:url" content="https://hanks.pub/2013/08/07/hdu_%E9%A2%98%E7%9B%AE1241_Oil_Deposits%EF%BC%88%E7%AE%80%E5%8D%95DFS%EF%BC%89/index.html">
+<meta property="og:site_name" content="Hanks&#39; Websit">
+<meta property="og:description" content="Oil Deposits Time Limit: 2000&#x2F;1000 MS (Java&#x2F;Others)&nbsp;&nbsp;&nbsp;&nbsp;Memory Limit: 65536&#x2F;32768 K (Java&#x2F;Others) Total Submission(s): 8179&nbsp;&nbsp;&nbsp;&nbsp;Accepted Submission(s): 4792   Pr">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2013-08-07T08:19:00.000Z">
+<meta property="article:modified_time" content="2024-02-08T01:29:02.184Z">
+<meta property="article:author" content="Hanks">
+<meta name="twitter:card" content="summary">
+  
+  
+  <link href="https://fonts.googleapis.com/css?family=Fira+Code|Noto+Serif+SC&display=swap" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8165670162444117"
+     crossorigin="anonymous"></script>
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo"></a>
+    <nav id="main-nav">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      
+        <a class="main-nav-link" href="/archives">Archive</a>
+      
+        <a class="main-nav-link" href="/eye-video">Eye</a>
+      
+        <a class="main-nav-link" href="/atom.xml">Rss</a>
+      
+    </nav>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/archives" class="mobile-nav-link">Archive</a>
+  
+    <a href="/eye-video" class="mobile-nav-link">Eye</a>
+  
+    <a href="/atom.xml" class="mobile-nav-link">Rss</a>
+  
+</nav>
+      <div class="outer">
+        <section id="main"><article id="post-hdu_题目1241_Oil_Deposits（简单DFS）" class="article article-type-post" itemscope
+  itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <header class="article-header">
+      
+      
+  
+    <h1 class="article-title" itemprop="name">
+      hdu 题目1241 Oil Deposits（简单DFS）
+    </h1>
+  
+
+      
+    </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+<h1 align="center" style="color:#1a5cc8">Oil Deposits</h1>
+<p align="center"><span size="&#43;0"><strong><span style="font-family:Arial; font-size:12px; color:green; font-weight:bold">Time Limit: 2000/1000 MS (Java/Others)&nbsp;&nbsp;&nbsp;&nbsp;Memory Limit: 65536/32768 K (Java/Others)<br>
+Total Submission(s): 8179&nbsp;&nbsp;&nbsp;&nbsp;Accepted Submission(s): 4792</span></strong></span><br>
+<br>
+</p>
+<div class="panel_title" align="left">Problem Description</div>
+<div class="panel_content">The GeoSurvComp geologic survey company is responsible for detecting underground oil deposits. GeoSurvComp works with one large rectangular region of land at a time, and creates a grid that divides the land into numerous square plots.
+ It then analyzes each plot separately, using sensing equipment to determine whether or not the plot contains oil. A plot containing oil is called a pocket. If two pockets are adjacent, then they are part of the same oil deposit. Oil deposits can be quite large
+ and may contain numerous pockets. Your job is to determine how many different oil deposits are contained in a grid.
+<br>
+</div>
+<div class="panel_bottom">&nbsp;</div>
+<p>&nbsp;</p>
+<div class="panel_title" align="left">Input</div>
+<div class="panel_content">The input file contains one or more grids. Each grid begins with a line containing m and n, the number of rows and columns in the grid, separated by a single space. If m = 0 it signals the end of the input; otherwise 1 &lt;= m &lt;= 100
+ and 1 &lt;= n &lt;= 100. Following this are m lines of n characters each (not counting the end-of-line characters). Each character corresponds to one plot, and is either `*', representing the absence of oil, or `@', representing an oil pocket.<br>
+</div>
+<div class="panel_bottom">&nbsp;<br>
+</div>
+<div class="panel_title" align="left">Output</div>
+<div class="panel_content">For each grid, output the number of distinct oil deposits. Two different pockets are part of the same oil deposit if they are adjacent horizontally, vertically, or diagonally. An oil deposit will not contain more than 100 pockets.<br>
+</div>
+<div class="panel_bottom">&nbsp;</div>
+<p>&nbsp;</p>
+<div class="panel_title" align="left">Sample Input</div>
+<div class="panel_content">
+<pre><div style="font-family:Courier New,Courier,monospace">1 1
+*
+3 5
+*@*@*
+**@**
+*@*@*
+1 8
+@@****@*
+5 5 
+****@
+*@@*@
+*@**@
+@@@*@
+@@**@
+0 0 </div></pre>
+</div>
+<div class="panel_bottom">&nbsp;<br>
+</div>
+<div class="panel_title" align="left">Sample Output</div>
+<div class="panel_content">
+<pre><div style="font-family:Courier New,Courier,monospace">0
+1
+2
+2</div></pre>
+</div>
+<div class="panel_bottom">&nbsp;</div>
+<p>&nbsp;</p>
+<p>原理和<a target="_blank" href="https://blog.csdn.net/hpu_zyh/article/details/9816053" target="_self">HDU1312 一样</a></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<pre class="cpp" name="code">#include &lt;iostream&gt;
+#include &lt;stdio.h&gt;
+
+using namespace std;
+
+
+int m,n,cnt;
+char a[102][102];
+
+void DFS(int x,int y)
+{
+	a[x][y] = '*';
+	
+	if( x+1&lt;m &amp;&amp; a[x+1][y]=='@' ) DFS(x+1,y);
+	if( y+1&lt;n &amp;&amp; a[x][y+1]=='@' ) DFS(x,y+1);
+	if( x-1&gt;=0 &amp;&amp; a[x-1][y]=='@' ) DFS(x-1,y);
+	if( y-1&gt;=0 &amp;&amp; a[x][y-1]=='@' ) DFS(x,y-1);
+	
+	if( x+1&lt;m &amp;&amp; y+1&lt;n  &amp;&amp; a[x+1][y+1]=='@' ) DFS(x+1,y+1);
+	if( x-1&gt;=0 &amp;&amp; y-1&gt;=0  &amp;&amp; a[x-1][y-1]=='@' ) DFS(x-1,y-1);
+	if( x+1&lt;m &amp;&amp; y-1&gt;=0  &amp;&amp; a[x+1][y-1]=='@' ) DFS(x+1,y-1);
+	if( x-1&gt;=0 &amp;&amp; y+1&lt;n  &amp;&amp; a[x-1][y+1]=='@' ) DFS(x-1,y+1);
+		
+}
+int main()
+{
+	int i,j;
+	while(scanf(&quot;%d%d&quot;,&amp;m,&amp;n),m)
+	{
+		for(i=0;i&lt;m;i++)
+			scanf(&quot;%s&quot;,a[i]);	
+		
+		
+		cnt=0;
+		for(i=0;i&lt;m;i++)
+		{
+			for(j=0;j&lt;n;j++)
+			{
+				if(a[i][j]=='@')
+				{
+					DFS(i,j);cnt++;
+				}				
+			}
+		}
+	
+		printf(&quot;%d\n&quot;,cnt);
+	}
+	return 0;
+}
+
+</pre>
+<p><br>
+&nbsp;</p>
+
+      
+    </div>
+</article>
+
+<!-- 上一页 下一页 -->
+
+
+<nav id="article-nav">
+  
+    <a href="/2013/08/07/NYOJ_%E9%A2%98%E7%9B%AE488_%E7%B4%A0%E6%95%B0%E7%8E%AF%EF%BC%88DFS%EF%BC%89/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>上一篇</span>
+      <div class="article-nav-title">
+        
+          NYOJ 题目488 素数环（DFS）
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2013/08/07/hdu_%E9%A2%98%E7%9B%AE1181_%E5%8F%98%E5%BD%A2%E8%AF%BE_%EF%BC%88%E7%AE%80%E5%8D%95DFS%EF%BC%89/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>下一篇</span>
+      <div class="article-nav-title">hdu 题目1181 变形课 （简单DFS）</div>
+    </a>
+  
+</nav>
+
+
+
+<!-- 相关文章 -->
+
+<!--
+
+-->
+
+
+</section>
+      </div>
+      <footer id="footer">
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      
+      &copy;2024<a target="_blank" rel="noopener" href="https://github.com/hanks-zyh"> Hanks</a>版权所有
+      <br/>
+      <a href="https://beian.miit.gov.cn/" target="_blank">豫ICP备2021022347号</a>
+	  </div>
+  </div>
+ <div id="share">
+  <a id="totop" title="" style="display: block;">返回顶部</a>
+ </div>
+</footer>
+
+    </div>
+    
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/jquery.scrollLoading.js"></script>
+
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/ads.js"></script>
+
+  </div>
+</body>
+</html>

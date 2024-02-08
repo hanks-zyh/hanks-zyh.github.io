@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>c\c++ 时间相关函数 include&lt;time.h&gt; | Hanks&#39; Websit</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <script data-ad-client="ca-pub-8165670162444117" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <meta name="referrer" content="never">
+  <meta name="description" content="#include &lt;cstdio&gt; #include &lt;iostream&gt; #include &lt;ctime&gt; using namespace std;  int main() { 	clock_t start,end;?&#x2F;clock_t 与 time_t 都是 long 型的 	long i &#x3D; 10000000L; 	 	start &#x3D; clock">
+<meta property="og:type" content="article">
+<meta property="og:title" content="c\c++ 时间相关函数 include&lt;time.h&gt;">
+<meta property="og:url" content="https://hanks.pub/2014/03/16/c_c___%E6%97%B6%E9%97%B4%E7%9B%B8%E5%85%B3%E5%87%BD%E6%95%B0_include_time_h_/index.html">
+<meta property="og:site_name" content="Hanks&#39; Websit">
+<meta property="og:description" content="#include &lt;cstdio&gt; #include &lt;iostream&gt; #include &lt;ctime&gt; using namespace std;  int main() { 	clock_t start,end;?&#x2F;clock_t 与 time_t 都是 long 型的 	long i &#x3D; 10000000L; 	 	start &#x3D; clock">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2014-03-16T06:55:00.000Z">
+<meta property="article:modified_time" content="2024-02-08T01:29:02.181Z">
+<meta property="article:author" content="Hanks">
+<meta name="twitter:card" content="summary">
+  
+  
+  <link href="https://fonts.googleapis.com/css?family=Fira+Code|Noto+Serif+SC&display=swap" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8165670162444117"
+     crossorigin="anonymous"></script>
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo"></a>
+    <nav id="main-nav">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      
+        <a class="main-nav-link" href="/archives">Archive</a>
+      
+        <a class="main-nav-link" href="/eye-video">Eye</a>
+      
+        <a class="main-nav-link" href="/atom.xml">Rss</a>
+      
+    </nav>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/archives" class="mobile-nav-link">Archive</a>
+  
+    <a href="/eye-video" class="mobile-nav-link">Eye</a>
+  
+    <a href="/atom.xml" class="mobile-nav-link">Rss</a>
+  
+</nav>
+      <div class="outer">
+        <section id="main"><article id="post-c_c___时间相关函数_include_time_h_" class="article article-type-post" itemscope
+  itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <header class="article-header">
+      
+      
+  
+    <h1 class="article-title" itemprop="name">
+      c\c++ 时间相关函数 include&lt;time.h&gt;
+    </h1>
+  
+
+      
+    </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+<p><br>
+</p>
+<p><br>
+</p>
+<p></p>
+<pre name="code" class="cpp">#include &lt;cstdio&gt;
+#include &lt;iostream&gt;
+#include &lt;ctime&gt;
+using namespace std;
+
+int main()
+{
+	clock_t start,end;?/clock_t 与 time_t 都是 long 型的
+	long i = 10000000L;
+	
+	start = clock();
+	while(i--);
+	end = clock();
+	printf(&quot;time = %lf\n&quot;,(double)(end-start)/1000.0);
+	//time = 0.024000
+	
+	time_t t = time(NULL);
+	printf(&quot;Calender time is: %ld ms,the distance of 1700-1-1 days = %d\n&quot;,t,t/60/60/24);
+	//Calender time is: 1394952675 ms,the distance of 1700-1-1 days = 16145
+	
+	tm * lt;	
+	lt = gmtime(&amp;t);
+	printf(&quot;current time is :%04d %02d %02d , %02d:%02d:%02d\n&quot;,lt-&gt;tm_year+1900,lt-&gt;tm_mon+1,lt-&gt;tm_mday,
+	lt-&gt;tm_hour,lt-&gt;tm_min,lt-&gt;tm_sec);
+
+	lt = localtime(&amp;t);
+	printf(&quot;current time is :%04d %02d %02d , %02d:%02d:%02d\n&quot;,lt-&gt;tm_year+1900,lt-&gt;tm_mon+1,lt-&gt;tm_mday,
+	lt-&gt;tm_hour,lt-&gt;tm_min,lt-&gt;tm_sec);
+	//current time is :2014 03 16 , 06:51:15
+	//current time is :2014 03 16 , 14:51:15
+	
+	printf(&quot;%s&quot;,asctime(lt)); //自动有换行 
+	printf(&quot;%s&quot;,ctime(&amp;t));
+	//Sun Mar 16 14:52:18 2014
+	//Sun Mar 16 14:52:18 2014
+	
+	char str[80];
+	strftime(str,100,&quot;%Y %B %d %A %H:%M:%S&quot;,lt);
+	printf(&quot;%s\n&quot;,str);
+	//2014 March 16 Sunday 14:52:18
+	
+	 
+	struct tm t2;
+	t2.tm_year = 2014-1900;
+	t2.tm_mon = 2;
+	t2.tm_mday = 16;
+	t2.tm_hour = 11;
+	t2.tm_min = 14;
+	t2.tm_sec = 0;
+	time_t tt2 = mktime(&amp;t2);
+	printf(&quot;t2=%ld\n&quot;,ctime(&amp;tt2));
+	printf(&quot;%s\n&quot;,ctime(&amp;tt2));
+	//t2=3280808
+	//Sun Mar 16 11:14:00 2014
+	return 0;
+}</pre><br>
+<br>
+<p></p>
+
+      
+    </div>
+</article>
+
+<!-- 上一页 下一页 -->
+
+
+<nav id="article-nav">
+  
+    <a href="/2014/09/12/%E5%B0%8F%E8%AE%B0/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>上一篇</span>
+      <div class="article-nav-title">
+        
+          小记
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2014/03/04/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92-%E7%9F%A9%E9%98%B5%E8%BF%9E%E4%B9%98/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>下一篇</span>
+      <div class="article-nav-title">动态规划-矩阵连乘</div>
+    </a>
+  
+</nav>
+
+
+
+<!-- 相关文章 -->
+
+<!--
+
+-->
+
+
+</section>
+      </div>
+      <footer id="footer">
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      
+      &copy;2024<a target="_blank" rel="noopener" href="https://github.com/hanks-zyh"> Hanks</a>版权所有
+      <br/>
+      <a href="https://beian.miit.gov.cn/" target="_blank">豫ICP备2021022347号</a>
+	  </div>
+  </div>
+ <div id="share">
+  <a id="totop" title="" style="display: block;">返回顶部</a>
+ </div>
+</footer>
+
+    </div>
+    
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/jquery.scrollLoading.js"></script>
+
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/ads.js"></script>
+
+  </div>
+</body>
+</html>

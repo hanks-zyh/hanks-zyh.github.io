@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>NYOJ 题目17 单调递增最长子序列 （DP） hdu 题目2845 Bean | Hanks&#39; Websit</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <script data-ad-client="ca-pub-8165670162444117" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <meta name="referrer" content="never">
+  <meta name="description" content="吃土豆 时间限制：1000&nbsp;ms &nbsp;|&nbsp; 内存限制：65535&nbsp;KB 难度：4      描述Bean-eating is an interesting game, everyone owns an M*N matrix, which is filled with different qualities beans. Meantime, there">
+<meta property="og:type" content="article">
+<meta property="og:title" content="NYOJ 题目17 单调递增最长子序列 （DP） hdu 题目2845 Bean">
+<meta property="og:url" content="https://hanks.pub/2013/08/13/NYOJ_%E9%A2%98%E7%9B%AE17_%E5%8D%95%E8%B0%83%E9%80%92%E5%A2%9E%E6%9C%80%E9%95%BF%E5%AD%90%E5%BA%8F%E5%88%97_%EF%BC%88DP%EF%BC%89_hdu_%E9%A2%98%E7%9B%AE2845_Bean/index.html">
+<meta property="og:site_name" content="Hanks&#39; Websit">
+<meta property="og:description" content="吃土豆 时间限制：1000&nbsp;ms &nbsp;|&nbsp; 内存限制：65535&nbsp;KB 难度：4      描述Bean-eating is an interesting game, everyone owns an M*N matrix, which is filled with different qualities beans. Meantime, there">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://acm.hdu.edu.cn/data/images/convip1-1001-1.JPG">
+<meta property="og:image" content="https://acm.hdu.edu.cn/data/images/convip1-1001-1.JPG">
+<meta property="article:published_time" content="2013-08-13T15:01:00.000Z">
+<meta property="article:modified_time" content="2024-02-08T01:29:02.174Z">
+<meta property="article:author" content="Hanks">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://acm.hdu.edu.cn/data/images/convip1-1001-1.JPG">
+  
+  
+  <link href="https://fonts.googleapis.com/css?family=Fira+Code|Noto+Serif+SC&display=swap" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8165670162444117"
+     crossorigin="anonymous"></script>
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo"></a>
+    <nav id="main-nav">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      
+        <a class="main-nav-link" href="/archives">Archive</a>
+      
+        <a class="main-nav-link" href="/eye-video">Eye</a>
+      
+        <a class="main-nav-link" href="/atom.xml">Rss</a>
+      
+    </nav>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/archives" class="mobile-nav-link">Archive</a>
+  
+    <a href="/eye-video" class="mobile-nav-link">Eye</a>
+  
+    <a href="/atom.xml" class="mobile-nav-link">Rss</a>
+  
+</nav>
+      <div class="outer">
+        <section id="main"><article id="post-NYOJ_题目17_单调递增最长子序列_（DP）_hdu_题目2845_Bean" class="article article-type-post" itemscope
+  itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <header class="article-header">
+      
+      
+  
+    <h1 class="article-title" itemprop="name">
+      NYOJ 题目17 单调递增最长子序列 （DP） hdu 题目2845 Bean
+    </h1>
+  
+
+      
+    </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+<p></p>
+<div class="problem-display" style="font-size:14px; color:rgb(70,70,70); font-family:Tahoma,Arial,sans-serif,simsun">
+<h2 style="margin:0px; padding:0px; font-size:18px; text-align:center; color:rgb(113,32,21); font-family:微软雅黑,黑体">
+吃土豆</h2>
+<div class="problem-ins" style="text-align:center">时间限制：<span class="editable highlight" id="problem[time_limit]" style="color:rgb(113,32,21)">1000</span>&nbsp;ms &nbsp;|&nbsp; 内存限制：<span class="editable highlight" id="problem[memory_limit]" style="color:rgb(113,32,21)">65535</span>&nbsp;KB</div>
+<div class="problem-ins" style="text-align:center">难度：<span class="editable highlight" style="color:rgb(113,32,21)">4</span></div>
+</div>
+<div class="clr" style="clear:both; color:rgb(70,70,70); font-family:Tahoma,Arial,sans-serif,simsun; font-size:13px; line-height:19px">
+</div>
+<dl class="problem-display" style="margin:0px; padding:0px; font-size:14px; color:rgb(70,70,70); font-family:Tahoma,Arial,sans-serif,simsun">
+<dt style="margin:1em 0px 0.2em; padding:0px; color:rgb(113,32,21); font-size:16px; font-weight:bold">
+描述</dt><dd style="margin:0px; padding:0px"><span style="font-family:'Times New Roman'">Bean-eating is an interesting game, everyone owns an M*N matrix, which is filled with different qualities beans. Meantime, there is only one bean in any 1*1 grid. Now you want to
+ eat the beans and collect the qualities, but everyone must obey by the following rules: if you eat the bean at the coordinate(x, y), you can’t eat the beans anyway at the coordinates listed (if exiting): (x, y-1), (x, y&#43;1), and the both rows whose abscissas
+ are x-1 and x&#43;1.<br>
+</span>
+<center><img src="https://acm.hdu.edu.cn/data/images/convip1-1001-1.JPG" alt="" style="border:0px none"></center>
+<br>
+<br>
+Now, how much qualities can you eat and then get ?
+<div class="clr" style="clear:both"></div>
+<dl class="others" style="margin:0px; padding:0px"><dt style="margin:1em 0px 0.2em; padding:0px; color:rgb(113,32,21); font-size:16px; font-weight:bold">
+输入</dt><dd style="margin:0px; padding:0px">There are a few cases. In each case, there are two integer M (row number) and N (column number). The next M lines each contain N integers, representing the qualities of the beans. We can make sure that the quality of bean
+ isn't beyond 1000, and 1&lt;=M,N&lt;=500.<br>
+</dd><dt style="margin:1em 0px 0.2em; padding:0px; color:rgb(113,32,21); font-size:16px; font-weight:bold">
+输出</dt><dd style="margin:0px; padding:0px">For each case, you just output the MAX qualities you can eat and then get.</dd><dt style="margin:1em 0px 0.2em; padding:0px; color:rgb(113,32,21); font-size:16px; font-weight:bold">
+样例输入</dt><dd style="margin:0px; padding:0px">
+<pre id="sample_input" style="margin-top:0px; margin-bottom:0px; padding:5px 10px; font-family:Consolas,'Courier New','DejaVu Sans Mono','Droid Sans Mono',monospace; background-color:rgb(239,239,239); border:1px solid rgb(204,204,204); min-height:20px; line-height:1.5em">4 6
+11 0 7 5 13 9
+78 4 81 6 22 4
+1 40 9 34 16 10
+11 22 0 33 39 6</pre>
+</dd><dt style="margin:1em 0px 0.2em; padding:0px; color:rgb(113,32,21); font-size:16px; font-weight:bold">
+样例输出</dt><dd style="margin:0px; padding:0px">
+<pre id="sample_output" style="margin-top:0px; margin-bottom:0px; padding:5px 10px; font-family:Consolas,'Courier New','DejaVu Sans Mono','Droid Sans Mono',monospace; background-color:rgb(239,239,239); border:1px solid rgb(204,204,204); min-height:20px; line-height:1.5em">242</pre>
+</dd></dl>
+</dd></dl>
+<br>
+<p></p>
+<p>二次dp，</p>
+<p>1.首先单独对每行的数据进行DP处理，得到一个最大&#20540;；</p>
+<p>2,.每行的最大&#20540;又组成一个新的数组，再次dp求最大&#20540;</p>
+<p><br>
+</p>
+<p><br>
+</p>
+<p></p>
+<pre name="code" class="cpp"> 
+#define N 505
+#include&lt;stdio.h&gt;
+#include&lt;string.h&gt;
+#include&lt;stdlib.h&gt;
+int MAX(int x,int y){
+	return x&gt;y?x:y;
+}
+int main()
+{
+	int m,n,i,j,k,max,a[N][N],dp[N][2],f[N]; 
+	
+	while(scanf(&quot;%d%d&quot;,&amp;m,&amp;n)!=EOF){
+		
+		for(i=0;i&lt;m;i++) 
+			for(j=0;j&lt;n;j++)
+				scanf(&quot;%d&quot;,&amp;a[i][j]);
+	
+		for(i=0;i&lt;m;i++) {
+			dp[0][0]=0; dp[0][1]=a[i][0];		
+			for(j=1;j&lt;n;j++){
+				dp[j][0] = MAX(dp[j-1][0],dp[j-1][1]);
+				dp[j][1] = dp[j-1][0] + a[i][j];
+			}		
+			f[i] = MAX(dp[n-1][0],dp[n-1][1]);
+		}
+		dp[0][0] = 0;  dp[0][1] = f[0];
+		
+		for(j=1;j&lt;m;j++){		
+			dp[j][0] = MAX(dp[j-1][0],dp[j-1][1]);
+			dp[j][1] = dp[j-1][0] + f[j];
+		}				
+		printf(&quot;%d\n&quot;,MAX(dp[m-1][0],dp[m-1][1]));
+	}
+	
+	return 0;
+}         </pre><br>
+<br>
+<p>HDU 题目</p>
+<p></p>
+<h1 style="color:rgb(26,92,200); text-align:center; font-family:'Times New Roman'">
+Beans</h1>
+<span style="font-family:'Times New Roman'; font-size:14px"><strong><span style="font-family:Arial; font-size:12px; color:green">Time Limit: 2000/1000 MS (Java/Others)&nbsp;&nbsp;&nbsp;&nbsp;Memory Limit: 32768/32768 K (Java/Others)<br>
+Total Submission(s): 2144&nbsp;&nbsp;&nbsp;&nbsp;Accepted Submission(s): 1081<br>
+</span></strong></span><br style="font-family:'Times New Roman'; font-size:14px">
+<br style="font-family:'Times New Roman'; font-size:14px">
+<div class="panel_title" align="left" style="height:38px; background-color:transparent; padding:0px 14px; color:rgb(124,169,237); font-size:18px; font-family:Arial; font-weight:bold">
+Problem Description</div>
+<div class="panel_content" style="height:auto; margin:0px; padding:0px 20px; font-size:14px; font-family:'Times New Roman'">
+Bean-eating is an interesting game, everyone owns an M*N matrix, which is filled with different qualities beans. Meantime, there is only one bean in any 1*1 grid. Now you want to eat the beans and collect the qualities, but everyone must obey by the following
+ rules: if you eat the bean at the coordinate(x, y), you can’t eat the beans anyway at the coordinates listed (if exiting): (x, y-1), (x, y&#43;1), and the both rows whose abscissas are x-1 and x&#43;1.<br>
+<center><img src="https://acm.hdu.edu.cn/data/images/convip1-1001-1.JPG" alt="" style="border:none"></center>
+<br>
+<br>
+Now, how much qualities can you eat and then get ?</div>
+<div class="panel_bottom" style="height:auto; margin:0px; font-family:'Times New Roman'; font-size:14px">
+&nbsp;</div>
+<br style="font-family:'Times New Roman'; font-size:14px">
+<div class="panel_title" align="left" style="height:38px; background-color:transparent; padding:0px 14px; color:rgb(124,169,237); font-size:18px; font-family:Arial; font-weight:bold">
+Input</div>
+<div class="panel_content" style="height:auto; margin:0px; padding:0px 20px; font-size:14px; font-family:'Times New Roman'">
+There are a few cases. In each case, there are two integer M (row number) and N (column number). The next M lines each contain N integers, representing the qualities of the beans. We can make sure that the quality of bean isn't beyond 1000, and 1&lt;=M*N&lt;=200000.</div>
+<div class="panel_bottom" style="height:auto; margin:0px; font-family:'Times New Roman'; font-size:14px">
+&nbsp;</div>
+<br style="font-family:'Times New Roman'; font-size:14px">
+<div class="panel_title" align="left" style="height:38px; background-color:transparent; padding:0px 14px; color:rgb(124,169,237); font-size:18px; font-family:Arial; font-weight:bold">
+Output</div>
+<div class="panel_content" style="height:auto; margin:0px; padding:0px 20px; font-size:14px; font-family:'Times New Roman'">
+For each case, you just output the MAX qualities you can eat and then get.</div>
+<div class="panel_bottom" style="height:auto; margin:0px; font-family:'Times New Roman'; font-size:14px">
+&nbsp;</div>
+<br style="font-family:'Times New Roman'; font-size:14px">
+<div class="panel_title" align="left" style="height:38px; background-color:transparent; padding:0px 14px; color:rgb(124,169,237); font-size:18px; font-family:Arial; font-weight:bold">
+Sample Input</div>
+<div class="panel_content" style="height:auto; margin:0px; padding:0px 20px; font-size:14px; font-family:'Times New Roman'">
+<pre style="margin-top:0px; margin-bottom:0px"><div style="font-family:'Courier New',Courier,monospace">4 6
+11 0 7 5 13 9
+78 4 81 6 22 4
+1 40 9 34 16 10
+11 22 0 33 39 6</div></pre>
+</div>
+<div class="panel_bottom" style="height:auto; margin:0px; font-family:'Times New Roman'; font-size:14px">
+&nbsp;</div>
+<br style="font-family:'Times New Roman'; font-size:14px">
+<div class="panel_title" align="left" style="height:38px; background-color:transparent; padding:0px 14px; color:rgb(124,169,237); font-size:18px; font-family:Arial; font-weight:bold">
+Sample Output</div>
+<div class="panel_content" style="height:auto; margin:0px; padding:0px 20px; font-size:14px; font-family:'Times New Roman'">
+<pre style="margin-top:0px; margin-bottom:0px"><div style="font-family:'Courier New',Courier,monospace">242</div></pre>
+</div>
+<div class="panel_bottom" style="height:auto; margin:0px; font-family:'Times New Roman'; font-size:14px">
+&nbsp;</div>
+<div><br>
+</div>
+代码要严谨，直接上面的代码通不过；
+<p></p>
+<p>改进代码：</p>
+<p><br>
+</p>
+<p><pre name="code" class="cpp">#define N 200005
+#include&lt;stdio.h&gt;
+#include&lt;string.h&gt;
+#include&lt;stdlib.h&gt;
+int MAX(int x,int y){
+    return x&gt;y?x:y;
+}
+int a[N],dp[N][2],f[N]; 
+int main()
+{
+    int m,n,i,j,k,max;        
+    while(scanf(&quot;%d%d&quot;,&amp;m,&amp;n)!=EOF){    
+        for(i=0;i&lt;m;i++) {
+            for(j=0;j&lt;n;j++)
+                scanf(&quot;%d&quot;,&amp;a[j]);                            
+            dp[0][0]=0; dp[0][1]=a[0];    
+            for(j=1;j&lt;n;j++){
+                dp[j][0] = MAX(dp[j-1][0],dp[j-1][1]);
+                dp[j][1] = dp[j-1][0] + a[j];
+            }        
+            f[i] = MAX(dp[n-1][0],dp[n-1][1]);                                                        
+        }
+        dp[0][0] = 0;  dp[0][1] = f[0];
+        for(j=1;j&lt;m;j++){        
+            dp[j][0] = MAX(dp[j-1][0],dp[j-1][1]);
+            dp[j][1] = dp[j-1][0] + f[j];
+        }    
+        printf(&quot;%d\n&quot;,MAX(dp[m-1][0],dp[m-1][1]));
+    }
+    
+    return 0;
+} </pre><br>
+<br>
+</p>
+<p><br>
+</p>
+
+      
+    </div>
+</article>
+
+<!-- 上一页 下一页 -->
+
+
+<nav id="article-nav">
+  
+    <a href="/2013/08/13/hdu_%E9%A2%98%E7%9B%AE1160_FatMouse's_Speed_%EF%BC%88DP%EF%BC%89/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>上一篇</span>
+      <div class="article-nav-title">
+        
+          hdu 题目1160 FatMouse&#39;s Speed （DP）
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2013/08/13/NYOJ_%E9%A2%98%E7%9B%AE17_%E5%8D%95%E8%B0%83%E9%80%92%E5%A2%9E%E6%9C%80%E9%95%BF%E5%AD%90%E5%BA%8F%E5%88%97_%EF%BC%88DP%EF%BC%89/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>下一篇</span>
+      <div class="article-nav-title">NYOJ 题目17 单调递增最长子序列 （DP）</div>
+    </a>
+  
+</nav>
+
+
+
+<!-- 相关文章 -->
+
+<!--
+
+-->
+
+
+</section>
+      </div>
+      <footer id="footer">
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      
+      &copy;2024<a target="_blank" rel="noopener" href="https://github.com/hanks-zyh"> Hanks</a>版权所有
+      <br/>
+      <a href="https://beian.miit.gov.cn/" target="_blank">豫ICP备2021022347号</a>
+	  </div>
+  </div>
+ <div id="share">
+  <a id="totop" title="" style="display: block;">返回顶部</a>
+ </div>
+</footer>
+
+    </div>
+    
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/jquery.scrollLoading.js"></script>
+
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/ads.js"></script>
+
+  </div>
+</body>
+</html>

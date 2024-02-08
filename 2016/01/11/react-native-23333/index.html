@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>React-Native 鬼畜表情包app | Hanks&#39; Websit</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <script data-ad-client="ca-pub-8165670162444117" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <meta name="referrer" content="never">
+  <meta name="description" content="QQ群,微信群，各种大神，各种表情，每到半夜，斗图大会，八仙过海，各显神通，良辰日天齐上阵。不服，下载鬼畜表情，参加到战斗中，无奈啊，app做的不是太方便，想起抓包把图片一下都下载下来，想起最近看到RN，正好练练手。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="React-Native 鬼畜表情包app">
+<meta property="og:url" content="https://hanks.pub/2016/01/11/react-native-23333/index.html">
+<meta property="og:site_name" content="Hanks&#39; Websit">
+<meta property="og:description" content="QQ群,微信群，各种大神，各种表情，每到半夜，斗图大会，八仙过海，各显神通，良辰日天齐上阵。不服，下载鬼畜表情，参加到战斗中，无奈啊，app做的不是太方便，想起抓包把图片一下都下载下来，想起最近看到RN，正好练练手。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://github.com/hanks-zyh/233333/raw/master/2333.gif">
+<meta property="article:published_time" content="2016-01-11T03:33:17.000Z">
+<meta property="article:modified_time" content="2024-02-08T01:29:02.191Z">
+<meta property="article:author" content="Hanks">
+<meta property="article:tag" content="React-Native">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://github.com/hanks-zyh/233333/raw/master/2333.gif">
+  
+  
+  <link href="https://fonts.googleapis.com/css?family=Fira+Code|Noto+Serif+SC&display=swap" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8165670162444117"
+     crossorigin="anonymous"></script>
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo"></a>
+    <nav id="main-nav">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      
+        <a class="main-nav-link" href="/archives">Archive</a>
+      
+        <a class="main-nav-link" href="/eye-video">Eye</a>
+      
+        <a class="main-nav-link" href="/atom.xml">Rss</a>
+      
+    </nav>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/archives" class="mobile-nav-link">Archive</a>
+  
+    <a href="/eye-video" class="mobile-nav-link">Eye</a>
+  
+    <a href="/atom.xml" class="mobile-nav-link">Rss</a>
+  
+</nav>
+      <div class="outer">
+        <section id="main"><article id="post-react-native-23333" class="article article-type-post" itemscope
+  itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <header class="article-header">
+      
+      
+  
+    <h1 class="article-title" itemprop="name">
+      React-Native 鬼畜表情包app
+    </h1>
+  
+
+      
+    </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      <p>QQ群,微信群，各种大神，各种表情，每到半夜，斗图大会，八仙过海，各显神通，良辰日天齐上阵。不服，下载鬼畜表情，参加到战斗中，无奈啊，app做的不是太方便，想起抓包把图片一下都下载下来，想起最近看到RN，正好练练手。</p>
+<span id="more"></span>
+<h3 id="单文件批量抓取"><a href="#单文件批量抓取" class="headerlink" title="单文件批量抓取"></a>单文件批量抓取</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Sample React Native App</span></span><br><span class="line"><span class="comment"> * https://github.com/hanks-zyh/233333</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">&#x27;use strict&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> <span class="title class_">React</span> = <span class="built_in">require</span>(<span class="string">&#x27;react-native&#x27;</span>);</span><br><span class="line"><span class="keyword">var</span> &#123;</span><br><span class="line">  <span class="title class_">AppRegistry</span>,</span><br><span class="line">  <span class="title class_">StyleSheet</span>,</span><br><span class="line">  <span class="title class_">Text</span>,</span><br><span class="line">  <span class="title class_">View</span>,</span><br><span class="line">  <span class="title class_">TouchableOpacity</span>,</span><br><span class="line">&#125; = <span class="title class_">React</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> <span class="title class_">AwesomeProject</span> = <span class="title class_">React</span>.<span class="title function_">createClass</span>(&#123;</span><br><span class="line">  <span class="attr">getImage</span>: <span class="keyword">function</span>(<span class="params">tid</span>)&#123;</span><br><span class="line">    <span class="title function_">fetch</span>(<span class="string">&#x27;https://face.ersansan.cn/collection/&#x27;</span>+tid)</span><br><span class="line">    .<span class="title function_">then</span>(<span class="function">(<span class="params">respose</span>) =&gt;</span> respose.<span class="title function_">text</span>())</span><br><span class="line">    .<span class="title function_">then</span>(<span class="function">(<span class="params">responseText</span>) =&gt;</span> &#123;</span><br><span class="line">          <span class="keyword">var</span> result = <span class="built_in">eval</span>(<span class="string">&#x27;(&#x27;</span> + responseText +     <span class="string">&#x27;)&#x27;</span>);</span><br><span class="line">          <span class="keyword">var</span> list = result.<span class="property">picList</span>;</span><br><span class="line">          <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;list.<span class="property">length</span>;i++)&#123;</span><br><span class="line">            <span class="keyword">var</span> item = list[i];</span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">warn</span>(item.<span class="property">link</span>);</span><br><span class="line">          &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">    .<span class="title function_">catch</span>(<span class="function">(<span class="params">error</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="variable language_">console</span>.<span class="title function_">warn</span>(error);</span><br><span class="line">    &#125;).<span class="property">done</span>;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">getSunCollection</span>: <span class="keyword">function</span>(<span class="params">tid</span>)&#123;</span><br><span class="line">    <span class="title function_">fetch</span>(<span class="string">&#x27;https://face.ersansan.cn/collection/&#x27;</span>+tid)</span><br><span class="line">    .<span class="title function_">then</span>(<span class="function">(<span class="params">respose</span>) =&gt;</span> respose.<span class="title function_">text</span>())</span><br><span class="line">    .<span class="title function_">then</span>(<span class="function">(<span class="params">responseText</span>) =&gt;</span> &#123;</span><br><span class="line">          <span class="keyword">var</span> result = <span class="built_in">eval</span>(<span class="string">&#x27;(&#x27;</span> + responseText +     <span class="string">&#x27;)&#x27;</span>);</span><br><span class="line">          <span class="keyword">var</span> list = result.<span class="property">subcollection</span>;</span><br><span class="line">          <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;list.<span class="property">length</span>;i++)&#123;</span><br><span class="line">            <span class="keyword">var</span> item = list[i];</span><br><span class="line">            <span class="variable language_">this</span>.<span class="title function_">getImage</span>(item.<span class="property">tid</span>);</span><br><span class="line">          &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">    .<span class="title function_">catch</span>(<span class="function">(<span class="params">error</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="variable language_">console</span>.<span class="title function_">warn</span>(error);</span><br><span class="line">    &#125;).<span class="property">done</span>;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">_downLoad</span>: <span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">      <span class="title function_">fetch</span>(<span class="string">&#x27;https://face.ersansan.cn/collection&#x27;</span>)</span><br><span class="line">      .<span class="title function_">then</span>(<span class="function">(<span class="params">respose</span>) =&gt;</span> respose.<span class="title function_">text</span>())</span><br><span class="line">      .<span class="title function_">then</span>(<span class="function">(<span class="params">responseText</span>) =&gt;</span> &#123;</span><br><span class="line">            <span class="keyword">var</span> result = <span class="built_in">eval</span>(<span class="string">&#x27;(&#x27;</span> + responseText +     <span class="string">&#x27;)&#x27;</span>);</span><br><span class="line">            <span class="keyword">var</span> list = result.<span class="property">List</span>;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;list.<span class="property">length</span>;i++)&#123;</span><br><span class="line">              <span class="keyword">var</span> item = list[i];</span><br><span class="line">              <span class="variable language_">console</span>.<span class="title function_">warn</span>(item.<span class="property">tid</span>+item.<span class="property">title</span>);</span><br><span class="line">              <span class="variable language_">this</span>.<span class="title function_">getSunCollection</span>(item.<span class="property">tid</span>);</span><br><span class="line">            &#125;</span><br><span class="line">      &#125;)</span><br><span class="line">      .<span class="title function_">catch</span>(<span class="function">(<span class="params">error</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">warn</span>(error);</span><br><span class="line">      &#125;).<span class="property">done</span>;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">render</span>: <span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      <span class="language-xml"><span class="tag">&lt;<span class="name">View</span> <span class="attr">style</span>=<span class="string">&#123;&#123;</span> <span class="attr">flex:1</span>, <span class="attr">alignItems:</span>&#x27;<span class="attr">center</span>&#x27;, <span class="attr">justifyContent:</span>&#x27;<span class="attr">center</span>&#x27;&#125;&#125;&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">TouchableOpacity</span> <span class="attr">style</span>=<span class="string">&#123;&#123;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">           <span class="attr">backgroundColor:</span>&quot;##<span class="attr">234234</span>&quot;, <span class="attr">height:50</span>, <span class="attr">width:80</span>,  <span class="attr">alignItems:</span>&#x27;<span class="attr">center</span>&#x27;,  <span class="attr">justifyContent:</span>&#x27;<span class="attr">center</span>&#x27;</span></span></span><br><span class="line"><span class="tag"><span class="language-xml">         &#125;&#125; <span class="attr">onPress</span>=<span class="string">&#123;</span> <span class="attr">this._downLoad</span> &#125;&gt;</span></span></span><br><span class="line"><span class="language-xml">          <span class="tag">&lt;<span class="name">Text</span> <span class="attr">style</span>=<span class="string">&#123;&#123;</span> <span class="attr">fontSize:20</span>,  <span class="attr">color:</span>&#x27;<span class="attr">white</span>&#x27; &#125;&#125;&gt;</span>下载<span class="tag">&lt;/<span class="name">Text</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">         <span class="tag">&lt;/<span class="name">TouchableOpacity</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;/<span class="name">View</span>&gt;</span></span></span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> styles = <span class="title class_">StyleSheet</span>.<span class="title function_">create</span>(&#123;</span><br><span class="line"></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="title class_">AppRegistry</span>.<span class="title function_">registerComponent</span>(<span class="string">&#x27;AwesomeProject&#x27;</span>, <span class="function">() =&gt;</span> <span class="title class_">AwesomeProject</span>);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="仿app界面"><a href="#仿app界面" class="headerlink" title="仿app界面"></a>仿app界面</h3><p><img src="https://github.com/hanks-zyh/233333/raw/master/2333.gif" alt="2333"></p>
+<p><strong>首页：</strong><br>外部<code>ScrollView</code><br>顶部图片+ListView<br>给ListView每个item的title设置点击进入专题</p>
+<p><strong>专题：</strong><br>简单的<code>ListView</code><br>每个item设置点击进入图片列表</p>
+<p><strong>图片列表</strong><br>还是ListView，每个<code>ListView</code>的item分3个图片<br>根据D<code>imensions</code>计算宽高<br>不够3个的有几个显示几个<br>每个图片设置点击打开浏览器下载 <code>IntentAndroid.openURL(url);</code></p>
+<p>源码：<a target="_blank" rel="noopener" href="https://github.com/hanks-zyh/233333">https://github.com/hanks-zyh/233333</a></p>
+<blockquote>
+<p>文章来自： <a href="https://hanks.pub/">https://hanks.pub</a></p>
+</blockquote>
+
+      
+    </div>
+</article>
+
+<!-- 上一页 下一页 -->
+
+
+<nav id="article-nav">
+  
+    <a href="/2016/01/14/framework-application/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>上一篇</span>
+      <div class="article-nav-title">
+        
+          Framework分析-Application的onCreate
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/01/05/android-myhotfix/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>下一篇</span>
+      <div class="article-nav-title">Android 动手实现热修复</div>
+    </a>
+  
+</nav>
+
+
+
+<!-- 相关文章 -->
+
+<!--
+
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+      			<a href="/2016/01/11/react-native-23333/">React-Native 鬼畜表情包app</a>
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+
+-->
+
+
+</section>
+      </div>
+      <footer id="footer">
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      
+      &copy;2024<a target="_blank" rel="noopener" href="https://github.com/hanks-zyh"> Hanks</a>版权所有
+      <br/>
+      <a href="https://beian.miit.gov.cn/" target="_blank">豫ICP备2021022347号</a>
+	  </div>
+  </div>
+ <div id="share">
+  <a id="totop" title="" style="display: block;">返回顶部</a>
+ </div>
+</footer>
+
+    </div>
+    
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/jquery.scrollLoading.js"></script>
+
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/ads.js"></script>
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>hdu 题目1518 Square （DFS） | Hanks&#39; Websit</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <script data-ad-client="ca-pub-8165670162444117" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <meta name="referrer" content="never">
+  <meta name="description" content="Square Time Limit: 10000&#x2F;5000 MS (Java&#x2F;Others)&nbsp;&nbsp;&nbsp;&nbsp;Memory Limit: 65536&#x2F;32768 K (Java&#x2F;Others) Total Submission(s): 5893&nbsp;&nbsp;&nbsp;&nbsp;Accepted Submission(s): 1878    Proble">
+<meta property="og:type" content="article">
+<meta property="og:title" content="hdu 题目1518 Square （DFS）">
+<meta property="og:url" content="https://hanks.pub/2013/08/07/hdu_%E9%A2%98%E7%9B%AE1518_Square_%EF%BC%88DFS%EF%BC%89/index.html">
+<meta property="og:site_name" content="Hanks&#39; Websit">
+<meta property="og:description" content="Square Time Limit: 10000&#x2F;5000 MS (Java&#x2F;Others)&nbsp;&nbsp;&nbsp;&nbsp;Memory Limit: 65536&#x2F;32768 K (Java&#x2F;Others) Total Submission(s): 5893&nbsp;&nbsp;&nbsp;&nbsp;Accepted Submission(s): 1878    Proble">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2013-08-07T04:36:00.000Z">
+<meta property="article:modified_time" content="2024-02-08T01:29:02.185Z">
+<meta property="article:author" content="Hanks">
+<meta name="twitter:card" content="summary">
+  
+  
+  <link href="https://fonts.googleapis.com/css?family=Fira+Code|Noto+Serif+SC&display=swap" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8165670162444117"
+     crossorigin="anonymous"></script>
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo"></a>
+    <nav id="main-nav">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      
+        <a class="main-nav-link" href="/archives">Archive</a>
+      
+        <a class="main-nav-link" href="/eye-video">Eye</a>
+      
+        <a class="main-nav-link" href="/atom.xml">Rss</a>
+      
+    </nav>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/archives" class="mobile-nav-link">Archive</a>
+  
+    <a href="/eye-video" class="mobile-nav-link">Eye</a>
+  
+    <a href="/atom.xml" class="mobile-nav-link">Rss</a>
+  
+</nav>
+      <div class="outer">
+        <section id="main"><article id="post-hdu_题目1518_Square_（DFS）" class="article article-type-post" itemscope
+  itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <header class="article-header">
+      
+      
+  
+    <h1 class="article-title" itemprop="name">
+      hdu 题目1518 Square （DFS）
+    </h1>
+  
+
+      
+    </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+<h1 align="center" style="color:#1a5cc8">Square</h1>
+<p align="center"><span size="&#43;0"><strong><span style="font-family:Arial; font-size:12px; color:green; font-weight:bold">Time Limit: 10000/5000 MS (Java/Others)&nbsp;&nbsp;&nbsp;&nbsp;Memory Limit: 65536/32768 K (Java/Others)<br>
+Total Submission(s): 5893&nbsp;&nbsp;&nbsp;&nbsp;Accepted Submission(s): 1878<br>
+</span></strong></span><br>
+<br>
+</p>
+<div class="panel_title" align="left">Problem Description</div>
+<div class="panel_content">Given a set of sticks of various lengths, is it possible to join them end-to-end to form a square?<br>
+</div>
+<div class="panel_bottom">&nbsp;</div>
+<p>&nbsp;</p>
+<div class="panel_title" align="left">Input</div>
+<div class="panel_content">The first line of input contains N, the number of test cases. Each test case begins with an integer 4 &lt;= M &lt;= 20, the number of sticks. M integers follow; each gives the length of a stick - an integer between 1 and 10,000.<br>
+</div>
+<div class="panel_bottom">&nbsp;</div>
+<p>&nbsp;</p>
+<div class="panel_title" align="left">Output</div>
+<div class="panel_content">For each case, output a line containing &quot;yes&quot; if is is possible to form a square; otherwise output &quot;no&quot;.<br>
+</div>
+<div class="panel_bottom">&nbsp;<br>
+</div>
+<div class="panel_title" align="left">Sample Input</div>
+<div class="panel_content">
+<pre><div style="font-family:Courier New,Courier,monospace">3
+4 1 1 1 1
+5 10 20 30 40 50
+8 1 7 2 6 4 4 3 5</div></pre>
+</div>
+<div class="panel_bottom">&nbsp;<br>
+</div>
+<div class="panel_title" align="left">Sample Output</div>
+<div class="panel_content">
+<pre><div style="font-family:Courier New,Courier,monospace">yes
+no
+yes</div></pre>
+</div>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p><strong><span style="font-family:KaiTi_GB2312; font-size:18px">从第一个开始，搜索后面的看是否能正好凑够边长，小鱼的话继续深搜，大于则返回上一级，等于的话，找的的边长数&#43;&#43;，直到边长数到达3（剩下一个不用找了，肯定也是一个边长）！！</span></strong></p>
+<p><strong><span style="font-family:KaiTi_GB2312; font-size:18px">&nbsp;</span></strong></p>
+<p><strong><span style="font-family:KaiTi_GB2312; font-size:18px">第一次<span style="color:#ff0000">超时</span>，每次都从第一个查找到最后一个，数据多的话超时</span></strong></p>
+<strong><span style="font-family:楷体_GB2312; font-size:18px"></span></strong><pre class="cpp" name="code">#include &lt;iostream&gt;
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+
+int  n,a[21];
+bool visit[21];
+int sign;
+
+bool DFS(int sum,int cnt,int x,int adv)
+{
+    if(cnt == 3) //找到3个边长了，剩下一个不用再找    
+        return true;    
+        
+    if(sum == adv) //组合成一个边长 
+    {
+        if(DFS(0,cnt+1,x+1,adv)) //组合下一个边长 
+            return true;
+        else return false;
+    }
+    else //当前边不能组成一个边长，需要向下继续组合 
+    {    
+        int i;
+        for(i = 0; i &lt; n; ++i)
+        {
+            if(!visit[i])
+            {    
+                if(sum + a[i] &lt;= adv)
+                {
+                    visit[i]=1;
+                    if(DFS(sum+a[i],cnt,i+1,adv))
+                    {
+                        return true;
+                    } 
+                    visit[i] = 0;
+                }
+            }
+        }
+    }
+    return false; 
+}
+int main()
+{
+    int t,i,len;
+    scanf(&quot;%d&quot;,&amp;t);
+    while(t--)
+    {
+        scanf(&quot;%d&quot;,&amp;n);
+        len = 0;
+        int max=0;
+        for(i=0;i&lt;n;i++)
+        {
+            scanf(&quot;%d&quot;,&amp;a[i]);
+            len += a[i];
+            if(max&lt;a[i]) max = a[i];
+        }
+        if(len%4==0&amp;&amp; max&lt;= len/4)
+        {
+            for(i=0;i&lt;n;i++) visit[i]=0;
+            if(DFS(0,0,0,len/4)) printf(&quot;yes\n&quot;);
+            else printf(&quot;no\n&quot;);    
+        }
+        else
+        {
+            printf(&quot;no\n&quot;);
+        }    
+    }
+    return 0;
+} </pre>
+<p><br>
+&nbsp;</p>
+<p><strong><span style="font-family:KaiTi_GB2312; font-size:18px"></span></strong>&nbsp;</p>
+<p><strong><span style="font-family:KaiTi_GB2312; font-size:18px"></span></strong>&nbsp;</p>
+<p><strong><span style="font-family:KaiTi_GB2312; font-size:18px">第二次改进，将每次的查找起点变为边长个数（从前往后找的话，每次都能将当前的元素个后面的组成一个边长，所以找到一个边长，则该元素肯定被用过了visit，）</span></strong></p>
+<p>&nbsp;</p>
+<pre class="cpp" name="code">#include &lt;iostream&gt;
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+ 
+int  n,a[21];
+bool visit[21];
+
+bool DFS(int sum,int cnt,int x,int adv)
+{
+	if(cnt == 3) //找到3个边长了，剩下一个不用再找	
+		return true;	
+		
+	if(sum == adv) //组合成一个边长 
+	{
+		if(DFS(0,cnt+1,cnt+1,adv)) //组合下一个边长 
+			return true;
+		else return false;
+	}
+	else //当前边不能组成一个边长，需要向下继续组合 
+	{	
+		int i;
+		for(i = x; i &lt; n; ++i)
+		{
+			if(!visit[i])
+			{	
+				if(sum + a[i] &lt;= adv) //和不能大于边长 
+				{
+					visit[i]=1;
+					if(DFS(sum+a[i],cnt,i+1,adv))
+					{
+						return true;
+					} 
+					visit[i] = 0;
+				}
+			}
+		}
+	}
+	return false; 
+}
+int main()
+{
+	int t,i,len;
+	scanf(&quot;%d&quot;,&amp;t);
+	while(t--)
+	{
+		scanf(&quot;%d&quot;,&amp;n);
+		len = 0;
+		int max=0;
+		for(i=0;i&lt;n;i++)
+		{
+			scanf(&quot;%d&quot;,&amp;a[i]);
+			len += a[i];
+			if(max&lt;a[i]) max=a[i];//寻找最大值。 
+		}
+
+		if(len%4==0&amp;&amp; max&lt;=len/4) //如果和不是4的倍数，或者最大的数超过了边长 
+		{
+			for(i=0;i&lt;n;i++) visit[i]=0;//初始化visit数组 
+			
+			if(DFS(0,0,0,len/4)) printf(&quot;yes\n&quot;);
+			else printf(&quot;no\n&quot;);	
+		}
+		else
+		{
+			printf(&quot;no\n&quot;);
+		}	
+	}
+	return 0;
+} </pre>
+<p><br>
+&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+      
+    </div>
+</article>
+
+<!-- 上一页 下一页 -->
+
+
+<nav id="article-nav">
+  
+    <a href="/2013/08/07/hdu_%E9%A2%98%E7%9B%AE1312_Red_and_Black_(_DFS_)/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>上一篇</span>
+      <div class="article-nav-title">
+        
+          hdu 题目1312 Red and Black ( DFS )
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2013/08/07/hdu_1075_What_Are_You_Talking_About(%E5%AD%97%E5%85%B8%E6%A0%91)/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>下一篇</span>
+      <div class="article-nav-title">hdu 1075 What Are You Talking About(字典树)</div>
+    </a>
+  
+</nav>
+
+
+
+<!-- 相关文章 -->
+
+<!--
+
+-->
+
+
+</section>
+      </div>
+      <footer id="footer">
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      
+      &copy;2024<a target="_blank" rel="noopener" href="https://github.com/hanks-zyh"> Hanks</a>版权所有
+      <br/>
+      <a href="https://beian.miit.gov.cn/" target="_blank">豫ICP备2021022347号</a>
+	  </div>
+  </div>
+ <div id="share">
+  <a id="totop" title="" style="display: block;">返回顶部</a>
+ </div>
+</footer>
+
+    </div>
+    
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/jquery.scrollLoading.js"></script>
+
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/ads.js"></script>
+
+  </div>
+</body>
+</html>

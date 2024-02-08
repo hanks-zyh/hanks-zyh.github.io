@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>让动画活过来---Robound | Hanks&#39; Websit</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <script data-ad-client="ca-pub-8165670162444117" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <meta name="referrer" content="never">
+  <meta name="description" content="Rebound&nbsp;由Facebook推出 Rebound 可以使你的动画看起来像真实自然，像真实世界物理运动 Rebound 不是一个物理引擎库，但是Rebound可以使用弹簧动力来驱动各种各样的动画 Rebound使用和Origami(IOS的)相同的弹簧系数，方便实用。 上图： &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="让动画活过来---Robound">
+<meta property="og:url" content="https://hanks.pub/2015/04/03/%E8%AE%A9%E5%8A%A8%E7%94%BB%E6%B4%BB%E8%BF%87%E6%9D%A5---Robound/index.html">
+<meta property="og:site_name" content="Hanks&#39; Websit">
+<meta property="og:description" content="Rebound&nbsp;由Facebook推出 Rebound 可以使你的动画看起来像真实自然，像真实世界物理运动 Rebound 不是一个物理引擎库，但是Rebound可以使用弹簧动力来驱动各种各样的动画 Rebound使用和Origami(IOS的)相同的弹簧系数，方便实用。 上图： &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img.blog.csdn.net/20150403210540990?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvaHB1X3p5aA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="https://img.blog.csdn.net/20150403211401455?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvaHB1X3p5aA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="https://img.blog.csdn.net/20150403211819570?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvaHB1X3p5aA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="https://img.blog.csdn.net/20150403211923127?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvaHB1X3p5aA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="article:published_time" content="2015-04-03T13:20:00.000Z">
+<meta property="article:modified_time" content="2024-02-08T01:29:02.204Z">
+<meta property="article:author" content="Hanks">
+<meta property="article:tag" content="Android">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img.blog.csdn.net/20150403210540990?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvaHB1X3p5aA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+  
+  
+  <link href="https://fonts.googleapis.com/css?family=Fira+Code|Noto+Serif+SC&display=swap" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8165670162444117"
+     crossorigin="anonymous"></script>
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo"></a>
+    <nav id="main-nav">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      
+        <a class="main-nav-link" href="/archives">Archive</a>
+      
+        <a class="main-nav-link" href="/eye-video">Eye</a>
+      
+        <a class="main-nav-link" href="/atom.xml">Rss</a>
+      
+    </nav>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/archives" class="mobile-nav-link">Archive</a>
+  
+    <a href="/eye-video" class="mobile-nav-link">Eye</a>
+  
+    <a href="/atom.xml" class="mobile-nav-link">Rss</a>
+  
+</nav>
+      <div class="outer">
+        <section id="main"><article id="post-让动画活过来---Robound" class="article article-type-post" itemscope
+  itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <header class="article-header">
+      
+      
+  
+    <h1 class="article-title" itemprop="name">
+      让动画活过来---Robound
+    </h1>
+  
+
+      
+    </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+<p>Rebound&nbsp;由Facebook推出</p>
+<p>Rebound 可以使你的动画看起来像真实自然，像真实世界物理运动<br>
+Rebound 不是一个物理引擎库，但是Rebound可以使用弹簧动力来驱动各种各样的动画<br>
+Rebound使用和Origami(IOS的)相同的弹簧系数，方便实用。</p>
+<p>上图：</p>
+<p><img src="https://img.blog.csdn.net/20150403210540990?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvaHB1X3p5aA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;<img src="https://img.blog.csdn.net/20150403211401455?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvaHB1X3p5aA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="">&nbsp;
+ &nbsp;</p>
+<p>&nbsp;<img src="https://img.blog.csdn.net/20150403211819570?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvaHB1X3p5aA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="">&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;<img src="https://img.blog.csdn.net/20150403211923127?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvaHB1X3p5aA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt=""><br>
+</p>
+<p>使用：</p>
+<p>下面为最后一张图片弹性缩放的代码：</p>
+<p></p>
+<pre code_snippet_id="635667" snippet_file_name="blog_20150403_1_4379386"  code_snippet_id="635667" snippet_file_name="blog_20150403_1_4379386" name="code" class="java">// Create a system to run the physics loop for a set of springs.
+SpringSystem springSystem = SpringSystem.create();
+
+// Add a spring to the system.
+Spring spring = springSystem.createSpring();
+
+// Add a listener to observe the motion of the spring.
+spring.addListener(new SimpleSpringListener() {
+
+  @Override
+  public void onSpringUpdate(Spring spring) {
+    // You can observe the updates in the spring
+    // state by asking its current value in onSpringUpdate.
+    float value = (float) spring.getCurrentValue();
+    float scale = 1f - (value * 0.5f);
+    myView.setScaleX(scale);
+    myView.setScaleY(scale);
+  }
+});
+
+// Set the spring in motion; moving from 0 to 1
+spring.setEndValue(1);</pre><br>
+<p><br>
+</p>
+<p>官网：<a target="_blank" target="_blank" href="https://facebook.github.io/rebound/">https://facebook.github.io/rebound/</a></p>
+<p></p>
+<p>github源码 :&nbsp;<a target="_blank" target="_blank" href="https://github.com/facebook/rebound">https://github.com/facebook/rebound</a></p>
+<p><br>
+</p>
+<p><br>
+</p>
+
+      
+    </div>
+</article>
+
+<!-- 上一页 下一页 -->
+
+
+<nav id="article-nav">
+  
+    <a href="/2015/04/07/Android_MVP_%E5%AD%A6%E4%B9%A0/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>上一篇</span>
+      <div class="article-nav-title">
+        
+          Android MVP 学习
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/03/26/%E4%BD%BF%E7%94%A8Volley%E4%BC%A0%E8%BE%93%E7%BD%91%E7%BB%9C%E6%95%B0%E6%8D%AE(%E5%AE%98%E7%BD%91%E6%95%99%E7%A8%8B)/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>下一篇</span>
+      <div class="article-nav-title">使用Volley传输网络数据(官网教程)</div>
+    </a>
+  
+</nav>
+
+
+
+<!-- 相关文章 -->
+
+<!--
+
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+      			<a href="/2015/04/03/%E8%AE%A9%E5%8A%A8%E7%94%BB%E6%B4%BB%E8%BF%87%E6%9D%A5---Robound/">让动画活过来---Robound</a>
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+
+-->
+
+
+</section>
+      </div>
+      <footer id="footer">
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      
+      &copy;2024<a target="_blank" rel="noopener" href="https://github.com/hanks-zyh"> Hanks</a>版权所有
+      <br/>
+      <a href="https://beian.miit.gov.cn/" target="_blank">豫ICP备2021022347号</a>
+	  </div>
+  </div>
+ <div id="share">
+  <a id="totop" title="" style="display: block;">返回顶部</a>
+ </div>
+</footer>
+
+    </div>
+    
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/jquery.scrollLoading.js"></script>
+
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/ads.js"></script>
+
+  </div>
+</body>
+</html>

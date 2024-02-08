@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Hook 替换启动的 Activity | Hanks&#39; Websit</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <script data-ad-client="ca-pub-8165670162444117" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <meta name="referrer" content="never">
+  <meta name="description" content="由于特殊需求，需要在应用启动的时候动态替换启动的 Activity，参考插件化原理，在 Application 阶段进行 hook ，从而拿到 AcitvityThread 的 mH，然后在启动 activity 的时候进行替换  设备 Android 8.1，其他 Android 版本可能需要兼容  实例应用包含两个界面，SplashActivity 和 MainActivity。在桌面点击应用">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hook 替换启动的 Activity">
+<meta property="og:url" content="https://hanks.pub/2020/03/18/android-hook-launch-activity/index.html">
+<meta property="og:site_name" content="Hanks&#39; Websit">
+<meta property="og:description" content="由于特殊需求，需要在应用启动的时候动态替换启动的 Activity，参考插件化原理，在 Application 阶段进行 hook ，从而拿到 AcitvityThread 的 mH，然后在启动 activity 的时候进行替换  设备 Android 8.1，其他 Android 版本可能需要兼容  实例应用包含两个界面，SplashActivity 和 MainActivity。在桌面点击应用">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://p.pstatp.com/origin/fefd0001d4f5a5c55400">
+<meta property="og:image" content="https://p.pstatp.com/origin/fefd0001d4f5a5c55400">
+<meta property="article:published_time" content="2020-03-18T04:11:13.000Z">
+<meta property="article:modified_time" content="2024-02-08T01:29:02.179Z">
+<meta property="article:author" content="Hanks">
+<meta property="article:tag" content="Android">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://p.pstatp.com/origin/fefd0001d4f5a5c55400">
+  
+  
+  <link href="https://fonts.googleapis.com/css?family=Fira+Code|Noto+Serif+SC&display=swap" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8165670162444117"
+     crossorigin="anonymous"></script>
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo"></a>
+    <nav id="main-nav">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      
+        <a class="main-nav-link" href="/archives">Archive</a>
+      
+        <a class="main-nav-link" href="/eye-video">Eye</a>
+      
+        <a class="main-nav-link" href="/atom.xml">Rss</a>
+      
+    </nav>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/archives" class="mobile-nav-link">Archive</a>
+  
+    <a href="/eye-video" class="mobile-nav-link">Eye</a>
+  
+    <a href="/atom.xml" class="mobile-nav-link">Rss</a>
+  
+</nav>
+      <div class="outer">
+        <section id="main"><article id="post-android-hook-launch-activity" class="article article-type-post" itemscope
+  itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <header class="article-header">
+      
+      
+  
+    <h1 class="article-title" itemprop="name">
+      Hook 替换启动的 Activity
+    </h1>
+  
+
+      
+    </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      <p>由于特殊需求，需要在应用启动的时候动态替换启动的 Activity，参考插件化原理，在 Application 阶段进行 hook ，从而拿到 <code>AcitvityThread</code> 的 <code>mH</code>，然后在启动 activity 的时候进行替换</p>
+<blockquote>
+<p>设备 Android 8.1，其他 Android 版本可能需要兼容</p>
+</blockquote>
+<h2 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h2><p>应用包含两个界面，SplashActivity 和 MainActivity。在桌面点击应用图标，启动 SplashActivity。打印启动流程</p>
+<p><img src="https://p.pstatp.com/origin/fefd0001d4f5a5c55400"></p>
+<!-- ![](https://ae01.alicdn.com/kf/Uc6927a331542482490628e1b1363d3fbw.jpg) -->
+<!-- ![](http://img04.sogoucdn.com/app/a/100520146/5A88000BB4DCF1E2593B87FB28A0F475) -->
+<!-- ![](https://user-gold-cdn.xitu.io/2020/3/18/170ebccffa6eb321) -->
+<!-- ![](https://graph.baidu.com/resource/126490822545b0358306401584504049.jpg) -->
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">E/xxxxxx: hookActivityThreadHHanlder: activityThread=android.app.ActivityThread@eaa28fb</span><br><span class="line">E/xxxxxx: hookActivityThreadHHanlder: mh=Handler (android.app.ActivityThread$H) &#123;4121d18&#125;</span><br><span class="line">E/xxxxxx: hookActivityThreadHHanlder: msg=&#123; when=-103ms what=100 obj=ActivityRecord&#123;dfa7556 token=android.os.BinderProxy@9e859d7 &#123;pub.hanks.testhooksplashactivity/pub.hanks.testhooksplashactivity.SplashActivity&#125;&#125; target=android.app.ActivityThread$H &#125;</span><br><span class="line">E/xxxxxx: hookActivityThreadHHanlder: obj=ActivityRecord&#123;dfa7556 token=android.os.BinderProxy@9e859d7 &#123;pub.hanks.testhooksplashactivity/pub.hanks.testhooksplashactivity.SplashActivity&#125;&#125;</span><br><span class="line">W/xxxxxx: SplashActivity.onCreate=pub.hanks.testhooksplashactivity.SplashActivity@56a8fa9</span><br><span class="line">E/xxxxxx: hookActivityThreadHHanlder: msg=&#123; when=-51ms what=140 arg1=5 target=android.app.ActivityThread$H &#125;</span><br><span class="line">E/xxxxxx: hookActivityThreadHHanlder: msg=&#123; when=-127ms what=149 obj=android.os.BinderProxy@9e859d7 target=android.app.ActivityThread$H &#125;</span><br><span class="line">E/xxxxxx: hookActivityThreadHHanlder: msg=&#123; when=-1ms what=1010 target=android.app.ActivityThread$H &#125;</span><br><span class="line">E/xxxxxx: hookActivityThreadHHanlder: msg=&#123; when=-10ms what=132 target=android.app.ActivityThread$H &#125;</span><br></pre></td></tr></table></figure>
+
+<p>在handler处理消息过程中，判断是 <code>LAUNCH_ACTIVITY</code>（100） 并且是 SplashActivity，替换成 MainActivity，此处注意 Android P上开始，启动 activity 变成了 <code>EXECUTE_TRANSACTION</code>（159）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">// Application</span><br><span class="line">public class HookApplication extends Application &#123;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    protected void attachBaseContext(Context base) &#123;</span><br><span class="line">        super.attachBaseContext(base);</span><br><span class="line">        HookHelper.hookActivityThreadHHanlder();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>找到 activityThread 的 <code>mH</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">// hook 并替换</span><br><span class="line">public static void hookActivityThreadHHanlder() &#123;</span><br><span class="line">    try &#123;</span><br><span class="line">        // 获取 activityThread</span><br><span class="line">        Class&lt;?&gt; aClass = Class.forName(&quot;android.app.ActivityThread&quot;);</span><br><span class="line">        Field sCurrentActivityThread = aClass.getDeclaredField(&quot;sCurrentActivityThread&quot;);</span><br><span class="line">        sCurrentActivityThread.setAccessible(true);</span><br><span class="line">        Object activityThread = sCurrentActivityThread.get(aClass);</span><br><span class="line"></span><br><span class="line">        Log.e(TAG, &quot;hookActivityThreadHHanlder: activityThread=&quot; + activityThread);</span><br><span class="line"></span><br><span class="line">        //获取 mH</span><br><span class="line">        Field mHField = aClass.getDeclaredField(&quot;mH&quot;);</span><br><span class="line">        mHField.setAccessible(true);</span><br><span class="line">        Handler mh = (Handler) mHField.get(activityThread);</span><br><span class="line"></span><br><span class="line">        Log.e(TAG, &quot;hookActivityThreadHHanlder: mh=&quot; + mh);</span><br><span class="line"></span><br><span class="line">        Class&lt;?&gt; handlerClass = Class.forName(&quot;android.os.Handler&quot;);</span><br><span class="line">        Field mCallbackField = handlerClass.getDeclaredField(&quot;mCallback&quot;);</span><br><span class="line">        mCallbackField.setAccessible(true);</span><br><span class="line">        mCallbackField.set(mh, new android.os.Handler.Callback() &#123;</span><br><span class="line">            @Override</span><br><span class="line">            public boolean handleMessage(@NonNull Message msg) &#123;</span><br><span class="line">                // 处理启动 activity 的事件</span><br><span class="line">                handleLaunchActivityMessage(msg);</span><br><span class="line">                return false;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125; catch (Exception e) &#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>找到对应的 Message，然后进行替换</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">public static final int LAUNCH_ACTIVITY = 100;</span><br><span class="line">public static final int EXECUTE_TRANSACTION = 159;</span><br><span class="line"></span><br><span class="line">private static void handleLaunchActivityMessage(Message msg) &#123;</span><br><span class="line">    Log.e(TAG, &quot;hookActivityThreadHHanlder: msg=&quot; + msg);</span><br><span class="line">    switch (msg.what) &#123;</span><br><span class="line">        case LAUNCH_ACTIVITY: &#123;</span><br><span class="line">            Object obj = msg.obj;</span><br><span class="line">            Log.e(TAG, &quot;hookActivityThreadHHanlder: obj=&quot; + obj);</span><br><span class="line">            try &#123;</span><br><span class="line">                Field intentField = HackHelper.getField(obj.getClass(), &quot;intent&quot;);</span><br><span class="line">                intentField.setAccessible(true);</span><br><span class="line">                Intent intent = (Intent) intentField.get(obj);</span><br><span class="line">                if (&quot;pub.hanks.testhooksplashactivity.SplashActivity&quot;.equals(intent.getComponent().getClassName())) &#123;</span><br><span class="line">                    Log.e(TAG, &quot;hookActivityThreadHHanlder: 原始 intent =&quot; + intent);</span><br><span class="line">                    intent.setComponent(new ComponentName(&quot;pub.hanks.testhooksplashactivity&quot;, &quot;pub.hanks.testhooksplashactivity.MainActivity&quot;));</span><br><span class="line">                    Log.e(TAG, &quot;hookActivityThreadHHanlder: 替换后的 intent intentCopy=&quot; + intent);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; catch (Exception e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        break;</span><br><span class="line"></span><br><span class="line">        case EXECUTE_TRANSACTION: // 适配 androidP， HackHelper 突破 P 上反射限制</span><br><span class="line">        &#123;</span><br><span class="line">            Object object = msg.obj;</span><br><span class="line">            Log.e(TAG, &quot;hookActivityThreadHHanlder: 159 obj=&quot; + object);</span><br><span class="line">            try &#123;</span><br><span class="line">                //拿到ClientTransaction中的列表:mActivityCallbacks</span><br><span class="line">                Field mActivityCallbacksField = HackHelper.getField(object.getClass(), &quot;mActivityCallbacks&quot;);</span><br><span class="line">                mActivityCallbacksField.setAccessible(true);</span><br><span class="line">                List&lt;Object&gt; mActivityCallbacks = (List&lt;Object&gt;) mActivityCallbacksField.get(object);</span><br><span class="line">                //拿到LaunchActivityItem的实例对象.</span><br><span class="line">                String itemName = &quot;android.app.servertransaction.LaunchActivityItem&quot;;</span><br><span class="line">                for (Object obj : mActivityCallbacks) &#123;</span><br><span class="line">                    Log.e(TAG, &quot;hookActivityThreadHHanlder: mActivityCallbacks=&quot; + obj);</span><br><span class="line">                    if (itemName.equals(obj.getClass().getCanonicalName())) &#123;</span><br><span class="line">                        //拿到LaunchActivityItem中的mIntent.</span><br><span class="line">                        Field mIntentField = HackHelper.getField(obj.getClass(), &quot;mIntent&quot;);</span><br><span class="line">                        mIntentField.setAccessible(true);</span><br><span class="line">                        Intent intent = (Intent) mIntentField.get(obj);</span><br><span class="line">                        if (&quot;pub.hanks.testhooksplashactivity.SplashActivity&quot;.equals(intent.getComponent().getClassName())) &#123;</span><br><span class="line">                            Log.e(TAG, &quot;hookActivityThreadHHanlder: 原始 intent =&quot; + intent);</span><br><span class="line">                            intent.setComponent(new ComponentName(&quot;pub.hanks.testhooksplashactivity&quot;, &quot;pub.hanks.testhooksplashactivity.MainActivity&quot;));</span><br><span class="line">                            Log.e(TAG, &quot;hookActivityThreadHHanlder: 替换后的 intent intentCopy=&quot; + intent);</span><br><span class="line">                        &#125;</span><br><span class="line">                        break;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; catch (Exception e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        break;</span><br><span class="line"></span><br><span class="line">        default:</span><br><span class="line">            break;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>hook 后成功替换了 SplashActivity, 直接启动了 MainActivity</p>
+<p><img src="https://p.pstatp.com/origin/fefd0001d4f5a5c55400"></p>
+<!-- ![](https://ae01.alicdn.com/kf/Uc6927a331542482490628e1b1363d3fbw.jpg) -->
+<!-- ![](https://user-gold-cdn.xitu.io/2020/3/18/170ebccffa6eb321) -->
+<!-- ![](http://img04.sogoucdn.com/app/a/100520146/5A88000BB4DCF1E2593B87FB28A0F475) -->
+<!-- ![](https://graph.baidu.com/resource/126490822545b0358306401584504049.jpg) -->
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">E/xxxxxx: hookActivityThreadHHanlder: activityThread=android.app.ActivityThread@eaa28fb</span><br><span class="line">E/xxxxxx: hookActivityThreadHHanlder: mh=Handler (android.app.ActivityThread$H) &#123;4121d18&#125;</span><br><span class="line">E/xxxxxx: hookActivityThreadHHanlder: msg=&#123; when=-95ms what=140 arg1=5 target=android.app.ActivityThread$H &#125;</span><br><span class="line">E/xxxxxx: hookActivityThreadHHanlder: msg=&#123; when=-100ms what=100 obj=ActivityRecord&#123;dfa7556 token=android.os.BinderProxy@9e859d7 &#123;pub.hanks.testhooksplashactivity/pub.hanks.testhooksplashactivity.SplashActivity&#125;&#125; target=android.app.ActivityThread$H &#125;</span><br><span class="line">E/xxxxxx: hookActivityThreadHHanlder: obj=ActivityRecord&#123;dfa7556 token=android.os.BinderProxy@9e859d7 &#123;pub.hanks.testhooksplashactivity/pub.hanks.testhooksplashactivity.SplashActivity&#125;&#125;</span><br><span class="line">E/xxxxxx: hookActivityThreadHHanlder: 原始 intent =Intent &#123; act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x10200000 cmp=pub.hanks.testhooksplashactivity/.SplashActivity (has extras) &#125;</span><br><span class="line">E/xxxxxx: hookActivityThreadHHanlder: 替换后的 intent intentCopy=Intent &#123; act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x10200000 cmp=pub.hanks.testhooksplashactivity/.MainActivity (has extras) &#125;</span><br><span class="line">W/xxxxxx: MainActivity.onCreate=pub.hanks.testhooksplashactivity.MainActivity@56a8fa9</span><br><span class="line">E/xxxxxx: hookActivityThreadHHanlder: msg=&#123; when=-26ms what=149 obj=android.os.BinderProxy@9e859d7 target=android.app.ActivityThread$H &#125;</span><br><span class="line">E/xxxxxx: hookActivityThreadHHanlder: msg=&#123; when=-2ms what=1010 target=android.app.ActivityThread$H &#125;</span><br><span class="line">E/xxxxxx: hookActivityThreadHHanlder: msg=&#123; when=-9ms what=132 target=android.app.ActivityThread$H &#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+
+<blockquote>
+<p>文章来自： <a href="https://hanks.pub/">https://hanks.pub</a></p>
+</blockquote>
+
+      
+    </div>
+</article>
+
+<!-- 上一页 下一页 -->
+
+
+<nav id="article-nav">
+  
+    <a href="/2020/03/29/gradle-transform/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>上一篇</span>
+      <div class="article-nav-title">
+        
+          Gradle Tansform 的使用
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/03/12/android-tool-perfetto/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>下一篇</span>
+      <div class="article-nav-title">性能追踪工具 Perfetto</div>
+    </a>
+  
+</nav>
+
+
+
+<!-- 相关文章 -->
+
+<!--
+
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+      			<a href="/2020/03/18/android-hook-launch-activity/">Hook 替换启动的 Activity</a>
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+
+-->
+
+
+</section>
+      </div>
+      <footer id="footer">
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      
+      &copy;2024<a target="_blank" rel="noopener" href="https://github.com/hanks-zyh"> Hanks</a>版权所有
+      <br/>
+      <a href="https://beian.miit.gov.cn/" target="_blank">豫ICP备2021022347号</a>
+	  </div>
+  </div>
+ <div id="share">
+  <a id="totop" title="" style="display: block;">返回顶部</a>
+ </div>
+</footer>
+
+    </div>
+    
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/jquery.scrollLoading.js"></script>
+
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/ads.js"></script>
+
+  </div>
+</body>
+</html>

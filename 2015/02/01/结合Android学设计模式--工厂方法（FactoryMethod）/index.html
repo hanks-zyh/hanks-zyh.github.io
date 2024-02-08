@@ -1,0 +1,949 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>结合Android学设计模式--工厂方法（FactoryMethod） | Hanks&#39; Websit</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <script data-ad-client="ca-pub-8165670162444117" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <meta name="referrer" content="never">
+  <meta name="description" content="简单工厂模式 简单工厂模式属于类的创建型模式,又叫做静态工厂方法模式。通过专门定义一个类来负责创建其他类的实例，被创建的实例通常都具有共同的父类。 模式中包含的角色及其职责 1.工厂（Creator）角色 简单工厂模式的核心，它负责实现创建所有实例的内部逻辑。工厂类可以被外界直接调用，创建所需的产品对象。  2.抽象（Product）角色 简单工厂模式所创建的所有对象的父类，它负责描述所有实例所">
+<meta property="og:type" content="article">
+<meta property="og:title" content="结合Android学设计模式--工厂方法（FactoryMethod）">
+<meta property="og:url" content="https://hanks.pub/2015/02/01/%E7%BB%93%E5%90%88Android%E5%AD%A6%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F--%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95%EF%BC%88FactoryMethod%EF%BC%89/index.html">
+<meta property="og:site_name" content="Hanks&#39; Websit">
+<meta property="og:description" content="简单工厂模式 简单工厂模式属于类的创建型模式,又叫做静态工厂方法模式。通过专门定义一个类来负责创建其他类的实例，被创建的实例通常都具有共同的父类。 模式中包含的角色及其职责 1.工厂（Creator）角色 简单工厂模式的核心，它负责实现创建所有实例的内部逻辑。工厂类可以被外界直接调用，创建所需的产品对象。  2.抽象（Product）角色 简单工厂模式所创建的所有对象的父类，它负责描述所有实例所">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img.blog.csdn.net/20150201204550628">
+<meta property="og:image" content="https://img.blog.csdn.net/20150201204605230">
+<meta property="og:image" content="https://img.blog.csdn.net/20150201204621360">
+<meta property="og:image" content="https://img.blog.csdn.net/20150201204618137">
+<meta property="article:published_time" content="2015-02-01T07:21:00.000Z">
+<meta property="article:modified_time" content="2024-02-08T01:29:02.203Z">
+<meta property="article:author" content="Hanks">
+<meta property="article:tag" content="Android">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img.blog.csdn.net/20150201204550628">
+  
+  
+  <link href="https://fonts.googleapis.com/css?family=Fira+Code|Noto+Serif+SC&display=swap" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8165670162444117"
+     crossorigin="anonymous"></script>
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo"></a>
+    <nav id="main-nav">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      
+        <a class="main-nav-link" href="/archives">Archive</a>
+      
+        <a class="main-nav-link" href="/eye-video">Eye</a>
+      
+        <a class="main-nav-link" href="/atom.xml">Rss</a>
+      
+    </nav>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/archives" class="mobile-nav-link">Archive</a>
+  
+    <a href="/eye-video" class="mobile-nav-link">Eye</a>
+  
+    <a href="/atom.xml" class="mobile-nav-link">Rss</a>
+  
+</nav>
+      <div class="outer">
+        <section id="main"><article id="post-结合Android学设计模式--工厂方法（FactoryMethod）" class="article article-type-post" itemscope
+  itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <header class="article-header">
+      
+      
+  
+    <h1 class="article-title" itemprop="name">
+      结合Android学设计模式--工厂方法（FactoryMethod）
+    </h1>
+  
+
+      
+    </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+<p><strong><span style="font-size:12px">简单工厂模式</span></strong></p>
+<p>简单工厂模式属于类的创建型模式,又叫做静态工厂方法模式。通过专门定义一个类来负责创建其他类的实例，被创建的实例通常都具有共同的父类。</p>
+<p><strong><span style="font-size:12px">模式中包含的角色及其职责</span></strong><br>
+1.工厂（Creator）角色 简单工厂模式的核心，它负责实现创建所有实例的内部逻辑。工厂类可以被外界直接调用，创建所需的产品对象。 <br>
+2.抽象（Product）角色 简单工厂模式所创建的所有对象的父类，它负责描述所有实例所共有的公共接口。 <br>
+3.具体产品（Concrete Product）角色 简单工厂模式所创建的具体实例对象<br>
+</p>
+<p>结构：</p>
+<p><img src="" alt=""><img src="https://img.blog.csdn.net/20150201204550628" alt=""><br>
+</p>
+<p><img src="" alt=""><br>
+</p>
+<p>在android中的<span style="color:#ff0000">Connection</span>类中使用到了这个类：<br>
+</p>
+<p><img src="" alt=""><img src="https://img.blog.csdn.net/20150201204605230" alt=""><br>
+</p>
+<p><img src="" alt=""><br>
+</p>
+<p>其中Connection这个抽象类，既充当抽象产品类，也充当具体工厂类。</p>
+<p>因为这种情况下，我们往往需要的是马上生产子类，getConnection方法往往是静态的，所以简单工厂，也叫静态工厂方法。<br>
+</p>
+<p></p>
+<pre code_snippet_id="594899" snippet_file_name="blog_20150201_1_5230849"  code_snippet_id="594899" snippet_file_name="blog_20150201_1_5230849" name="code" class="java">abstract class Connection{
+    static Connection getConnection(
+            Context context, HttpHost host, HttpHost proxy,
+            RequestFeeder requestFeeder) {
+
+        if (host.getSchemeName().equals(&quot;http&quot;)) {
+            return new HttpConnection(context, host, requestFeeder);
+        }
+
+        // Otherwise, default to https
+        return new HttpsConnection(context, host, proxy, requestFeeder);
+    }
+}  </pre><br>
+<p></p>
+<p>在Android中，我们经常使用静态工厂方法的地方应该是创建<strong><span style="color:#cc0000">Bitmap</span></strong>对象的时候，例如通过资源id获取Bitmap对象。</p>
+<p></p>
+<pre code_snippet_id="594899" snippet_file_name="blog_20150201_2_1279582"  code_snippet_id="594899" snippet_file_name="blog_20150201_2_1279582" name="code" class="java">Bitmap bmp = BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher) ;</pre>可以看到源码中，decodeResource(Resourcesres,intid)函数调用的是decodeResource(Resourcesres,intid, Options opts), 在decodeResource函数中，最终把传递进来的资源id解析成InputStream, 然后称调用decodeResourceStream(res, value, is, null,opts)方法。decodeResourceStream初始化一些配置和像素信息以后，调用decodeStream(is,pad,opts)，最终调用nativeDecodeAsset或者nativeDecodeStream来构建Bitmap对象，这两个都是native方法(
+ Android中使用Skia库来解析图像 )，本文不进行讨论。最后调用finishDecode函数来设置像素、配置信息、缩放等参数，最终返回Bitmap对象。
+<p><br>
+BitmapFactory中的decodeFile、decodeByteArray工厂方法都是这么一个类&#20284;的过程，BitmapFactory通过不同的工厂方法与传递不同的参数调用不同的图像解析函数来构造Bitmap对象。</p>
+<p><br>
+<strong>优点：</strong><br>
+1、分工明确，各司其职；<br>
+2、客户端不再创建对象，而是把创建对象的职责交给了具体的工厂去创建；<br>
+3、使抽象与实现分离, 客户程序不知道具体实现；<br>
+4、具名工厂函数，更能体现出代码含义。<br>
+<strong>缺点：</strong><br>
+1、工厂的静态方法无法被继承；<br>
+2、代码维护不易，对象要是很多的话，工厂是一个很庞大的类；<br>
+3、违反开闭原则，如果有新的产品加入到系统中就要修改工厂类。</p>
+<p><br>
+</p>
+<h5><strong><span style="font-size:18px">什么是工厂方法模式？</span></strong></h5>
+<p>工厂方法模式同样属于类的创建型模式又被称为多态工厂模式 。工厂方法模式的意义是定义一个创建产品对象的工厂接口，将实际创建工作推迟到子类当中。核心工厂类不再负责产品的创建，这样核心类成为一个抽象工厂角色，仅负责具体工厂子类必须实现的接口，这样进一步抽象化的好处是使得工厂方法模式可以使系统在不修改具体工厂角色的情况下引进新的产品。<br>
+</p>
+<p><span style="font-weight:bold">模式中包含的角色及其职责</span><br>
+</p>
+<p>1.抽象工厂（Creator）角色 工厂方法模式的核心，任何工厂类都必须实现这个接口。<br>
+2.具体工厂（ Concrete Creator）角色 具体工厂类是抽象工厂的一个实现，负责实例化产品对象。<br>
+3.抽象（Product）角色 工厂方法模式所创建的所有对象的父类，它负责描述所有实例所共有的公共接口。<br>
+4.具体产品（Concrete Product）角色 工厂方法模式所创建的具体实例对象<br>
+</p>
+<p><strong><span style="font-size:12px">工厂方法模式和简单工厂模式比较</span></strong><br>
+</p>
+<p>工厂方法模式与简单工厂模式在结构上的不同不是很明显。工厂方法类的核心是一个抽象工厂类，而简单工厂模式把核心放在一个具体类上。 <br>
+工厂方法模式之所以有一个别名叫多态性工厂模式是因为具体工厂类都有共同的接口，或者有共同的抽象父类。 当系统扩展需要添加新的产品对象时，仅仅需要添加一个具体对<br>
+象以及一个具体工厂对象，原有工厂对象不需要进行任何修改，也不需要修改客户端，很好的符合了“开放－封闭”原则。而简单工厂模式在添加新产品对象后不得不修改工厂方法，扩展性不好。 工厂方法模式退化后可以演变成简单工厂模式。<br>
+<br>
+</p>
+<h5><span style="color:rgb(51,51,51); font-family:宋体; font-size:14px; line-height:28px; text-indent:28px; background-color:rgb(248,248,248)"><strong>标准的工厂方法结构图</strong></span></h5>
+<p><img src="" alt=""><img src="" alt=""><img src="https://img.blog.csdn.net/20150201204621360" alt=""><br>
+</p>
+<p>先抽象的产品类，抽象的工厂类，然后用客户端具体的工厂生产相应的具体的产品，但是客户端并不知道具体的产品是怎么生产的，生产的过程封装在工厂里。所以说，某种程度上，工厂方法模式改变了我们直接用new创建对象的方式，一个很好的开始，意义重大。<br>
+以ThreadFactory为例：<br>
+</p>
+<p><img src="" alt=""><br>
+</p>
+<p><img src="" alt=""><img src="https://img.blog.csdn.net/20150201204618137" alt=""><br>
+</p>
+<p>这张图其实和原本的结构图有细微的区别，那就是参数化得工厂，而且从业务意义上也有些不同，但是思想是一样的。<br>
+我们来看下具体的代码：<br>
+</p>
+<p></p>
+<pre code_snippet_id="594899" snippet_file_name="blog_20150201_3_4014047"  code_snippet_id="594899" snippet_file_name="blog_20150201_3_4014047" name="code" class="java">//抽象产品
+public interface Runnable {
+    public abstract void run();
+}
+
+//抽象工厂
+public interface ThreadFactory {
+    Thread newThread(Runnable r);
+} </pre>比如AsyncTask类中工厂的具体实现如下：
+<p></p>
+<p></p>
+<pre code_snippet_id="594899" snippet_file_name="blog_20150201_4_7686603"  code_snippet_id="594899" snippet_file_name="blog_20150201_4_7686603" name="code" class="java">//工厂实现类
+private static final ThreadFactory sThreadFactory = new ThreadFactory() {
+    private final AtomicInteger mCount = new AtomicInteger(1);
+
+    public Thread newThread(Runnable r) {
+        return new Thread(r, &quot;AsyncTask #&quot; + mCount.getAndIncrement());
+    }
+};
+//那么产品类在哪里呢？
+//做为参数Runnable r，我们可以创建千千万万个此系列的产品类
+//同理，我们可以创建另外类似的工厂，生产某种专门的线程，非常容易扩展  </pre><br>
+<br>
+<p></p>
+<p><br>
+</p>
+<p><br>
+</p>
+<p><br>
+</p>
+<p><br>
+</p>
+<p><br>
+</p>
+
+      
+    </div>
+</article>
+
+<!-- 上一页 下一页 -->
+
+
+<nav id="article-nav">
+  
+    <a href="/2015/02/01/Android%E4%B8%AD%E7%9A%84Handler%E6%9C%BA%E5%88%B6/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>上一篇</span>
+      <div class="article-nav-title">
+        
+          Android中的Handler机制
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/02/01/%E7%BB%93%E5%90%88Android%E5%AD%A6%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F--%E5%BC%80%E7%AF%87/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>下一篇</span>
+      <div class="article-nav-title">结合Android学设计模式--开篇</div>
+    </a>
+  
+</nav>
+
+
+
+<!-- 相关文章 -->
+
+<!--
+
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+      			<a href="/2015/02/01/%E7%BB%93%E5%90%88Android%E5%AD%A6%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F--%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95%EF%BC%88FactoryMethod%EF%BC%89/">结合Android学设计模式--工厂方法（FactoryMethod）</a>
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+
+-->
+
+
+</section>
+      </div>
+      <footer id="footer">
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      
+      &copy;2024<a target="_blank" rel="noopener" href="https://github.com/hanks-zyh"> Hanks</a>版权所有
+      <br/>
+      <a href="https://beian.miit.gov.cn/" target="_blank">豫ICP备2021022347号</a>
+	  </div>
+  </div>
+ <div id="share">
+  <a id="totop" title="" style="display: block;">返回顶部</a>
+ </div>
+</footer>
+
+    </div>
+    
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/jquery.scrollLoading.js"></script>
+
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/ads.js"></script>
+
+  </div>
+</body>
+</html>

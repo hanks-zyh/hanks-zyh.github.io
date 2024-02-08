@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Ubuntu 安装 OS X 10.11  虚拟机 | Hanks&#39; Websit</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <script data-ad-client="ca-pub-8165670162444117" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <meta name="referrer" content="never">
+  <meta name="description" content="看到论坛里有人在windows平台上面利用 VirtualBox 成功安装了 OS X 10.11,(我的是Ubuntu 14.04)于是尝试一下虚拟机装mac,既然 VirtualBox 有linux版, 于是尝试在Ubuntu下装mac os虚拟机.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Ubuntu 安装 OS X 10.11  虚拟机">
+<meta property="og:url" content="https://hanks.pub/2015/12/02/mac-os-in-Ubuntu/index.html">
+<meta property="og:site_name" content="Hanks&#39; Websit">
+<meta property="og:description" content="看到论坛里有人在windows平台上面利用 VirtualBox 成功安装了 OS X 10.11,(我的是Ubuntu 14.04)于是尝试一下虚拟机装mac,既然 VirtualBox 有linux版, 于是尝试在Ubuntu下装mac os虚拟机.">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://dn-coding-net-production-pp.qbox.me/44703706-0ca7-4163-89ff-968e8962c57f.png">
+<meta property="og:image" content="https://dn-coding-net-production-pp.qbox.me/1f97a9c1-09b0-428a-aac9-60a098b78d6c.png">
+<meta property="og:image" content="https://dn-coding-net-production-pp.qbox.me/2adabc19-197d-46b4-a960-0203a6c7fd52.png">
+<meta property="og:image" content="https://dn-coding-net-production-pp.qbox.me/2ba64c95-f5f1-4e66-b878-5bdc6d873c6e.png">
+<meta property="og:image" content="https://dn-coding-net-production-pp.qbox.me/9d66a4d0-b141-4920-bde4-2a89d0afcc15.png">
+<meta property="og:image" content="https://dn-coding-net-production-pp.qbox.me/255e709e-3416-4e89-80a8-30c10768332b.png">
+<meta property="og:image" content="https://dn-coding-net-production-pp.qbox.me/ba9d827a-41dd-4f8c-8ae9-1467907024e4.png">
+<meta property="og:image" content="https://dn-coding-net-production-pp.qbox.me/a256c81f-0820-4b8d-bd0a-e55eca3b4d05.png">
+<meta property="og:image" content="https://dn-coding-net-production-pp.qbox.me/f3c72d29-4966-46b4-99cc-faad0d7af4f3.png">
+<meta property="og:image" content="https://dn-coding-net-production-pp.qbox.me/9cf7a273-c89d-4715-b0c4-62e76a228faa.png">
+<meta property="article:published_time" content="2015-12-02T15:50:26.000Z">
+<meta property="article:modified_time" content="2024-02-08T01:29:02.189Z">
+<meta property="article:author" content="Hanks">
+<meta property="article:tag" content="Ubuntu">
+<meta property="article:tag" content="mac os">
+<meta property="article:tag" content="virtualBox">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://dn-coding-net-production-pp.qbox.me/44703706-0ca7-4163-89ff-968e8962c57f.png">
+  
+  
+  <link href="https://fonts.googleapis.com/css?family=Fira+Code|Noto+Serif+SC&display=swap" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8165670162444117"
+     crossorigin="anonymous"></script>
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo"></a>
+    <nav id="main-nav">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      
+        <a class="main-nav-link" href="/archives">Archive</a>
+      
+        <a class="main-nav-link" href="/eye-video">Eye</a>
+      
+        <a class="main-nav-link" href="/atom.xml">Rss</a>
+      
+    </nav>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/archives" class="mobile-nav-link">Archive</a>
+  
+    <a href="/eye-video" class="mobile-nav-link">Eye</a>
+  
+    <a href="/atom.xml" class="mobile-nav-link">Rss</a>
+  
+</nav>
+      <div class="outer">
+        <section id="main"><article id="post-mac-os-in-Ubuntu" class="article article-type-post" itemscope
+  itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <header class="article-header">
+      
+      
+  
+    <h1 class="article-title" itemprop="name">
+      Ubuntu 安装 OS X 10.11  虚拟机
+    </h1>
+  
+
+      
+    </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      <p>看到<a target="_blank" rel="noopener" href="https://bbs.feng.com/read-htm-tid-9908410.html">论坛</a>里有人在windows平台上面利用 <code>VirtualBox</code> 成功安装了 <code>OS X 10.11</code>,(我的是Ubuntu 14.04)于是尝试一下虚拟机装mac,既然 <code>VirtualBox</code> 有linux版, 于是尝试在Ubuntu下装mac os虚拟机.</p>
+<span id="more"></span>
+<h3 id="下载-VirtualBox"><a href="#下载-VirtualBox" class="headerlink" title="下载 VirtualBox"></a>下载 <code>VirtualBox</code></h3><p>到 <a target="_blank" rel="noopener" href="https://www.virtualbox.org/wiki/Downloads">VirtualBox 官网</a>下载, 我已经安装过了,版本是 5.0.8, 最新的 5.0.10</p>
+<h3 id="下载-mac-os-虚拟机文件"><a href="#下载-mac-os-虚拟机文件" class="headerlink" title="下载 mac os 虚拟机文件"></a>下载 mac os 虚拟机文件</h3><p>到这个论坛里下载安装好的<a target="_blank" rel="noopener" href="https://bbs.feng.com/read-htm-tid-9908410.html">OS X 10.11 El Capitan GM by TechReviews.vmdk</a></p>
+<h3 id="添加虚拟机"><a href="#添加虚拟机" class="headerlink" title="添加虚拟机"></a>添加虚拟机</h3><p> 打开 <code>VirtualBox</code>, 新建mac os 虚拟机, <strong>需要记住自己填写的名字</strong>,下面需要用命令更改配置<br>我分配了8G内存, 虚拟硬盘使用刚才下载的<br> <img src="https://dn-coding-net-production-pp.qbox.me/44703706-0ca7-4163-89ff-968e8962c57f.png" alt="图片"><br>注意设置<code>启动顺序</code>,和<code>芯片组</code><br> <img src="https://dn-coding-net-production-pp.qbox.me/1f97a9c1-09b0-428a-aac9-60a098b78d6c.png" alt="图片"><br>设置<code>显存</code>为128MB<br> <img src="https://dn-coding-net-production-pp.qbox.me/2adabc19-197d-46b4-a960-0203a6c7fd52.png" alt="图片"></p>
+<h3 id="更改配置"><a href="#更改配置" class="headerlink" title="更改配置"></a>更改配置</h3><p>输入以下命令,注意使用的 <code>VboxManage</code> 命令</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">VBoxManage modifyvm &quot;OSXElCapitan&quot;  --cpuidset 00000001 000306a9 04100800 7fbae3ff bfebfbff</span><br><span class="line">VBoxManage setextradata &quot;OSXElCapitan&quot;  &quot;VBoxInternal/Devices/efi/0/Config/DmiSystemProduct&quot; &quot;MacBookPro11,3&quot;</span><br><span class="line">VBoxManage setextradata &quot;OSXElCapitan&quot;  &quot;VBoxInternal/Devices/efi/0/Config/DmiSystemVersion&quot; &quot;1.0&quot;</span><br><span class="line">VBoxManage setextradata &quot;OSXElCapitan&quot;  &quot;VBoxInternal/Devices/efi/0/Config/DmiBoardProduct&quot; &quot;Iloveapple&quot;</span><br><span class="line">VBoxManage setextradata &quot;OSXElCapitan&quot;  &quot;VBoxInternal/Devices/smc/0/Config/DeviceKey&quot; &quot;ourhardworkbythesewordsguardedpleasedontsteal(c)AppleComputerInc&quot;</span><br><span class="line">VBoxManage setextradata &quot;OSXElCapitan&quot;  &quot;VBoxInternal/Devices/smc/0/Config/GetKeyFromRealSMC&quot; 1</span><br></pre></td></tr></table></figure>
+<p>如需要更改 虚拟机分辨率 1440×900 输入命令如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">VBoxManage setextradata &quot;OSXElCapitan&quot; &quot;VBoxInternal2/EfiGopMode&quot; 4</span><br></pre></td></tr></table></figure>
+<p>其中数字表示如下, 虚拟机默认分辨率值是 2 – 1024×768</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">0 – 640×480</span><br><span class="line">1 – 800×600</span><br><span class="line">2 – 1024×768</span><br><span class="line">3 – 1280×1024</span><br><span class="line">4 – 1440×900</span><br></pre></td></tr></table></figure>
+
+<h3 id="启动虚拟机"><a href="#启动虚拟机" class="headerlink" title="启动虚拟机"></a>启动虚拟机</h3><ol>
+<li>关闭 VirtualBOX</li>
+<li>重新正常启动 VirtualBOX, 及启动 OSXYosemite 虚拟机文件</li>
+<li>进行一些系统设置</li>
+</ol>
+<p> <img src="https://dn-coding-net-production-pp.qbox.me/2ba64c95-f5f1-4e66-b878-5bdc6d873c6e.png" alt="图片"></p>
+<p> <img src="https://dn-coding-net-production-pp.qbox.me/9d66a4d0-b141-4920-bde4-2a89d0afcc15.png" alt="图片"></p>
+<p> <img src="https://dn-coding-net-production-pp.qbox.me/255e709e-3416-4e89-80a8-30c10768332b.png" alt="图片"></p>
+<p> <img src="https://dn-coding-net-production-pp.qbox.me/ba9d827a-41dd-4f8c-8ae9-1467907024e4.png" alt="图片"></p>
+<p> <img src="https://dn-coding-net-production-pp.qbox.me/a256c81f-0820-4b8d-bd0a-e55eca3b4d05.png" alt="图片"></p>
+<p> <img src="https://dn-coding-net-production-pp.qbox.me/f3c72d29-4966-46b4-99cc-faad0d7af4f3.png" alt="图片"></p>
+<p> <img src="https://dn-coding-net-production-pp.qbox.me/9cf7a273-c89d-4715-b0c4-62e76a228faa.png" alt="图片"></p>
+<h3 id="安装-xcode-7"><a href="#安装-xcode-7" class="headerlink" title="安装 xcode 7"></a>安装 xcode 7</h3><p>下载xcode</p>
+<hr>
+<p>参考链接:</br><br><a target="_blank" rel="noopener" href="https://bbs.feng.com/read-htm-tid-9908410.html">https://bbs.feng.com/read-htm-tid-9908410.html</a></br><br><a target="_blank" rel="noopener" href="https://bbs.feng.com/read-htm-tid-8474315.html">https://bbs.feng.com/read-htm-tid-8474315.html</a></p>
+
+      
+    </div>
+</article>
+
+<!-- 上一页 下一页 -->
+
+
+<nav id="article-nav">
+  
+    <a href="/2015/12/04/mac_java_enviroment/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>上一篇</span>
+      <div class="article-nav-title">
+        
+          OS X中Java环境变量配置
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/12/01/ReactiveX/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>下一篇</span>
+      <div class="article-nav-title">ReactiveX</div>
+    </a>
+  
+</nav>
+
+
+
+<!-- 相关文章 -->
+
+<!--
+
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+      			<a href="/2015/12/02/mac-os-in-Ubuntu/">Ubuntu 安装 OS X 10.11  虚拟机</a>
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+
+-->
+
+
+</section>
+      </div>
+      <footer id="footer">
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      
+      &copy;2024<a target="_blank" rel="noopener" href="https://github.com/hanks-zyh"> Hanks</a>版权所有
+      <br/>
+      <a href="https://beian.miit.gov.cn/" target="_blank">豫ICP备2021022347号</a>
+	  </div>
+  </div>
+ <div id="share">
+  <a id="totop" title="" style="display: block;">返回顶部</a>
+ </div>
+</footer>
+
+    </div>
+    
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/jquery.scrollLoading.js"></script>
+
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/ads.js"></script>
+
+  </div>
+</body>
+</html>

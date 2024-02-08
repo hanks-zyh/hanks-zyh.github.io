@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>最短路径 Dijksstra算法求最短路 | Hanks&#39; Websit</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <script data-ad-client="ca-pub-8165670162444117" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <meta name="referrer" content="never">
+  <meta name="description" content="1.两地之间是否有通路? 2.若存在多条通路，哪条路最短？  &nbsp;&nbsp;&nbsp;&nbsp;   ●单源最短路径 &nbsp;&nbsp;  Single-Source Shortest Path &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&amp;nbsp">
+<meta property="og:type" content="article">
+<meta property="og:title" content="最短路径 Dijksstra算法求最短路">
+<meta property="og:url" content="https://hanks.pub/2013/07/29/%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84_Dijksstra%E7%AE%97%E6%B3%95%E6%B1%82%E6%9C%80%E7%9F%AD%E8%B7%AF/index.html">
+<meta property="og:site_name" content="Hanks&#39; Websit">
+<meta property="og:description" content="1.两地之间是否有通路? 2.若存在多条通路，哪条路最短？  &nbsp;&nbsp;&nbsp;&nbsp;   ●单源最短路径 &nbsp;&nbsp;  Single-Source Shortest Path &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&amp;nbsp">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img.blog.csdn.net/20130729191755265">
+<meta property="article:published_time" content="2013-07-29T11:18:00.000Z">
+<meta property="article:modified_time" content="2024-02-08T01:29:02.201Z">
+<meta property="article:author" content="Hanks">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img.blog.csdn.net/20130729191755265">
+  
+  
+  <link href="https://fonts.googleapis.com/css?family=Fira+Code|Noto+Serif+SC&display=swap" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8165670162444117"
+     crossorigin="anonymous"></script>
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo"></a>
+    <nav id="main-nav">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      
+        <a class="main-nav-link" href="/archives">Archive</a>
+      
+        <a class="main-nav-link" href="/eye-video">Eye</a>
+      
+        <a class="main-nav-link" href="/atom.xml">Rss</a>
+      
+    </nav>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/archives" class="mobile-nav-link">Archive</a>
+  
+    <a href="/eye-video" class="mobile-nav-link">Eye</a>
+  
+    <a href="/atom.xml" class="mobile-nav-link">Rss</a>
+  
+</nav>
+      <div class="outer">
+        <section id="main"><article id="post-最短路径_Dijksstra算法求最短路" class="article article-type-post" itemscope
+  itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <header class="article-header">
+      
+      
+  
+    <h1 class="article-title" itemprop="name">
+      最短路径 Dijksstra算法求最短路
+    </h1>
+  
+
+      
+    </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+<span style="font-family:宋体; font-size:14px"></span>
+<div>
+<div><span style="font-size:18px"><span style="color:#000099">1.</span><span style="color:#000099"><strong>两地之间是否有通路?</strong></span></span></div>
+<div><span style="font-size:18px"><span style="color:#000099">2.</span><span style="color:#000099"><strong>若存在多条通路，哪条路最短？</strong></span></span></div>
+</div>
+<p><span style="font-size:18px">&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
+<span style="font-family:宋体"></span>
+<div>
+<div><span style="font-size:18px"><span style="color:#000099"><span style="color:#0033cc">●</span></span><span style="color:#000099"><strong>单源最短路径</strong></span></span></div>
+<div><span style="font-size:18px"><span style="color:#000099"><strong>&nbsp;&nbsp; </strong>
+</span>Single-Source Shortest Path</span></div>
+<div><span style="font-size:18px"><span style="color:#000099"><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</strong></span>(Dijkstra<span style="color:#000099"><strong>算法</strong></span><span style="color:#000099"><strong>)</strong></span></span></div>
+<div><span style="font-size:18px"><span style="color:blue"><strong>&nbsp;&nbsp; </strong></span><span style="color:blue"><strong>负权边的有向图单源最短有路径</strong></span></span></div>
+<div><span style="font-size:18px">&nbsp;&nbsp;&nbsp; Bellman<strong>-</strong>Ford<strong>算法</strong></span></div>
+</div>
+<p><span style="font-size:18px">&nbsp;</span></p>
+<div>
+<div><span style="font-size:18px"><span style="color:#000099"><span style="color:#0033cc">●</span></span><span style="color:#000099"><strong>所有顶点对间的最短路径问题</strong></span></span></div>
+<div><span style="font-size:18px"><span style="color:#000099"><strong>&nbsp;&nbsp; </strong>
+</span>All-Pairs Shortest paths&nbsp;<span style="color:#000099"><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong></span><span style="color:#000099"><strong>（</strong></span><span style="color:#000099"><strong>Floyd</strong></span></span><span style="font-size:18px; color:#000099"><strong>算法）<br>
+</strong></span></div>
+</div>
+<div>
+<div><span style="font-size:18px"><span style="color:#0033cc">●</span><strong>问题: 带权有向图G（E,V), 找出从给定</strong><span style="color:#cc0000"><strong>源顶点</strong></span><span style="color:#cc0000"><strong><em>s</em></strong></span><strong>到</strong><span style="color:#cc0000"><strong>其它顶点</strong></span><span style="color:#cc0000"><strong><em>v</em></strong></span><strong>的权最小路径。</strong></span></div>
+<div><span style="font-size:18px"><span style="color:#0033cc">●</span><strong>“最短路径” = 最小权
+</strong></span></div>
+<div><span style="font-size:18px"></span></div>
+</div>
+<p><span style="font-size:18px">&nbsp;</span></p>
+<p><span style="font-family:宋体; font-size:14px">&nbsp;在日常生活中，我们如果需要常常往返A地区和B地区之间，我们最希望知道的可能是从A地区到B地区间的众多路径中，那一条路径的路途最短。最短路径问题是图论研究中的一个经典算法问题，旨在寻找图（由结点和路径组成的）中两结点之间的最短路径。</span><span style="font-family:宋体; font-size:14px">确定起点的最短路径问题：即已知起始结点，求最短路径的问题。</span></p>
+<p><span style="font-family:宋体; font-size:14px">&nbsp;Dijkstra算法</span></p>
+<p><span style="font-family:宋体; font-size:14px">　　Dijkstra算法是典型最短路算法，用于计算一个节点到其他所有节点的最短路径。主要特点是以起始点为中心向外层层扩展，直到扩展到终点为止。Dijkstra算法能得出最短路径的最优解，但由于它遍历计算的节点很多，所以效率低。</span></p>
+<p>如下图：</p>
+<p><span style="font-size:18px">&nbsp;</span></p>
+<div>
+<div><span style="font-size:18px"><span style="color:#0033cc">●</span><strong>贪心算法：
+</strong></span></div>
+<div><strong><span style="font-size:18px">&nbsp; 基于以下原理：若顶点序列{Vs,V1,…,Vn} 是从Vs到Vn的最短路，则序列 {Vs,V1,…,Vn-1} 必为从Vs到Vn-1的最短路。</span></strong></div>
+<div><span style="font-size:18px"><span style="color:#0033cc">●</span><strong>基本思想：
+</strong></span></div>
+<div><strong><span style="font-size:18px">&nbsp;&nbsp; 设置一个顶点集S，不断做贪心选择扩充这个集合。 </span></strong></div>
+<div><strong><span style="font-size:18px">&nbsp; 一个顶点属于S当且仅当从源到该顶点最短路径长度已知。 </span></strong></div>
+<div><strong></strong>&nbsp;</div>
+<div><strong></strong>&nbsp;</div>
+<div><img alt="" src="https://img.blog.csdn.net/20130729191755265"></div>
+<div>
+<div>
+<div><span style="font-size:18px"><span style="color:#000099"><span style="color:#0033cc">●</span></span><span style="color:#000099"><strong>图中从</strong></span><span style="color:#000099"><strong>v</strong></span><span style="color:#000099"><strong>0</strong></span><span style="color:#000099"><strong>到其余各顶点之间的最短路径</strong></span><span style="color:#000099"><strong>:</strong></span></span></div>
+<div><span style="font-size:18px"><span style="color:#000099"><strong>v</strong></span><span style="color:#000099"><strong>0</strong></span><span style="color:#000099"><strong>到</strong></span><span style="color:#000099"><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong></span>v<span style="color:#000099"><strong>1&nbsp;&nbsp;&nbsp;</strong></span><span style="color:#000099"><strong>无</strong></span><span style="color:#000099"><strong>&nbsp;</strong></span></span></div>
+<div><span style="font-size:18px"><span style="color:#000099"><strong>v</strong></span><span style="color:#000099"><strong>0</strong></span><span style="color:#000099"><strong>到</strong></span><span style="color:#000099"><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong></span>v<span style="color:#000099"><strong>2&nbsp;&nbsp;&nbsp;</strong></span><span style="color:#000099"><strong>(v</strong></span><span style="color:#000099"><strong>0</strong></span><span style="color:#000099"><strong>,v</strong></span><span style="color:#000099"><strong>2</strong></span><span style="color:#000099"><strong>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong></span>10</span></div>
+<div><span style="font-size:18px"><span style="color:#000099"><strong>&nbsp;</strong></span>v<span style="color:#000099"><strong>0</strong></span><span style="color:#000099"><strong>到</strong></span><span style="color:#000099"><strong>&nbsp;&nbsp;&nbsp;&nbsp;</strong></span>v<span style="color:#000099"><strong>3&nbsp;&nbsp;&nbsp;</strong></span><span style="color:#000099"><strong>(v</strong></span><span style="color:#000099"><strong>0</strong></span><span style="color:#000099"><strong>,v</strong></span><span style="color:#000099"><strong>4</strong></span><span style="color:#000099"><strong>,</strong></span><span style="color:#000099"><strong>v</strong></span><span style="color:#000099"><strong>3</strong></span><span style="color:#000099"><strong>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong></span>50</span></div>
+<div><span style="font-size:18px"><span style="color:#000099"><strong>&nbsp;</strong></span>v<span style="color:#000099"><strong>0</strong></span><span style="color:#000099"><strong>到</strong></span><span style="color:#000099"><strong>&nbsp;&nbsp;&nbsp;&nbsp;</strong></span>v<span style="color:#000099"><strong>4&nbsp;&nbsp;&nbsp;</strong></span><span style="color:#000099"><strong>(v</strong></span><span style="color:#000099"><strong>0</strong></span><span style="color:#000099"><strong>,v</strong></span><span style="color:#000099"><strong>4</strong></span><span style="color:#000099"><strong>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong></span>30</span></div>
+<div><span style="font-size:18px"><span style="color:#000099"><strong>&nbsp;</strong></span>v<span style="color:#000099"><strong>0</strong></span><span style="color:#000099"><strong>到</strong></span><span style="color:#000099"><strong>&nbsp;&nbsp;&nbsp;&nbsp;</strong></span>v<span style="color:#000099"><strong>5&nbsp;&nbsp;&nbsp;</strong></span><span style="color:#000099"><strong>(</strong></span><span style="color:red"><strong>v</strong></span><span style="color:red"><strong>0</strong></span><span style="color:red"><strong>,v</strong></span><span style="color:red"><strong>4</strong></span><span style="color:red"><strong>,</strong></span><span style="color:red"><strong>v</strong></span><span style="color:red"><strong>3</strong></span><span style="color:red"><strong>,v</strong></span><span style="color:red"><strong>5</strong></span><span style="color:#000099"><strong>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong></span>60</span></div>
+<div><span style="font-size:18px">&nbsp;</span></div>
+<div>
+<div>
+<div><span style="font-size:18px"><span style="color:#0033cc">●</span>&nbsp; <strong>初始时,S仅包含源s,
+</strong></span></div>
+<div><span style="font-size:18px"><span style="color:#0033cc">●</span><strong>&nbsp;</strong><span style="color:#cc0000"><strong>特殊路径：</strong></span></span></div>
+<div><span style="font-size:18px"><strong>&nbsp; 从源到G中某一顶点u且中间只经过S中顶点的路称为</strong><span style="color:#cc0000"><strong>从源到</strong></span><span style="color:#cc0000"><strong>u</strong></span><span style="color:#cc0000"><strong>的特殊路径</strong></span><strong>。</strong></span></div>
+<div><span style="font-size:18px"></span></div>
+<div><span style="font-size:18px"><span style="color:#0033cc">●</span><strong>&nbsp;算法每次从</strong><span style="color:#cc0000"><strong>V-S</strong></span><strong>中取出具有</strong><span style="color:#cc0000"><strong>最短特殊路径</strong></span></span></div>
+<div><strong><span style="font-size:18px">&nbsp;&nbsp; 长度的顶点u加入S中。 </span></strong></div>
+<div>
+<div>
+<div><span style="font-size:18px"><span style="color:#cc0000"><span style="color:#0033cc">●</span></span><span style="color:#cc0000"><strong>算法思想:</strong></span></span></div>
+<div><span style="font-size:18px"><span style="color:#cc0000"><strong>&nbsp;&nbsp; </strong>
+</span>按路径长度递增序产生各顶点最短路径</span></div>
+<div><span style="font-size:18px">&nbsp;</span></div>
+<div><span style="font-size:18px">&nbsp;</span></div>
+<div><span style="font-size:18px">&nbsp;</span></div>
+<div>用到的变量：</div>
+<div>&nbsp;</div>
+<div><span style="font-size:18px">int&nbsp; G[maxnum][maxnum]; //邻接矩阵,距离无限远用9999表示</span></div>
+<div><span style="font-size:18px">&nbsp;</span></div>
+<div><span style="font-size:18px">int&nbsp; dist[maxnum]; //存放各个顶点到源点的寻短路径；</span></div>
+<div><span style="font-size:18px">&nbsp;</span></div>
+<div><span style="font-size:18px">bool&nbsp; visit[maxnum] ;&nbsp; //标志该定点是否被访问，初始化wei 0</span></div>
+<div><span style="font-size:18px">&nbsp;</span></div>
+<div><span style="font-size:18px">int last;//表示当前所走路径最后一个节点</span></div>
+<div><span style="font-size:18px">&nbsp;</span></div>
+<div><span style="font-size:18px">利用贪心算法，首先从原点出发，初始化dist[maxnum]; 假如源点v0，顶点数目6&nbsp; (v0,v1,v2,v3,v4,v5)；</span></div>
+<div><span style="font-size:18px">&nbsp;</span></div>
+<div><span style="font-size:18px">for i=0 to&nbsp;5 ,dist[i]=G[0][i];&nbsp;&nbsp;&nbsp;</span></div>
+<div><span style="font-size:18px">&nbsp;然后dist[0] = 0;//到本身距离为0， 再标记V0点， visit[0] = 1;//以访问v0点，</span></div>
+<div><span style="font-size:18px">此时dist[5]={0,9999,30,9999,30,100};&nbsp; visit[]={1,0,0,0,0,0};&nbsp; last = 0;//v0点为当前路径最后一个</span></div>
+<div><span style="font-size:18px">&nbsp;</span></div>
+<div><span style="font-size:18px">然后for循环，寻找从源点到其他店的最小距离，并且该点未被访问，</span></div>
+<div><strong><span style="font-size:24px"></span></strong>&nbsp;</div>
+<div><span style="font-size:24px"><strong></strong></span><pre class="cpp" name="code">int min = 9999;
+for(j=0;j&lt;n;j++) 
+{
+    if(!visit[j] &amp;&amp; min&lt; G[v0][j])
+   {
+         min = G[last][j];
+                    last = j;
+   }
+}
+</pre><br>
+&nbsp;</div>
+<div><span style="font-size:18px">得到 last=2；//将v2加入当前路径 ，&nbsp;&nbsp;&nbsp; visit[last] = 1;&nbsp;</span></div>
+<div><span style="font-size:18px">visit[] = {1,0,1,0,0,0}</span></div>
+<div><span style="font-size:18px">&nbsp;</span></div>
+<div><span style="font-size:18px">然后将dist[]数组更新。, 更新为V0到各个点的最短路径</span>
+<div><span style="font-size:18px">然后循环，直到所有结点都被访问；</span></div>
+</div>
+<div><strong><span style="font-size:24px"></span></strong>&nbsp;</div>
+<div><strong><span style="font-size:24px"></span></strong><pre class="cpp" name="code">for(j=0;j&lt;n;j++)
+ { 
+         if(!visit[j] &amp;&amp; G[last][j]!=99999)
+          { 
+                   int newdist = dist[last] + G[last][j];
+                   if(newdist &lt; dist[j])
+                        { 
+                                dist[j] = newdist;
+                                     prev[j] = last;
+                         } 
+            } 
+ }
+ 
+</pre><br>
+&nbsp;</div>
+<div><span style="font-size:24px"><strong></strong></span>&nbsp;</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div>练习：&nbsp; <a target="_blank" href="https://acm.hdu.edu.cn/showproblem.php?pid=2544" target="_blank">
+Hdu 2544</a>&nbsp;&nbsp; <a target="_blank" href="https://acm.hdu.edu.cn/showproblem.php?pid=1874" target="_blank">
+hdu1874</a></div>
+<div>&nbsp;</div>
+<div><pre class="cpp" name="code">#include &lt;iostream&gt;
+
+using namespace std;
+
+void Dijkstra(int n,int v,int *dist,int *prev,int G[102][102]) 
+{
+    bool visit[102];//存放顶点是否被访问
+    int i,j;
+    for(i=1; i&lt;=n; i++)
+    {
+        visit[i] = 0;
+        dist[i] = G[v][i];
+        if(dist[i]== 99999) prev[i] = 0;
+        else prev[i] = v;    
+    } 
+    
+    dist[v] = 0; 
+    visit[v] = 1;
+    
+     for(i=2;i&lt;=n;i++)//访问剩下的点
+     {
+        int last = v;
+        int min = 99999; 
+        //寻找本行未使用点j的dist[j]最小值
+        for(j=1;j&lt;=n;j++)
+        {
+            if(!visit[j]&amp;&amp; min&gt;dist[j])    
+            {
+                
+                min = dist[j];
+                last = j;//距离最小点的号码 
+            }
+        }    
+        
+        visit[last] = 1;//访问该距离最小点
+        
+        //将dist[]刷新
+        for(j=1;j&lt;=n;j++)
+        {
+            if(!visit[j] &amp;&amp; G[last][j]!=99999)
+            {
+                int newdist = dist[last] + G[last][j];
+                
+                if(newdist &lt; dist[j])
+                {
+                    dist[j] = newdist;
+                    prev[j] = last;    
+                }
+            }
+    //        printf(&quot;%d &quot;,dist[j]);    
+        }    
+    //    printf(&quot;\n&quot;);
+    } 
+}
+
+
+int main()
+{
+
+    int i,j,a,b,c;
+    int dist[102];  
+    int prev[102];  //记录当前点的前一个结点
+    int G[102][102];
+    int vnum,m; 
+    
+    while(scanf(&quot;%d%d&quot;,&amp;vnum,&amp;m),m&amp;&amp;vnum)
+    {    
+        
+        for(i=1;i&lt;=vnum;i++)
+            for(j=1;j&lt;=vnum;j++)
+                G[i][j] = 99999;
+    
+        while(m--)
+        {
+            scanf(&quot;%d%d%d&quot;,&amp;a,&amp;b,&amp;c);
+            G[a][b] = G[b][a] = c;    
+        }
+        
+        for(i=1;i&lt;=vnum;i++)
+            dist[i] = 99999; //原点到各个点距离初始化
+        
+    //    for(i=1;i&lt;=vnum;i++) //输出创建的邻接矩阵 
+//        {
+//            for(j=1;j&lt;=vnum;j++)
+//                printf(&quot;%4d&quot;,G[i][j]);
+//            printf(&quot;\n&quot;);
+//        } 
+
+        Dijkstra(vnum,1,dist,prev,G);
+        printf(&quot;%d\n&quot;,dist[vnum]);
+    
+    }
+    
+    return 0;    
+}</pre><br>
+</div>
+<div><span style="font-size:24px"><strong></strong></span>&nbsp;</div>
+<div><span style="font-size:24px"><strong></strong></span>&nbsp;</div>
+<div><span style="font-size:24px"><strong></strong></span>&nbsp;</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+      
+    </div>
+</article>
+
+<!-- 上一页 下一页 -->
+
+
+<nav id="article-nav">
+  
+    <a href="/2013/07/30/%E9%93%BE%E8%A1%A8%E2%80%94%E2%80%94%E7%BA%A6%E7%91%9F%E5%A4%AB%E9%97%AE%E9%A2%98_%E7%99%BE%E7%BB%832746/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>上一篇</span>
+      <div class="article-nav-title">
+        
+          链表——约瑟夫问题 百练2746
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2013/07/26/%E4%B8%AD%E7%BC%80%E5%BC%8F%E8%BD%AC%E5%90%8E%E7%BC%80%E8%A1%A8%E8%BE%BE%E5%BC%8F_-NYOJ_%E9%A2%98%E7%9B%AE267%E9%83%81%E9%97%B7%E7%9A%84C%E5%B0%8F%E5%8A%A0%EF%BC%88%E4%BA%8C%EF%BC%89/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>下一篇</span>
+      <div class="article-nav-title">中缀式转后缀表达式 -NYOJ 题目267郁闷的C小加（二）</div>
+    </a>
+  
+</nav>
+
+
+
+<!-- 相关文章 -->
+
+<!--
+
+-->
+
+
+</section>
+      </div>
+      <footer id="footer">
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      
+      &copy;2024<a target="_blank" rel="noopener" href="https://github.com/hanks-zyh"> Hanks</a>版权所有
+      <br/>
+      <a href="https://beian.miit.gov.cn/" target="_blank">豫ICP备2021022347号</a>
+	  </div>
+  </div>
+ <div id="share">
+  <a id="totop" title="" style="display: block;">返回顶部</a>
+ </div>
+</footer>
+
+    </div>
+    
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/jquery.scrollLoading.js"></script>
+
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/ads.js"></script>
+
+  </div>
+</body>
+</html>

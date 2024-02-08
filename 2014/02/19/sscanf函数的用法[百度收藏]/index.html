@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>sscanf函数的用法[百度收藏] | Hanks&#39; Websit</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <script data-ad-client="ca-pub-8165670162444117" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <meta name="referrer" content="never">
+  <meta name="description" content="sscanf函数的用法  头文件 #include &quot;stdio.h&quot;  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 定义函数 int sscanf (const char *str,const char * format,........);  &nbsp;&nbsp;&nbsp;&nbsp;&amp;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="sscanf函数的用法[百度收藏]">
+<meta property="og:url" content="https://hanks.pub/2014/02/19/sscanf%E5%87%BD%E6%95%B0%E7%9A%84%E7%94%A8%E6%B3%95[%E7%99%BE%E5%BA%A6%E6%94%B6%E8%97%8F]/index.html">
+<meta property="og:site_name" content="Hanks&#39; Websit">
+<meta property="og:description" content="sscanf函数的用法  头文件 #include &quot;stdio.h&quot;  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 定义函数 int sscanf (const char *str,const char * format,........);  &nbsp;&nbsp;&nbsp;&nbsp;&amp;">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2014-02-19T11:17:00.000Z">
+<meta property="article:modified_time" content="2024-02-08T01:29:02.193Z">
+<meta property="article:author" content="Hanks">
+<meta name="twitter:card" content="summary">
+  
+  
+  <link href="https://fonts.googleapis.com/css?family=Fira+Code|Noto+Serif+SC&display=swap" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8165670162444117"
+     crossorigin="anonymous"></script>
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo"></a>
+    <nav id="main-nav">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      
+        <a class="main-nav-link" href="/archives">Archive</a>
+      
+        <a class="main-nav-link" href="/eye-video">Eye</a>
+      
+        <a class="main-nav-link" href="/atom.xml">Rss</a>
+      
+    </nav>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/archives" class="mobile-nav-link">Archive</a>
+  
+    <a href="/eye-video" class="mobile-nav-link">Eye</a>
+  
+    <a href="/atom.xml" class="mobile-nav-link">Rss</a>
+  
+</nav>
+      <div class="outer">
+        <section id="main"><article id="post-sscanf函数的用法[百度收藏]" class="article article-type-post" itemscope
+  itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <header class="article-header">
+      
+      
+  
+    <h1 class="article-title" itemprop="name">
+      sscanf函数的用法[百度收藏]
+    </h1>
+  
+
+      
+    </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+<div id="sina_keyword_ad_area2" class="articalContent  ">
+			<h1 STYLE="text-align: center; margin: 10px 0px 5px; font-size: 14.7px; font-family: georgia, verdana, Arial, helvetica, sans-seriff; line-height: 20px; background-color: rgb(255, 255, 255);">
+<font COLOR="#ED1C24">sscanf函数的用法</FONT></H1>
+<div STYLE="color: rgb(75, 75, 75); font-family: georgia, verdana, Arial, helvetica, sans-seriff; font-size: 13px; line-height: 20px; background-color: rgb(255, 255, 255);">
+<p STYLE="margin: 10px auto;">头文件 #include "stdio.h"</P>
+<p STYLE="margin: 10px auto;">
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+定义函数 int sscanf (const char *str,const char * format,........);</P>
+<p STYLE="margin: 10px auto;">
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+函数说明&nbsp;<wbr><br />
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+sscanf()会将参数str的字符串根据参数format字符串来转换并格式化数据。格式转换形式请参考scanf()。转换后的结果存于对应的参数内。</P>
+<p STYLE="margin: 10px auto;"><br />
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+返回值 成功则返回参数数目，失败则返回-1，错误原因存于errno中。
+返回0表示失败&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+否则，表示正确格式化数据的个数&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+例如：sscanf(str，"%d%d%s", &amp;i,&amp;i2,
+&amp;s);&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+如果三个变成都读入成功会返回3。&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+如果只读入了第一个整数到i则会返回1。证明无法从str读入第二个整数。&nbsp;<wbr>&nbsp;<wbr></P>
+<p STYLE="margin: 10px auto;">
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+范例 #include&nbsp;<wbr><br />
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+main()&nbsp;<wbr><br />
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+{&nbsp;<wbr><br />
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+int i;&nbsp;<wbr><br />
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+unsigned int j;&nbsp;<wbr><br />
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+char input[ ]=”10 0x1b aaaaaaaa bbbbbbbb”;&nbsp;<wbr><br />
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+char s[5];&nbsp;<wbr><br />
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+sscanf(input,”%d %x %5[a-z] %*s
+%f”,&amp;i,&amp;j,s,s);&nbsp;<wbr><br />
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+printf(“%d %d %s ”,i,j,s);&nbsp;<wbr><br />
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+}</P>
+<p STYLE="margin: 10px auto;">
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+执行 10 27 aaaaa</P>
+<p STYLE="margin: 10px auto;"><br />
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+sscanf(stringBuf.c_str(), " [^#]# [^ ]",......)语句中""中的内容含义为：</P>
+<p STYLE="margin: 10px auto;">
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+“%[&nbsp;<wbr>]”符号用于声明字符串，它比“%s”更具体，可以用于设置读取的样式。例如“%[a-z]”只读取小写字母，读到其它字符就结束。注意，方括号中如果有“^”，代表一直读到某字符为止。例如：</P>
+<p STYLE="margin: 10px auto;"><br />
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+“%[^#]”：读取字符串，一直到出现“＃”号为止。</P>
+<p STYLE="margin: 10px auto;">
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+“ [^#]”：读取20个字节的字符串，出现“＃”号时结束。</P>
+<p STYLE="margin: 10px auto;">
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+所以，“ [^#]# [^ ]”的意义就是，</P>
+<p STYLE="margin: 10px auto;">
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+读取两个20字节大小的字符串，第一个字符串可以用＃结束，第二个字符串可以用回车符结束。</P>
+<p STYLE="margin: 10px auto;">
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+它们的具体阐述，参见MSDN：“scanf Type Field Characters”章节，和“scanf
+Width&nbsp;<wbr><br />
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+Specification”章节。</P>
+<p STYLE="margin: 10px auto;">
+**************************************************************************************************</P>
+<p STYLE="margin: 10px auto;">
+大家都知道sscanf是一个很好用的函数，利用它可以从字符串中取出整数、浮点数和字符串等等。它的使用方法简单，特别对于整数和浮点数来说。但新手可能并不知道处理字符串时的一些高级用法，这里做个简要说明吧。</P>
+<p STYLE="margin: 10px auto;">　　1. 常见用法。</P>
+<p STYLE="margin: 10px auto;">以下是引用片段：<br />
+　　charstr[512]={0};<br />
+　　sscanf("123456","%s",str);<br />
+　　printf("str=%s",str);</P>
+<p STYLE="margin: 10px auto;">　　2.
+取指定长度的字符串。如在下例中，取最大长度为4字节的字符串。</P>
+<p STYLE="margin: 10px auto;">以下是引用片段：<br />
+　　sscanf("123456","%4s",str);<br />
+　　printf("str=%s",str);</P>
+<p STYLE="margin: 10px auto;">　　3.
+取到指定字符为止的字符串。如在下例中，取遇到空格为止字符串。</P>
+<p STYLE="margin: 10px auto;">以下是引用片段：<br />
+　　sscanf("123456abcdedf","%[^ ]",str);<br />
+　　printf("str=%s",str);</P>
+<p STYLE="margin: 10px auto;">　　4.
+取仅包含指定字符集的字符串。如在下例中，取仅包含1到9和小写字母的字符串。</P>
+<p STYLE="margin: 10px auto;">以下是引用片段：<br />
+　　sscanf("123456abcdedfBCDEF","%[1-9a-z]",str);<br />
+　　printf("str=%s",str);</P>
+<p STYLE="margin: 10px auto;">　　5.
+取到指定字符集为止的字符串。如在下例中，取遇到大写字母为止的字符串。</P>
+<p STYLE="margin: 10px auto;">以下是引用片段：<br />
+　　sscanf("123456abcdedfBCDEF","%[^A-Z]",str);<br />
+　　printf("str=%s",str);</P>
+<p STYLE="margin: 10px auto;">
+**************************************************************************************************</P>
+<p STYLE="margin: 10px auto;">名称: sscanf() -
+从一个字符串中读进与指定格式相符的数据.&nbsp;<wbr><br />
+<br />
+语法: int sscanf( string str, string fmt, mixed var1, mixed var2 ...
+);</P>
+<p STYLE="margin: 10px auto;">整数 sscanf( 字符串 str, 字符串 fmt, 混合 var1,
+混合 var2 ... );</P>
+<p STYLE="margin: 10px auto;">用法: 以指定的格式 fmt 去解读字符串 str. fmt 中除了 %d
+和 %s 以外, 亦可包含其他的字符串作为格式. 每一个 %d 或 %s 都对应一个参数, 按顺序为 var1, var2 ...
+%d 读入一个整数到参数中, 而 %s 读入一个字符串. * 亦可用于格式中, (即 %*d 和 %*s) 加了星号 (*)
+表示跳过此数据不读入. (也就是不把此数据读入参数中) LPC 的 sscanf() 与 C 的 sscanf() 虽然相似,
+但仍有不同之处. LPC 的 sscanf() 不需要 (也不可) 提供变量的内存位址给 sscanf(), 只需要给予变量的名字.
+另一个不同点是, LPC 的 sscanf() 对于: sscanf( str, "%s %s", str1, str2 );
+的语法, 将会把 str 中的第一个英文单字 (即第一个空白字符以前的内容) 读入 str1, 后面其余的内容读入 str2.</P>
+<p STYLE="margin: 10px auto;">sscanf() 会返回符合格式的 %d 和 %s 总数.</P>
+<p STYLE="margin: 10px auto;">
+以前曾经编写过这样的小程序：一个文本文件，每行是一条记录，每条记录中包含多个字段，每个字段之间以某种定界符分开，举例如下：</P>
+<p STYLE="margin: 10px auto;">Notebook,IBM,ThinkPad
+X32,6,12000<br />
+<br />
+(各字段以逗号分隔，内容依次是：物品名称，生产厂家，型号，数量，价格)</P>
+<p STYLE="margin: 10px auto;">如果要对这样的一行记录进行处理，提取出各个字段，怎么做比较好呢？</P>
+<p STYLE="margin: 10px auto;">
+我以前的做法是在一个循环中用strtok函数每次取一个字段，然后将内容保存到一个字符串数组中。这样做虽然可行，但我总感觉写出的代码有些啰嗦。</P>
+<p STYLE="margin: 10px auto;">
+最近看到一段代码，用C的标准库函数sscanf，处理这样的数据，只需一行就可以了。我把代码整理了一下，去掉了无关的部分，核心部分如下：</P>
+<p STYLE="margin: 10px auto;">float price;<br />
+<br />
+int quantity;<br />
+<br />
+char category[21], name[21];<br />
+<br />
+char vendor[21], sku[21];<br />
+<br />
+char buf[201];</P>
+<p STYLE="margin: 10px auto;">fp = fopen(filename, "r");<br />
+<br />
+fgets(buf, 200, fp);<br />
+<br />
+sscanf(buf," [^#]# [^#]#%f#%i# [^#]# [^\n]",name, sku, &amp;price,
+&amp;quantity, category, vendor);</P>
+<p STYLE="margin: 10px auto;">下面简单做些解说：</P>
+<p STYLE="margin: 10px auto;">[^#]#
+最多读入20个字符，直到遇见定界符#，但不包含定界符<br />
+<br />
+%f# 读入一个浮点数，直到遇见定界符#<br />
+<br />
+%i# 读入一个整数，直到遇见定界符#<br />
+<br />
+[^\n] 最多读入20个字符，忽略行尾的回车符</P>
+<p STYLE="margin: 10px auto;">是不是很简洁明了呢？</P>
+<p STYLE="margin: 10px auto;">#include<br />
+<br />
+int main()<br />
+<br />
+{<br />
+<br />
+char log[]="&lt;14&gt;2002-11-11 12:12:12 11.22.33.44 3 3 aaaa
+aaaaaa";<br />
+<br />
+//char log[]="&lt;1&gt;2002-11-11 12:12:12 11.22.33.44 3 aaaa
+aaaaaa";<br />
+<br />
+char test[]="&lt;1111&gt; 22";<br />
+<br />
+char log2[200];</P>
+<p STYLE="margin: 10px auto;">char str1[20];<br />
+<br />
+char str2[20];<br />
+<br />
+char str3[20];<br />
+<br />
+char str4[20];<br />
+<br />
+char str5[20];<br />
+<br />
+char str6[20];<br />
+<br />
+char str7[20];<br />
+<br />
+int a1,a2,a3,a4,a5,a6;<br />
+<br />
+sscanf(log,"</P>
+</DIV>
+		</div>
+
+      
+    </div>
+</article>
+
+<!-- 上一页 下一页 -->
+
+
+<nav id="article-nav">
+  
+    <a href="/2014/02/19/qsort&nbsp;%E6%8E%92%E5%BA%8F/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>上一篇</span>
+      <div class="article-nav-title">
+        
+          qsort&amp;nbsp;排序
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2014/02/19/%E4%B8%A4%E4%B8%AA%E5%8D%81%E5%AD%97%E9%93%BE%E8%A1%A8%E7%9B%B8%E5%8A%A0/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>下一篇</span>
+      <div class="article-nav-title">两个十字链表相加</div>
+    </a>
+  
+</nav>
+
+
+
+<!-- 相关文章 -->
+
+<!--
+
+-->
+
+
+</section>
+      </div>
+      <footer id="footer">
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      
+      &copy;2024<a target="_blank" rel="noopener" href="https://github.com/hanks-zyh"> Hanks</a>版权所有
+      <br/>
+      <a href="https://beian.miit.gov.cn/" target="_blank">豫ICP备2021022347号</a>
+	  </div>
+  </div>
+ <div id="share">
+  <a id="totop" title="" style="display: block;">返回顶部</a>
+ </div>
+</footer>
+
+    </div>
+    
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/jquery.scrollLoading.js"></script>
+
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/ads.js"></script>
+
+  </div>
+</body>
+</html>

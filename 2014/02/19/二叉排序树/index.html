@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>二叉排序树 | Hanks&#39; Websit</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <script data-ad-client="ca-pub-8165670162444117" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <meta name="referrer" content="never">
+  <meta name="description" content="#define FALSE 0 #define TRUE 1 #define ElemType int #define Status int #define EQ(a,b) ((a)&#x3D;&#x3D;(b)) #define LT(a,b) ((a)&lt;(b)) #define LQ(a,b) ((a)&gt;(b))   #include #include #include using name">
+<meta property="og:type" content="article">
+<meta property="og:title" content="二叉排序树">
+<meta property="og:url" content="https://hanks.pub/2014/02/19/%E4%BA%8C%E5%8F%89%E6%8E%92%E5%BA%8F%E6%A0%91/index.html">
+<meta property="og:site_name" content="Hanks&#39; Websit">
+<meta property="og:description" content="#define FALSE 0 #define TRUE 1 #define ElemType int #define Status int #define EQ(a,b) ((a)&#x3D;&#x3D;(b)) #define LT(a,b) ((a)&lt;(b)) #define LQ(a,b) ((a)&gt;(b))   #include #include #include using name">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2014-02-19T11:17:00.000Z">
+<meta property="article:modified_time" content="2024-02-08T01:29:02.196Z">
+<meta property="article:author" content="Hanks">
+<meta name="twitter:card" content="summary">
+  
+  
+  <link href="https://fonts.googleapis.com/css?family=Fira+Code|Noto+Serif+SC&display=swap" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8165670162444117"
+     crossorigin="anonymous"></script>
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo"></a>
+    <nav id="main-nav">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      
+        <a class="main-nav-link" href="/archives">Archive</a>
+      
+        <a class="main-nav-link" href="/eye-video">Eye</a>
+      
+        <a class="main-nav-link" href="/atom.xml">Rss</a>
+      
+    </nav>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/archives" class="mobile-nav-link">Archive</a>
+  
+    <a href="/eye-video" class="mobile-nav-link">Eye</a>
+  
+    <a href="/atom.xml" class="mobile-nav-link">Rss</a>
+  
+</nav>
+      <div class="outer">
+        <section id="main"><article id="post-二叉排序树" class="article article-type-post" itemscope
+  itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <header class="article-header">
+      
+      
+  
+    <h1 class="article-title" itemprop="name">
+      二叉排序树
+    </h1>
+  
+
+      
+    </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+<div id="sina_keyword_ad_area2" class="articalContent  ">
+			<div>#define FALSE 0</DIV>
+<div>#define TRUE 1</DIV>
+<div>#define ElemType int</DIV>
+<div>#define Status int</DIV>
+<div>#define EQ(a,b) ((a)==(b))</DIV>
+<div>#define LT(a,b) ((a)&lt;(b))</DIV>
+<div>#define LQ(a,b) ((a)&gt;(b))</DIV>
+<div><br /></DIV>
+<div><br /></DIV>
+<div>#include</DIV>
+<div>#include</DIV>
+<div>#include</DIV>
+<div>using namespace std;</DIV>
+<div><br /></DIV>
+<div>typedef struct BiTNode { // 结点结构</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> ElemType data;</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> struct BiTNode
+&nbsp;<wbr>*lchild, *rchild; &nbsp;<wbr> //
+左右孩子指针</DIV>
+<div>} BiTNode, *BiTree;</DIV>
+<div><br /></DIV>
+<div>Status SearchBST (BiTree T, ElemType key,
+&nbsp;<wbr>BiTree f, BiTree &amp;p )</DIV>
+<div>{ // 在根指针 T 所指二叉排序树中递归地查找其关键字等于 key 的数据元素，若查找成功，则返回指针 p
+指向该数据元素的结点，并返回TRUE; &nbsp;<wbr></DIV>
+<div>&nbsp;<wbr> // 否则表明查找不成功，返回指针 p
+指向查找路径上访问的最后一个结点，并返回函FALSE, 指针 f 指向当前访问 的结点的双亲，其初始调用值为NULL</DIV>
+<div>if (!T) &nbsp;<wbr>{ p = f; &nbsp;<wbr>return
+FALSE; } &nbsp;<wbr>// 查找不成功</DIV>
+<div>else &nbsp;<wbr>if ( EQ(key, T-&gt;data) ) { p = T;
+&nbsp;<wbr>return TRUE; } &nbsp;<wbr>// 查找成功</DIV>
+<div>else &nbsp;<wbr>if ( LT(key, T-&gt;data) )
+&nbsp;<wbr>SearchBST (T-&gt;lchild, key, T, p );
+&nbsp;<wbr> &nbsp;<wbr>// 在左子树中继续查找</DIV>
+<div>else &nbsp;<wbr>SearchBST (T-&gt;rchild, key, T, p );
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>//
+在右子树中继续查找</DIV>
+<div>} // SearchBST</DIV>
+<div>void Delete ( BiTree &amp;p )</DIV>
+<div>{ &nbsp;<wbr>// 从二叉排序树中删除结点 p， 并重接它的左子树或右子树</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr>BiTree q,s;</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr>if (!p-&gt;rchild) {
+&nbsp;<wbr> // 右子树为空树则只需重接它的左子树</DIV>
+<div>&nbsp;<wbr> q = p; &nbsp;<wbr>p = p-&gt;lchild;
+&nbsp;<wbr>free(q);</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr>}&nbsp;<wbr></DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr>else if (!p-&gt;lchild)
+&nbsp;<wbr>{ &nbsp;<wbr> &nbsp;<wbr>//
+左子树为空树只需重接它的右子树</DIV>
+<div>&nbsp;<wbr> q = p; &nbsp;<wbr>p = p-&gt;rchild;
+&nbsp;<wbr>free(q);</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr>}&nbsp;<wbr></DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr>else{ &nbsp;<wbr>
+&nbsp;<wbr> //左右子树都不空</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr>q = p;
+&nbsp;<wbr></DIV>
+<div>s = p-&gt;lchild; &nbsp;<wbr> while (s-&gt;rchild)
+&nbsp;<wbr> {s = s-&gt;rchild; } // 转左,然后向右到尽头</DIV>
+<div>s-&gt; rchild = q-&gt; rchild;// 将待删除结点的右子树重接到S上</DIV>
+<div>p = p-&gt;lchild; &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr>&nbsp;<wbr></DIV>
+<div>free(q);</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr>}</DIV>
+<div>} // Delete</DIV>
+<div>Status InsertBST(BiTree &amp;T, ElemType e
+)&nbsp;<wbr></DIV>
+<div>{ &nbsp;<wbr>// 当二叉排序树中不存在关键字等于 e.key 的数据元素时，插入元素值为 e
+的结点，并返回 TRUE; 否则，不进行插入并返回FALSE</DIV>
+<div>BiTree p,s;</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr> if (!SearchBST ( T, e,
+NULL, p )){</DIV>
+<div>s = (BiTree) malloc (sizeof (BiTNode)); &nbsp;<wbr> //
+为新结点分配空间</DIV>
+<div>s-&gt;data = e; &nbsp;<wbr>s-&gt;lchild = s-&gt;rchild
+= NULL; &nbsp;<wbr></DIV>
+<div>if &nbsp;<wbr>( !p ) &nbsp;<wbr>T = s;
+&nbsp;<wbr> &nbsp;<wbr> // 插入 s 为新的根结点</DIV>
+<div>else &nbsp;<wbr> if ( LT(e, p-&gt;data) )
+&nbsp;<wbr> p-&gt;lchild = s; &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> // 插入 *s 为 *p 的左孩子</DIV>
+<div>else &nbsp;<wbr>p-&gt;rchild = s; &nbsp;<wbr>
+&nbsp;<wbr> // 插入 *s 为 *p 的右孩子</DIV>
+<div>return TRUE; &nbsp;<wbr> &nbsp;<wbr> //
+插入成功</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr>}</DIV>
+<div>&nbsp;<wbr> &nbsp;<wbr>else return FALSE;</DIV>
+<div>} // InsertBST</DIV>
+<div>Status DeleteBST (BiTree &amp;T, &nbsp;<wbr>ElemType
+key )</DIV>
+<div>{ // 若二叉排序树 T 中存在其关键字等于 key 的数据元素，则删除该数据元素结点，并返回函数值
+TRUE，否则返回函数值 FALSE</DIV>
+<div>if (!T) &nbsp;<wbr>return FALSE; //
+不存在关键字等于key的数据元素</DIV>
+<div>else &nbsp;<wbr>{ &nbsp;<wbr>
+&nbsp;<wbr></DIV>
+<div>if ( EQ (key, T-&gt;data) ) { &nbsp;<wbr>Delete (T);
+&nbsp;<wbr> return TRUE; &nbsp;<wbr>}//
+找到关键字等于key的数据元素</DIV>
+<div>else if ( LT (key, T-&gt;data) ) DeleteBST ( T-&gt;lchild, key
+); &nbsp;<wbr> // 继续在左子树中进行查找</DIV>
+<div>else DeleteBST ( T-&gt;rchild, key ); // 继续在右子树中进行查找</DIV>
+<div>}</DIV>
+<div>} // DeleteBST</DIV>
+<div>void InOrderTraverse(BiTree T)</DIV>
+<div>{//中序遍历二叉树，递归</DIV>
+<div>if(T){</DIV>
+<div>InOrderTraverse(T-&gt;lchild);</DIV>
+<div>cout&lt;&lt;T-&gt;data&lt;&lt;" ";</DIV>
+<div>InOrderTraverse(T-&gt;rchild);</DIV>
+<div>}</DIV>
+<div>}</DIV>
+<div><br /></DIV>
+<div>int arr[10] = {1,5,6,4,3,2,7,8,10,9};</DIV>
+<div>int main()</DIV>
+<div>{</DIV>
+<div>ElemType e;</DIV>
+<div>int door = 1,c,flag;</DIV>
+<div>BiTree T,p;</DIV>
+<div>T = NULL;</DIV>
+<div>for(int i=0; i&lt;10; ++i)</DIV>
+<div>InsertBST(T,arr[i]);</DIV>
+<div>while(door){</DIV>
+<div><br /></DIV>
+<div>cout&lt;&lt;endl&lt;&lt;"请输入要查找元素："; cin&gt;&gt;e;</DIV>
+<div><br /></DIV>
+<div>if(SearchBST(T,e,NULL,p)) {
+cout&lt;&lt;endl&lt;&lt;"查找成功!"&lt;&lt;endl&lt;&lt;"是否将其从二叉排序树中删除：
+1.是 2.否 &nbsp;<wbr>"&lt;&lt;endl;&nbsp;<wbr></DIV>
+<div>cin&gt;&gt;flag;</DIV>
+<div>if(flag) DeleteBST(T,e);</DIV>
+<div>}</DIV>
+<div>else { cout&lt;&lt;"查找失败！"&lt;&lt;endl&lt;&lt;"是否将元素插入到二叉排序树中:
+1.是 2.否 &nbsp;<wbr>"&lt;&lt;endl;&nbsp;<wbr></DIV>
+<div>cin&gt;&gt;flag;</DIV>
+<div>if(flag) DeleteBST(T,e); &nbsp;<wbr> InsertBST(T,e);
+}</DIV>
+<div><br /></DIV>
+<div>cout&lt;&lt;endl&lt;&lt;"--------1.继续查找 &nbsp;<wbr>
+2.查看二叉排序树元素 &nbsp;<wbr>
+0.退出----------"&lt;&lt;endl&lt;&lt;"请输入数字继续操作：";</DIV>
+<div>cin&gt;&gt;c;</DIV>
+<div>switch(c){</DIV>
+<div>case 1: door =1; break;</DIV>
+<div>case 2:&nbsp;<wbr></DIV>
+<div>cout&lt;&lt;"二叉排序树中序遍历为："; InOrderTraverse(T);
+cout&lt;&lt;endl&lt;&lt;"是否继续查找: 1.是 2.否
+&nbsp;<wbr>"&lt;&lt;endl;&nbsp;<wbr></DIV>
+<div>cin&gt;&gt;flag;</DIV>
+<div>if(flag){ door =1; break; }</DIV>
+<div>else &nbsp;<wbr>{
+&nbsp;<wbr>cout&lt;&lt;"退出程序！"&lt;&lt;endl;
+&nbsp;<wbr>door = 0 ; break;}</DIV>
+<div>case 0: door =0; break;</DIV>
+<div>default: cout&lt;&lt;"输入错误，退出程序！"&lt;&lt;endl;
+&nbsp;<wbr>door = 0; &nbsp;<wbr>break;</DIV>
+<div>} //switch</DIV>
+<div>}//while</DIV>
+<div>return 0;</DIV>
+<div>}</DIV>							
+		</div>
+
+      
+    </div>
+</article>
+
+<!-- 上一页 下一页 -->
+
+
+<nav id="article-nav">
+  
+    <a href="/2014/02/19/%E4%B8%AD%E7%BC%80%E8%A1%A8%E8%BE%BE%E5%BC%8F%E8%BD%AC%E6%8D%A2%E4%B8%BA%E5%90%8E%E7%BC%80%E8%A1%A8%E8%BE%BE%E5%BC%8F/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>上一篇</span>
+      <div class="article-nav-title">
+        
+          中缀表达式转换为后缀表达式
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2014/02/19/%E4%BA%8C%E5%8F%89%E5%B9%B3%E8%A1%A1%E6%A0%91/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>下一篇</span>
+      <div class="article-nav-title">二叉平衡树</div>
+    </a>
+  
+</nav>
+
+
+
+<!-- 相关文章 -->
+
+<!--
+
+-->
+
+
+</section>
+      </div>
+      <footer id="footer">
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      
+      &copy;2024<a target="_blank" rel="noopener" href="https://github.com/hanks-zyh"> Hanks</a>版权所有
+      <br/>
+      <a href="https://beian.miit.gov.cn/" target="_blank">豫ICP备2021022347号</a>
+	  </div>
+  </div>
+ <div id="share">
+  <a id="totop" title="" style="display: block;">返回顶部</a>
+ </div>
+</footer>
+
+    </div>
+    
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/jquery.scrollLoading.js"></script>
+
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/ads.js"></script>
+
+  </div>
+</body>
+</html>

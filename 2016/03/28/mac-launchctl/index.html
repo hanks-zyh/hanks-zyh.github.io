@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Mac 上利用 launchctl 开启定时任务 | Hanks&#39; Websit</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <script data-ad-client="ca-pub-8165670162444117" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <meta name="referrer" content="never">
+  <meta name="description" content="前几天写了 Python 脚本进行爬虫，现在利用 launchctl 来定时开启爬虫任务，launchctl 通过 plist 属性列表（Property List）配置。Linux 和 Mac 通用的 crontab 时间间隔可以精确到分钟，而launchctl 时间间隔可以精确到每秒。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Mac 上利用 launchctl 开启定时任务">
+<meta property="og:url" content="https://hanks.pub/2016/03/28/mac-launchctl/index.html">
+<meta property="og:site_name" content="Hanks&#39; Websit">
+<meta property="og:description" content="前几天写了 Python 脚本进行爬虫，现在利用 launchctl 来定时开启爬虫任务，launchctl 通过 plist 属性列表（Property List）配置。Linux 和 Mac 通用的 crontab 时间间隔可以精确到分钟，而launchctl 时间间隔可以精确到每秒。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2016-03-28T14:44:35.000Z">
+<meta property="article:modified_time" content="2024-02-08T01:29:02.188Z">
+<meta property="article:author" content="Hanks">
+<meta property="article:tag" content="Mac">
+<meta name="twitter:card" content="summary">
+  
+  
+  <link href="https://fonts.googleapis.com/css?family=Fira+Code|Noto+Serif+SC&display=swap" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8165670162444117"
+     crossorigin="anonymous"></script>
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo"></a>
+    <nav id="main-nav">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      
+        <a class="main-nav-link" href="/archives">Archive</a>
+      
+        <a class="main-nav-link" href="/eye-video">Eye</a>
+      
+        <a class="main-nav-link" href="/atom.xml">Rss</a>
+      
+    </nav>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/archives" class="mobile-nav-link">Archive</a>
+  
+    <a href="/eye-video" class="mobile-nav-link">Eye</a>
+  
+    <a href="/atom.xml" class="mobile-nav-link">Rss</a>
+  
+</nav>
+      <div class="outer">
+        <section id="main"><article id="post-mac-launchctl" class="article article-type-post" itemscope
+  itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <header class="article-header">
+      
+      
+  
+    <h1 class="article-title" itemprop="name">
+      Mac 上利用 launchctl 开启定时任务
+    </h1>
+  
+
+      
+    </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      <p>前几天写了 <code>Python</code> 脚本进行爬虫，现在利用 <code>launchctl</code> 来定时开启爬虫任务，<code>launchctl</code> 通过 <code>plist</code> 属性列表（Property List）配置。<code>Linux</code> 和 <code>Mac</code> 通用的 <code>crontab</code> 时间间隔可以精确到分钟，而<code>launchctl</code> 时间间隔可以精确到<strong>每秒</strong>。</p>
+<span id="more"></span>
+
+
+<h2 id="创建定时运行的任务脚本"><a href="#创建定时运行的任务脚本" class="headerlink" title="创建定时运行的任务脚本"></a>创建定时运行的任务脚本</h2><p><code>run.sh</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line"></span><br><span class="line"># 记录一下开始时间</span><br><span class="line">echo `date` &gt;&gt; $HOME/log &amp;&amp;</span><br><span class="line"># 进入 /Users/hanks/spider 目录</span><br><span class="line">cd /Users/hanks/spider &amp;&amp;</span><br><span class="line"># 激活 python 虚拟环境 virtualenv</span><br><span class="line">source venv/bin/activate &amp;&amp;</span><br><span class="line"># 运行爬虫脚本</span><br><span class="line">scrapy runspider spider.py &amp;&amp;</span><br><span class="line"># 运行完成</span><br><span class="line">echo &#x27;finish&#x27; &gt;&gt; $HOME/log </span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><code>&amp;&amp;</code> 连接两条命令，当前一条执行完才会继续下一条命令。</p>
+<h2 id="创建定时任务文件"><a href="#创建定时任务文件" class="headerlink" title="创建定时任务文件"></a>创建定时任务文件</h2><p><code>task.plsit</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;!DOCTYPE plist PUBLIC &quot;-//Apple//DTD PLIST 1.0//EN&quot; &quot;https://www.apple.com/DTDs/PropertyList-1.0.dtd&quot;&gt;</span><br><span class="line">&lt;plist version=&quot;1.0&quot;&gt;</span><br><span class="line">  &lt;dict&gt;</span><br><span class="line"></span><br><span class="line">    &lt;key&gt;Label&lt;/key&gt;</span><br><span class="line">    &lt;string&gt;xyz.hanks.spider&lt;/string&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!-- 要运行的程序， 如果省略这个选项，会把ProgramArguments的第一个</span><br><span class="line">    元素作为要运行的程序 --&gt;</span><br><span class="line">    &lt;key&gt;Program&lt;/key&gt;</span><br><span class="line">    &lt;string&gt;/Users/zhanks/work/Bookshelf/run.sh&lt;/string&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!-- 每天18：30 --&gt;</span><br><span class="line">    &lt;key&gt;StartCalendarInterval&lt;/key&gt;</span><br><span class="line">    &lt;dict&gt;</span><br><span class="line">        &lt;key&gt;Minute&lt;/key&gt;</span><br><span class="line">        &lt;integer&gt;30&lt;/integer&gt;</span><br><span class="line">        &lt;key&gt;Hour&lt;/key&gt;</span><br><span class="line">        &lt;integer&gt;18&lt;/integer&gt;</span><br><span class="line">    &lt;/dict&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!-- 运行间隔，与StartCalenderInterval使用其一，单位为&gt;秒 --&gt;</span><br><span class="line">    &lt;!-- &lt;key&gt;StartInterval&lt;/key&gt;--&gt;</span><br><span class="line">    &lt;!-- integer&gt;5&lt;/integer&gt;--&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!-- 标准错误输出文件，错误日志 --&gt;</span><br><span class="line">    &lt;key&gt;StandardErrorPath&lt;/key&gt;</span><br><span class="line">    &lt;string&gt;/Users/zhanks/run-err.log&lt;/string&gt;</span><br><span class="line"></span><br><span class="line">  &lt;/dict&gt;</span><br><span class="line">&lt;/plist&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="将定时任务加入系统"><a href="#将定时任务加入系统" class="headerlink" title="将定时任务加入系统"></a>将定时任务加入系统</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 加载 task.plist</span><br><span class="line">$ launchctl load task.plist</span><br></pre></td></tr></table></figure>
+
+<p>查看是否添加成功</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ launchctl list | grep hanks</span><br><span class="line">-	0	xyz.hanks.spider</span><br></pre></td></tr></table></figure>
+
+<p>如果像移除的话</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 移除 xyz.hanks.spider</span><br><span class="line">$ launchctl remove xyz.hanks.spider</span><br></pre></td></tr></table></figure>
+
+
+<p>其他完整的 plist 文件格式参数。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;  </span><br><span class="line">&lt;!DOCTYPE plist PUBLIC &quot;-//Apple//DTD PLIST 1.0//EN&quot; &quot;https://www.apple.com/DTDs/PropertyList-1.0.dtd&quot;&gt;  </span><br><span class="line">&lt;plist version=&quot;1.0&quot;&gt;  </span><br><span class="line">  &lt;dict&gt;</span><br><span class="line">    </span><br><span class="line">    &lt;key&gt;Label&lt;/key&gt;</span><br><span class="line">    &lt;!-- 名称，要全局唯一 --&gt;</span><br><span class="line">    &lt;string&gt;xyz.hanks.spider&lt;/string&gt; </span><br><span class="line"></span><br><span class="line">    &lt;!-- 要运行的程序， 如果省略这个选项，会把ProgramArguments的第一个</span><br><span class="line">    元素作为要运行的程序 --&gt;</span><br><span class="line">    &lt;key&gt;Program&lt;/key&gt;</span><br><span class="line">    &lt;string&gt;/Users/hanks/run.sh&lt;/string&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!-- 命令， 第一个为命令，其它为参数--&gt;</span><br><span class="line">    &lt;key&gt;ProgramArguments&lt;/key&gt;</span><br><span class="line">    &lt;array&gt;</span><br><span class="line">      &lt;string&gt;/Users/hanks/run.sh&lt;/string&gt;</span><br><span class="line">    &lt;/array&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!-- 运行时间 --&gt;</span><br><span class="line">    &lt;key&gt;StartCalendarInterval&lt;/key&gt;</span><br><span class="line">    &lt;dict&gt;</span><br><span class="line"></span><br><span class="line">      &lt;key&gt;Minute&lt;/key&gt;</span><br><span class="line">      &lt;integer&gt;30&lt;/integer&gt;</span><br><span class="line"></span><br><span class="line">      &lt;key&gt;Hour&lt;/key&gt;</span><br><span class="line">      &lt;integer&gt;9&lt;/integer&gt;</span><br><span class="line"></span><br><span class="line">      &lt;key&gt;Day&lt;/key&gt;</span><br><span class="line">      &lt;integer&gt;1&lt;/integer&gt;</span><br><span class="line"></span><br><span class="line">      &lt;key&gt;Month&lt;/key&gt;</span><br><span class="line">      &lt;integer&gt;5&lt;/integer&gt;</span><br><span class="line"></span><br><span class="line">      &lt;!-- 0和7都指星期天 --&gt;</span><br><span class="line">      &lt;key&gt;Weekday&lt;/key&gt;</span><br><span class="line">      &lt;integer&gt;0&lt;/integer&gt;</span><br><span class="line"></span><br><span class="line">    &lt;/dict&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!-- 运行间隔，与StartCalenderInterval使用其一，单位为秒 --&gt;</span><br><span class="line">    &lt;key&gt;StartInterval&lt;/key&gt;</span><br><span class="line">    &lt;integer&gt;30&lt;/integer&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!-- 标准输入文件 --&gt;</span><br><span class="line">    &lt;key&gt;StandardInPath&lt;/key&gt;</span><br><span class="line">    &lt;string&gt;/Users/hanks/run-in.log&lt;/string&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!-- 标准输出文件 --&gt;</span><br><span class="line">    &lt;key&gt;StandardOutPath&lt;/key&gt;</span><br><span class="line">    &lt;string&gt;/Users/hanks/run-out.log&lt;/string&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!-- 标准错误输出文件 --&gt;</span><br><span class="line">    &lt;key&gt;StandardErrorPath&lt;/key&gt;</span><br><span class="line">    &lt;string&gt;/Users/hanks/run-err.log&lt;/string&gt;</span><br><span class="line">  &lt;/dict&gt;  </span><br><span class="line">&lt;/plist&gt;</span><br></pre></td></tr></table></figure>
+
+<p><code>Linux</code> 和 <code>Mac</code> 通用的 <code>crontab</code> 定时任务: <a target="_blank" rel="noopener" href="https://linuxtools-rst.readthedocs.org/zh_CN/latest/tool/crontab.html">crontab 定时任务</a></p>
+<p>参考文档<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/lgt633744/article/details/45932035">Mac下添加定时任务</a></p>
+<blockquote>
+<p>文章来自： <a href="https://hanks.pub/">https://hanks.pub</a></p>
+</blockquote>
+
+      
+    </div>
+</article>
+
+<!-- 上一页 下一页 -->
+
+
+<nav id="article-nav">
+  
+    <a href="/2016/03/29/learn-jade/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>上一篇</span>
+      <div class="article-nav-title">
+        
+          学习 Jade
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/03/26/color-board/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>下一篇</span>
+      <div class="article-nav-title">一张图让开发人员理解色相、亮度、饱和度</div>
+    </a>
+  
+</nav>
+
+
+
+<!-- 相关文章 -->
+
+<!--
+
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+      			<a href="/2016/03/28/mac-launchctl/">Mac 上利用 launchctl 开启定时任务</a>
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+
+-->
+
+
+</section>
+      </div>
+      <footer id="footer">
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      
+      &copy;2024<a target="_blank" rel="noopener" href="https://github.com/hanks-zyh"> Hanks</a>版权所有
+      <br/>
+      <a href="https://beian.miit.gov.cn/" target="_blank">豫ICP备2021022347号</a>
+	  </div>
+  </div>
+ <div id="share">
+  <a id="totop" title="" style="display: block;">返回顶部</a>
+ </div>
+</footer>
+
+    </div>
+    
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/jquery.scrollLoading.js"></script>
+
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/ads.js"></script>
+
+  </div>
+</body>
+</html>

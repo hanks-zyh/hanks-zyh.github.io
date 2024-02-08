@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Express 网站开发 | Hanks&#39; Websit</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <script data-ad-client="ca-pub-8165670162444117" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <meta name="referrer" content="never">
+  <meta name="description" content="express 开发一个简单的网站，网页模板引擎使用 jade，样式基于 bootstrap，数据库使用 MongoDB">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Express 网站开发">
+<meta property="og:url" content="https://hanks.pub/2016/05/20/express-project/index.html">
+<meta property="og:site_name" content="Hanks&#39; Websit">
+<meta property="og:description" content="express 开发一个简单的网站，网页模板引擎使用 jade，样式基于 bootstrap，数据库使用 MongoDB">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2016-05-20T15:54:30.000Z">
+<meta property="article:modified_time" content="2024-02-08T01:29:02.181Z">
+<meta property="article:author" content="Hanks">
+<meta property="article:tag" content="Express">
+<meta name="twitter:card" content="summary">
+  
+  
+  <link href="https://fonts.googleapis.com/css?family=Fira+Code|Noto+Serif+SC&display=swap" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8165670162444117"
+     crossorigin="anonymous"></script>
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo"></a>
+    <nav id="main-nav">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      
+        <a class="main-nav-link" href="/archives">Archive</a>
+      
+        <a class="main-nav-link" href="/eye-video">Eye</a>
+      
+        <a class="main-nav-link" href="/atom.xml">Rss</a>
+      
+    </nav>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/archives" class="mobile-nav-link">Archive</a>
+  
+    <a href="/eye-video" class="mobile-nav-link">Eye</a>
+  
+    <a href="/atom.xml" class="mobile-nav-link">Rss</a>
+  
+</nav>
+      <div class="outer">
+        <section id="main"><article id="post-express-project" class="article article-type-post" itemscope
+  itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <header class="article-header">
+      
+      
+  
+    <h1 class="article-title" itemprop="name">
+      Express 网站开发
+    </h1>
+  
+
+      
+    </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      <p><code>express</code> 开发一个简单的网站，网页模板引擎使用 <code>jade</code>，样式基于 <code>bootstrap</code>，数据库使用 <code>MongoDB</code></p>
+<span id="more"></span>
+
+<h2 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install express jade mongooes</span><br></pre></td></tr></table></figure>
+
+<p>首先需要是 <code>node</code> 环境，使用 <code>npm</code> 安装 <code>express</code> <code>jade</code> 和 <code>mongoose</code>， 然后使用 bower 安装 bootstrap。<br>安装 bower 通过 <code>npm install bower -g</code>， bower 是一个客户端技术的软件包管理器，它可用于搜索、安装和卸载如JavaScript、HTML、CSS之类的网络资源。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ bower install bootstrap</span><br></pre></td></tr></table></figure>
+
+<p>搭建完成后目录结构</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">├── app.js  # 启动文件</span><br><span class="line">├── bower_components # bower 安装的库</span><br><span class="line">│   ├── bootstrap</span><br><span class="line">│   └── jquery</span><br><span class="line">├── node_modules # npm 安装的依赖库</span><br><span class="line">│   ├── express</span><br><span class="line">│   ├── jade</span><br><span class="line">│   ├── moment</span><br><span class="line">│   └── mongoose</span><br><span class="line">├── package.json </span><br><span class="line">└── views # 视图模板</span><br><span class="line">    ├── includes</span><br><span class="line">    │   ├── head.jade</span><br><span class="line">    │   └── header.jade</span><br><span class="line">    ├── layout.jade</span><br><span class="line">    └── pages</span><br><span class="line">        ├── admin.jade</span><br><span class="line">        ├── detail.jade</span><br><span class="line">        ├── index.jade</span><br></pre></td></tr></table></figure>
+
+<h3 id="创建视图"><a href="#创建视图" class="headerlink" title="创建视图"></a>创建视图</h3><p><code>layout.jade</code> 基础布局，所有的网页都是基于该布局</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">doctype</span><br><span class="line">html</span><br><span class="line">  head</span><br><span class="line">    meta(charset=&quot;utf-8&quot;)</span><br><span class="line">    title #&#123;title&#125;</span><br><span class="line">    include ./includes/head</span><br><span class="line">  body</span><br><span class="line">    include ./includes/header</span><br><span class="line">    block content</span><br></pre></td></tr></table></figure>
+
+<p><code>head.jade</code> 放一些 css js 引用</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">link(href=&quot;/bootstrap/dist/css/bootstrap.min.css&quot;, rel=&quot;stylesheet&quot;)</span><br><span class="line">script(src=&quot;/jquery/dist/jquery.min.js&quot;)</span><br><span class="line">script(src=&quot;/bootstrap/dist/js/bootstrap.min.js&quot;)</span><br></pre></td></tr></table></figure>
+
+<p><code>header.jade</code> 所有网页通用的 header</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">.container</span><br><span class="line">  .row</span><br><span class="line">    .page-header</span><br><span class="line">      h1 #&#123;title&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>index.jade</code> ，主界面，影片列表</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">extends ../layout</span><br><span class="line"></span><br><span class="line">block content</span><br><span class="line">  .container</span><br><span class="line">    .row</span><br><span class="line">      each item in movies</span><br><span class="line">        .col-md-2</span><br><span class="line">          .thumbnail</span><br><span class="line">            a(href=&quot;/movie/#&#123;item._id&#125;&quot;)</span><br><span class="line">              img(src=&quot;#&#123;item.poster&#125;&quot;, alt=&quot;#&#123;item.title&#125;&quot;)</span><br><span class="line">            .caption</span><br><span class="line">              h3 #&#123;item.title&#125;</span><br><span class="line">              p: a.btn.btn-primary(href=&quot;/movie/#&#123;item._id&#125;&quot;, role=&quot;button&quot;) 观看预告片</span><br></pre></td></tr></table></figure>
+
+<p><code>detial.jade</code> 影片详情页，展示某个影片的详细信息</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">extends ../layout</span><br><span class="line"></span><br><span class="line">block content</span><br><span class="line">  .container</span><br><span class="line">    .row</span><br><span class="line">      .col-md-7</span><br><span class="line">        &lt;video width=&quot;100%&quot; controls=&quot;&quot; autoplay=&quot;false&quot; name=&quot;media&quot;&gt;&lt;source src=&quot;#&#123;movie.flash&#125;&quot;&gt;&lt;/video&gt;</span><br><span class="line">      .col-md-5</span><br><span class="line">        dl.dl-horizontal</span><br><span class="line">         dt 电影名字</span><br><span class="line">         dd #&#123;movie.title&#125;</span><br><span class="line">         dt 导演</span><br><span class="line">         dd #&#123;movie.director&#125;</span><br><span class="line">         dt 主演</span><br><span class="line">         dd #&#123; movie.actor&#125;</span><br><span class="line">         dt 国家</span><br><span class="line">         dd #&#123; movie.country&#125;</span><br><span class="line">         dt 语言</span><br><span class="line">         dd #&#123;movie.language&#125;</span><br><span class="line">         dt 上映年份</span><br><span class="line">         dd #&#123; movie.publishTime&#125;</span><br><span class="line">         dt 类型</span><br><span class="line">         dd #&#123;movie.type&#125;</span><br><span class="line">         dt 简介</span><br><span class="line">         dd #&#123;movie.summary&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>admin.jade</code> Admin 界面，录入影片信息。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">extends ../layout</span><br><span class="line"></span><br><span class="line">block content</span><br><span class="line">  .container</span><br><span class="line">    .row</span><br><span class="line">      form.form-horizontal(method=&quot;post&quot;,action=&quot;/admin/movie/new&quot;)</span><br><span class="line">        .form-group</span><br><span class="line">          label.col-sm-2.control-label(for=&quot;inputTitle&quot;) 电影名字</span><br><span class="line">          .col-sm-10</span><br><span class="line">            input#inputTitle.col-sm-10.form-control(type=&quot;text&quot;,name=&quot;movie[title]&quot;)</span><br><span class="line">        .form-group</span><br><span class="line">          label.col-sm-2.control-label(for=&quot;inputDirector&quot;) 导演</span><br><span class="line">          .col-sm-10</span><br><span class="line">            input#inputDirector.col-sm-10.form-control(type=&quot;text&quot;,name=&quot;movie[director]&quot;)</span><br><span class="line">        .form-group</span><br><span class="line">          label.col-sm-2.control-label(for=&quot;inputCountry&quot;) 国家</span><br><span class="line">          .col-sm-10</span><br><span class="line">            input#inputCountry.col-sm-10.form-control(type=&quot;text&quot;,name=&quot;movie[country]&quot;)</span><br><span class="line">        .form-group</span><br><span class="line">          label.col-sm-2.control-label(for=&quot;inputLanguage&quot;) 语言</span><br><span class="line">          .col-sm-10</span><br><span class="line">            input#inputLanguage.col-sm-10.form-control(type=&quot;text&quot;,name=&quot;movie[language]&quot;)</span><br><span class="line">        .form-group</span><br><span class="line">          label.col-sm-2.control-label(for=&quot;inputYear&quot;) 上映年份</span><br><span class="line">          .col-sm-10</span><br><span class="line">            input#inputYear.col-sm-10.form-control(type=&quot;text&quot;,name=&quot;movie[publishTime]&quot;)</span><br><span class="line">        .form-group</span><br><span class="line">          label.col-sm-2.control-label(for=&quot;inputSummary&quot;) 简介</span><br><span class="line">          .col-sm-10</span><br><span class="line">            input#inputSummary.col-sm-10.form-control(type=&quot;text&quot;,name=&quot;movie[summary]&quot;)</span><br></pre></td></tr></table></figure>
+
+<p><code>list.jade</code> 影片列表编辑界面，编辑已有的文章。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">extends ../layout</span><br><span class="line"></span><br><span class="line">block content</span><br><span class="line">  .container</span><br><span class="line">    .row</span><br><span class="line">      table.table.table-hover.table-bordered</span><br><span class="line">        thead</span><br><span class="line">          tr</span><br><span class="line">            th 电影名字</span><br><span class="line">            th 导演</span><br><span class="line">            th 国家</span><br><span class="line">            th 上映年份</span><br><span class="line">            //- th 录入时间</span><br><span class="line">            th 查看</span><br><span class="line">            th 更新</span><br><span class="line">            th 删除</span><br><span class="line">        tbody</span><br><span class="line">          each item in movies</span><br><span class="line">            tr(class=&quot;item-id-#&#123;item._id&#125;&quot;)</span><br><span class="line">              td #&#123;item.title&#125;</span><br><span class="line">              td #&#123;item.director&#125;</span><br><span class="line">              td #&#123;item.country&#125;</span><br><span class="line">              td #&#123;item.publishTime&#125;</span><br><span class="line">              //- td #&#123;moment(item.meta.createdAt).format(&#x27;MM/DD/YYYY&#x27;)&#125;</span><br><span class="line">              td: a(target=&quot;_blank&quot;, herf=&quot;../movie/#&#123;item._id&#125;&quot;) 查看</span><br><span class="line">              td: a(target=&quot;_blank&quot;, herf=&quot;../admin/update/#&#123;item._id&#125;&quot;) 修改</span><br><span class="line">              td</span><br><span class="line">                button.btn.btn-danger.del(type=&quot;button&quot;, date-id=&quot;#&#123;item._id&#125;&quot;) 删除</span><br></pre></td></tr></table></figure>
+
+<h3 id="路由"><a href="#路由" class="headerlink" title="路由"></a>路由</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br></pre></td><td class="code"><pre><span class="line">var express = require(&#x27;express&#x27;)</span><br><span class="line">var path = require(&#x27;path&#x27;)</span><br><span class="line">var port = process.env.PORT || 3000</span><br><span class="line">var app = express()</span><br><span class="line"></span><br><span class="line">app.set(&#x27;views&#x27;,&#x27;./views/pages&#x27;)</span><br><span class="line">app.set(&#x27;view engine&#x27;, &#x27;jade&#x27;)</span><br><span class="line">app.use(express.static(path.join(__dirname,&#x27;bower_components&#x27;)))</span><br><span class="line">app.listen(port)</span><br><span class="line"></span><br><span class="line">console.log(&#x27;server listening on poert:&#x27;+port)</span><br><span class="line"></span><br><span class="line">// index</span><br><span class="line">app.get(&#x27;/&#x27;,function (req,res) &#123;</span><br><span class="line">    res.render(&#x27;index&#x27;,&#123;</span><br><span class="line">        title: &#x27;首页&#x27;,</span><br><span class="line">        movies: [</span><br><span class="line">            &#123;</span><br><span class="line">                title: &#x27;变形金刚1&#x27;,</span><br><span class="line">                _id: 1,</span><br><span class="line">                poster: &#x27;https://img3.doubanio.com/view/movie_poster_cover/mpst/public/p2332503406.jpg&#x27;</span><br><span class="line">            &#125;,</span><br><span class="line">            &#123;</span><br><span class="line">                title: &#x27;变形金刚2&#x27;,</span><br><span class="line">                _id: 2,</span><br><span class="line">                poster: &#x27;https://img3.doubanio.com/view/movie_poster_cover/mpst/public/p2332503406.jpg&#x27;</span><br><span class="line">            &#125;,</span><br><span class="line">            &#123;</span><br><span class="line">                title: &#x27;变形金刚3&#x27;,</span><br><span class="line">                _id: 3,</span><br><span class="line">                poster: &#x27;https://img3.doubanio.com/view/movie_poster_cover/mpst/public/p2332503406.jpg&#x27;</span><br><span class="line">            &#125;,</span><br><span class="line">            &#123;</span><br><span class="line">                title: &#x27;变形金刚4&#x27;,</span><br><span class="line">                _id: 4,</span><br><span class="line">                poster: &#x27;https://img3.doubanio.com/view/movie_poster_cover/mpst/public/p2332503406.jpg&#x27;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        ]</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">// movie detail</span><br><span class="line">app.get(&#x27;/movie/:id&#x27;,function (req,res) &#123;</span><br><span class="line">    res.render(&#x27;detail&#x27;,&#123;</span><br><span class="line">        title: &#x27;详情页&#x27;,</span><br><span class="line">        movie:&#123;</span><br><span class="line">            title:&#x27;美国队长3：内战&#x27;,</span><br><span class="line">            director: &#x27;安东尼·罗素 / 乔·罗素&#x27;,</span><br><span class="line">            editor : &#x27;克里斯托弗·马库斯 / 斯蒂芬·麦克菲利 / 杰克·科比 / 乔·西蒙&#x27;,</span><br><span class="line">            actor : &#x27;克里斯·埃文斯 / 小罗伯特·唐尼 / 斯嘉丽·约翰逊 / 塞巴斯蒂安·斯坦 / 安东尼·麦凯 / 更多...&#x27;,</span><br><span class="line">            type : &#x27;动作 / 科幻 / 冒险&#x27;,</span><br><span class="line">            link : &#x27;marvel.com/captainamerica&#x27;,</span><br><span class="line">            country : &#x27;美国&#x27;,</span><br><span class="line">            language : &#x27;科萨语 / 英语 / 德语 / 俄语 / 罗马尼亚语&#x27;,</span><br><span class="line">            publishTime: &#x27; 2016-05-06(中国大陆/美国) / 2016-04-12(加州首映)&#x27;,</span><br><span class="line">            duration : &#x27;148分钟(中国大陆) / 147分钟&#x27;,</span><br><span class="line">            alise : &#x27;美国队长3：内战 / 美国队长3：英雄内战(港/台) / 美队3 / Captain America 3&#x27;,</span><br><span class="line">            summary : &#x27;美国队长史蒂夫·罗杰斯（克里斯·埃文斯 Chris Evans 饰）带领着全新组建的复仇者联盟，继续维护世界和平。然而，一次执行任务时联盟成员不小心造成大量平民伤亡，从而激发政治压力，政府决定通过一套监管系统来管理和领导复仇者联盟。联盟内部因此分裂为两派：一方由史蒂夫· 罗杰斯领导，他主张维护成员自由，在免受政府干扰的情况下保护世界；另一方则追随托尼·斯塔克（小罗伯特·唐尼 Robert Downey Jr. 饰），他令人意外地决定支持政府的监管和责任制体系。神秘莫测的巴基（塞巴斯蒂安·斯坦 Sebastian Stan 饰）似乎成为内战的关键人物……&#x27;,</span><br><span class="line">            flash:&#x27;https://img3.doubanio.com/rda/8ffecbe972ad5cf.mp4&#x27;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">//admin page</span><br><span class="line">app.get(&#x27;/admin/movie&#x27;, function (req, res) &#123;</span><br><span class="line">    res.render(&#x27;admin&#x27;, &#123;</span><br><span class="line">        title: &#x27;imooc 后台录入页&#x27;,</span><br><span class="line">        movie: &#123;</span><br><span class="line">            director: &#x27;&#x27;,</span><br><span class="line">            country: &#x27;&#x27;,</span><br><span class="line">            title: &#x27;&#x27;,</span><br><span class="line">            publishTime: &#x27;&#x27;,</span><br><span class="line">            poster: &#x27;&#x27;,</span><br><span class="line">            language: &#x27;&#x27;,</span><br><span class="line">            flash: &#x27;&#x27;,</span><br><span class="line">            summary: &#x27;&#x27;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">//admin page</span><br><span class="line">app.get(&#x27;/admin/list&#x27;, function (req, res) &#123;</span><br><span class="line">    res.render(&#x27;list&#x27;, &#123;</span><br><span class="line">        title: &#x27;imooc 列表页&#x27;,</span><br><span class="line">        movies: [&#123;</span><br><span class="line">            director: &#x27;乔斯·韦登&#x27;,</span><br><span class="line">            country: &#x27;美国&#x27;,</span><br><span class="line">            title: &#x27;复仇者联盟2&#x27;,</span><br><span class="line">            publishTime: &#x27;2015&#x27;,</span><br><span class="line">            _id:2,</span><br><span class="line">            poster: &#x27;https://img31.mtime.cn/mg/2015/03/27/120537.13212993_270X405X4.jpg&#x27;,</span><br><span class="line">            language: &#x27;英语&#x27;,</span><br><span class="line">            flash: &#x27;https://v.youku.com/v_show/id_XODc4NDY0MjA4.html&#x27;,</span><br><span class="line">            summary: &#x27;影片讲述当钢铁侠试图启动处于休眠状态的维持和平计划时，事情出了差错。于是，在地球面临生死存亡的紧急关头时，强大的超级英雄们挺身而出承担起拯救世界的重任，他们将阻止可怕的人工智能机器人“奥创”制定恐怖计划。&#x27;</span><br><span class="line">        &#125;]</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>目前还是假数据，还没有使用 MongoDB。</p>
+<p>运行  <code>node app.js</code> 然后再浏览器打开 <code>https://localhost:3000</code>。</p>
+<hr>
+<h2 id="相关链接："><a href="#相关链接：" class="headerlink" title="相关链接："></a>相关链接：</h2><p><a target="_blank" rel="noopener" href="https://www.imooc.com/video/1226">https://www.imooc.com/video/1226</a><br><a target="_blank" rel="noopener" href="https://expressjs.com/">https://expressjs.com/</a><br><a target="_blank" rel="noopener" href="https://bower.io/">https://bower.io/</a></p>
+<blockquote>
+<p>文章来自： <a href="https://hanks.pub/">https://hanks.pub</a></p>
+</blockquote>
+
+      
+    </div>
+</article>
+
+<!-- 上一页 下一页 -->
+
+
+<nav id="article-nav">
+  
+    <a href="/2016/05/21/mongoDB/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>上一篇</span>
+      <div class="article-nav-title">
+        
+          MongoDB 入门
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/05/19/express-node/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>下一篇</span>
+      <div class="article-nav-title">认识 Express</div>
+    </a>
+  
+</nav>
+
+
+
+<!-- 相关文章 -->
+
+<!--
+
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+      			<a href="/2016/05/20/express-project/">Express 网站开发</a>
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+
+-->
+
+
+</section>
+      </div>
+      <footer id="footer">
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      
+      &copy;2024<a target="_blank" rel="noopener" href="https://github.com/hanks-zyh"> Hanks</a>版权所有
+      <br/>
+      <a href="https://beian.miit.gov.cn/" target="_blank">豫ICP备2021022347号</a>
+	  </div>
+  </div>
+ <div id="share">
+  <a id="totop" title="" style="display: block;">返回顶部</a>
+ </div>
+</footer>
+
+    </div>
+    
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/jquery.scrollLoading.js"></script>
+
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/ads.js"></script>
+
+  </div>
+</body>
+</html>

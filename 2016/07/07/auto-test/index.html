@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>自动化测试还可以用来干啥 | Hanks&#39; Websit</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <script data-ad-client="ca-pub-8165670162444117" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <meta name="referrer" content="never">
+  <meta name="description" content="自动化测试就是把一些重复的测试工作利用相关工具自动化，减少重复的劳动。我们不仅可以利用自动化测试工具做测试，还可以利用这些工作做一些其他事情，比如爬数据，曾经抓取过学校的整个学期的课表，空闲教室，帮老爸抓取他的客户联系信息到 excel 表。这种工具不同于一般的脚本爬虫，这相当于正常的用户行为，比如点击输入框，输入文本，点击按钮，而且不用担心动态 js 等问题。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="自动化测试还可以用来干啥">
+<meta property="og:url" content="https://hanks.pub/2016/07/07/auto-test/index.html">
+<meta property="og:site_name" content="Hanks&#39; Websit">
+<meta property="og:description" content="自动化测试就是把一些重复的测试工作利用相关工具自动化，减少重复的劳动。我们不仅可以利用自动化测试工具做测试，还可以利用这些工作做一些其他事情，比如爬数据，曾经抓取过学校的整个学期的课表，空闲教室，帮老爸抓取他的客户联系信息到 excel 表。这种工具不同于一般的脚本爬虫，这相当于正常的用户行为，比如点击输入框，输入文本，点击按钮，而且不用担心动态 js 等问题。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2016-07-06T16:01:00.000Z">
+<meta property="article:modified_time" content="2024-02-08T01:29:02.180Z">
+<meta property="article:author" content="Hanks">
+<meta property="article:tag" content="自动化">
+<meta name="twitter:card" content="summary">
+  
+  
+  <link href="https://fonts.googleapis.com/css?family=Fira+Code|Noto+Serif+SC&display=swap" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8165670162444117"
+     crossorigin="anonymous"></script>
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo"></a>
+    <nav id="main-nav">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      
+        <a class="main-nav-link" href="/archives">Archive</a>
+      
+        <a class="main-nav-link" href="/eye-video">Eye</a>
+      
+        <a class="main-nav-link" href="/atom.xml">Rss</a>
+      
+    </nav>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/archives" class="mobile-nav-link">Archive</a>
+  
+    <a href="/eye-video" class="mobile-nav-link">Eye</a>
+  
+    <a href="/atom.xml" class="mobile-nav-link">Rss</a>
+  
+</nav>
+      <div class="outer">
+        <section id="main"><article id="post-auto-test" class="article article-type-post" itemscope
+  itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <header class="article-header">
+      
+      
+  
+    <h1 class="article-title" itemprop="name">
+      自动化测试还可以用来干啥
+    </h1>
+  
+
+      
+    </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      <p>自动化测试就是把一些重复的测试工作利用相关工具自动化，减少重复的劳动。我们不仅可以利用自动化测试工具做测试，还可以利用这些工作做一些其他事情，比如爬数据，曾经抓取过学校的整个学期的课表，空闲教室，帮老爸抓取他的客户联系信息到 excel 表。这种工具不同于一般的脚本爬虫，这相当于正常的用户行为，比如点击输入框，输入文本，点击按钮，而且不用担心动态 js 等问题。</p>
+<span id="more"></span>
+
+<p>大概搜索了几个自动化测试的工具：<br><a target="_blank" rel="noopener" href="https://www.seleniumhq.org/projects/webdriver/">selenium</a><br><a target="_blank" rel="noopener" href="https://casperjs.org/">capserjs</a><br><a target="_blank" rel="noopener" href="https://phantomjs.org/best-practices.html">phantomjs</a><br><a target="_blank" rel="noopener" href="https://launchpad.net/sikuli">Sikuli</a><br><a target="_blank" rel="noopener" href="https://zombie.js.org/">Zombie </a><br><a target="_blank" rel="noopener" href="https://watij.com/webspec-api/">WebSpec</a></p>
+<p>以前使用的 <code>WebSpec</code> ，支持多种浏览器内核，可开关 GUI。</p>
+<p>下面了解了一下 <a target="_blank" rel="noopener" href="https://www.npmjs.com/package/selenium-webdriver">selenium-webdrive</a>,支持语言有 <code>java</code> <code>c#</code> <code>python</code> <code>ruby</code><br><code>php</code> <code>perl</code> <code>javascript</code>。</p>
+<p>javascript 版安装很简单</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install selenium-webdriver</span><br></pre></td></tr></table></figure>
+<p>这是自带的 firefox 版本的，其他浏览器的可以另行下载。</p>
+<p>看官网的一个例子</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">var webdriver = require(&#x27;selenium-webdriver&#x27;), // 引用模块</span><br><span class="line">    By = webdriver.By,</span><br><span class="line">    until = webdriver.until;</span><br><span class="line"></span><br><span class="line">var driver = new webdriver.Builder()</span><br><span class="line">    .forBrowser(&#x27;firefox&#x27;) // 打开 firfox </span><br><span class="line">    .build();</span><br><span class="line"></span><br><span class="line">driver.get(&#x27;https://www.google.com/ncr&#x27;); // 打开网页</span><br><span class="line">driver.findElement(By.name(&#x27;q&#x27;)).sendKeys(&#x27;webdriver&#x27;); // 获取输入框，并输入元素</span><br><span class="line">driver.findElement(By.name(&#x27;btnG&#x27;)).click(); // 获取搜索按钮，并点击</span><br><span class="line">driver.wait(until.titleIs(&#x27;webdriver - Google Search&#x27;),  1000); // 等待网络响应直到网页标题变为webdriver - Google Search</span><br><span class="line">driver.quit();</span><br></pre></td></tr></table></figure>
+<p>api 都简单易懂，很快就能入手使用。使用中遇到问题是 <code>driver.findElement</code> 有时会出现异常，原因是有的网页是后端动态渲染的，无法一下子获取到对应的元素，需要使用</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var button = driver.wait(until.elementLocated(By.name(&#x27;login&#x27;)), 5 * 1000)</span><br></pre></td></tr></table></figure>
+
+
+<hr>
+<p>计划用自动测试来自动运营微信公众号。大概流程如下（基本就是模拟用户行为）：</p>
+<p>现在需要扫描二维码，那么就将二维码发送到手机然后微信识别登录。</p>
+<ol>
+<li>登录</li>
+<li>获取二维码</li>
+<li>点击群发消息</li>
+<li>点击消息</li>
+<li>编辑文章</li>
+<li>发送</li>
+<li>获取二维码</li>
+<li>文章发布成功</li>
+</ol>
+<p>可以利用 slack 或者 telegram 机器人的 api 来通知自己（比如将验证码图片发送到手机）。</p>
+<blockquote>
+<p>文章来自： <a href="https://hanks.pub/">https://hanks.pub</a></p>
+</blockquote>
+
+      
+    </div>
+</article>
+
+<!-- 上一页 下一页 -->
+
+
+<nav id="article-nav">
+  
+    <a href="/2016/07/22/textview-lineheight/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>上一篇</span>
+      <div class="article-nav-title">
+        
+          TextView 设置行高并垂直居中
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/06/26/promise-by-rx/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>下一篇</span>
+      <div class="article-nav-title">学习 Promise （结合 RxJava）</div>
+    </a>
+  
+</nav>
+
+
+
+<!-- 相关文章 -->
+
+<!--
+
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+      			<a href="/2016/07/07/auto-test/">自动化测试还可以用来干啥</a>
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+
+-->
+
+
+</section>
+      </div>
+      <footer id="footer">
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      
+      &copy;2024<a target="_blank" rel="noopener" href="https://github.com/hanks-zyh"> Hanks</a>版权所有
+      <br/>
+      <a href="https://beian.miit.gov.cn/" target="_blank">豫ICP备2021022347号</a>
+	  </div>
+  </div>
+ <div id="share">
+  <a id="totop" title="" style="display: block;">返回顶部</a>
+ </div>
+</footer>
+
+    </div>
+    
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/jquery.scrollLoading.js"></script>
+
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/ads.js"></script>
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>学习 Compose 系列（一）环境配置、概念理解、初体验 | Hanks&#39; Websit</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <script data-ad-client="ca-pub-8165670162444117" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <meta name="referrer" content="never">
+  <meta name="description" content="学习 Compose 系列（一）环境配置、概念理解、初体验 Jetpack Compose 是用于构建原生界面的新款 Android 工具包。它可简化并加快 Android 上的界面开发。使用更少的代码、强大的工具和直观的 Kotlin API，快速让应用生动而精彩。   Compose 作为一条新的构建界面的工具，不同于原来解析 xml 生成，应用开发方式也与原来不同，需要重新理解其原理。Com">
+<meta property="og:type" content="article">
+<meta property="og:title" content="学习 Compose 系列（一）环境配置、概念理解、初体验">
+<meta property="og:url" content="https://hanks.pub/2021/06/16/jetpack-compose-1/index.html">
+<meta property="og:site_name" content="Hanks&#39; Websit">
+<meta property="og:description" content="学习 Compose 系列（一）环境配置、概念理解、初体验 Jetpack Compose 是用于构建原生界面的新款 Android 工具包。它可简化并加快 Android 上的界面开发。使用更少的代码、强大的工具和直观的 Kotlin API，快速让应用生动而精彩。   Compose 作为一条新的构建界面的工具，不同于原来解析 xml 生成，应用开发方式也与原来不同，需要重新理解其原理。Com">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/6fd3a8fb23af4fbda1c6d2d564e1a849~tplv-k3u1fbpfcp-watermark.image">
+<meta property="og:image" content="https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/787482ced2bd44f68c569c67e31c1a51~tplv-k3u1fbpfcp-watermark.image">
+<meta property="og:image" content="https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/461be2cb997240f0a10e7021bcd62af3~tplv-k3u1fbpfcp-watermark.image">
+<meta property="og:image" content="https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/2161a9260dcd4b189c79e941c1b1f238~tplv-k3u1fbpfcp-watermark.image">
+<meta property="og:image" content="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/e9399d5aa68f45ec9ae2f47a2110222b~tplv-k3u1fbpfcp-watermark.image">
+<meta property="og:image" content="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/2189e2e86210480d8f17fae717e2a109~tplv-k3u1fbpfcp-watermark.image">
+<meta property="og:image" content="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/e8a63f4e22554b3eaa1e717da3e76303~tplv-k3u1fbpfcp-watermark.image">
+<meta property="og:image" content="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/bb36fdc9b3ab4eb4b3e01c67a367e74c~tplv-k3u1fbpfcp-watermark.image">
+<meta property="og:image" content="https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/ab073da0188f4e819271b6ad8eac8cec~tplv-k3u1fbpfcp-watermark.image">
+<meta property="og:image" content="https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/19daf5b32c1640ecbfc06ab7e651a2bf~tplv-k3u1fbpfcp-watermark.image">
+<meta property="og:image" content="https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/c90f6005e45246fba15146deb42e8089~tplv-k3u1fbpfcp-watermark.image">
+<meta property="og:image" content="https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/f1bd15771b874b7392edec3b69118ca6~tplv-k3u1fbpfcp-watermark.image">
+<meta property="og:image" content="https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/673d00b220174a3dbe27b27d79a3bd1b~tplv-k3u1fbpfcp-watermark.image">
+<meta property="og:image" content="https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/4f3ae4382ff448cf8a1931efa71aba8d~tplv-k3u1fbpfcp-watermark.image">
+<meta property="og:image" content="https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/83e9543e65a346b9880834872d8f233c~tplv-k3u1fbpfcp-watermark.image">
+<meta property="article:published_time" content="2021-06-16T10:44:16.000Z">
+<meta property="article:modified_time" content="2024-02-08T01:29:02.187Z">
+<meta property="article:author" content="Hanks">
+<meta property="article:tag" content="Android">
+<meta property="article:tag" content="Jetpack">
+<meta property="article:tag" content="Compose">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/6fd3a8fb23af4fbda1c6d2d564e1a849~tplv-k3u1fbpfcp-watermark.image">
+  
+  
+  <link href="https://fonts.googleapis.com/css?family=Fira+Code|Noto+Serif+SC&display=swap" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8165670162444117"
+     crossorigin="anonymous"></script>
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo"></a>
+    <nav id="main-nav">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      
+        <a class="main-nav-link" href="/archives">Archive</a>
+      
+        <a class="main-nav-link" href="/eye-video">Eye</a>
+      
+        <a class="main-nav-link" href="/atom.xml">Rss</a>
+      
+    </nav>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/archives" class="mobile-nav-link">Archive</a>
+  
+    <a href="/eye-video" class="mobile-nav-link">Eye</a>
+  
+    <a href="/atom.xml" class="mobile-nav-link">Rss</a>
+  
+</nav>
+      <div class="outer">
+        <section id="main"><article id="post-jetpack-compose-1" class="article article-type-post" itemscope
+  itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <header class="article-header">
+      
+      
+  
+    <h1 class="article-title" itemprop="name">
+      学习 Compose 系列（一）环境配置、概念理解、初体验
+    </h1>
+  
+
+      
+    </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      <h1 id="学习-Compose-系列（一）环境配置、概念理解、初体验"><a href="#学习-Compose-系列（一）环境配置、概念理解、初体验" class="headerlink" title="学习 Compose 系列（一）环境配置、概念理解、初体验"></a>学习 Compose 系列（一）环境配置、概念理解、初体验</h1><blockquote>
+<p>Jetpack Compose 是用于构建原生界面的新款 Android 工具包。它可简化并加快 Android 上的界面开发。使用更少的代码、强大的工具和直观的 Kotlin API，快速让应用生动而精彩。</p>
+</blockquote>
+<p><img src="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/6fd3a8fb23af4fbda1c6d2d564e1a849~tplv-k3u1fbpfcp-watermark.image" alt="image.png"></p>
+<p>Compose 作为一条新的构建界面的工具，不同于原来解析 xml 生成，应用开发方式也与原来不同，需要重新理解其原理。Compose 放在 Jetpack 中，和 ViewModel LiveData 结合，目标是开发更高效，应用更健壮。<a target="_blank" rel="noopener" href="https://developer.android.google.cn/jetpack/compose">官网地址</a></p>
+<p>之前通过 kotlin + xml 编写UI界面，两种语言无法互通，xml 本身很不灵活，使得UI编写很麻烦，无法大量复用；Compose 提供的工具使得只使用 kotlin 一种语言编写 UI 和动画，加上IDE的预览，使得我们可以更快速的完成界面的 UI，而且灵活性和复用性大大提升。定义好 UI 界面，关联上相关的状态值，然后逻辑层只控制状态值的变更，状态变更自动同步到UI变化。</p>
+<h3 id="1-下载预览版本-Android-Studio"><a href="#1-下载预览版本-Android-Studio" class="headerlink" title="1. 下载预览版本 Android Studio"></a>1. 下载预览版本 Android Studio</h3><p>目前 compose 为 beta 版本，需要下载预览版 as 才能体验。<a target="_blank" rel="noopener" href="https://developer.android.google.cn/studio/preview">下载地址</a></p>
+<p><img src="https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/787482ced2bd44f68c569c67e31c1a51~tplv-k3u1fbpfcp-watermark.image" alt="image.png"></p>
+<h3 id="2-创建支持-Compose-的应用"><a href="#2-创建支持-Compose-的应用" class="headerlink" title="2. 创建支持 Compose 的应用"></a>2. 创建支持 Compose 的应用</h3><p><img src="https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/461be2cb997240f0a10e7021bcd62af3~tplv-k3u1fbpfcp-watermark.image" alt="image.png"></p>
+<h3 id="3-代码结构变化"><a href="#3-代码结构变化" class="headerlink" title="3. 代码结构变化"></a>3. 代码结构变化</h3><p><img src="https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/2161a9260dcd4b189c79e941c1b1f238~tplv-k3u1fbpfcp-watermark.image" alt="image.png"></p>
+<p>基类变更为：<strong>ComponentActivity</strong>，之前使用的 AppCompatActivity 变更为 FragmentActivity 和 ComponentActivity 的子类；可以看到如果要使用 fragment 应该还是需要改基类为 AppCompatActivity。</p>
+<p><img src="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/e9399d5aa68f45ec9ae2f47a2110222b~tplv-k3u1fbpfcp-watermark.image" alt="image.png"></p>
+<p><img src="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/2189e2e86210480d8f17fae717e2a109~tplv-k3u1fbpfcp-watermark.image" alt="image.png"></p>
+<p>ComponentActivity 的扩展函数 <strong>setContent</strong>，找到或者构建ComposeView。最后调用 Activity.<strong>setContentView</strong>(view,layoutParams) 设置界面内容。最终 View 界面的相关概念没有变化，只不过将一个 ComposeView 设置到 Activity 中。</p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/e8a63f4e22554b3eaa1e717da3e76303~tplv-k3u1fbpfcp-watermark.image" alt="image.png"></p>
+<p><strong>ComposeView</strong> 继承 AbstractComposeView，父类时一个 <strong>ViewGroup</strong>，内部有一个 Composition 和 CompositionContext。 在 attachToWIndow 时调用到扩展函数 ViewGroup.SetContent</p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/bb36fdc9b3ab4eb4b3e01c67a367e74c~tplv-k3u1fbpfcp-watermark.image" alt="image.png"></p>
+<p><img src="https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/ab073da0188f4e819271b6ad8eac8cec~tplv-k3u1fbpfcp-watermark.image" alt="image.png"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">override fun onAttachedToWindow() &#123;</span><br><span class="line">    super.onAttachedToWindow()</span><br><span class="line"></span><br><span class="line">    if (composition != null) &#123;</span><br><span class="line">        checkViewTreeOwners()</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    if (shouldCreateCompositionOnAttachedToWindow) &#123;</span><br><span class="line">        ensureCompositionCreated()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">private fun ensureCompositionCreated() &#123;</span><br><span class="line">    if (composition == null) &#123;</span><br><span class="line">        if (isAttachedToWindow) &#123;</span><br><span class="line">            checkViewTreeOwners()</span><br><span class="line">        &#125;</span><br><span class="line">        try &#123;</span><br><span class="line">            creatingComposition = true</span><br><span class="line">            composition = setContent(</span><br><span class="line">                parentContext ?: findViewTreeCompositionContext() ?: windowRecomposer</span><br><span class="line">            ) &#123;</span><br><span class="line">                Content()</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; finally &#123;</span><br><span class="line">            creatingComposition = false</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>生成一个 AndroidComposeView （继承ViewGroup）添加到界面中, doSetContent 将传入的 @Composable 函数赋值。真正将函数转换成<strong>具体的界面是在 AndroidComposeView 中进行转换的</strong>。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">internal fun ViewGroup.setContent(</span><br><span class="line">    parent: CompositionContext,</span><br><span class="line">    content: @Composable () -&gt; Unit</span><br><span class="line">): Composition &#123;</span><br><span class="line">    GlobalSnapshotManager.ensureStarted()</span><br><span class="line">    val composeView =</span><br><span class="line">        if (childCount &gt; 0) &#123;</span><br><span class="line">            getChildAt(0) as? AndroidComposeView</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            removeAllViews(); null</span><br><span class="line">        &#125; ?: AndroidComposeView(context).also &#123; addView(it.view, DefaultLayoutParams) &#125;</span><br><span class="line">    return doSetContent(composeView, parent, content)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>构造函数、onMeasure、onLayout、dispatchDraw。基本上就是Compose 框架的转换逻辑。</p>
+<p><img src="https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/19daf5b32c1640ecbfc06ab7e651a2bf~tplv-k3u1fbpfcp-watermark.image" alt="image.png"></p>
+<p><img src="https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/c90f6005e45246fba15146deb42e8089~tplv-k3u1fbpfcp-watermark.image" alt="image.png"></p>
+<p><img src="https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/f1bd15771b874b7392edec3b69118ca6~tplv-k3u1fbpfcp-watermark.image" alt="image.png"></p>
+<p><img src="https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/673d00b220174a3dbe27b27d79a3bd1b~tplv-k3u1fbpfcp-watermark.image" alt="image.png"></p>
+<h3 id="4-运行体验"><a href="#4-运行体验" class="headerlink" title="4. 运行体验"></a>4. 运行体验</h3><p>content 区域生成了一个 AndroidComposeView。</p>
+<p><img src="https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/4f3ae4382ff448cf8a1931efa71aba8d~tplv-k3u1fbpfcp-watermark.image" alt="image.png"></p>
+<p><img src="https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/83e9543e65a346b9880834872d8f233c~tplv-k3u1fbpfcp-watermark.image" alt="image.png"></p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>Compose 工具包的出现使得声明式UI在开发效率和代码复用性上大大提升。性能上可以看到变化主要时在声明UI转换为真正的View的过程，以及通知 view 状态变更；具体的性能细节问题后续系列探索。</p>
+<p>下篇：学习 Compose 系列（二）UI之主题、布局、交互</p>
+<hr>
+<p>欢迎和我一起交流学习</p>
+<ul>
+<li>个人网站: <a href="https://hanks.pub/">https://hanks.pub</a></li>
+<li>Github: <a target="_blank" rel="noopener" href="https://github.com/hanks-zyh">https://github.com/hanks-zyh</a></li>
+<li>zhihu: <a target="_blank" rel="noopener" href="https://www.zhihu.com/people/yuhan-zhang-36">https://www.zhihu.com/people/yuhan-zhang-36</a></li>
+<li>微信公众号：Hanks软件库</li>
+</ul>
+<blockquote>
+<p>文章来自： <a target="_blank" rel="noopener" href="http://hanks-zyh.github.io/">http://hanks-zyh.github.io/</a></p>
+</blockquote>
+
+      
+    </div>
+</article>
+
+<!-- 上一页 下一页 -->
+
+
+<nav id="article-nav">
+  
+    <a href="/2021/08/04/swiftui-create-project/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>上一篇</span>
+      <div class="article-nav-title">
+        
+          SwiftUI-学习目录&amp;创建工程
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/03/29/gradle-transform/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>下一篇</span>
+      <div class="article-nav-title">Gradle Tansform 的使用</div>
+    </a>
+  
+</nav>
+
+
+
+<!-- 相关文章 -->
+
+<!--
+
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+      			<a href="/2021/06/16/jetpack-compose-1/">学习 Compose 系列（一）环境配置、概念理解、初体验</a>
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+
+-->
+
+
+</section>
+      </div>
+      <footer id="footer">
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      
+      &copy;2024<a target="_blank" rel="noopener" href="https://github.com/hanks-zyh"> Hanks</a>版权所有
+      <br/>
+      <a href="https://beian.miit.gov.cn/" target="_blank">豫ICP备2021022347号</a>
+	  </div>
+  </div>
+ <div id="share">
+  <a id="totop" title="" style="display: block;">返回顶部</a>
+ </div>
+</footer>
+
+    </div>
+    
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/jquery.scrollLoading.js"></script>
+
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/ads.js"></script>
+
+  </div>
+</body>
+</html>

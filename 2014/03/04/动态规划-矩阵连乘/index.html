@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>动态规划-矩阵连乘 | Hanks&#39; Websit</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <script data-ad-client="ca-pub-8165670162444117" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <meta name="referrer" content="never">
+  <meta name="description" content="特征：计算A[i:j]的最优次序所包含的计算矩阵子链 A[i:k]和A[k&#43;1:j]的次序也是最优的。   &nbsp; &nbsp; 如计算 A1*A2*A3*A4*A5*A6  &nbsp;  &nbsp; &#x2F;** int [] p 存放各个矩阵的列  int [][] m  所需要的最少数乘次数m[i,j] 1≤i≤j≤n, 最后乘法次数为 m[1][n];  int [][] s">
+<meta property="og:type" content="article">
+<meta property="og:title" content="动态规划-矩阵连乘">
+<meta property="og:url" content="https://hanks.pub/2014/03/04/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92-%E7%9F%A9%E9%98%B5%E8%BF%9E%E4%B9%98/index.html">
+<meta property="og:site_name" content="Hanks&#39; Websit">
+<meta property="og:description" content="特征：计算A[i:j]的最优次序所包含的计算矩阵子链 A[i:k]和A[k&#43;1:j]的次序也是最优的。   &nbsp; &nbsp; 如计算 A1*A2*A3*A4*A5*A6  &nbsp;  &nbsp; &#x2F;** int [] p 存放各个矩阵的列  int [][] m  所需要的最少数乘次数m[i,j] 1≤i≤j≤n, 最后乘法次数为 m[1][n];  int [][] s">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img.blog.csdn.net/20140304203120937">
+<meta property="og:image" content="https://img.blog.csdn.net/20140304201607390">
+<meta property="og:image" content="https://img.blog.csdn.net/20140304202903750">
+<meta property="article:published_time" content="2014-03-04T12:33:00.000Z">
+<meta property="article:modified_time" content="2024-02-08T01:29:02.198Z">
+<meta property="article:author" content="Hanks">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img.blog.csdn.net/20140304203120937">
+  
+  
+  <link href="https://fonts.googleapis.com/css?family=Fira+Code|Noto+Serif+SC&display=swap" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8165670162444117"
+     crossorigin="anonymous"></script>
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo"></a>
+    <nav id="main-nav">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      
+        <a class="main-nav-link" href="/archives">Archive</a>
+      
+        <a class="main-nav-link" href="/eye-video">Eye</a>
+      
+        <a class="main-nav-link" href="/atom.xml">Rss</a>
+      
+    </nav>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/archives" class="mobile-nav-link">Archive</a>
+  
+    <a href="/eye-video" class="mobile-nav-link">Eye</a>
+  
+    <a href="/atom.xml" class="mobile-nav-link">Rss</a>
+  
+</nav>
+      <div class="outer">
+        <section id="main"><article id="post-动态规划-矩阵连乘" class="article article-type-post" itemscope
+  itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <header class="article-header">
+      
+      
+  
+    <h1 class="article-title" itemprop="name">
+      动态规划-矩阵连乘
+    </h1>
+  
+
+      
+    </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+<p><span style="font-size:24px">特征：计算<span style="color:#ff0000">A[i:j]的最优次序</span>所包含的计算矩阵子链<span style="color:#ff0000"> A[i:k]和A[k&#43;1:j]的次序也是最优的</span>。<br>
+</span></p>
+<p><img src="https://img.blog.csdn.net/20140304203120937" width="564" height="436" alt=""></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p><span style="font-size:24px">如计算 A1*A2*A3*A4*A5*A6</span></p>
+<p><img src="https://img.blog.csdn.net/20140304201607390" alt=""></p>
+<p>&nbsp;</p>
+<p><img src="https://img.blog.csdn.net/20140304202903750" alt=""></p>
+<p>&nbsp;</p>
+<pre code_snippet_id="217450" snippet_file_name="blog_20140304_1_2568125"  class="cpp" name="code">/**
+int [] p 存放各个矩阵的列 
+int [][] m  所需要的最少数乘次数m[i,j] 1≤i≤j≤n, 最后乘法次数为 m[1][n]; 
+int [][] s  s[i][j]:存放的值为相对于m[i][j] 的断开位置 
+*/
+void matrixChain(int [] p, int [][] m, int [][] s)
+{
+	
+      for (int i = 1; i &lt;= n; i++) m[i][i] = 0; //自身相乘，次数为0 
+      
+	  for (int r = 2; r &lt;= n; r++) //先计算2个矩阵相乘次数，然后3个，4个... 
+      
+         for (int i = 1; i &lt;= n-r+1; i++) { //  
+            int j=i+r-1; //当前矩阵总个数 
+            m[i][j] = m[i+1][j]+ p[i-1]*p[i]*p[j]; //m[i][j]初始化为 从i分割 ，实际还加了m[i][i],为0 
+            s[i][j] = i; //从i分割 
+            for (int k = i+1; k &lt; j; k++) { //枚举每个位置 为分割点 
+               int t = m[i][k] + m[k+1][j] + p[i-1]*p[k]*p[j];
+               if (t &lt; m[i][j]) {
+                 m[i][j] = t;
+                 s[i][j] = k;}
+               }
+            }
+   }</pre>
+<p><br>
+&nbsp;</p>
+<p>&nbsp;</p>
+<p>下面这种方法在 书上叫 备忘录 ；</p>
+<p>这种方法是自顶向下的</p>
+<p>&nbsp;</p>
+<pre code_snippet_id="217450" snippet_file_name="blog_20140304_2_343278"  class="cpp" name="code">int lookupChain(int i,int j){
+	
+	if(m[i][j]&gt;0) return m[i][j];
+	if(i==j) return 0;
+	m[i][j] = lookupChain(i+1,j) + p[i-1]*p[i]*p[j];
+	for(int k=i+1; k&lt;j; k++){
+		int t = lookupChain(i,k) + lookupChain(k+1,j) + p[i-1]*p[k]*p[j]; 
+		if(t&lt;m[i][j]) m[i][j] = t;
+	}
+	return m[i][j];
+}</pre>
+<p><br>
+&nbsp;</p>
+<p>&nbsp;</p>
+
+      
+    </div>
+</article>
+
+<!-- 上一页 下一页 -->
+
+
+<nav id="article-nav">
+  
+    <a href="/2014/03/16/c_c___%E6%97%B6%E9%97%B4%E7%9B%B8%E5%85%B3%E5%87%BD%E6%95%B0_include_time_h_/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>上一篇</span>
+      <div class="article-nav-title">
+        
+          c\c++ 时间相关函数 include&lt;time.h&gt;
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2014/02/25/%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E7%9A%84%E8%BF%90%E7%AE%97/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>下一篇</span>
+      <div class="article-nav-title">基本数据类型的运算</div>
+    </a>
+  
+</nav>
+
+
+
+<!-- 相关文章 -->
+
+<!--
+
+-->
+
+
+</section>
+      </div>
+      <footer id="footer">
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      
+      &copy;2024<a target="_blank" rel="noopener" href="https://github.com/hanks-zyh"> Hanks</a>版权所有
+      <br/>
+      <a href="https://beian.miit.gov.cn/" target="_blank">豫ICP备2021022347号</a>
+	  </div>
+  </div>
+ <div id="share">
+  <a id="totop" title="" style="display: block;">返回顶部</a>
+ </div>
+</footer>
+
+    </div>
+    
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/jquery.scrollLoading.js"></script>
+
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/ads.js"></script>
+
+  </div>
+</body>
+</html>

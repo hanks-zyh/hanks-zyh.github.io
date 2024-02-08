@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>hdu 题目1556 Color the ball（线段树） | Hanks&#39; Websit</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <script data-ad-client="ca-pub-8165670162444117" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <meta name="referrer" content="never">
+  <meta name="description" content="&nbsp; &nbsp; Color the ball Time Limit: 9000&#x2F;3000 MS (Java&#x2F;Others)&nbsp;&nbsp;&nbsp;&nbsp;Memory Limit: 32768&#x2F;32768 K (Java&#x2F;Others) Total Submission(s): 5853&nbsp;&nbsp;&nbsp;&nbsp;Accepted Submissi">
+<meta property="og:type" content="article">
+<meta property="og:title" content="hdu 题目1556 Color the ball（线段树）">
+<meta property="og:url" content="https://hanks.pub/2013/08/02/hdu_%E9%A2%98%E7%9B%AE1556_Color_the_ball%EF%BC%88%E7%BA%BF%E6%AE%B5%E6%A0%91%EF%BC%89/index.html">
+<meta property="og:site_name" content="Hanks&#39; Websit">
+<meta property="og:description" content="&nbsp; &nbsp; Color the ball Time Limit: 9000&#x2F;3000 MS (Java&#x2F;Others)&nbsp;&nbsp;&nbsp;&nbsp;Memory Limit: 32768&#x2F;32768 K (Java&#x2F;Others) Total Submission(s): 5853&nbsp;&nbsp;&nbsp;&nbsp;Accepted Submissi">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2013-08-02T10:24:00.000Z">
+<meta property="article:modified_time" content="2024-02-08T01:29:02.185Z">
+<meta property="article:author" content="Hanks">
+<meta name="twitter:card" content="summary">
+  
+  
+  <link href="https://fonts.googleapis.com/css?family=Fira+Code|Noto+Serif+SC&display=swap" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8165670162444117"
+     crossorigin="anonymous"></script>
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo"></a>
+    <nav id="main-nav">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      
+        <a class="main-nav-link" href="/archives">Archive</a>
+      
+        <a class="main-nav-link" href="/eye-video">Eye</a>
+      
+        <a class="main-nav-link" href="/atom.xml">Rss</a>
+      
+    </nav>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/archives" class="mobile-nav-link">Archive</a>
+  
+    <a href="/eye-video" class="mobile-nav-link">Eye</a>
+  
+    <a href="/atom.xml" class="mobile-nav-link">Rss</a>
+  
+</nav>
+      <div class="outer">
+        <section id="main"><article id="post-hdu_题目1556_Color_the_ball（线段树）" class="article article-type-post" itemscope
+  itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <header class="article-header">
+      
+      
+  
+    <h1 class="article-title" itemprop="name">
+      hdu 题目1556 Color the ball（线段树）
+    </h1>
+  
+
+      
+    </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h1 align="center" style="color:#1a5cc8">Color the ball</h1>
+<p align="center"><span size="&#43;0" style=""><strong><span style="font-family:Arial; color:green; font-size:12px"><strong>Time Limit: 9000/3000 MS (Java/Others)&nbsp;&nbsp;&nbsp;&nbsp;Memory Limit: 32768/32768 K (Java/Others)<br>
+Total Submission(s): 5853&nbsp;&nbsp;&nbsp;&nbsp;Accepted Submission(s): 3117<br>
+</strong></span></strong></span><br>
+<br>
+</p>
+<div class="panel_title" align="left">Problem Description</div>
+<div class="panel_content">N个气球排成一排，从左到右依次编号为1,2,3....N.每次给定2个整数a b(a &lt;= b),lele便为骑上他的“小飞鸽&quot;牌电动车从气球a开始到气球b依次给每个气球涂一次颜色。但是N次以后lele已经忘记了第I个气球已经涂过几次颜色了，你能帮他算出每个气球被涂过几次颜色吗？</div>
+<div class="panel_bottom">&nbsp;</div>
+<p><br>
+&nbsp;</p>
+<div class="panel_title" align="left">Input</div>
+<div class="panel_content">每个测试实例第一行为一个整数N,(N &lt;= 100000).接下来的N行，每行包括2个整数a b(1 &lt;= a &lt;= b &lt;= N)。<br>
+当N = 0，输入结束。</div>
+<div class="panel_bottom">&nbsp;</div>
+<p><br>
+&nbsp;</p>
+<div class="panel_title" align="left">Output</div>
+<div class="panel_content">每个测试实例输出一行，包括N个整数，第I个数代表第I个气球总共被涂色的次数。</div>
+<div class="panel_bottom">&nbsp;</div>
+<p><br>
+&nbsp;</p>
+<div class="panel_title" align="left">Sample Input</div>
+<div class="panel_content">
+<pre><div style="font-family:Courier New,Courier,monospace">3
+1 1
+2 2
+3 3
+3
+1 1
+1 2
+1 3
+0</div></pre>
+</div>
+<div class="panel_bottom">&nbsp;</div>
+<p><br>
+&nbsp;</p>
+<div class="panel_title" align="left">Sample Output</div>
+<div class="panel_content">
+<pre><div style="font-family:Courier New,Courier,monospace">1 1 1
+3 2 1</div></pre>
+</div>
+<div class="panel_bottom">&nbsp;</div>
+<p><br>
+&nbsp;</p>
+<pre class="cpp" name="code">#define N 400000
+#include &lt;iostream&gt;
+#include &lt;stdio.h&gt;
+
+using namespace std;
+
+typedef struct interval_tree
+{
+    int lside,rside,cnt;
+}interval_tree;
+
+interval_tree tree[N];
+
+int Pnt[N],k;
+
+void build_tree(int l,int r,int i)
+{
+    
+        tree[i].lside = l;
+        tree[i].rside = r;
+        tree[i].cnt = 0;
+        if(l==r) return;
+        int mid = (tree[i].rside+tree[i].lside)/2;
+        build_tree(l,mid,2*i);
+        build_tree(mid+1,r,2*i+1);    
+}
+
+void count(int i)
+{
+	if(tree[i].lside == tree[i].rside)  
+   {
+		Pnt[k++] = tree[i].cnt;	
+		return;
+	}
+	tree[i*2].cnt += tree[i].cnt;
+	tree[i*2+1].cnt += tree[i].cnt;
+	count(2*i);
+	count(2*i+1);
+}
+
+
+void change(int a,int b,int i)
+{
+	 if(a&lt;=tree[i].lside &amp;&amp; b&gt;=tree[i].rside)  
+    {    
+        tree[i].cnt++;
+        return;
+    }
+    int mid =(tree[i].lside+tree[i].rside)/2;
+    if(b &lt;= mid )     change(a,b,2*i);
+    else if(a &gt; mid )    change(a,b,2*i+1);
+    else 
+    {
+        change(a,mid,2*i);
+        change(mid+1,b,2*i+1);
+    }
+}
+int main()
+{
+    int i,n,a,b;
+    while(scanf(&quot;%d&quot;,&amp;n),n)
+    {
+
+        build_tree(1,n,1);
+        while(n--)
+        {
+            scanf(&quot;%d%d&quot;,&amp;a,&amp;b);
+            change(a,b,1);
+        }
+        k=0;
+        count(1);
+        for(i=0;i&lt;k-1;i++)
+        	printf(&quot;%d &quot;,Pnt[i]);
+        printf(&quot;%d\n&quot;,Pnt[k-1]);
+    }
+    return 0;
+}
+</pre>
+<p><br>
+&nbsp;</p>
+<p>&nbsp;</p>
+
+      
+    </div>
+</article>
+
+<!-- 上一页 下一页 -->
+
+
+<nav id="article-nav">
+  
+    <a href="/2013/08/02/NYOJ_%E9%A2%98%E7%9B%AE485_A_B_Problem/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>上一篇</span>
+      <div class="article-nav-title">
+        
+          NYOJ 题目485 A*B Problem
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2013/08/02/NYOJ%E9%A2%98%E7%9B%AE116_%E5%A3%AB%E5%85%B5%E6%9D%80%E6%95%8C%EF%BC%88%E4%BA%8C%EF%BC%89/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>下一篇</span>
+      <div class="article-nav-title">NYOJ题目116 士兵杀敌（二）</div>
+    </a>
+  
+</nav>
+
+
+
+<!-- 相关文章 -->
+
+<!--
+
+-->
+
+
+</section>
+      </div>
+      <footer id="footer">
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      
+      &copy;2024<a target="_blank" rel="noopener" href="https://github.com/hanks-zyh"> Hanks</a>版权所有
+      <br/>
+      <a href="https://beian.miit.gov.cn/" target="_blank">豫ICP备2021022347号</a>
+	  </div>
+  </div>
+ <div id="share">
+  <a id="totop" title="" style="display: block;">返回顶部</a>
+ </div>
+</footer>
+
+    </div>
+    
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/jquery.scrollLoading.js"></script>
+
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/ads.js"></script>
+
+  </div>
+</body>
+</html>

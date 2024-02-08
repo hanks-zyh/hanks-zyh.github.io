@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>学习 iOS 中 UITableView | Hanks&#39; Websit</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <script data-ad-client="ca-pub-8165670162444117" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <meta name="referrer" content="never">
+  <meta name="description" content="iOS 中的列表对应的控件为 UITableView ，可以通过给 UITableView 设置数据源来显示不同的数据。结合 Android 开发给 RecyclerView 或者 ListView 显示数据的步骤:  界面中添加 ListView （xml） 代码中拿到 ListView 的引用（findViewById） 设置 ListView 的 item 的个数（一般为数据源的个数） 创建">
+<meta property="og:type" content="article">
+<meta property="og:title" content="学习 iOS 中 UITableView">
+<meta property="og:url" content="https://hanks.pub/2016/04/21/iOS-TableView/index.html">
+<meta property="og:site_name" content="Hanks&#39; Websit">
+<meta property="og:description" content="iOS 中的列表对应的控件为 UITableView ，可以通过给 UITableView 设置数据源来显示不同的数据。结合 Android 开发给 RecyclerView 或者 ListView 显示数据的步骤:  界面中添加 ListView （xml） 代码中拿到 ListView 的引用（findViewById） 设置 ListView 的 item 的个数（一般为数据源的个数） 创建">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2016-04-20T16:30:29.000Z">
+<meta property="article:modified_time" content="2024-02-08T01:29:02.187Z">
+<meta property="article:author" content="Hanks">
+<meta property="article:tag" content="iOS">
+<meta name="twitter:card" content="summary">
+  
+  
+  <link href="https://fonts.googleapis.com/css?family=Fira+Code|Noto+Serif+SC&display=swap" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8165670162444117"
+     crossorigin="anonymous"></script>
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo"></a>
+    <nav id="main-nav">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      
+        <a class="main-nav-link" href="/archives">Archive</a>
+      
+        <a class="main-nav-link" href="/eye-video">Eye</a>
+      
+        <a class="main-nav-link" href="/atom.xml">Rss</a>
+      
+    </nav>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/archives" class="mobile-nav-link">Archive</a>
+  
+    <a href="/eye-video" class="mobile-nav-link">Eye</a>
+  
+    <a href="/atom.xml" class="mobile-nav-link">Rss</a>
+  
+</nav>
+      <div class="outer">
+        <section id="main"><article id="post-iOS-TableView" class="article article-type-post" itemscope
+  itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <header class="article-header">
+      
+      
+  
+    <h1 class="article-title" itemprop="name">
+      学习 iOS 中 UITableView
+    </h1>
+  
+
+      
+    </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      <p><code>iOS</code> 中的列表对应的控件为 <code>UITableView</code> ，可以通过给 <code>UITableView</code> 设置数据源来显示不同的数据。结合 Android 开发给 RecyclerView 或者 ListView 显示数据的步骤:</p>
+<ol>
+<li>界面中添加 ListView （xml）</li>
+<li>代码中拿到 ListView 的引用（findViewById）</li>
+<li>设置 ListView 的 item 的个数（一般为数据源的个数）</li>
+<li>创建每个 item 的布局（xml）</li>
+<li>设置 ListView 对应每个位置的 item 显示的内容（数据源的每一项）</li>
+<li>刷新界面 adapter 的 notifyDataSetChanged()</li>
+</ol>
+<p>iOS 使用 UITableView 的步骤：</p>
+<ol>
+<li>界面中添加 UITableView （storyboard）</li>
+<li>代码中拿到 UITableView 的引用 （按住 ctrl 拖动控件到代码中引用）</li>
+<li>设置 UITableView 的 cell 的个数（一般为数据源的个数）</li>
+<li>创建每个 item 的布局 （xib）</li>
+<li>设置 UITableView 对应每个位置的 cell 显示的内容（数据源的每一项）</li>
+<li>刷新界面 tableview 的 reloadData()</li>
+</ol>
+<span id="more"></span>
+
+<h3 id="设置两个协议（类似于接口）："><a href="#设置两个协议（类似于接口）：" class="headerlink" title="设置两个协议（类似于接口）："></a>设置两个协议（类似于接口）：</h3><ul>
+<li><strong>UITableViewDataSource</strong>（data source），用于设置数据  </li>
+<li><strong>UITableViewDelegate</strong>（delegate），用于处理 TableView 的交互（比如点击，添加、删除、移动，header、footer等）</li>
+</ul>
+<h3 id="有两个方法需要去实现："><a href="#有两个方法需要去实现：" class="headerlink" title="有两个方法需要去实现："></a>有两个方法需要去实现：</h3><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 每个section需要加载多少行，一般选择返回数据源的个数</span></span><br><span class="line"><span class="keyword">func</span> <span class="title function_">tableView</span>(<span class="params">tableView</span>: <span class="type">UITableView</span>, <span class="params">numberOfRowsInSection</span> <span class="params">section</span>: <span class="type">Int</span>) -&gt; <span class="type">Int</span>&#123;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="comment">// 返回 UITableViewCell，UITableViewCell 是 section 里的行（某一行或者所有行），根据 indexPath 来显示不同的内容到 Cell</span></span><br><span class="line"><span class="keyword">func</span> <span class="title function_">tableView</span>(<span class="params">tableView</span>: <span class="type">UITableView</span>, <span class="params">cellForRowAtIndexPath</span> <span class="params">indexPath</span>: <span class="type">NSIndexPath</span>) -&gt; <span class="type">UITableViewCell</span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<p>代码：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">//  ArticleListController.swift</span></span><br><span class="line"><span class="comment">//  AndroidDaily</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">//  Created by hanks on 16/4/17.</span></span><br><span class="line"><span class="comment">//  Copyright © 2016年 hanks. All rights reserved.</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> UIKit</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">ArticleListController</span>: <span class="title class_">UIViewController</span>, <span class="title class_">UITableViewDelegate</span>, <span class="title class_">UITableViewDataSource</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> articleList <span class="operator">=</span> [<span class="type">Article</span>]()</span><br><span class="line">    <span class="keyword">var</span> tableView : <span class="type">UITableView</span>?</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">override</span> <span class="keyword">func</span> <span class="title function_">viewDidLoad</span>() &#123;</span><br><span class="line">        <span class="keyword">super</span>.viewDidLoad()</span><br><span class="line"></span><br><span class="line">        initView()</span><br><span class="line">        initData()</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// Uncomment the following line to preserve selection between presentations</span></span><br><span class="line">        <span class="comment">// self.clearsSelectionOnViewWillAppear = false</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// Uncomment the following line to display an Edit button in the navigation bar for this view controller.</span></span><br><span class="line">        <span class="comment">// self.navigationItem.rightBarButtonItem = self.editButtonItem()</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">func</span> <span class="title function_">initView</span>() &#123;</span><br><span class="line">        <span class="comment">// 初始化tableView的数据</span></span><br><span class="line">        <span class="keyword">self</span>.tableView<span class="operator">=</span><span class="type">UITableView</span>(frame:<span class="keyword">self</span>.view.frame,style:<span class="type">UITableViewStyle</span>.<span class="type">Plain</span>)</span><br><span class="line">        <span class="comment">// 设置tableView的数据源</span></span><br><span class="line">        <span class="keyword">self</span>.tableView<span class="operator">!</span>.dataSource<span class="operator">=</span><span class="keyword">self</span></span><br><span class="line">        <span class="comment">// 设置tableView的委托</span></span><br><span class="line">        <span class="keyword">self</span>.tableView<span class="operator">!</span>.delegate <span class="operator">=</span> <span class="keyword">self</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">self</span>.tableView<span class="operator">!</span>.registerNib(<span class="type">UINib</span>(nibName: <span class="string">&quot;ArticleCell&quot;</span>,bundle: <span class="literal">nil</span>), forCellReuseIdentifier: <span class="string">&quot;articleCell&quot;</span>)</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">self</span>.tableView<span class="operator">!</span>.rowHeight <span class="operator">=</span> <span class="type">UITableViewAutomaticDimension</span> <span class="comment">// 自适应，注意需要 设置所以控件的 left, right, bottom, top 约束 才会生效</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">self</span>.tableView<span class="operator">!</span>.estimatedRowHeight <span class="operator">=</span> <span class="number">110</span> <span class="comment">//估算高度，提高性能</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">self</span>.view.addSubview(<span class="keyword">self</span>.tableView<span class="operator">!</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">func</span> <span class="title function_">initData</span>() &#123;</span><br><span class="line">         </span><br><span class="line">        <span class="keyword">let</span> url <span class="operator">=</span> <span class="type">NSURL</span>(string: <span class="string">&quot;https://api.hanks.xyz/1.1/Articles?limit=30&amp;order=-createdAt&quot;</span>)<span class="operator">!</span> <span class="comment">// url 瞎写的</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">let</span> requset <span class="operator">=</span> <span class="type">NSMutableURLRequest</span>(URL: url)</span><br><span class="line">        requset.allHTTPHeaderFields <span class="operator">=</span> headers</span><br><span class="line">        </span><br><span class="line">        <span class="type">NSURLConnection</span>.sendAsynchronousRequest(requset, queue: <span class="type">NSOperationQueue</span>()) &#123; (<span class="keyword">_</span>, data, e) -&gt; <span class="type">Void</span> <span class="keyword">in</span></span><br><span class="line">            <span class="keyword">if</span> e <span class="operator">==</span> <span class="literal">nil</span> &#123;</span><br><span class="line">                </span><br><span class="line">                <span class="keyword">let</span> json  <span class="operator">=</span> <span class="keyword">try?</span> <span class="type">NSJSONSerialization</span></span><br><span class="line">                    .<span class="type">JSONObjectWithData</span>(data<span class="operator">!</span>, options:<span class="type">NSJSONReadingOptions</span>.<span class="type">AllowFragments</span>) <span class="keyword">as!</span> <span class="type">NSDictionary</span></span><br><span class="line">                </span><br><span class="line">                <span class="keyword">let</span> result <span class="operator">=</span> json<span class="operator">?</span>[<span class="string">&quot;results&quot;</span>] <span class="keyword">as!</span> <span class="type">Array</span>&lt;<span class="type">Article</span>&gt; <span class="keyword">as</span> <span class="type">NSArray</span></span><br><span class="line">                </span><br><span class="line">                <span class="keyword">for</span> item <span class="keyword">in</span> result &#123;</span><br><span class="line">                    <span class="keyword">let</span> article <span class="operator">=</span> <span class="type">Article</span>()</span><br><span class="line">                    </span><br><span class="line">                    article.title <span class="operator">=</span> item.valueForKey(<span class="string">&quot;title&quot;</span>) <span class="keyword">as?</span> <span class="type">String</span></span><br><span class="line">                    article.subTitle <span class="operator">=</span> item.valueForKey(<span class="string">&quot;subtitle&quot;</span>) <span class="keyword">as?</span> <span class="type">String</span></span><br><span class="line">                    article.authorName <span class="operator">=</span> item.valueForKey(<span class="string">&quot;author_name&quot;</span>) <span class="keyword">as?</span> <span class="type">String</span></span><br><span class="line">                    <span class="keyword">self</span>.articleList.append(article)</span><br><span class="line">                &#125;</span><br><span class="line">                </span><br><span class="line">                <span class="comment">// UI 操作放在 UI 线程</span></span><br><span class="line">                dispatch_async(dispatch_get_main_queue(), &#123; </span><br><span class="line">                    <span class="keyword">self</span>.tableView<span class="operator">!</span>.reloadData()</span><br><span class="line">                &#125;)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="keyword">func</span> <span class="title function_">didReceiveMemoryWarning</span>() &#123;</span><br><span class="line">        <span class="keyword">super</span>.didReceiveMemoryWarning()</span><br><span class="line">        <span class="comment">// Dispose of any resources that can be recreated.</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// MARK: - Table view data source</span></span><br><span class="line">    <span class="keyword">func</span> <span class="title function_">tableView</span>(<span class="params">tableView</span>: <span class="type">UITableView</span>, <span class="params">numberOfRowsInSection</span> <span class="params">section</span>: <span class="type">Int</span>) -&gt; <span class="type">Int</span> &#123;</span><br><span class="line">        <span class="comment">// #warning Incomplete implementation, return the number of rows</span></span><br><span class="line">        <span class="keyword">return</span> articleList.count</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">func</span> <span class="title function_">tableView</span>(<span class="params">tableView</span>: <span class="type">UITableView</span>, <span class="params">cellForRowAtIndexPath</span> <span class="params">indexPath</span>: <span class="type">NSIndexPath</span>) -&gt; <span class="type">UITableViewCell</span> &#123;</span><br><span class="line">        <span class="keyword">let</span> cell <span class="operator">=</span> tableView .dequeueReusableCellWithIdentifier(<span class="string">&quot;articleCell&quot;</span>, forIndexPath: indexPath) <span class="keyword">as!</span> <span class="type">ArticleCell</span></span><br><span class="line">        cell.setData(articleList[indexPath.row])</span><br><span class="line">        <span class="keyword">return</span> cell;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<p>ArticleCell</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">//  ArticleCell.swift</span></span><br><span class="line"><span class="comment">//  AndroidDaily</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">//  Created by hanks on 16/4/20.</span></span><br><span class="line"><span class="comment">//  Copyright © 2016年 hanks. All rights reserved.</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> UIKit</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">ArticleCell</span>: <span class="title class_">UITableViewCell</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">@IBOutlet</span> <span class="keyword">weak</span> <span class="keyword">var</span> titleLabel: <span class="type">UILabel</span>!</span><br><span class="line">    <span class="keyword">@IBOutlet</span> <span class="keyword">weak</span> <span class="keyword">var</span> authorLabel: <span class="type">UILabel</span>!</span><br><span class="line">    <span class="keyword">@IBOutlet</span> <span class="keyword">weak</span> <span class="keyword">var</span> subtitleLabel: <span class="type">UILabel</span>!</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="keyword">func</span> <span class="title function_">awakeFromNib</span>() &#123;</span><br><span class="line">        <span class="keyword">super</span>.awakeFromNib()</span><br><span class="line">        <span class="comment">// Initialization code</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="keyword">func</span> <span class="title function_">setSelected</span>(<span class="params">selected</span>: <span class="type">Bool</span>, <span class="params">animated</span>: <span class="type">Bool</span>) &#123;</span><br><span class="line">        <span class="keyword">super</span>.setSelected(selected, animated: animated)</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Configure the view for the selected state</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">func</span> <span class="title function_">setData</span>(<span class="params">article</span>:<span class="type">Article</span>)  &#123;</span><br><span class="line">        titleLabel.text <span class="operator">=</span> article.title</span><br><span class="line">        authorLabel.text <span class="operator">=</span> article.authorName </span><br><span class="line"></span><br><span class="line">        <span class="comment">// 设置label 行高</span></span><br><span class="line">        <span class="keyword">let</span> text <span class="operator">=</span> subtitleLabel.attributedText</span><br><span class="line">        <span class="keyword">let</span> mas <span class="operator">=</span> <span class="type">NSMutableAttributedString</span>(attributedString:text<span class="operator">!</span>)</span><br><span class="line">        mas.replaceCharactersInRange(<span class="type">NSMakeRange</span>(<span class="number">0</span>, mas.string.utf16.count),</span><br><span class="line">                                     withString: article.subTitle<span class="operator">!</span>)</span><br><span class="line">        subtitleLabel.attributedText <span class="operator">=</span> mas</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>文章来自： <a href="https://hanks.pub/">https://hanks.pub</a></p>
+</blockquote>
+
+      
+    </div>
+</article>
+
+<!-- 上一页 下一页 -->
+
+
+<nav id="article-nav">
+  
+    <a href="/2016/04/27/NestedScrollingParent/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>上一篇</span>
+      <div class="article-nav-title">
+        
+          Android 中 NestedScrollingParent 接口
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/04/14/Ubuntu-lamp/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>下一篇</span>
+      <div class="article-nav-title">Ubuntu 上搭建 LAMP 环境</div>
+    </a>
+  
+</nav>
+
+
+
+<!-- 相关文章 -->
+
+<!--
+
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+      			<a href="/2016/04/21/iOS-TableView/">学习 iOS 中 UITableView</a>
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+
+-->
+
+
+</section>
+      </div>
+      <footer id="footer">
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      
+      &copy;2024<a target="_blank" rel="noopener" href="https://github.com/hanks-zyh"> Hanks</a>版权所有
+      <br/>
+      <a href="https://beian.miit.gov.cn/" target="_blank">豫ICP备2021022347号</a>
+	  </div>
+  </div>
+ <div id="share">
+  <a id="totop" title="" style="display: block;">返回顶部</a>
+ </div>
+</footer>
+
+    </div>
+    
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/jquery.scrollLoading.js"></script>
+
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/ads.js"></script>
+
+  </div>
+</body>
+</html>

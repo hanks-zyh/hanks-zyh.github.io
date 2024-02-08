@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>自定义控件 --- DeletableEditText带删除按钮的EditText | Hanks&#39; Websit</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <script data-ad-client="ca-pub-8165670162444117" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <meta name="referrer" content="never">
+  <meta name="description" content="DeletableEditText 的布局：   &lt;?xml version&#x3D;&quot;1.0&quot; encoding&#x3D;&quot;utf-8&quot;?&gt; &lt;RelativeLayout xmlns:android&#x3D;&quot;https:&#x2F;&#x2F;schemas.android.com&#x2F;apk&#x2F;res&#x2F;android&quot;     android:layout">
+<meta property="og:type" content="article">
+<meta property="og:title" content="自定义控件 --- DeletableEditText带删除按钮的EditText">
+<meta property="og:url" content="https://hanks.pub/2014/09/26/%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8E%A7%E4%BB%B6_---_DeletableEditText%E5%B8%A6%E5%88%A0%E9%99%A4%E6%8C%89%E9%92%AE%E7%9A%84EditText/index.html">
+<meta property="og:site_name" content="Hanks&#39; Websit">
+<meta property="og:description" content="DeletableEditText 的布局：   &lt;?xml version&#x3D;&quot;1.0&quot; encoding&#x3D;&quot;utf-8&quot;?&gt; &lt;RelativeLayout xmlns:android&#x3D;&quot;https:&#x2F;&#x2F;schemas.android.com&#x2F;apk&#x2F;res&#x2F;android&quot;     android:layout">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img.blog.csdn.net/20140926144938572">
+<meta property="article:published_time" content="2014-09-26T06:49:00.000Z">
+<meta property="article:modified_time" content="2024-02-08T01:29:02.204Z">
+<meta property="article:author" content="Hanks">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img.blog.csdn.net/20140926144938572">
+  
+  
+  <link href="https://fonts.googleapis.com/css?family=Fira+Code|Noto+Serif+SC&display=swap" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8165670162444117"
+     crossorigin="anonymous"></script>
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo"></a>
+    <nav id="main-nav">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      
+        <a class="main-nav-link" href="/archives">Archive</a>
+      
+        <a class="main-nav-link" href="/eye-video">Eye</a>
+      
+        <a class="main-nav-link" href="/atom.xml">Rss</a>
+      
+    </nav>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/archives" class="mobile-nav-link">Archive</a>
+  
+    <a href="/eye-video" class="mobile-nav-link">Eye</a>
+  
+    <a href="/atom.xml" class="mobile-nav-link">Rss</a>
+  
+</nav>
+      <div class="outer">
+        <section id="main"><article id="post-自定义控件_---_DeletableEditText带删除按钮的EditText" class="article article-type-post" itemscope
+  itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <header class="article-header">
+      
+      
+  
+    <h1 class="article-title" itemprop="name">
+      自定义控件 --- DeletableEditText带删除按钮的EditText
+    </h1>
+  
+
+      
+    </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+<p><img src="https://img.blog.csdn.net/20140926144938572" alt=""><br>
+</p>
+<p>DeletableEditText 的布局：</p>
+<p><br>
+</p>
+<pre code_snippet_id="475707" snippet_file_name="blog_20140926_1_1408152"  name="code" class="html">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;RelativeLayout xmlns:android=&quot;https://schemas.android.com/apk/res/android&quot;
+    android:layout_width=&quot;match_parent&quot;
+    android:layout_height=&quot;fill_parent&quot;
+    android:focusable=&quot;true&quot;
+    android:focusableInTouchMode=&quot;true&quot; &gt;
+
+    &lt;EditText
+        android:id=&quot;@+id/edt_input&quot;
+        android:singleLine=&quot;true&quot;
+        android:layout_width=&quot;fill_parent&quot;
+        android:layout_height=&quot;fill_parent&quot;
+        android:paddingLeft=&quot;10dp&quot;
+        android:paddingRight=&quot;10dp&quot; /&gt;
+    &lt;!--删除按钮--!&gt;
+    &lt;ImageButton
+        android:id=&quot;@+id/btn_delete&quot;
+        android:scaleType=&quot;centerInside&quot;
+        android:layout_margin=&quot;5dp&quot;
+        android:layout_width=&quot;wrap_content&quot;
+        android:layout_height=&quot;wrap_content&quot;
+        android:layout_alignParentRight=&quot;true&quot;
+        android:layout_alignParentEnd=&quot;true&quot;
+        android:layout_centerVertical=&quot;true&quot;
+        android:layout_marginRight=&quot;10dp&quot;
+        android:background=&quot;@drawable/hzdl_cancel_n&quot;
+        android:visibility=&quot;gone&quot; /&gt;
+&lt;/RelativeLayout&gt;</pre><br>
+<br>
+<p></p>
+<p><br>
+</p>
+<p>定义类 继承 LinearLayout</p>
+<p></p>
+<pre code_snippet_id="475707" snippet_file_name="blog_20140926_2_3823174"  code_snippet_id="475707" snippet_file_name="blog_20140926_2_3823174" name="code" class="java">package com.example.deletableedittext;
+
+import android.content.Context;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.AttributeSet;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
+
+import com.zyh.deletableedittext.R;
+
+/**
+ * 带删除按钮的EditText
+ * @author zyh
+ */
+public class DeleteableEditText extends LinearLayout {
+
+	private EditText edt_input;
+	private ImageButton btn_delete;
+
+	public DeleteableEditText(Context context) {
+		super(context);
+	}
+
+	public DeleteableEditText(Context context, AttributeSet attrs) {
+		super(context, attrs);
+		// 获取布局
+		View view = LayoutInflater.from(context).inflate(R.layout.edit_delete, this, true);
+		edt_input = (EditText) view.findViewById(R.id.edt_input);
+		btn_delete = (ImageButton) this.findViewById(R.id.btn_delete);
+		edt_input.addTextChangedListener(new TextWatcher() {
+			public void onTextChanged(CharSequence s, int start, int before, int count) {
+			}
+
+			public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+			}
+
+			public void afterTextChanged(Editable s) {
+				btn_delete.setVisibility(edt_input.isFocused() &amp;&amp; s.length() &gt; 0 ? View.VISIBLE : View.GONE);
+			}
+		});
+		edt_input.setOnFocusChangeListener(new OnFocusChangeListener() {
+			public void onFocusChange(View v, boolean hasFocus) {
+				btn_delete.setVisibility(edt_input.getText().length() &lt;= 0 || !hasFocus ? 8 : 0);
+			}
+		});
+		btn_delete.setOnClickListener(new OnClickListener() {
+			public void onClick(View v) {
+				edt_input.setText(&quot;&quot;);
+			}
+		});
+	}
+
+	/**
+	 * @param str 设置输入框显示的默认值
+	 */
+	public void setHint(String str) {
+		edt_input.setHint(str);
+	}
+
+	/**
+	 * @return 获取输入框中的内容
+	 */
+	public String getText() {
+		return edt_input.getText().toString().trim();
+	}
+
+	/**
+	 * @param str 设置输入框内容
+	 */
+	public void setText(String str) {
+		edt_input.setText(str);
+	}
+
+	/**
+	 * @param id 字符id
+	 */
+	public void setText(int id) {
+		edt_input.setText(id);
+	}
+
+}
+</pre><br>
+<br>
+<p></p>
+<p>然后就可以直接在 布局中使用了&nbsp;</p>
+<p><br>
+</p>
+<p><span style="font-size:24px; color:#ff0000"><a target="_blank" href="https://github.com/18236887539/DeletableEditText">源码地址：https://github.com/18236887539/DeletableEditText</a></span></p>
+<p><br>
+</p>
+
+      
+    </div>
+</article>
+
+<!-- 上一页 下一页 -->
+
+
+<nav id="article-nav">
+  
+    <a href="/2014/09/27/%E7%BB%99%E7%94%A8%E6%88%B7%E7%AC%AC%E4%B8%80%E5%8D%B0%E8%B1%A1---%E5%BA%94%E7%94%A8%E5%90%AF%E5%8A%A8%E7%95%8C%E9%9D%A2/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>上一篇</span>
+      <div class="article-nav-title">
+        
+          给用户第一印象---应用启动界面
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2014/09/25/%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8E%A7%E4%BB%B6--%E5%9E%82%E7%9B%B4%E6%BB%91%E5%8A%A8%E5%B8%83%E5%B1%80/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>下一篇</span>
+      <div class="article-nav-title">自定义控件--垂直滑动布局</div>
+    </a>
+  
+</nav>
+
+
+
+<!-- 相关文章 -->
+
+<!--
+
+-->
+
+
+</section>
+      </div>
+      <footer id="footer">
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      
+      &copy;2024<a target="_blank" rel="noopener" href="https://github.com/hanks-zyh"> Hanks</a>版权所有
+      <br/>
+      <a href="https://beian.miit.gov.cn/" target="_blank">豫ICP备2021022347号</a>
+	  </div>
+  </div>
+ <div id="share">
+  <a id="totop" title="" style="display: block;">返回顶部</a>
+ </div>
+</footer>
+
+    </div>
+    
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/jquery.scrollLoading.js"></script>
+
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/ads.js"></script>
+
+  </div>
+</body>
+</html>

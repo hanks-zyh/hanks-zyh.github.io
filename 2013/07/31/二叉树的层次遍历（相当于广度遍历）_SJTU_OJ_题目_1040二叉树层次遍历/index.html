@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>二叉树的层次遍历（相当于广度遍历） SJTU OJ 题目 1040二叉树层次遍历 | Hanks&#39; Websit</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <script data-ad-client="ca-pub-8165670162444117" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <meta name="referrer" content="never">
+  <meta name="description" content="&nbsp;&nbsp; 1040. 二叉树层次遍历   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Description 给出一棵二叉树，求它的层次遍历结果。 [二叉树的遍历问题是一种精神，务必领会]  Input Format 第一行，N&lt;1000000，表示二叉树节点数。 默认序号为0的节点为树根。接下来共N-1行，依次表示序号为1，...，N-1的节">
+<meta property="og:type" content="article">
+<meta property="og:title" content="二叉树的层次遍历（相当于广度遍历） SJTU OJ 题目 1040二叉树层次遍历">
+<meta property="og:url" content="https://hanks.pub/2013/07/31/%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%B1%82%E6%AC%A1%E9%81%8D%E5%8E%86%EF%BC%88%E7%9B%B8%E5%BD%93%E4%BA%8E%E5%B9%BF%E5%BA%A6%E9%81%8D%E5%8E%86%EF%BC%89_SJTU_OJ_%E9%A2%98%E7%9B%AE_1040%E4%BA%8C%E5%8F%89%E6%A0%91%E5%B1%82%E6%AC%A1%E9%81%8D%E5%8E%86/index.html">
+<meta property="og:site_name" content="Hanks&#39; Websit">
+<meta property="og:description" content="&nbsp;&nbsp; 1040. 二叉树层次遍历   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Description 给出一棵二叉树，求它的层次遍历结果。 [二叉树的遍历问题是一种精神，务必领会]  Input Format 第一行，N&lt;1000000，表示二叉树节点数。 默认序号为0的节点为树根。接下来共N-1行，依次表示序号为1，...，N-1的节">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img.blog.csdn.net/20130731143430859?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMTI4MjA2OQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center">
+<meta property="article:published_time" content="2013-07-31T06:45:00.000Z">
+<meta property="article:modified_time" content="2024-02-08T01:29:02.197Z">
+<meta property="article:author" content="Hanks">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img.blog.csdn.net/20130731143430859?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMTI4MjA2OQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center">
+  
+  
+  <link href="https://fonts.googleapis.com/css?family=Fira+Code|Noto+Serif+SC&display=swap" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8165670162444117"
+     crossorigin="anonymous"></script>
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo"></a>
+    <nav id="main-nav">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      
+        <a class="main-nav-link" href="/archives">Archive</a>
+      
+        <a class="main-nav-link" href="/eye-video">Eye</a>
+      
+        <a class="main-nav-link" href="/atom.xml">Rss</a>
+      
+    </nav>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/archives" class="mobile-nav-link">Archive</a>
+  
+    <a href="/eye-video" class="mobile-nav-link">Eye</a>
+  
+    <a href="/atom.xml" class="mobile-nav-link">Rss</a>
+  
+</nav>
+      <div class="outer">
+        <section id="main"><article id="post-二叉树的层次遍历（相当于广度遍历）_SJTU_OJ_题目_1040二叉树层次遍历" class="article article-type-post" itemscope
+  itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <header class="article-header">
+      
+      
+  
+    <h1 class="article-title" itemprop="name">
+      二叉树的层次遍历（相当于广度遍历） SJTU OJ 题目 1040二叉树层次遍历
+    </h1>
+  
+
+      
+    </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+<p>&nbsp;&nbsp;</p>
+<h1 class="page-header" align="center" style="">1040. 二叉树层次遍历</h1>
+<div class="row" style="">
+<h2 style="line-height:36px; margin:0px; font-family:inherit; font-size:24px; font-weight:bold">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Description</h2>
+<p style="margin:0px 0px 9px">给出一棵二叉树，求它的层次遍历结果。</p>
+<p style="margin:0px 0px 9px">[二叉树的遍历问题是一种精神，务必领会]</p>
+<h2 style="line-height:36px; margin:0px; font-family:inherit; font-size:24px; font-weight:bold">
+Input Format</h2>
+<p style="margin:0px 0px 9px">第一行，N&lt;1000000，表示二叉树节点数。</p>
+<p style="margin:0px 0px 9px">默认序号为0的节点为树根。接下来共N-1行，依次表示序号为1，...，N-1的节点的父亲节点序号。</p>
+<p style="margin:0px 0px 9px">如果一个节点有两个孩子节点，左孩子节点序号总是小于右孩子节点序号。</p>
+<h2 style="line-height:36px; margin:0px; font-family:inherit; font-size:24px; font-weight:bold">
+Output Format</h2>
+<p style="margin:0px 0px 9px">仅一行，二叉树的层次遍历结果。节点序号间用空&#26684;隔开。</p>
+<h2 style="line-height:36px; margin:0px; font-family:inherit; font-size:24px; font-weight:bold">
+Hint</h2>
+<h2 style="line-height:36px; margin:0px; font-family:inherit; font-size:24px; font-weight:bold">
+Sample Input</h2>
+<pre style="border-bottom:1px solid; border-left:1px solid; padding-bottom:8px; line-height:18px; background-color:rgb(245,245,245); margin:0px 0px 9px; padding-left:8px; padding-right:8px; display:block; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; word-wrap:break-word; white-space:pre-wrap; color:rgb(51,51,51); font-size:12px; word-break:break-all; border-top:1px solid; border-right:1px solid; padding-top:8px"><code style="border-bottom:0px; border-left:0px; padding-bottom:0px; background-color:transparent; padding-left:0px; padding-right:0px; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; font-size:12px; border-top:0px; border-right:0px; padding-top:0px">6
+0
+1
+1
+0
+4
+</code></pre>
+<h2 style="line-height:36px; margin:0px; font-family:inherit; font-size:24px; font-weight:bold">
+Sample Output</h2>
+<pre style="border-bottom:1px solid; border-left:1px solid; padding-bottom:8px; line-height:18px; background-color:rgb(245,245,245); margin:0px 0px 9px; padding-left:8px; padding-right:8px; display:block; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; word-wrap:break-word; white-space:pre-wrap; color:rgb(51,51,51); font-size:12px; word-break:break-all; border-top:1px solid; border-right:1px solid; padding-top:8px"><code style="border-bottom:0px; border-left:0px; padding-bottom:0px; background-color:transparent; padding-left:0px; padding-right:0px; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; font-size:12px; border-top:0px; border-right:0px; padding-top:0px">0 1 4 2 3 5</code></pre>
+</div>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p><strong><span style="font-size:18px">&nbsp;分析：一开始我想到直接建一个二维数组，tree[num][2];&nbsp; </span>
+</strong></p>
+<p><strong><span style="font-size:18px">&nbsp; 行标为根结点，每一行第一个为左子树，第二个为右子树；</span></strong></p>
+<p>&nbsp;<img src="https://img.blog.csdn.net/20130731143430859?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMTI4MjA2OQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt=""></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p><strong><span style="font-size:18px">然后从o结点开始遍历，遍历完两个子树，然后从左子树开始遍历，遍历左子树两个子树，但是很难确定什么时候当前节点的堂兄弟是否都已经遍历，</span></strong></p>
+<p><strong><span style="font-size:18px">后来问问女朋友，她说我肯定是没看它的博客，我到她的新浪博客找找看，结果找到了</span></strong><a target="_blank" href="https://blog.sina.com.cn/s/blog_abecef150101jpxb.html"><strong><span style="font-size:18px">二叉树遍历问题</span></strong></a><strong><span style="font-size:18px">，下面看看是怎么实现的层次遍历</span></strong></p>
+<p><strong><span style="font-size:18px">建立一个队列 queue &lt;int &gt;Q;&nbsp; (头文件#include&lt;queue&gt;),</span></strong></p>
+<p><strong><span style="font-size:18px">1.首先将根节点0入队，</span></strong></p>
+<p><strong><span style="font-size:18px">2.将队首元素的两个子树入队，</span></strong></p>
+<p><strong><span style="font-size:18px">3.将队首元素输出，出队，然后重复步骤2，直到队列为空（或者直到所有元素输出）</span></strong></p>
+<p><strong><span style="font-size:18px"></span></strong>&nbsp;</p>
+<p><strong><span style="font-size:18px">代码：</span></strong></p>
+<p>&nbsp;</p>
+<pre class="cpp" name="code">#include &lt;queue&gt;
+#include &lt;iostream&gt;
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+
+
+
+using namespace std;
+
+int tree[1000002][2];//注意题目中的N&lt;1000000;额这里我一开始设置的小了，提交一直RUN TIME ERROR 
+int cnt=0;
+
+queue &lt; int&gt; Q;
+
+void Traverse(int n)
+{
+	cnt++;
+	if(cnt&gt;n) return ;
+	//将对头元素的两个子树入队 
+	if(tree[Q.front()][0]!=-1) Q.push(tree[Q.front()][0]);
+	if(tree[Q.front()][1]!=-1) Q.push(tree[Q.front()][1]);
+	
+	printf(&quot;%d&quot;,Q.front());
+	if(cnt&lt;n) printf(&quot; &quot;);
+	Q.pop();
+	Traverse(n);
+}
+int main()
+{
+	int i,n,parent;
+	scanf(&quot;%d&quot;,&amp;n);
+	
+	cnt=0;
+//	while( !Q.empty() ) Q.pop();
+	for(i=0;i&lt;n;i++) 
+		tree[i][0] = tree[i][1] = -1;
+	
+	for(i=1;i&lt;n;i++)
+	{
+		scanf(&quot;%d&quot;,&amp;parent);
+		if(tree[parent][0]!=-1 )  //0位置有元素
+		{
+			if(tree[parent][0]&gt;i)//比较xiao的放到0位置， 
+			{
+				tree[parent][1] = tree[parent][0]; 
+				tree[parent][0]	= i; 
+			}
+			else tree[parent][1] = i; 
+		}
+		else tree[parent][0]=i;
+	}	
+	Q.push(0);
+//	for(i=0;i&lt;n;i++)printf(&quot;%4d %4d\n&quot;,tree[i][0],tree[i][1]);
+	Traverse(n);
+	printf(&quot;\n&quot;);
+	
+	return 0;
+}</pre>
+<p><br>
+&nbsp;</p>
+
+      
+    </div>
+</article>
+
+<!-- 上一页 下一页 -->
+
+
+<nav id="article-nav">
+  
+    <a href="/2013/07/31/hud1805_%E9%A2%98%E7%9B%AE_Expression_%EF%BC%88%E6%95%B0%E7%BB%84%E5%88%9B%E5%BB%BA%E4%BA%8C%E5%8F%89%E6%A0%91_%E6%A0%91%E7%9A%84%E5%B1%82%E6%AC%A1%E9%81%8D%E5%8E%86/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>上一篇</span>
+      <div class="article-nav-title">
+        
+          hud1805 题目 Expression （数组创建二叉树+树的层次遍历
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2013/07/31/%E5%B7%B2%E7%9F%A5%E6%A0%91%E7%9A%84%E5%89%8D%E5%BA%8F%E5%92%8C%E4%B8%AD%E5%BA%8F%E6%B1%82%E5%90%8E%E5%BA%8F_hdu_%E9%A2%98%E7%9B%AE1710_Binary_Tree_Traversals/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>下一篇</span>
+      <div class="article-nav-title">已知树的前序和中序求后序 hdu 题目1710 Binary Tree Traversals</div>
+    </a>
+  
+</nav>
+
+
+
+<!-- 相关文章 -->
+
+<!--
+
+-->
+
+
+</section>
+      </div>
+      <footer id="footer">
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      
+      &copy;2024<a target="_blank" rel="noopener" href="https://github.com/hanks-zyh"> Hanks</a>版权所有
+      <br/>
+      <a href="https://beian.miit.gov.cn/" target="_blank">豫ICP备2021022347号</a>
+	  </div>
+  </div>
+ <div id="share">
+  <a id="totop" title="" style="display: block;">返回顶部</a>
+ </div>
+</footer>
+
+    </div>
+    
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/jquery.scrollLoading.js"></script>
+
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/ads.js"></script>
+
+  </div>
+</body>
+</html>

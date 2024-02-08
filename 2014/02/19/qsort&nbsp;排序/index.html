@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>qsort&amp;nbsp;排序 | Hanks&#39; Websit</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <script data-ad-client="ca-pub-8165670162444117" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <meta name="referrer" content="never">
+  <meta name="description" content="原文地址：qsort&nbsp;排序作者：小ZZ 1.快排是不稳定的,这个不稳定一个表现在其使用的时间是不确定的,最好情况(O(n))和最坏情况(O(n^2))差距太大,我们一般说的O(nlog(n))都是指的是其平均时间.   2.快排是不稳定的,这个不稳定表现在如果相同的比较元素,可能顺序不一样,假设我们有这样一个序列,3,3,3,但是这三个3是有区别的,我们标记为3a,3b,3c,">
+<meta property="og:type" content="article">
+<meta property="og:title" content="qsort&nbsp;排序">
+<meta property="og:url" content="https://hanks.pub/2014/02/19/qsort&nbsp;%E6%8E%92%E5%BA%8F/index.html">
+<meta property="og:site_name" content="Hanks&#39; Websit">
+<meta property="og:description" content="原文地址：qsort&nbsp;排序作者：小ZZ 1.快排是不稳定的,这个不稳定一个表现在其使用的时间是不确定的,最好情况(O(n))和最坏情况(O(n^2))差距太大,我们一般说的O(nlog(n))都是指的是其平均时间.   2.快排是不稳定的,这个不稳定表现在如果相同的比较元素,可能顺序不一样,假设我们有这样一个序列,3,3,3,但是这三个3是有区别的,我们标记为3a,3b,3c,">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2014-02-19T11:17:00.000Z">
+<meta property="article:modified_time" content="2024-02-08T01:29:02.190Z">
+<meta property="article:author" content="Hanks">
+<meta name="twitter:card" content="summary">
+  
+  
+  <link href="https://fonts.googleapis.com/css?family=Fira+Code|Noto+Serif+SC&display=swap" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8165670162444117"
+     crossorigin="anonymous"></script>
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo"></a>
+    <nav id="main-nav">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      
+        <a class="main-nav-link" href="/archives">Archive</a>
+      
+        <a class="main-nav-link" href="/eye-video">Eye</a>
+      
+        <a class="main-nav-link" href="/atom.xml">Rss</a>
+      
+    </nav>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/archives" class="mobile-nav-link">Archive</a>
+  
+    <a href="/eye-video" class="mobile-nav-link">Eye</a>
+  
+    <a href="/atom.xml" class="mobile-nav-link">Rss</a>
+  
+</nav>
+      <div class="outer">
+        <section id="main"><article id="post-qsort&amp;nbsp;排序" class="article article-type-post" itemscope
+  itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <header class="article-header">
+      
+      
+  
+    <h1 class="article-title" itemprop="name">
+      qsort&amp;nbsp;排序
+    </h1>
+  
+
+      
+    </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+<div id="sina_keyword_ad_area2" class="articalContent  ">
+			<div class="blogzz_abstract borderc" style="padding-top:15px;margin:20px 0; border:none; border-top:1px dotted #ccc;"><div class="blogzz_ainfo" style="margin-bottom:12px;"><span style="margin-right:25px;"><strong>原文地址：</strong><a target="_blank" href="https://blog.sina.com.cn/s/blog_63a1163f0100jxri.html" title="qsort&nbsp;<wbr>排序">qsort&nbsp;<wbr>排序</a></span><span><strong>作者：</strong><a href="https://blog.sina.com.cn/u/1671501375"  title="小ZZ" target="_blank" >小ZZ</a></span></div><div class="blogzz_acon"><p STYLE="MArGin-Top: 0pt; MArGin-BoTToM: 0pt">
+<span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt">1.快排是不稳定的,这个不稳定一个表现在其使用的时间是不确定的,最好情况(O(n))和最坏情况(O(n^2))差距太大,我们一般说的O(nlog(n))都是指的是其平均时间.</SPAN><span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt">
+</SPAN></P>
+<p STYLE="MArGin-Top: 0pt; MArGin-BoTToM: 0pt">
+<span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt">2.快排是不稳定的,这个不稳定表现在如果相同的比较元素,可能顺序不一样,假设我们有这样一个序列,3,3,3,但是这三个3是有区别的,我们标记为3a,3b,3c,快排后的结果不一定就是3a,3b,3c这样的排列,所以在某些特定场合我们要用结构体来使其稳定(No.6的例子就是说明这个问题的)</SPAN></P>
+<p STYLE="MArGin-Top: 0pt; MArGin-BoTToM: 0pt">
+<span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt">&lt;本文中排序都是采用的从小到大排序&gt;&nbsp;<wbr></SPAN></P>
+<p STYLE="MArGin-Top: 0pt; MArGin-BoTToM: 0pt">
+&nbsp;<wbr></P>
+<p STYLE="MArGin-Top: 0pt; TexT-inDenT: -24pt; MArGin-BoTToM: 0pt; MArGin-LeFT: 24pt"><span STYLE="FonT-FAMiLY: '宋体'; CoLor: rgb(255,0,0); FonT-siZe: 12pt; FonT-WeiGHT: bold">
+一、&nbsp;<wbr></SPAN><span STYLE="FonT-FAMiLY: '宋体'; CoLor: rgb(255,0,0); FonT-siZe: 12pt; FonT-WeiGHT: bold">对int类型数组排序&nbsp;<wbr></SPAN></P>
+<p STYLE="MArGin-Top: 0pt; MArGin-BoTToM: 0pt">
+&nbsp;<wbr></P>
+<p STYLE="MArGin-Top: 0pt; MArGin-BoTToM: 0pt">
+<span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt">int&nbsp;<wbr>num[100];</SPAN></P>
+<p STYLE="MArGin-Top: 0pt; MArGin-BoTToM: 0pt">
+<span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt">&nbsp;<wbr></SPAN></P>
+<p STYLE="MArGin-Top: 0pt; MArGin-BoTToM: 0pt">
+<span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt">int&nbsp;<wbr>cmp&nbsp;<wbr>(&nbsp;<wbr>const&nbsp;<wbr>void&nbsp;<wbr>*a&nbsp;<wbr>,&nbsp;<wbr>const&nbsp;<wbr>void&nbsp;<wbr>*b&nbsp;<wbr>)&nbsp;<wbr></SPAN><span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt"><br />
+</SPAN><span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt">{&nbsp;<wbr></SPAN><span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt"><br />
+</SPAN><span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr></SPAN><span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt">return&nbsp;<wbr>*(int&nbsp;<wbr>*)a&nbsp;<wbr>-&nbsp;<wbr>*(int&nbsp;<wbr>*)b;&nbsp;<wbr></SPAN><span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt"><br />
+</SPAN><span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt">}&nbsp;<wbr></SPAN></P>
+<p STYLE="MArGin-Top: 0pt; MArGin-BoTToM: 0pt">
+&nbsp;<wbr></P>
+<p STYLE="MArGin-Top: 0pt; MArGin-BoTToM: 0pt">
+<span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt">qsort(num,100,sizeof(num[0]),cmp);&nbsp;<wbr></SPAN></P>
+<p STYLE="MArGin-Top: 0pt; MArGin-BoTToM: 0pt">
+&nbsp;<wbr></P>
+<p STYLE="MArGin-Top: 0pt; MArGin-BoTToM: 0pt">
+&nbsp;<wbr></P>
+<p STYLE="MArGin-Top: 0pt; TexT-inDenT: -24pt; MArGin-BoTToM: 0pt; MArGin-LeFT: 24pt"><span STYLE="FonT-FAMiLY: '宋体'; CoLor: rgb(255,0,0); FonT-siZe: 12pt; FonT-WeiGHT: bold">
+二、&nbsp;<wbr></SPAN><span STYLE="FonT-FAMiLY: '宋体'; CoLor: rgb(255,0,0); FonT-siZe: 12pt; FonT-WeiGHT: bold">对char类型数组排序（同int类型）&nbsp;<wbr></SPAN></P>
+<p STYLE="MArGin-Top: 0pt; MArGin-BoTToM: 0pt">
+&nbsp;<wbr></P>
+<p STYLE="MArGin-Top: 0pt; MArGin-BoTToM: 0pt">
+<span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt">char&nbsp;<wbr>word[100];</SPAN></P>
+<p STYLE="MArGin-Top: 0pt; MArGin-BoTToM: 0pt">
+<span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt">&nbsp;<wbr></SPAN></P>
+<p STYLE="MArGin-Top: 0pt; MArGin-BoTToM: 0pt">
+<span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt">int&nbsp;<wbr>cmp(&nbsp;<wbr>const&nbsp;<wbr>void&nbsp;<wbr>*a&nbsp;<wbr>,&nbsp;<wbr>const&nbsp;<wbr>void&nbsp;<wbr>*b&nbsp;<wbr>)&nbsp;<wbr></SPAN><span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt"><br />
+</SPAN><span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt">{&nbsp;<wbr></SPAN><span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt"><br />
+</SPAN><span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr></SPAN><span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt">return&nbsp;<wbr>*(char&nbsp;<wbr>*)a&nbsp;<wbr>-&nbsp;<wbr>*(int&nbsp;<wbr>*)b;&nbsp;<wbr></SPAN><span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt"><br />
+</SPAN><span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt">}&nbsp;<wbr></SPAN></P>
+<p STYLE="MArGin-Top: 0pt; MArGin-BoTToM: 0pt">
+&nbsp;<wbr></P>
+<p STYLE="MArGin-Top: 0pt; MArGin-BoTToM: 0pt">
+<span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt">qsort(word,100,sizeof(word[0]),cmp);&nbsp;<wbr></SPAN></P>
+<p STYLE="MArGin-Top: 0pt; MArGin-BoTToM: 0pt">
+&nbsp;<wbr></P>
+<p STYLE="MArGin-Top: 0pt; MArGin-BoTToM: 0pt">
+&nbsp;<wbr></P>
+<p STYLE="MArGin-Top: 0pt; MArGin-BoTToM: 0pt">
+<span STYLE="FonT-FAMiLY: '宋体'; CoLor: rgb(255,0,0); FonT-siZe: 12pt; FonT-WeiGHT: bold">
+三、对double类型数组排序（特别要注意）&nbsp;<wbr></SPAN></P>
+<p STYLE="MArGin-Top: 0pt; MArGin-BoTToM: 0pt">
+&nbsp;<wbr></P>
+<p STYLE="MArGin-Top: 0pt; MArGin-BoTToM: 0pt">
+<span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt">double&nbsp;<wbr>in[100];&nbsp;<wbr></SPAN></P>
+<p STYLE="MArGin-Top: 0pt; MArGin-BoTToM: 0pt">
+&nbsp;<wbr></P>
+<p STYLE="MArGin-Top: 0pt; MArGin-BoTToM: 0pt">
+<span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt">int&nbsp;<wbr>cmp(&nbsp;<wbr>const&nbsp;<wbr>void&nbsp;<wbr>*a&nbsp;<wbr>,&nbsp;<wbr>const&nbsp;<wbr>void&nbsp;<wbr>*b&nbsp;<wbr>)&nbsp;<wbr></SPAN><span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt"><br />
+</SPAN><span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt">{&nbsp;<wbr></SPAN></P>
+<p STYLE="MArGin-Top: 0pt; MArGin-BoTToM: 0pt">
+<span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr></SPAN><span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt">return&nbsp;<wbr>*(double&nbsp;<wbr>*)a&nbsp;<wbr>&gt;&nbsp;<wbr>*(double&nbsp;<wbr>*)b&nbsp;<wbr>?&nbsp;<wbr>1&nbsp;<wbr>:&nbsp;<wbr>-1;&nbsp;<wbr></SPAN></P>
+<p STYLE="MArGin-Top: 0pt; MArGin-BoTToM: 0pt">
+<span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt">}&nbsp;<wbr></SPAN></P>
+<p STYLE="MArGin-Top: 0pt; MArGin-BoTToM: 0pt">
+&nbsp;<wbr></P>
+<p STYLE="MArGin-Top: 0pt; MArGin-BoTToM: 0pt">
+<span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt">qsort(in,100,sizeof(in[0]),cmp)；&nbsp;<wbr></SPAN></P>
+<p STYLE="MArGin-Top: 0pt; MArGin-BoTToM: 0pt">
+&nbsp;<wbr></P>
+<p STYLE="MArGin-Top: 0pt; MArGin-BoTToM: 0pt">
+&nbsp;<wbr></P>
+<p STYLE="MArGin-Top: 0pt; MArGin-BoTToM: 0pt">
+<span STYLE="FonT-FAMiLY: '宋体'; CoLor: rgb(255,0,0); FonT-siZe: 12pt; FonT-WeiGHT: bold">
+四、对结构体一级排序&nbsp;<wbr></SPAN></P>
+<p STYLE="MArGin-Top: 0pt; MArGin-BoTToM: 0pt">
+&nbsp;<wbr></P>
+<p STYLE="MArGin-Top: 0pt; MArGin-BoTToM: 0pt">
+<span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt">struct&nbsp;<wbr>In&nbsp;<wbr></SPAN><span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt"><br />
+</SPAN><span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt">{&nbsp;<wbr></SPAN><span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt"><br />
+</SPAN><span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr></SPAN><span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt">double&nbsp;<wbr>data;&nbsp;<wbr></SPAN><span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt"><br />
+</SPAN><span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr></SPAN><span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt">int&nbsp;<wbr>other;&nbsp;<wbr></SPAN><span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt"><br />
+</SPAN><span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt">}s[100]&nbsp;<wbr></SPAN></P>
+<p STYLE="MArGin-Top: 0pt; MArGin-BoTToM: 0pt">
+&nbsp;<wbr></P>
+<p STYLE="MArGin-Top: 0pt; MArGin-BoTToM: 0pt">
+<span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt">//按照data的值从小到大将结构体排序,关于结构体内的排序关键数据data的类型可以很多种，参考上面的例子写&nbsp;<wbr></SPAN></P>
+<p STYLE="MArGin-Top: 0pt; MArGin-BoTToM: 0pt">
+&nbsp;<wbr></P>
+<p STYLE="MArGin-Top: 0pt; MArGin-BoTToM: 0pt">
+<span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt">int&nbsp;<wbr>cmp(&nbsp;<wbr>const&nbsp;<wbr>void&nbsp;<wbr>*a&nbsp;<wbr>,const&nbsp;<wbr>void&nbsp;<wbr>*b)&nbsp;<wbr></SPAN><span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt"><br />
+</SPAN><span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt">{&nbsp;<wbr></SPAN><span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt"><br />
+</SPAN><span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr></SPAN><span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt">return&nbsp;<wbr>(*(In&nbsp;<wbr>*)a).data&nbsp;<wbr>&gt;&nbsp;<wbr>(*(In&nbsp;<wbr>*)b).data&nbsp;<wbr>?&nbsp;<wbr>1&nbsp;<wbr>:&nbsp;<wbr>-1;&nbsp;<wbr></SPAN><span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt"><br />
+</SPAN><span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt">}&nbsp;<wbr></SPAN></P>
+<p STYLE="MArGin-Top: 0pt; MArGin-BoTToM: 0pt">
+&nbsp;<wbr></P>
+<p STYLE="MArGin-Top: 0pt; MArGin-BoTToM: 0pt">
+<span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt">qsort(s,100,sizeof(s[0]),cmp);&nbsp;<wbr></SPAN></P>
+<p STYLE="MArGin-Top: 0pt; MArGin-BoTToM: 0pt">
+&nbsp;<wbr></P>
+<p STYLE="MArGin-Top: 0pt; MArGin-BoTToM: 0pt">
+&nbsp;<wbr></P>
+<p STYLE="MArGin-Top: 0pt; MArGin-BoTToM: 0pt">
+<span STYLE="FonT-FAMiLY: '宋体'; CoLor: rgb(255,0,0); FonT-siZe: 12pt; FonT-WeiGHT: bold">
+五、对结构体二级排序&nbsp;<wbr></SPAN></P>
+<p STYLE="MArGin-Top: 0pt; MArGin-BoTToM: 0pt">
+&nbsp;<wbr></P>
+<p STYLE="MArGin-Top: 0pt; MArGin-BoTToM: 0pt">
+<span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt">struct&nbsp;<wbr>In&nbsp;<wbr></SPAN><span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt"><br />
+</SPAN><span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt">{&nbsp;<wbr></SPAN><span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt"><br />
+</SPAN><span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr></SPAN><span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt">int&nbsp;<wbr>x;&nbsp;<wbr></SPAN><span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt"><br />
+</SPAN><span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr></SPAN><span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt">int&nbsp;<wbr>y;&nbsp;<wbr></SPAN><span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt"><br />
+</SPAN><span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt">}s[100];</SPAN></P>
+<p STYLE="MArGin-Top: 0pt; MArGin-BoTToM: 0pt">
+<span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt">&nbsp;<wbr></SPAN></P>
+<p STYLE="MArGin-Top: 0pt; MArGin-BoTToM: 0pt">
+<span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt">//按照x从小到大排序，当x相等时按照y从大到小排序&nbsp;<wbr></SPAN></P>
+<p STYLE="MArGin-Top: 0pt; MArGin-BoTToM: 0pt">
+&nbsp;<wbr></P>
+<p STYLE="MArGin-Top: 0pt; MArGin-BoTToM: 0pt">
+<span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt">int&nbsp;<wbr>cmp(&nbsp;<wbr>const&nbsp;<wbr>void&nbsp;<wbr>*a&nbsp;<wbr>,&nbsp;<wbr>const&nbsp;<wbr>void&nbsp;<wbr>*b&nbsp;<wbr>)&nbsp;<wbr></SPAN><span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt"><br />
+</SPAN><span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt">{&nbsp;<wbr></SPAN><span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt"><br />
+</SPAN><span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr></SPAN><span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt">struct&nbsp;<wbr>In&nbsp;<wbr>*c&nbsp;<wbr>=&nbsp;<wbr>(In&nbsp;<wbr>*)a;&nbsp;<wbr></SPAN><span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt"><br />
+</SPAN><span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr></SPAN><span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt">struct&nbsp;<wbr>In&nbsp;<wbr>*d&nbsp;<wbr>=&nbsp;<wbr>(In&nbsp;<wbr>*)b;&nbsp;<wbr></SPAN><span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt"><br />
+</SPAN><span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr></SPAN><span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt">if(c-&gt;x&nbsp;<wbr>!=&nbsp;<wbr>d-&gt;x)&nbsp;<wbr>return&nbsp;<wbr>c-&gt;x&nbsp;<wbr>-&nbsp;<wbr>d-&gt;x;&nbsp;<wbr></SPAN><span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt"><br />
+</SPAN><span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr></SPAN><span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt">else&nbsp;<wbr>return&nbsp;<wbr>d-&gt;y&nbsp;<wbr>-&nbsp;<wbr>c-&gt;y;&nbsp;<wbr></SPAN><span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt"><br />
+</SPAN><span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt">}&nbsp;<wbr></SPAN></P>
+<p STYLE="MArGin-Top: 0pt; MArGin-BoTToM: 0pt">
+&nbsp;<wbr></P>
+<p STYLE="MArGin-Top: 0pt; MArGin-BoTToM: 0pt">
+<span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt">qsort(s,100,sizeof(s[0]),cmp);&nbsp;<wbr></SPAN></P>
+<p STYLE="MArGin-Top: 0pt; MArGin-BoTToM: 0pt">
+&nbsp;<wbr></P>
+<p STYLE="MArGin-Top: 0pt; MArGin-BoTToM: 0pt">
+&nbsp;<wbr></P>
+<p STYLE="MArGin-Top: 0pt; MArGin-BoTToM: 0pt">
+&nbsp;<wbr></P>
+<p STYLE="MArGin-Top: 0pt; MArGin-BoTToM: 0pt">
+&nbsp;<wbr></P>
+<p STYLE="MArGin-Top: 0pt; MArGin-BoTToM: 0pt">
+&nbsp;<wbr></P>
+<p STYLE="MArGin-Top: 0pt; MArGin-BoTToM: 0pt">
+<span STYLE="FonT-FAMiLY: '宋体'; CoLor: rgb(255,0,0); FonT-siZe: 12pt; FonT-WeiGHT: bold">
+六、对字符串进行排序&nbsp;<wbr></SPAN></P>
+<p STYLE="MArGin-Top: 0pt; MArGin-BoTToM: 0pt">
+&nbsp;<wbr></P>
+<p STYLE="MArGin-Top: 0pt; MArGin-BoTToM: 0pt">
+<span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt">struct&nbsp;<wbr>In&nbsp;<wbr></SPAN><span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt"><br />
+</SPAN><span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt">{&nbsp;<wbr></SPAN><span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt"><br />
+</SPAN><span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr></SPAN><span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt">int&nbsp;<wbr>data;&nbsp;<wbr></SPAN><span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt"><br />
+</SPAN><span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr></SPAN><span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt">char&nbsp;<wbr>str[100];&nbsp;<wbr></SPAN><span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt"><br />
+</SPAN><span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt">}s[100];&nbsp;<wbr></SPAN></P>
+<p STYLE="MArGin-Top: 0pt; MArGin-BoTToM: 0pt">
+&nbsp;<wbr></P>
+<p STYLE="MArGin-Top: 0pt; MArGin-BoTToM: 0pt">
+<span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt">//按照结构体中字符串str的字典顺序排序&nbsp;<wbr></SPAN></P>
+<p STYLE="MArGin-Top: 0pt; MArGin-BoTToM: 0pt">
+<span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt">int&nbsp;<wbr>cmp&nbsp;<wbr>(&nbsp;<wbr>const&nbsp;<wbr>void&nbsp;<wbr>*a&nbsp;<wbr>,&nbsp;<wbr>const&nbsp;<wbr>void&nbsp;<wbr>*b&nbsp;<wbr>)&nbsp;<wbr></SPAN><span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt"><br />
+</SPAN><span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt">{&nbsp;<wbr></SPAN><span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt"><br />
+</SPAN><span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr></SPAN><span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt">return&nbsp;<wbr>strcmp(&nbsp;<wbr>(*(In&nbsp;<wbr>*)a)-&gt;str&nbsp;<wbr>,&nbsp;<wbr>(*(In&nbsp;<wbr>*)b)-&gt;str&nbsp;<wbr>);&nbsp;<wbr></SPAN><span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt"><br />
+</SPAN><span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt">}</SPAN></P>
+<p STYLE="MArGin-Top: 0pt; MArGin-BoTToM: 0pt">
+<span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt">&nbsp;<wbr></SPAN></P>
+<p STYLE="MArGin-Top: 0pt; MArGin-BoTToM: 0pt">
+<span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt">qsort(s,100,sizeof(s[0]),cmp);&nbsp;<wbr></SPAN></P>
+<p STYLE="MArGin-Top: 0pt; MArGin-BoTToM: 0pt">
+&nbsp;<wbr></P>
+<p STYLE="MArGin-Top: 0pt; MArGin-BoTToM: 0pt">
+&nbsp;<wbr></P>
+<p STYLE="MArGin-Top: 0pt; MArGin-BoTToM: 0pt">
+<span STYLE="FonT-FAMiLY: '宋体'; CoLor: rgb(255,0,0); FonT-siZe: 12pt; FonT-WeiGHT: bold">
+七、计算几何中求凸包的cmp&nbsp;<wbr></SPAN></P>
+<p STYLE="MArGin-Top: 0pt; MArGin-BoTToM: 0pt">
+<span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt">int&nbsp;<wbr>cmp(const&nbsp;<wbr>void&nbsp;<wbr>*a,const&nbsp;<wbr>void&nbsp;<wbr>*b)&nbsp;<wbr>//重点cmp函数，把除了1点外的所有点，旋转角度排序&nbsp;<wbr></SPAN><span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt"><br />
+</SPAN><span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt">{&nbsp;<wbr></SPAN><span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt"><br />
+</SPAN><span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr></SPAN><span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt">struct&nbsp;<wbr>point&nbsp;<wbr>*c=(point&nbsp;<wbr>*)a;&nbsp;<wbr></SPAN><span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt"><br />
+</SPAN><span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr></SPAN><span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt">struct&nbsp;<wbr>point&nbsp;<wbr>*d=(point&nbsp;<wbr>*)b;&nbsp;<wbr></SPAN><span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt"><br />
+</SPAN><span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr></SPAN><span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt">if(&nbsp;<wbr>calc(*c,*d,p[1])&nbsp;<wbr>&lt;&nbsp;<wbr>0)&nbsp;<wbr>return&nbsp;<wbr>1;&nbsp;<wbr></SPAN><span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt"><br />
+</SPAN><span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr></SPAN><span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt">else&nbsp;<wbr>if(&nbsp;<wbr>!calc(*c,*d,p[1])&nbsp;<wbr>&amp;&amp;&nbsp;<wbr>dis(c-&gt;x,c-&gt;y,p[1].x,p[1].y)&nbsp;<wbr>&lt;&nbsp;<wbr></SPAN><span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr></SPAN><span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt">dis(d-&gt;x,d-&gt;y,p[1].x,p[1].y))&nbsp;<wbr>//如果在一条直线上，则把远的放在前面&nbsp;<wbr></SPAN><span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt"><br />
+</SPAN><span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt">return&nbsp;<wbr>1;&nbsp;<wbr></SPAN><span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt; FonT-WeiGHT: bold"><br />
+</SPAN><span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt">else&nbsp;<wbr>return&nbsp;<wbr>-1;&nbsp;<wbr></SPAN><span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt"><br />
+</SPAN><span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt">}&nbsp;<wbr></SPAN></P>
+<p STYLE="MArGin-Top: 0pt; MArGin-BoTToM: 0pt">
+&nbsp;<wbr></P>
+<p STYLE="MArGin-Top: 0pt; MArGin-BoTToM: 0pt">
+&nbsp;<wbr></P>
+<p STYLE="MArGin-Top: 0pt; MArGin-BoTToM: 0pt">
+<span STYLE="FonT-FAMiLY: '宋体'; CoLor: rgb(255,0,0); FonT-siZe: 12pt; FonT-WeiGHT: bold">
+No.6.对结构体排序.加入no来使其稳定(即data值相等的情况下按原来的顺序排)</SPAN></P>
+<p STYLE="MArGin-Top: 0pt; MArGin-BoTToM: 0pt">
+<span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt">int&nbsp;<wbr>cmp(const&nbsp;<wbr>void&nbsp;<wbr>*a,const&nbsp;<wbr>void&nbsp;<wbr>*b)</SPAN><span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt"><br />
+</SPAN><span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt">{</SPAN><span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt"><br /></SPAN><span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>struct&nbsp;<wbr>node&nbsp;<wbr>*aa=(node&nbsp;<wbr>*)a;</SPAN><span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt"><br />
+</SPAN><span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>struct&nbsp;<wbr>node&nbsp;<wbr>*bb=(node&nbsp;<wbr>*)b;</SPAN><span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt"><br />
+</SPAN><span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>if(aa-&gt;date1!=bb-&gt;date1)</SPAN><span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt"><br />
+</SPAN><span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>return(((aa-&gt;date1)&gt;(bb-&gt;date1))?1:-1);</SPAN><span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt"><br />
+</SPAN><span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>else</SPAN><span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt"><br />
+</SPAN><span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>return((aa-&gt;no)-(bb-&gt;no));</SPAN><span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt"><br />
+</SPAN><span STYLE="FonT-FAMiLY: '宋体'; FonT-siZe: 12pt">}</SPAN></P>
+<p STYLE="MArGin-Top: 0pt; MArGin-BoTToM: 0pt">
+<span STYLE="FonT-FAMiLY: '宋体'; CoLor: rgb(255,0,0); FonT-siZe: 12pt; FonT-WeiGHT: bold">
+PS:其中的qsort函数包含在&lt;stdlib.h&gt;的头文件里，strcmp包含在&lt;string.h&gt;的头文件里&nbsp;<wbr></SPAN><span STYLE="FonT-FAMiLY: '宋体'; CoLor: rgb(255,0,0); FonT-siZe: 12pt; FonT-WeiGHT: bold">。</SPAN></P></div></div>							
+		</div>
+
+      
+    </div>
+</article>
+
+<!-- 上一页 下一页 -->
+
+
+<nav id="article-nav">
+  
+    <a href="/2014/02/19/c%E8%AF%AD%E8%A8%80swap(a,b)%E5%80%BC%E4%BA%A4%E6%8D%A2%E7%9A%844%E7%A7%8D%E2%80%A6/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>上一篇</span>
+      <div class="article-nav-title">
+        
+          c语言swap(a,b)值交换的4种…
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2014/02/19/sscanf%E5%87%BD%E6%95%B0%E7%9A%84%E7%94%A8%E6%B3%95%5B%E7%99%BE%E5%BA%A6%E6%94%B6%E8%97%8F%5D/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>下一篇</span>
+      <div class="article-nav-title">sscanf函数的用法[百度收藏]</div>
+    </a>
+  
+</nav>
+
+
+
+<!-- 相关文章 -->
+
+<!--
+
+-->
+
+
+</section>
+      </div>
+      <footer id="footer">
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      
+      &copy;2024<a target="_blank" rel="noopener" href="https://github.com/hanks-zyh"> Hanks</a>版权所有
+      <br/>
+      <a href="https://beian.miit.gov.cn/" target="_blank">豫ICP备2021022347号</a>
+	  </div>
+  </div>
+ <div id="share">
+  <a id="totop" title="" style="display: block;">返回顶部</a>
+ </div>
+</footer>
+
+    </div>
+    
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/jquery.scrollLoading.js"></script>
+
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/ads.js"></script>
+
+  </div>
+</body>
+</html>

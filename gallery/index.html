@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1080">
+  <title>Gallery</title>
+  <style>
+    body{
+      margin: 0;
+      height: 100%;
+      overflow-x: hidden;
+    }
+    .fav-list{
+      display: flex;
+      flex-wrap: wrap;
+      margin: 2px;
+      overflow-y: auto;
+    }
+    /* .fav-list::after{
+      content: '';
+      flex-grow: 999999999;
+      order: 999999999;
+    } */
+    .fav-list > div{
+      margin: 2px;
+      background-color: violet;
+      position: relative;
+    }
+    .fav-list > div > i {
+      display: block;
+      background-color: lightblue;
+      /* display: none; */
+    }
+    .fav-list > div > img {
+      position: absolute;
+      vertical-align: bottom;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    .fav-list > .placeholder{
+      flex-grow: 100;
+      flex-basis: 480px;
+      height: 0;
+      margin: 0;
+    }
+
+    .cover {
+        position: absolute;
+        vertical-align: bottom;
+        top: 0;
+        background-color: rgba(0,0,0,0.6);
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        color: white;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        cursor: pointer;
+        opacity: 0;
+        transition: opacity 0.3s; 
+    }
+    .cover:hover{
+      opacity: 1;
+    }
+    .cover > h3{
+      margin: 10px;
+    }
+    .cover > p{
+      margin: 10px;
+      margin-bottom: 20px;
+      line-height: 20px;
+      font-size: 12px;
+    }
+  </style>
+</head>
+<body id="app">
+  <div class="fav-list">
+     <div v-for="img in imgs"
+      style="flex-grow:{{img.width*100/img.height}};flex-basis:{{img.width*480/img.height}}px;">
+        <i style="padding-bottom:{{img.height/img.width*100}}%"></i>
+        <img :src="img.src"/>
+        <div class="cover">
+          <h3>{{ img.title }}</h3>
+          <p>{{ img.content }}</p>
+        </div>
+      </div>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/nanobar/0.4.2/nanobar.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.26/vue.min.js"></script>
+  <script type="text/javascript">
+    var app = new Vue({
+      el: '#app',
+      data: {
+        imgs: [],
+        page: 0,
+        limit: 21,
+        loading: false
+      },
+      ready: function () {
+        this.getData()
+      },
+      methods: { 
+        getData: function () {
+          var that = this
+          if(that.loading){
+            return;
+          }
+          that.loading = true;
+          var nanobar = new Nanobar();
+          nanobar.go( 76 ); // size bar 76%
+          var url = 'https://api.leancloud.cn/1.1/classes/Image?order=-createdAt&limit='+that.limit+'&skip='+(that.page*that.limit)
+          console.log(url)
+          fetch(url,{
+            headers: {
+              'Content-Type': 'application/json',
+              'X-LC-Id': 'lxKaPgiGXeKQI7OOewXr9aHS-gzGzoHsz',
+              'X-LC-Key': 'SoeTtHk30o7yPsqxC4QWO4Ge'
+            }
+          })
+          .then((response) => response.json())
+          .then((json) => {
+            // console.log(json)
+            var length = json.results.length;
+            if (length > 0){
+              that.page += 1
+            }
+            for (var i = 0; i < length; i++) {
+              var item = json.results[i]
+              var img = {}
+              img.src = item.url
+              img.width = 720
+              img.height = 1280
+              img.title = item.title
+              img.content = item.content
+              that.imgs.push(img)
+            }
+            // size bar 100% and and finish
+            nanobar.go(100);
+            that.loading = false;
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+        }
+      }
+    })
+
+    window.onload = function() {
+       // 检测滑动到底部
+      var list = document.getElementsByClassName("fav-list")[0];
+      if (list) {
+        list.style.height = window.innerHeight + 'px';
+        list.onscroll = function () {
+          // console.log(list.scrollTop+',' + list.clientHeight + ',' + list.scrollHeight);
+          if (Math.abs(list.scrollTop + list.clientHeight - list.scrollHeight) < 5) {
+              // console.log("到达底部");
+              app.getData();
+          }
+        }
+      }
+    };
+    window.onresize = function(event) {
+      var list = document.getElementsByClassName("fav-list")[0];
+      if (list) {
+        list.style.height = window.innerHeight + 'px';
+      }
+    };
+  </script>
+</body>
+</html>

@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>React-Native 练习用户信息界面 | Hanks&#39; Websit</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <script data-ad-client="ca-pub-8165670162444117" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <meta name="referrer" content="never">
+  <meta name="description" content="wuwu. 好饿~~直接看效果图L:">
+<meta property="og:type" content="article">
+<meta property="og:title" content="React-Native 练习用户信息界面">
+<meta property="og:url" content="https://hanks.pub/2015/12/29/react-userinfo/index.html">
+<meta property="og:site_name" content="Hanks&#39; Websit">
+<meta property="og:description" content="wuwu. 好饿~~直接看效果图L:">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://file.bmob.cn/M02/28/D4/oYYBAFaCYr6AIlcRAALzw1jyVMk263.png">
+<meta property="article:published_time" content="2015-12-29T10:35:03.000Z">
+<meta property="article:modified_time" content="2024-02-08T01:29:02.191Z">
+<meta property="article:author" content="Hanks">
+<meta property="article:tag" content="React-Native">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://file.bmob.cn/M02/28/D4/oYYBAFaCYr6AIlcRAALzw1jyVMk263.png">
+  
+  
+  <link href="https://fonts.googleapis.com/css?family=Fira+Code|Noto+Serif+SC&display=swap" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8165670162444117"
+     crossorigin="anonymous"></script>
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo"></a>
+    <nav id="main-nav">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      
+        <a class="main-nav-link" href="/archives">Archive</a>
+      
+        <a class="main-nav-link" href="/eye-video">Eye</a>
+      
+        <a class="main-nav-link" href="/atom.xml">Rss</a>
+      
+    </nav>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/archives" class="mobile-nav-link">Archive</a>
+  
+    <a href="/eye-video" class="mobile-nav-link">Eye</a>
+  
+    <a href="/atom.xml" class="mobile-nav-link">Rss</a>
+  
+</nav>
+      <div class="outer">
+        <section id="main"><article id="post-react-userinfo" class="article article-type-post" itemscope
+  itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <header class="article-header">
+      
+      
+  
+    <h1 class="article-title" itemprop="name">
+      React-Native 练习用户信息界面
+    </h1>
+  
+
+      
+    </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      <p>wuwu. 好饿~~<br>直接看效果图L:</p>
+<p><img src="https://file.bmob.cn/M02/28/D4/oYYBAFaCYr6AIlcRAALzw1jyVMk263.png" alt="用户信息界面"></p>
+<span id="more"></span>
+
+
+<p>代码:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&#x27;use strict&#x27;</span><br><span class="line"></span><br><span class="line">var React = require(&#x27;react-native&#x27;);</span><br><span class="line">var &#123;</span><br><span class="line">  Image,</span><br><span class="line">  View,</span><br><span class="line">  Text,</span><br><span class="line">  StyleSheet,</span><br><span class="line">  ViewPagerAndroid,</span><br><span class="line">  BackAndroid,</span><br><span class="line">  ScrollView,</span><br><span class="line">&#125; = React;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">BackAndroid.addEventListener(&#x27;hardwareBackPress&#x27;, function() &#123;</span><br><span class="line">  if(_navigator == null)&#123;</span><br><span class="line">    return false;</span><br><span class="line">  &#125;</span><br><span class="line">  if(_navigator.getCurrentRoutes().length === 1)&#123;</span><br><span class="line">    return false;</span><br><span class="line">  &#125;</span><br><span class="line">  _navigator.pop();</span><br><span class="line">  return true;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">var _navigator ;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">var UserInfoView = React.createClass(&#123;</span><br><span class="line"></span><br><span class="line">  getInitialState: function()&#123;</span><br><span class="line">    _navigator = this.props.navigator;</span><br><span class="line">    return &#123;</span><br><span class="line"></span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  render: function()&#123;</span><br><span class="line">    return (</span><br><span class="line">        &lt;ScrollView&gt;</span><br><span class="line">      &lt;View&gt;</span><br><span class="line">        &lt;Image  source= &#123;&#123; uri: &#x27;https://img3.100bt.com/upload/ttq/20120908/1347116765019.jpg&#x27; &#125;&#125; style=&#123;&#123;  height:230 &#125;&#125;&gt;</span><br><span class="line">          &lt;View style=&#123;&#123; flex:1,alignItems:&#x27;center&#x27;, backgroundColor: &#x27;rgba(0, 0, 0, 0.6)&#x27; &#125;&#125;&gt;</span><br><span class="line">              &lt;Image  source= &#123;&#123; uri: &#x27;https://img3.100bt.com/upload/ttq/20120908/1347116765019.jpg&#x27; &#125;&#125;</span><br><span class="line">              style=&#123;&#123;width:60,  height:60, marginTop:30,borderRadius:40, borderWidth:2,borderColor:&#x27;#C251C0&#x27; &#125;&#125; /&gt;</span><br><span class="line">              &lt;Text style=&#123;&#123; fontSize:18, color:&#x27;#CECFCE&#x27;, margin:4 &#125;&#125;&gt; Jassell Charm&lt;/Text&gt;</span><br><span class="line">              &lt;Text style=&#123;&#123; fontSize:14, color:&#x27;#C251C0&#x27;&#125;&#125;&gt;Product Design&lt;/Text&gt;</span><br><span class="line">              &lt;View style=&#123;&#123; width:140, marginLeft:40, marginTop:30, marginRight:40, flexDirection:&#x27;row&#x27;, justifyContent:&#x27;space-between&#x27;, alignItems:&#x27;center&#x27;,   &#125;&#125;&gt;</span><br><span class="line">                &lt;Text style=&#123;&#123; fontSize:12, color:&#x27;#CECFCE&#x27;,&#125;&#125;&gt;420&lt;Text style=&#123;&#123; color:&#x27;#3A87DF&#x27;&#125;&#125;&gt; Foller&lt;/Text&gt;&lt;/Text&gt;</span><br><span class="line">                &lt;Text style=&#123;&#123; fontSize:12, color:&#x27;#CECFCE&#x27;,&#125;&#125;&gt;247&lt;Text style=&#123;&#123; color:&#x27;#3A87DF&#x27;&#125;&#125;&gt; Foller&lt;/Text&gt;&lt;/Text&gt;</span><br><span class="line">              &lt;/View&gt;</span><br><span class="line">          &lt;/View&gt;</span><br><span class="line">        &lt;/Image&gt;</span><br><span class="line"></span><br><span class="line">        &lt;View style=&#123;&#123;</span><br><span class="line">          backgroundColor: &#x27;#191919&#x27;,</span><br><span class="line">          height: 56,</span><br><span class="line">          justifyContent:&#x27;space-between&#x27;,</span><br><span class="line">          flexDirection:&#x27;row&#x27;,</span><br><span class="line">          alignItems:&#x27;center&#x27;,</span><br><span class="line">        &#125;&#125;&gt;</span><br><span class="line">        &lt;Text style=&#123;&#123; color:&#x27;#C251C0&#x27;, fontSize:16, flex:1,alignSelf:&#x27;center&#x27; ,textAlign: &#x27;center&#x27;&#125;&#125;&gt;FEED&lt;/Text&gt;</span><br><span class="line">        &lt;Text style=&#123;&#123; color:&#x27;#545351&#x27;, fontSize:16, flex:1,alignSelf:&#x27;center&#x27;,textAlign: &#x27;center&#x27;&#125;&#125;&gt;PHOTOS&lt;/Text&gt;</span><br><span class="line">        &lt;/View&gt;</span><br><span class="line">        &lt;View style=&#123;&#123; backgroundColor:&#x27;#C251C0&#x27;, height:2, width:140&#125;&#125;&gt;&lt;/View&gt;</span><br><span class="line">        &lt;View  style=&#123;&#123; flexDirection:&#x27;row&#x27;, height:80,   &#125;&#125;&gt;</span><br><span class="line">          &lt;View  style=&#123;&#123; width:80, alignItems:&#x27;center&#x27; &#125;&#125;&gt;</span><br><span class="line">            &lt;View style=&#123;&#123;height:8, width:8, borderColor:&#x27;#F1A289&#x27;,  borderWidth:2, borderRadius:4, marginTop:40 &#125;&#125;&gt;&lt;/View&gt;</span><br><span class="line">            &lt;View style=&#123;&#123;flex:1, width:2, backgroundColor:&#x27;#DBDBDB&#x27;&#125;&#125; /&gt;</span><br><span class="line">          &lt;/View&gt;</span><br><span class="line">          &lt;View style=&#123;&#123; justifyContent:&#x27;center&#x27;&#125;&#125;&gt;</span><br><span class="line">            &lt;Text style=&#123;&#123; color:&#x27;#8B8B8A&#x27;, fontSize:14, marginBottom:5,  &#125;&#125;&gt;Checked in at &lt;Text style=&#123;&#123;color:&#x27;#C251C0&#x27;&#125;&#125;&gt;Nola Bar and Restaurant&lt;/Text&gt;&lt;/Text&gt;</span><br><span class="line">            &lt;Text style=&#123;&#123; color:&#x27;#CBCCCB&#x27;, fontSize:12, marginTop:5,  &#125;&#125;&gt;WENNESDAY 7:00 PM&lt;/Text&gt;</span><br><span class="line">          &lt;/View&gt;</span><br><span class="line">        &lt;/View&gt;</span><br><span class="line">        &lt;View  style=&#123;&#123; flexDirection:&#x27;row&#x27;, height:80,   &#125;&#125;&gt;</span><br><span class="line">          &lt;View  style=&#123;&#123; width:80, alignItems:&#x27;center&#x27; &#125;&#125;&gt;</span><br><span class="line">            &lt;View style=&#123;&#123;height:40, width:2, backgroundColor:&#x27;#DBDBDB&#x27;, overflow:&#x27;visible&#x27;&#125;&#125; /&gt;</span><br><span class="line">            &lt;View style=&#123;&#123;height:8, width:8, borderColor:&#x27;#54D8E7&#x27;,  borderWidth:2, borderRadius:4, &#125;&#125;&gt;&lt;/View&gt;</span><br><span class="line">            &lt;View style=&#123;&#123;flex:1, width:2, backgroundColor:&#x27;#DBDBDB&#x27;, overflow:&#x27;visible&#x27;&#125;&#125; /&gt;</span><br><span class="line">          &lt;/View&gt;</span><br><span class="line">          &lt;View style=&#123;&#123; justifyContent:&#x27;center&#x27;&#125;&#125;&gt;</span><br><span class="line">            &lt;Text style=&#123;&#123; color:&#x27;#8B8B8A&#x27;, fontSize:14, marginBottom:5,  &#125;&#125;&gt;Hey team let us meet at 7:00 PM &lt;/Text&gt;</span><br><span class="line">            &lt;Text style=&#123;&#123; color:&#x27;#CBCCCB&#x27;, fontSize:12, marginTop:5,  &#125;&#125;&gt;WENNESDAY 6:32 PM&lt;/Text&gt;</span><br><span class="line">          &lt;/View&gt;</span><br><span class="line">        &lt;/View&gt;</span><br><span class="line">        &lt;View  style=&#123;&#123; flexDirection:&#x27;row&#x27;, &#125;&#125;&gt;</span><br><span class="line">          &lt;View  style=&#123;&#123; width:80, alignItems:&#x27;center&#x27; &#125;&#125;&gt;</span><br><span class="line">            &lt;View style=&#123;&#123;height:40, width:2, backgroundColor:&#x27;#DBDBDB&#x27;, overflow:&#x27;visible&#x27;&#125;&#125; /&gt;</span><br><span class="line">            &lt;View style=&#123;&#123;height:8, width:8, borderColor:&#x27;#3885E5&#x27;,  borderWidth:2, borderRadius:4,  &#125;&#125;&gt;&lt;/View&gt;</span><br><span class="line">            &lt;View style=&#123;&#123;height:200, width:2, backgroundColor:&#x27;#DBDBDB&#x27;, overflow:&#x27;visible&#x27;&#125;&#125; /&gt;</span><br><span class="line">          &lt;/View&gt;</span><br><span class="line">          &lt;View &gt;</span><br><span class="line">            &lt;Text style=&#123;&#123; color:&#x27;#8B8B8A&#x27;, fontSize:14, marginBottom:5, marginTop:20, &#125;&#125;&gt;Bonfite with friends &lt;/Text&gt;</span><br><span class="line">            &lt;Text style=&#123;&#123; color:&#x27;#CBCCCB&#x27;, fontSize:12, marginTop:5,  &#125;&#125;&gt;DEC 5&lt;/Text&gt;</span><br><span class="line">            &lt;Image source=&#123;&#123; uri:&#x27;https://img.hb.aicdn.com/735afbfa2f6fee24d1a10e1a22b23c63f707ea82281c3-ajdFRe_fw658&#x27; &#125;&#125; style=&#123;&#123; borderRadius:5, height:120, width:200&#125;&#125; /&gt;</span><br><span class="line">          &lt;/View&gt;</span><br><span class="line">        &lt;/View&gt;</span><br><span class="line">      &lt;/View&gt;</span><br><span class="line">        &lt;/ScrollView&gt;</span><br><span class="line">    );</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">var styles = StyleSheet.create(&#123;</span><br><span class="line"></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">module.exports = UserInfoView;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<p><a target="_blank" rel="noopener" href="https://github.com/hanks-zyh/Hrn">github地址</a></p>
+<blockquote>
+<p>文章来自: <a target="_blank" rel="noopener" href="https://hanks.xyz/">https://hanks.xyz</a></p>
+</blockquote>
+
+      
+    </div>
+</article>
+
+<!-- 上一页 下一页 -->
+
+
+<nav id="article-nav">
+  
+    <a href="/2015/12/30/react-zhihu/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>上一篇</span>
+      <div class="article-nav-title">
+        
+          React-Native 知乎日报首页
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/12/29/react-viewpager/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>下一篇</span>
+      <div class="article-nav-title">React-Native 实现Android中的ViewPager</div>
+    </a>
+  
+</nav>
+
+
+
+<!-- 相关文章 -->
+
+<!--
+
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+      			<a href="/2015/12/29/react-userinfo/">React-Native 练习用户信息界面</a>
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+
+-->
+
+
+</section>
+      </div>
+      <footer id="footer">
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      
+      &copy;2024<a target="_blank" rel="noopener" href="https://github.com/hanks-zyh"> Hanks</a>版权所有
+      <br/>
+      <a href="https://beian.miit.gov.cn/" target="_blank">豫ICP备2021022347号</a>
+	  </div>
+  </div>
+ <div id="share">
+  <a id="totop" title="" style="display: block;">返回顶部</a>
+ </div>
+</footer>
+
+    </div>
+    
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/jquery.scrollLoading.js"></script>
+
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/ads.js"></script>
+
+  </div>
+</body>
+</html>

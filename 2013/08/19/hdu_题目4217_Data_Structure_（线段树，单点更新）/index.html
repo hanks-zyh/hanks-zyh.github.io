@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>hdu 题目4217 Data Structure?（线段树，单点更新） | Hanks&#39; Websit</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <script data-ad-client="ca-pub-8165670162444117" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <meta name="referrer" content="never">
+  <meta name="description" content="Data Structure? Time Limit: 10000&#x2F;5000 MS (Java&#x2F;Others)&nbsp;&nbsp;&nbsp;&nbsp;Memory Limit: 65536&#x2F;65536 K (Java&#x2F;Others) Total Submission(s): 2133&nbsp;&nbsp;&nbsp;&nbsp;Accepted Submission(s): 682">
+<meta property="og:type" content="article">
+<meta property="og:title" content="hdu 题目4217 Data Structure?（线段树，单点更新）">
+<meta property="og:url" content="https://hanks.pub/2013/08/19/hdu_%E9%A2%98%E7%9B%AE4217_Data_Structure_%EF%BC%88%E7%BA%BF%E6%AE%B5%E6%A0%91%EF%BC%8C%E5%8D%95%E7%82%B9%E6%9B%B4%E6%96%B0%EF%BC%89/index.html">
+<meta property="og:site_name" content="Hanks&#39; Websit">
+<meta property="og:description" content="Data Structure? Time Limit: 10000&#x2F;5000 MS (Java&#x2F;Others)&nbsp;&nbsp;&nbsp;&nbsp;Memory Limit: 65536&#x2F;65536 K (Java&#x2F;Others) Total Submission(s): 2133&nbsp;&nbsp;&nbsp;&nbsp;Accepted Submission(s): 682">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2013-08-19T13:58:00.000Z">
+<meta property="article:modified_time" content="2024-02-08T01:29:02.186Z">
+<meta property="article:author" content="Hanks">
+<meta name="twitter:card" content="summary">
+  
+  
+  <link href="https://fonts.googleapis.com/css?family=Fira+Code|Noto+Serif+SC&display=swap" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8165670162444117"
+     crossorigin="anonymous"></script>
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo"></a>
+    <nav id="main-nav">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      
+        <a class="main-nav-link" href="/archives">Archive</a>
+      
+        <a class="main-nav-link" href="/eye-video">Eye</a>
+      
+        <a class="main-nav-link" href="/atom.xml">Rss</a>
+      
+    </nav>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/archives" class="mobile-nav-link">Archive</a>
+  
+    <a href="/eye-video" class="mobile-nav-link">Eye</a>
+  
+    <a href="/atom.xml" class="mobile-nav-link">Rss</a>
+  
+</nav>
+      <div class="outer">
+        <section id="main"><article id="post-hdu_题目4217_Data_Structure_（线段树，单点更新）" class="article article-type-post" itemscope
+  itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <header class="article-header">
+      
+      
+  
+    <h1 class="article-title" itemprop="name">
+      hdu 题目4217 Data Structure?（线段树，单点更新）
+    </h1>
+  
+
+      
+    </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+<h1 align="center" style="color:#1a5cc8">Data Structure?</h1>
+<p align="center"><span size="&#43;0"><strong><span style="font-family:Arial; font-size:12px; color:green; font-weight:bold">Time Limit: 10000/5000 MS (Java/Others)&nbsp;&nbsp;&nbsp;&nbsp;Memory Limit: 65536/65536 K (Java/Others)<br>
+Total Submission(s): 2133&nbsp;&nbsp;&nbsp;&nbsp;Accepted Submission(s): 682<br>
+</span></strong></span><br>
+<br>
+</p>
+<div class="panel_title" align="left"><span style="font-size:18px; color:#3366ff; background-color:#ffffff">Problem Description</span></div>
+<div class="panel_content">Data structure is one of the basic skills for Computer Science students, which is a particular way of storing and organizing data in a computer so that it can be used efficiently. Today let me introduce a data-structure-like problem
+ for you.<br>
+Original, there are N numbers, namely 1, 2, 3...N. Each round, iSea find out the Ki-th smallest number and take it away, your task is reporting him the total sum of the numbers he has taken away.<br>
+</div>
+<div class="panel_bottom">&nbsp;</div>
+<p><br>
+&nbsp;</p>
+<div class="panel_title" align="left"><span style="font-size:18px; color:#3366ff; background-color:#ffffff"><strong>Input</strong></span></div>
+<div class="panel_content">The first line contains a single integer T, indicating the number of test cases.<br>
+Each test case includes two integers N, K, K indicates the round numbers. Then a line with K numbers following, indicating in i (1-based) round, iSea take away the Ki-th smallest away.<br>
+<br>
+<strong>Technical Specification</strong><br>
+1. 1 &lt;= T &lt;= 128<br>
+2. 1 &lt;= K &lt;= N &lt;= 262 144<br>
+3. 1 &lt;= Ki &lt;= N - i &#43; 1<br>
+</div>
+<div class="panel_bottom">&nbsp;</div>
+<p><br>
+&nbsp;</p>
+<div class="panel_title" align="left"><span style="font-size:18px; color:#3366ff">Output</span></div>
+<div class="panel_content">For each test case, output the case number first, then the sum.</div>
+<div class="panel_bottom">&nbsp;</div>
+<p><br>
+&nbsp;</p>
+<div class="panel_title" align="left">Sample Input</div>
+<div class="panel_content">
+<pre><div style="font-family:Courier New,Courier,monospace">2
+3 2
+1 1
+10 3
+3 9 1</div></pre>
+</div>
+<div class="panel_bottom">&nbsp;</div>
+<p><br>
+&nbsp;</p>
+<div class="panel_title" align="left">Sample Output</div>
+<div class="panel_content">
+<pre><div style="font-family:Courier New,Courier,monospace">Case 1: 3
+Case 2: 14</div></pre>
+</div>
+<div class="panel_bottom">&nbsp;</div>
+<p><br>
+单点更新，</p>
+<p>找到该点，路径上个区间的len--；</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<pre class="cpp" name="code">/*
+2013-8-19 15:13:47
+Time: 562MS    Memory: 6392K
+Author: zyh 
+*/
+#define N 262200
+#include&lt;stdio.h&gt;
+
+struct IntervalTree{
+	int L,R,len;
+}tree[N*4];
+
+__int64 sum; //这里又错了一次，，注意要64位 
+
+void build(int p,int l,int r){
+	
+	tree[p].L = l;
+	tree[p].R = r;
+	tree[p].len = r-l+1;
+	if(l==r) return;
+
+	int mid = (l+r)&gt;&gt;1;
+	
+	build(p&lt;&lt;1,l,mid);
+	build(p&lt;&lt;1|1,mid+1,r);
+	
+}
+
+void change(int p,int cnt){
+
+	tree[p].len--;
+	
+	if(tree[p].L==tree[p].R) {
+		sum+=tree[p].L;
+		return ;
+	}
+
+	if(cnt &lt;= tree[p&lt;&lt;1].len){
+		change(p&lt;&lt;1,cnt);		
+	}
+	else if(cnt&gt;tree[p&lt;&lt;1].len){
+		change(p&lt;&lt;1|1,cnt-tree[p&lt;&lt;1].len);
+	}
+}
+int main()
+{
+	int t,n,k,i,tmp,j;
+	scanf(&quot;%d\n&quot;,&amp;t);
+	for(j=1;j&lt;=t;j++)
+	{
+		scanf(&quot;%d%d&quot;,&amp;n,&amp;k);
+		build(1,1,n);
+		sum=0;
+		for(i=0;i&lt;k;i++){
+			scanf(&quot;%d&quot;,&amp;tmp);
+			change(1,tmp);
+		}
+		printf(&quot;Case %d: %I64d\n&quot;,j,sum);		
+	} 
+	return 0;
+} 
+
+</pre>
+<p><br>
+&nbsp;</p>
+<p>&nbsp;</p>
+
+      
+    </div>
+</article>
+
+<!-- 上一页 下一页 -->
+
+
+<nav id="article-nav">
+  
+    <a href="/2013/08/19/hdu_%E9%A2%98%E7%9B%AE1754_I_Hate_It_%EF%BC%88%E7%BA%BF%E6%AE%B5%E6%A0%91%EF%BC%8C%E5%8C%BA%E9%97%B4%E6%9C%80%E5%A4%A7%E5%80%BC%EF%BC%89/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>上一篇</span>
+      <div class="article-nav-title">
+        
+          hdu 题目1754 I Hate It （线段树，区间最大值）
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2013/08/17/hdu_%E9%A2%98%E7%9B%AE2531_Catch_him%EF%BC%88BFS%EF%BC%89/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>下一篇</span>
+      <div class="article-nav-title">hdu 题目2531 Catch him（BFS）</div>
+    </a>
+  
+</nav>
+
+
+
+<!-- 相关文章 -->
+
+<!--
+
+-->
+
+
+</section>
+      </div>
+      <footer id="footer">
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      
+      &copy;2024<a target="_blank" rel="noopener" href="https://github.com/hanks-zyh"> Hanks</a>版权所有
+      <br/>
+      <a href="https://beian.miit.gov.cn/" target="_blank">豫ICP备2021022347号</a>
+	  </div>
+  </div>
+ <div id="share">
+  <a id="totop" title="" style="display: block;">返回顶部</a>
+ </div>
+</footer>
+
+    </div>
+    
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/jquery.scrollLoading.js"></script>
+
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/ads.js"></script>
+
+  </div>
+</body>
+</html>

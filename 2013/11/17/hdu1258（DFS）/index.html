@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>hdu1258（DFS） | Hanks&#39; Websit</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <script data-ad-client="ca-pub-8165670162444117" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <meta name="referrer" content="never">
+  <meta name="description" content="题目：https:&#x2F;&#x2F;acm.hdu.edu.cn&#x2F;showproblem.php?pid&#x3D;1258 &nbsp; 思路：根据题意： 输出应该是从大到小的，所以先排序 1.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;将数组排序 2.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;写 DFS（）模板 3.&nbsp;&nbsp;&amp;n">
+<meta property="og:type" content="article">
+<meta property="og:title" content="hdu1258（DFS）">
+<meta property="og:url" content="https://hanks.pub/2013/11/17/hdu1258%EF%BC%88DFS%EF%BC%89/index.html">
+<meta property="og:site_name" content="Hanks&#39; Websit">
+<meta property="og:description" content="题目：https:&#x2F;&#x2F;acm.hdu.edu.cn&#x2F;showproblem.php?pid&#x3D;1258 &nbsp; 思路：根据题意： 输出应该是从大到小的，所以先排序 1.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;将数组排序 2.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;写 DFS（）模板 3.&nbsp;&nbsp;&amp;n">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2013-11-17T06:44:00.000Z">
+<meta property="article:modified_time" content="2024-02-08T01:29:02.182Z">
+<meta property="article:author" content="Hanks">
+<meta name="twitter:card" content="summary">
+  
+  
+  <link href="https://fonts.googleapis.com/css?family=Fira+Code|Noto+Serif+SC&display=swap" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8165670162444117"
+     crossorigin="anonymous"></script>
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo"></a>
+    <nav id="main-nav">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      
+        <a class="main-nav-link" href="/archives">Archive</a>
+      
+        <a class="main-nav-link" href="/eye-video">Eye</a>
+      
+        <a class="main-nav-link" href="/atom.xml">Rss</a>
+      
+    </nav>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/archives" class="mobile-nav-link">Archive</a>
+  
+    <a href="/eye-video" class="mobile-nav-link">Eye</a>
+  
+    <a href="/atom.xml" class="mobile-nav-link">Rss</a>
+  
+</nav>
+      <div class="outer">
+        <section id="main"><article id="post-hdu1258（DFS）" class="article article-type-post" itemscope
+  itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <header class="article-header">
+      
+      
+  
+    <h1 class="article-title" itemprop="name">
+      hdu1258（DFS）
+    </h1>
+  
+
+      
+    </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+<p></p>
+<p>题目：https://acm.hdu.edu.cn/showproblem.php?pid=1258</p>
+<p>&nbsp;</p>
+<p>思路：根据题意： 输出应该是从大到小的，所以先排序</p>
+<p>1.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;将数组排序</p>
+<p>2.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;写 DFS（）模板</p>
+<p>3.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;参数：int sum ; //当前已经组成的和，</p>
+<p>&nbsp;Int x; // 当前所搜索的元素，（数组下标）</p>
+<p>返回&#20540;：void // 当当前和sum = t时，输出结果</p>
+<p>&nbsp;</p>
+<p>4.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;每次判断当前元素，两种情况：a[x]加入sum， a[x]不加入sum中</p>
+<p>5.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;输出结果时要判断此结果是否已经输出过了，因为全是数字，我这里将结果保存成字符串，如结果是 2&#43;3&#43;4； 则保存成字符串234存入set集合中，</p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;输出之前先判断是否已存在set中，不存在则输出；</p>
+<p><br>
+</p>
+<p><br>
+</p>
+<p><pre name="code" class="cpp">#include&lt;iostream&gt;
+#include&lt;stdio.h&gt;
+#include&lt;string&gt;
+#include&lt;stdlib.h&gt;
+#include&lt;algorithm&gt;
+#include&lt;set&gt;
+using namespace std;
+
+int a[15],p[15],m[15],n,t,flag;// a[] 存元素， m[]存输出元素，p[]中间临时存放访问元素 
+bool vis[15]; //标记元素是否已经访问 
+set&lt;string&gt;st;//存放输出过的结果 
+
+void dfs(int sum,int x)
+{    
+	int i,j; 
+    if(sum==t){//sum结果已经凑够t 
+        flag=1;  string s;
+        
+        //结果转化成字符串 
+        for(i=n-1,j=0;i&gt;=0;i--){
+            if(p[i]!=99999){
+                m[j++] = p[i];
+                s += char(p[i]+'0');
+            }
+        }s+='\0';
+        
+        if(st.find(s)==st.end()){ //如果 set中找不到s，说明该结果没有输出过 
+            st.insert(s); //加入到集合 
+            for(i=0;i&lt;j-1;i++){
+                printf(&quot;%d+&quot;,m[i]);
+            }printf(&quot;%d\n&quot;,m[j-1]);
+        }
+        return ;
+    }
+    if(x&lt;0) return;
+    
+    vis[x] = 1;  p[x] = a[x]; //情况1. 需要该元素，：标记该元素为已访问，并加入p[] 
+    dfs(sum+a[x],x-1); //a[x]加入sum，并判断下一个元素 
+    
+    vis[x]=0;   p[x] = 99999; //情况2. 不需要该元素，：标记该元素为未访问，并从p[]中删除 
+    dfs(sum,x-1);  //a[x]不加入sum，并判断下一个元素 
+    
+}
+int main()
+{
+    int i;
+    while(~scanf(&quot;%d%d&quot;,&amp;t,&amp;n),n)
+    {
+    	//3个数组的初始化 
+        for(i=0;i&lt;n;i++){
+            scanf(&quot;%d&quot;,&amp;a[i]);
+            p[i] = 99999;  vis[i] = 0;
+        }
+        sort(a,a+n); //排序 
+        printf(&quot;Sums of %d:\n&quot;,t); 
+        flag=0;
+        dfs(0,n-1); //从大的开始搜索 ，所以下标从n-1 
+        if(flag==0) puts(&quot;NONE&quot;);
+    }
+    return 0;
+} 
+</pre><br>
+<br>
+</p>
+<p><br>
+</p>
+<p><br>
+</p>
+<p>java代码：</p>
+<p><br>
+</p>
+<pre name="code" class="cpp"><p></p><pre name="code" class="java">import java.util.*;
+
+public class Main {
+    
+    static Set&lt;String&gt; set = new HashSet&lt;String&gt;();    
+    static    int n,t,flag;
+    static int [] a = new int [15];
+    static int [] p = new int [15];
+    static int [] m = new int [15];
+    static     boolean vis[] = new boolean [15];
+
+    static void dfs(int sum,int x)
+    {
+        if(sum==t){
+            String s = &quot;&quot;;
+            int j = 0;
+            for(int i=n-1;i&gt;=0;i--){
+                if(p[i]!=99999){
+                    m[j++] = p[i];
+                    s += p[i];
+                }
+            }
+        
+            if(!set.contains(s)){
+                set.add(s);
+                int i;
+                flag = 1;
+                for(i=0;i&lt;j-1;i++){
+                    System.out.print(m[i]+&quot;+&quot;);
+                }System.out.println(m[j-1]);
+            }
+            return ;
+        }
+        if(x&lt;0)     return;
+        
+        vis[x] = true;
+        p[x] = a[x];
+        dfs(sum + a[x],x-1);
+        
+        vis[x] = false;
+        p[x] = 99999;
+        dfs(sum,x-1);
+    }
+    
+    public static void main(String[] args) {
+        Scanner cin = new Scanner(System.in);
+        while(cin.hasNext()){
+            t = cin.nextInt();
+            n = cin.nextInt(); 
+            if(n==0) break;
+            for(int i=0;i&lt;n;i++){
+                a[i] = cin.nextInt();
+                p[i] = 99999;
+                vis[i] = false;
+            }
+            Arrays.sort(a, 0, n); //数组排序算法
+            set.clear();
+            flag = 0;
+            System.out.println(&quot;Sums of &quot;+t+&quot;:&quot;);
+            dfs(0,n-1);
+            if(flag==0)System.out.println(&quot;NONE&quot;);
+        }
+    }
+}</pre><br>
+<br>
+<p></p>
+<pre></pre>
+
+      
+    </div>
+</article>
+
+<!-- 上一页 下一页 -->
+
+
+<nav id="article-nav">
+  
+    <a href="/2013/11/21/Hdu1999_%E4%B8%8D%E5%8F%AF%E6%91%B8%E6%95%B0%EF%BC%88%E6%B1%82%E5%A4%9A%E4%B8%AA%E6%95%B0%E7%9A%84%E5%9B%A0%E5%AD%90%E5%92%8C%EF%BC%89/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>上一篇</span>
+      <div class="article-nav-title">
+        
+          Hdu1999 不可摸数（求多个数的因子和）
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2013/11/16/%E7%94%A8Sqrt%E5%87%BD%E6%95%B0%E6%97%B6%EF%BC%8C%E7%94%A8C__%E6%8F%90%E4%BA%A4%E5%AE%B9%E6%98%93%E7%BC%96%E8%AF%91%E5%87%BA%E9%94%99%EF%BC%8C%E8%AF%95%E8%AF%95%E7%94%A8G__/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>下一篇</span>
+      <div class="article-nav-title">用Sqrt函数时，用C++提交容易编译出错，试试用G++</div>
+    </a>
+  
+</nav>
+
+
+
+<!-- 相关文章 -->
+
+<!--
+
+-->
+
+
+</section>
+      </div>
+      <footer id="footer">
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      
+      &copy;2024<a target="_blank" rel="noopener" href="https://github.com/hanks-zyh"> Hanks</a>版权所有
+      <br/>
+      <a href="https://beian.miit.gov.cn/" target="_blank">豫ICP备2021022347号</a>
+	  </div>
+  </div>
+ <div id="share">
+  <a id="totop" title="" style="display: block;">返回顶部</a>
+ </div>
+</footer>
+
+    </div>
+    
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/jquery.scrollLoading.js"></script>
+
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/ads.js"></script>
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>MongoDB 入门 | Hanks&#39; Websit</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <script data-ad-client="ca-pub-8165670162444117" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <meta name="referrer" content="never">
+  <meta name="description" content="什么是 MongoDB ?MongoDB 是由C++语言编写的，是一个基于分布式文件存储的开源数据库系统。在高负载的情况下，添加更多的节点，可以保证服务器性能。MongoDB 旨在为 WEB 应用提供可扩展的高性能数据存储解决方案。MongoDB 将数据存储为一个文档，数据结构由键值 (key&#x3D;&gt;value) 对组成。MongoDB 文档类似于 JSON 对象。字段值可以包含其他文">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MongoDB 入门">
+<meta property="og:url" content="https://hanks.pub/2016/05/21/mongoDB/index.html">
+<meta property="og:site_name" content="Hanks&#39; Websit">
+<meta property="og:description" content="什么是 MongoDB ?MongoDB 是由C++语言编写的，是一个基于分布式文件存储的开源数据库系统。在高负载的情况下，添加更多的节点，可以保证服务器性能。MongoDB 旨在为 WEB 应用提供可扩展的高性能数据存储解决方案。MongoDB 将数据存储为一个文档，数据结构由键值 (key&#x3D;&gt;value) 对组成。MongoDB 文档类似于 JSON 对象。字段值可以包含其他文">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2016-05-21T07:38:33.000Z">
+<meta property="article:modified_time" content="2024-02-08T01:29:02.189Z">
+<meta property="article:author" content="Hanks">
+<meta property="article:tag" content="MongoDB">
+<meta name="twitter:card" content="summary">
+  
+  
+  <link href="https://fonts.googleapis.com/css?family=Fira+Code|Noto+Serif+SC&display=swap" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8165670162444117"
+     crossorigin="anonymous"></script>
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo"></a>
+    <nav id="main-nav">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      
+        <a class="main-nav-link" href="/archives">Archive</a>
+      
+        <a class="main-nav-link" href="/eye-video">Eye</a>
+      
+        <a class="main-nav-link" href="/atom.xml">Rss</a>
+      
+    </nav>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/archives" class="mobile-nav-link">Archive</a>
+  
+    <a href="/eye-video" class="mobile-nav-link">Eye</a>
+  
+    <a href="/atom.xml" class="mobile-nav-link">Rss</a>
+  
+</nav>
+      <div class="outer">
+        <section id="main"><article id="post-mongoDB" class="article article-type-post" itemscope
+  itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <header class="article-header">
+      
+      
+  
+    <h1 class="article-title" itemprop="name">
+      MongoDB 入门
+    </h1>
+  
+
+      
+    </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      <p>什么是 <code>MongoDB</code> ?<br>MongoDB 是由C++语言编写的，是一个基于分布式文件存储的开源数据库系统。<br>在高负载的情况下，添加更多的节点，可以保证服务器性能。<br>MongoDB 旨在为 WEB 应用提供可扩展的高性能数据存储解决方案。<br>MongoDB 将数据存储为一个文档，数据结构由键值 (key&#x3D;&gt;value) 对组成。MongoDB 文档类似于 <code>JSON 对象</code>。字段值可以包含其他文档，数组及文档数组。</p>
+<span id="more"></span>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>下载地址：<a target="_blank" rel="noopener" href="https://www.mongodb.org/downloads">https://www.mongodb.org/downloads</a></p>
+<h3 id="Windows中安装"><a href="#Windows中安装" class="headerlink" title="Windows中安装"></a>Windows中安装</h3><p>在 Windows 系统上安装 MongoDB 数据库是件非常简单的事情，下载可执行安装文件(exe)，双击安装即可。<br>MongoDB 服务器运行命令：<code>MongoDB 安装目录/bin/mongod.exe</code><br>MongoDB 客户端运行命令：<code>MongoDB 安装目录/bin/mongo.exe</code></p>
+<h3 id="Ubuntu-安装"><a href="#Ubuntu-安装" class="headerlink" title="Ubuntu 安装"></a>Ubuntu 安装</h3><p>参考 <a target="_blank" rel="noopener" href="https://docs.mongodb.com/master/tutorial/install-mongodb-on-ubuntu/?_ga=1.242553222.549778784.1463815567">官方文档</a>，我的环境 Ubuntu 14.04</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"># 下载密钥文件</span><br><span class="line">$ sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv EA312927</span><br><span class="line"></span><br><span class="line"># 在 source.list 中增加 MongoDB 源的配置</span><br><span class="line">$ echo &quot;deb https://repo.mongodb.org/apt/ubuntu trusty/mongodb-org/3.2 multiverse&quot; | sudo tee /etc/apt/sources.list.d/mongodb-org-3.2.list</span><br><span class="line"></span><br><span class="line"># 更新 apt 源</span><br><span class="line">$ sudo apt-get update</span><br><span class="line"></span><br><span class="line"># 安装 MongoDB</span><br><span class="line">$ sudo apt-get install -y mongodb-org=3.2.6 mongodb-org-server=3.2.6 mongodb-org-shell=3.2.6 mongodb-org-mongos=3.2.6 mongodb-org-tools=3.2.6</span><br></pre></td></tr></table></figure>
+
+<p>上述命令执行完则安装完成，安装成功后 <code>mongod</code> 服务会自动启动，下面检测一下是否安装成功。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ sudo service mongod status</span><br><span class="line">mongod start/running, process 3841</span><br></pre></td></tr></table></figure>
+
+<p>如果没有启动那么手动启动 mongod 服务</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># 启动服务</span><br><span class="line">$ sudo service mongod start</span><br><span class="line"></span><br><span class="line"># 停止服务</span><br><span class="line">$ sudo service mongod stop</span><br><span class="line"></span><br><span class="line"># 重启服务</span><br><span class="line">$ sudo service mongod restart</span><br></pre></td></tr></table></figure>
+<p>开启后，通过 <code>/var/log/mongodb/mongod.log</code> 查看日志文件。</p>
+<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><p>配置文件放在 <code>/etc/mongod.conf</code> ，<br>默认访问端口为 <code>27017</code>，数据库文件存放目录为 <code>/var/lib/mongodb</code> ，日志文件目录为 <code>/var/log/mongodb/mongod.log</code> 。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"># mongod.conf</span><br><span class="line"></span><br><span class="line"># for documentation of all options, see:</span><br><span class="line">#   https://docs.mongodb.org/manual/reference/configuration-options/</span><br><span class="line"></span><br><span class="line"># Where and how to store data.</span><br><span class="line">storage:</span><br><span class="line">  dbPath: /var/lib/mongodb</span><br><span class="line">  journal:</span><br><span class="line">    enabled: true</span><br><span class="line">#  engine:</span><br><span class="line">#  mmapv1:</span><br><span class="line">#  wiredTiger:</span><br><span class="line"></span><br><span class="line"># where to write logging data.</span><br><span class="line">systemLog:</span><br><span class="line">  destination: file</span><br><span class="line">  logAppend: true</span><br><span class="line">  path: /var/log/mongodb/mongod.log</span><br><span class="line"></span><br><span class="line"># network interfaces</span><br><span class="line">net:</span><br><span class="line">  port: 27017</span><br><span class="line">  bindIp: 127.0.0.1</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#processManagement:</span><br><span class="line"></span><br><span class="line">#security:</span><br><span class="line"></span><br><span class="line">#operationProfiling:</span><br><span class="line"></span><br><span class="line">#replication:</span><br><span class="line"></span><br><span class="line">#sharding:</span><br><span class="line"></span><br><span class="line">## Enterprise-Only Options:</span><br><span class="line"></span><br><span class="line">#auditLog:</span><br><span class="line"></span><br><span class="line">#snmp:</span><br></pre></td></tr></table></figure>
+
+<h2 id="基本使用"><a href="#基本使用" class="headerlink" title="基本使用"></a>基本使用</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"># MongoDB 的相关命令</span><br><span class="line">$ mongo --help</span><br><span class="line">MongoDB shell version: 3.2.6</span><br><span class="line">usage: mongo [options] [db address] [file names (ending in .js)]</span><br><span class="line">db address can be:</span><br><span class="line">  foo                   foo database on local machine</span><br><span class="line">  192.169.0.5/foo       foo database on 192.168.0.5 machine</span><br><span class="line">  192.169.0.5:9999/foo  foo database on 192.168.0.5 machine on port 9999</span><br><span class="line">Options:</span><br><span class="line">  --shell                             run the shell after executing files</span><br><span class="line">  --nodb                              don&#x27;t connect to mongod on startup - no</span><br><span class="line">                                      &#x27;db address&#x27; arg expected</span><br><span class="line">  --norc                              will not run the &quot;.mongorc.js&quot; file on</span><br><span class="line">                                      start up</span><br><span class="line">  --quiet                             be less chatty</span><br><span class="line">  --port arg                          port to connect to</span><br><span class="line">  --host arg                          server to connect to</span><br><span class="line">  --eval arg                          evaluate javascript</span><br><span class="line">  -h [ --help ]                       show this usage information</span><br><span class="line">  --version                           show version information</span><br><span class="line">  --verbose                           increase verbosity</span><br><span class="line">  --ipv6                              enable IPv6 support (disabled by default)</span><br><span class="line">  --disableJavaScriptJIT              disable the Javascript Just In Time</span><br><span class="line">                                      compiler</span><br><span class="line">  --enableJavaScriptProtection        disable automatic JavaScript function</span><br><span class="line">                                      marshalling</span><br><span class="line">  --ssl                               use SSL for all connections</span><br><span class="line">  --sslCAFile arg                     Certificate Authority file for SSL</span><br><span class="line">  --sslPEMKeyFile arg                 PEM certificate/key file for SSL</span><br><span class="line">  --sslPEMKeyPassword arg             password for key in PEM file for SSL</span><br><span class="line">  --sslCRLFile arg                    Certificate Revocation List file for SSL</span><br><span class="line">  --sslAllowInvalidHostnames          allow connections to servers with</span><br><span class="line">                                      non-matching hostnames</span><br><span class="line">  --sslAllowInvalidCertificates       allow connections to servers with invalid</span><br><span class="line">                                      certificates</span><br><span class="line">  --sslFIPSMode                       activate FIPS 140-2 mode at startup</span><br><span class="line"></span><br><span class="line">Authentication Options:</span><br><span class="line">  -u [ --username ] arg               username for authentication</span><br><span class="line">  -p [ --password ] arg               password for authentication</span><br><span class="line">  --authenticationDatabase arg        user source (defaults to dbname)</span><br><span class="line">  --authenticationMechanism arg       authentication mechanism</span><br><span class="line">  --gssapiServiceName arg (=mongodb)  Service name to use when authenticating</span><br><span class="line">                                      using GSSAPI/Kerberos</span><br><span class="line">  --gssapiHostName arg                Remote host name to use for purpose of</span><br><span class="line">                                      GSSAPI/Kerberos authentication</span><br><span class="line"></span><br><span class="line">file names: a list of files to run. files have to end in .js and will exit after unless --shell is specified</span><br></pre></td></tr></table></figure>
+
+<p>从上面的帮助可以看到 mongo 的使用，现在使用 <code>mongo</code> 命令访问 MongoDB 服务</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">$ mongo</span><br><span class="line">MongoDB shell version: 3.2.6</span><br><span class="line">connecting to: test</span><br><span class="line">Welcome to the MongoDB shell.</span><br><span class="line">For interactive help, type &quot;help&quot;.</span><br><span class="line">For more comprehensive documentation, see</span><br><span class="line">    https://docs.mongodb.org/</span><br><span class="line">Questions? Try the support group</span><br><span class="line">    https://groups.google.com/group/mongodb-user</span><br><span class="line"></span><br><span class="line"># 查看帮助</span><br><span class="line">&gt; help</span><br><span class="line">    db.help()                    help on db methods</span><br><span class="line">    db.mycoll.help()             help on collection methods</span><br><span class="line">    sh.help()                    sharding helpers</span><br><span class="line">    rs.help()                    replica set helpers</span><br><span class="line">    help admin                   administrative help</span><br><span class="line">    help connect                 connecting to a db help</span><br><span class="line">    help keys                    key shortcuts</span><br><span class="line">    help misc                    misc things to know</span><br><span class="line">    help mr                      mapreduce</span><br><span class="line"></span><br><span class="line">    show dbs                     show database names</span><br><span class="line">    show collections             show collections in current database</span><br><span class="line">    show users                   show users in current database</span><br><span class="line">    show profile                 show most recent system.profile entries with time &gt;= 1ms</span><br><span class="line">    show logs                    show the accessible logger names</span><br><span class="line">    show log [name]              prints out the last segment of log in memory, &#x27;global&#x27; is default</span><br><span class="line">    use &lt;db_name&gt;                set current database</span><br><span class="line">    db.foo.find()                list objects in collection foo</span><br><span class="line">    db.foo.find( &#123; a : 1 &#125; )     list objects in foo where a == 1</span><br><span class="line">    it                           result of the last line evaluated; use to further iterate</span><br><span class="line">    DBQuery.shellBatchSize = x   set default number of items to display on shell</span><br><span class="line">    exit                         quit the mongo shell</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+
+<p>相关操作命令</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"># 连接数据库</span><br><span class="line">$ mongo 127.0.0.1:27017</span><br><span class="line"></span><br><span class="line"># 查看已有的数据库</span><br><span class="line">&gt; show dbs</span><br><span class="line"></span><br><span class="line"># 切换/创建数据库</span><br><span class="line">&gt; use blogdb</span><br><span class="line"></span><br><span class="line"># 显示当前数据库对象或集合</span><br><span class="line">&gt; db</span><br><span class="line">blogdb</span><br><span class="line"></span><br><span class="line"># 删除数据库</span><br><span class="line">&gt; db.dropDatabase()</span><br><span class="line">&#123; &quot;dropped&quot; : &quot;blogdb&quot;, &quot;ok&quot; : 1 &#125;</span><br><span class="line"></span><br><span class="line"># 向集合 user 中插入一条数据，如果集合不存在则创建</span><br><span class="line">&gt; db.user.insert(&#123;name:&#x27;hanks&#x27;,age:22&#125;)</span><br><span class="line">WriteResult(&#123; &quot;nInserted&quot; : 1 &#125;)</span><br><span class="line"></span><br><span class="line"># 查看当前数据库中是所以集合</span><br><span class="line">&gt; show collections</span><br><span class="line">user</span><br><span class="line">course</span><br><span class="line"></span><br><span class="line"># 查询所以数据</span><br><span class="line">&gt; db.user.find()</span><br><span class="line">&#123; &quot;_id&quot; : ObjectId(&quot;574021487ca7760c7927ea1b&quot;), &quot;name&quot; : &quot;hanks&quot;, &quot;age&quot; : 22 &#125;</span><br><span class="line">&#123; &quot;_id&quot; : ObjectId(&quot;5740214e7ca7760c7927ea1c&quot;), &quot;name&quot; : &quot;kiya&quot;, &quot;age&quot; : 22 &#125;</span><br><span class="line"></span><br><span class="line"># 条件查询</span><br><span class="line">&gt; db.user.find(&#123;name:&#x27;hanks&#x27;&#125;)</span><br><span class="line">&#123; &quot;_id&quot; : ObjectId(&quot;574021487ca7760c7927ea1b&quot;), &quot;name&quot; : &quot;hanks&quot;, &quot;age&quot; : 22 &#125;</span><br><span class="line"></span><br><span class="line"># 删除</span><br><span class="line">&gt; db.user.remove(&#123;name:&#x27;hanks&#x27;&#125;)</span><br><span class="line">WriteResult(&#123; &quot;nRemoved&quot; : 1 &#125;)</span><br><span class="line"></span><br><span class="line"># 覆盖更新</span><br><span class="line">&gt; db.user.update(&#123;name:&#x27;hanks&#x27;&#125;, &#123;age:&#x27;22&#x27;&#125;)</span><br><span class="line">WriteResult(&#123; &quot;nMatched&quot; : 1, &quot;nUpserted&quot; : 0, &quot;nModified&quot; : 1 &#125;)</span><br><span class="line">&gt; db.user.find(&#123;name:&#x27;hanks&#x27;&#125;)</span><br><span class="line">&#123; &quot;_id&quot; : ObjectId(&quot;5740239c7ca7760c7927ea20&quot;), &quot;age&quot; : &quot;22&quot; &#125;</span><br><span class="line"></span><br><span class="line"># 更新某个字段</span><br><span class="line">&gt; db.user.update(&#123;name:&#x27;kiya&#x27;&#125;, &#123;$set:&#123;age:&#x27;20&#x27;&#125;&#125;)</span><br><span class="line">WriteResult(&#123; &quot;nMatched&quot; : 1, &quot;nUpserted&quot; : 0, &quot;nModified&quot; : 1 &#125;)</span><br><span class="line">&gt; db.user.find(&#123;name:&#x27;kiya&#x27;&#125;,)</span><br><span class="line">&#123; &quot;_id&quot; : ObjectId(&quot;574023a37ca7760c7927ea21&quot;), &quot;name&quot; : &quot;kiya&quot;, &quot;age&quot; : &quot;20&quot; &#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<hr>
+<p>相关链接</p>
+<p><a target="_blank" rel="noopener" href="https://www.mongodb.com/">https://www.mongodb.com</a><br><a target="_blank" rel="noopener" href="https://www.runoob.com/mongodb/mongodb-tutorial.html">https://www.runoob.com/mongodb/mongodb-tutorial.html</a></p>
+<blockquote>
+<p>文章来自： <a href="https://hanks.pub/">https://hanks.pub</a></p>
+</blockquote>
+
+      
+    </div>
+</article>
+
+<!-- 上一页 下一页 -->
+
+
+<nav id="article-nav">
+  
+    <a href="/2016/05/26/node-spider/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>上一篇</span>
+      <div class="article-nav-title">
+        
+          Node.js 爬微信文章
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/05/20/express-project/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>下一篇</span>
+      <div class="article-nav-title">Express 网站开发</div>
+    </a>
+  
+</nav>
+
+
+
+<!-- 相关文章 -->
+
+<!--
+
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+      			<a href="/2016/05/21/mongoDB/">MongoDB 入门</a>
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+
+-->
+
+
+</section>
+      </div>
+      <footer id="footer">
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      
+      &copy;2024<a target="_blank" rel="noopener" href="https://github.com/hanks-zyh"> Hanks</a>版权所有
+      <br/>
+      <a href="https://beian.miit.gov.cn/" target="_blank">豫ICP备2021022347号</a>
+	  </div>
+  </div>
+ <div id="share">
+  <a id="totop" title="" style="display: block;">返回顶部</a>
+ </div>
+</footer>
+
+    </div>
+    
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/jquery.scrollLoading.js"></script>
+
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/ads.js"></script>
+
+  </div>
+</body>
+</html>

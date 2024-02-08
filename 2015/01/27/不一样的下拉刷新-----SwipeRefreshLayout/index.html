@@ -1,0 +1,980 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>不一样的下拉刷新-----SwipeRefreshLayout | Hanks&#39; Websit</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <script data-ad-client="ca-pub-8165670162444117" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <meta name="referrer" content="never">
+  <meta name="description" content="按照惯例，先上那个效果图 &nbsp; &nbsp; &nbsp; &nbsp;    最近看到好多应用都在使用这种下拉刷新，于是自己搜索了一下，原来这玩意儿是Google提供的SwipeRefreshLayout控件，以前也使用过家伙，但是效果不是这个样子的，是下图的样子，现在Google又改变了其效果 &nbsp; 使用起来还是非常简单的，在布局中，将android.support.v4.w">
+<meta property="og:type" content="article">
+<meta property="og:title" content="不一样的下拉刷新-----SwipeRefreshLayout">
+<meta property="og:url" content="https://hanks.pub/2015/01/27/%E4%B8%8D%E4%B8%80%E6%A0%B7%E7%9A%84%E4%B8%8B%E6%8B%89%E5%88%B7%E6%96%B0-----SwipeRefreshLayout/index.html">
+<meta property="og:site_name" content="Hanks&#39; Websit">
+<meta property="og:description" content="按照惯例，先上那个效果图 &nbsp; &nbsp; &nbsp; &nbsp;    最近看到好多应用都在使用这种下拉刷新，于是自己搜索了一下，原来这玩意儿是Google提供的SwipeRefreshLayout控件，以前也使用过家伙，但是效果不是这个样子的，是下图的样子，现在Google又改变了其效果 &nbsp; 使用起来还是非常简单的，在布局中，将android.support.v4.w">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img.blog.csdn.net/20150127120706062">
+<meta property="og:image" content="https://img.blog.csdn.net/20150127121649015">
+<meta property="og:image" content="file:///c:/users/ADMINI~1/appdata/roaming/360se6/USERDA~1/Temp/110023~1.JPG">
+<meta property="og:image" content="file:///c:/users/ADMINI~1/appdata/roaming/360se6/USERDA~1/Temp/110023~1.JPG">
+<meta property="og:image" content="https://img.blog.csdn.net/20150127122143546">
+<meta property="article:published_time" content="2015-01-27T04:23:00.000Z">
+<meta property="article:modified_time" content="2024-02-08T01:29:02.196Z">
+<meta property="article:author" content="Hanks">
+<meta property="article:tag" content="Android">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img.blog.csdn.net/20150127120706062">
+  
+  
+  <link href="https://fonts.googleapis.com/css?family=Fira+Code|Noto+Serif+SC&display=swap" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8165670162444117"
+     crossorigin="anonymous"></script>
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo"></a>
+    <nav id="main-nav">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      
+        <a class="main-nav-link" href="/archives">Archive</a>
+      
+        <a class="main-nav-link" href="/eye-video">Eye</a>
+      
+        <a class="main-nav-link" href="/atom.xml">Rss</a>
+      
+    </nav>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/archives" class="mobile-nav-link">Archive</a>
+  
+    <a href="/eye-video" class="mobile-nav-link">Eye</a>
+  
+    <a href="/atom.xml" class="mobile-nav-link">Rss</a>
+  
+</nav>
+      <div class="outer">
+        <section id="main"><article id="post-不一样的下拉刷新-----SwipeRefreshLayout" class="article article-type-post" itemscope
+  itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <header class="article-header">
+      
+      
+  
+    <h1 class="article-title" itemprop="name">
+      不一样的下拉刷新-----SwipeRefreshLayout
+    </h1>
+  
+
+      
+    </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+<p>按照惯例，先上那个效果图</p>
+<p><img src="https://img.blog.csdn.net/20150127120706062" alt="">&nbsp; &nbsp; &nbsp; &nbsp;<img src="https://img.blog.csdn.net/20150127121649015" alt=""><br>
+</p>
+<p><br>
+</p>
+<p>最近看到好多应用都在使用这种下拉刷新，于是自己搜索了一下，原来这玩意儿是<span style="font-family:Tahoma">Google</span><span style="font-family:宋体">提供的</span><span style="color:rgb(255,0,0)">SwipeRefreshLayout</span>控件，以前也使用过家伙，但是效果不是这个样子的，是下图的样子，现在<span style="font-family:Tahoma">Google</span><span style="font-family:宋体">又改变了其效果</span></p>
+<p>&nbsp;<img src="file:///c:/users/ADMINI~1/appdata/roaming/360se6/USERDA~1/Temp/110023~1.JPG" alt=""><img src="file:///c:/users/ADMINI~1/appdata/roaming/360se6/USERDA~1/Temp/110023~1.JPG" alt=""><img src="https://img.blog.csdn.net/20150127122143546" alt=""></p>
+<p>使用起来还是非常简单的，在布局中，将<span style="font-family:Tahoma">android.support.v4.widget.SwipeRefreshLayout</span><span style="font-family:宋体">包裹在&nbsp;</span><span style="font-family:Tahoma">Listview&nbsp;</span><span style="font-family:宋体">，</span><span style="font-family:Tahoma">ScrollView</span><span style="font-family:宋体">，</span><span style="font-family:Tahoma">GridView</span><span style="font-family:宋体">等控件外部</span></p>
+<p><span style="font-family:宋体"><br>
+</span></p>
+<p><span style="font-family:宋体"></span></p>
+<pre code_snippet_id="590153" snippet_file_name="blog_20150127_1_8505700"  code_snippet_id="590153" snippet_file_name="blog_20150127_1_8505700" name="code" class="html">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;android.support.v4.widget.SwipeRefreshLayout xmlns:android=&quot;https://schemas.android.com/apk/res/android&quot;
+    android:id=&quot;@+id/swipeRefreshLayout&quot;
+    android:layout_width=&quot;match_parent&quot;
+    android:layout_height=&quot;match_parent&quot;
+    android:orientation=&quot;vertical&quot; &gt;
+
+    &lt;ListView
+        android:id=&quot;@+id/listView&quot;
+        android:layout_width=&quot;match_parent&quot;
+        android:layout_height=&quot;match_parent&quot;
+        android:footerDividersEnabled=&quot;false&quot; /&gt;
+
+&lt;/android.support.v4.widget.SwipeRefreshLayout&gt;</pre><pre code_snippet_id="590153" snippet_file_name="blog_20150127_2_712794"  code_snippet_id="590153" snippet_file_name="blog_20150127_2_712794" name="code" class="html">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;android.support.v4.widget.SwipeRefreshLayout xmlns:android=&quot;https://schemas.android.com/apk/res/android&quot;
+    android:id=&quot;@+id/swipeRefreshLayout&quot;
+    android:layout_width=&quot;match_parent&quot;
+    android:layout_height=&quot;match_parent&quot;
+    android:orientation=&quot;vertical&quot; &gt;
+
+    &lt;ScrollView
+        android:id=&quot;@+id/listView&quot;
+        android:layout_width=&quot;match_parent&quot;
+        android:layout_height=&quot;match_parent&quot; &gt;
+
+        &lt;LinearLayout
+            android:id=&quot;@+id/linearlayout&quot;
+            android:layout_width=&quot;match_parent&quot;
+            android:layout_height=&quot;match_parent&quot;
+            android:orientation=&quot;vertical&quot; &gt;
+
+            &lt;Button
+                android:layout_width=&quot;match_parent&quot;
+                android:layout_height=&quot;67dp&quot;
+                android:text=&quot;测试的item 01&quot; /&gt;
+
+            &lt;Button
+                android:layout_width=&quot;match_parent&quot;
+                android:layout_height=&quot;67dp&quot;
+                android:text=&quot;测试的item 02&quot; /&gt;
+
+            &lt;Button
+                android:layout_width=&quot;match_parent&quot;
+                android:layout_height=&quot;67dp&quot;
+                android:text=&quot;测试的item 03&quot; /&gt;
+
+            &lt;Button
+                android:layout_width=&quot;match_parent&quot;
+                android:layout_height=&quot;67dp&quot;
+                android:text=&quot;测试的item 04&quot; /&gt;
+
+            &lt;Button
+                android:layout_width=&quot;match_parent&quot;
+                android:layout_height=&quot;67dp&quot;
+                android:text=&quot;测试的item 05&quot; /&gt;
+
+            &lt;Button
+                android:layout_width=&quot;match_parent&quot;
+                android:layout_height=&quot;67dp&quot;
+                android:text=&quot;测试的item 06&quot; /&gt;
+
+            &lt;Button
+                android:layout_width=&quot;match_parent&quot;
+                android:layout_height=&quot;67dp&quot;
+                android:text=&quot;测试的item 07&quot; /&gt;
+
+            &lt;Button
+                android:layout_width=&quot;match_parent&quot;
+                android:layout_height=&quot;67dp&quot;
+                android:text=&quot;测试的item 08&quot; /&gt;
+
+            &lt;Button
+                android:layout_width=&quot;match_parent&quot;
+                android:layout_height=&quot;67dp&quot;
+                android:text=&quot;测试的item 09&quot; /&gt;
+
+            &lt;Button
+                android:layout_width=&quot;match_parent&quot;
+                android:layout_height=&quot;67dp&quot;
+                android:text=&quot;测试的item 10&quot; /&gt;
+        &lt;/LinearLayout&gt;
+    &lt;/ScrollView&gt;
+
+&lt;/android.support.v4.widget.SwipeRefreshLayout&gt;</pre><br>
+<br>
+代码中使用：
+<p></p>
+<p><span style="font-family:宋体"></span></p>
+<pre code_snippet_id="590153" snippet_file_name="blog_20150127_3_665222"  code_snippet_id="590153" snippet_file_name="blog_20150127_3_665222" name="code" class="java">
+		//findview
+		swipeRefreshLayout = (SwipeRefreshLayout) v.findViewById(R.id.swipeRefreshLayout);
+		//设置卷内的颜色
+		swipeRefreshLayout.setColorSchemeResources(android.R.color.holo_blue_bright,
+				android.R.color.holo_green_light, android.R.color.holo_orange_light, android.R.color.holo_red_light);
+		//设置下拉刷新监听
+		swipeRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
+			@Override
+			public void onRefresh() {
+						//.......操作
+
+						//停止刷新动画
+						swipeRefreshLayout.setRefreshing(false);
+			}
+		});</pre><br>
+<br>
+<p></p>
+<p><span style="font-family:宋体"><br>
+</span></p>
+<p><span style="font-family:宋体">Demo分享：</span></p>
+<p><span style="font-family:宋体"><a target="_blank" target="_blank" href="https://github.com/18236887539/SwipeRefreshLayout"><span style="color:#ff0000">https://github.com/18236887539/SwipeRefreshLayout</span></a><br>
+</span></p>
+<p><br>
+</p>
+<p><span style="font-family:宋体; font-size:18px">最新的v7v4库：</span></p>
+<p><span style="font-family:宋体"><a target="_blank" href="https://download.csdn.net/detail/u011282069/8410899"><span style="font-size:18px; color:#ff0000">https://download.csdn.net/detail/u011282069/8410899</span></a><br>
+</span></p>
+<p><span style="font-family:宋体"><br>
+</span></p>
+<p><span style="font-family:宋体"><br>
+</span></p>
+<p><span style="font-family:宋体"><br>
+</span></p>
+<p><span style="font-family:宋体"><br>
+</span></p>
+<p><span style="font-family:宋体"><br>
+</span></p>
+<p><span style="font-family:宋体"><br>
+</span></p>
+<p><span style="font-family:宋体"><br>
+</span></p>
+<p><span style="font-family:宋体"><br>
+</span></p>
+<p><span style="font-family:宋体"><br>
+</span></p>
+<p><span style="font-family:宋体"><br>
+</span></p>
+<p><span style="font-family:宋体"><br>
+</span></p>
+
+      
+    </div>
+</article>
+
+<!-- 上一页 下一页 -->
+
+
+<nav id="article-nav">
+  
+    <a href="/2015/02/01/%E7%BB%93%E5%90%88Android%E5%AD%A6%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F--%E5%BC%80%E7%AF%87/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>上一篇</span>
+      <div class="article-nav-title">
+        
+          结合Android学设计模式--开篇
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/01/25/%E9%A2%9C%E8%89%B2%E6%8F%90%E5%8F%96%E5%99%A8------Palette/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>下一篇</span>
+      <div class="article-nav-title">颜色提取器------Palette</div>
+    </a>
+  
+</nav>
+
+
+
+<!-- 相关文章 -->
+
+<!--
+
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+      			<a href="/2015/01/27/%E4%B8%8D%E4%B8%80%E6%A0%B7%E7%9A%84%E4%B8%8B%E6%8B%89%E5%88%B7%E6%96%B0-----SwipeRefreshLayout/">不一样的下拉刷新-----SwipeRefreshLayout</a>
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+
+-->
+
+
+</section>
+      </div>
+      <footer id="footer">
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      
+      &copy;2024<a target="_blank" rel="noopener" href="https://github.com/hanks-zyh"> Hanks</a>版权所有
+      <br/>
+      <a href="https://beian.miit.gov.cn/" target="_blank">豫ICP备2021022347号</a>
+	  </div>
+  </div>
+ <div id="share">
+  <a id="totop" title="" style="display: block;">返回顶部</a>
+ </div>
+</footer>
+
+    </div>
+    
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/jquery.scrollLoading.js"></script>
+
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/ads.js"></script>
+
+  </div>
+</body>
+</html>

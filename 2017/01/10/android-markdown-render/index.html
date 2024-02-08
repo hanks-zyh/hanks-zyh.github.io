@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Android 下 Markdown 渲染 | Hanks&#39; Websit</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <script data-ad-client="ca-pub-8165670162444117" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <meta name="referrer" content="never">
+  <meta name="description" content="Android 下的 webview 加载本地准备好的 html 外壳，然后通过与 js 交互将准备渲染的纯文本传给负责 markdown 渲染的 js 处理（此处使用的 marked.js ），将文本转化为 html 格式填充到 webview 中。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android 下 Markdown 渲染">
+<meta property="og:url" content="https://hanks.pub/2017/01/10/android-markdown-render/index.html">
+<meta property="og:site_name" content="Hanks&#39; Websit">
+<meta property="og:description" content="Android 下的 webview 加载本地准备好的 html 外壳，然后通过与 js 交互将准备渲染的纯文本传给负责 markdown 渲染的 js 处理（此处使用的 marked.js ），将文本转化为 html 格式填充到 webview 中。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2017-01-10T15:03:07.000Z">
+<meta property="article:modified_time" content="2024-02-08T01:29:02.180Z">
+<meta property="article:author" content="Hanks">
+<meta property="article:tag" content="Android">
+<meta property="article:tag" content="WebView">
+<meta property="article:tag" content="Markdown">
+<meta name="twitter:card" content="summary">
+  
+  
+  <link href="https://fonts.googleapis.com/css?family=Fira+Code|Noto+Serif+SC&display=swap" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8165670162444117"
+     crossorigin="anonymous"></script>
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo"></a>
+    <nav id="main-nav">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      
+        <a class="main-nav-link" href="/archives">Archive</a>
+      
+        <a class="main-nav-link" href="/eye-video">Eye</a>
+      
+        <a class="main-nav-link" href="/atom.xml">Rss</a>
+      
+    </nav>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/archives" class="mobile-nav-link">Archive</a>
+  
+    <a href="/eye-video" class="mobile-nav-link">Eye</a>
+  
+    <a href="/atom.xml" class="mobile-nav-link">Rss</a>
+  
+</nav>
+      <div class="outer">
+        <section id="main"><article id="post-android-markdown-render" class="article article-type-post" itemscope
+  itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <header class="article-header">
+      
+      
+  
+    <h1 class="article-title" itemprop="name">
+      Android 下 Markdown 渲染
+    </h1>
+  
+
+      
+    </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      <p>Android 下的 <code>webview</code> 加载本地准备好的 html 外壳，然后通过与 js 交互将准备渲染的纯文本传给负责 <code>markdown</code> 渲染的 js 处理（此处使用的 <code>marked.js</code> ），将文本转化为 html 格式填充到 webview 中。</p>
+<span id="more"></span>
+<h3 id="html-外壳"><a href="#html-外壳" class="headerlink" title="html 外壳"></a>html 外壳</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset=&quot;utf-8&quot;/&gt;</span><br><span class="line">    &lt;style type=&quot;text/css&quot;&gt;</span><br><span class="line">        @font-face &#123;</span><br><span class="line">            font-family: &#x27;customFont&#x27;;</span><br><span class="line">            src: url(&#x27;file:///sdcard/manaco.ttf&#x27;) format(&#x27;truetype&#x27;);</span><br><span class="line">            font-weight: normal;</span><br><span class="line">            font-style: normal;</span><br><span class="line">        &#125;</span><br><span class="line">        *&#123;</span><br><span class="line">            margin: 0;</span><br><span class="line">            padding: 0;</span><br><span class="line">        &#125;</span><br><span class="line">        body&#123;</span><br><span class="line">            font-family: customFont; /* 设置字体 */</span><br><span class="line">            font-size: 12px; /* body 控制字体大小*/</span><br><span class="line">            color: #000; /* 设置颜色 */</span><br><span class="line">            line-height: 1.5em; /* 设置行高*</span><br><span class="line">        &#125;</span><br><span class="line">     </span><br><span class="line">        //....定义渲染的css</span><br><span class="line">    &lt;/style&gt;</span><br><span class="line">    &lt;!-- 加载 marked.js --&gt;</span><br><span class="line">    &lt;script src=&quot;marked.min.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;div id=&quot;content&quot; class=&quot;markdown-body&quot;&gt;&lt;/div&gt;</span><br><span class="line">&lt;script type=&quot;text/javascript&quot;&gt;</span><br><span class="line"></span><br><span class="line">     // 渲染文本为 html </span><br><span class="line">    function parseMarkdown(content, gfmEnabled) &#123;</span><br><span class="line">        marked.setOptions(&#123;</span><br><span class="line">            renderer: new marked.Renderer(),</span><br><span class="line">            gfm: gfmEnabled,</span><br><span class="line">            tables: true,</span><br><span class="line">            breaks: false,</span><br><span class="line">            pedantic: false,</span><br><span class="line">            sanitize: true,</span><br><span class="line">            smartLists: true,</span><br><span class="line">            smartypants: false</span><br><span class="line">        &#125;);</span><br><span class="line">        document.getElementById(&#x27;content&#x27;).innerHTML = marked(content);</span><br><span class="line">        parseDone();</span><br><span class="line">    &#125;</span><br><span class="line">    function parseDone() &#123;</span><br><span class="line">         //通知 java 层渲染完成</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    function changeBackgroundColor(color)&#123;</span><br><span class="line">        document.body.style.background = color;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    function changeFontSize(size)&#123;</span><br><span class="line">        document.body.style.fontSize  = size;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    function changeFontColor(color)&#123;</span><br><span class="line">        document.body.style.color= color;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    function changeLineHeight(lineHeight)&#123;</span><br><span class="line">        document.body.style.lineHeight= lineHeight;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">   </span><br><span class="line">&lt;/script&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="更改-webview-背景为透明"><a href="#更改-webview-背景为透明" class="headerlink" title="更改 webview 背景为透明"></a>更改 webview 背景为透明</h3><p>通过设置 webview 的属性</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">webView.setBackgroundColor(0); // 设置背景色透明</span><br></pre></td></tr></table></figure>
+
+<h3 id="更改网页字体颜色"><a href="#更改网页字体颜色" class="headerlink" title="更改网页字体颜色"></a>更改网页字体颜色</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setFontColor</span><span class="params">(String color)</span> &#123;</span><br><span class="line">    mWebView.loadUrl(String.format(<span class="string">&quot;javascript:changeFontColor(&#x27;%s&#x27;)&quot;</span>, color));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="更改网页字体大小"><a href="#更改网页字体大小" class="headerlink" title="更改网页字体大小"></a>更改网页字体大小</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">public void setFontSize(float size) &#123;</span><br><span class="line">    mWebView.loadUrl(String.format(&quot;javascript:changeFontSize(%s)&quot;, size));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="更改网页行间距"><a href="#更改网页行间距" class="headerlink" title="更改网页行间距"></a>更改网页行间距</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">public void setLineHeight(float lineHeight) &#123;</span><br><span class="line">   mWebView.loadUrl(String.format(&quot;javascript:changeLineHeight(%s)&quot;, lineHeight));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="更改网页字体"><a href="#更改网页字体" class="headerlink" title="更改网页字体"></a>更改网页字体</h3><p>通过 CSS 中的 @font-face，具体看上一篇写的 <a target="_blank" rel="noopener" href="https://hanks-zyh.github.io/2017/01/09/android-webview-font/">Android 中 webview 自定义字体</a></p>
+
+      
+    </div>
+</article>
+
+<!-- 上一页 下一页 -->
+
+
+<nav id="article-nav">
+  
+    <a href="/2017/01/10/android-lua/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>上一篇</span>
+      <div class="article-nav-title">
+        
+          Android 与 Lua
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/01/09/android-webview-font/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>下一篇</span>
+      <div class="article-nav-title">Android 中 webview 自定义字体</div>
+    </a>
+  
+</nav>
+
+
+
+<!-- 相关文章 -->
+
+<!--
+
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+      			<a href="/2017/01/10/android-markdown-render/">Android 下 Markdown 渲染</a>
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+
+-->
+
+
+</section>
+      </div>
+      <footer id="footer">
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      
+      &copy;2024<a target="_blank" rel="noopener" href="https://github.com/hanks-zyh"> Hanks</a>版权所有
+      <br/>
+      <a href="https://beian.miit.gov.cn/" target="_blank">豫ICP备2021022347号</a>
+	  </div>
+  </div>
+ <div id="share">
+  <a id="totop" title="" style="display: block;">返回顶部</a>
+ </div>
+</footer>
+
+    </div>
+    
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/jquery.scrollLoading.js"></script>
+
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/ads.js"></script>
+
+  </div>
+</body>
+</html>

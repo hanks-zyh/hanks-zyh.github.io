@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>无向图的邻接表创建以及图的深度和… | Hanks&#39; Websit</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <script data-ad-client="ca-pub-8165670162444117" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <meta name="referrer" content="never">
+  <meta name="description" content="#define MAXSIZE 20 #define FALSE 0 #define TRUE 1  #include #include #include using namespace std;  typedef int Status; &#x2F;&#x2F;…………………………………………队列结构……………………&nbsp; typedef struct qnode {&nbsp; int data;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="无向图的邻接表创建以及图的深度和…">
+<meta property="og:url" content="https://hanks.pub/2014/02/19/%E6%97%A0%E5%90%91%E5%9B%BE%E7%9A%84%E9%82%BB%E6%8E%A5%E8%A1%A8%E5%88%9B%E5%BB%BA%E4%BB%A5%E5%8F%8A%E5%9B%BE%E7%9A%84%E6%B7%B1%E5%BA%A6%E5%92%8C%E2%80%A6/index.html">
+<meta property="og:site_name" content="Hanks&#39; Websit">
+<meta property="og:description" content="#define MAXSIZE 20 #define FALSE 0 #define TRUE 1  #include #include #include using namespace std;  typedef int Status; &#x2F;&#x2F;…………………………………………队列结构……………………&nbsp; typedef struct qnode {&nbsp; int data;">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2014-02-19T11:17:00.000Z">
+<meta property="article:modified_time" content="2024-02-08T01:29:02.201Z">
+<meta property="article:author" content="Hanks">
+<meta name="twitter:card" content="summary">
+  
+  
+  <link href="https://fonts.googleapis.com/css?family=Fira+Code|Noto+Serif+SC&display=swap" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8165670162444117"
+     crossorigin="anonymous"></script>
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo"></a>
+    <nav id="main-nav">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      
+        <a class="main-nav-link" href="/archives">Archive</a>
+      
+        <a class="main-nav-link" href="/eye-video">Eye</a>
+      
+        <a class="main-nav-link" href="/atom.xml">Rss</a>
+      
+    </nav>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/archives" class="mobile-nav-link">Archive</a>
+  
+    <a href="/eye-video" class="mobile-nav-link">Eye</a>
+  
+    <a href="/atom.xml" class="mobile-nav-link">Rss</a>
+  
+</nav>
+      <div class="outer">
+        <section id="main"><article id="post-无向图的邻接表创建以及图的深度和…" class="article article-type-post" itemscope
+  itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <header class="article-header">
+      
+      
+  
+    <h1 class="article-title" itemprop="name">
+      无向图的邻接表创建以及图的深度和…
+    </h1>
+  
+
+      
+    </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+<div id="sina_keyword_ad_area2" class="articalContent  ">
+			<div><font COLOR="#E30000">#define MAXSIZE 20</FONT></DIV>
+<div><font COLOR="#E30000">#define FALSE 0</FONT></DIV>
+<div><font COLOR="#E30000">#define TRUE 1</FONT></DIV>
+<div><font COLOR="#E30000"><br /></FONT></DIV>
+<div><font COLOR="#E30000">#include</FONT></DIV>
+<div><font COLOR="#E30000">#include</FONT></DIV>
+<div><font COLOR="#E30000">#include</FONT></DIV>
+<div><font COLOR="#E30000">using namespace std;</FONT></DIV>
+<div><font COLOR="#E30000"><br /></FONT></DIV>
+<div><font COLOR="#E30000">typedef int Status;</FONT></DIV>
+<div><font COLOR="#E30000">//…………………………………………队列结构……………………&nbsp;<wbr></FONT></DIV>
+<div><font COLOR="#E30000">typedef struct qnode</FONT></DIV>
+<div><font COLOR="#E30000">{&nbsp;<wbr></FONT></DIV>
+<div><font COLOR="#E30000">int data;&nbsp;<wbr></FONT></DIV>
+<div><font COLOR="#E30000">struct qnode
+*next;&nbsp;<wbr></FONT></DIV>
+<div><font COLOR="#E30000">}qnode,*queueptr;&nbsp;<wbr></FONT></DIV>
+<div><font COLOR="#E30000">typedef
+struct&nbsp;<wbr></FONT></DIV>
+<div><font COLOR="#E30000">{&nbsp;<wbr></FONT></DIV>
+<div><font COLOR="#E30000">queueptr
+front;&nbsp;<wbr></FONT></DIV>
+<div><font COLOR="#E30000">queueptr rear;
+&nbsp;<wbr></FONT></DIV>
+<div><font COLOR="#E30000">}linkqueue;</FONT></DIV>
+<div><font COLOR="#E30000"><br /></FONT></DIV>
+<div><font COLOR="#E30000">//…………………………………………邻接表结构…………………………&nbsp;<wbr></FONT></DIV>
+<div><font COLOR="#E30000">typedef struct
+arcnode//弧结点&nbsp;<wbr></FONT></DIV>
+<div><font COLOR="#E30000">{&nbsp;<wbr></FONT></DIV>
+<div><font COLOR="#E30000">int adjvex;
+//该弧指向的顶点的位置&nbsp;<wbr></FONT></DIV>
+<div><font COLOR="#E30000">struct arcnode *nextarc;
+//弧尾相同的下一条弧&nbsp;<wbr></FONT></DIV>
+<div><font COLOR="#E30000">}arcnode;&nbsp;<wbr></FONT></DIV>
+<div><font COLOR="#E30000">typedef struct
+vnode//邻接链表顶点头接点&nbsp;<wbr></FONT></DIV>
+<div><font COLOR="#E30000">{&nbsp;<wbr></FONT></DIV>
+<div><font COLOR="#E30000">char
+data;//结点信息&nbsp;<wbr></FONT></DIV>
+<div><font COLOR="#E30000">arcnode
+*firstarc;//指向第一条依附该结点的弧的指针&nbsp;<wbr></FONT></DIV>
+<div><font COLOR="#E30000">}vnode,adjlist;</FONT></DIV>
+<div><font COLOR="#E30000"><br /></FONT></DIV>
+<div><font COLOR="#E30000">//…………………………………………图结构…………………………&nbsp;<wbr></FONT></DIV>
+<div><font COLOR="#E30000">typedef
+struct//图的定义&nbsp;<wbr></FONT></DIV>
+<div><font COLOR="#E30000">{</FONT></DIV>
+<div><font COLOR="#E30000">adjlist
+vertices;&nbsp;<wbr></FONT></DIV>
+<div><font COLOR="#E30000">int vexnum,arcnum;
+//顶点数，弧的条数</FONT></DIV>
+<div><font COLOR="#E30000">}algraph;&nbsp;<wbr></FONT></DIV>
+<div><font COLOR="#E30000">//无向图</FONT></DIV>
+<div><font COLOR="#E30000"><br /></FONT></DIV>
+<div><font COLOR="#E30000">//…………………………………………链队列定义……………………&nbsp;<wbr></FONT></DIV>
+<div><font COLOR="#E30000">void InitQueue(linkqueue
+&amp;q)//初始化队列&nbsp;<wbr></FONT></DIV>
+<div><font COLOR="#E30000">{</FONT></DIV>
+<div><font COLOR="#E30000">q.rear &nbsp;<wbr>=
+&nbsp;<wbr>(queueptr)malloc(sizeof(qnode));
+&nbsp;<wbr></FONT></DIV>
+<div><font COLOR="#E30000">if(!q.front) &nbsp;<wbr>exit(-1);
+//分配空间失败</FONT></DIV>
+<div><font COLOR="#E30000">q.front &nbsp;<wbr>=
+&nbsp;<wbr>q.rear; q.front-&gt;next =
+NULL;&nbsp;<wbr></FONT></DIV>
+<div><font COLOR="#E30000">}</FONT></DIV>
+<div><font COLOR="#E30000">Status Queue_empty(linkqueue
+q)//判断队为空</FONT></DIV>
+<div><font COLOR="#E30000">{&nbsp;<wbr></FONT></DIV>
+<div><font COLOR="#E30000">if(q.front &nbsp;<wbr>==
+&nbsp;<wbr> q.rear) return TRUE;</FONT></DIV>
+<div><font COLOR="#E30000">else return
+FALSE;&nbsp;<wbr></FONT></DIV>
+<div><font COLOR="#E30000">}&nbsp;<wbr></FONT></DIV>
+<div><font COLOR="#E30000">Status EnQueue(linkqueue &amp;q,int
+e)//入队&nbsp;<wbr></FONT></DIV>
+<div><font COLOR="#E30000">{&nbsp;<wbr></FONT></DIV>
+<div><font COLOR="#E30000">queueptr
+p;&nbsp;<wbr></FONT></DIV>
+<div><font COLOR="#E30000">p = (queueptr)malloc(sizeof(qnode));
+if(!p) exit(-1); //分配空间失败</FONT></DIV>
+<div><font COLOR="#E30000"><br /></FONT></DIV>
+<div><font COLOR="#E30000">p-&gt;data = e; &nbsp;<wbr>
+p-&gt;next = NULL;</FONT></DIV>
+<div><font COLOR="#E30000">q.rear-&gt;next = p;</FONT></DIV>
+<div><font COLOR="#E30000">q.rear =
+p;&nbsp;<wbr></FONT></DIV>
+<div><font COLOR="#E30000">return
+TRUE;&nbsp;<wbr></FONT></DIV>
+<div><font COLOR="#E30000">}&nbsp;<wbr></FONT></DIV>
+<div><font COLOR="#E30000">Status DeQueue(linkqueue &amp;q,int
+&amp;e)//出队</FONT></DIV>
+<div><font COLOR="#E30000">{&nbsp;<wbr></FONT></DIV>
+<div><font COLOR="#E30000">queueptr
+p;&nbsp;<wbr></FONT></DIV>
+<div><font COLOR="#E30000">if( Queue_empty(q) ) return
+FALSE;&nbsp;<wbr></FONT></DIV>
+<div><font COLOR="#E30000"><br /></FONT></DIV>
+<div><font COLOR="#E30000">p =
+q.front-&gt;next;&nbsp;<wbr></FONT></DIV>
+<div><font COLOR="#E30000">e =
+p-&gt;data;&nbsp;<wbr></FONT></DIV>
+<div><font COLOR="#E30000">q.front-&gt;next =
+p-&gt;next;&nbsp;<wbr></FONT></DIV>
+<div><font COLOR="#E30000">if(q.rear == &nbsp;<wbr>p)
+&nbsp;<wbr> q.rear = q.front;&nbsp;<wbr></FONT></DIV>
+<div><font COLOR="#E30000">free(p);&nbsp;<wbr></FONT></DIV>
+<div><font COLOR="#E30000">return
+TRUE;&nbsp;<wbr></FONT></DIV>
+<div><font COLOR="#E30000">}&nbsp;<wbr></FONT></DIV>
+<div><font COLOR="#E30000"><br /></FONT></DIV>
+<div><font COLOR="#E30000">//…………………………………………邻接表定义……………………&nbsp;<wbr></FONT></DIV>
+<div><font COLOR="#E30000">int localvex(adjlist G_L[],char
+v)//返回V的位置&nbsp;<wbr></FONT></DIV>
+<div><font COLOR="#E30000">{ &nbsp;<wbr></FONT></DIV>
+<div><font COLOR="#E30000">int i = 0;</FONT></DIV>
+<div><font COLOR="#E30000">//printf("da = ‘%c’ v =
+‘%c’\n",G_L[i].data,v);</FONT></DIV>
+<div><font COLOR="#E30000">while(G_L[i].data != v)</FONT></DIV>
+<div><font COLOR="#E30000">{&nbsp;<wbr></FONT></DIV>
+<div><font COLOR="#E30000">//printf("da = %c ,v =
+%c",G_L[i].data,v);&nbsp;<wbr></FONT></DIV>
+<div><font COLOR="#E30000">++i;</FONT></DIV>
+<div><font COLOR="#E30000">}</FONT></DIV>
+<div><font COLOR="#E30000">//printf("i = %d\n",i);</FONT></DIV>
+<div><font COLOR="#E30000">return i;</FONT></DIV>
+<div><font COLOR="#E30000">}</FONT></DIV>
+<div><font COLOR="#E30000"><br /></FONT></DIV>
+<div><font COLOR="#E30000">void Print_G_L( algraph G,adjlist *
+G_L)</FONT></DIV>
+<div><font COLOR="#E30000">{</FONT></DIV>
+<div><font COLOR="#E30000">cout&lt;&lt;"————————图的邻接表——————"&lt;&lt;endl;</FONT></DIV>
+<div><font COLOR="#E30000">for(int i=0; i</FONT></DIV>
+<div><font COLOR="#E30000">{</FONT></DIV>
+<div><font COLOR="#E30000">printf(" [%d] (%c) :
+",i,G_L[i].data);</FONT></DIV>
+<div><font COLOR="#E30000">arcnode * q =
+G_L[i].firstarc;</FONT></DIV>
+<div><font COLOR="#E30000">while(q ) {</FONT></DIV>
+<div><font COLOR="#E30000">printf(" %d",q-&gt;adjvex);</FONT></DIV>
+<div><font COLOR="#E30000">q = q-&gt;nextarc;</FONT></DIV>
+<div><font COLOR="#E30000">}</FONT></DIV>
+<div><font COLOR="#E30000">printf("\n");</FONT></DIV>
+<div><font COLOR="#E30000">}</FONT></DIV>
+<div><font COLOR="#E30000">}</FONT></DIV>
+<div><font COLOR="#E30000">Status CreteAdj( algraph &amp;G ,adjlist
+*G_L)//用邻接表存储图</FONT></DIV>
+<div><font COLOR="#E30000">{&nbsp;<wbr></FONT></DIV>
+<div><font COLOR="#E30000">cout&lt;&lt;endl&lt;&lt;"请依次输入图的‘顶点’和‘边’的个数(‘空格’隔开)：";
+cin&gt;&gt;G.vexnum &gt;&gt;G.arcnum;</FONT></DIV>
+<div><font COLOR="#E30000">for(int i=0; i &lt; G.vexnum;
+i++)</FONT></DIV>
+<div><font COLOR="#E30000">{</FONT></DIV>
+<div><font COLOR="#E30000">printf("请输入图的第%d个顶点(大写字母A,B,C...)：",i+1);&nbsp;<wbr></FONT></DIV>
+<div><font COLOR="#E30000"><br /></FONT></DIV>
+<div><font COLOR="#E30000">cin&gt;&gt;G_L[i].data;</FONT></DIV>
+<div><font COLOR="#E30000">//printf("dat =
+%c",G_L[i].data);</FONT></DIV>
+<div><font COLOR="#E30000">}</FONT></DIV>
+<div><font COLOR="#E30000">for(int i=0;i</FONT></DIV>
+<div><font COLOR="#E30000"><br /></FONT></DIV>
+<div><font COLOR="#E30000">for(int i=0; i &lt; G.arcnum;
+i++)</FONT></DIV>
+<div><font COLOR="#E30000">{</FONT></DIV>
+<div><font COLOR="#E30000">char first_v,second_v;</FONT></DIV>
+<div><font COLOR="#E30000">printf("请输入图的第%d条边,两顶点间逗号隔开(如‘A,B’不包括引号）:",i+1);</FONT></DIV>
+<div><font COLOR="#E30000">getchar();</FONT></DIV>
+<div><font COLOR="#E30000">scanf("%c,%c",&amp;first_v,&amp;second_v);</FONT></DIV>
+<div><font COLOR="#E30000"><br /></FONT></DIV>
+<div><font COLOR="#E30000">//printf("fir = %c, sec =
+%c",first_v,second_v);</FONT></DIV>
+<div><font COLOR="#E30000"><br /></FONT></DIV>
+<div><font COLOR="#E30000">int loc1 = localvex( G_L,first_v
+&nbsp;<wbr>);//第1个顶点下标</FONT></DIV>
+<div><font COLOR="#E30000">int loc2 = localvex( G_L,second_v
+);//第2个顶点下标</FONT></DIV>
+<div><font COLOR="#E30000"><br /></FONT></DIV>
+<div><font COLOR="#E30000">//printf("loc1 = %d, loc2 =
+%d\n",loc1,loc2);</FONT></DIV>
+<div><font COLOR="#E30000"><br /></FONT></DIV>
+<div><font COLOR="#E30000">arcnode * p = (arcnode *
+)malloc(sizeof(arcnode)); if(!p) exit(-1);
+//first-&gt;second边</FONT></DIV>
+<div><font COLOR="#E30000">p-&gt;adjvex = loc2;
+&nbsp;<wbr>p-&gt;nextarc = NULL;</FONT></DIV>
+<div><font COLOR="#E30000">arcnode * q ;</FONT></DIV>
+<div><font COLOR="#E30000">if( G_L[loc1].firstarc == NULL ||
+G_L[loc1].firstarc-&gt;adjvex &lt;
+p-&gt;adjvex)&nbsp;<wbr></FONT></DIV>
+<div><font COLOR="#E30000">{ p-&gt;nextarc = G_L[loc1].firstarc;
+&nbsp;<wbr> G_L[loc1].firstarc = p;
+&nbsp;<wbr>}//p插在第一个</FONT></DIV>
+<div><font COLOR="#E30000">else{ //寻找新非零元在航标中的插入位置</FONT></DIV>
+<div><font COLOR="#E30000">for( q = G_L[loc1].firstarc ;
+(q-&gt;nextarc)&amp;&amp;(q-&gt;nextarc-&gt;adjvex &lt;
+p-&gt;adjvex ); q = q-&gt;nextarc ) ; //循环到合适位置，这是个空循环</FONT></DIV>
+<div><font COLOR="#E30000">p-&gt;nextarc = q-&gt;nextarc;
+q-&gt;nextarc = p; //完成行插入 </FONT></DIV>
+<div><font COLOR="#E30000">}//else</FONT></DIV>
+<div><font COLOR="#E30000"><br /></FONT></DIV>
+<div><font COLOR="#E30000">arcnode * p2 = (arcnode *
+)malloc(sizeof(arcnode)); if(!p2)
+exit(-1);//second-&gt;first边</FONT></DIV>
+<div><font COLOR="#E30000">p2-&gt;adjvex = loc1;
+&nbsp;<wbr>p2-&gt;nextarc = NULL;</FONT></DIV>
+<div><font COLOR="#E30000">if( G_L[loc2].firstarc == NULL ||
+G_L[loc2].firstarc-&gt;adjvex &lt;
+p2-&gt;adjvex)&nbsp;<wbr></FONT></DIV>
+<div><font COLOR="#E30000">{ p2-&gt;nextarc = G_L[loc2].firstarc;
+&nbsp;<wbr> G_L[loc2].firstarc = p2;
+&nbsp;<wbr>}//p插在第一个</FONT></DIV>
+<div><font COLOR="#E30000">else{ //寻找新非零元在航标中的插入位置</FONT></DIV>
+<div><font COLOR="#E30000">for( q = G_L[loc2].firstarc ;
+(q-&gt;nextarc)&amp;&amp;(q-&gt;nextarc-&gt;adjvex &lt;
+p2-&gt;adjvex ); q = q-&gt;nextarc ) ;
+//循环到合适位置，这是个空循环</FONT></DIV>
+<div><font COLOR="#E30000">p2-&gt;nextarc = q-&gt;nextarc;
+q-&gt;nextarc = p2; //完成行插入 </FONT></DIV>
+<div><font COLOR="#E30000">}//else</FONT></DIV>
+<div><font COLOR="#E30000"><br /></FONT></DIV>
+<div><font COLOR="#E30000">}</FONT></DIV>
+<div><font COLOR="#E30000">return TRUE;</FONT></DIV>
+<div><font COLOR="#E30000">}</FONT></DIV>
+<div><font COLOR="#E30000">void BFS( algraph G,adjlist G_L[]
+)//广度优先遍历&nbsp;<wbr></FONT></DIV>
+<div><font COLOR="#E30000">{&nbsp;<wbr></FONT></DIV>
+<div><font COLOR="#E30000">int i,e; arcnode * p;</FONT></DIV>
+<div><font COLOR="#E30000">int visit[MAXSIZE];//标志元素是否已被访问过，0：未访问，
+1：已访问</FONT></DIV>
+<div><font COLOR="#E30000">linkqueue
+q;&nbsp;<wbr></FONT></DIV>
+<div><font COLOR="#E30000">InitQueue(q);&nbsp;<wbr></FONT></DIV>
+<div><font COLOR="#E30000">for(i=0; i != G.vexnum;++i)
+&nbsp;<wbr>visit[i] = FALSE;&nbsp;<wbr></FONT></DIV>
+<div><font COLOR="#E30000">cout&lt;&lt;"广度遍历为：";</FONT></DIV>
+<div><font COLOR="#E30000">for(i=0; i!=G.vexnum; ++i)</FONT></DIV>
+<div><font COLOR="#E30000">if( visit[i]==FALSE
+)&nbsp;<wbr></FONT></DIV>
+<div><font COLOR="#E30000">{&nbsp;<wbr></FONT></DIV>
+<div><font COLOR="#E30000">visit[i] = TRUE
+;&nbsp;<wbr></FONT></DIV>
+<div><font COLOR="#E30000">cout&lt;&lt;
+G_L[i].data;&nbsp;<wbr></FONT></DIV>
+<div><font COLOR="#E30000">EnQueue(q , i
+);&nbsp;<wbr></FONT></DIV>
+<div><font COLOR="#E30000">while( !Queue_empty(q)
+)&nbsp;<wbr></FONT></DIV>
+<div><font COLOR="#E30000">{&nbsp;<wbr></FONT></DIV>
+<div><font COLOR="#E30000">DeQueue(q,e);&nbsp;<wbr></FONT></DIV>
+<div><font COLOR="#E30000">for( &nbsp;<wbr>p =
+G_L[e].firstarc; p; p = p-&gt;nextarc)</FONT></DIV>
+<div><font COLOR="#E30000">{</FONT></DIV>
+<div><font COLOR="#E30000">if( visit[p-&gt;adjvex]==FALSE )
+//未访问</FONT></DIV>
+<div><font COLOR="#E30000">{</FONT></DIV>
+<div><font COLOR="#E30000">visit[p-&gt;adjvex] =
+TRUE;&nbsp;<wbr></FONT></DIV>
+<div><font COLOR="#E30000">cout&lt;&lt;G_L[p-&gt;adjvex].data;&nbsp;<wbr></FONT></DIV>
+<div><font COLOR="#E30000">EnQueue(q,p-&gt;adjvex);&nbsp;<wbr></FONT></DIV>
+<div><font COLOR="#E30000">}&nbsp;<wbr></FONT></DIV>
+<div><font COLOR="#E30000">}//for</FONT></DIV>
+<div><font COLOR="#E30000">} //while</FONT></DIV>
+<div><font COLOR="#E30000">} //if</FONT></DIV>
+<div><font COLOR="#E30000">cout&lt;&lt;endl;</FONT></DIV>
+<div><font COLOR="#E30000">return;</FONT></DIV>
+<div><font COLOR="#E30000">}&nbsp;<wbr></FONT></DIV>
+<div><font COLOR="#E30000">void DFS(adjlist G_L[],int v,int
+visit[])</FONT></DIV>
+<div><font COLOR="#E30000">{// 从顶点v出发，深度优先搜索遍历连通图 G</FONT></DIV>
+<div><font COLOR="#E30000">cout&lt;&lt;G_L[v].data;</FONT></DIV>
+<div><font COLOR="#E30000">visit[v] = TRUE;</FONT></DIV>
+<div><font COLOR="#E30000">arcnode * q =
+G_L[v].firstarc;</FONT></DIV>
+<div><font COLOR="#E30000">while( q )</FONT></DIV>
+<div><font COLOR="#E30000">{</FONT></DIV>
+<div><font COLOR="#E30000">if( !visit[q-&gt;adjvex])</FONT></DIV>
+<div><font COLOR="#E30000">DFS(G_L,q-&gt;adjvex,visit);</FONT></DIV>
+<div><font COLOR="#E30000">q = q-&gt;nextarc;</FONT></DIV>
+<div><font COLOR="#E30000">}</FONT></DIV>
+<div><font COLOR="#E30000">} // DFS</FONT></DIV>
+<div><font COLOR="#E30000"><br /></FONT></DIV>
+<div><font COLOR="#E30000"><br /></FONT></DIV>
+<div><font COLOR="#E30000"><br /></FONT></DIV>
+<div><font COLOR="#E30000"><br /></FONT></DIV>
+<div><font COLOR="#E30000"><br /></FONT></DIV>
+<div><font COLOR="#E30000">int
+main()&nbsp;<wbr></FONT></DIV>
+<div><font COLOR="#E30000">{</FONT></DIV>
+<div><font COLOR="#E30000">algraph G;//图</FONT></DIV>
+<div><font COLOR="#E30000">adjlist
+G_L[MAXSIZE];//图的邻接表</FONT></DIV>
+<div><font COLOR="#E30000">int visit[MAXSIZE] ={ FALSE };
+//该数组用来标志对应下标的元素是否已被访问，初始 FALSE 未访问</FONT></DIV>
+<div><font COLOR="#E30000"><br /></FONT></DIV>
+<div><font COLOR="#E30000">CreteAdj( G ,G_L);</FONT></DIV>
+<div><font COLOR="#E30000">Print_G_L(G,G_L);</FONT></DIV>
+<div><font COLOR="#E30000">BFS(G,G_L);</FONT></DIV>
+<div><font COLOR="#E30000">cout&lt;&lt;"深度遍历为：";</FONT></DIV>
+<div><font COLOR="#E30000">DFS(G_L,0,visit);
+cout&lt;&lt;endl;</FONT></DIV>
+<div><font COLOR="#E30000"><br /></FONT></DIV>
+<div><font COLOR="#E30000"><br /></FONT></DIV>
+<div><font COLOR="#E30000">return 0;</FONT></DIV>
+<div><font COLOR="#E30000">}&nbsp;<wbr></FONT></DIV>
+<div><br /></DIV>							
+		</div>
+
+      
+    </div>
+</article>
+
+<!-- 上一页 下一页 -->
+
+
+<nav id="article-nav">
+  
+    <a href="/2014/02/19/%E5%B8%B8%E7%94%A8%E5%AD%97%E7%AC%A6%EF%BC%8C%E6%95%B4%E5%BD%A2%EF%BC%8C%E6%B5%AE%E7%82%B9%E5%9E%8B%E7%9B%B8%E4%BA%92%E8%A3%85%E6%8D%A2%E5%87%BD%E2%80%A6/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>上一篇</span>
+      <div class="article-nav-title">
+        
+          常用字符，整形，浮点型相互装换函…
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2014/02/19/%E6%B1%82a%E7%9A%84b%E6%AC%A1%E6%96%B9%E3%80%81a%E7%9A%84b%E6%AC%A1%E6%96%B9%E5%AF%B9m%E5%8F%96%E6%A8%A1/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>下一篇</span>
+      <div class="article-nav-title">求a的b次方、a的b次方对m取模</div>
+    </a>
+  
+</nav>
+
+
+
+<!-- 相关文章 -->
+
+<!--
+
+-->
+
+
+</section>
+      </div>
+      <footer id="footer">
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      
+      &copy;2024<a target="_blank" rel="noopener" href="https://github.com/hanks-zyh"> Hanks</a>版权所有
+      <br/>
+      <a href="https://beian.miit.gov.cn/" target="_blank">豫ICP备2021022347号</a>
+	  </div>
+  </div>
+ <div id="share">
+  <a id="totop" title="" style="display: block;">返回顶部</a>
+ </div>
+</footer>
+
+    </div>
+    
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/jquery.scrollLoading.js"></script>
+
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/ads.js"></script>
+
+  </div>
+</body>
+</html>

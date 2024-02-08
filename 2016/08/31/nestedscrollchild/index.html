@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>WebView 实现 NestedScrollingChild | Hanks&#39; Websit</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <script data-ad-client="ca-pub-8165670162444117" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <meta name="referrer" content="never">
+  <meta name="description" content="承接上文 NestedScrollingParent 实现复杂交互效果 ，在 NestedScroll 这一套流程中，NestedScrollingChild 不用考虑怎么去通知父布局如何滚动，只需要负责自己的事情：产生滚动事件，并将事件共享出去，产生 fling 事件，共享 fling 。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="WebView 实现 NestedScrollingChild">
+<meta property="og:url" content="https://hanks.pub/2016/08/31/nestedscrollchild/index.html">
+<meta property="og:site_name" content="Hanks&#39; Websit">
+<meta property="og:description" content="承接上文 NestedScrollingParent 实现复杂交互效果 ，在 NestedScroll 这一套流程中，NestedScrollingChild 不用考虑怎么去通知父布局如何滚动，只需要负责自己的事情：产生滚动事件，并将事件共享出去，产生 fling 事件，共享 fling 。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2016-08-31T14:30:52.000Z">
+<meta property="article:modified_time" content="2024-02-08T01:29:02.189Z">
+<meta property="article:author" content="Hanks">
+<meta property="article:tag" content="Android">
+<meta property="article:tag" content="NestedScrolling">
+<meta name="twitter:card" content="summary">
+  
+  
+  <link href="https://fonts.googleapis.com/css?family=Fira+Code|Noto+Serif+SC&display=swap" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8165670162444117"
+     crossorigin="anonymous"></script>
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo"></a>
+    <nav id="main-nav">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      
+        <a class="main-nav-link" href="/archives">Archive</a>
+      
+        <a class="main-nav-link" href="/eye-video">Eye</a>
+      
+        <a class="main-nav-link" href="/atom.xml">Rss</a>
+      
+    </nav>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/archives" class="mobile-nav-link">Archive</a>
+  
+    <a href="/eye-video" class="mobile-nav-link">Eye</a>
+  
+    <a href="/atom.xml" class="mobile-nav-link">Rss</a>
+  
+</nav>
+      <div class="outer">
+        <section id="main"><article id="post-nestedscrollchild" class="article article-type-post" itemscope
+  itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <header class="article-header">
+      
+      
+  
+    <h1 class="article-title" itemprop="name">
+      WebView 实现 NestedScrollingChild
+    </h1>
+  
+
+      
+    </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      <p>承接上文 <a target="_blank" rel="noopener" href="https://hanks.xyz/2016/08/29/nestedchildparent/">NestedScrollingParent 实现复杂交互效果</a> ，在 <code>NestedScroll</code> 这一套流程中，<code>NestedScrollingChild</code> 不用考虑怎么去通知父布局如何滚动，只需要负责自己的事情：<strong>产生滚动</strong>事件，并<strong>将事件共享出去</strong>，<strong>产生 fling</strong> 事件，<strong>共享 fling</strong> 。</p>
+<span id="more"></span>
+<p>NestedScrollingParent 简称 <code>NP</code><br>NestedScrollingChild 简称 <code>NC</code></p>
+<ol>
+<li><p>NC 调用 <code>startNestedScroll()</code> 通知 NP 的 <code>onStartNestedScroll</code> （具体是怎么通知到 NP 的参考 源码）</p>
+</li>
+<li><p>NC 产生一个 Touch 事件，如滚动 5 个像素，然后调用 <code>dispatchNestedPreScroll</code> 通知 NP 自己要滚动 5个像素， NP 收到通知后根据自身需要进行消费，如消费了 2 个像素，然后将结果通知到 NC </p>
+</li>
+<li><p>NC 将剩下的 3 个像素进行自身消费，如此时滚动了 2 个像素到达了边界，还剩下 1 个像素没有消费掉，然后就调用 <code>dispatchNestedScroll</code> 将剩下的未消费的 1 个像素共享出去。</p>
+</li>
+<li><p>Fling 事件类似 Scroll 事件</p>
+</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Created by hanks on 16/8/30.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">CodeWebView</span> <span class="keyword">extends</span> <span class="title class_">WebView</span> <span class="keyword">implements</span> <span class="title class_">NestedScrollingChild</span>, ScrollListener &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">TAG</span> <span class="operator">=</span> CodeWebView.class.getSimpleName();</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">UP</span> <span class="operator">=</span> <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">DOWN</span> <span class="operator">=</span> -<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="type">int</span>[] mScrollOffset = <span class="keyword">new</span> <span class="title class_">int</span>[<span class="number">2</span>];</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="type">int</span>[] mScrollConsumed = <span class="keyword">new</span> <span class="title class_">int</span>[<span class="number">2</span>];</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="type">int</span> mTouchSlop;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="type">int</span> mMinimumVelocity;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="type">int</span> mMaximumVelocity;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> <span class="variable">direction</span> <span class="operator">=</span> DOWN; <span class="comment">// TODO 还需要同步到父布局的方向</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> mLastMotionY;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> mNestedYOffset;</span><br><span class="line">    <span class="keyword">private</span> NestedScrollingChildHelper mChildHelper;</span><br><span class="line">    <span class="keyword">private</span> VelocityTracker mVelocityTracker;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">boolean</span> allowFly;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> downY;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">float</span> <span class="variable">mDownY</span> <span class="operator">=</span> -<span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">CodeWebView</span><span class="params">(Context context)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>(context, <span class="literal">null</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">CodeWebView</span><span class="params">(Context context, AttributeSet attrs)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>(context, attrs, <span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">CodeWebView</span><span class="params">(Context context, AttributeSet attrs, <span class="type">int</span> defStyleAttr)</span> &#123;</span><br><span class="line">        <span class="built_in">super</span>(context, attrs, defStyleAttr);</span><br><span class="line">        </span><br><span class="line">        mChildHelper = <span class="keyword">new</span> <span class="title class_">NestedScrollingChildHelper</span>(<span class="built_in">this</span>); <span class="comment">// 辅助类</span></span><br><span class="line">        setNestedScrollingEnabled(<span class="literal">true</span>); <span class="comment">// 设置支持 NestedScrolling</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">final</span> <span class="type">ViewConfiguration</span> <span class="variable">configuration</span> <span class="operator">=</span> ViewConfiguration.get(getContext());</span><br><span class="line">        mTouchSlop = configuration.getScaledTouchSlop();</span><br><span class="line">        mMinimumVelocity = configuration.getScaledMinimumFlingVelocity();</span><br><span class="line">        mMaximumVelocity = configuration.getScaledMaximumFlingVelocity();</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">onTouchEvent</span><span class="params">(MotionEvent event)</span> &#123;</span><br><span class="line">        </span><br><span class="line">        <span class="type">boolean</span> <span class="variable">eventAddedToVelocityTracker</span> <span class="operator">=</span> <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">final</span> <span class="type">int</span> <span class="variable">action</span> <span class="operator">=</span> MotionEventCompat.getActionMasked(event);</span><br><span class="line">        <span class="keyword">final</span> <span class="type">int</span> <span class="variable">actionIndex</span> <span class="operator">=</span> MotionEventCompat.getActionIndex(event);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (mVelocityTracker == <span class="literal">null</span>) &#123;</span><br><span class="line">            mVelocityTracker = VelocityTracker.obtain();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">switch</span> (action) &#123;</span><br><span class="line">            <span class="keyword">case</span> MotionEvent.ACTION_DOWN:</span><br><span class="line">                allowFly = <span class="literal">false</span>;</span><br><span class="line">                downY = (<span class="type">int</span>) event.getRawY();</span><br><span class="line">                <span class="comment">// 开始 NestedScroll</span></span><br><span class="line">                startNestedScroll(ViewCompat.SCROLL_AXIS_VERTICAL);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> MotionEvent.ACTION_MOVE:</span><br><span class="line">                <span class="type">int</span> <span class="variable">moveY</span> <span class="operator">=</span> (<span class="type">int</span>) event.getRawY();</span><br><span class="line">                <span class="type">int</span> <span class="variable">dy</span> <span class="operator">=</span> -(moveY - downY); <span class="comment">//滚动方法的方向跟坐标是相反的，所以这里要加一个负号</span></span><br><span class="line">                downY = moveY;</span><br><span class="line">                <span class="comment">//在consumed 中就是父类滑动的距离，</span></span><br><span class="line">                <span class="keyword">if</span> (dispatchNestedPreScroll(<span class="number">0</span>, dy, mScrollConsumed, mScrollOffset)) &#123;</span><br><span class="line">                    dy -= mScrollConsumed[<span class="number">1</span>]; <span class="comment">// 减去父类消费的距离</span></span><br><span class="line">                    scrollBy(<span class="number">0</span>, dy); <span class="comment">// 剩下的自己消费</span></span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> MotionEvent.ACTION_UP:</span><br><span class="line">            <span class="keyword">case</span> MotionEvent.ACTION_CANCEL:</span><br><span class="line">            </span><br><span class="line">                mVelocityTracker.addMovement(event);</span><br><span class="line">                eventAddedToVelocityTracker = <span class="literal">true</span>;</span><br><span class="line">                mVelocityTracker.computeCurrentVelocity(<span class="number">1000</span>, mMaximumVelocity);</span><br><span class="line">                <span class="type">int</span> <span class="variable">mScrollPointerId</span> <span class="operator">=</span> MotionEventCompat.getPointerId(event, actionIndex);</span><br><span class="line">                <span class="type">float</span> <span class="variable">vY</span> <span class="operator">=</span> -VelocityTrackerCompat.getYVelocity(mVelocityTracker, mScrollPointerId); </span><br><span class="line">                <span class="comment">// 产生 fling 事件</span></span><br><span class="line">                <span class="keyword">if</span> (Math.abs(vY) &gt; mMinimumVelocity &amp;&amp; !dispatchNestedPreFling(<span class="number">0</span>, vY)) &#123;</span><br><span class="line">                    dispatchNestedFling(<span class="number">0</span>, vY, <span class="literal">true</span>);</span><br><span class="line">                    logi(<span class="string">&quot;dispatchNestedFling&quot;</span>);</span><br><span class="line">                &#125;</span><br><span class="line">                resetTouch();</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (!eventAddedToVelocityTracker) &#123;</span><br><span class="line">            mVelocityTracker.addMovement(event);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">resetTouch</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (mVelocityTracker != <span class="literal">null</span>) &#123;</span><br><span class="line">            mVelocityTracker.clear();</span><br><span class="line">        &#125;</span><br><span class="line">        stopNestedScroll();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setNestedScrollingEnabled</span><span class="params">(<span class="type">boolean</span> enabled)</span> &#123;</span><br><span class="line">        mChildHelper.setNestedScrollingEnabled(enabled);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">startNestedScroll</span><span class="params">(<span class="type">int</span> axes)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> mChildHelper.startNestedScroll(axes);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">stopNestedScroll</span><span class="params">()</span> &#123;</span><br><span class="line">        mChildHelper.stopNestedScroll();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">hasNestedScrollingParent</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> mChildHelper.hasNestedScrollingParent();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">dispatchNestedScroll</span><span class="params">(<span class="type">int</span> dxConsumed, <span class="type">int</span> dyConsumed, <span class="type">int</span> dxUnconsumed, <span class="type">int</span> dyUnconsumed, <span class="type">int</span>[] offsetInWindow)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> mChildHelper.dispatchNestedScroll(dxConsumed, dyConsumed, dxUnconsumed, dyUnconsumed, offsetInWindow);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">dispatchNestedPreScroll</span><span class="params">(<span class="type">int</span> dx, <span class="type">int</span> dy, <span class="type">int</span>[] consumed, <span class="type">int</span>[] offsetInWindow)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> mChildHelper.dispatchNestedPreScroll(dx, dy, consumed, offsetInWindow);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">dispatchNestedFling</span><span class="params">(<span class="type">float</span> velocityX, <span class="type">float</span> velocityY, <span class="type">boolean</span> consumed)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> mChildHelper.dispatchNestedFling(velocityX, velocityY, consumed);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">dispatchNestedPreFling</span><span class="params">(<span class="type">float</span> velocityX, <span class="type">float</span> velocityY)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> mChildHelper.dispatchNestedPreFling(velocityX, velocityY);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">log</span><span class="params">(String s)</span> &#123;</span><br><span class="line">        Log.e(TAG, s);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">logi</span><span class="params">(String s)</span> &#123;</span><br><span class="line">        Log.i(TAG, s);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">logw</span><span class="params">(String s)</span> &#123;</span><br><span class="line">        Log.w(TAG, s);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<blockquote>
+<p>文章来自： <a href="https://hanks.pub/">https://hanks.pub</a></p>
+</blockquote>
+
+      
+    </div>
+</article>
+
+<!-- 上一页 下一页 -->
+
+
+<nav id="article-nav">
+  
+    <a href="/2016/09/05/weex-2333/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>上一篇</span>
+      <div class="article-nav-title">
+        
+          体验 weex —— 写一个表情包应用
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/08/29/nestedchildparent/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>下一篇</span>
+      <div class="article-nav-title">NestedScrollingParent 实现复杂交互效果</div>
+    </a>
+  
+</nav>
+
+
+
+<!-- 相关文章 -->
+
+<!--
+
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+      			<a href="/2016/08/31/nestedscrollchild/">WebView 实现 NestedScrollingChild</a>
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+
+-->
+
+
+</section>
+      </div>
+      <footer id="footer">
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      
+      &copy;2024<a target="_blank" rel="noopener" href="https://github.com/hanks-zyh"> Hanks</a>版权所有
+      <br/>
+      <a href="https://beian.miit.gov.cn/" target="_blank">豫ICP备2021022347号</a>
+	  </div>
+  </div>
+ <div id="share">
+  <a id="totop" title="" style="display: block;">返回顶部</a>
+ </div>
+</footer>
+
+    </div>
+    
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/jquery.scrollLoading.js"></script>
+
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/ads.js"></script>
+
+  </div>
+</body>
+</html>

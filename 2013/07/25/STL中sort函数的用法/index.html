@@ -1,0 +1,1048 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>STL中sort函数的用法 | Hanks&#39; Websit</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <script data-ad-client="ca-pub-8165670162444117" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <meta name="referrer" content="never">
+  <meta name="description" content="0 前言: STL，为什么你必须掌握  &nbsp;  stable_sort(array,array&#43;n,cmp);  sort(array,array&#43;n,cmp);  cmp函数的书写，  对于结构体  bool cmp(STRUCT a, STRUCT b)&#x2F;&#x2F;STRUCT为结构体leixing名  {  &nbsp;&nbsp;&nbsp;&nbsp;&amp;n">
+<meta property="og:type" content="article">
+<meta property="og:title" content="STL中sort函数的用法">
+<meta property="og:url" content="https://hanks.pub/2013/07/25/STL%E4%B8%ADsort%E5%87%BD%E6%95%B0%E7%9A%84%E7%94%A8%E6%B3%95/index.html">
+<meta property="og:site_name" content="Hanks&#39; Websit">
+<meta property="og:description" content="0 前言: STL，为什么你必须掌握  &nbsp;  stable_sort(array,array&#43;n,cmp);  sort(array,array&#43;n,cmp);  cmp函数的书写，  对于结构体  bool cmp(STRUCT a, STRUCT b)&#x2F;&#x2F;STRUCT为结构体leixing名  {  &nbsp;&nbsp;&nbsp;&nbsp;&amp;n">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://www.stlchina.org/twiki/pub/TWiki/SmiliesPlugin/smile.gif">
+<meta property="og:image" content="https://www.stlchina.org/twiki/pub/TWiki/SmiliesPlugin/smile.gif">
+<meta property="article:published_time" content="2013-07-25T09:30:00.000Z">
+<meta property="article:modified_time" content="2024-02-08T01:29:02.178Z">
+<meta property="article:author" content="Hanks">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.stlchina.org/twiki/pub/TWiki/SmiliesPlugin/smile.gif">
+  
+  
+  <link href="https://fonts.googleapis.com/css?family=Fira+Code|Noto+Serif+SC&display=swap" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8165670162444117"
+     crossorigin="anonymous"></script>
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo"></a>
+    <nav id="main-nav">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      
+        <a class="main-nav-link" href="/archives">Archive</a>
+      
+        <a class="main-nav-link" href="/eye-video">Eye</a>
+      
+        <a class="main-nav-link" href="/atom.xml">Rss</a>
+      
+    </nav>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/archives" class="mobile-nav-link">Archive</a>
+  
+    <a href="/eye-video" class="mobile-nav-link">Eye</a>
+  
+    <a href="/atom.xml" class="mobile-nav-link">Rss</a>
+  
+</nav>
+      <div class="outer">
+        <section id="main"><article id="post-STL中sort函数的用法" class="article article-type-post" itemscope
+  itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <header class="article-header">
+      
+      
+  
+    <h1 class="article-title" itemprop="name">
+      STL中sort函数的用法
+    </h1>
+  
+
+      
+    </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+<div class="articalTitle">
+<h2 id="t_8c9b876f0101dnf0" class="titName SG_txta">
+<div id="article_details" class="details">
+<div style="clear:both"></div>
+<div style="clear:both"></div>
+<div id="article_content" class="article_content">
+<p style="padding-bottom:2px; margin:4px 0px; padding-left:0px; padding-right:0px; padding-top:2px">
+<a name="0_STL"></a><a name="0_STL_"></a>0 前言: STL，为什么你必须掌握</p>
+<p style="padding-bottom:2px; margin:4px 0px; padding-left:0px; padding-right:0px; padding-top:2px">
+&nbsp;</p>
+<p style="padding-bottom:2px; margin:4px 0px; padding-left:0px; padding-right:0px; padding-top:2px">
+stable_sort(array,array&#43;n,cmp);</p>
+<p style="padding-bottom:2px; margin:4px 0px; padding-left:0px; padding-right:0px; padding-top:2px">
+sort(array,array&#43;n,cmp);</p>
+<p style="padding-bottom:2px; margin:4px 0px; padding-left:0px; padding-right:0px; padding-top:2px">
+cmp函数的书写，</p>
+<p style="padding-bottom:2px; margin:4px 0px; padding-left:0px; padding-right:0px; padding-top:2px">
+对于结构体</p>
+<p style="padding-bottom:2px; margin:4px 0px; padding-left:0px; padding-right:0px; padding-top:2px">
+bool cmp(STRUCT a, STRUCT b)//STRUCT为结构体leixing名</p>
+<p style="padding-bottom:2px; margin:4px 0px; padding-left:0px; padding-right:0px; padding-top:2px">
+{</p>
+<p style="padding-bottom:2px; margin:4px 0px; padding-left:0px; padding-right:0px; padding-top:2px">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return a.aa&gt;b.aa;//这里写条件</p>
+<p style="padding-bottom:2px; margin:4px 0px; padding-left:0px; padding-right:0px; padding-top:2px">
+}</p>
+<div class="postText" style="line-height:19px; font-family:Verdana,Geneva,Arial,Helvetica,sans-serif; font-size:13px">
+<hr>
+对于程序员来说，数据结构是必修的一门课。从查找到排序，从链表到二叉树，几乎所有的算法和原理都需要理解，理解不了也要死记硬背下来。幸运的是这些理论都已经比较成熟，算法也基本固定下来，不需要你再去花费心思去考虑其算法原理，也不用再去验证其准确性。不过，等你开始应用计算机语言来工作的时候，你会发现，面对不同的需求你需要一次又一次去用代码重复实现这些已经成熟的算法，而且会一次又一次陷入一些由于自己疏忽而产生的bug中。这时，你想找一种工具，已经帮你实现这些功能，你想怎么用就怎么用，同时不影响性能。你需要的就是STL,
+ 标准模板库！
+<p style="margin-top:10px; margin-bottom:10px">西方有句谚语：不要重复发明轮子！</p>
+<p style="margin-top:10px; margin-bottom:10px">STL几乎封装了所有的数据结构中的算法，从链表到队列，从向量到堆栈，对hash到二叉树，从搜索到排序，从增加到删除......可以说，如果你理解了STL，你会发现你已不用拘泥于算法本身，从而站在巨人的肩膀上去考虑更高级的应用。</p>
+<p style="margin-top:10px; margin-bottom:10px">排序是最广泛的算法之一，本文详细介绍了STL中不同排序算法的用法和区别。</p>
+<h3 style="border-bottom:rgb(214,214,214) 1px dotted; background-color:transparent; font-size:10pt">
+<a name="t3"></a><a name="1_STL_Sort"></a><a name="1_STL_Sort_"></a>1 STL提供的Sort 算法</h3>
+<hr>
+C&#43;&#43;之所以得到这么多人的喜欢，是因为它既具有面向对象的概念，又保持了C语言高效的特点。STL 排序算法同样需要保持高效。因此，对于不同的需求，STL提供的不同的函数，不同的函数，实现的算法又不尽相同。
+<h4><a name="t4"></a><a name="1_1_sort"></a><a name="1_1_sort_"></a>1.1 所有sort算法介绍</h4>
+所有的sort算法的参数都需要输入一个范围，[begin, end)。这里使用的迭代器(iterator)都需是随机迭代器(RadomAccessIterator), 也就是说可以随机访问的迭代器，如：it&#43;n什么的。（partition 和stable_partition 除外）
+<p style="margin-top:10px; margin-bottom:10px">如果你需要自己定义比较函数，你可以把你定义好的仿函数(functor)作为参数传入。每种算法都支持传入比较函数。以下是所有STL sort算法函数的名字列表:
+<table border="1" cellspacing="1" cellpadding="0" style="width:841px">
+<tbody>
+<tr>
+<th class="twikiFirstCol" bgcolor="#99cccc"><a title="Sort by this column" target="_blank" rel="noopener" href="https://www.stlchina.org/twiki/bin/view.pl/Main/STLSortAlgorithms?sortcol=0&amp;table=1&amp;up=0#sorted_table" style="color:rgb(0,102,170); text-decoration:none">函数名</a></th>
+<th bgcolor="#99cccc"><a title="Sort by this column" target="_blank" rel="noopener" href="https://www.stlchina.org/twiki/bin/view.pl/Main/STLSortAlgorithms?sortcol=1&amp;table=1&amp;up=0#sorted_table" style="color:rgb(0,102,170); text-decoration:none">功能描述</a></th>
+</tr>
+<tr>
+<td class="twikiFirstCol" bgcolor="#ffffff">sort</td>
+<td bgcolor="#ffffff">对给定区间所有元素进行排序</td>
+</tr>
+<tr>
+<td class="twikiFirstCol" bgcolor="#ffffcc">stable_sort</td>
+<td bgcolor="#ffffcc">对给定区间所有元素进行稳定排序</td>
+</tr>
+<tr>
+<td class="twikiFirstCol" bgcolor="#ffffff">partial_sort</td>
+<td bgcolor="#ffffff">对给定区间所有元素部分排序</td>
+</tr>
+<tr>
+<td class="twikiFirstCol" bgcolor="#ffffcc">partial_sort_copy</td>
+<td bgcolor="#ffffcc">对给定区间复制并排序</td>
+</tr>
+<tr>
+<td class="twikiFirstCol" bgcolor="#ffffff">nth_element</td>
+<td bgcolor="#ffffff">找出给定区间的某个位置对应的元素</td>
+</tr>
+<tr>
+<td class="twikiFirstCol" bgcolor="#ffffcc">is_sorted</td>
+<td bgcolor="#ffffcc">判断一个区间是否已经排好序</td>
+</tr>
+<tr>
+<td class="twikiFirstCol" bgcolor="#ffffff">partition</td>
+<td bgcolor="#ffffff">使得符合某个条件的元素放在前面</td>
+</tr>
+<tr>
+<td class="twikiFirstCol" bgcolor="#ffffcc">stable_partition</td>
+<td bgcolor="#ffffcc">相对稳定的使得符合某个条件的元素放在前面</td>
+</tr>
+</tbody>
+</table>
+其中nth_element 是最不易理解的，实际上，这个函数是用来找出第几个。例如：找出包含7个元素的数组中排在中间那个数的&#20540;，此时，我可能不关心前面，也不关心后面，我只关心排在第四位的元素&#20540;是多少。</p>
+<h4><a name="t5"></a><a name="1_2_sort"></a><a name="1_2_sort_"></a>1.2 sort 中的比较函数</h4>
+当你需要按照某种特定方式进行排序时，你需要给sort指定比较函数，否则程序会自动提供给你一个比较函数。
+<div class="fragment">
+<pre>vector &lt; <span style="color:brown">int</span> &gt; vect;
+<span style="color:green">//...</span>
+sort(vect.begin(), vect.end());
+<span style="color:green">//此时相当于调用</span>
+sort(vect.begin(), vect.end(), less&lt;<span style="color:brown">int</span>&gt;() );</pre>
+<pre></pre>
+</div>
+上述例子中系统自己为sort提供了less仿函数。在STL中还提供了其他仿函数，以下是仿函数列表:
+<table border="1" cellspacing="1" cellpadding="0" style="width:841px">
+<tbody>
+<tr>
+<th class="twikiFirstCol" bgcolor="#99cccc"><a title="Sort by this column" target="_blank" rel="noopener" href="https://www.stlchina.org/twiki/bin/view.pl/Main/STLSortAlgorithms?sortcol=0&amp;table=2&amp;up=0#sorted_table" style="color:rgb(0,102,170); text-decoration:none">名称</a></th>
+<th bgcolor="#99cccc"><a title="Sort by this column" target="_blank" rel="noopener" href="https://www.stlchina.org/twiki/bin/view.pl/Main/STLSortAlgorithms?sortcol=1&amp;table=2&amp;up=0#sorted_table" style="color:rgb(0,102,170); text-decoration:none">功能描述</a></th>
+</tr>
+<tr>
+<td class="twikiFirstCol" bgcolor="#ffffff">equal_to</td>
+<td bgcolor="#ffffff">相等</td>
+</tr>
+<tr>
+<td class="twikiFirstCol" bgcolor="#ffffcc">not_equal_to</td>
+<td bgcolor="#ffffcc">不相等</td>
+</tr>
+<tr>
+<td class="twikiFirstCol" bgcolor="#ffffff">less</td>
+<td bgcolor="#ffffff">小于</td>
+</tr>
+<tr>
+<td class="twikiFirstCol" bgcolor="#ffffcc">greater</td>
+<td bgcolor="#ffffcc">大于</td>
+</tr>
+<tr>
+<td class="twikiFirstCol" bgcolor="#ffffff">less_equal</td>
+<td bgcolor="#ffffff">小于等于</td>
+</tr>
+<tr>
+<td class="twikiFirstCol" bgcolor="#ffffcc">greater_equal</td>
+<td bgcolor="#ffffcc">大于等于</td>
+</tr>
+</tbody>
+</table>
+需要注意的是，这些函数不是都能适用于你的sort算法，如何选择，决定于你的应用。另外，不能直接写入仿函数的名字，而是要写其重载的()函数：
+<pre>less&lt;int&gt;()
+greater&lt;int&gt;()
+</pre>
+当你的容器中元素时一些标准类型（int float char)或者string时，你可以直接使用这些函数模板。但如果你时自己定义的类型或者你需要按照其他方式排序，你可以有两种方法来达到效果：一种是自己写比较函数。另一种是重载类型的'&lt;'操作赋。
+<div class="fragment">
+<pre><span style="color:navy">#include</span> &lt;iostream&gt;
+<span style="color:navy">#include</span> &lt;algorithm&gt;
+<span style="color:navy">#include</span> &lt;functional&gt;
+<span style="color:navy">#include</span> &lt;vector&gt;
+<span style="color:brown">using</span> <span style="color:brown">namespace</span> std;
+
+<span style="color:brown">class</span> myclass {
+        <span style="color:brown">public</span>:
+        myclass(<span style="color:brown">int</span> a, <span style="color:brown">int</span> b):first(a), second(b){}
+        <span style="color:brown">int</span> first;
+        <span style="color:brown">int</span> second;
+        <span style="color:brown">bool</span> <span style="color:brown">operator</span> &lt; (<span style="color:brown">const</span> myclass &amp;m)<span style="color:brown">const</span> {
+                <span style="color:brown">return</span> first &lt; m.first;
+        }
+};
+
+<span style="color:brown">bool</span> less_second(<span style="color:brown">const</span> myclass &amp; m1, <span style="color:brown">const</span> myclass &amp; m2) {
+        <span style="color:brown">return</span> m1.second &lt; m2.second;
+}
+
+<span style="color:brown">int</span> main() {
+
+        vector&lt; myclass &gt; vect;
+        <span style="color:brown">for</span>(<span style="color:brown">int</span> i = 0 ; i &lt; 10 ; i &#43;&#43;){
+                myclass my(10-i, i*3);
+                vect.push_back(my);
+        }
+        <span style="color:brown">for</span>(<span style="color:brown">int</span> i = 0 ; i &lt; vect.size(); i &#43;&#43;)
+        cout&lt;&lt;&quot;<span style="color:blue">(</span>&quot;&lt;&lt;vect[i].first&lt;&lt;&quot;<span style="color:blue">,</span>&quot;&lt;&lt;vect[i].second&lt;&lt;&quot;<span style="color:blue">)\n</span>&quot;;
+        sort(vect.begin(), vect.end());
+        cout&lt;&lt;&quot;<span style="color:blue">after sorted by first:</span>&quot;&lt;&lt;endl;
+        <span style="color:brown">for</span>(<span style="color:brown">int</span> i = 0 ; i &lt; vect.size(); i &#43;&#43;)
+        cout&lt;&lt;&quot;<span style="color:blue">(</span>&quot;&lt;&lt;vect[i].first&lt;&lt;&quot;<span style="color:blue">,</span>&quot;&lt;&lt;vect[i].second&lt;&lt;&quot;<span style="color:blue">)\n</span>&quot;;
+        cout&lt;&lt;&quot;<span style="color:blue">after sorted by second:</span>&quot;&lt;&lt;endl;
+        sort(vect.begin(), vect.end(), less_second);
+        <span style="color:brown">for</span>(<span style="color:brown">int</span> i = 0 ; i &lt; vect.size(); i &#43;&#43;)
+        cout&lt;&lt;&quot;<span style="color:blue">(</span>&quot;&lt;&lt;vect[i].first&lt;&lt;&quot;<span style="color:blue">,</span>&quot;&lt;&lt;vect[i].second&lt;&lt;&quot;<span style="color:blue">)\n</span>&quot;;
+
+        <span style="color:brown">return</span> 0 ;
+}</pre>
+<pre></pre>
+</div>
+知道其输出结果是什么了吧：
+<pre>(10,0)
+(9,3)
+(8,6)
+(7,9)
+(6,12)
+(5,15)
+(4,18)
+(3,21)
+(2,24)
+(1,27)
+after sorted by first:
+(1,27)
+(2,24)
+(3,21)
+(4,18)
+(5,15)
+(6,12)
+(7,9)
+(8,6)
+(9,3)
+(10,0)
+after sorted by second:
+(10,0)
+(9,3)
+(8,6)
+(7,9)
+(6,12)
+(5,15)
+(4,18)
+(3,21)
+(2,24)
+(1,27)
+</pre>
+<h4><a name="t6"></a><a name="1_3_sort"></a><a name="1_3_sort_"></a>1.3 sort 的稳定性</h4>
+你发现有sort和stable_sort，还有 partition 和stable_partition， 感到奇怪吧。其中的区别是，带有stable的函数可保证相等元素的原本相对次序在排序后保持不变。或许你会问，既然相等，你还管他相对位置呢，也分不清楚谁是谁了？这里需要弄清楚一个问题，这里的相等，是指你提供的函数表示两个元素相等，并不一定是一摸一样的元素。
+<p style="margin-top:10px; margin-bottom:10px">例如，如果你写一个比较函数:</p>
+<div class="fragment">
+<pre><span style="color:brown">bool</span> less_len(<span style="color:brown">const</span> string &amp;str1, <span style="color:brown">const</span> string &amp;str2)
+{
+        <span style="color:brown">return</span> str1.length() &lt; str2.length();
+}</pre>
+<pre></pre>
+</div>
+此时，&quot;apple&quot; 和 &quot;winter&quot; 就是相等的，如果在&quot;apple&quot; 出现在&quot;winter&quot;前面，用带stable的函数排序后，他们的次序一定不变，如果你使用的是不带&quot;stable&quot;的函数排序，那么排序完后，&quot;Winter&quot;有可能在&quot;apple&quot;的前面。
+<p style="margin-top:10px; margin-bottom:10px"></p>
+<h4><a name="t7"></a><a name="1_4"></a><a name="1_4_"></a>1.4 全排序</h4>
+全排序即把所给定范围所有的元素按照大小关系顺序排列。用于全排序的函数有
+<p style="margin-top:10px; margin-bottom:10px"></p>
+<div class="fragment">
+<pre><span style="color:brown">template</span> &lt;<span style="color:brown">class</span> RandomAccessIterator&gt;
+<span style="color:brown">void</span> sort(RandomAccessIterator first, RandomAccessIterator last);
+
+<span style="color:brown">template</span> &lt;<span style="color:brown">class</span> RandomAccessIterator, <span style="color:brown">class</span> StrictWeakOrdering&gt;
+<span style="color:brown">void</span> sort(RandomAccessIterator first, RandomAccessIterator last,
+StrictWeakOrdering comp);
+
+<span style="color:brown">template</span> &lt;<span style="color:brown">class</span> RandomAccessIterator&gt;
+<span style="color:brown">void</span> stable_sort(RandomAccessIterator first, RandomAccessIterator last);
+
+<span style="color:brown">template</span> &lt;<span style="color:brown">class</span> RandomAccessIterator, <span style="color:brown">class</span> StrictWeakOrdering&gt;
+<span style="color:brown">void</span> stable_sort(RandomAccessIterator first, RandomAccessIterator last,
+StrictWeakOrdering comp);</pre>
+<pre></pre>
+</div>
+在第1，3种形式中，sort 和 stable_sort都没有指定比较函数，系统会默认使用operator&lt; 对区间[first,last)内的所有元素进行排序, 因此，如果你使用的类型义军已经重载了operator&lt;函数，那么你可以省心了。第2, 4种形式，你可以随意指定比较函数，应用更为灵活一些。来看看实际应用：
+<p style="margin-top:10px; margin-bottom:10px">班上有10个学生，我想知道他们的成绩排名。</p>
+<div class="fragment">
+<pre><span style="color:navy">#include</span> &lt;iostream&gt;
+<span style="color:navy">#include</span> &lt;algorithm&gt;
+<span style="color:navy">#include</span> &lt;functional&gt;
+<span style="color:navy">#include</span> &lt;vector&gt;
+<span style="color:navy">#include</span> &lt;string&gt;
+<span style="color:brown">using</span> <span style="color:brown">namespace</span> std;
+
+<span style="color:brown">class</span> student{
+        <span style="color:brown">public</span>:
+        student(<span style="color:brown">const</span> string &amp;a, <span style="color:brown">int</span> b):name(a), score(b){}
+        string name;
+        <span style="color:brown">int</span> score;
+        <span style="color:brown">bool</span> <span style="color:brown">operator</span> &lt; (<span style="color:brown">const</span> student &amp;m)<span style="color:brown">const</span> {
+                <span style="color:brown">return</span> score&lt; m.score;
+        }
+};
+
+<span style="color:brown">int</span> main() {
+        vector&lt; student&gt; vect;
+        student st1(&quot;<span style="color:blue">Tom</span>&quot;, 74);
+        vect.push_back(st1);
+        st1.name=&quot;<span style="color:blue">Jimy</span>&quot;;
+        st1.score=56;
+        vect.push_back(st1);
+        st1.name=&quot;<span style="color:blue">Mary</span>&quot;;
+        st1.score=92;
+        vect.push_back(st1);
+        st1.name=&quot;<span style="color:blue">Jessy</span>&quot;;
+        st1.score=85;
+        vect.push_back(st1);
+        st1.name=&quot;<span style="color:blue">Jone</span>&quot;;
+        st1.score=56;
+        vect.push_back(st1);
+        st1.name=&quot;<span style="color:blue">Bush</span>&quot;;
+        st1.score=52;
+        vect.push_back(st1);
+        st1.name=&quot;<span style="color:blue">Winter</span>&quot;;
+        st1.score=77;
+        vect.push_back(st1);
+        st1.name=&quot;<span style="color:blue">Andyer</span>&quot;;
+        st1.score=63;
+        vect.push_back(st1);
+        st1.name=&quot;<span style="color:blue">Lily</span>&quot;;
+        st1.score=76;
+        vect.push_back(st1);
+        st1.name=&quot;<span style="color:blue">Maryia</span>&quot;;
+        st1.score=89;
+        vect.push_back(st1);
+        cout&lt;&lt;&quot;<span style="color:blue">------before sort...</span>&quot;&lt;&lt;endl;
+        <span style="color:brown">for</span>(<span style="color:brown">int</span> i = 0 ; i &lt; vect.size(); i &#43;&#43;) cout&lt;&lt;vect[i].name&lt;&lt;&quot;<span style="color:blue">:\t</span>&quot;&lt;&lt;vect[i].score&lt;&lt;endl;
+        stable_sort(vect.begin(), vect.end(),less&lt;student&gt;());
+        cout &lt;&lt;&quot;<span style="color:blue">-----after sort ....</span>&quot;&lt;&lt;endl;
+        <span style="color:brown">for</span>(<span style="color:brown">int</span> i = 0 ; i &lt; vect.size(); i &#43;&#43;) cout&lt;&lt;vect[i].name&lt;&lt;&quot;<span style="color:blue">:\t</span>&quot;&lt;&lt;vect[i].score&lt;&lt;endl;
+        <span style="color:brown">return</span> 0 ;
+}</pre>
+<pre></pre>
+</div>
+其输出是：
+<pre>------before sort...
+Tom:    74
+Jimy:   56
+Mary:   92
+Jessy:  85
+Jone:   56
+Bush:   52
+Winter: 77
+Andyer: 63
+Lily:   76
+Maryia: 89
+-----after sort ....
+Bush:   52
+Jimy:   56
+Jone:   56
+Andyer: 63
+Tom:    74
+Lily:   76
+Winter: 77
+Jessy:  85
+Maryia: 89
+Mary:   92
+</pre>
+sort采用的是成熟的&quot;快速排序算法&quot;(目前大部分STL版本已经不是采用简单的快速排序，而是结合内插排序算法)。<a class="twikiAnchorLink" target="_blank" rel="noopener" href="https://www.stlchina.org/twiki/bin/view.pl/Main/STLSortAlgorithms#MyNote1" style="color:rgb(0,102,170); text-decoration:none">注1</a>，可以保证很好的平均性能、复杂度为n*log(n)，由于单纯的快速排序在理论上有最差的情况，性能很低，其算法复杂度为n*n，但目前大部分的STL版本都已经在这方面做了优化，因此你可以放心使用。stable_sort采用的是&quot;归并排序&quot;，分派足够内存是，其算法复杂度为n*log(n),
+ 否则其复杂度为n*log(n)*log(n)，其优点是会保持相等元素之间的相对位置在排序前后保持一致。
+<h4><a name="t8"></a><a name="1_5"></a><a name="1_5_"></a>1.5 局部排序</h4>
+局部排序其实是为了减少不必要的操作而提供的排序方式。其函数原型为：
+<div class="fragment">
+<pre><span style="color:brown">template</span> &lt;<span style="color:brown">class</span> RandomAccessIterator&gt;
+<span style="color:brown">void</span> partial_sort(RandomAccessIterator first,
+RandomAccessIterator middle,
+RandomAccessIterator last);
+
+<span style="color:brown">template</span> &lt;<span style="color:brown">class</span> RandomAccessIterator, <span style="color:brown">class</span> StrictWeakOrdering&gt;
+<span style="color:brown">void</span> partial_sort(RandomAccessIterator first,
+RandomAccessIterator middle,
+RandomAccessIterator last,
+StrictWeakOrdering comp);
+
+<span style="color:brown">template</span> &lt;<span style="color:brown">class</span> InputIterator, <span style="color:brown">class</span> RandomAccessIterator&gt;
+RandomAccessIterator partial_sort_copy(InputIterator first, InputIterator last,
+RandomAccessIterator result_first,
+RandomAccessIterator result_last);
+
+<span style="color:brown">template</span> &lt;<span style="color:brown">class</span> InputIterator, <span style="color:brown">class</span> RandomAccessIterator,
+<span style="color:brown">class</span> StrictWeakOrdering&gt;
+RandomAccessIterator partial_sort_copy(InputIterator first, InputIterator last,
+RandomAccessIterator result_first,
+RandomAccessIterator result_last, Compare comp);</pre>
+<pre></pre>
+</div>
+理解了sort 和stable_sort后，再来理解partial_sort 就比较容易了。先看看其用途: 班上有10个学生，我想知道分数最低的5名是哪些人。如果没有partial_sort，你就需要用sort把所有人排好序，然后再取前5个。现在你只需要对分数最低5名排序，把上面的程序做如下修改：
+<div class="fragment">
+<pre>stable_sort(vect.begin(), vect.end(),less&lt;student&gt;());
+替换为：
+partial_sort(vect.begin(), vect.begin()&#43;5, vect.end(),less&lt;student&gt;());</pre>
+<pre></pre>
+</div>
+输出结果为：
+<pre>------before sort...
+Tom:    74
+Jimy:   56
+Mary:   92
+Jessy:  85
+Jone:   56
+Bush:   52
+Winter: 77
+Andyer: 63
+Lily:   76
+Maryia: 89
+-----after sort ....
+Bush:   52
+Jimy:   56
+Jone:   56
+Andyer: 63
+Tom:    74
+Mary:   92
+Jessy:  85
+Winter: 77
+Lily:   76
+Maryia: 89
+</pre>
+这样的好处知道了吗？当数据量小的时候可能看不出优势，如果是100万学生，我想找分数最少的5个人......
+<p style="margin-top:10px; margin-bottom:10px">partial_sort采用的堆排序（heapsort），它在任何情况下的复杂度都是n*log(n). 如果你希望用partial_sort来实现全排序，你只要让middle=last就可以了。</p>
+<p style="margin-top:10px; margin-bottom:10px">partial_sort_copy其实是copy和partial_sort的组合。被排序(被复制)的数量是[first, last)和[result_first, result_last)中区间较小的那个。如果[result_first, result_last)区间大于[first, last)区间，那么partial_sort相当于copy和sort的组合。</p>
+<h4><a name="t9"></a><a name="1_6_nth_element"></a><a name="1_6_nth_element_"></a>1.6 nth_element 指定元素排序</h4>
+nth_element一个容易看懂但解释比较麻烦的排序。用例子说会更方便：<br>
+班上有10个学生，我想知道分数排在倒数第4名的学生。<br>
+如果要满足上述需求，可以用sort排好序，然后取第4位（因为是由小到大排), 更聪明的朋友会用partial_sort, 只排前4位，然后得到第4位。其实这是你还是浪费，因为前两位你根本没有必要排序，此时，你就需要nth_element:
+<div class="fragment">
+<pre><span style="color:brown">template</span> &lt;<span style="color:brown">class</span> RandomAccessIterator&gt;
+<span style="color:brown">void</span> nth_element(RandomAccessIterator first, RandomAccessIterator nth,
+RandomAccessIterator last);
+
+<span style="color:brown">template</span> &lt;<span style="color:brown">class</span> RandomAccessIterator, <span style="color:brown">class</span> StrictWeakOrdering&gt;
+<span style="color:brown">void</span> nth_element(RandomAccessIterator first, RandomAccessIterator nth,
+RandomAccessIterator last, StrictWeakOrdering comp);</pre>
+<pre></pre>
+</div>
+对于上述实例需求，你只需要按下面要求修改1.4中的程序：
+<div class="fragment">
+<pre>stable_sort(vect.begin(), vect.end(),less&lt;student&gt;());
+替换为：
+nth_element(vect.begin(), vect.begin()&#43;3, vect.end(),less&lt;student&gt;());</pre>
+<pre></pre>
+</div>
+运行结果为：
+<pre>------before sort...
+Tom:    74
+Jimy:   56
+Mary:   92
+Jessy:  85
+Jone:   56
+Bush:   52
+Winter: 77
+Andyer: 63
+Lily:   76
+Maryia: 89
+-----after sort ....
+Jone:   56
+Bush:   52
+Jimy:   56
+Andyer: 63
+Jessy:  85
+Mary:   92
+Winter: 77
+Tom:    74
+Lily:   76
+Maryia: 89
+</pre>
+第四个是谁？Andyer，这个倒霉的家伙。为什么是begin()&#43;3而不是&#43;4? 我开始写这篇文章的时候也没有在意，后来在<a href="https://www.stlchina.org/bbs/viewpro.php?uid=350" target="_top" style="color:rgb(0,102,170); text-decoration:none">ilovevc</a>&nbsp;的提醒下，发现了这个问题。begin()是第一个，begin()&#43;1是第二个，... begin()&#43;3当然就是第四个了。
+<h4><a name="t10"></a><a name="1_7_partition_stable_partition"></a>1.7 partition 和stable_partition</h4>
+好像这两个函数并不是用来排序的，'分类'算法，会更加贴切一些。partition就是把一个区间中的元素按照某个条件分成两类。其函数原型为：
+<div class="fragment">
+<pre><span style="color:brown">template</span> &lt;<span style="color:brown">class</span> ForwardIterator, <span style="color:brown">class</span> Predicate&gt;
+ForwardIterator partition(ForwardIterator first,
+ForwardIterator last, Predicate pred)
+<span style="color:brown">template</span> &lt;<span style="color:brown">class</span> ForwardIterator, <span style="color:brown">class</span> Predicate&gt;
+ForwardIterator stable_partition(ForwardIterator first, ForwardIterator last,
+Predicate pred);</pre>
+<pre></pre>
+</div>
+看看应用吧：班上10个学生，计算所有没有及&#26684;（低于60分）的学生。你只需要按照下面&#26684;式替换1.4中的程序：
+<div class="fragment">
+<pre>stable_sort(vect.begin(), vect.end(),less&lt;student&gt;());
+替换为：
+student exam(&quot;<span style="color:blue">pass</span>&quot;, 60);
+stable_partition(vect.begin(), vect.end(), bind2nd(less&lt;student&gt;(), exam));</pre>
+<pre></pre>
+</div>
+其输出结果为：
+<pre>------before sort...
+Tom:    74
+Jimy:   56
+Mary:   92
+Jessy:  85
+Jone:   56
+Bush:   52
+Winter: 77
+Andyer: 63
+Lily:   76
+Maryia: 89
+-----after sort ....
+Jimy:   56
+Jone:   56
+Bush:   52
+Tom:    74
+Mary:   92
+Jessy:  85
+Winter: 77
+Andyer: 63
+Lily:   76
+Maryia: 89
+</pre>
+看见了吗，Jimy，Jone, Bush(难怪说美国总统比较笨&nbsp;<img title="smile" border="0" alt="smile" src="https://www.stlchina.org/twiki/pub/TWiki/SmiliesPlugin/smile.gif">&nbsp;)都没有及&#26684;。而且使用的是stable_partition, 元素之间的相对次序是没有变.
+<h3 style="border-bottom:rgb(214,214,214) 1px dotted; background-color:transparent; font-size:10pt">
+<a name="t11"></a><a name="2_Sort"></a><a name="2_Sort_"></a>2 Sort 和容器</h3>
+<hr>
+STL中标准容器主要vector, list, deque, string, set, multiset, map, multimay， 其中set, multiset, map, multimap都是以树结构的方式存储其元素详细内容请参看：<a href="https://stl.winterxy.com/html/000039.html" target="_top" style="color:rgb(0,102,170); text-decoration:none">学习STL map, STL set之数据结构基础</a>.
+ 因此在这些容器中，元素一直是有序的。
+<p style="margin-top:10px; margin-bottom:10px">这些容器的迭代器类型并不是随机型迭代器，因此，上述的那些排序函数，对于这些容器是不可用的。上述sort函数对于下列容器是可用的：</p>
+<ul>
+<li>vector </li><li>string </li><li>deque</li></ul>
+如果你自己定义的容器也支持随机型迭代器，那么使用排序算法是没有任何问题的。
+<p style="margin-top:10px; margin-bottom:10px">对于list容器，list自带一个sort成员函数list::sort(). 它和算法函数中的sort差不多，但是list::sort是基于指针的方式排序，也就是说，所有的数据移动和比较都是此用指针的方式实现，因此排序后的迭代器一直保持有效（vector中sort后的迭代器会失效).</p>
+<p style="margin-top:10px; margin-bottom:10px"></p>
+<h3 style="border-bottom:rgb(214,214,214) 1px dotted; background-color:transparent; font-size:10pt">
+<a name="t12"></a><a name="3"></a><a name="3_"></a>3 选择合适的排序函数</h3>
+<hr>
+为什么要选择合适的排序函数？可能你并不关心效率(这里的效率指的是程序运行时间), 或者说你的数据量很小， 因此你觉得随便用哪个函数都无关紧要。
+<p style="margin-top:10px; margin-bottom:10px">其实不然，即使你不关心效率，如果你选择合适的排序函数，你会让你的代码更容易让人明白，你会让你的代码更有扩充性，逐渐养成一个良好的习惯，很重要吧&nbsp;<img title="smile" border="0" alt="smile" src="https://www.stlchina.org/twiki/pub/TWiki/SmiliesPlugin/smile.gif">&nbsp;。</p>
+<p style="margin-top:10px; margin-bottom:10px">如果你以前有用过C语言中的qsort, 想知道qsort和他们的比较，那我告诉你，qsort和sort是一样的，因为他们采用的都是快速排序。从效率上看，以下几种sort算法的是一个排序，效率由高到低（耗时由小变大）：</p>
+<ol>
+<li>partion </li><li>stable_partition </li><li>nth_element </li><li>partial_sort </li><li>sort </li><li>stable_sort</li></ol>
+记得，以前翻译过Effective STL的文章，其中对<a href="https://stl.winterxy.com/html/000026.html" target="_top" style="color:rgb(0,102,170); text-decoration:none">如何选择排序函数</a>总结的很好：
+<ul>
+<li>若需对vector, string, deque, 或 array容器进行全排序，你可选择sort或stable_sort； </li><li>若只需对vector, string, deque, 或 array容器中取得top n的元素，部分排序partial_sort是首选. </li><li>若对于vector, string, deque, 或array容器，你需要找到第n个位置的元素或者你需要得到top n且不关系top n中的内部顺序，nth_element是最理想的；</li><li>若你需要从标准序列容器或者array中把满足某个条件或者不满足某个条件的元素分开，你最好使用partition或stable_partition； </li><li>若使用的list容器，你可以直接使用partition和stable_partition算法，你可以使用list::sort代替sort和stable_sort排序。若你需要得到partial_sort或nth_element的排序效果，你必须间接使用。正如上面介绍的有几种方式可以选择。</li></ul>
+总之记住一句话：&nbsp;<strong>如果你想节约时间，不要走弯路, 也不要走多余的路!</strong>
+<h3 style="border-bottom:rgb(214,214,214) 1px dotted; background-color:transparent; font-size:10pt">
+<a name="t13"></a><a name="4"></a><a name="4_"></a>4 小结</h3>
+<hr>
+讨论技术就像个无底洞，经常容易由一点可以引申另外无数个技术点。因此需要从全局的角度来观察问题，就像观察STL中的sort算法一样。其实在STL还有make_heap, sort_heap等排序算法。本文章没有提到。本文以实例的方式，解释了STL中排序算法的特性，并总结了在实际情况下应如何选择合适的算法。
+<p style="margin-top:10px; margin-bottom:10px"></p>
+<h3 style="border-bottom:rgb(214,214,214) 1px dotted; background-color:transparent; font-size:10pt">
+<a name="t14"></a><a name="5"></a><a name="5_"></a>5 参考文档</h3>
+<a href="https://stl.winterxy.com/html/000026.html" target="_top" style="color:rgb(0,102,170); text-decoration:none">条款31：如何选择排序函数</a>&nbsp;<br>
+<a href="https://www.cuj.com/documents/s=7992/cujcexp1908austern/" target="_top" style="color:rgb(0,102,170); text-decoration:none">The Standard Librarian: Sorting in the Standard Library</a>&nbsp;<br>
+<a href="https://www.stlchina.org/documents/EffectiveSTL/index.html" target="_top" style="color:rgb(0,102,170); text-decoration:none">Effective STL中文版</a>&nbsp;<br>
+<a href="https://www.stlchina.org/stl_doc/" target="_top" style="color:rgb(0,102,170); text-decoration:none">Standard Template Library Programmer's Guide</a>&nbsp;vvvv</div>
+上文转自：<a target="_blank" rel="noopener" href="https://www.cppblog.com/mzty/archive/2005/12/15/1770.html">https://www.cppblog.com/mzty/archive/2005/12/15/1770.html</a>
+<p></p>
+<p style="padding-bottom:2px; margin:4px 0px; padding-left:0px; padding-right:0px; padding-top:2px">
+<span style="font-size:12px">--------------------------------------------------------------------------------------------------------------------------------------------------------------</span></p>
+<p style="padding-bottom:2px; margin:4px 0px; padding-left:0px; padding-right:0px; padding-top:2px">
+<span style="font-size:12px"><span style="font-family:Arial; color:#333333; line-height:26px">对象数组排序这里展示了两种方法，定义比较函数或通过重载比较运算符使得类本身是可以比较的，就像基本类型一样。<br>
+定义比较函数，既可以通过定义比较运算符（如operator &lt;），也可以直接定义函数（如compare）。<br>
+重载运算符之后，可以在sort函数中通过less或greater或less_equal等来调整升序还是降序，默认是升序。<br>
+</span><span style="font-family:Arial; color:#333333; line-height:26px">另外，重载运算符后，函数bool operator &lt; 就不要了，否则用g&#43;&#43;编译出错。</span></span></p>
+<p style="padding-bottom:2px; margin:4px 0px; padding-left:0px; padding-right:0px; padding-top:2px">
+</p>
+<div class="dp-highlighter bg_cpp">
+<div class="bar">
+<div class="tools"><strong>[cpp]</strong> <a class="ViewSource" title="view plain" target="_blank" rel="noopener" href="https://blog.csdn.net/tianmo2010/article/details/7532932#">
+view plain</a><a class="CopyToClipboard" title="copy" target="_blank" rel="noopener" href="https://blog.csdn.net/tianmo2010/article/details/7532932#">copy</a><a class="PrintSource" title="print" target="_blank" rel="noopener" href="https://blog.csdn.net/tianmo2010/article/details/7532932#">print</a><a class="About" title="?" target="_blank" rel="noopener" href="https://blog.csdn.net/tianmo2010/article/details/7532932#">?</a></div>
+</div>
+<ol class="dp-cpp">
+<li class="alt"><span><span class="preprocessor">#include&nbsp;&lt;algorithm&gt;&nbsp;&nbsp; </span><span>&nbsp;&nbsp;</span></span></li><li><span></span><span class="preprocessor">#include&nbsp;&lt;iostream&gt;&nbsp;&nbsp; </span><span>&nbsp;&nbsp;</span></li><li class="alt"><span></span><span class="preprocessor">#include&nbsp;&lt;vector&gt;&nbsp;&nbsp; </span>
+<span>&nbsp;&nbsp;</span></li><li><span></span><span class="keyword">using</span><span>&nbsp;</span><span class="keyword">namespace</span><span>&nbsp;std;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class="alt"><span></span><span class="keyword">class</span><span>&nbsp;MyClass&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li><span>{&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class="alt"><span></span><span class="keyword">public</span><span>:&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="datatypes">int</span><span>&nbsp;id;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;MyClass()&nbsp;{}&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;MyClass(</span><span class="datatypes">int</span><span>&nbsp;i):&nbsp;id(&nbsp;i&nbsp;)&nbsp;{}&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="datatypes">bool</span><span>&nbsp;operator&nbsp;&lt;&nbsp;(&nbsp;</span><span class="keyword">const</span><span>&nbsp;MyClass&nbsp;&amp;b&nbsp;)&nbsp;</span><span class="keyword">const</span><span>&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">return</span><span>&nbsp;id&nbsp;&lt;&nbsp;b.id;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="datatypes">bool</span><span>&nbsp;operator&nbsp;&gt;&nbsp;(&nbsp;</span><span class="keyword">const</span><span>&nbsp;MyClass&nbsp;&amp;b&nbsp;)&nbsp;</span><span class="keyword">const</span><span>&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">return</span><span>&nbsp;id&nbsp;&gt;&nbsp;b.id;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li><span>};&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class="alt"><span></span><span class="comment">/*&nbsp;</span>&nbsp;</li><li><span><span class="comment">bool&nbsp;operator&nbsp;&lt;&nbsp;(&nbsp;MyClass&nbsp;a,&nbsp;MyClass&nbsp;b&nbsp;)&nbsp;</span>&nbsp;</span></li><li class="alt"><span><span class="comment">{&nbsp;</span>&nbsp;</span></li><li><span><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;a.id&nbsp;&lt;&nbsp;b.id;&nbsp;</span>&nbsp;</span></li><li class="alt"><span><span class="comment">}&nbsp;</span>&nbsp;</span></li><li><span><span class="comment">*/</span><span>&nbsp;&nbsp;&nbsp;&nbsp;</span></span></li><li class="alt"><span></span><span class="datatypes">bool</span><span>&nbsp;compare(&nbsp;MyClass&nbsp;a,&nbsp;MyClass&nbsp;b&nbsp;)&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li><span>{&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">return</span><span>&nbsp;a.id&nbsp;&lt;&nbsp;b.id;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li><span>}&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class="alt"><span></span><span class="datatypes">int</span><span>&nbsp;main()&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li><span>{&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="comment">//数组&nbsp;&nbsp; </span><span>&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;cout&lt;&lt;</span><span class="string">&quot;数组&quot;</span><span>&lt;&lt;endl;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;MyClass&nbsp;arr[10];&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;srand(time(NULL));&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">for</span><span>(&nbsp;</span><span class="datatypes">int</span><span>&nbsp;i&nbsp;=&nbsp;0;&nbsp;i&nbsp;&lt;&nbsp;10;&nbsp;i&#43;&#43;&nbsp;)&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;arr[i].id&nbsp;=&nbsp;rand()%101;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;cout&lt;&lt;</span><span class="string">&quot;before&nbsp;sort&quot;</span><span>&lt;&lt;endl;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">for</span><span>(&nbsp;</span><span class="datatypes">int</span><span>&nbsp;i&nbsp;=&nbsp;0;&nbsp;i&nbsp;&lt;&nbsp;10;&nbsp;i&#43;&#43;&nbsp;)&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cout&lt;&lt;arr[i].id&lt;&lt;endl;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;sort(arr,arr&#43;10,less&lt;MyClass&gt;());&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;cout&lt;&lt;</span><span class="string">&quot;after&nbsp;sort&quot;</span><span>&lt;&lt;endl;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">for</span><span>(&nbsp;</span><span class="datatypes">int</span><span>&nbsp;i&nbsp;=&nbsp;0;&nbsp;i&nbsp;&lt;&nbsp;10;&nbsp;i&#43;&#43;&nbsp;)&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cout&lt;&lt;arr[i].id&lt;&lt;endl;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="comment">//动态数组vector&nbsp;&nbsp; </span><span>&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;cout&lt;&lt;</span><span class="string">&quot;动态数组vector&quot;</span><span>&lt;&lt;endl;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;vector&lt;MyClass&gt;&nbsp;list;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">for</span><span>(&nbsp;</span><span class="datatypes">int</span><span>&nbsp;i&nbsp;=&nbsp;0;&nbsp;i&nbsp;&lt;&nbsp;10;&nbsp;i&#43;&#43;&nbsp;)&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;list.push_back(&nbsp;MyClass(&nbsp;rand()%101&nbsp;)&nbsp;);&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;cout&lt;&lt;</span><span class="string">&quot;before&nbsp;sort&quot;</span><span>&lt;&lt;endl;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">for</span><span>(&nbsp;</span><span class="datatypes">int</span><span>&nbsp;i&nbsp;=&nbsp;0;&nbsp;i&nbsp;&lt;&nbsp;10;&nbsp;i&#43;&#43;&nbsp;)&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cout&lt;&lt;list[i].id&lt;&lt;endl;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;sort(list.begin(),list.end(),greater&lt;MyClass&gt;());&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;cout&lt;&lt;</span><span class="string">&quot;after&nbsp;sort&quot;</span><span>&lt;&lt;endl;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">for</span><span>(&nbsp;</span><span class="datatypes">int</span><span>&nbsp;i&nbsp;=&nbsp;0;&nbsp;i&nbsp;&lt;&nbsp;10;&nbsp;i&#43;&#43;&nbsp;)&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cout&lt;&lt;list[i].id&lt;&lt;endl;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="comment">//定义比较函数&nbsp;&nbsp; </span><span>&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;cout&lt;&lt;</span><span class="string">&quot;定义比较函数&quot;</span><span>&lt;&lt;endl;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;vector&lt;MyClass&gt;&nbsp;list2;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">for</span><span>(&nbsp;</span><span class="datatypes">int</span><span>&nbsp;i&nbsp;=&nbsp;0;&nbsp;i&nbsp;&lt;&nbsp;10;&nbsp;i&#43;&#43;&nbsp;)&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;list2.push_back(&nbsp;MyClass(&nbsp;rand()%101&nbsp;)&nbsp;);&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;cout&lt;&lt;</span><span class="string">&quot;before&nbsp;sort&quot;</span><span>&lt;&lt;endl;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">for</span><span>(&nbsp;</span><span class="datatypes">int</span><span>&nbsp;i&nbsp;=&nbsp;0;&nbsp;i&nbsp;&lt;&nbsp;10;&nbsp;i&#43;&#43;&nbsp;)&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cout&lt;&lt;list2[i].id&lt;&lt;endl;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;sort(list2.begin(),list2.end(),compare);&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;cout&lt;&lt;</span><span class="string">&quot;after&nbsp;sort&quot;</span><span>&lt;&lt;endl;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">for</span><span>(&nbsp;</span><span class="datatypes">int</span><span>&nbsp;i&nbsp;=&nbsp;0;&nbsp;i&nbsp;&lt;&nbsp;10;&nbsp;i&#43;&#43;&nbsp;)&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cout&lt;&lt;list2[i].id&lt;&lt;endl;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="comment">//使得类本身就是可以比较的&nbsp;&nbsp; </span><span>&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;cout&lt;&lt;</span><span class="string">&quot;使得类本身就是可以比较的&quot;</span><span>&lt;&lt;endl;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;vector&lt;MyClass&gt;&nbsp;list3;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">for</span><span>(&nbsp;</span><span class="datatypes">int</span><span>&nbsp;i&nbsp;=&nbsp;0;&nbsp;i&nbsp;&lt;&nbsp;10;&nbsp;i&#43;&#43;&nbsp;)&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;list3.push_back(&nbsp;MyClass(&nbsp;rand()%101&nbsp;)&nbsp;);&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;cout&lt;&lt;</span><span class="string">&quot;before&nbsp;sort&quot;</span><span>&lt;&lt;endl;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">for</span><span>(&nbsp;</span><span class="datatypes">int</span><span>&nbsp;i&nbsp;=&nbsp;0;&nbsp;i&nbsp;&lt;&nbsp;10;&nbsp;i&#43;&#43;&nbsp;)&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cout&lt;&lt;list3[i].id&lt;&lt;endl;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;sort(list3.begin(),list3.end());&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;cout&lt;&lt;</span><span class="string">&quot;after&nbsp;sort&quot;</span><span>&lt;&lt;endl;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">for</span><span>(&nbsp;</span><span class="datatypes">int</span><span>&nbsp;i&nbsp;=&nbsp;0;&nbsp;i&nbsp;&lt;&nbsp;10;&nbsp;i&#43;&#43;&nbsp;)&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cout&lt;&lt;list3[i].id&lt;&lt;endl;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">return</span><span>&nbsp;0;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li><span>}&nbsp;&nbsp;&nbsp;&nbsp;</span></li></ol>
+</div>
+<pre style="BACKGROUND-COLOR: rgb(240,240,240); MARGIN: 4px 0px; DISPLAY: none" class="cpp" name="code">#include &lt;algorithm&gt;
+#include &lt;iostream&gt;
+#include &lt;vector&gt;
+using namespace std;
+class MyClass
+{
+public:
+    int id;
+    MyClass() {}
+    MyClass(int i): id( i ) {}
+    bool operator &lt; ( const MyClass &amp;b ) const
+    {
+         return id &lt; b.id;
+    }
+
+    bool operator &gt; ( const MyClass &amp;b ) const
+    {
+         return id &gt; b.id;
+    }
+};
+/*
+bool operator &lt; ( MyClass a, MyClass b )
+{
+    return a.id &lt; b.id;
+}
+*/
+bool compare( MyClass a, MyClass b )
+{
+    return a.id &lt; b.id;
+}
+int main()
+{
+    //数组
+    cout&lt;&lt;&quot;数组&quot;&lt;&lt;endl;
+    MyClass arr[10];
+    srand(time(NULL));
+    for( int i = 0; i &lt; 10; i++ )
+        arr[i].id = rand()%101;
+    cout&lt;&lt;&quot;before sort&quot;&lt;&lt;endl;
+    for( int i = 0; i &lt; 10; i++ )
+        cout&lt;&lt;arr[i].id&lt;&lt;endl;
+
+    sort(arr,arr+10,less&lt;MyClass&gt;());
+    cout&lt;&lt;&quot;after sort&quot;&lt;&lt;endl;
+    for( int i = 0; i &lt; 10; i++ )
+        cout&lt;&lt;arr[i].id&lt;&lt;endl;
+    //动态数组vector
+    cout&lt;&lt;&quot;动态数组vector&quot;&lt;&lt;endl;
+    vector&lt;MyClass&gt; list;
+    for( int i = 0; i &lt; 10; i++ )
+        list.push_back( MyClass( rand()%101 ) );
+    cout&lt;&lt;&quot;before sort&quot;&lt;&lt;endl;
+    for( int i = 0; i &lt; 10; i++ )
+        cout&lt;&lt;list[i].id&lt;&lt;endl;
+
+    sort(list.begin(),list.end(),greater&lt;MyClass&gt;());
+    cout&lt;&lt;&quot;after sort&quot;&lt;&lt;endl;
+    for( int i = 0; i &lt; 10; i++ )
+        cout&lt;&lt;list[i].id&lt;&lt;endl;
+
+    //定义比较函数
+    cout&lt;&lt;&quot;定义比较函数&quot;&lt;&lt;endl;
+    vector&lt;MyClass&gt; list2;
+    for( int i = 0; i &lt; 10; i++ )
+        list2.push_back( MyClass( rand()%101 ) );
+    cout&lt;&lt;&quot;before sort&quot;&lt;&lt;endl;
+    for( int i = 0; i &lt; 10; i++ )
+        cout&lt;&lt;list2[i].id&lt;&lt;endl;
+
+    sort(list2.begin(),list2.end(),compare);
+    cout&lt;&lt;&quot;after sort&quot;&lt;&lt;endl;
+    for( int i = 0; i &lt; 10; i++ )
+        cout&lt;&lt;list2[i].id&lt;&lt;endl;
+
+    //使得类本身就是可以比较的
+    cout&lt;&lt;&quot;使得类本身就是可以比较的&quot;&lt;&lt;endl;
+    vector&lt;MyClass&gt; list3;
+    for( int i = 0; i &lt; 10; i++ )
+        list3.push_back( MyClass( rand()%101 ) );
+    cout&lt;&lt;&quot;before sort&quot;&lt;&lt;endl;
+    for( int i = 0; i &lt; 10; i++ )
+        cout&lt;&lt;list3[i].id&lt;&lt;endl;
+
+    sort(list3.begin(),list3.end());
+    cout&lt;&lt;&quot;after sort&quot;&lt;&lt;endl;
+    for( int i = 0; i &lt; 10; i++ )
+        cout&lt;&lt;list3[i].id&lt;&lt;endl;
+
+    return 0;
+}  </pre>
+<p></p>
+<p style="padding-bottom:2px; margin:4px 0px; padding-left:0px; padding-right:0px; padding-top:2px">
+sort函数是一个比较方便使用的STL函数，可以直接来进行各种排序。&nbsp;</p>
+<p style="padding-bottom:2px; margin:4px 0px; padding-left:0px; padding-right:0px; padding-top:2px">
+由于在工作的时候有一个排序，刚开始没怎么注意！就用sort算法来实现了，后来出现了一些问题才导致我才对sort算法的一些注意事项的总结：&nbsp;</p>
+<p style="padding-bottom:2px; margin:4px 0px; padding-left:0px; padding-right:0px; padding-top:2px">
+1.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sort&nbsp;算法函数的用法。</p>
+<p style="padding-bottom:2px; margin:4px 0px; padding-left:0px; padding-right:0px; padding-top:2px">
+vector&lt;int&gt; vect;</p>
+<p style="padding-bottom:2px; margin:4px 0px; padding-left:0px; padding-right:0px; padding-top:2px">
+//….</p>
+<p style="padding-bottom:2px; margin:4px 0px; padding-left:0px; padding-right:0px; padding-top:2px">
+Sort(vect.begin(),vect.end();</p>
+<p style="padding-bottom:2px; margin:4px 0px; padding-left:0px; padding-right:0px; padding-top:2px">
+//相当于下面的调用</p>
+<p style="padding-bottom:2px; margin:4px 0px; padding-left:0px; padding-right:0px; padding-top:2px">
+Sort(vect.begin(),vect.end(),less&lt;int&gt;()); //如果不提供比较函数是系统默认从小到大排序</p>
+<p style="padding-bottom:2px; margin:4px 0px; padding-left:0px; padding-right:0px; padding-top:2px">
+当我们要按某种方式进行排序时，需要指定自己的排序函数，否则系统默认提供一个比较函数。</p>
+<p style="padding-bottom:2px; margin:4px 0px; padding-left:0px; padding-right:0px; padding-top:2px">
+2．Sort用法挺简单，不过在这儿打算介绍一下&#20540;得注意的一点地方。</p>
+<p style="padding-bottom:2px; margin:4px 0px; padding-left:0px; padding-right:0px; padding-top:2px">
+看下面程序（1）：</p>
+<p style="padding-bottom:2px; margin:4px 0px; padding-left:0px; padding-right:0px; padding-top:2px">
+</p>
+<div class="dp-highlighter bg_cpp">
+<div class="bar">
+<div class="tools"><strong>[cpp]</strong> <a class="ViewSource" title="view plain" target="_blank" rel="noopener" href="https://blog.csdn.net/tianmo2010/article/details/7532932#">
+view plain</a><a class="CopyToClipboard" title="copy" target="_blank" rel="noopener" href="https://blog.csdn.net/tianmo2010/article/details/7532932#">copy</a><a class="PrintSource" title="print" target="_blank" rel="noopener" href="https://blog.csdn.net/tianmo2010/article/details/7532932#">print</a><a class="About" title="?" target="_blank" rel="noopener" href="https://blog.csdn.net/tianmo2010/article/details/7532932#">?</a></div>
+</div>
+<ol class="dp-cpp">
+<li class="alt"><span><span class="preprocessor">#include&nbsp;&lt;algorithm&gt; </span><span>&nbsp;&nbsp;</span></span></li><li><span></span><span class="preprocessor">#include&nbsp;&lt;iostream&gt; </span><span>&nbsp;&nbsp;</span></li><li class="alt"><span></span><span class="preprocessor">#include&nbsp;&lt;string&gt; </span>
+<span>&nbsp;&nbsp;</span></li><li><span></span><span class="preprocessor">#include&nbsp;&lt;vector&gt; </span><span>&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;</span></li><li><span></span><span class="keyword">using</span><span>&nbsp;</span><span class="keyword">namespace</span><span>&nbsp;std;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;</span></li><li><span></span><span class="keyword">class</span><span>&nbsp;A&nbsp;&nbsp;</span></li><li class="alt"><span>{&nbsp;&nbsp;</span></li><li><span></span><span class="keyword">public</span><span>:&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;A()&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dict.push_back(</span><span class="string">&quot;owen&quot;</span><span>);&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dict.push_back(</span><span class="string">&quot;messi&quot;</span><span>);&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dict.push_back(</span><span class="string">&quot;figo&quot;</span><span>);&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="datatypes">int</span><span>&nbsp;less(</span><span class="keyword">const</span><span>&nbsp;string&nbsp;&amp;s1,&nbsp;</span><span class="keyword">const</span><span>&nbsp;string&nbsp;&amp;s2)&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">return</span><span>&nbsp;s1&nbsp;&lt;&nbsp;s2;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">void</span><span>&nbsp;Sort()&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sort(dict.begin(),&nbsp;dict.end(),&nbsp;less);&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">void</span><span>&nbsp;output()&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">for</span><span>(vector&lt;string&gt;::iterator&nbsp;iter=dict.begin();&nbsp;iter&nbsp;!=dict.end();&nbsp;&#43;&#43;iter)&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cout&nbsp;&lt;&lt;&nbsp;*iter&nbsp;&lt;&lt;&nbsp;endl;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li><span></span><span class="keyword">private</span><span>:&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;vector&lt;string&gt;&nbsp;dict;&nbsp;&nbsp;</span></li><li><span>};&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;</span></li><li><span></span><span class="datatypes">int</span><span>&nbsp;main()&nbsp;{&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;A&nbsp;myclass;&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;myclass.output();&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;myclass.Sort();&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;myclass.output();&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">return</span><span>&nbsp;0;&nbsp;&nbsp;</span></li><li class="alt"><span>}&nbsp;&nbsp;</span></li></ol>
+</div>
+<pre style="BACKGROUND-COLOR: rgb(240,240,240); MARGIN: 4px 0px; DISPLAY: none" class="cpp" name="code">#include &lt;algorithm&gt;
+#include &lt;iostream&gt;
+#include &lt;string&gt;
+#include &lt;vector&gt;
+
+using namespace std;
+
+class A
+{
+public:
+    A()
+         {
+        dict.push_back(&quot;owen&quot;);
+        dict.push_back(&quot;messi&quot;);
+        dict.push_back(&quot;figo&quot;);
+    }
+
+    int less(const string &amp;s1, const string &amp;s2)
+         {
+        return s1 &lt; s2;
+    }
+
+    void Sort()
+         {
+        sort(dict.begin(), dict.end(), less);
+    }
+    void output()
+         {
+        for(vector&lt;string&gt;::iterator iter=dict.begin(); iter !=dict.end(); ++iter)
+            cout &lt;&lt; *iter &lt;&lt; endl;
+    }
+private:
+    vector&lt;string&gt; dict;
+};
+
+int main() {
+    A myclass;
+    myclass.output();
+    myclass.Sort();
+    myclass.output();
+
+    return 0;
+}</pre>
+<p></p>
+<p style="padding-bottom:2px; margin:4px 0px; padding-left:0px; padding-right:0px; padding-top:2px">
+编译的时候就报错。Why？难道不是这么用的。。。。</p>
+<p style="padding-bottom:2px; margin:4px 0px; padding-left:0px; padding-right:0px; padding-top:2px">
+下面我们来看看&nbsp;正确的例子（2）:</p>
+<p style="padding-bottom:2px; margin:4px 0px; padding-left:0px; padding-right:0px; padding-top:2px">
+</p>
+<div class="dp-highlighter bg_cpp">
+<div class="bar">
+<div class="tools"><strong>[cpp]</strong> <a class="ViewSource" title="view plain" target="_blank" rel="noopener" href="https://blog.csdn.net/tianmo2010/article/details/7532932#">
+view plain</a><a class="CopyToClipboard" title="copy" target="_blank" rel="noopener" href="https://blog.csdn.net/tianmo2010/article/details/7532932#">copy</a><a class="PrintSource" title="print" target="_blank" rel="noopener" href="https://blog.csdn.net/tianmo2010/article/details/7532932#">print</a><a class="About" title="?" target="_blank" rel="noopener" href="https://blog.csdn.net/tianmo2010/article/details/7532932#">?</a></div>
+</div>
+<ol class="dp-cpp">
+<li class="alt"><span><span class="preprocessor">#include&nbsp;&lt;algorithm&gt; </span><span>&nbsp;&nbsp;</span></span></li><li><span></span><span class="preprocessor">#include&nbsp;&lt;iostream&gt; </span><span>&nbsp;&nbsp;</span></li><li class="alt"><span></span><span class="preprocessor">#include&nbsp;&lt;string&gt; </span>
+<span>&nbsp;&nbsp;</span></li><li><span></span><span class="preprocessor">#include&nbsp;&lt;vector&gt;&nbsp; </span><span>&nbsp;&nbsp;</span></li><li class="alt"><span></span><span class="keyword">using</span><span>&nbsp;</span><span class="keyword">namespace</span><span>&nbsp;std;&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;</span></li><li class="alt"><span></span><span class="datatypes">int</span><span>&nbsp;less(</span><span class="keyword">const</span><span>&nbsp;string&nbsp;&amp;s1,</span><span class="keyword">const</span><span>&nbsp;string&nbsp;&amp;s2)&nbsp;&nbsp;</span></li><li><span>{&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">return</span><span>&nbsp;s1&lt;s2;&nbsp;&nbsp;</span></li><li><span>}&nbsp;&nbsp;</span></li><li class="alt"><span></span><span class="keyword">class</span><span>&nbsp;A&nbsp;&nbsp;</span></li><li><span>{&nbsp;&nbsp;</span></li><li class="alt"><span></span><span class="keyword">public</span><span>:&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;A()&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dict.push_back(</span><span class="string">&quot;owen&quot;</span><span>);&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dict.push_back(</span><span class="string">&quot;messi&quot;</span><span>);&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dict.push_back(</span><span class="string">&quot;figo&quot;</span><span>);&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">void</span><span>&nbsp;Sort()&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sort(dict.begin(),&nbsp;dict.end(),&nbsp;less);&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">void</span><span>&nbsp;output()&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">for</span><span>(vector&lt;string&gt;::iterator&nbsp;iter=dict.begin();&nbsp;iter&nbsp;!=dict.end();&nbsp;&#43;&#43;iter)&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cout&nbsp;&lt;&lt;&nbsp;*iter&nbsp;&lt;&lt;&nbsp;endl;&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li class="alt"><span></span><span class="keyword">private</span><span>:&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;vector&lt;string&gt;&nbsp;dict;&nbsp;&nbsp;</span></li><li class="alt"><span>};&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;</span></li><li class="alt"><span></span><span class="datatypes">int</span><span>&nbsp;main()&nbsp;{&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;A&nbsp;myclass;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;myclass.output();&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;myclass.Sort();&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;myclass.output();&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">return</span><span>&nbsp;0;&nbsp;&nbsp;</span></li><li><span>}&nbsp;&nbsp;</span></li></ol>
+</div>
+<pre style="BACKGROUND-COLOR: rgb(240,240,240); MARGIN: 4px 0px; DISPLAY: none" class="cpp" name="code">#include &lt;algorithm&gt;
+#include &lt;iostream&gt;
+#include &lt;string&gt;
+#include &lt;vector&gt;
+using namespace std;
+
+int less(const string &amp;s1,const string &amp;s2)
+{
+         return s1&lt;s2;
+}
+class A
+{
+public:
+    A()
+         {
+        dict.push_back(&quot;owen&quot;);
+        dict.push_back(&quot;messi&quot;);
+        dict.push_back(&quot;figo&quot;);
+    }
+    void Sort()
+         {
+        sort(dict.begin(), dict.end(), less);
+    }
+    void output()
+         {
+        for(vector&lt;string&gt;::iterator iter=dict.begin(); iter !=dict.end(); ++iter)
+            cout &lt;&lt; *iter &lt;&lt; endl;
+    }
+private:
+    vector&lt;string&gt; dict;
+};
+
+int main() {
+    A myclass;
+    myclass.output();
+    myclass.Sort();
+    myclass.output();
+
+    return 0;
+}</pre>
+<p></p>
+<p style="padding-bottom:2px; margin:4px 0px; padding-left:0px; padding-right:0px; padding-top:2px">
+这个例子是正确的!&nbsp;为什么有这个差异？这个问题出在哪儿，思考下上面两个例子的不同！&nbsp;也许你不难发现其中的问题？this指针！！</p>
+<p style="padding-bottom:2px; margin:4px 0px; padding-left:0px; padding-right:0px; padding-top:2px">
+例(1)中发现&nbsp;int less(const string &amp;s1, const string &amp;s2)也就相当于int less( A* const this,const string &amp;s1,const string &amp;s2)&nbsp;所以问题的答案一目了然！所以有两种解决方法：</p>
+<p style="padding-bottom:2px; margin:4px 0px; padding-left:0px; padding-right:0px; padding-top:2px">
+1）&nbsp;&nbsp;利用类的静态函数---面向类的属性、。</p>
+<p style="padding-bottom:2px; margin:4px 0px; padding-left:0px; padding-right:0px; padding-top:2px">
+2）&nbsp;&nbsp;利用仿函数来实现比较函数。</p>
+<p style="padding-bottom:2px; margin:4px 0px; padding-left:0px; padding-right:0px; padding-top:2px">
+以上两种方法都巧妙的避开了this指针。当然以上部分还是为了解决下面的话题！&nbsp;如果有这样的一个类&nbsp;A中有成员int x.而类B&nbsp;中有成员vector&lt;A&gt; vec.map&lt;int,类C&gt;mapVec .这样的情况对vector&lt;A&gt;vec,以A中的X&nbsp;作为map表的索引排序。</p>
+<p style="padding-bottom:2px; margin:4px 0px; padding-left:0px; padding-right:0px; padding-top:2px">
+类A&nbsp;&nbsp;&nbsp;int x;</p>
+<p style="padding-bottom:2px; margin:4px 0px; padding-left:0px; padding-right:0px; padding-top:2px">
+类C&nbsp;&nbsp;&nbsp;int y;l</p>
+<p style="padding-bottom:2px; margin:4px 0px; padding-left:0px; padding-right:0px; padding-top:2px">
+类B&nbsp;&nbsp;&nbsp;map&lt;int,C&gt;mapVec;&nbsp;&nbsp;vector&lt;A&gt; vec;对vector&lt;A&gt;用sort算法排序，其中A作为map表的索引查找C&nbsp;类中的Y来进行排序。这儿问题就来了？如上面所说在B类中的Sort()-中的&nbsp;sort()函数的比较函数如何写？&nbsp;&nbsp;我们来看下伪代码:</p>
+<p style="padding-bottom:2px; margin:4px 0px; padding-left:0px; padding-right:0px; padding-top:2px">
+</p>
+<div class="dp-highlighter bg_cpp">
+<div class="bar">
+<div class="tools"><strong>[cpp]</strong> <a class="ViewSource" title="view plain" target="_blank" rel="noopener" href="https://blog.csdn.net/tianmo2010/article/details/7532932#">
+view plain</a><a class="CopyToClipboard" title="copy" target="_blank" rel="noopener" href="https://blog.csdn.net/tianmo2010/article/details/7532932#">copy</a><a class="PrintSource" title="print" target="_blank" rel="noopener" href="https://blog.csdn.net/tianmo2010/article/details/7532932#">print</a><a class="About" title="?" target="_blank" rel="noopener" href="https://blog.csdn.net/tianmo2010/article/details/7532932#">?</a></div>
+</div>
+<ol class="dp-cpp">
+<li class="alt"><span><span>Class&nbsp;A{&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">public</span><span>:&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Int&nbsp;&nbsp;x;&nbsp;&nbsp;</span></li><li><span>};&nbsp;&nbsp;</span></li><li class="alt"><span>Class&nbsp;C{&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">public</span><span>:&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Int&nbsp;&nbsp;y;&nbsp;&nbsp;</span></li><li><span>};&nbsp;&nbsp;</span></li><li class="alt"><span>Class&nbsp;B{&nbsp;&nbsp;</span></li><li><span>Public:&nbsp;&nbsp;</span></li><li class="alt"><span>B(){};&nbsp;&nbsp;</span></li><li><span>Void&nbsp;Sort()&nbsp;&nbsp;</span></li><li class="alt"><span>{&nbsp;&nbsp;</span></li><li><span>Sort(vec.begin(),vec.end(),比较函数);&nbsp;&nbsp;</span></li><li class="alt"><span>}&nbsp;&nbsp;</span></li><li><span></span><span class="keyword">private</span><span>:&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Vector&lt;A&gt;&nbsp;vec;&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Map&lt;</span><span class="datatypes">int</span><span>,C&gt;&nbsp;mapVec;&nbsp;&nbsp;</span></li><li class="alt"><span>};&nbsp;&nbsp;</span></li></ol>
+</div>
+<pre style="BACKGROUND-COLOR: rgb(240,240,240); MARGIN: 4px 0px; DISPLAY: none" class="cpp" name="code">Class A{
+         public:
+                   Int  x;
+};
+Class C{
+         public:
+                   Int  y;
+};
+Class B{
+Public:
+B(){};
+Void Sort()
+{
+Sort(vec.begin(),vec.end(),比较函数);
+}
+private:
+                   Vector&lt;A&gt; vec;
+                   Map&lt;int,C&gt; mapVec;
+};</pre>
+<p></p>
+<p style="padding-bottom:2px; margin:4px 0px; padding-left:0px; padding-right:0px; padding-top:2px">
+当然看到这个问题也许第一影响应该是在Sort()中做一个快排就可以，当然这样可以。不过让我们结合上面的例子想想这个问题如果用纯STL的方法如何解决。</p>
+<p style="padding-bottom:2px; margin:4px 0px; padding-left:0px; padding-right:0px; padding-top:2px">
+1.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;利用类的静态函数-----这个方法当然不行。静态函数是类的属性而我们需要map表。</p>
+<p style="padding-bottom:2px; margin:4px 0px; padding-left:0px; padding-right:0px; padding-top:2px">
+2.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;利用仿函数来解决。</p>
+<p style="padding-bottom:2px; margin:4px 0px; padding-left:0px; padding-right:0px; padding-top:2px">
+那这个仿函数如何来写？---仿函数中需要有map&lt;int,C&gt;表，且不能是通过this指针带入的。好了基于上面的我们来看下例子3：</p>
+<p style="padding-bottom:2px; margin:4px 0px; padding-left:0px; padding-right:0px; padding-top:2px">
+</p>
+<div class="dp-highlighter bg_cpp">
+<div class="bar">
+<div class="tools"><strong>[cpp]</strong> <a class="ViewSource" title="view plain" target="_blank" rel="noopener" href="https://blog.csdn.net/tianmo2010/article/details/7532932#">
+view plain</a><a class="CopyToClipboard" title="copy" target="_blank" rel="noopener" href="https://blog.csdn.net/tianmo2010/article/details/7532932#">copy</a><a class="PrintSource" title="print" target="_blank" rel="noopener" href="https://blog.csdn.net/tianmo2010/article/details/7532932#">print</a><a class="About" title="?" target="_blank" rel="noopener" href="https://blog.csdn.net/tianmo2010/article/details/7532932#">?</a></div>
+</div>
+<ol class="dp-cpp">
+<li class="alt"><span><span class="preprocessor">#include&nbsp;&lt;iostream&gt; </span><span>&nbsp;&nbsp;</span></span></li><li><span></span><span class="preprocessor">#include&nbsp;&lt;algorithm&gt; </span><span>&nbsp;&nbsp;</span></li><li class="alt"><span></span><span class="preprocessor">#include&nbsp;&lt;vector&gt; </span>
+<span>&nbsp;&nbsp;</span></li><li><span></span><span class="preprocessor">#include&nbsp;&lt;map&gt; </span><span>&nbsp;&nbsp;</span></li><li class="alt"><span></span><span class="keyword">using</span><span>&nbsp;</span><span class="keyword">namespace</span><span>&nbsp;std;&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;</span></li><li class="alt"><span></span><span class="keyword">class</span><span>&nbsp;A&nbsp;&nbsp;</span></li><li><span>{&nbsp;&nbsp;</span></li><li class="alt"><span></span><span class="keyword">public</span><span>:&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="datatypes">int</span><span>&nbsp;x;&nbsp;&nbsp;</span></li><li class="alt"><span>};&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;</span></li><li class="alt"><span></span><span class="keyword">class</span><span>&nbsp;C</span><span class="comment">//XXX</span><span>&nbsp;&nbsp;</span></li><li><span>{&nbsp;&nbsp;</span></li><li class="alt"><span></span><span class="keyword">public</span><span>:&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="datatypes">int</span><span>&nbsp;y;&nbsp;&nbsp;</span></li><li class="alt"><span>};&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;</span></li><li class="alt"><span></span><span class="keyword">class</span><span>&nbsp;B&nbsp;&nbsp;</span></li><li><span>{&nbsp;&nbsp;</span></li><li class="alt"><span></span><span class="keyword">public</span><span>:&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;B():cmp(mapVec)&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">void</span><span>&nbsp;Sort()&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sort(vec.begin(),vec.end(),cmp);&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;</span></li><li><span></span><span class="keyword">protected</span><span>:&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">class</span><span>&nbsp;InnerCmp&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">public</span><span>:&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;InnerCmp(map&lt;</span><span class="datatypes">int</span><span>,C&gt;&nbsp;&amp;map):m(map)&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="datatypes">bool</span><span>&nbsp;operator()&nbsp;(</span><span class="keyword">const</span><span>&nbsp;A&nbsp;&amp;a,</span><span class="keyword">const</span><span>&nbsp;A&nbsp;&amp;b)&nbsp;</span><span class="keyword">const</span><span>&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">return</span><span>&nbsp;m[a.x].y&lt;m[b.x].y;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">private</span><span>:&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;map&lt;</span><span class="datatypes">int</span><span>,C&gt;&nbsp;&amp;m;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;};&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;</span></li><li class="alt"><span></span><span class="keyword">private</span><span>:&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">const</span><span>&nbsp;InnerCmp&nbsp;cmp;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;vector&lt;A&gt;&nbsp;vec;&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;map&lt;</span><span class="datatypes">int</span><span>,C&gt;&nbsp;mapVec;&nbsp;&nbsp;</span></li><li class="alt"><span>};&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;</span></li><li class="alt"><span></span><span class="datatypes">int</span><span>&nbsp;main()&nbsp;&nbsp;</span></li><li><span>{&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">return</span><span>&nbsp;0;&nbsp;&nbsp;</span></li><li><span>}&nbsp;&nbsp;</span></li></ol>
+</div>
+<pre style="BACKGROUND-COLOR: rgb(240,240,240); MARGIN: 4px 0px; DISPLAY: none" class="cpp" name="code">#include &lt;iostream&gt;
+#include &lt;algorithm&gt;
+#include &lt;vector&gt;
+#include &lt;map&gt;
+using namespace std;
+
+class A
+{
+public:
+    int x;
+};
+
+class C//XXX
+{
+public:
+    int y;
+};
+
+class B
+{
+public:
+    B():cmp(mapVec)
+    {
+
+    }
+
+    void Sort()
+    {
+        sort(vec.begin(),vec.end(),cmp);
+    }
+
+protected:
+    class InnerCmp
+    {
+    public:
+        InnerCmp(map&lt;int,C&gt; &amp;map):m(map)
+        {
+        }
+
+        bool operator() (const A &amp;a,const A &amp;b) const
+        {
+            return m[a.x].y&lt;m[b.x].y;
+        }
+
+    private:
+        map&lt;int,C&gt; &amp;m;
+    };
+
+private:
+    const InnerCmp cmp;
+    vector&lt;A&gt; vec;
+    map&lt;int,C&gt; mapVec;
+};
+
+int main()
+{
+    return 0;
+}</pre>
+<p></p>
+<p style="padding-bottom:2px; margin:4px 0px; padding-left:0px; padding-right:0px; padding-top:2px">
+如上面的例子，我们构造的仿函数完全符合规则。同时巧妙的把map&nbsp;放到类InnerCmp中。这样我们就可以达到上面问题的目的。当然这样做只是为了更好的理解&nbsp;比较函数。</p>
+<p style="padding-bottom:2px; margin:4px 0px; padding-left:0px; padding-right:0px; padding-top:2px">
+<br>
+</p>
+<p style="padding-bottom:2px; margin:4px 0px; padding-left:0px; padding-right:0px; padding-top:2px">
+以上来自互联网，在此表示感谢</p>
+</div>
+</div>
+</h2>
+</div>
+<div class="blogzz_acon">
+<p>&nbsp;</p>
+</div>
+
+      
+    </div>
+</article>
+
+<!-- 上一页 下一页 -->
+
+
+<nav id="article-nav">
+  
+    <a href="/2013/07/25/%E8%B4%AA%E5%BF%83%E2%80%94%E2%80%94NYOJ_%E9%A2%98%E7%9B%AE236_%E5%BF%83%E6%80%A5%E7%9A%84C%E5%B0%8F%E5%8A%A0/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>上一篇</span>
+      <div class="article-nav-title">
+        
+          贪心——NYOJ 题目236 心急的C小加
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2013/07/25/%E8%B4%AA%E5%BF%83%E2%80%94%E2%80%94NYOJ%E9%A2%98%E7%9B%AE106_%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>下一篇</span>
+      <div class="article-nav-title">贪心——NYOJ题目106 背包问题</div>
+    </a>
+  
+</nav>
+
+
+
+<!-- 相关文章 -->
+
+<!--
+
+-->
+
+
+</section>
+      </div>
+      <footer id="footer">
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      
+      &copy;2024<a target="_blank" rel="noopener" href="https://github.com/hanks-zyh"> Hanks</a>版权所有
+      <br/>
+      <a href="https://beian.miit.gov.cn/" target="_blank">豫ICP备2021022347号</a>
+	  </div>
+  </div>
+ <div id="share">
+  <a id="totop" title="" style="display: block;">返回顶部</a>
+ </div>
+</footer>
+
+    </div>
+    
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/jquery.scrollLoading.js"></script>
+
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/ads.js"></script>
+
+  </div>
+</body>
+</html>

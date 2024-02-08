@@ -1,0 +1,988 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>关于ListView的优化总结 | Hanks&#39; Websit</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <script data-ad-client="ca-pub-8165670162444117" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <meta name="referrer" content="never">
+  <meta name="description" content="这几天一直再做Listview的优化,今天来总结一下 做的这个项目Listview比较复杂，关于Item的种类大概有8种，每个item的布局又比较复杂，item里面的控件比较多   种类比较多 我们需要 重写adapter的 @Override public int getItemViewType(int position) { if(position%8&#x3D;&#x3D;0) curType &#x3D; type.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="关于ListView的优化总结">
+<meta property="og:url" content="https://hanks.pub/2015/01/21/%E5%85%B3%E4%BA%8EListView%E7%9A%84%E4%BC%98%E5%8C%96%E6%80%BB%E7%BB%93/index.html">
+<meta property="og:site_name" content="Hanks&#39; Websit">
+<meta property="og:description" content="这几天一直再做Listview的优化,今天来总结一下 做的这个项目Listview比较复杂，关于Item的种类大概有8种，每个item的布局又比较复杂，item里面的控件比较多   种类比较多 我们需要 重写adapter的 @Override public int getItemViewType(int position) { if(position%8&#x3D;&#x3D;0) curType &#x3D; type.">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2015-01-21T12:17:00.000Z">
+<meta property="article:modified_time" content="2024-02-08T01:29:02.197Z">
+<meta property="article:author" content="Hanks">
+<meta property="article:tag" content="Android">
+<meta name="twitter:card" content="summary">
+  
+  
+  <link href="https://fonts.googleapis.com/css?family=Fira+Code|Noto+Serif+SC&display=swap" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8165670162444117"
+     crossorigin="anonymous"></script>
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo"></a>
+    <nav id="main-nav">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      
+        <a class="main-nav-link" href="/archives">Archive</a>
+      
+        <a class="main-nav-link" href="/eye-video">Eye</a>
+      
+        <a class="main-nav-link" href="/atom.xml">Rss</a>
+      
+    </nav>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/archives" class="mobile-nav-link">Archive</a>
+  
+    <a href="/eye-video" class="mobile-nav-link">Eye</a>
+  
+    <a href="/atom.xml" class="mobile-nav-link">Rss</a>
+  
+</nav>
+      <div class="outer">
+        <section id="main"><article id="post-关于ListView的优化总结" class="article article-type-post" itemscope
+  itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <header class="article-header">
+      
+      
+  
+    <h1 class="article-title" itemprop="name">
+      关于ListView的优化总结
+    </h1>
+  
+
+      
+    </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+<p><span style="font-size:10px">这几天一直再做Listview的优化,今天来总结一下</span></p>
+<p><span style="font-size:10px">做的这个项目Listview比较复杂，关于Item的种类大概有8种，每个item的布局又比较复杂，item里面的控件比较多</span></p>
+<p><span style="font-size:10px"><br>
+</span></p>
+<p><span style="font-size:10px">种类比较多 我们需要 重写adapter的</span></p>
+<p><span style="font-size:10px"><span style="white-space:pre"></span>@Override<br>
+<span style="white-space:pre"></span>public int getItemViewType(int position) {</span></p>
+<p><span style="font-size:10px"><span style="white-space:pre"></span>if(position%8==0) curType = type.get(0);</span></p>
+<p><span style="font-size:10px"><span style="white-space:pre"></span>.....</span></p>
+<p><span style="font-size:10px"><span style="white-space:pre">&nbsp;return</span>&nbsp;curType;</span></p>
+<p><span style="font-size:10px"><span style="white-space:pre"></span>}<br>
+<br>
+<span style="white-space:pre"></span>@Override<br>
+<span style="white-space:pre"></span>public int getViewTypeCount() {<br>
+<span style="white-space:pre"></span>return &nbsp;type.size();<br>
+<span style="white-space:pre"></span>}</span></p>
+<p><span style="font-size:10px"><br>
+</span></p>
+<p><span style="font-size:10px"><strong>1.复用ConvertView,&nbsp;这是最常见的一种，listview在滑动过程中，画出屏幕的item会缓存成一个convertview对象，减少创建view的次数</strong></span></p>
+<p>在getView中 判断 </p>
+<pre code_snippet_id="585682" snippet_file_name="blog_20150121_1_2325346"  code_snippet_id="585682" snippet_file_name="blog_20150121_1_2325346" name="code" class="java">if (null == convertView) {
+	convertView = View.inflate(context, R.layout.item_view, null);
+}</pre>
+<p><br>
+</p>
+<p><span style="font-size:10px"><strong>2.ViewHolder机制, 减少 findviewById的次数,特别是item种类比较多的时候效果会比较明显一点</strong></span></p>
+<p></p>
+<pre code_snippet_id="585682" snippet_file_name="blog_20150121_2_7181685"  code_snippet_id="585682" snippet_file_name="blog_20150121_2_7181685" name="code" class="java">/**
+ * Viewholder的简化
+ * @ClassName: ViewHolder
+ * @Description: TODO
+ * @author smile
+ * @date 2014-5-28 上午9:56:29
+ */
+@SuppressWarnings(&quot;unchecked&quot;)
+public class ViewHolder {
+	public static &lt;T extends View&gt; T get(View view, int id) {
+		SparseArray&lt;View&gt; viewHolder = (SparseArray&lt;View&gt;) view.getTag();
+		if (viewHolder == null) {
+			viewHolder = new SparseArray&lt;View&gt;();
+			view.setTag(viewHolder);
+		}
+		View childView = viewHolder.get(id);
+		if (childView == null) {
+			childView = view.findViewById(id);
+			viewHolder.put(id, childView);
+		}
+		return (T) childView;
+	}
+}
+</pre>
+<p></p>
+<p>使用：</p>
+<p></p>
+<pre code_snippet_id="585682" snippet_file_name="blog_20150121_3_1349538"  code_snippet_id="585682" snippet_file_name="blog_20150121_3_1349538" name="code" class="java">  ImageView bananaView = ViewHolder.get(convertView, R.id.banana);
+    TextView phoneView = ViewHolder.get(convertView, R.id.phone);</pre><span style="font-size:10px">基本上大家都会通过上面两点进行优化,下面再说一下我的其他优化</span>
+<p><span style="font-size:10px"><strong><br>
+</strong></span></p>
+<p><span style="font-size:10px"><strong>3. 监听listIvew的滑动状态与滑动速度，根据不同的状态速度来进行不同程度的加载item，减少不必要的视图更新</strong></span></p>
+<p></p>
+<pre code_snippet_id="585682" snippet_file_name="blog_20150121_4_8582053"  code_snippet_id="585682" snippet_file_name="blog_20150121_4_8582053" name="code" class="java">		orgListview.setOnScrollListener(new OnScrollListener() {
+
+			boolean isFling = false ;
+			int     lastidx = 0 ;
+
+			@Override
+			public void onScrollStateChanged(AbsListView view, int scrollState) {
+
+				orgListview.onScrollStateChanged(view, scrollState);
+				//判断listview状态
+				switch(scrollState) {
+					case SCROLL_STATE_IDLE:
+
+						break ;
+					case SCROLL_STATE_FLING:
+
+						break ;
+				}
+			}
+
+			@Override
+			public void onScroll(AbsListView arg0, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+				orgListview.onScroll(arg0, firstVisibleItem, visibleItemCount, totalItemCount);
+
+			//计算速度
+			int speed = calcSpeed();
+
+		}) ;</pre><br>
+<p>计算速度的（不是太精确）：</p>
+<p></p>
+<pre code_snippet_id="585682" snippet_file_name="blog_20150122_5_7618642"  code_snippet_id="585682" snippet_file_name="blog_20150122_5_7618642" name="code" class="java">protected int calcSpeed() {
+		int top = getScrollY();
+		System.out.println(&quot;top=&quot;+top);
+		long currentTime = System.nanoTime();
+		int dPx = Math.abs(lastTop - top);
+		long dTime =  (currentTime-lastTime);
+		double speed2 = dPx*1.0f /dTime*1000000000;
+		lastTime = currentTime;
+		lastTop = top;
+		return (int) speed2;
+	}
+	public int getScrollY() {
+	    View c = listview.getChildAt(0);
+	    if (c == null) {
+	        return 0;
+	    }
+	    int firstVisiblePosition = listview.getFirstVisiblePosition();
+	    int top = c.getTop();
+	    return -top + firstVisiblePosition * c.getHeight() ;
+	}</pre>
+<p></p>
+<p></p>
+<p><span style="font-size:10px"><strong>4. item中的空件宽高尽量写成固定的&#20540;或者math_parent，减少view的绘制</strong></span></p>
+<p><span style="font-size:10px"><strong>例如，当我们设置 textview的shettext()时，如果textview的内容长度变化了，可能会影响其他控件的位置，TextView的父控件会重新绘制他的子view</strong></span></p>
+<p><br>
+</p>
+<p><strong>5. FaceBook工程师的博客中介绍的，FaceBook的listview的item比较大，有时候甚至占到一屏幕一个item，每次滑动出现一个新的item时，需要在getview刷新一整个屏幕的数据，然而这些数据还未出现在用户面前，于是工程师将单个的item再次拆分成若干个小的部分，每一部分都是listview的一个item，使属于更加细分化，例如一个微博的item，拆分成3个item，头像昵称的一个，新闻内容的一个，评论转发的一个，这样有效减少每次渲染的数据，达到优化的目的</strong></p>
+<p><br>
+</p>
+<p>网上其他的总结</p>
+<p>来自：<a target="_blank" target="_blank" href="https://blog.csdn.net/androidzhaoxiaogang/article/details/8797539">android中listview卡顿的终极原因解析</a></p>
+<p></p>
+<h5 style="color:rgb(54,46,43); font-family:Arial; line-height:26px">1..Adapter的getView方法里面convertView没有使用setTag和getTag方式；</h5>
+<h5 style="color:rgb(54,46,43); font-family:Arial; line-height:26px"><a target="_blank" target="_blank" name="t1" style="color:rgb(106,57,6)"></a>2.在getView方法里面ViewHolder初始化后的赋&#20540;或者是多个控件的显示状态和背景的显示没有优化好，抑或是里面含有复杂的计算和耗时操作；</h5>
+<h5 style="color:rgb(54,46,43); font-family:Arial; line-height:26px"><a target="_blank" target="_blank" name="t2" style="color:rgb(106,57,6)"></a>3.在getView方法里面 inflate的row 嵌套太深（布局过于复杂）或者是布局里面有大图片或者背景所致；</h5>
+<h5 style="color:rgb(54,46,43); font-family:Arial; line-height:26px"><a target="_blank" target="_blank" name="t3" style="color:rgb(106,57,6)"></a>4.Adapter多余或者不合理的notifySetDataChanged；</h5>
+<h5 style="color:rgb(54,46,43); font-family:Arial; line-height:26px"><span style="color:rgb(255,0,0)">5.listview 被多层嵌套，多次的onMessure导致卡顿，如果多层嵌套无法避免，建议把listview的高和宽设置为fill_parent. 如果是代码继承的listview，那么也请你别忘记为你的继承类添加上LayoutPrams，注意高和宽都是fill_parent的; &nbsp;</span><span style="color:rgb(255,0,0); font-family:'Microsoft Yahei'; font-size:10px; line-height:22px; text-align:justify">以往我一般都是将listview的高度设置成fill_parent，而这次我是设为wrap_content，这样做的问题在于，ListView没有取到实际的高度，他还要根据计算才能确定，而每一次计算应该会触发listview的渲染，所以就会出现getview的调用次数跟正常情况相比多了好几倍。</span><span style="color:rgb(255,0,0); font-size:10px; font-family:'Microsoft Yahei'; line-height:22px; text-align:justify">所以在一般情况下，我建议把</span><span style="color:rgb(255,0,0); font-size:10px; font-family:'Microsoft Yahei'; line-height:22px; border:0px; margin:0px; padding:0px">listiview在布局文件中的高度总是设置为：fill_parent（或者match_parent）</span><span style="color:rgb(255,0,0); font-size:10px; font-family:'Microsoft Yahei'; line-height:22px; text-align:justify">，这不仅仅是getview的调用次数问题，还涉及到布局的效率。</span></h5>
+<div><br>
+</div>
+<br>
+<p></p>
+<p><br>
+</p>
+<p><br>
+</p>
+<p><br>
+</p>
+<p><br>
+</p>
+<p><br>
+</p>
+<p><br>
+</p>
+<p><br>
+</p>
+<p><br>
+</p>
+<p><br>
+</p>
+<p><br>
+</p>
+<p><br>
+</p>
+<p><br>
+</p>
+<p><br>
+</p>
+<p><br>
+</p>
+<p><br>
+</p>
+<p><br>
+</p>
+
+      
+    </div>
+</article>
+
+<!-- 上一页 下一页 -->
+
+
+<nav id="article-nav">
+  
+    <a href="/2015/01/22/%E5%B8%A6%E5%8A%A8%E7%94%BB%E7%9A%84ActionBar_---------_ToolBar%EF%BC%88%E5%85%BC%E5%AE%B9%E4%BD%8E%E7%89%88%E6%9C%AC%EF%BC%89/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>上一篇</span>
+      <div class="article-nav-title">
+        
+          带动画的ActionBar --------- ToolBar（兼容低版本）
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/01/20/Viewpager%E4%B8%AD%E5%B5%8C%E5%A5%97Listview%EF%BC%8C%E8%80%8C%E4%B8%94Listview%E7%9A%84item%E4%B8%AD%E5%A4%B9%E6%9D%82ViewPager/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>下一篇</span>
+      <div class="article-nav-title">Viewpager中嵌套Listview，而且Listview的item中夹杂ViewPager</div>
+    </a>
+  
+</nav>
+
+
+
+<!-- 相关文章 -->
+
+<!--
+
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+      			<a href="/2015/01/21/%E5%85%B3%E4%BA%8EListView%E7%9A%84%E4%BC%98%E5%8C%96%E6%80%BB%E7%BB%93/">关于ListView的优化总结</a>
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+
+-->
+
+
+</section>
+      </div>
+      <footer id="footer">
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      
+      &copy;2024<a target="_blank" rel="noopener" href="https://github.com/hanks-zyh"> Hanks</a>版权所有
+      <br/>
+      <a href="https://beian.miit.gov.cn/" target="_blank">豫ICP备2021022347号</a>
+	  </div>
+  </div>
+ <div id="share">
+  <a id="totop" title="" style="display: block;">返回顶部</a>
+ </div>
+</footer>
+
+    </div>
+    
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/jquery.scrollLoading.js"></script>
+
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/ads.js"></script>
+
+  </div>
+</body>
+</html>

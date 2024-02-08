@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>应用异常崩溃分析工具 -- Crashlytics | Hanks&#39; Websit</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <script data-ad-client="ca-pub-8165670162444117" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <meta name="referrer" content="never">
+  <meta name="description" content="作为一个软件开发者，写出来的应用不可能十全十美，谁也不能保证自己的应用永无bug。所以对于应用出现的bug信息的收集与分析是十分重要的。本篇介绍一下国外的一款保存和分析应用崩溃信息的工具 Crashlytics.  关于Android中自定义crash异常信息，看我这篇博客  ###介绍Crashlytic 成立于2011年，是专门为移动应用开者发提供的保存和分析应用崩溃信息的工具。Crashly">
+<meta property="og:type" content="article">
+<meta property="og:title" content="应用异常崩溃分析工具 -- Crashlytics">
+<meta property="og:url" content="https://hanks.pub/2015/04/11/%E5%BA%94%E7%94%A8%E5%BC%82%E5%B8%B8%E5%B4%A9%E6%BA%83%E5%88%86%E6%9E%90%E5%B7%A5%E5%85%B7_--_Crashlytics/index.html">
+<meta property="og:site_name" content="Hanks&#39; Websit">
+<meta property="og:description" content="作为一个软件开发者，写出来的应用不可能十全十美，谁也不能保证自己的应用永无bug。所以对于应用出现的bug信息的收集与分析是十分重要的。本篇介绍一下国外的一款保存和分析应用崩溃信息的工具 Crashlytics.  关于Android中自定义crash异常信息，看我这篇博客  ###介绍Crashlytic 成立于2011年，是专门为移动应用开者发提供的保存和分析应用崩溃信息的工具。Crashly">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img.blog.csdn.net/20150411212604836">
+<meta property="og:image" content="https://img.blog.csdn.net/20150411204833999">
+<meta property="og:image" content="https://img.blog.csdn.net/20150411210341078">
+<meta property="og:image" content="https://img.blog.csdn.net/20150411210518612">
+<meta property="og:image" content="https://img.blog.csdn.net/20150411210643629">
+<meta property="og:image" content="https://img.blog.csdn.net/20150411211324846">
+<meta property="og:image" content="https://img.blog.csdn.net/20150411211318750">
+<meta property="og:image" content="https://img.blog.csdn.net/20150411211632986">
+<meta property="article:published_time" content="2015-04-11T13:29:00.000Z">
+<meta property="article:modified_time" content="2024-02-08T01:29:02.200Z">
+<meta property="article:author" content="Hanks">
+<meta property="article:tag" content="Android">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img.blog.csdn.net/20150411212604836">
+  
+  
+  <link href="https://fonts.googleapis.com/css?family=Fira+Code|Noto+Serif+SC&display=swap" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8165670162444117"
+     crossorigin="anonymous"></script>
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo"></a>
+    <nav id="main-nav">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      
+        <a class="main-nav-link" href="/archives">Archive</a>
+      
+        <a class="main-nav-link" href="/eye-video">Eye</a>
+      
+        <a class="main-nav-link" href="/atom.xml">Rss</a>
+      
+    </nav>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/archives" class="mobile-nav-link">Archive</a>
+  
+    <a href="/eye-video" class="mobile-nav-link">Eye</a>
+  
+    <a href="/atom.xml" class="mobile-nav-link">Rss</a>
+  
+</nav>
+      <div class="outer">
+        <section id="main"><article id="post-应用异常崩溃分析工具_--_Crashlytics" class="article article-type-post" itemscope
+  itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <header class="article-header">
+      
+      
+  
+    <h1 class="article-title" itemprop="name">
+      应用异常崩溃分析工具 -- Crashlytics
+    </h1>
+  
+
+      
+    </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      <p>作为一个软件开发者，写出来的应用不可能十全十美，谁也不能保证自己的应用永无bug。所以对于应用出现的bug信息的收集与分析是十分重要的。本篇介绍一下国外的一款保存和分析应用崩溃信息的工具 <strong>Crashlytics</strong>.<br><img src="https://img.blog.csdn.net/20150411212604836" alt="介绍"></p>
+<hr>
+<p>关于Android中<code>自定义crash异常</code>信息，看我<a target="_blank" rel="noopener" href="https://blog.csdn.net/hpu_zyh/article/details/41320499">这篇博客</a></p>
+<hr>
+<p>###介绍<br>Crashlytic 成立于2011年，是专门为移动应用开者发提供的保存和分析应用崩溃信息的工具。<br>Crashlytics的使用者包括：支付工具Paypal, 点评应用Yelp, 照片分享应用Path, 团购应用GroupOn等移动应用。<br>2013年1月，Crashlytics被Twitter收购，成为又一个成功的创业产品。被收购之后，由于没有了创业公司的不稳定因素，我们更有理由使用它来分析应用崩溃信息。<br>###使用</p>
+<ol>
+<li><p>注册<br> 登录<a target="_blank" rel="noopener" href="https://try.crashlytics.com/">官网</a>进行注册<br> <img src="https://img.blog.csdn.net/20150411204833999" alt="官网"><br> 之后官方会进行审核，我当时审核的挺快的，大概十几分钟就收到邮件通知可以使用了。</p>
+</li>
+<li><p>安装开发插件<br> <a target="_blank" rel="noopener" href="https://fabric.io/downloads">下载地址</a><br> <img src="https://img.blog.csdn.net/20150411210341078" alt="这里写图片描述"><br>每个插件安装都有具体步骤，我使用的是<code>Eclipse</code><br>安装完成后如下：<br><img src="https://img.blog.csdn.net/20150411210518612" alt="这里写图片描述"></p>
+</li>
+<li><p>使用<br>点击打开<br><img src="https://img.blog.csdn.net/20150411210643629" alt="这里写图片描述"></p>
+</li>
+</ol>
+<p>自动分析当前打开的项目列表<br><img src="https://img.blog.csdn.net/20150411211324846" alt="这里写图片描述"></p>
+<p>选择其中一个，Fabric自动插入代码，<br><img src="https://img.blog.csdn.net/20150411211318750" alt="这里写图片描述"></p>
+<p>完成后的项目：<br><img src="https://img.blog.csdn.net/20150411211632986" alt="这里写图片描述"><br>所做的工作<br>在<code>AndroidMafifest.xml </code>自动插入</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;meta-data</span><br><span class="line">    android:name=&quot;io.fabric.ApiKey&quot;</span><br><span class="line">    android:value=&quot;5b0939ef2dee9a0c7aa6368834655ab4d7e9066e&quot; /&gt;</span><br></pre></td></tr></table></figure>
+<p>找到用于 launch 的 Activity ，然后在其 onCreate() 方法中调用 Crashlytics.start() 完成初始化。显然这是个单例模式，只需要初始化一次。当然，你在每个 Activity 中都掉用一次也是没有问题的。</p>
+<h2 id="kits-properties文件"><a href="#kits-properties文件" class="headerlink" title="kits.properties文件"></a><code>kits.properties</code>文件<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># This file describes the kits for your project.</span><br><span class="line"># Commit this and the kits folder into source control.</span><br><span class="line">com.crashlytics.sdk.android:crashlytics:2.2.3</span><br></pre></td></tr></table></figure></h2><p>  crashlytics与<a target="_blank" rel="noopener" href="https://blog.csdn.net/hpu_zyh/article/details/41320499">自定义的UncaughtExceptionHandler</a> 有冲突，解决方法可选择取消自定义的。看<a target="_blank" rel="noopener" href="https://rincliu.com/blog/2013/10/21/crashlytics/">这篇博客</a></p>
+
+      
+    </div>
+</article>
+
+<!-- 上一页 下一页 -->
+
+
+<nav id="article-nav">
+  
+    <a href="/2015/04/25/xmlns_tools/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>上一篇</span>
+      <div class="article-nav-title">
+        
+          Android中的xmlns:tools
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/04/07/Android_MVP_%E5%AD%A6%E4%B9%A0/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>下一篇</span>
+      <div class="article-nav-title">Android MVP 学习</div>
+    </a>
+  
+</nav>
+
+
+
+<!-- 相关文章 -->
+
+<!--
+
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+      			<a href="/2015/04/11/%E5%BA%94%E7%94%A8%E5%BC%82%E5%B8%B8%E5%B4%A9%E6%BA%83%E5%88%86%E6%9E%90%E5%B7%A5%E5%85%B7_--_Crashlytics/">应用异常崩溃分析工具 -- Crashlytics</a>
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+
+-->
+
+
+</section>
+      </div>
+      <footer id="footer">
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      
+      &copy;2024<a target="_blank" rel="noopener" href="https://github.com/hanks-zyh"> Hanks</a>版权所有
+      <br/>
+      <a href="https://beian.miit.gov.cn/" target="_blank">豫ICP备2021022347号</a>
+	  </div>
+  </div>
+ <div id="share">
+  <a id="totop" title="" style="display: block;">返回顶部</a>
+ </div>
+</footer>
+
+    </div>
+    
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/jquery.scrollLoading.js"></script>
+
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/ads.js"></script>
+
+  </div>
+</body>
+</html>

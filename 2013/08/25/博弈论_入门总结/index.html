@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>博弈论 入门总结 | Hanks&#39; Websit</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <script data-ad-client="ca-pub-8165670162444117" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <meta name="referrer" content="never">
+  <meta name="description" content="（收集于网络）  博弈论：是二人或多人在平等的对局中各自利用对方的策略变换自己的对抗策略，达到取胜目标的理论。博弈论是研究互动决策的理论。博弈可以分析自己与对手的利弊关系，从而确立自己在博弈中的优势，因此有不少博弈理论，可以帮助对弈者分析局势，从而采取相应策略，最终达到取胜的目的。（摘自百度百科）  （一）巴什博奕（Bash Game）  只有一堆n个物品，两个人轮流从这堆物品中取物，规定">
+<meta property="og:type" content="article">
+<meta property="og:title" content="博弈论 入门总结">
+<meta property="og:url" content="https://hanks.pub/2013/08/25/%E5%8D%9A%E5%BC%88%E8%AE%BA_%E5%85%A5%E9%97%A8%E6%80%BB%E7%BB%93/index.html">
+<meta property="og:site_name" content="Hanks&#39; Websit">
+<meta property="og:description" content="（收集于网络）  博弈论：是二人或多人在平等的对局中各自利用对方的策略变换自己的对抗策略，达到取胜目标的理论。博弈论是研究互动决策的理论。博弈可以分析自己与对手的利弊关系，从而确立自己在博弈中的优势，因此有不少博弈理论，可以帮助对弈者分析局势，从而采取相应策略，最终达到取胜的目的。（摘自百度百科）  （一）巴什博奕（Bash Game）  只有一堆n个物品，两个人轮流从这堆物品中取物，规定">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://latex.codecogs.com/gif.latex?83%20=%2055%20&#43;%2021%20&#43;%205%20&#43;%202">
+<meta property="article:published_time" content="2013-08-25T04:49:00.000Z">
+<meta property="article:modified_time" content="2024-02-08T01:29:02.198Z">
+<meta property="article:author" content="Hanks">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://latex.codecogs.com/gif.latex?83%20=%2055%20&#43;%2021%20&#43;%205%20&#43;%202">
+  
+  
+  <link href="https://fonts.googleapis.com/css?family=Fira+Code|Noto+Serif+SC&display=swap" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8165670162444117"
+     crossorigin="anonymous"></script>
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo"></a>
+    <nav id="main-nav">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      
+        <a class="main-nav-link" href="/archives">Archive</a>
+      
+        <a class="main-nav-link" href="/eye-video">Eye</a>
+      
+        <a class="main-nav-link" href="/atom.xml">Rss</a>
+      
+    </nav>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/archives" class="mobile-nav-link">Archive</a>
+  
+    <a href="/eye-video" class="mobile-nav-link">Eye</a>
+  
+    <a href="/atom.xml" class="mobile-nav-link">Rss</a>
+  
+</nav>
+      <div class="outer">
+        <section id="main"><article id="post-博弈论_入门总结" class="article article-type-post" itemscope
+  itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <header class="article-header">
+      
+      
+  
+    <h1 class="article-title" itemprop="name">
+      博弈论 入门总结
+    </h1>
+  
+
+      
+    </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:26px">
+</p>
+<p style="font-size:14px; font-family:Arial; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:26px">
+<span style="color:rgb(202,0,0); text-decoration:none; font-size:14px"><strong>（收集于网络）</strong></span></p>
+<p style="font-size:14px; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:26px">
+<span style="font-family:Arial; color:rgb(202,0,0); text-decoration:none; font-size:14px"><strong><span style="color:rgb(51,204,204)"><a target="_blank" target="_blank" href="https://blog.csdn.net/zhangxiang0125/article/details/view/18930.htm" style="color:rgb(202,0,0); text-decoration:none">博弈论</a></span></strong></span><span style="font-size:14px"><span style="font-family:Arial"><strong><span style="color:rgb(51,204,204)">：</span></strong></span><span style="font-family:FangSong_GB2312">是二人或多人在平等的对局中各自利用对方的策略变换自己的对抗策略，达到取胜目标的理论。博弈论是研究互动决策的理论。博弈可以分析自己与对手的利弊关系，从而确立自己在博弈中的优势，因此有不少博弈理论，可以帮助对弈者分析局势，从而采取相应策略，最终达到取胜的目的。</span></span><span style="font-family:FangSong_GB2312; font-size:14px">（摘自百度百科）</span></p>
+<p style="font-size:14px; font-family:Arial; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:26px">
+<span style="font-size:14px">（一）<strong><span style="color:rgb(255,0,0)"><span style="text-decoration:underline">巴什博奕（Bash Game）</span></span></strong></span></p>
+<p style="font-size:14px; font-family:Arial; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:26px">
+<span style="font-size:14px"><span style="color:#008000">只有</span><strong><span style="color:#3333ff">一堆</span></strong><span style="color:#008000">n个物品，两个人轮流从这堆物品中取物，规定每次</span><strong><span style="color:#3333ff">至少取一个</span></strong><span style="color:#008000">，</span><strong><span style="color:#3333ff">最多取m个</span></strong><span style="color:#008000">。最后</span><strong><span style="color:#3333ff">取光者得胜</span></strong><span style="color:#008000">。</span></span></p>
+<p style="font-size:14px; font-family:Arial; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:26px">
+<span style="font-size:14px"><br>
+</span></p>
+<p style="font-size:14px; font-family:Arial; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:26px">
+<span style="font-size:14px">显然，如果n=m&#43;1，那么由于一次最多只能取m个，所以，无论先取者拿走多少个，后取者都能够一次拿走剩余的物品，后者取胜。因此我们发现了如何取胜的法则：</span><span style="font-size:14px">每个回合时m&#43;1个，</span><span style="font-size:14px">如果</span><span style="font-size:14px; color:rgb(0,128,0)">n=（m&#43;1)*r&#43;s</span><span style="font-size:14px">，（r为任意自然数，s≤m),那么先取者要拿走s个物品，如果后取者拿走k（≤m)个，那么先取者再拿走m&#43;1-k个，结果剩下（m&#43;1）（r-1）个，以后保持这样的取法，那么先取者肯定获胜。总之，要保持给对手留下（m&#43;1）的倍数，就能最后获胜。</span></p>
+<p style="font-size:14px; font-family:Arial; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:26px">
+<span style="font-size:14px">&nbsp; &nbsp; 这个游戏还可以有一种变相的玩法：两个人轮流报数，每次至少报一个，最多报十<br>
+个，谁能报到100者胜。</span></p>
+<p style="font-size:14px; font-family:Arial; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:26px">
+<span style="font-size:14px"><br>
+巴什博弈博弈论里面最简单的一种形式。以下题目利用巴什博弈可以轻松解决：</span></p>
+<p style="font-size:14px; font-family:Arial; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:26px">
+<span style="font-size:14px">1.&nbsp;<a target="_blank" target="_blank" href="https://acm.hdu.edu.cn/showproblem.php?pid=1846" style="color:rgb(202,0,0); text-decoration:none">https://acm.hdu.edu.cn/showproblem.php?pid=1846</a>&nbsp;（brave game）</span></p>
+<p style="font-size:14px; font-family:Arial; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:26px">
+<span style="font-size:14px">2.&nbsp;<a target="_blank" target="_blank" href="https://acm.hdu.edu.cn/showproblem.php?pid=2147" style="color:rgb(202,0,0); text-decoration:none">https://acm.hdu.edu.cn/showproblem.php?pid=2147</a>&nbsp;（kiki's game）</span></p>
+<p style="font-size:14px; font-family:Arial; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:26px">
+<span style="font-size:14px">3.&nbsp;<a target="_blank" target="_blank" href="https://acm.hdu.edu.cn/showproblem.php?pid=2149" style="color:rgb(202,0,0); text-decoration:none">https://acm.hdu.edu.cn/showproblem.php?pid=2149</a>&nbsp;（public sale）</span></p>
+<p style="font-size:14px; font-family:Arial; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:26px">
+<span style="font-size:14px">4.&nbsp;<a target="_blank" target="_blank" href="https://acm.hdu.edu.cn/showproblem.php?pid=2188" style="color:rgb(202,0,0); text-decoration:none">https://acm.hdu.edu.cn/showproblem.php?pid=2188</a>&nbsp;（选拔志愿者）</span></p>
+<p style="font-size:14px; font-family:Arial; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:26px">
+<span style="font-size:14px"><br>
+</span></p>
+<p style="font-size:14px; font-family:Arial; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:26px">
+<span style="font-size:14px">下面介绍分析此类题目的通用方法：P/N分析：</span></p>
+<p style="font-size:14px; font-family:Arial; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:26px">
+<span style="font-size:14px">P点： 即必败点，某玩家位于此点，只要对方无失误，则必败；</span></p>
+<p style="font-size:14px; font-family:Arial; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:26px">
+<span style="font-size:14px">N点： 即必胜点，某玩家位于此点，只要自己无失误，则必胜。</span></p>
+<p style="font-size:14px; font-family:Arial; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:26px">
+<span style="font-size:14px">三个定理：</span></p>
+<p style="font-size:14px; font-family:Arial; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:26px">
+<span style="font-size:14px">定理：</span></p>
+<p style="font-size:14px; font-family:Arial; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:26px">
+<span style="font-size:14px">&nbsp;&nbsp;&nbsp;&nbsp; 一、 所有终结点都是必败点P（上游戏中，轮到谁拿牌，还剩0张牌的时候，此人就输了，因为无牌可取）；</span></p>
+<p style="font-size:14px; font-family:Arial; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:26px">
+<span style="font-size:14px">&nbsp;&nbsp;&nbsp; 二、所有一步能走到必败点P的就是N点；</span></p>
+<p style="font-size:14px; font-family:Arial; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:26px">
+<span style="font-size:14px">&nbsp;&nbsp;&nbsp; 三、通过一步操作只能到N点的就是P点；</span></p>
+<p style="font-size:14px; font-family:Arial; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:26px">
+<span style="font-size:14px">如：</span></p>
+<p style="font-size:14px; font-family:Arial; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:26px">
+<span style="font-size:14px"></span></p>
+<div>
+<div>Subtraction Games:</div>
+<div>subtraction set S = {1, 3, 4}</div>
+</div>
+<p></p>
+<p style="font-size:14px; font-family:Arial; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:26px">
+<span style="font-size:14px"></span></p>
+<div>
+<div><span style="color:red">x </span><span style="color:red">:&nbsp;&nbsp; </span><span style="color:red">0 1</span><span style="color:red">&nbsp;</span><span style="color:red">2 3 4</span><span style="color:red">&nbsp;</span><span style="color:red">5 6 7 8</span><span style="color:red">&nbsp;</span><span style="color:red">9
+ 10 11 12 13 14</span><span style="color:red">…</span></div>
+<div><span style="color:red">Pos</span><span style="color:red">:</span><span style="color:red"> P N P N N N N P N P</span><span style="color:red">&nbsp;</span><span style="color:red">N</span><span style="color:red">&nbsp;</span><span style="color:red">N</span><span style="color:red">&nbsp;&nbsp;</span><span style="color:red">N</span><span style="color:red">&nbsp;</span><span style="color:red">N</span><span style="color:red">&nbsp;</span><span style="color:red">P</span><span style="color:red">…</span></div>
+</div>
+<br>
+<p></p>
+<p style="font-size:14px; font-family:Arial; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:26px">
+<span style="font-size:14px">以上题目均可以通过P/N分析法来解决。</span></p>
+<p style="font-size:14px; font-family:Arial; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:26px">
+<span style="font-size:14px">这几个题目都非常的简单。下面仅对2149做简单分析：（P/N分析也可以）</span></p>
+<p style="font-size:14px; font-family:Arial; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:26px">
+<span style="font-size:14px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 首先明确使用巴什博弈有个前提（特点）每次拿的数量是从1-m的不间断整数开始的。注意这一点很重要。无此条件巴什博弈不成立！</span></p>
+<p style="font-size:14px; font-family:Arial; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:26px">
+<span style="font-size:14px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 其实这个题目稍微动动脑就可以把它转换为巴什博弈（特点明显）。你就假设两人拍卖的时候是从给定的最高价开始—谁先拍卖到0谁就就是胜者。需要注意的是我们对特殊情况的考虑。</span></p>
+<p style="font-family:Arial; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:26px">
+<span style="font-family:Verdana,Arial,Helvetica,sans-serif; line-height:19px; background-color:rgb(254,254,242)"><strong><span style="font-size:18px; color:#ff0000"><u>（二）Fibonacci’s Game（斐波那契博弈）</u></span></strong></span><br>
+</p>
+<p style="font-family:Arial; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:26px">
+<span style="font-family:Verdana,Arial,Helvetica,sans-serif; line-height:19px; background-color:rgb(254,254,242)"><strong><span style="font-size:18px; color:#ff0000"><u><br>
+</u></span></strong></span></p>
+<blockquote style="margin:0 0 0 40px; border:none; padding:0px">
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:26px">
+</p>
+<p style="font-family:Arial; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:26px">
+<span style="font-family:Verdana,Arial,Helvetica,sans-serif; line-height:19px; background-color:rgb(254,254,242)"></span></p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; font-family:Arial; line-height:26px">
+<span style="font-size:14px"><span style="color:#009900">有</span><strong><span style="color:#3333ff">一堆</span></strong><span style="color:#009900">个数为n的石子，游戏双方轮流取石子，满足：</span></span></p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:26px">
+</p>
+<p style="font-family:Arial; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:26px">
+<span style="font-family:Verdana,Arial,Helvetica,sans-serif; line-height:19px; background-color:rgb(254,254,242)"></span></p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; font-family:Arial; line-height:26px">
+<span style="font-size:14px; color:#009900">1)先手不能在第一次把所有的石子取完；</span></p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:26px">
+</p>
+<p style="font-family:Arial; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:26px">
+<span style="font-family:Verdana,Arial,Helvetica,sans-serif; line-height:19px; background-color:rgb(254,254,242)"></span></p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; font-family:Arial; line-height:26px">
+<span style="font-size:14px"><span style="color:#009900">2)</span><strong><span style="color:#3333ff">之后每次</span></strong><span style="color:#009900">可以取的石子数介于</span><span style="color:#3333ff"><strong>1到对手刚取的石子数的2倍之间</strong></span><span style="color:#009900">（包含1和对手刚取的石子数的2倍）。</span></span></p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; font-family:Arial; line-height:26px">
+<span style="font-size:14px"><span style="color:#009900"><br>
+</span></span></p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:26px">
+</p>
+<p style="font-family:Arial; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:26px">
+<span style="font-family:Verdana,Arial,Helvetica,sans-serif; line-height:19px; background-color:rgb(254,254,242)"></span></p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; font-family:Arial; line-height:26px">
+<span style="font-size:14px">约定取走最后一个石子的人为赢家，求必败态。</span></p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:26px">
+</p>
+<p style="font-family:Arial; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:26px">
+<span style="font-family:Verdana,Arial,Helvetica,sans-serif; line-height:19px; background-color:rgb(254,254,242)"></span></p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; font-family:Arial; line-height:26px">
+<span style="font-size:14px">这个和之前的Wythoff’s Game 和取石子游戏 有一个很大的不同点，就是游戏规则的动态化。之前的规则中，每次可以取的石子的策略集合是基本固定的，但是这次有规则2：一方每次可以取的石子数依赖于对手刚才取的石子数。</span></p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:26px">
+</p>
+<p style="font-family:Arial; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:26px">
+<span style="font-family:Verdana,Arial,Helvetica,sans-serif; line-height:19px; background-color:rgb(254,254,242)"></span></p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; font-family:Arial; line-height:26px">
+<span style="font-size:14px">这个游戏叫做Fibonacci Nim，肯定和Fibonacci数列：f[n]：1,2,3,5,8,13,21,34,55,89,…&nbsp;有密切的关系。如果试验一番之后，可以猜测：先手胜当且仅当n不是Fibonacci数。换句话说，必败态构成Fibonacci数列。</span></p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:26px">
+</p>
+<p style="font-family:Arial; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:26px">
+<span style="font-family:Verdana,Arial,Helvetica,sans-serif; line-height:19px; background-color:rgb(254,254,242)"></span></p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; font-family:Arial; line-height:26px">
+<span style="font-size:14px">就像“Wythoff博弈”需要“Beatty定理”来帮忙一样，这里需要借助“Zeckendorf定理”（齐肯多夫定理）：任何正整数可以表示为若干个不连续的Fibonacci数之和。定理的证明可以在<a target="_blank" target="_blank" href="https://zh.wikipedia.org/wiki/%E9%BD%8A%E8%82%AF%E5%A4%9A%E5%A4%AB%E5%AE%9A%E7%90%86">这里</a>&nbsp;看到，不过我觉得更重要的是自己动手分解一下。</span></p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:26px">
+</p>
+<p style="font-family:Arial; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:26px">
+<span style="font-family:Verdana,Arial,Helvetica,sans-serif; line-height:19px; background-color:rgb(254,254,242)"></span></p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; font-family:Arial; line-height:26px">
+<span style="font-size:14px">比如，我们要分解83，注意到83被夹在55和89之间，于是把83可以写成83=55&#43;28；然后再想办法分解28，28被夹在21和34之间，于是28=21&#43;7；依此类推 7=5&#43;2，故<img alt="" src="https://latex.codecogs.com/gif.latex?83%20=%2055%20&#43;%2021%20&#43;%205%20&#43;%202" style="border:none; max-width:100%">&nbsp;；</span></p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:26px">
+</p>
+<p style="font-family:Arial; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:26px">
+<span style="font-family:Verdana,Arial,Helvetica,sans-serif; line-height:19px; background-color:rgb(254,254,242)"></span></p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; font-family:Arial; line-height:26px">
+<span style="font-size:14px">如果n=83，我们看看这个分解有什么指导意义：假如先手取2颗，那么后手无法取5颗或更多，而5是一个Fibonacci数，如果猜测正确的话，（面临这5颗的先手实际上是整个游戏的后手）那么一定是先手取走这5颗石子中的最后一颗，而这个我们可以通过第二类归纳法来绕过，同样的道理，接下去先手取走接下来的后21颗中的最后一颗，再取走后55颗中的最后一颗，那么先手赢。</span></p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:26px">
+</p>
+<p style="font-family:Arial; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:26px">
+<span style="font-family:Verdana,Arial,Helvetica,sans-serif; line-height:19px; background-color:rgb(254,254,242)"></span></p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; font-family:Arial; line-height:26px">
+<span style="font-size:14px">反过来如果n是Fibonacci数，比如n=89：记先手一开始所取的石子数为y，若y&gt;=34颗（也就是89的向前两项），那么一定后手赢，因为89-34=55=34&#43;21&lt;2*34，所以只需要考虑先手第一次取得石子数y&lt;34的情况即可，所以现在剩下的石子数x介于55到89之间，它一定不是一个Fibonacci数，于是我们把x分解成Fibonacci数：x=55&#43;f[i]&#43;…&#43;f[j]，若，如果f[j]&lt;=2y，那么对B就是面临x局面的先手，所以根据之前的分析，B只要先取f[j]个即可，以后再按之前的分析就可保证必胜。</span></p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:26px">
+</p>
+<p style="font-family:Arial; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:26px">
+<span style="font-family:Verdana,Arial,Helvetica,sans-serif; line-height:19px; background-color:rgb(254,254,242)"></span></p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; font-family:Arial; line-height:26px">
+<span style="font-size:14px">下证：f[j]&lt;=2y</span></p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:26px">
+</p>
+<p style="font-family:Arial; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:26px">
+<span style="font-family:Verdana,Arial,Helvetica,sans-serif; line-height:19px; background-color:rgb(254,254,242)"></span></p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; font-family:Arial; line-height:26px">
+<span style="font-size:14px">反证法：假设f[j]&gt;2y，则 y &lt; f[j]/2 = (f[j-1] &#43; f[j-2])/2 &lt; f[j-1]</span></p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:26px">
+</p>
+<p style="font-family:Arial; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:26px">
+<span style="font-family:Verdana,Arial,Helvetica,sans-serif; line-height:19px; background-color:rgb(254,254,242)"></span></p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; font-family:Arial; line-height:26px">
+<span style="font-size:14px">而最初的石子数是个斐波那契数，即 f[k]=x&#43;y &lt; f[k-1]&#43;f[i]&#43;…&#43;f[j]&#43;f[j-1] &lt;= f[k-1]&#43;f[i]&#43;f[i-1] &lt;= f[k-1]&#43;f[k-2] &lt;= f[k] （注意第一个不等号是严&#26684;的，矛盾！）</span></p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; font-family:Arial; line-height:26px">
+<a target="_blank" target="_blank" href="https://acm.nyist.net/JudgeOnline/problem.php?pid=135"><span style="font-size:12px">https://acm.nyist.net/JudgeOnline/problem.php?pid=135</span></a><br>
+</p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; font-family:Arial; line-height:26px">
+<a target="_blank" target="_blank" href="https://acm.hdu.edu.cn/showproblem.php?pid=2516">https://acm.hdu.edu.cn/showproblem.php?pid=2516</a><br>
+</p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; font-family:Arial; line-height:26px">
+<span style="font-size:14px"><span style="font-family:Verdana,Arial,Helvetica,sans-serif; font-size:13px; line-height:19px; background-color:rgb(254,254,242)">（转）分析：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><br style="margin:0px; padding:0px; font-family:Verdana,Arial,Helvetica,sans-serif; font-size:13px; line-height:19px; background-color:rgb(254,254,242)">
+<span style="font-family:Verdana,Arial,Helvetica,sans-serif; font-size:13px; line-height:19px; background-color:rgb(254,254,242)">&nbsp;n = 2时输出second；&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><br style="margin:0px; padding:0px; font-family:Verdana,Arial,Helvetica,sans-serif; font-size:13px; line-height:19px; background-color:rgb(254,254,242)">
+<span style="font-family:Verdana,Arial,Helvetica,sans-serif; font-size:13px; line-height:19px; background-color:rgb(254,254,242)">&nbsp;n = 3时也是输出second；&nbsp;</span><br style="margin:0px; padding:0px; font-family:Verdana,Arial,Helvetica,sans-serif; font-size:13px; line-height:19px; background-color:rgb(254,254,242)">
+<span style="font-family:Verdana,Arial,Helvetica,sans-serif; font-size:13px; line-height:19px; background-color:rgb(254,254,242)">&nbsp;n = 4时，第一个人想获胜就必须先拿1个，这时剩余的石子数为3，此时无论第二个人如何取，第一个人都能赢，输出first；&nbsp;</span><br style="margin:0px; padding:0px; font-family:Verdana,Arial,Helvetica,sans-serif; font-size:13px; line-height:19px; background-color:rgb(254,254,242)">
+<span style="font-family:Verdana,Arial,Helvetica,sans-serif; font-size:13px; line-height:19px; background-color:rgb(254,254,242)">&nbsp;n = 5时，first不可能获胜，因为他取2时，second直接取掉剩下的3个就会获胜，当他取1时，这样就变成了n为4的情形，所以输出的是second；&nbsp;&nbsp;&nbsp;</span><br style="margin:0px; padding:0px; font-family:Verdana,Arial,Helvetica,sans-serif; font-size:13px; line-height:19px; background-color:rgb(254,254,242)">
+<span style="font-family:Verdana,Arial,Helvetica,sans-serif; font-size:13px; line-height:19px; background-color:rgb(254,254,242)">&nbsp;n = 6时，first只要去掉1个，就可以让局势变成n为5的情形，所以输出的是first；&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><br style="margin:0px; padding:0px; font-family:Verdana,Arial,Helvetica,sans-serif; font-size:13px; line-height:19px; background-color:rgb(254,254,242)">
+<span style="font-family:Verdana,Arial,Helvetica,sans-serif; font-size:13px; line-height:19px; background-color:rgb(254,254,242)">&nbsp;n = 7时，first取掉2个，局势变成n为5的情形，故first赢，所以输出的是first；&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><br style="margin:0px; padding:0px; font-family:Verdana,Arial,Helvetica,sans-serif; font-size:13px; line-height:19px; background-color:rgb(254,254,242)">
+<span style="font-family:Verdana,Arial,Helvetica,sans-serif; font-size:13px; line-height:19px; background-color:rgb(254,254,242)">&nbsp;n = 8时，当first取1的时候，局势变为7的情形，第二个人可赢，first取2的时候，局势变成n为6得到情形，也是第二个人赢，取3的时候，second直接取掉剩下的5个，所以n = 8时，输出的是second；&nbsp;&nbsp;&nbsp;&nbsp;</span><br style="margin:0px; padding:0px; font-family:Verdana,Arial,Helvetica,sans-serif; font-size:13px; line-height:19px; background-color:rgb(254,254,242)">
+<span style="font-family:Verdana,Arial,Helvetica,sans-serif; font-size:13px; line-height:19px; background-color:rgb(254,254,242)">&nbsp;…………&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><br style="margin:0px; padding:0px; font-family:Verdana,Arial,Helvetica,sans-serif; font-size:13px; line-height:19px; background-color:rgb(254,254,242)">
+<span style="font-family:Verdana,Arial,Helvetica,sans-serif; font-size:13px; line-height:19px; background-color:rgb(254,254,242)">&nbsp;从上面的分析可以看出，n为2、3、5、8时，这些都是输出second，即必败点，仔细的人会发现这些满足斐波那契数的规律，可以推断13也是一个必败点。&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><br style="margin:0px; padding:0px; font-family:Verdana,Arial,Helvetica,sans-serif; font-size:13px; line-height:19px; background-color:rgb(254,254,242)">
+<span style="font-family:Verdana,Arial,Helvetica,sans-serif; font-size:13px; line-height:19px; background-color:rgb(254,254,242)">&nbsp;借助“Zeckendorf定理”（齐肯多夫定理）：任何正整数可以表示为若干个不连续的Fibonacci数之和。n=12时，只要谁能使石子剩下8且此次取子没超过3就能获胜。因此可以把12看成8&#43;4，把8看成一个站，等价与对4进行&quot;气喘操作&quot;。又如13，13=8&#43;5，5本来就是必败态，得出13也是必败态。也就是说，只要是斐波那契数，都是必败点。</span><br style="margin:0px; padding:0px; font-family:Verdana,Arial,Helvetica,sans-serif; font-size:13px; line-height:19px; background-color:rgb(254,254,242)">
+<span style="font-family:Verdana,Arial,Helvetica,sans-serif; font-size:13px; line-height:19px; background-color:rgb(254,254,242)">所以我们可以利用斐波那契数的公式：fib[i] = fib[i-1] &#43; fib[i-2]，只要n是斐波那契数就输出second。</span><br>
+</span></p>
+</blockquote>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:26px">
+</p>
+<p style="font-family:Arial; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:26px">
+<span style="font-family:Verdana,Arial,Helvetica,sans-serif; line-height:19px; background-color:rgb(254,254,242)"><br>
+</span></p>
+<p style="font-size:14px; font-family:Arial; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:26px">
+<span style="font-size:14px; color:rgb(255,0,0)"><strong><br>
+</strong></span></p>
+<p style="font-size:14px; font-family:Arial; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:26px">
+<span style="font-size:14px; color:rgb(255,0,0)"><strong>（三）威佐夫博奕（Wythoff Game）</strong></span></p>
+<p style="font-size:14px; font-family:Arial; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:26px">
+<span style="font-size:10px"><span style="font-size:14px"><span style="color:#008000">有</span><strong><span style="color:#3333ff">两堆</span></strong><span style="color:#008000">各若干个物品，两个人轮流从</span><strong><span style="color:#3333ff">某一堆或同</span></strong></span></span><span style="font-size:14px"><strong><span style="color:#3333ff">时从两堆中取同样多的物品</span></strong><span style="color:#008000">，规定每次</span><span style="color:#3333ff">至少取一个，多者不限</span><span style="color:#008000">，最后</span><span style="color:#3333ff"><strong>取光者得胜。</strong></span></span></p>
+<p style="font-size:14px; font-family:Arial; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:26px">
+<span style="font-size:14px"><span style="font-size:10px"><span style="font-size:14px"><br>
+&nbsp; &nbsp; 这种情况下是颇为复杂的。我们用（ak，bk）（ak ≤ bk ,k=0，1，2，…,n)表示两堆物品的数量并称其为<strong>局势</strong>，如果甲面对（0，0），那么甲已经输了，这种局势我们称为<strong>奇异局势</strong>。前几个奇异局势是：（0，0）、（1，2）、（3，5）、（4，7）、（6，10）、（8，13）、（9，15）、（11，18）、（12，20）。</span></span></span></p>
+<p style="font-size:14px; font-family:Arial; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:26px">
+<span style="font-size:14px">&nbsp; &nbsp; 可以看出,a0=b0=0,ak是未在前面出现过的最小自然数,而 bk= ak &#43; k，奇异局势有<br>
+如下三条性质：</span></p>
+<p style="font-size:14px; font-family:Arial; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:26px">
+<span style="font-size:14px">&nbsp; &nbsp; 1。任何自然数都包含在一个且仅有一个奇异局势中。<br>
+&nbsp; &nbsp; 由于ak是未在前面出现过的最小自然数，所以有ak &gt; ak-1 ，而 bk= ak &#43; k &gt; ak-1 &#43; k-1 = bk-1 &gt; ak-1 。所以性质1。成立。<br>
+&nbsp; &nbsp; 2。任意操作都可将奇异局势变为非奇异局势。<br>
+&nbsp; &nbsp; 事实上，若只改变奇异局势（ak，bk）的某一个分量，那么另一个分量不可能在其他奇异局势中，所以必然是非奇异局势。如果使（ak，bk）的两个分量同时减少，则由于其差不变，且不可能是其他奇异局势的差，因此也是非奇异局势。<br>
+&nbsp; &nbsp; 3。采用适当的方法，可以将非奇异局势变为奇异局势。</span></p>
+<p style="font-size:14px; font-family:Arial; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:26px">
+<span style="font-size:14px">&nbsp; &nbsp; 假设面对的局势是（a,b），若 b = a，则同时从两堆中取走 a 个物体，就变为了奇异局势（0，0）；如果a = ak ，b &gt; bk，那么，取走b&nbsp; – bk个物体，即变为奇异局势；如果 a = ak ，&nbsp; b &lt; bk ,则同时从两堆中拿走 ak – ab – ak个物体,变为奇异局势（ ab – ak , ab – ak&#43; b – ak）；如果a &gt; ak ，b= ak &#43; k,则从第一堆中拿走多余的数量a – ak 即可；如果a &lt;
+ ak ，b= ak &#43; k,分两种情况，第一种，a=aj （j &lt; k）,从第二堆里面拿走 b – bj 即可；第二种，a=bj （j &lt; k）,从第二堆里面拿走 b – aj 即可。</span></p>
+<p style="font-size:14px; font-family:Arial; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:26px">
+<span style="font-size:14px">&nbsp; &nbsp; 从如上性质可知，两个人如果都采用正确操作，那么面对非奇异局势，先拿者必胜；反之，则后拿者取胜。</span></p>
+<p style="font-size:14px; font-family:Arial; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:26px">
+<span style="font-size:14px">&nbsp; &nbsp; 那么任给一个局势（a，b），怎样判断它是不是奇异局势呢？我们有如下公式：</span></p>
+<p style="font-size:14px; font-family:Arial; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:26px">
+<span style="font-size:14px">&nbsp; &nbsp;&nbsp;</span><span style="font-size:14px"><span style="color:rgb(0,128,0)">ak =[k（1&#43;√5）/2]，bk= ak &#43; k&nbsp; （k=0，1，2，…,n 方括号表示取整函数)<br>
+</span>奇妙的是其中出现了黄金分割数（1&#43;√5）/2 = 1。618…,因此,由ak，bk组成的矩形近&#20284;为黄金矩形，由于2/（1&#43;√5）=（√5-1）/2，可以先求出j=[a（√5-1）/2]，若a=[（1&#43;√5）/2]，那么a = aj，bj = aj &#43; j，若不等于，那么a = aj&#43;1，bj&#43;1 = aj&#43;1&#43; j &#43; 1，若都不是，那么就不是奇异局势。然后再按照上述法则进行，一定会遇到奇异局势。</span></p>
+<p style="font-size:14px; font-family:Arial; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:26px">
+<span style="font-size:14px"><a target="_blank" target="_blank" href="https://acm.nyist.net/JudgeOnline/problem.php?pid=161">https://acm.nyist.net/JudgeOnline/problem.php?pid=161</a><br>
+</span></p>
+<p style="font-size:14px; font-family:Arial; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:26px">
+<span style="font-size:14px"><br>
+</span></p>
+<p style="font-size:14px; font-family:Arial; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:26px">
+<span style="font-size:14px"><br>
+</span></p>
+<p style="font-size:14px; font-family:Arial; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:26px">
+<span style="font-size:14px">&nbsp;</span></p>
+<p style="font-size:14px; font-family:Arial; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:26px">
+<span style="font-size:14px">（三）<span style="color:rgb(255,0,0)"><strong><span style="text-decoration:underline">&#23612;姆博奕（Nimm Game）</span></strong></span></span></p>
+<p style="font-size:14px; font-family:Arial; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:26px">
+<span style="font-size:14px"><span style="color:#008000">有</span><strong><span style="color:#3333ff">三堆</span></strong><span style="color:#008000">各若干个物品，两个人轮流从</span><span style="color:#3333ff"><strong>某一堆取任意多</strong></span><span style="color:#008000">的物品，规定每次</span><span style="color:#3333ff">至少取一个，多者不限</span><span style="color:#008000">，最后</span><strong><span style="color:#3333ff">取光者得胜</span></strong><span style="color:#008000">。</span></span></p>
+<p style="font-size:14px; font-family:Arial; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:26px">
+<span style="font-size:14px">&nbsp; &nbsp; 这种情况最有意思，它与二进制有密切关系，我们用（a，b，c）表示某种局势，首先（0，0，0）显然是奇异局势，无论谁面对奇异局势，都必然失败。第二种奇异局势是（0，n，n），只要与对手拿走一样多的物品，最后都将导致（0，0，0）。仔细分析一下，（1，2，3）也是奇异局势，无论对手如何拿，接下来都可以变为（0，n，n）的情形。</span></p>
+<p style="font-size:14px; font-family:Arial; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:26px">
+<span style="font-size:14px">&nbsp; &nbsp; 计算机算法里面有一种叫做按位模2加，也叫做异或的运算，我们用符号（&#43;）表示这种运算。这种运算和一般加法不同的一点是1&#43;1=0。先看（1，2，3）的按位模2加的结果：</span></p>
+<p style="font-size:14px; font-family:Arial; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:26px">
+<span style="font-size:14px">1 =二进制01<br>
+2 =二进制10<br>
+3 =二进制11 （&#43;）<br>
+———————<br>
+0 =二进制00 （注意不进位）</span></p>
+<p style="font-size:14px; font-family:Arial; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:26px">
+<span style="font-size:14px">&nbsp; &nbsp; 对于奇异局势（0，n，n）也一样，结果也是0。</span></p>
+<p style="font-size:14px; font-family:Arial; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:26px">
+<span style="font-size:14px">&nbsp; &nbsp; 任何奇异局势（a，b，c）都有a（&#43;）b（&#43;）c =0。</span></p>
+<p style="font-size:14px; font-family:Arial; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:26px">
+<span style="font-size:14px">如果我们面对的是一个非奇异局势（a，b，c），要如何变为奇异局势呢？假设 a &lt; b&lt; c,我们只要将 c 变为 a（&#43;）b,即可,因为有如下的运算结果: a（&#43;）b（&#43;）(a（&#43;）b)=(a（&#43;）a)（&#43;）(b（&#43;）b)=0（&#43;）0=0。要将c 变为a（&#43;）b，</span><span style="font-size:14px"><span style="color:rgb(0,128,0)">只要从 c中减去 c-（a（&#43;）b）即可。<br>
+</span><br>
+&nbsp; &nbsp; 例1。（14，21，39），14（&#43;）21=27，39-27=12，所以从39中拿走12个物体即可达到奇异局势（14，21，27）。</span></p>
+<p style="font-size:14px; font-family:Arial; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:26px">
+<span style="font-size:14px">&nbsp; &nbsp; 例2。（55，81，121），55（&#43;）81=102，121-102=19，所以从121中拿走19个物品<br>
+就形成了奇异局势（55，81，102）。</span></p>
+<p style="font-size:14px; font-family:Arial; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:26px">
+<span style="font-size:14px">&nbsp; &nbsp; 例3。（29，45，58），29（&#43;）45=48，58-48=10，从58中拿走10个，变为（29，4<br>
+5，48）。</span></p>
+<p style="font-size:14px; font-family:Arial; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:26px">
+<span style="font-size:14px">下面先是一道简单的&#23612;姆博弈题目</span></p>
+<p style="font-size:14px; font-family:Arial; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:26px">
+<a target="_blank" target="_blank" href="https://acm.hdu.edu.cn/showproblem.php?pid=1850" style="color:rgb(202,0,0); text-decoration:none"><span style="font-size:14px">https://acm.hdu.edu.cn/showproblem.php?pid=1850</span></a></p>
+<p style="font-size:14px; font-family:Arial; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:26px">
+<span style="font-size:14px">只要运用上面的知识即可解决（具体细节见代码）</span></p>
+<p style="font-size:14px; font-family:Arial; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:26px">
+<br>
+<br>
+</p>
+<p style="font-size:14px; font-family:Arial; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:26px">
+<span style="font-size:14px">&nbsp;</span></p>
+<p style="font-size:14px; font-family:Arial; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:26px">
+<span style="font-size:14px">然而这并不是博弈的重点，LCY老师讲到博弈之王道乃是SG&#20540;（具体见</span><a target="_blank" target="_blank" id="url_5" href="https://acm.hdu.edu.cn/forum/read.php?tid=6875" style="color:rgb(202,0,0); text-decoration:none"><span style="color:rgb(49,52,40)"><span style="font-size:14px">&nbsp;https://acm.hdu.edu.cn/forum/read.php?tid=6875</span></span></a><span style="font-size:14px">）。</span></p>
+<p style="font-size:14px; font-family:Arial; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:26px">
+<span style="font-size:14px">SG&#20540;：一个点的SG&#20540;就是一个不等于它的后继点的SG的且大于等于零的最小整数。</span></p>
+<p style="font-size:14px; font-family:Arial; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:26px">
+<span style="font-size:14px">我的理解：在步骤允许的情况下，与前面一个必败点的差（也就是说这个差是规定的、能走的、其中一个步数）！<br>
+后继点：也就是按照题目要求的走法（比如取石子可以取的数量，方法）能够走一步达到的那个点。（sg&#20540;的理解很抽象。我的队友mo、xi说多画画就可以了）<br>
+现在我们拿</span><a target="_blank" target="_blank" href="https://acm.hdu.edu.cn/showproblem.php?pid=1847" style="color:rgb(202,0,0); text-decoration:none"><span style="font-size:14px">https://acm.hdu.edu.cn/showproblem.php?pid=1847</span></a><span style="font-size:14px">这道题分析一下。</span></p>
+<p style="font-size:14px; font-family:Arial; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:26px">
+<span style="font-size:14px">我们枚举下牌数为2-10的sg&#20540;：（SG(x)=mex{SG(x-S[i])}。）</span></p>
+<p style="font-size:14px; font-family:Arial; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:26px">
+<span style="font-size:14px">num： 2&nbsp;&nbsp;&nbsp;&nbsp; 3&nbsp;&nbsp;&nbsp;&nbsp; 4&nbsp;&nbsp;&nbsp;&nbsp; 5&nbsp;&nbsp;&nbsp;&nbsp; 6&nbsp;&nbsp;&nbsp;&nbsp; 7&nbsp;&nbsp;&nbsp;&nbsp; 8&nbsp;&nbsp;&nbsp;&nbsp; 9&nbsp;&nbsp;&nbsp;&nbsp; 10&nbsp;</span></p>
+<p style="font-size:14px; font-family:Arial; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:26px">
+<span style="font-size:14px">sg&#20540;： 2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2&nbsp;&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1&nbsp;&nbsp;&nbsp;&nbsp; 2&nbsp;&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1</span></p>
+<p style="font-size:14px; font-family:Arial; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:26px">
+<span style="font-size:14px">具体的代码如下：（当然这题用P/N分析要简单得多，这里仅理解sg&#20540;）</span></p>
+<p style="font-size:14px; font-family:Arial; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:26px">
+</p>
+<div class="dp-highlighter bg_cpp" style="font-size:14px; font-family:Consolas,'Courier New',Courier,mono,serif; background-color:rgb(231,229,220); width:918.7166748046875px; overflow:auto; padding-top:1px; margin:18px 0px!important">
+<div class="bar" style="padding-left:45px">
+<div class="tools" style="padding:3px 8px 10px 10px; font-size:9px; font-family:Verdana,Geneva,Arial,Helvetica,sans-serif; color:silver; background-color:rgb(248,248,248); border-left-width:3px; border-left-style:solid; border-left-color:rgb(108,226,108)">
+<strong>[cpp]</strong>&nbsp;<a target="_blank" target="_blank" href="https://blog.csdn.net/zhangxiang0125/article/details/6174639#" class="ViewSource" title="view plain" style="color:rgb(160,160,160); text-decoration:none; background-color:inherit; border:none; padding:1px; margin:0px 10px 0px 0px; font-size:9px; display:inline-block; width:16px; height:16px; text-indent:-2000px">view
+ plain</a><a target="_blank" target="_blank" href="https://blog.csdn.net/zhangxiang0125/article/details/6174639#" class="CopyToClipboard" title="copy" style="color:rgb(160,160,160); text-decoration:none; background-color:inherit; border:none; padding:1px; margin:0px 10px 0px 0px; font-size:9px; display:inline-block; width:16px; height:16px; text-indent:-2000px">copy</a>
+<div style="position:absolute; left:377px; top:3927px; width:18px; height:18px; z-index:99">
+</div>
+</div>
+</div>
+<ol start="1" class="dp-cpp" style="margin:0px 0px 1px 45px!important; padding:0px; border:none; list-style-position:initial; background-color:rgb(255,255,255); color:rgb(92,92,92)">
+<li class="alt" style="margin:0px!important; padding:0px 3px 0px 10px!important; border-style:none none none solid; border-left-width:3px; border-left-color:rgb(108,226,108); list-style:decimal-leading-zero outside; color:inherit; line-height:18px">
+<span style="margin:0px; padding:0px; border:none; color:black; background-color:inherit"><span class="preprocessor" style="margin:0px; padding:0px; border:none; color:gray; background-color:inherit">#include&lt;cstdio&gt;</span><span style="margin:0px; padding:0px; border:none; background-color:inherit">&nbsp;&nbsp;</span></span></li><li style="margin:0px!important; padding:0px 3px 0px 10px!important; border-style:none none none solid; border-left-width:3px; border-left-color:rgb(108,226,108); list-style:decimal-leading-zero outside; background-color:rgb(248,248,248); line-height:18px">
+<span style="margin:0px; padding:0px; border:none; color:black; background-color:inherit"><span class="preprocessor" style="margin:0px; padding:0px; border:none; color:gray; background-color:inherit">#include&lt;algorithm&gt;</span><span style="margin:0px; padding:0px; border:none; background-color:inherit">&nbsp;&nbsp;</span></span></li><li class="alt" style="margin:0px!important; padding:0px 3px 0px 10px!important; border-style:none none none solid; border-left-width:3px; border-left-color:rgb(108,226,108); list-style:decimal-leading-zero outside; color:inherit; line-height:18px">
+<span style="margin:0px; padding:0px; border:none; color:black; background-color:inherit"><span class="keyword" style="margin:0px; padding:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">using</span><span style="margin:0px; padding:0px; border:none; background-color:inherit">&nbsp;</span><span class="keyword" style="margin:0px; padding:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">namespace</span><span style="margin:0px; padding:0px; border:none; background-color:inherit">&nbsp;std;&nbsp;&nbsp;</span></span></li><li style="margin:0px!important; padding:0px 3px 0px 10px!important; border-style:none none none solid; border-left-width:3px; border-left-color:rgb(108,226,108); list-style:decimal-leading-zero outside; background-color:rgb(248,248,248); line-height:18px">
+<span style="margin:0px; padding:0px; border:none; color:black; background-color:inherit"><span class="preprocessor" style="margin:0px; padding:0px; border:none; color:gray; background-color:inherit">#define&nbsp;N&nbsp;1000&#43;10</span><span style="margin:0px; padding:0px; border:none; background-color:inherit">&nbsp;&nbsp;</span></span></li><li class="alt" style="margin:0px!important; padding:0px 3px 0px 10px!important; border-style:none none none solid; border-left-width:3px; border-left-color:rgb(108,226,108); list-style:decimal-leading-zero outside; color:inherit; line-height:18px">
+<span style="margin:0px; padding:0px; border:none; color:black; background-color:inherit">&nbsp;&nbsp;</span></li><li style="margin:0px!important; padding:0px 3px 0px 10px!important; border-style:none none none solid; border-left-width:3px; border-left-color:rgb(108,226,108); list-style:decimal-leading-zero outside; background-color:rgb(248,248,248); line-height:18px">
+<span style="margin:0px; padding:0px; border:none; color:black; background-color:inherit"><span class="datatypes" style="margin:0px; padding:0px; border:none; color:rgb(46,139,87); background-color:inherit; font-weight:bold">int</span><span style="margin:0px; padding:0px; border:none; background-color:inherit">&nbsp;arr[11],sg[N];&nbsp;&nbsp;</span></span></li><li class="alt" style="margin:0px!important; padding:0px 3px 0px 10px!important; border-style:none none none solid; border-left-width:3px; border-left-color:rgb(108,226,108); list-style:decimal-leading-zero outside; color:inherit; line-height:18px">
+<span style="margin:0px; padding:0px; border:none; color:black; background-color:inherit">&nbsp;&nbsp;</span></li><li style="margin:0px!important; padding:0px 3px 0px 10px!important; border-style:none none none solid; border-left-width:3px; border-left-color:rgb(108,226,108); list-style:decimal-leading-zero outside; background-color:rgb(248,248,248); line-height:18px">
+<span style="margin:0px; padding:0px; border:none; color:black; background-color:inherit"><span class="datatypes" style="margin:0px; padding:0px; border:none; color:rgb(46,139,87); background-color:inherit; font-weight:bold">int</span><span style="margin:0px; padding:0px; border:none; background-color:inherit">&nbsp;pre()</span><span class="comment" style="margin:0px; padding:0px; border:none; color:rgb(0,130,0); background-color:inherit">//把1000以内的所有的可能一次拿的牌都算出来！&nbsp;</span><span style="margin:0px; padding:0px; border:none; background-color:inherit">&nbsp;&nbsp;</span></span></li><li class="alt" style="margin:0px!important; padding:0px 3px 0px 10px!important; border-style:none none none solid; border-left-width:3px; border-left-color:rgb(108,226,108); list-style:decimal-leading-zero outside; color:inherit; line-height:18px">
+<span style="margin:0px; padding:0px; border:none; color:black; background-color:inherit">{&nbsp;&nbsp;</span></li><li style="margin:0px!important; padding:0px 3px 0px 10px!important; border-style:none none none solid; border-left-width:3px; border-left-color:rgb(108,226,108); list-style:decimal-leading-zero outside; background-color:rgb(248,248,248); line-height:18px">
+<span style="margin:0px; padding:0px; border:none; color:black; background-color:inherit">&nbsp;&nbsp;&nbsp;&nbsp;arr[0]=1;&nbsp;&nbsp;</span></li><li class="alt" style="margin:0px!important; padding:0px 3px 0px 10px!important; border-style:none none none solid; border-left-width:3px; border-left-color:rgb(108,226,108); list-style:decimal-leading-zero outside; color:inherit; line-height:18px">
+<span style="margin:0px; padding:0px; border:none; color:black; background-color:inherit">&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword" style="margin:0px; padding:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">for</span><span style="margin:0px; padding:0px; border:none; background-color:inherit">(</span><span class="datatypes" style="margin:0px; padding:0px; border:none; color:rgb(46,139,87); background-color:inherit; font-weight:bold">int</span><span style="margin:0px; padding:0px; border:none; background-color:inherit">&nbsp;i=1;i&lt;=10;i&#43;&#43;)&nbsp;arr[i]=arr[i-1]*2;&nbsp;&nbsp;</span></span></li><li style="margin:0px!important; padding:0px 3px 0px 10px!important; border-style:none none none solid; border-left-width:3px; border-left-color:rgb(108,226,108); list-style:decimal-leading-zero outside; background-color:rgb(248,248,248); line-height:18px">
+<span style="margin:0px; padding:0px; border:none; color:black; background-color:inherit">&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword" style="margin:0px; padding:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">return</span><span style="margin:0px; padding:0px; border:none; background-color:inherit">&nbsp;0;&nbsp;&nbsp;</span></span></li><li class="alt" style="margin:0px!important; padding:0px 3px 0px 10px!important; border-style:none none none solid; border-left-width:3px; border-left-color:rgb(108,226,108); list-style:decimal-leading-zero outside; color:inherit; line-height:18px">
+<span style="margin:0px; padding:0px; border:none; color:black; background-color:inherit">}&nbsp;&nbsp;</span></li><li style="margin:0px!important; padding:0px 3px 0px 10px!important; border-style:none none none solid; border-left-width:3px; border-left-color:rgb(108,226,108); list-style:decimal-leading-zero outside; background-color:rgb(248,248,248); line-height:18px">
+<span style="margin:0px; padding:0px; border:none; color:black; background-color:inherit">&nbsp;&nbsp;</span></li><li class="alt" style="margin:0px!important; padding:0px 3px 0px 10px!important; border-style:none none none solid; border-left-width:3px; border-left-color:rgb(108,226,108); list-style:decimal-leading-zero outside; color:inherit; line-height:18px">
+<span style="margin:0px; padding:0px; border:none; color:black; background-color:inherit"><span class="datatypes" style="margin:0px; padding:0px; border:none; color:rgb(46,139,87); background-color:inherit; font-weight:bold">int</span><span style="margin:0px; padding:0px; border:none; background-color:inherit">&nbsp;mex(</span><span class="datatypes" style="margin:0px; padding:0px; border:none; color:rgb(46,139,87); background-color:inherit; font-weight:bold">int</span><span style="margin:0px; padding:0px; border:none; background-color:inherit">&nbsp;x)</span><span class="comment" style="margin:0px; padding:0px; border:none; color:rgb(0,130,0); background-color:inherit">//这是求解改点的sg&#20540;的算法函数（采用记忆化搜索）&nbsp;</span><span style="margin:0px; padding:0px; border:none; background-color:inherit">&nbsp;&nbsp;</span></span></li><li style="margin:0px!important; padding:0px 3px 0px 10px!important; border-style:none none none solid; border-left-width:3px; border-left-color:rgb(108,226,108); list-style:decimal-leading-zero outside; background-color:rgb(248,248,248); line-height:18px">
+<span style="margin:0px; padding:0px; border:none; color:black; background-color:inherit">{&nbsp;&nbsp;</span></li><li class="alt" style="margin:0px!important; padding:0px 3px 0px 10px!important; border-style:none none none solid; border-left-width:3px; border-left-color:rgb(108,226,108); list-style:decimal-leading-zero outside; color:inherit; line-height:18px">
+<span style="margin:0px; padding:0px; border:none; color:black; background-color:inherit">&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword" style="margin:0px; padding:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">if</span><span style="margin:0px; padding:0px; border:none; background-color:inherit">(sg[x]!=-1)&nbsp;</span><span class="keyword" style="margin:0px; padding:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">return</span><span style="margin:0px; padding:0px; border:none; background-color:inherit">&nbsp;sg[x];&nbsp;&nbsp;</span></span></li><li style="margin:0px!important; padding:0px 3px 0px 10px!important; border-style:none none none solid; border-left-width:3px; border-left-color:rgb(108,226,108); list-style:decimal-leading-zero outside; background-color:rgb(248,248,248); line-height:18px">
+<span style="margin:0px; padding:0px; border:none; color:black; background-color:inherit">&nbsp;&nbsp;&nbsp;&nbsp;<span class="datatypes" style="margin:0px; padding:0px; border:none; color:rgb(46,139,87); background-color:inherit; font-weight:bold">bool</span><span style="margin:0px; padding:0px; border:none; background-color:inherit">&nbsp;vis[N];&nbsp;&nbsp;</span></span></li><li class="alt" style="margin:0px!important; padding:0px 3px 0px 10px!important; border-style:none none none solid; border-left-width:3px; border-left-color:rgb(108,226,108); list-style:decimal-leading-zero outside; color:inherit; line-height:18px">
+<span style="margin:0px; padding:0px; border:none; color:black; background-color:inherit">&nbsp;&nbsp;&nbsp;&nbsp;memset(vis,<span class="keyword" style="margin:0px; padding:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">false</span><span style="margin:0px; padding:0px; border:none; background-color:inherit">,</span><span class="keyword" style="margin:0px; padding:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">sizeof</span><span style="margin:0px; padding:0px; border:none; background-color:inherit">(vis));&nbsp;&nbsp;</span></span></li><li style="margin:0px!important; padding:0px 3px 0px 10px!important; border-style:none none none solid; border-left-width:3px; border-left-color:rgb(108,226,108); list-style:decimal-leading-zero outside; background-color:rgb(248,248,248); line-height:18px">
+<span style="margin:0px; padding:0px; border:none; color:black; background-color:inherit">&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword" style="margin:0px; padding:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">for</span><span style="margin:0px; padding:0px; border:none; background-color:inherit">(</span><span class="datatypes" style="margin:0px; padding:0px; border:none; color:rgb(46,139,87); background-color:inherit; font-weight:bold">int</span><span style="margin:0px; padding:0px; border:none; background-color:inherit">&nbsp;i=0;i&lt;10;i&#43;&#43;)&nbsp;&nbsp;</span></span></li><li class="alt" style="margin:0px!important; padding:0px 3px 0px 10px!important; border-style:none none none solid; border-left-width:3px; border-left-color:rgb(108,226,108); list-style:decimal-leading-zero outside; color:inherit; line-height:18px">
+<span style="margin:0px; padding:0px; border:none; color:black; background-color:inherit">&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;&nbsp;</span></li><li style="margin:0px!important; padding:0px 3px 0px 10px!important; border-style:none none none solid; border-left-width:3px; border-left-color:rgb(108,226,108); list-style:decimal-leading-zero outside; background-color:rgb(248,248,248); line-height:18px">
+<span style="margin:0px; padding:0px; border:none; color:black; background-color:inherit">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="datatypes" style="margin:0px; padding:0px; border:none; color:rgb(46,139,87); background-color:inherit; font-weight:bold">int</span><span style="margin:0px; padding:0px; border:none; background-color:inherit">&nbsp;temp=x-arr[i];&nbsp;&nbsp;</span></span></li><li class="alt" style="margin:0px!important; padding:0px 3px 0px 10px!important; border-style:none none none solid; border-left-width:3px; border-left-color:rgb(108,226,108); list-style:decimal-leading-zero outside; color:inherit; line-height:18px">
+<span style="margin:0px; padding:0px; border:none; color:black; background-color:inherit">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword" style="margin:0px; padding:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">if</span><span style="margin:0px; padding:0px; border:none; background-color:inherit">(temp&lt;0)&nbsp;</span><span class="keyword" style="margin:0px; padding:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">break</span><span style="margin:0px; padding:0px; border:none; background-color:inherit">;&nbsp;&nbsp;</span></span></li><li style="margin:0px!important; padding:0px 3px 0px 10px!important; border-style:none none none solid; border-left-width:3px; border-left-color:rgb(108,226,108); list-style:decimal-leading-zero outside; background-color:rgb(248,248,248); line-height:18px">
+<span style="margin:0px; padding:0px; border:none; color:black; background-color:inherit">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sg[temp]=mex(temp);&nbsp;&nbsp;</span></li><li class="alt" style="margin:0px!important; padding:0px 3px 0px 10px!important; border-style:none none none solid; border-left-width:3px; border-left-color:rgb(108,226,108); list-style:decimal-leading-zero outside; color:inherit; line-height:18px">
+<span style="margin:0px; padding:0px; border:none; color:black; background-color:inherit">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;vis[sg[temp]]=<span class="keyword" style="margin:0px; padding:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">true</span><span style="margin:0px; padding:0px; border:none; background-color:inherit">;&nbsp;&nbsp;</span></span></li><li style="margin:0px!important; padding:0px 3px 0px 10px!important; border-style:none none none solid; border-left-width:3px; border-left-color:rgb(108,226,108); list-style:decimal-leading-zero outside; background-color:rgb(248,248,248); line-height:18px">
+<span style="margin:0px; padding:0px; border:none; color:black; background-color:inherit">&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li class="alt" style="margin:0px!important; padding:0px 3px 0px 10px!important; border-style:none none none solid; border-left-width:3px; border-left-color:rgb(108,226,108); list-style:decimal-leading-zero outside; color:inherit; line-height:18px">
+<span style="margin:0px; padding:0px; border:none; color:black; background-color:inherit">&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword" style="margin:0px; padding:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">for</span><span style="margin:0px; padding:0px; border:none; background-color:inherit">(</span><span class="datatypes" style="margin:0px; padding:0px; border:none; color:rgb(46,139,87); background-color:inherit; font-weight:bold">int</span><span style="margin:0px; padding:0px; border:none; background-color:inherit">&nbsp;i=0;;i&#43;&#43;)&nbsp;&nbsp;</span></span></li><li style="margin:0px!important; padding:0px 3px 0px 10px!important; border-style:none none none solid; border-left-width:3px; border-left-color:rgb(108,226,108); list-style:decimal-leading-zero outside; background-color:rgb(248,248,248); line-height:18px">
+<span style="margin:0px; padding:0px; border:none; color:black; background-color:inherit">&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;&nbsp;</span></li><li class="alt" style="margin:0px!important; padding:0px 3px 0px 10px!important; border-style:none none none solid; border-left-width:3px; border-left-color:rgb(108,226,108); list-style:decimal-leading-zero outside; color:inherit; line-height:18px">
+<span style="margin:0px; padding:0px; border:none; color:black; background-color:inherit">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword" style="margin:0px; padding:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">if</span><span style="margin:0px; padding:0px; border:none; background-color:inherit">(!vis[i])&nbsp;&nbsp;</span></span></li><li style="margin:0px!important; padding:0px 3px 0px 10px!important; border-style:none none none solid; border-left-width:3px; border-left-color:rgb(108,226,108); list-style:decimal-leading-zero outside; background-color:rgb(248,248,248); line-height:18px">
+<span style="margin:0px; padding:0px; border:none; color:black; background-color:inherit">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;&nbsp;</span></li><li class="alt" style="margin:0px!important; padding:0px 3px 0px 10px!important; border-style:none none none solid; border-left-width:3px; border-left-color:rgb(108,226,108); list-style:decimal-leading-zero outside; color:inherit; line-height:18px">
+<span style="margin:0px; padding:0px; border:none; color:black; background-color:inherit">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sg[x]=i;&nbsp;<span class="keyword" style="margin:0px; padding:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">break</span><span style="margin:0px; padding:0px; border:none; background-color:inherit">;&nbsp;&nbsp;</span></span></li><li style="margin:0px!important; padding:0px 3px 0px 10px!important; border-style:none none none solid; border-left-width:3px; border-left-color:rgb(108,226,108); list-style:decimal-leading-zero outside; background-color:rgb(248,248,248); line-height:18px">
+<span style="margin:0px; padding:0px; border:none; color:black; background-color:inherit">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li class="alt" style="margin:0px!important; padding:0px 3px 0px 10px!important; border-style:none none none solid; border-left-width:3px; border-left-color:rgb(108,226,108); list-style:decimal-leading-zero outside; color:inherit; line-height:18px">
+<span style="margin:0px; padding:0px; border:none; color:black; background-color:inherit">&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li style="margin:0px!important; padding:0px 3px 0px 10px!important; border-style:none none none solid; border-left-width:3px; border-left-color:rgb(108,226,108); list-style:decimal-leading-zero outside; background-color:rgb(248,248,248); line-height:18px">
+<span style="margin:0px; padding:0px; border:none; color:black; background-color:inherit">&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword" style="margin:0px; padding:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">return</span><span style="margin:0px; padding:0px; border:none; background-color:inherit">&nbsp;sg[x];&nbsp;&nbsp;</span></span></li><li class="alt" style="margin:0px!important; padding:0px 3px 0px 10px!important; border-style:none none none solid; border-left-width:3px; border-left-color:rgb(108,226,108); list-style:decimal-leading-zero outside; color:inherit; line-height:18px">
+<span style="margin:0px; padding:0px; border:none; color:black; background-color:inherit">}&nbsp;&nbsp;</span></li><li style="margin:0px!important; padding:0px 3px 0px 10px!important; border-style:none none none solid; border-left-width:3px; border-left-color:rgb(108,226,108); list-style:decimal-leading-zero outside; background-color:rgb(248,248,248); line-height:18px">
+<span style="margin:0px; padding:0px; border:none; color:black; background-color:inherit">&nbsp;&nbsp;</span></li><li class="alt" style="margin:0px!important; padding:0px 3px 0px 10px!important; border-style:none none none solid; border-left-width:3px; border-left-color:rgb(108,226,108); list-style:decimal-leading-zero outside; color:inherit; line-height:18px">
+<span style="margin:0px; padding:0px; border:none; color:black; background-color:inherit"><span class="datatypes" style="margin:0px; padding:0px; border:none; color:rgb(46,139,87); background-color:inherit; font-weight:bold">int</span><span style="margin:0px; padding:0px; border:none; background-color:inherit">&nbsp;main()&nbsp;&nbsp;</span></span></li><li style="margin:0px!important; padding:0px 3px 0px 10px!important; border-style:none none none solid; border-left-width:3px; border-left-color:rgb(108,226,108); list-style:decimal-leading-zero outside; background-color:rgb(248,248,248); line-height:18px">
+<span style="margin:0px; padding:0px; border:none; color:black; background-color:inherit">{&nbsp;&nbsp;</span></li><li class="alt" style="margin:0px!important; padding:0px 3px 0px 10px!important; border-style:none none none solid; border-left-width:3px; border-left-color:rgb(108,226,108); list-style:decimal-leading-zero outside; color:inherit; line-height:18px">
+<span style="margin:0px; padding:0px; border:none; color:black; background-color:inherit">&nbsp;&nbsp;&nbsp;&nbsp;freopen(<span class="string" style="margin:0px; padding:0px; border:none; color:blue; background-color:inherit">&quot;game.in&quot;</span><span style="margin:0px; padding:0px; border:none; background-color:inherit">,</span><span class="string" style="margin:0px; padding:0px; border:none; color:blue; background-color:inherit">&quot;r&quot;</span><span style="margin:0px; padding:0px; border:none; background-color:inherit">,stdin);&nbsp;freopen(</span><span class="string" style="margin:0px; padding:0px; border:none; color:blue; background-color:inherit">&quot;game.out&quot;</span><span style="margin:0px; padding:0px; border:none; background-color:inherit">,</span><span class="string" style="margin:0px; padding:0px; border:none; color:blue; background-color:inherit">&quot;w&quot;</span><span style="margin:0px; padding:0px; border:none; background-color:inherit">,stdout);&nbsp;&nbsp;</span></span></li><li style="margin:0px!important; padding:0px 3px 0px 10px!important; border-style:none none none solid; border-left-width:3px; border-left-color:rgb(108,226,108); list-style:decimal-leading-zero outside; background-color:rgb(248,248,248); line-height:18px">
+<span style="margin:0px; padding:0px; border:none; color:black; background-color:inherit">&nbsp;&nbsp;&nbsp;&nbsp;<span class="datatypes" style="margin:0px; padding:0px; border:none; color:rgb(46,139,87); background-color:inherit; font-weight:bold">int</span><span style="margin:0px; padding:0px; border:none; background-color:inherit">&nbsp;num;&nbsp;&nbsp;</span></span></li><li class="alt" style="margin:0px!important; padding:0px 3px 0px 10px!important; border-style:none none none solid; border-left-width:3px; border-left-color:rgb(108,226,108); list-style:decimal-leading-zero outside; color:inherit; line-height:18px">
+<span style="margin:0px; padding:0px; border:none; color:black; background-color:inherit">&nbsp;&nbsp;&nbsp;&nbsp;pre();&nbsp;&nbsp;</span></li><li style="margin:0px!important; padding:0px 3px 0px 10px!important; border-style:none none none solid; border-left-width:3px; border-left-color:rgb(108,226,108); list-style:decimal-leading-zero outside; background-color:rgb(248,248,248); line-height:18px">
+<span style="margin:0px; padding:0px; border:none; color:black; background-color:inherit">&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword" style="margin:0px; padding:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">while</span><span style="margin:0px; padding:0px; border:none; background-color:inherit">(scanf(</span><span class="string" style="margin:0px; padding:0px; border:none; color:blue; background-color:inherit">&quot;%d&quot;</span><span style="margin:0px; padding:0px; border:none; background-color:inherit">,&amp;num)!=EOF)&nbsp;&nbsp;</span></span></li><li class="alt" style="margin:0px!important; padding:0px 3px 0px 10px!important; border-style:none none none solid; border-left-width:3px; border-left-color:rgb(108,226,108); list-style:decimal-leading-zero outside; color:inherit; line-height:18px">
+<span style="margin:0px; padding:0px; border:none; color:black; background-color:inherit">&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;&nbsp;</span></li><li style="margin:0px!important; padding:0px 3px 0px 10px!important; border-style:none none none solid; border-left-width:3px; border-left-color:rgb(108,226,108); list-style:decimal-leading-zero outside; background-color:rgb(248,248,248); line-height:18px">
+<span style="margin:0px; padding:0px; border:none; color:black; background-color:inherit">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;memset(sg,-1,<span class="keyword" style="margin:0px; padding:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">sizeof</span><span style="margin:0px; padding:0px; border:none; background-color:inherit">(sg));&nbsp;&nbsp;</span></span></li><li class="alt" style="margin:0px!important; padding:0px 3px 0px 10px!important; border-style:none none none solid; border-left-width:3px; border-left-color:rgb(108,226,108); list-style:decimal-leading-zero outside; color:inherit; line-height:18px">
+<span style="margin:0px; padding:0px; border:none; color:black; background-color:inherit">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword" style="margin:0px; padding:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">if</span><span style="margin:0px; padding:0px; border:none; background-color:inherit">(mex(num))&nbsp;printf(</span><span class="string" style="margin:0px; padding:0px; border:none; color:blue; background-color:inherit">&quot;Kiki/n&quot;</span><span style="margin:0px; padding:0px; border:none; background-color:inherit">);&nbsp;&nbsp;&nbsp;&nbsp;</span></span></li><li style="margin:0px!important; padding:0px 3px 0px 10px!important; border-style:none none none solid; border-left-width:3px; border-left-color:rgb(108,226,108); list-style:decimal-leading-zero outside; background-color:rgb(248,248,248); line-height:18px">
+<span style="margin:0px; padding:0px; border:none; color:black; background-color:inherit">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword" style="margin:0px; padding:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">else</span><span style="margin:0px; padding:0px; border:none; background-color:inherit">&nbsp;printf(</span><span class="string" style="margin:0px; padding:0px; border:none; color:blue; background-color:inherit">&quot;Cici/n&quot;</span><span style="margin:0px; padding:0px; border:none; background-color:inherit">);&nbsp;&nbsp;&nbsp;</span></span></li><li class="alt" style="margin:0px!important; padding:0px 3px 0px 10px!important; border-style:none none none solid; border-left-width:3px; border-left-color:rgb(108,226,108); list-style:decimal-leading-zero outside; color:inherit; line-height:18px">
+<span style="margin:0px; padding:0px; border:none; color:black; background-color:inherit">&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li style="margin:0px!important; padding:0px 3px 0px 10px!important; border-style:none none none solid; border-left-width:3px; border-left-color:rgb(108,226,108); list-style:decimal-leading-zero outside; background-color:rgb(248,248,248); line-height:18px">
+<span style="margin:0px; padding:0px; border:none; color:black; background-color:inherit">&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword" style="margin:0px; padding:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">return</span><span style="margin:0px; padding:0px; border:none; background-color:inherit">&nbsp;0;&nbsp;&nbsp;</span></span></li><li class="alt" style="margin:0px!important; padding:0px 3px 0px 10px!important; border-style:none none none solid; border-left-width:3px; border-left-color:rgb(108,226,108); list-style:decimal-leading-zero outside; color:inherit; line-height:18px">
+<span style="margin:0px; padding:0px; border:none; color:black; background-color:inherit">}&nbsp;&nbsp;</span></li><li style="margin:0px!important; padding:0px 3px 0px 10px!important; border-style:none none none solid; border-left-width:3px; border-left-color:rgb(108,226,108); list-style:decimal-leading-zero outside; background-color:rgb(248,248,248); line-height:18px">
+<span style="margin:0px; padding:0px; border:none; color:black; background-color:inherit">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li></ol>
+</div>
+<span style="font-family:Arial; font-size:14px"><span style="font-size:14px"></span></span>
+<p style="font-size:14px; font-family:Arial"></p>
+<div style="text-align:left; line-height:25px; font-family:Arial,Helvetica,simsun,u5b8bu4f53; background-color:rgb(248,248,248)">
+<span style="line-height:38px; text-indent:2em"><span style="font-size:18px; color:#ff0000"><strong><u>（五）取火柴游戏</u></strong></span></span></div>
+<p><span style="font-size:12px"><span style="line-height:32px; font-family:Arial,Helvetica,simsun,u5b8bu4f53; background-color:rgb(248,248,248)">题目1：今有若干堆火柴，两人依次从中拿取，规定每次只能从一堆中取若干根，可将一堆全取走，但不可不取，<span style="color:#3333ff">最后取完者为胜</span>，求必胜的方法。&nbsp;</span></span></p>
+<p><span style="font-size:12px"><span style="line-height:32px; font-family:Arial,Helvetica,simsun,u5b8bu4f53; background-color:rgb(248,248,248)">题目2：今有若干堆火柴，两人依次从中拿取，规定每次只能从一堆中取若干根，可将一堆全取走，但不可不取，<span style="color:#3333ff">最后取完者为负</span>，求必胜的方法。</span></span></p>
+<p><span style="line-height:32px; font-family:Arial,Helvetica,simsun,u5b8bu4f53; background-color:rgb(248,248,248)"><span style="font-size:12px">题目1 ：</span><span style="font-family:Arial; line-height:26px"><strong><span style="font-size:18px; color:#3333ff">&#23612;姆博奕（Nimm
+ Game）</span></strong></span></span></p>
+<p>题目2 : &nbsp;<strong><span style="font-size:18px"><span style="color:#3333ff">先者必败条件</span>：
+<span style="color:#ff0000">奇异局势&amp;&amp; 充裕堆数目&gt;=2</span>&nbsp; &nbsp;或者 &nbsp;<span style="color:#ff0000">非奇异局势&amp;&amp; 孤单堆数目==n</span></span></strong></p>
+<p><br>
+</p>
+<p>详解：点击<a target="_blank" href="https://qianmacao.blog.163.com/blog/static/20339718020122247154761/">博弈知识汇总</a></p>
+<p><br>
+</p>
+<p><span style="font-size:12px; line-height:32px; background-color:rgb(248,248,248); font-family:Arial,Helvetica,simsun,u5b8bu4f53; text-indent:2em">推荐HDOJ题目</span></p>
+<p><a target="_blank" target="_blank" rel="nofollow" href="https://acm.hdu.edu.cn/showproblem.php?pid=1907" style="font-size:12px; line-height:32px; background-color:rgb(248,248,248); font-family:Arial,Helvetica,simsun,u5b8bu4f53; text-indent:2em; text-decoration:none">https://acm.hdu.edu.cn/showproblem.php?pid=1907</a></p>
+<p><a target="_blank" target="_blank" rel="nofollow" href="https://acm.hdu.edu.cn/showproblem.php?pid=2509" style="font-size:12px; line-height:32px; background-color:rgb(248,248,248); font-family:Arial,Helvetica,simsun,u5b8bu4f53; text-indent:2em; text-decoration:none">https://acm.hdu.edu.cn/showproblem.php?pid=2509</a></p>
+<p style="line-height:25px; margin-top:0px; margin-bottom:10px; padding-top:0px; padding-bottom:0px; font-family:Arial,Helvetica,simsun,u5b8bu4f53; background-color:rgb(248,248,248); text-indent:2em">
+<span style="line-height:32px"><span style="font-size:12px"><br>
+</span></span></p>
+<p style="line-height:25px; margin-top:0px; margin-bottom:10px; padding-top:0px; padding-bottom:0px; font-family:Arial,Helvetica,simsun,u5b8bu4f53; background-color:rgb(248,248,248); text-indent:2em">
+<br>
+</p>
+<p style="line-height:25px; margin-top:0px; margin-bottom:10px; padding-top:0px; padding-bottom:0px; font-family:Arial,Helvetica,simsun,u5b8bu4f53; background-color:rgb(248,248,248); text-indent:2em">
+<span style="line-height:32px"><span style="font-size:12px"><br>
+主要是后继点和SG&#20540;的问题:<br>
+SG&#20540;：一个点的SG&#20540;就是一个不等于它的后继点的SG的且大于等于零的最小整数。<br>
+后继点：也就是按照题目要求的走法（比如取石子可以取的数量，方法）能够走一步达到的那个点。<br>
+具体的有关SG&#20540;是怎么运用的希望大家自己多想想。<br>
+课件后面有一个1536的代码。可以放在后面做做<br>
+看到这里推荐大家做几道题：1846（最简单的博弈水题）<br>
+1847（求SG&#20540;）</span></span></p>
+<p style="line-height:25px; margin-top:0px; margin-bottom:10px; padding-top:0px; padding-bottom:0px; font-family:Arial,Helvetica,simsun,u5b8bu4f53; background-color:rgb(248,248,248); text-indent:2em">
+<span style="font-size:12px; line-height:32px; text-indent:2em">有了上面的知识接下来我们来看看组合博弈（n堆石子）</span></p>
+<p style="line-height:25px; margin-top:0px; margin-bottom:10px; padding-top:0px; padding-bottom:0px; font-family:Arial,Helvetica,simsun,u5b8bu4f53; background-color:rgb(248,248,248); text-indent:2em">
+<span style="line-height:32px"><span style="font-size:12px">推荐大家看个资料：<br>
+博弈-取石子游戏(推荐等级五星级)<br>
+<a target="_blank" target="_blank" rel="nofollow" href="https://acm.hdu.edu.cn/forum/read.php?fid=20&amp;tid=5748" style="text-decoration:none">https://acm.hdu.edu.cn/forum/read.php?fid=20&amp;tid=5748</a><br>
+<a target="_blank" target="_blank" rel="nofollow" href="https://hi.baidu.com/netnode/blog/item/30932c2edc7384514fc226ea.html" style="text-decoration:none">https://hi.baidu.com/netnode/blog/item/30932c2edc7384514fc226ea.html</a><br>
+这里提出了一个奇异状态的问题。看了这篇文章你会发现异或运算在博弈中使用的妙处。当然这里指出的只是组合博弈中一种特殊情况。<br>
+王道还是对SG&#20540;的求解，但是知道这么一种思路无疑对思维的广度和深度扩展是很有帮助的。<br>
+ZZ博弈<br>
+<a target="_blank" target="_blank" rel="nofollow" href="https://acm.hdu.edu.cn/forum/read.php?fid=9&amp;tid=10617" style="text-decoration:none">https://acm.hdu.edu.cn/forum/read.php?fid=9&amp;tid=10617</a><br>
+这里介绍了组和博弈的两种大的类型，一种是最后取的是N状态一种是最后取的是P状态，两个状态的解题方法能看懂很有帮助。当然，能够把推导过程理解，吃透无疑是大牛级的做法~小子也佩服的紧~&nbsp; &nbsp;<br>
+&nbsp; &nbsp; 1536题推荐做做这题，这题前面提醒大家是一个求SG&#20540;的题目，题目前面是对异或运算运用在组合博弈问题中的很好的解释。当然题目本身是有所不同的。因为在这里面对取法有所要求。那么这样就回归到了解决博弈问题的王道算法——求SG&#20540;上。<br>
+&nbsp; &nbsp;&nbsp;有关运用求SG&#20540;的博弈题目有：&nbsp;1850（也可基于奇异状态异或）<br>
+1848（中和的大斐波那契数列的典型求SG&#20540;题）<br>
+1517（个人认为有点猥琐的题目。。。。在此题上困扰很久。当然搞出来很开心。小子是用比较规矩的求SG&#20540;的方法求出来的，但是论坛有人对其推出来了规律，这里佩服一下，大家可以学习一下）<br>
+1079（更猥琐的题目，对新手要求较高，因为按传统方法需要比较细致的模拟加对边角状态的考虑，同样有人推出来了公式）<br>
+当你全部看完以上的东西。做完以上的题目的话。。。小子恭喜你~你博弈入门了~~~~<br>
+&nbsp; &nbsp;&nbsp;这里小子告诉大家。博弈很强大。学习要耐心~谢谢<br>
+Current System Time : 2008-12-11 19:16:03</span></span></p>
+<p style="line-height:25px; margin-top:0px; margin-bottom:10px; padding-top:0px; padding-bottom:0px; font-family:Arial,Helvetica,simsun,u5b8bu4f53; background-color:rgb(248,248,248); text-indent:2em">
+<span style="line-height:32px"><span style="font-size:12px">ACM课作业：<br>
+1001 Brave Game<br>
+1002 Good Luck in CET-4 Everybody!<br>
+1003 Fibonacci again and again<br>
+1004 Rabbit and Grass<br>
+1005 Being a Good Boy in Spring Festival<br>
+1006 Public Sale&nbsp;<br>
+1007&nbsp;悼念512汶川大地震遇难同胞——选拔志愿者&nbsp;<br>
+1008 kiki’s game&nbsp;<br>
+1009 Calendar Game&nbsp;<br>
+1010 A Multiplication Game&nbsp;<br>
+1011 Digital Deletions&nbsp;<br>
+1012 S-Nim<br>
+<a target="_blank" target="_blank" rel="nofollow" href="https://acm.hdu.edu.cn/forum/read.php?tid=11339&amp;fpage=0&amp;toread=&amp;page=1" style="text-decoration:none">https://acm.hdu.edu.cn/forum/read.php?tid=11339&amp;fpage=0&amp;toread=&amp;page=1</a></span></span></p>
+<p style="font-size:14px; font-family:Arial; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:26px">
+<span style="color:rgb(255,0,0)"><strong><span style="font-size:14px">（四）<span style="text-decoration:underline">最后我们来看组合博弈：（博弈的精华）</span></span></strong></span></p>
+<p style="font-size:14px; font-family:Arial; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:26px">
+<span style="font-size:14px">博弈-取石子游戏</span></p>
+<p style="font-size:14px; font-family:Arial; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:26px">
+<a target="_blank" target="_blank" id="url_6" href="https://acm.hdu.edu.cn/forum/read.php?fid=20&amp;tid=5748" style="color:rgb(202,0,0); text-decoration:none"><span style="color:rgb(49,52,40)"><span style="font-size:14px">https://acm.hdu.edu.cn/forum/read.php?fid=20&amp;tid=5748</span></span></a><br>
+<a target="_blank" target="_blank" id="url_7" href="https://hi.baidu.com/netnode/blog/item/30932c2edc7384514fc226ea.html" style="color:rgb(202,0,0); text-decoration:none"><span style="color:rgb(49,52,40)"><span style="font-size:14px">https://hi.baidu.com/netnode/blog/item/30932c2edc7384514fc226ea.html</span></span></a></p>
+<p style="font-size:14px; font-family:Arial; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:26px">
+<span style="font-size:14px">组合博弈无疑是对sg&#20540;的熟练操作例如：<span style="font-family:宋体">有</span><span lang="EN-US" style="font-family:'Times New Roman',serif">n</span><span style="font-family:宋体">堆石子，每次可以从第</span><span lang="EN-US" style="font-family:'Times New Roman',serif">1</span><span style="font-family:宋体">堆石子里取</span><span lang="EN-US" style="font-family:'Times New Roman',serif">1</span><span style="font-family:宋体">颗、</span><span lang="EN-US" style="font-family:'Times New Roman',serif">2</span><span style="font-family:宋体">颗或</span><span lang="EN-US" style="font-family:'Times New Roman',serif">3</span><span style="font-family:宋体">颗，可以从第</span><span lang="EN-US" style="font-family:'Times New Roman',serif">2</span><span style="font-family:宋体">堆石子里取奇数颗，可以从第</span><span lang="EN-US" style="font-family:'Times New Roman',serif">3</span><span style="font-family:宋体">堆及以后石子里取任意颗</span><span lang="EN-US" style="font-family:'Times New Roman',serif">……&nbsp;</span><span style="font-family:宋体">我们可以把它看作</span><span lang="EN-US" style="font-family:'Times New Roman',serif">3</span><span style="font-family:宋体">个子游戏，第</span><span lang="EN-US" style="font-family:'Times New Roman',serif">1</span><span style="font-family:宋体">个子游戏只有一堆石子，每次可以取</span><span lang="EN-US" style="font-family:'Times New Roman',serif">1</span><span style="font-family:宋体">、</span><span lang="EN-US" style="font-family:'Times New Roman',serif">2</span><span style="font-family:宋体">、</span><span lang="EN-US" style="font-family:'Times New Roman',serif">3</span><span style="font-family:宋体">颗，很容易看出</span><span lang="EN-US" style="font-family:'Times New Roman',serif">x</span><span style="font-family:宋体">颗石子的局面的</span><span lang="EN-US" style="font-family:'Times New Roman',serif">SG</span><span style="font-family:宋体">&#20540;是</span><span lang="EN-US" style="font-family:'Times New Roman',serif">x%4</span><span style="font-family:宋体">。第</span><span lang="EN-US" style="font-family:'Times New Roman',serif">2</span><span style="font-family:宋体">个子游戏也是只有一堆</span><span style="font-family:'Times New Roman',serif">&nbsp;</span><span style="font-family:宋体">石子，每次可以取奇数颗，经过简单的画图可以知道这个游戏有</span><span lang="EN-US" style="font-family:'Times New Roman',serif">x</span><span style="font-family:宋体">颗石子时的</span><span lang="EN-US" style="font-family:'Times New Roman',serif">SG</span><span style="font-family:宋体">&#20540;是</span><span lang="EN-US" style="font-family:'Times New Roman',serif">x%2</span><span style="font-family:宋体">。第</span><span lang="EN-US" style="font-family:'Times New Roman',serif">3</span><span style="font-family:宋体">个游戏有</span><span lang="EN-US" style="font-family:'Times New Roman',serif">n-2</span><span style="font-family:宋体">堆石子，就是一个</span><span lang="EN-US" style="font-family:'Times New Roman',serif">Nim</span><span style="font-family:宋体">游戏。对于原游戏的每</span><span style="font-family:'Times New Roman',serif">&nbsp;</span><span style="font-family:宋体">个局面，把三个子游戏的</span><span lang="EN-US" style="font-family:'Times New Roman',serif">SG</span><span style="font-family:宋体">&#20540;异或一下就得到了整个游戏的</span><span lang="EN-US" style="font-family:'Times New Roman',serif">SG</span><span style="font-family:宋体">&#20540;，然后就可以根据这个</span><span lang="EN-US" style="font-family:'Times New Roman',serif">SG</span><span style="font-family:宋体">&#20540;判断是否有必胜策略以及做出决策了。其实看作</span><span lang="EN-US" style="font-family:'Times New Roman',serif">3</span><span style="font-family:宋体">个子游戏还是保</span><span style="font-family:'Times New Roman',serif">&nbsp;</span><span style="font-family:宋体">守了些，干脆看作</span><span lang="EN-US" style="font-family:'Times New Roman',serif">n</span><span style="font-family:宋体">个子游戏，其中第</span><span lang="EN-US" style="font-family:'Times New Roman',serif">1</span><span style="font-family:宋体">、</span><span lang="EN-US" style="font-family:'Times New Roman',serif">2</span><span style="font-family:宋体">个子游戏如上所述，第</span><span lang="EN-US" style="font-family:'Times New Roman',serif">3</span><span style="font-family:宋体">个及以后的子游戏都是</span><span lang="EN-US" style="font-family:'Times New Roman',serif">“1</span><span style="font-family:宋体">堆石子，每次取几颗都可以</span><span lang="EN-US" style="font-family:'Times New Roman',serif">”</span><span style="font-family:宋体">，称为</span><span lang="EN-US" style="font-family:'Times New Roman',serif">“</span><span style="font-family:宋体">任取石子游戏</span><span lang="EN-US" style="font-family:'Times New Roman',serif">”</span><span style="font-family:宋体">，这个超简</span><span style="font-family:宋体">单的游戏有</span><span lang="EN-US" style="font-family:'Times New Roman',serif">x</span><span style="font-family:宋体">颗石子的</span><span lang="EN-US" style="font-family:'Times New Roman',serif">SG</span><span style="font-family:宋体">&#20540;显然就是</span><span lang="EN-US" style="font-family:'Times New Roman',serif">x</span><span style="font-family:宋体">。</span></span></p>
+<p style="font-size:14px; font-family:Arial; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:26px">
+<span style="font-size:14px"><span style="font-family:宋体"><br>
+</span></span></p>
+<p style="font-size:14px; font-family:Arial; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:26px">
+<span style="font-size:14px"><span style="font-family:宋体"><br>
+</span></span></p>
+<p style="font-size:14px; font-family:Arial; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:26px">
+<span style="font-size:14px"><span style="font-family:宋体"><br>
+</span></span></p>
+<br>
+
+      
+    </div>
+</article>
+
+<!-- 上一页 下一页 -->
+
+
+<nav id="article-nav">
+  
+    <a href="/2013/08/25/NYOJ_%E9%A2%98%E7%9B%AE23_%E5%8F%96%E7%9F%B3%E5%AD%90%EF%BC%88%E4%B8%80%EF%BC%89%EF%BC%8Chdu_%E9%A2%98%E7%9B%AE1846_Brave_Game_%E5%B7%B4%E4%BB%80%E5%8D%9A%E5%A5%95%EF%BC%88Bash_Game%EF%BC%89/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>上一篇</span>
+      <div class="article-nav-title">
+        
+          NYOJ 题目23 取石子（一），hdu 题目1846 Brave Game 巴什博奕（Bash Game）
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2013/08/22/NYOJ_%E9%A2%98%E7%9B%AE42_%E4%B8%80%E7%AC%94%E7%94%BB%E9%97%AE%E9%A2%98%EF%BC%88%E6%AC%A7%E6%8B%89%E8%B7%AF%EF%BC%8C%E5%9B%BE%E7%9A%84%E8%BF%9E%E9%80%9A%E6%80%A7%EF%BC%89/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>下一篇</span>
+      <div class="article-nav-title">NYOJ 题目42 一笔画问题（欧拉路，图的连通性）</div>
+    </a>
+  
+</nav>
+
+
+
+<!-- 相关文章 -->
+
+<!--
+
+-->
+
+
+</section>
+      </div>
+      <footer id="footer">
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      
+      &copy;2024<a target="_blank" rel="noopener" href="https://github.com/hanks-zyh"> Hanks</a>版权所有
+      <br/>
+      <a href="https://beian.miit.gov.cn/" target="_blank">豫ICP备2021022347号</a>
+	  </div>
+  </div>
+ <div id="share">
+  <a id="totop" title="" style="display: block;">返回顶部</a>
+ </div>
+</footer>
+
+    </div>
+    
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/jquery.scrollLoading.js"></script>
+
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/ads.js"></script>
+
+  </div>
+</body>
+</html>

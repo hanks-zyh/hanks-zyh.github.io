@@ -1,0 +1,1067 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Kotlin在Android工程中的应用 | Hanks&#39; Websit</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <script data-ad-client="ca-pub-8165670162444117" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <meta name="referrer" content="never">
+  <meta name="description" content="Kotlin官网：(https:&#x2F;&#x2F;kotlinlang.org&#x2F;)  英文原文：https:&#x2F;&#x2F;code.tutsplus.com&#x2F;tutorials&#x2F;how-to-use-kotlin-in-your-android-projects--cms-24052转载自：https:&#x2F;&#x2F;www.jianshu.com&#x2F;p&#x2F;a7fadc79e0fb      简介  Kotlin是由JetBrain">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Kotlin在Android工程中的应用">
+<meta property="og:url" content="https://hanks.pub/2015/07/06/Kotlin%E5%9C%A8Android%E5%B7%A5%E7%A8%8B%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8/index.html">
+<meta property="og:site_name" content="Hanks&#39; Websit">
+<meta property="og:description" content="Kotlin官网：(https:&#x2F;&#x2F;kotlinlang.org&#x2F;)  英文原文：https:&#x2F;&#x2F;code.tutsplus.com&#x2F;tutorials&#x2F;how-to-use-kotlin-in-your-android-projects--cms-24052转载自：https:&#x2F;&#x2F;www.jianshu.com&#x2F;p&#x2F;a7fadc79e0fb      简介  Kotlin是由JetBrain">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cms-assets.tutsplus.com/uploads/users/362/posts/24052/image/kot2a.png">
+<meta property="og:image" content="https://cms-assets.tutsplus.com/uploads/users/362/posts/24052/image/kot3b.png">
+<meta property="og:image" content="https://cms-assets.tutsplus.com/uploads/users/362/posts/24052/image/kotB.png">
+<meta property="og:image" content="https://cms-assets.tutsplus.com/uploads/users/362/posts/24052/image/kotC.png">
+<meta property="og:image" content="https://cms-assets.tutsplus.com/uploads/users/362/posts/24052/image/kot5.png">
+<meta property="og:image" content="https://cms-assets.tutsplus.com/uploads/users/362/posts/24052/image/kot6.png">
+<meta property="og:image" content="https://cms-assets.tutsplus.com/uploads/users/362/posts/24052/image/kot7.png">
+<meta property="og:image" content="https://cms-assets.tutsplus.com/uploads/users/362/posts/24052/image/kot8.png">
+<meta property="og:image" content="https://cms-assets.tutsplus.com/uploads/users/362/posts/24052/image/kotA.png">
+<meta property="og:image" content="https://cms-assets.tutsplus.com/uploads/users/362/posts/24052/image/kotG.png">
+<meta property="og:image" content="https://cms-assets.tutsplus.com/uploads/users/362/posts/24052/image/kotH.png">
+<meta property="article:published_time" content="2015-07-06T05:53:00.000Z">
+<meta property="article:modified_time" content="2024-02-08T01:29:02.173Z">
+<meta property="article:author" content="Hanks">
+<meta property="article:tag" content="Android">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cms-assets.tutsplus.com/uploads/users/362/posts/24052/image/kot2a.png">
+  
+  
+  <link href="https://fonts.googleapis.com/css?family=Fira+Code|Noto+Serif+SC&display=swap" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8165670162444117"
+     crossorigin="anonymous"></script>
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo"></a>
+    <nav id="main-nav">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      
+        <a class="main-nav-link" href="/archives">Archive</a>
+      
+        <a class="main-nav-link" href="/eye-video">Eye</a>
+      
+        <a class="main-nav-link" href="/atom.xml">Rss</a>
+      
+    </nav>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/archives" class="mobile-nav-link">Archive</a>
+  
+    <a href="/eye-video" class="mobile-nav-link">Eye</a>
+  
+    <a href="/atom.xml" class="mobile-nav-link">Rss</a>
+  
+</nav>
+      <div class="outer">
+        <section id="main"><article id="post-Kotlin在Android工程中的应用" class="article article-type-post" itemscope
+  itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <header class="article-header">
+      
+      
+  
+    <h1 class="article-title" itemprop="name">
+      Kotlin在Android工程中的应用
+    </h1>
+  
+
+      
+    </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+<h3 style="margin:0px; font-family:'lucida grande','lucida sans unicode',lucida,helvetica,'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif; line-height:1.8; font-size:22px">
+<span class="token p" style="font-family:'microsoft yahei'; font-size:18px; line-height:29.7000007629395px; white-space:pre-wrap; outline:none!important"><span class="token link" style="outline:none!important"><span class="token md md-underlined-text" style="color:inherit; text-decoration:underline; outline:none!important">Kotlin官网：</span><span style="color:#3333ff"><span class="token md md-bracket-end" style="outline:none!important">(</span><span class="token md md-href" style="outline:none!important"><a target="_blank" href="https://kotlinlang.org/">https://kotlinlang.org/</a></span><span class="token md md-paren-end" style="outline:none!important">)</span></span></span></span></h3>
+<h3 style="margin:0px; font-family:'lucida grande','lucida sans unicode',lucida,helvetica,'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif; line-height:1.8; color:rgb(47,47,47); font-size:22px">
+<span class="token lf" style="color:rgb(90,90,90); font-family:'microsoft yahei'; font-size:18px; line-height:29.7000007629395px; white-space:pre-wrap; outline:none!important"></span><span class="token p" style="color:rgb(90,90,90); font-family:'microsoft yahei'; font-size:18px; line-height:29.7000007629395px; white-space:pre-wrap; outline:none!important">英文原文：<span class="token url" style="outline:none!important; text-decoration:underline"><a target="_blank" href="https://code.tutsplus.com/tutorials/how-to-use-kotlin-in-your-android-projects--cms-24052">https://code.tutsplus.com/tutorials/how-to-use-kotlin-in-your-android-projects--cms-24052</a></span></span><span class="token lf" style="color:rgb(90,90,90); font-family:'microsoft yahei'; font-size:18px; line-height:29.7000007629395px; white-space:pre-wrap; outline:none!important"></span><span class="token p" style="color:rgb(90,90,90); font-family:'microsoft yahei'; font-size:18px; line-height:29.7000007629395px; white-space:pre-wrap; outline:none!important">转载自：<span class="token url" style="outline:none!important; text-decoration:underline"><a target="_blank" href="https://www.jianshu.com/p/a7fadc79e0fb">https://www.jianshu.com/p/a7fadc79e0fb</a></span></span><br>
+</h3>
+<h3 style="margin:0px; font-family:'lucida grande','lucida sans unicode',lucida,helvetica,'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif; line-height:1.8; color:rgb(47,47,47); font-size:22px">
+<br>
+</h3>
+<h3 style="margin:0px; font-family:'lucida grande','lucida sans unicode',lucida,helvetica,'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif; line-height:1.8; color:rgb(47,47,47); font-size:22px">
+简介</h3>
+<p style="margin-top:0px; margin-bottom:25px; text-align:justify; word-break:break-word; color:rgb(47,47,47); font-family:'lucida grande','lucida sans unicode',lucida,helvetica,'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif; font-size:16px; line-height:27.2000007629395px">
+<a target="_blank" href="https://kotlinlang.org/" target="_blank" style="color:rgb(64,148,199); text-decoration:none">Kotlin</a>是由<a target="_blank" href="https://www.jetbrains.com/" target="_blank" style="color:rgb(64,148,199); text-decoration:none">JetBrains</a>设计的开放源码的编程语言，它正在Java开发者中变得越来越流行。Kotlin通常被吹捧为Java的继承者，相比较Java而言，Kotlin提供更为丰富的开发经验，因为它更现代，更具表现力和更简介。</p>
+<p style="margin-top:0px; margin-bottom:25px; text-align:justify; word-break:break-word; color:rgb(47,47,47); font-family:'lucida grande','lucida sans unicode',lucida,helvetica,'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif; font-size:16px; line-height:27.2000007629395px">
+如果你在寻求Android开发的可替代编程语言，那么应该试一下Kotlin。使用Kotlin，你可以很容易的在Android工程中替代Java或者与Java混合使用。</p>
+<p style="margin-top:0px; margin-bottom:25px; text-align:justify; word-break:break-word; color:rgb(47,47,47); font-family:'lucida grande','lucida sans unicode',lucida,helvetica,'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif; font-size:16px; line-height:27.2000007629395px">
+本文接下来将介绍在Android Studio工程中如何使用Kotlin和Kotlin插件。</p>
+<h3 style="margin:0px; font-family:'lucida grande','lucida sans unicode',lucida,helvetica,'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif; line-height:1.8; color:rgb(47,47,47); font-size:22px">
+前置条件</h3>
+<p style="margin-top:0px; margin-bottom:25px; text-align:justify; word-break:break-word; color:rgb(47,47,47); font-family:'lucida grande','lucida sans unicode',lucida,helvetica,'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif; font-size:16px; line-height:27.2000007629395px">
+继续本文之前，你首先需要完成如下两件事情：</p>
+<ul style="padding:0px; margin:0px 0px 20px 25px; text-align:justify; word-break:break-word; color:rgb(47,47,47); font-family:'lucida grande','lucida sans unicode',lucida,helvetica,'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif; font-size:16px; line-height:27.2000007629395px">
+<li style="line-height:30px">将你的Andoid Studio更新到最新版本</li><li style="line-height:30px">理解Kotlin的基本语法</li></ul>
+<p style="margin-top:0px; margin-bottom:25px; text-align:justify; word-break:break-word; color:rgb(47,47,47); font-family:'lucida grande','lucida sans unicode',lucida,helvetica,'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif; font-size:16px; line-height:27.2000007629395px">
+如果你不熟悉Kotlin编程语言的话，建议先阅读<a target="_blank" href="https://kotlinlang.org/docs/reference/" target="_blank" style="color:rgb(64,148,199); text-decoration:none">Kotlin指南</a>中的<a target="_blank" href="https://kotlinlang.org/docs/reference/basic-syntax.html" target="_blank" style="color:rgb(64,148,199); text-decoration:none">开始</a>章节。</p>
+<h3 style="margin:0px; font-family:'lucida grande','lucida sans unicode',lucida,helvetica,'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif; line-height:1.8; color:rgb(47,47,47); font-size:22px">
+1. 安装Kotlin插件</h3>
+<p style="margin-top:0px; margin-bottom:25px; text-align:justify; word-break:break-word; color:rgb(47,47,47); font-family:'lucida grande','lucida sans unicode',lucida,helvetica,'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif; font-size:16px; line-height:27.2000007629395px">
+在Android Studio的快速开始菜单中，选择Configure&gt;Plugins：</p>
+<p style="margin-top:0px; margin-bottom:25px; text-align:justify; word-break:break-word; color:rgb(47,47,47); font-family:'lucida grande','lucida sans unicode',lucida,helvetica,'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif; font-size:16px; line-height:27.2000007629395px">
+</p>
+<div class="image-package imagebubble" style="margin:0px auto 20px; text-align:center; color:rgb(47,47,47); font-family:'lucida grande','lucida sans unicode',lucida,helvetica,'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif; font-size:16px; line-height:27.2000007629395px">
+<img src="https://cms-assets.tutsplus.com/uploads/users/362/posts/24052/image/kot2a.png" class="imagebubble-image" alt="" style=""><br>
+</div>
+<p style="margin-top:0px; margin-bottom:25px; text-align:justify; word-break:break-word; color:rgb(47,47,47); font-family:'lucida grande','lucida sans unicode',lucida,helvetica,'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif; font-size:16px; line-height:27.2000007629395px">
+在打开的页面中，点击底部的Install JetBrains plugin...：</p>
+<p style="margin-top:0px; margin-bottom:25px; text-align:justify; word-break:break-word; color:rgb(47,47,47); font-family:'lucida grande','lucida sans unicode',lucida,helvetica,'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif; font-size:16px; line-height:27.2000007629395px">
+</p>
+<div class="image-package imagebubble" style="margin:0px auto 20px; text-align:center; color:rgb(47,47,47); font-family:'lucida grande','lucida sans unicode',lucida,helvetica,'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif; font-size:16px; line-height:27.2000007629395px">
+<img src="https://cms-assets.tutsplus.com/uploads/users/362/posts/24052/image/kot3b.png" class="imagebubble-image" alt="" style=""><br>
+</div>
+<p style="margin-top:0px; margin-bottom:25px; text-align:justify; word-break:break-word; color:rgb(47,47,47); font-family:'lucida grande','lucida sans unicode',lucida,helvetica,'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif; font-size:16px; line-height:27.2000007629395px">
+在插件列表中选择或者搜索Kotlin Extensions For Android并点击右边窗口的Install Plugin按钮：</p>
+<p style="margin-top:0px; margin-bottom:25px; text-align:justify; word-break:break-word; color:rgb(47,47,47); font-family:'lucida grande','lucida sans unicode',lucida,helvetica,'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif; font-size:16px; line-height:27.2000007629395px">
+</p>
+<div class="image-package imagebubble" style="margin:0px auto 20px; text-align:center; color:rgb(47,47,47); font-family:'lucida grande','lucida sans unicode',lucida,helvetica,'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif; font-size:16px; line-height:27.2000007629395px">
+<img src="https://cms-assets.tutsplus.com/uploads/users/362/posts/24052/image/kotB.png" class="imagebubble-image" alt="" style=""><br>
+</div>
+<p style="margin-top:0px; margin-bottom:25px; text-align:justify; word-break:break-word; color:rgb(47,47,47); font-family:'lucida grande','lucida sans unicode',lucida,helvetica,'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif; font-size:16px; line-height:27.2000007629395px">
+由于这个扩展插件依赖于Kotlin插件，因此会弹出一个对话框提示我们同时去下载它，点击Yes按钮开始插件的下载：</p>
+<p style="margin-top:0px; margin-bottom:25px; text-align:justify; word-break:break-word; color:rgb(47,47,47); font-family:'lucida grande','lucida sans unicode',lucida,helvetica,'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif; font-size:16px; line-height:27.2000007629395px">
+</p>
+<div class="image-package imagebubble" style="margin:0px auto 20px; text-align:center; color:rgb(47,47,47); font-family:'lucida grande','lucida sans unicode',lucida,helvetica,'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif; font-size:16px; line-height:27.2000007629395px">
+<img src="https://cms-assets.tutsplus.com/uploads/users/362/posts/24052/image/kotC.png" class="imagebubble-image" alt="" style=""><br>
+</div>
+<p style="margin-top:0px; margin-bottom:25px; text-align:justify; word-break:break-word; color:rgb(47,47,47); font-family:'lucida grande','lucida sans unicode',lucida,helvetica,'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif; font-size:16px; line-height:27.2000007629395px">
+当下载安装完成之后，重启Android Studio就可以激活插件了。</p>
+<h3 style="margin:0px; font-family:'lucida grande','lucida sans unicode',lucida,helvetica,'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif; line-height:1.8; color:rgb(47,47,47); font-size:22px">
+2. 创建Kotlin Activity</h3>
+<p style="margin-top:0px; margin-bottom:25px; text-align:justify; word-break:break-word; color:rgb(47,47,47); font-family:'lucida grande','lucida sans unicode',lucida,helvetica,'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif; font-size:16px; line-height:27.2000007629395px">
+在Android Studio中，右键单击工程包名在弹出的菜单中选择New&gt;Kotlin File：</p>
+<p style="margin-top:0px; margin-bottom:25px; text-align:justify; word-break:break-word; color:rgb(47,47,47); font-family:'lucida grande','lucida sans unicode',lucida,helvetica,'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif; font-size:16px; line-height:27.2000007629395px">
+</p>
+<div class="image-package imagebubble" style="margin:0px auto 20px; text-align:center; color:rgb(47,47,47); font-family:'lucida grande','lucida sans unicode',lucida,helvetica,'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif; font-size:16px; line-height:27.2000007629395px">
+<img src="https://cms-assets.tutsplus.com/uploads/users/362/posts/24052/image/kot5.png" class="imagebubble-image" alt="" style=""><br>
+</div>
+<p style="margin-top:0px; margin-bottom:25px; text-align:justify; word-break:break-word; color:rgb(47,47,47); font-family:'lucida grande','lucida sans unicode',lucida,helvetica,'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif; font-size:16px; line-height:27.2000007629395px">
+在弹出的对话框中，输入Activity的名字并在类型下拉列表中选择Class。我们把名字命名为MainActivity：</p>
+<p style="margin-top:0px; margin-bottom:25px; text-align:justify; word-break:break-word; color:rgb(47,47,47); font-family:'lucida grande','lucida sans unicode',lucida,helvetica,'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif; font-size:16px; line-height:27.2000007629395px">
+</p>
+<div class="image-package imagebubble" style="margin:0px auto 20px; text-align:center; color:rgb(47,47,47); font-family:'lucida grande','lucida sans unicode',lucida,helvetica,'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif; font-size:16px; line-height:27.2000007629395px">
+<img src="https://cms-assets.tutsplus.com/uploads/users/362/posts/24052/image/kot6.png" class="imagebubble-image" alt="" style=""><br>
+</div>
+<p style="margin-top:0px; margin-bottom:25px; text-align:justify; word-break:break-word; color:rgb(47,47,47); font-family:'lucida grande','lucida sans unicode',lucida,helvetica,'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif; font-size:16px; line-height:27.2000007629395px">
+当类被创建出来后，你将会看到一个警告，提示你配置app模块来支持Kotlin：</p>
+<p style="margin-top:0px; margin-bottom:25px; text-align:justify; word-break:break-word; color:rgb(47,47,47); font-family:'lucida grande','lucida sans unicode',lucida,helvetica,'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif; font-size:16px; line-height:27.2000007629395px">
+</p>
+<div class="image-package imagebubble" style="margin:0px auto 20px; text-align:center; color:rgb(47,47,47); font-family:'lucida grande','lucida sans unicode',lucida,helvetica,'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif; font-size:16px; line-height:27.2000007629395px">
+<img src="https://cms-assets.tutsplus.com/uploads/users/362/posts/24052/image/kot7.png" class="imagebubble-image" alt="" style=""><br>
+</div>
+<p style="margin-top:0px; margin-bottom:25px; text-align:justify; word-break:break-word; color:rgb(47,47,47); font-family:'lucida grande','lucida sans unicode',lucida,helvetica,'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif; font-size:16px; line-height:27.2000007629395px">
+单击警告提示条的链接，在弹出的对话框中点击OK按钮选择默认的Kotlin插件版本即可：</p>
+<p style="margin-top:0px; margin-bottom:25px; text-align:justify; word-break:break-word; color:rgb(47,47,47); font-family:'lucida grande','lucida sans unicode',lucida,helvetica,'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif; font-size:16px; line-height:27.2000007629395px">
+</p>
+<div class="image-package imagebubble" style="margin:0px auto 20px; text-align:center; color:rgb(47,47,47); font-family:'lucida grande','lucida sans unicode',lucida,helvetica,'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif; font-size:16px; line-height:27.2000007629395px">
+<img src="https://cms-assets.tutsplus.com/uploads/users/362/posts/24052/image/kot8.png" class="imagebubble-image" alt="" style=""><br>
+</div>
+<p style="margin-top:0px; margin-bottom:25px; text-align:justify; word-break:break-word; color:rgb(47,47,47); font-family:'lucida grande','lucida sans unicode',lucida,helvetica,'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif; font-size:16px; line-height:27.2000007629395px">
+为了配置你的工程支持Kotlin，Kotlin插件修改了build.gradle文件。点击Sync Now按钮就可以应用这些改动了：</p>
+<p style="margin-top:0px; margin-bottom:25px; text-align:justify; word-break:break-word; color:rgb(47,47,47); font-family:'lucida grande','lucida sans unicode',lucida,helvetica,'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif; font-size:16px; line-height:27.2000007629395px">
+</p>
+<div class="image-package imagebubble" style="margin:0px auto 20px; text-align:center; color:rgb(47,47,47); font-family:'lucida grande','lucida sans unicode',lucida,helvetica,'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif; font-size:16px; line-height:27.2000007629395px">
+<img src="https://cms-assets.tutsplus.com/uploads/users/362/posts/24052/image/kotA.png" class="imagebubble-image" alt="" style=""><br>
+</div>
+<p style="margin-top:0px; margin-bottom:25px; text-align:justify; word-break:break-word; color:rgb(47,47,47); font-family:'lucida grande','lucida sans unicode',lucida,helvetica,'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif; font-size:16px; line-height:27.2000007629395px">
+到这里，工程的配置完成了。让我们回到刚才创建的Kotlin类来开始Kotlin的编程吧。</p>
+<h3 style="margin:0px; font-family:'lucida grande','lucida sans unicode',lucida,helvetica,'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif; line-height:1.8; color:rgb(47,47,47); font-size:22px">
+3. 使用Kotlin</h3>
+<p style="margin-top:0px; margin-bottom:25px; text-align:justify; word-break:break-word; color:rgb(47,47,47); font-family:'lucida grande','lucida sans unicode',lucida,helvetica,'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif; font-size:16px; line-height:27.2000007629395px">
+为了保持例子的简单，我们将展示如何创建一个Activity，它包含一个用于显示String字符串的TextView。</p>
+<p style="margin-top:0px; margin-bottom:25px; text-align:justify; word-break:break-word; color:rgb(47,47,47); font-family:'lucida grande','lucida sans unicode',lucida,helvetica,'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif; font-size:16px; line-height:27.2000007629395px">
+确保你的类继承自Activity，并重写其onCreate函数。当然，你要使用Kotlin的方式实现。如果你还不熟悉Kotlin，建议通过快捷键Control&#43;O来激活Android Studio的代码生成功能，从而得到正确的函数签名：</p>
+<p style="margin-top:0px; margin-bottom:25px; text-align:justify; word-break:break-word; color:rgb(47,47,47); font-family:'lucida grande','lucida sans unicode',lucida,helvetica,'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif; font-size:16px; line-height:27.2000007629395px">
+</p>
+<div class="image-package imagebubble" style="margin:0px auto 20px; text-align:center; color:rgb(47,47,47); font-family:'lucida grande','lucida sans unicode',lucida,helvetica,'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif; font-size:16px; line-height:27.2000007629395px">
+<img src="https://cms-assets.tutsplus.com/uploads/users/362/posts/24052/image/kotG.png" class="imagebubble-image" alt="" style=""><br>
+</div>
+<p style="margin-top:0px; margin-bottom:25px; text-align:justify; word-break:break-word; color:rgb(47,47,47); font-family:'lucida grande','lucida sans unicode',lucida,helvetica,'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif; font-size:16px; line-height:27.2000007629395px">
+生成之后，我们的类应该如下所示：</p>
+<pre style="padding:9.5px; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; font-size:13px; color:rgb(63,63,63); margin-top:0px; margin-bottom:20px; line-height:20px; word-break:normal; word-wrap:normal; white-space:pre-wrap; overflow:auto; background-color:rgb(245,245,245)"><code style="padding:0px; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; font-size:12px; color:rgb(217,111,93); border:none; white-space:pre; background-color:transparent">package com.hathy.kotlinsample
+
+import android.app.Activity
+import android.os.Bundle
+
+public class MainActivity: Activity() &#123;
+    override fun onCreate(savedInstanceState: Bundle?) &#123;
+        super.onCreate(savedInstanceState)
+    &#125;
+&#125;</code></pre>
+<p style="margin-top:0px; margin-bottom:25px; text-align:justify; word-break:break-word; color:rgb(47,47,47); font-family:'lucida grande','lucida sans unicode',lucida,helvetica,'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif; font-size:16px; line-height:27.2000007629395px">
+使用val关键字创建TextView的一个只读实例：</p>
+<pre style="padding:9.5px; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; font-size:13px; color:rgb(63,63,63); margin-top:0px; margin-bottom:20px; line-height:20px; word-break:normal; word-wrap:normal; white-space:pre-wrap; overflow:auto; background-color:rgb(245,245,245)"><code style="padding:0px; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; font-size:12px; color:rgb(217,111,93); border:none; white-space:pre; background-color:transparent">val myMessage = TextView(this)</code></pre>
+<p style="margin-top:0px; margin-bottom:25px; text-align:justify; word-break:break-word; color:rgb(47,47,47); font-family:'lucida grande','lucida sans unicode',lucida,helvetica,'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif; font-size:16px; line-height:27.2000007629395px">
+调用TextView的setText函数设置要显示的字符串，接着调用setContentView将TextView设置给它：</p>
+<pre style="padding:9.5px; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; font-size:13px; color:rgb(63,63,63); margin-top:0px; margin-bottom:20px; line-height:20px; word-break:normal; word-wrap:normal; white-space:pre-wrap; overflow:auto; background-color:rgb(245,245,245)"><code style="padding:0px; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; font-size:12px; color:rgb(217,111,93); border:none; white-space:pre; background-color:transparent">myMessage.setText(&quot;Hello&quot;)
+setContentView(myMessage)</code></pre>
+<p style="margin-top:0px; margin-bottom:25px; text-align:justify; word-break:break-word; color:rgb(47,47,47); font-family:'lucida grande','lucida sans unicode',lucida,helvetica,'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif; font-size:16px; line-height:27.2000007629395px">
+就像在Java Activity中，你也需要在AndroidManifest.xml文件中声明Kotlin Activity，以便让Android系统识别到它。假如这是你工程中唯一的Activity，那么manifest文件看起来如下所示：</p>
+<pre style="padding:9.5px; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; font-size:13px; color:rgb(63,63,63); margin-top:0px; margin-bottom:20px; line-height:20px; word-break:normal; word-wrap:normal; white-space:pre-wrap; overflow:auto; background-color:rgb(245,245,245)"><code style="padding:0px; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; font-size:12px; color:rgb(217,111,93); border:none; white-space:pre; background-color:transparent">&lt;activity android:name=&quot;.MainActivity&quot;&gt;
+    &lt;intent-filter&gt;
+        &lt;action android:name=&quot;android.intent.action.MAIN&quot;/&gt;
+        &lt;category android:name=&quot;android.intent.category.LAUNCHER&quot;/&gt;
+    &lt;/intent-filter&gt;
+&lt;/activity&gt;</code></pre>
+<p style="margin-top:0px; margin-bottom:25px; text-align:justify; word-break:break-word; color:rgb(47,47,47); font-family:'lucida grande','lucida sans unicode',lucida,helvetica,'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif; font-size:16px; line-height:27.2000007629395px">
+现在你可以在你的Android设备或者模拟器上运行这个app了。虽然Kotlin编译器比Java编译器稍微慢一点，但你可能察觉不到编译时间的显著变化。</p>
+<h3 style="margin:0px; font-family:'lucida grande','lucida sans unicode',lucida,helvetica,'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif; line-height:1.8; color:rgb(47,47,47); font-size:22px">
+4. 使用Kotlin的Android扩展插件</h3>
+<p style="margin-top:0px; margin-bottom:25px; text-align:justify; word-break:break-word; color:rgb(47,47,47); font-family:'lucida grande','lucida sans unicode',lucida,helvetica,'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif; font-size:16px; line-height:27.2000007629395px">
+Kotlin的Android扩展插件使得开发者可以像对待Activity属性一样对待定义在Activity的XML布局文件中的组件。也就是说，如果使用这个插件，你将不再需要调用findViewById。这些属性因此被称为合成属性（synthetic properties）。</p>
+<p style="margin-top:0px; margin-bottom:25px; text-align:justify; word-break:break-word; color:rgb(47,47,47); font-family:'lucida grande','lucida sans unicode',lucida,helvetica,'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif; font-size:16px; line-height:27.2000007629395px">
+要在项目中使用这个特性，需要在app模块的build.gradle文件中加入org.jetbrains.kotlin:kotlin-android-extensions作为构建脚本依赖。不要忘了点击Sync Now按钮来同步这个改变到工程中：</p>
+<pre style="padding:9.5px; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; font-size:13px; color:rgb(63,63,63); margin-top:0px; margin-bottom:20px; line-height:20px; word-break:normal; word-wrap:normal; white-space:pre-wrap; overflow:auto; background-color:rgb(245,245,245)"><code style="padding:0px; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; font-size:12px; color:rgb(217,111,93); border:none; white-space:pre; background-color:transparent">buildscript &#123;
+    dependencies &#123;
+        classpath &quot;org.jetbrains.kotlin:kotlin-android-extensions:$kotlin_version&quot;
+    &#125;
+&#125;</code></pre>
+<p style="margin-top:0px; margin-bottom:25px; text-align:justify; word-break:break-word; color:rgb(47,47,47); font-family:'lucida grande','lucida sans unicode',lucida,helvetica,'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif; font-size:16px; line-height:27.2000007629395px">
+现在让我们创建一个和前面步骤创建的类&#20284;的Activity，但是使用布局XML文件来定义TextView。创建一个布局XML文件并命名为another_activity.xml。在这个文件中，定义TextView，id为myMessage：</p>
+<pre style="padding:9.5px; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; font-size:13px; color:rgb(63,63,63); margin-top:0px; margin-bottom:20px; line-height:20px; word-break:normal; word-wrap:normal; white-space:pre-wrap; overflow:auto; background-color:rgb(245,245,245)"><code style="padding:0px; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; font-size:12px; color:rgb(217,111,93); border:none; white-space:pre; background-color:transparent">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;LinearLayout xmlns:android=&quot;https://schemas.android.com/apk/res/android&quot;
+    android:orientation=&quot;vertical&quot; android:layout_width=&quot;match_parent&quot;
+    android:layout_height=&quot;match_parent&quot;&gt;
+
+    &lt;TextView
+        android:layout_width=&quot;wrap_content&quot;
+        android:layout_height=&quot;wrap_content&quot;
+        android:textAppearance=&quot;?android:attr/textAppearanceLarge&quot;
+        android:text=&quot;Large Text&quot;
+        android:id=&quot;@&#43;id/myMessage&quot; /&gt;
+&lt;/LinearLayout&gt;</code></pre>
+<p style="margin-top:0px; margin-bottom:25px; text-align:justify; word-break:break-word; color:rgb(47,47,47); font-family:'lucida grande','lucida sans unicode',lucida,helvetica,'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif; font-size:16px; line-height:27.2000007629395px">
+新建另一个Kotlin类AnotherActivity，继承自Activity并重写onCreate函数，实现如下所示：</p>
+<pre style="padding:9.5px; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; font-size:13px; color:rgb(63,63,63); margin-top:0px; margin-bottom:20px; line-height:20px; word-break:normal; word-wrap:normal; white-space:pre-wrap; overflow:auto; background-color:rgb(245,245,245)"><code style="padding:0px; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; font-size:12px; color:rgb(217,111,93); border:none; white-space:pre; background-color:transparent">package com.hathy.kotlinsample
+
+import android.app.Activity
+import android.os.Bundle
+
+public class AnotherActivity: Activity() &#123;
+
+    override fun onCreate(savedInstanceState: Bundle?) &#123;
+        super.onCreate(savedInstanceState)
+    &#125;
+&#125;</code></pre>
+<p style="margin-top:0px; margin-bottom:25px; text-align:justify; word-break:break-word; color:rgb(47,47,47); font-family:'lucida grande','lucida sans unicode',lucida,helvetica,'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif; font-size:16px; line-height:27.2000007629395px">
+在onCreate函数中调用setContentView并把刚才创建的布局XML文件设置给它：</p>
+<pre style="padding:9.5px; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; font-size:13px; color:rgb(63,63,63); margin-top:0px; margin-bottom:20px; line-height:20px; word-break:normal; word-wrap:normal; white-space:pre-wrap; overflow:auto; background-color:rgb(245,245,245)"><code style="padding:0px; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; font-size:12px; color:rgb(217,111,93); border:none; white-space:pre; background-color:transparent">setContentView(R.layout.another_activity)</code></pre>
+<p style="margin-top:0px; margin-bottom:25px; text-align:justify; word-break:break-word; color:rgb(47,47,47); font-family:'lucida grande','lucida sans unicode',lucida,helvetica,'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif; font-size:16px; line-height:27.2000007629395px">
+现在，你可以使用下面代码片段导入TextView，而不是使用findViewById的方式：</p>
+<pre style="padding:9.5px; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; font-size:13px; color:rgb(63,63,63); margin-top:0px; margin-bottom:20px; line-height:20px; word-break:normal; word-wrap:normal; white-space:pre-wrap; overflow:auto; background-color:rgb(245,245,245)"><code style="padding:0px; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; font-size:12px; color:rgb(217,111,93); border:none; white-space:pre; background-color:transparent">import kotlinx.android.synthetic.another_activity.myMessage</code></pre>
+<p style="margin-top:0px; margin-bottom:25px; text-align:justify; word-break:break-word; color:rgb(47,47,47); font-family:'lucida grande','lucida sans unicode',lucida,helvetica,'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif; font-size:16px; line-height:27.2000007629395px">
+如果布局文件中存在其他的组件，你可以使用如下语句来一次性全部导入：</p>
+<pre style="padding:9.5px; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; font-size:13px; color:rgb(63,63,63); margin-top:0px; margin-bottom:20px; line-height:20px; word-break:normal; word-wrap:normal; white-space:pre-wrap; overflow:auto; background-color:rgb(245,245,245)"><code style="padding:0px; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; font-size:12px; color:rgb(217,111,93); border:none; white-space:pre; background-color:transparent">import kotlinx.android.synthetic.another_activity.*</code></pre>
+<p style="margin-top:0px; margin-bottom:25px; text-align:justify; word-break:break-word; color:rgb(47,47,47); font-family:'lucida grande','lucida sans unicode',lucida,helvetica,'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif; font-size:16px; line-height:27.2000007629395px">
+现在你可以通过使用id来访问TextView，就像该TextView是Activity类的一个属性一样。例如，修改TextView显示的字符串：</p>
+<pre style="padding:9.5px; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; font-size:13px; color:rgb(63,63,63); margin-top:0px; margin-bottom:20px; line-height:20px; word-break:normal; word-wrap:normal; white-space:pre-wrap; overflow:auto; background-color:rgb(245,245,245)"><code style="padding:0px; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; font-size:12px; color:rgb(217,111,93); border:none; white-space:pre; background-color:transparent">myMessage.setText(&quot;Hello&quot;)</code></pre>
+<h3 style="margin:0px; font-family:'lucida grande','lucida sans unicode',lucida,helvetica,'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif; line-height:1.8; color:rgb(47,47,47); font-size:22px">
+5. 将Java类转换为Kotlin</h3>
+<p style="margin-top:0px; margin-bottom:25px; text-align:justify; word-break:break-word; color:rgb(47,47,47); font-family:'lucida grande','lucida sans unicode',lucida,helvetica,'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif; font-size:16px; line-height:27.2000007629395px">
+我们可以使用Kotlin插件将现存的Java类转换成Kotlin类。为了尝试这个特性，首先创建如下所示的Java类，它是一个打印两个整数之和的简单的Activity：</p>
+<pre style="padding:9.5px; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; font-size:13px; color:rgb(63,63,63); margin-top:0px; margin-bottom:20px; line-height:20px; word-break:normal; word-wrap:normal; white-space:pre-wrap; overflow:auto; background-color:rgb(245,245,245)"><code style="padding:0px; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; font-size:12px; color:rgb(217,111,93); border:none; white-space:pre; background-color:transparent">public class YetAnotherActivity extends Activity &#123;
+
+    private int a,b;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) &#123;
+        super.onCreate(savedInstanceState);
+        a=10;
+        b=20;
+        Log.d(&quot;MESSAGE&quot;, &quot;The sum is &quot;&#43;(a&#43;b));
+    &#125;
+&#125;</code></pre>
+<p style="margin-top:0px; margin-bottom:25px; text-align:justify; word-break:break-word; color:rgb(47,47,47); font-family:'lucida grande','lucida sans unicode',lucida,helvetica,'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif; font-size:16px; line-height:27.2000007629395px">
+使用快捷键Control&#43;Alt&#43;Shift&#43;J，或者选择菜单Code&gt;Convert Java File to Kotlin File：</p>
+<p style="margin-top:0px; margin-bottom:25px; text-align:justify; word-break:break-word; color:rgb(47,47,47); font-family:'lucida grande','lucida sans unicode',lucida,helvetica,'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif; font-size:16px; line-height:27.2000007629395px">
+</p>
+<div class="image-package imagebubble" style="margin:0px auto 20px; text-align:center; color:rgb(47,47,47); font-family:'lucida grande','lucida sans unicode',lucida,helvetica,'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif; font-size:16px; line-height:27.2000007629395px">
+<img src="https://cms-assets.tutsplus.com/uploads/users/362/posts/24052/image/kotH.png" class="imagebubble-image" alt="" style=""><br>
+</div>
+<p style="margin-top:0px; margin-bottom:25px; text-align:justify; word-break:break-word; color:rgb(47,47,47); font-family:'lucida grande','lucida sans unicode',lucida,helvetica,'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif; font-size:16px; line-height:27.2000007629395px">
+转换后的Kotlin类如下所示：</p>
+<pre style="padding:9.5px; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; font-size:13px; color:rgb(63,63,63); margin-top:0px; margin-bottom:20px; line-height:20px; word-break:normal; word-wrap:normal; white-space:pre-wrap; overflow:auto; background-color:rgb(245,245,245)"><code style="padding:0px; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; font-size:12px; color:rgb(217,111,93); border:none; white-space:pre; background-color:transparent">public class YetAnotherActivity : Activity() &#123;
+
+    private var a: Int = 0
+    private var b: Int = 0
+
+    override fun onCreate(savedInstanceState: Bundle?) &#123;
+        super.onCreate(savedInstanceState)
+        a = 10
+        b = 20
+        Log.d(&quot;MESSAGE&quot;, &quot;The sum is &quot; &#43; (a &#43; b))
+    &#125;
+&#125;</code></pre>
+<p style="margin-top:0px; margin-bottom:25px; text-align:justify; word-break:break-word; color:rgb(47,47,47); font-family:'lucida grande','lucida sans unicode',lucida,helvetica,'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif; font-size:16px; line-height:27.2000007629395px">
+除了文件内容改变之外，文件的扩展名也从.java变为了.kt。</p>
+<h3 style="margin:0px; font-family:'lucida grande','lucida sans unicode',lucida,helvetica,'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif; line-height:1.8; color:rgb(47,47,47); font-size:22px">
+总结</h3>
+<p style="margin-top:0px; margin-bottom:25px; text-align:justify; word-break:break-word; color:rgb(47,47,47); font-family:'lucida grande','lucida sans unicode',lucida,helvetica,'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif; font-size:16px; line-height:27.2000007629395px">
+本文我们通过在Android Studio中安装Kotlin插件和Kotlin Android扩展插件学到了如何在Android工程中使用Kotlin。由于Kotlin和Java在很大程度上可互操作，如果你还在学习Kotlin，那么最好是逐步在你的Android项目中应用它。</p>
+<p style="margin-top:0px; margin-bottom:25px; text-align:justify; word-break:break-word; color:rgb(47,47,47); font-family:'lucida grande','lucida sans unicode',lucida,helvetica,'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif; font-size:16px; line-height:27.2000007629395px">
+为了学习更多的Kotlin相关知识，我建议浏览<a target="_blank" href="https://kotlinlang.org/docs/reference/" target="_blank" style="color:rgb(64,148,199); text-decoration:none">Kotlin指南</a>。<a target="_blank" href="https://kotlinlang.org/docs/reference/basic-syntax.html" target="_blank" style="color:rgb(64,148,199); text-decoration:none">开始</a>章节将会帮助你尽快熟悉这门新语言。</p>
+
+      
+    </div>
+</article>
+
+<!-- 上一页 下一页 -->
+
+
+<nav id="article-nav">
+  
+    <a href="/2015/07/06/%E4%BD%BF%E7%94%A8Kotlin%E5%BC%80%E5%8F%91Android%E5%BA%94%E7%94%A8%EF%BC%88I%EF%BC%89%EF%BC%9A%E7%AE%80%E4%BB%8B/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>上一篇</span>
+      <div class="article-nav-title">
+        
+          使用Kotlin开发Android应用（I）：简介
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/07/01/MaterialCheckBox/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>下一篇</span>
+      <div class="article-nav-title">自定义控件--MaterialCheckBox</div>
+    </a>
+  
+</nav>
+
+
+
+<!-- 相关文章 -->
+
+<!--
+
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+      			<a href="/2015/07/06/Kotlin%E5%9C%A8Android%E5%B7%A5%E7%A8%8B%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8/">Kotlin在Android工程中的应用</a>
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+
+-->
+
+
+</section>
+      </div>
+      <footer id="footer">
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      
+      &copy;2024<a target="_blank" rel="noopener" href="https://github.com/hanks-zyh"> Hanks</a>版权所有
+      <br/>
+      <a href="https://beian.miit.gov.cn/" target="_blank">豫ICP备2021022347号</a>
+	  </div>
+  </div>
+ <div id="share">
+  <a id="totop" title="" style="display: block;">返回顶部</a>
+ </div>
+</footer>
+
+    </div>
+    
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/jquery.scrollLoading.js"></script>
+
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/ads.js"></script>
+
+  </div>
+</body>
+</html>

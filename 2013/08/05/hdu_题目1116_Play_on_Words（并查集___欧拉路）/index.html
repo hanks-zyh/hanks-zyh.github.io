@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>hdu 题目1116 Play on Words（并查集 + 欧拉路） | Hanks&#39; Websit</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <script data-ad-client="ca-pub-8165670162444117" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <meta name="referrer" content="never">
+  <meta name="description" content="Play on Words Time Limit: 10000&#x2F;5000 MS (Java&#x2F;Others)&nbsp;&nbsp;&nbsp;&nbsp;Memory Limit: 65536&#x2F;32768 K (Java&#x2F;Others) Total Submission(s): 4142&nbsp;&nbsp;&nbsp;&nbsp;Accepted Submission(s): 1337">
+<meta property="og:type" content="article">
+<meta property="og:title" content="hdu 题目1116 Play on Words（并查集 + 欧拉路）">
+<meta property="og:url" content="https://hanks.pub/2013/08/05/hdu_%E9%A2%98%E7%9B%AE1116_Play_on_Words%EF%BC%88%E5%B9%B6%E6%9F%A5%E9%9B%86___%E6%AC%A7%E6%8B%89%E8%B7%AF%EF%BC%89/index.html">
+<meta property="og:site_name" content="Hanks&#39; Websit">
+<meta property="og:description" content="Play on Words Time Limit: 10000&#x2F;5000 MS (Java&#x2F;Others)&nbsp;&nbsp;&nbsp;&nbsp;Memory Limit: 65536&#x2F;32768 K (Java&#x2F;Others) Total Submission(s): 4142&nbsp;&nbsp;&nbsp;&nbsp;Accepted Submission(s): 1337">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img.blog.csdn.net/20130805233541468">
+<meta property="article:published_time" content="2013-08-05T15:42:00.000Z">
+<meta property="article:modified_time" content="2024-02-08T01:29:02.183Z">
+<meta property="article:author" content="Hanks">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img.blog.csdn.net/20130805233541468">
+  
+  
+  <link href="https://fonts.googleapis.com/css?family=Fira+Code|Noto+Serif+SC&display=swap" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8165670162444117"
+     crossorigin="anonymous"></script>
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo"></a>
+    <nav id="main-nav">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      
+        <a class="main-nav-link" href="/archives">Archive</a>
+      
+        <a class="main-nav-link" href="/eye-video">Eye</a>
+      
+        <a class="main-nav-link" href="/atom.xml">Rss</a>
+      
+    </nav>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/archives" class="mobile-nav-link">Archive</a>
+  
+    <a href="/eye-video" class="mobile-nav-link">Eye</a>
+  
+    <a href="/atom.xml" class="mobile-nav-link">Rss</a>
+  
+</nav>
+      <div class="outer">
+        <section id="main"><article id="post-hdu_题目1116_Play_on_Words（并查集___欧拉路）" class="article article-type-post" itemscope
+  itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <header class="article-header">
+      
+      
+  
+    <h1 class="article-title" itemprop="name">
+      hdu 题目1116 Play on Words（并查集 + 欧拉路）
+    </h1>
+  
+
+      
+    </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+<p></p>
+<h1 style="color:rgb(26,92,200); text-align:center; font-family:'Times New Roman'">
+Play on Words</h1>
+<span style="font-family:'Times New Roman'; font-size:14px"><strong><span style="font-family:Arial; font-size:12px; color:green">Time Limit: 10000/5000 MS (Java/Others)&nbsp;&nbsp;&nbsp;&nbsp;Memory Limit: 65536/32768 K (Java/Others)<br>
+Total Submission(s): 4142&nbsp;&nbsp;&nbsp;&nbsp;Accepted Submission(s): 1337<br>
+</span></strong></span><br style="font-family:'Times New Roman'; font-size:14px">
+<br style="font-family:'Times New Roman'; font-size:14px">
+<div class="panel_title" align="left" style="height:38px; background-color:transparent; padding:0px 14px; color:rgb(124,169,237); font-size:18px; font-family:Arial; font-weight:bold">
+Problem Description</div>
+<div class="panel_content" style="height:auto; margin:0px; padding:0px 20px; font-size:14px; font-family:'Times New Roman'">
+Some of the secret doors contain a very interesting word puzzle. The team of archaeologists has to solve it to open that doors. Because there is no other way to open the doors, the puzzle is very important for us.&nbsp;<br>
+<br>
+There is a large number of magnetic plates on every door. Every plate has one word written on it. The plates must be arranged into a sequence in such a way that every word begins with the same letter as the previous word ends. For example, the word ``acm''
+ can be followed by the word ``motorola''. Your task is to write a computer program that will read the list of words and determine whether it is possible to arrange all of the plates in a sequence (according to the given rule) and consequently to open the door.&nbsp;<br>
+</div>
+<div class="panel_bottom" style="height:auto; margin:0px; font-family:'Times New Roman'; font-size:14px">
+&nbsp;</div>
+<br style="font-family:'Times New Roman'; font-size:14px">
+<div class="panel_title" align="left" style="height:38px; background-color:transparent; padding:0px 14px; color:rgb(124,169,237); font-size:18px; font-family:Arial; font-weight:bold">
+Input</div>
+<div class="panel_content" style="height:auto; margin:0px; padding:0px 20px; font-size:14px; font-family:'Times New Roman'">
+The input consists of T test cases. The number of them (T) is given on the first line of the input file. Each test case begins with a line containing a single integer number Nthat indicates the number of plates (1 &lt;= N &lt;= 100000). Then exactly Nlines follow,
+ each containing a single word. Each word contains at least two and at most 1000 lowercase characters, that means only letters 'a' through 'z' will appear in the word. The same word may appear several times in the list.&nbsp;<br>
+</div>
+<div class="panel_bottom" style="height:auto; margin:0px; font-family:'Times New Roman'; font-size:14px">
+&nbsp;</div>
+<br style="font-family:'Times New Roman'; font-size:14px">
+<div class="panel_title" align="left" style="height:38px; background-color:transparent; padding:0px 14px; color:rgb(124,169,237); font-size:18px; font-family:Arial; font-weight:bold">
+Output</div>
+<div class="panel_content" style="height:auto; margin:0px; padding:0px 20px; font-size:14px; font-family:'Times New Roman'">
+Your program has to determine whether it is possible to arrange all the plates in a sequence such that the first letter of each word is equal to the last letter of the previous word. All the plates from the list must be used, each exactly once. The words mentioned
+ several times must be used that number of times.&nbsp;<br>
+If there exists such an ordering of plates, your program should print the sentence &quot;Ordering is possible.&quot;. Otherwise, output the sentence &quot;The door cannot be opened.&quot;.&nbsp;<br>
+</div>
+<div class="panel_bottom" style="height:auto; margin:0px; font-family:'Times New Roman'; font-size:14px">
+&nbsp;</div>
+<br style="font-family:'Times New Roman'; font-size:14px">
+<div class="panel_title" align="left" style="height:38px; background-color:transparent; padding:0px 14px; color:rgb(124,169,237); font-size:18px; font-family:Arial; font-weight:bold">
+Sample Input</div>
+<div class="panel_content" style="height:auto; margin:0px; padding:0px 20px; font-size:14px; font-family:'Times New Roman'">
+<pre style="margin-top:0px; margin-bottom:0px"><div style="font-family:'Courier New',Courier,monospace">3
+2
+acm
+ibm
+3
+acm
+malform
+mouse
+2
+ok
+ok</div></pre>
+</div>
+<div class="panel_bottom" style="height:auto; margin:0px; font-family:'Times New Roman'; font-size:14px">
+&nbsp;</div>
+<br style="font-family:'Times New Roman'; font-size:14px">
+<div class="panel_title" align="left" style="height:38px; background-color:transparent; padding:0px 14px; color:rgb(124,169,237); font-size:18px; font-family:Arial; font-weight:bold">
+Sample Output</div>
+<div class="panel_content" style="height:auto; margin:0px; padding:0px 20px; font-size:14px; font-family:'Times New Roman'">
+<pre style="margin-top:0px; margin-bottom:0px"><div style="font-family:'Courier New',Courier,monospace">The door cannot be opened.
+Ordering is possible.
+The door cannot be opened.</div></pre>
+</div>
+<div class="panel_bottom" style="height:auto; margin:0px; font-family:'Times New Roman'; font-size:14px">
+&nbsp;<br>
+<br>
+<div class="panel_bottom"><strong><span style="font-size:18px">第一次用深搜做的，提交之后出现&nbsp;<span style="color:rgb(0,128,0)">Runtime Error</span><span style="color:rgb(0,128,0)">(STACK_OVERFLOW)</span></span></strong></div>
+<div class="panel_bottom"><span style="color:rgb(0,128,0)">&nbsp;</span><strong><span style="font-size:18px">然后看到可以使用<span style="color:rgb(51,255,51)">#pragma comment(linker, &quot;/STACK:102400000,102400000&quot;)</span>来解决栈溢出，加了之后然后提交，结果超时了</span></strong></div>
+<div class="panel_bottom"><strong><span style="font-size:18px">一下是超时代码：</span></strong></div>
+<div class="panel_bottom">&nbsp;</div>
+<div class="panel_bottom">等我改进。。。。。</div>
+<p>&nbsp;</p>
+<pre class="cpp" name="code">/*　　超时了、、、、
+2013/08/04 16:02
+author :zyh
+*/
+
+#define N 100003
+#include &lt;iostream&gt;
+#include &lt;stdio.h&gt;
+#include &lt;string.h&gt;
+#pragma comment(linker, &quot;/STACK:102400000,102400000&quot;)//解决 STACK＿Overflow
+
+using namespace std;
+
+char a[N][3];
+char s[1002];
+bool visit[N];
+int sign,n;
+
+void DFS(int i,int num)
+{
+	if(sign || num == n) return;
+//	printf(&quot;i=%d,num=%d,a=%c\n&quot;,i,num,a[i][1]);
+	visit[i] = 1;	num++;
+	int j,flag = 0;
+	for(j=0; j&lt;n; j++)
+	{
+		if(j!= i &amp;&amp; !visit[j] &amp;&amp; a[i][1] == a[j][0] )  //找头 和第i行尾相同的 
+		{
+	//		printf(&quot;j=%d,a=%c\n&quot;,j,a[j][0]);
+				flag = 1;
+				DFS(j,num);		
+		}	
+	}
+	if(!flag &amp;&amp; num == n ) //没有找到与末尾相同的，但是是序列最后一个结点 
+	{
+		sign = 1; return;
+	}
+	else {
+		visit[i] = 0;	
+		return;	
+	}
+}
+
+int main()
+{
+	int i,t;
+
+	scanf(&quot;%d&quot;,&amp;t);
+	while(t--)
+	{
+		scanf(&quot;%d&quot;,&amp;n);
+		getchar();
+		for(i=0;i&lt;n;i++)
+		{
+			gets(s);
+			a[i][0] = s[0];
+			a[i][1] = s[strlen(s)-1];
+		}	
+	//	for(i=0;i&lt;n;i++) printf(&quot;%d : %c %c\n&quot;,i,a[i][0],a[i][1]);
+		sign = 0;
+		for(i=0;i&lt;n;i++) visit[i] = 0;
+		
+		for(i=0;i&lt;n;i++)	DFS(i,0); 	
+		
+		if(sign) printf(&quot;Ordering is possible.\n&quot;);
+		else printf(&quot;The door cannot be opened.\n&quot;);
+	}
+	return 0;
+}</pre>
+<p><br>
+&nbsp;</p>
+<p>&nbsp;</p>
+</div>
+<br>
+<p></p>
+<p><strong><span style="font-family:KaiTi_GB2312; font-size:18px">欧拉回路<br>
+1、欧拉路：在无孤立顶点的图中，若存在一条路，经过图中每条边一次且仅一次，则称此路为欧拉路。如下图（左）中存在一条从顶点1到顶点6的欧拉路。后面的例题（一笔画问题）本质上就是判断一个图是否存在欧拉路。<br>
+2、欧拉回路：在无孤立顶点的图中，若存在一条路，经过图中每条边一次且仅一次，且回到原来位置，则称此路为欧拉回路。如下图（右）中任意两个顶点之间都存在欧拉回路。著名的柯&#23612;斯堡七桥问题（图论起源）本质上就是讨论一个图的欧拉回路问题。<br>
+3、欧拉图：存在欧拉回路的图，称为欧拉图，图（右）所示的图就是一个欧拉图。</span></strong><br>
+</p>
+<p><img src="https://img.blog.csdn.net/20130805233541468" alt=""><br>
+</p>
+<p><strong><span style="font-family:KaiTi_GB2312; font-size:18px">定理1：存在欧拉路的条件：图是连通的，且存在0个或2个奇点。如果存在2个奇点，则欧拉路一定是从一个奇点出发，以另一个奇点结束。<br>
+定理2：存在欧拉回路的条件：图是连通的，且不存在奇点。</span></strong></p>
+<p><strong><span style="font-family:KaiTi_GB2312; font-size:18px"><br>
+6、哈密尔顿图：在无孤立顶点的连通图中，若存在一条路，经过图中每个顶点一次且仅一次，则称此图为哈密尔顿图。<br>
+7、哈密尔顿环：是一条沿着图的n条边环行的路径，它访问每一个顶点一次且仅一次，并且返回到它的开始位置。</span></strong><br>
+<br>
+<br>
+</p>
+<p><strong><span style="font-size:18px; color:#ff9900"><br>
+</span></strong></p>
+<p><strong><span style="font-size:18px; color:#ff9900">1.首先建立并查集，判断是否是一个根（是否有孤立顶点），首先必须满足一个根结点</span></strong></p>
+<p><strong><span style="font-size:18px; color:#ff9900">2.判断各个点的入度和出度， 入度和出度 都为0 或1，欧拉路</span></strong></p>
+<p><strong><span style="font-size:18px; color:#ff9900">3.中间结点的入度必须等于出度</span></strong></p>
+<p><br>
+</p>
+<p>code：</p>
+<p></p>
+<pre name="code" class="cpp">/*Problem : 1116 ( Play on Words )     Judge Status : Accepted
+RunId : 8840032    Language : C++    Author : 18236887539
+Code Render Status : Rendered By HDOJ C++ Code Render Version 0.01 Beta*/</pre><pre name="code" class="cpp">#define N 30
+#include&lt;iostream&gt;
+#include&lt;stdio.h&gt;
+#include&lt;string.h&gt;
+using namespace std;
+
+int father[N],in[N],out[N];
+bool visit[N];
+
+int find(int x)
+{
+    while( father[x] != x)
+     x = father[x];
+    return x;
+}
+
+int main()
+{
+    int i,t,n,a,b;
+    char s[1002];
+    scanf(&quot;%d&quot;,&amp;t);
+    while(t--)
+    {
+        for(i=0;i&lt;N;i++)
+        {
+            father[i] = i;
+            in[i] = out[i] = visit[i] = 0;
+        }
+        scanf(&quot;%d&quot;,&amp;n);
+        getchar();
+        while(n--)
+        {
+            gets(s);
+            a = s[0]-'a';
+            b = s[strlen(s)-1]-'a';
+            in[b]++;
+            out[a]++;
+            father[a] = father[b] = find(a);
+            visit[a] = visit[b] = 1;
+        }
+        
+        int cnt=0;
+        for(i=0;i&lt;N;i++)
+        {
+            if(visit[i] &amp;&amp; father[i]==i ) cnt++;
+        }
+        
+        if(cnt&gt;1)//根节点个数大于1，不满足 
+        {
+            printf(&quot;The door cannot be opened.\n&quot;);
+            continue;
+        }
+        
+        int mid,front,rear;
+        mid = front = rear = 0;
+        
+        for(i=0;i&lt;N;i++)
+        {
+            if(visit[i] &amp;&amp; in[i]!=out[i])//没有存的略过， 入度等于出度的 略过 
+            {
+                if( out[i]+1 == in[i] ) rear++;
+                else if(out[i] == in[i]+1) front++;
+                else mid++;
+            }
+        }
+    //    printf(&quot;mid=%d,f=%d,r=%d\n&quot;,mid,front,rear);
+        if(mid&gt;0)  
+        {
+            printf(&quot;The door cannot be opened.\n&quot;);
+            continue;
+        }
+        if( (front==1&amp;&amp;rear==1) ||( front==0&amp;&amp;rear==0))
+        {
+            printf(&quot;Ordering is possible.\n&quot;);
+            continue;
+        }
+        else     printf(&quot;The door cannot be opened.\n&quot;);                    
+    }
+    return 0;
+}</pre><br>
+<br>
+<p></p>
+<p><br>
+</p>
+
+      
+    </div>
+</article>
+
+<!-- 上一页 下一页 -->
+
+
+<nav id="article-nav">
+  
+    <a href="/2013/08/06/NYOJ_%E9%A2%98%E7%9B%AE290_%E5%8A%A8%E7%89%A9%E7%BB%9F%E8%AE%A1%E5%8A%A0%E5%BC%BA%E7%89%88/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>上一篇</span>
+      <div class="article-nav-title">
+        
+          NYOJ 题目290 动物统计加强版
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2013/08/05/hdu_%E9%A2%98%E7%9B%AE1272_%E5%B0%8F%E5%B8%8C%E7%9A%84%E8%BF%B7%E5%AE%AB_%EF%BC%88%E5%B9%B6%E6%9F%A5%E9%9B%86%EF%BC%89/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>下一篇</span>
+      <div class="article-nav-title">hdu 题目1272 小希的迷宫 （并查集）</div>
+    </a>
+  
+</nav>
+
+
+
+<!-- 相关文章 -->
+
+<!--
+
+-->
+
+
+</section>
+      </div>
+      <footer id="footer">
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      
+      &copy;2024<a target="_blank" rel="noopener" href="https://github.com/hanks-zyh"> Hanks</a>版权所有
+      <br/>
+      <a href="https://beian.miit.gov.cn/" target="_blank">豫ICP备2021022347号</a>
+	  </div>
+  </div>
+ <div id="share">
+  <a id="totop" title="" style="display: block;">返回顶部</a>
+ </div>
+</footer>
+
+    </div>
+    
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/jquery.scrollLoading.js"></script>
+
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/ads.js"></script>
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>用Sqrt函数时，用C++提交容易编译出错，试试用G++ | Hanks&#39; Websit</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <script data-ad-client="ca-pub-8165670162444117" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <meta name="referrer" content="never">
+  <meta name="description" content="&#x2F;*************************** # 2013-11-16 17:30:17 # Time: MS   Memory: K # Author: zyh ***************************&#x2F;  #include&lt;iostream&gt; #include&lt;algorithm&gt; #include&lt;stdio.h&gt; #inclu">
+<meta property="og:type" content="article">
+<meta property="og:title" content="用Sqrt函数时，用C++提交容易编译出错，试试用G++">
+<meta property="og:url" content="https://hanks.pub/2013/11/16/%E7%94%A8Sqrt%E5%87%BD%E6%95%B0%E6%97%B6%EF%BC%8C%E7%94%A8C__%E6%8F%90%E4%BA%A4%E5%AE%B9%E6%98%93%E7%BC%96%E8%AF%91%E5%87%BA%E9%94%99%EF%BC%8C%E8%AF%95%E8%AF%95%E7%94%A8G__/index.html">
+<meta property="og:site_name" content="Hanks&#39; Websit">
+<meta property="og:description" content="&#x2F;*************************** # 2013-11-16 17:30:17 # Time: MS   Memory: K # Author: zyh ***************************&#x2F;  #include&lt;iostream&gt; #include&lt;algorithm&gt; #include&lt;stdio.h&gt; #inclu">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2013-11-16T10:31:00.000Z">
+<meta property="article:modified_time" content="2024-02-08T01:29:02.202Z">
+<meta property="article:author" content="Hanks">
+<meta name="twitter:card" content="summary">
+  
+  
+  <link href="https://fonts.googleapis.com/css?family=Fira+Code|Noto+Serif+SC&display=swap" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8165670162444117"
+     crossorigin="anonymous"></script>
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo"></a>
+    <nav id="main-nav">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      
+        <a class="main-nav-link" href="/archives">Archive</a>
+      
+        <a class="main-nav-link" href="/eye-video">Eye</a>
+      
+        <a class="main-nav-link" href="/atom.xml">Rss</a>
+      
+    </nav>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/archives" class="mobile-nav-link">Archive</a>
+  
+    <a href="/eye-video" class="mobile-nav-link">Eye</a>
+  
+    <a href="/atom.xml" class="mobile-nav-link">Rss</a>
+  
+</nav>
+      <div class="outer">
+        <section id="main"><article id="post-用Sqrt函数时，用C__提交容易编译出错，试试用G__" class="article article-type-post" itemscope
+  itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <header class="article-header">
+      
+      
+  
+    <h1 class="article-title" itemprop="name">
+      用Sqrt函数时，用C++提交容易编译出错，试试用G++
+    </h1>
+  
+
+      
+    </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+<pre name="code" class="cpp">/***************************
+# 2013-11-16 17:30:17
+# Time: MS   Memory: K
+# Author: zyh
+***************************/
+
+#include&lt;iostream&gt;
+#include&lt;algorithm&gt;
+#include&lt;stdio.h&gt;
+#include&lt;math.h&gt;
+using namespace std;
+
+int main()
+{
+	int t,n,x0,y0,x1,y1,i;
+	double ans,a[210],tmp = 2.0;
+	a[0] = 0;a[1] = 1;
+	for(i=2;i&lt;205;i++)
+		a[i] = a[i-1]+ (i-1)*sqrt(tmp)+ sqrt( i*i + (i-1)*(i-1)); //这里用C++提交总是提示编译出错
+
+	scanf(&quot;%d&quot;,&amp;t);
+	while(t--){
+		scanf(&quot;%d%d%d%d&quot;,&amp;x0,&amp;y0,&amp;x1,&amp;y1);
+		if(x1+y1&lt;x0+y0) swap(x0,x1),swap(y0,y1);
+		printf(&quot;%.3lf\n&quot;, a[x1+y1] + (x1-x0)*sqrt(tmp)- a[x0+y0] );
+	}
+	return 0;
+}</pre><br>
+
+      
+    </div>
+</article>
+
+<!-- 上一页 下一页 -->
+
+
+<nav id="article-nav">
+  
+    <a href="/2013/11/17/hdu1258%EF%BC%88DFS%EF%BC%89/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>上一篇</span>
+      <div class="article-nav-title">
+        
+          hdu1258（DFS）
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2013/11/13/hdu_1102_%EF%BC%88%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91kruskal%E7%AE%97%E6%B3%95--%E5%B9%B6%E6%9F%A5%E9%9B%86%EF%BC%8Cprim%E6%AD%BB%E6%B4%BB%E8%BF%87%E4%B8%8D%E4%BA%86%EF%BC%89/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>下一篇</span>
+      <div class="article-nav-title">hdu 1102 （最小生成树kruskal算法--并查集，prim死活过不了）</div>
+    </a>
+  
+</nav>
+
+
+
+<!-- 相关文章 -->
+
+<!--
+
+-->
+
+
+</section>
+      </div>
+      <footer id="footer">
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      
+      &copy;2024<a target="_blank" rel="noopener" href="https://github.com/hanks-zyh"> Hanks</a>版权所有
+      <br/>
+      <a href="https://beian.miit.gov.cn/" target="_blank">豫ICP备2021022347号</a>
+	  </div>
+  </div>
+ <div id="share">
+  <a id="totop" title="" style="display: block;">返回顶部</a>
+ </div>
+</footer>
+
+    </div>
+    
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/jquery.scrollLoading.js"></script>
+
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/ads.js"></script>
+
+  </div>
+</body>
+</html>

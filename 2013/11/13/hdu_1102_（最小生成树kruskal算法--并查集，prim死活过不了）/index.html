@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>hdu 1102 （最小生成树kruskal算法--并查集，prim死活过不了） | Hanks&#39; Websit</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <script data-ad-client="ca-pub-8165670162444117" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <meta name="referrer" content="never">
+  <meta name="description" content="https:&#x2F;&#x2F;acm.hdu.edu.cn&#x2F;showproblem.php?pid&#x3D;1102      #include&quot;stdio.h&quot; #include&quot;algorithm&quot; #include&quot;iostream&quot; #include&quot;string.h&quot; using namespace std;  typedef">
+<meta property="og:type" content="article">
+<meta property="og:title" content="hdu 1102 （最小生成树kruskal算法--并查集，prim死活过不了）">
+<meta property="og:url" content="https://hanks.pub/2013/11/13/hdu_1102_%EF%BC%88%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91kruskal%E7%AE%97%E6%B3%95--%E5%B9%B6%E6%9F%A5%E9%9B%86%EF%BC%8Cprim%E6%AD%BB%E6%B4%BB%E8%BF%87%E4%B8%8D%E4%BA%86%EF%BC%89/index.html">
+<meta property="og:site_name" content="Hanks&#39; Websit">
+<meta property="og:description" content="https:&#x2F;&#x2F;acm.hdu.edu.cn&#x2F;showproblem.php?pid&#x3D;1102      #include&quot;stdio.h&quot; #include&quot;algorithm&quot; #include&quot;iostream&quot; #include&quot;string.h&quot; using namespace std;  typedef">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2013-11-13T04:50:00.000Z">
+<meta property="article:modified_time" content="2024-02-08T01:29:02.182Z">
+<meta property="article:author" content="Hanks">
+<meta name="twitter:card" content="summary">
+  
+  
+  <link href="https://fonts.googleapis.com/css?family=Fira+Code|Noto+Serif+SC&display=swap" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8165670162444117"
+     crossorigin="anonymous"></script>
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo"></a>
+    <nav id="main-nav">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      
+        <a class="main-nav-link" href="/archives">Archive</a>
+      
+        <a class="main-nav-link" href="/eye-video">Eye</a>
+      
+        <a class="main-nav-link" href="/atom.xml">Rss</a>
+      
+    </nav>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/archives" class="mobile-nav-link">Archive</a>
+  
+    <a href="/eye-video" class="mobile-nav-link">Eye</a>
+  
+    <a href="/atom.xml" class="mobile-nav-link">Rss</a>
+  
+</nav>
+      <div class="outer">
+        <section id="main"><article id="post-hdu_1102_（最小生成树kruskal算法--并查集，prim死活过不了）" class="article article-type-post" itemscope
+  itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <header class="article-header">
+      
+      
+  
+    <h1 class="article-title" itemprop="name">
+      hdu 1102 （最小生成树kruskal算法--并查集，prim死活过不了）
+    </h1>
+  
+
+      
+    </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+<p>https://acm.hdu.edu.cn/showproblem.php?pid=1102<br>
+</p>
+<p><br>
+</p>
+<p><br>
+</p>
+<p><pre code_snippet_id="71342" snippet_file_name="blog_20131113_1"  name="code" class="cpp">#include&quot;stdio.h&quot;
+#include&quot;algorithm&quot;
+#include&quot;iostream&quot;
+#include&quot;string.h&quot;
+using namespace std;
+
+typedef struct node
+{
+	int v1,v2;
+	int length;
+}node;
+node bian[6000];
+int father[110],k;
+bool cmp(node a,node b)
+{
+	if(a.length&lt;b.length)
+		return true;
+	return false;
+}
+
+int search(int x)//寻找父亲结点 
+{
+	while(father[x]!=x)
+		x = father[x];
+	return father[x];
+}
+int n;
+void kulusi()//郁闷了 用prime算法死活过不了 
+{
+		int i,length;
+		for(i=1;i&lt;=n;i++)	father[i] = i;	
+		length = 0;
+
+		for(i=0;i&lt;k;i++)
+		{
+			if(search(bian[i].v1)!=search(bian[i].v2))//如果两个点的父亲结点相同的话就相通不用修路了 
+			{
+				length += bian[i].length;
+				father[search(bian[i].v1)] = bian[i].v2;
+			}	
+		}
+		printf(&quot;%d\n&quot;,length);		
+}
+
+int main()
+{
+	int i,j,q,a,b,tmp;
+	while(~scanf(&quot;%d&quot;,&amp;n)){
+		k=0;
+		for(i=1;i&lt;=n;i++)
+			for(j=1;j&lt;=n;j++){
+				scanf(&quot;%d&quot;,&amp;tmp);
+				if(j&gt;=i){
+					bian[k].v1 = i;
+					bian[k].v2 = j;
+					bian[k].length = tmp;
+					k++;
+				}
+			} 
+		scanf(&quot;%d&quot;,&amp;q);
+		for(i=0;i&lt;q;i++){
+			scanf(&quot;%d%d&quot;,&amp;a,&amp;b);
+			bian[k].v1=a;
+			bian[k].v2=b;
+			bian[k].length = 0;
+			k++;
+		}
+		sort(bian,bian+k,cmp);
+		kulusi();
+	}
+	
+	return 0; 
+}
+/*
+3
+0 990 692
+990 0 179
+692 179 0
+1
+1 2
+3
+0 990 692
+990 0 179
+692 179 0
+0
+*/</pre><br>
+<br>
+</p>
+
+      
+    </div>
+</article>
+
+<!-- 上一页 下一页 -->
+
+
+<nav id="article-nav">
+  
+    <a href="/2013/11/16/%E7%94%A8Sqrt%E5%87%BD%E6%95%B0%E6%97%B6%EF%BC%8C%E7%94%A8C__%E6%8F%90%E4%BA%A4%E5%AE%B9%E6%98%93%E7%BC%96%E8%AF%91%E5%87%BA%E9%94%99%EF%BC%8C%E8%AF%95%E8%AF%95%E7%94%A8G__/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>上一篇</span>
+      <div class="article-nav-title">
+        
+          用Sqrt函数时，用C++提交容易编译出错，试试用G++
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2013/11/12/hdu_4740_%EF%BC%88%E4%B8%80%E6%AD%A5%E4%B8%80%E6%AD%A5%E6%A8%A1%E6%8B%9F%E5%B0%B1%E5%A5%BD%E4%BA%86%EF%BC%89%E8%80%83%E6%9F%A5%E8%80%90%E5%BF%83%E4%B8%8E%E7%BB%86%E5%BF%83/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>下一篇</span>
+      <div class="article-nav-title">hdu 4740 （一步一步模拟就好了）考查耐心与细心</div>
+    </a>
+  
+</nav>
+
+
+
+<!-- 相关文章 -->
+
+<!--
+
+-->
+
+
+</section>
+      </div>
+      <footer id="footer">
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      
+      &copy;2024<a target="_blank" rel="noopener" href="https://github.com/hanks-zyh"> Hanks</a>版权所有
+      <br/>
+      <a href="https://beian.miit.gov.cn/" target="_blank">豫ICP备2021022347号</a>
+	  </div>
+  </div>
+ <div id="share">
+  <a id="totop" title="" style="display: block;">返回顶部</a>
+ </div>
+</footer>
+
+    </div>
+    
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/jquery.scrollLoading.js"></script>
+
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/ads.js"></script>
+
+  </div>
+</body>
+</html>

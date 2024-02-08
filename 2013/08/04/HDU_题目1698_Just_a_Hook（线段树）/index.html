@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>HDU 题目1698 Just a Hook（线段树） | Hanks&#39; Websit</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <script data-ad-client="ca-pub-8165670162444117" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <meta name="referrer" content="never">
+  <meta name="description" content="Just a Hook Time Limit: 4000&#x2F;2000 MS (Java&#x2F;Others)&nbsp;&nbsp;&nbsp;&nbsp;Memory Limit: 32768&#x2F;32768 K (Java&#x2F;Others) Total Submission(s): 12674&nbsp;&nbsp;&nbsp;&nbsp;Accepted Submission(s): 6309">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HDU 题目1698 Just a Hook（线段树）">
+<meta property="og:url" content="https://hanks.pub/2013/08/04/HDU_%E9%A2%98%E7%9B%AE1698_Just_a_Hook%EF%BC%88%E7%BA%BF%E6%AE%B5%E6%A0%91%EF%BC%89/index.html">
+<meta property="og:site_name" content="Hanks&#39; Websit">
+<meta property="og:description" content="Just a Hook Time Limit: 4000&#x2F;2000 MS (Java&#x2F;Others)&nbsp;&nbsp;&nbsp;&nbsp;Memory Limit: 32768&#x2F;32768 K (Java&#x2F;Others) Total Submission(s): 12674&nbsp;&nbsp;&nbsp;&nbsp;Accepted Submission(s): 6309">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://acm.hdu.edu.cn/data/images/C116-1010-1.JPG">
+<meta property="og:image" content="https://img.blog.csdn.net/20130804114913875">
+<meta property="og:image" content="https://img.blog.csdn.net/20130804120131718">
+<meta property="og:image" content="https://img.blog.csdn.net/20130804120446312">
+<meta property="og:image" content="https://img.blog.csdn.net/20130804120500281">
+<meta property="article:published_time" content="2013-08-04T04:07:00.000Z">
+<meta property="article:modified_time" content="2024-02-08T01:29:02.172Z">
+<meta property="article:author" content="Hanks">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://acm.hdu.edu.cn/data/images/C116-1010-1.JPG">
+  
+  
+  <link href="https://fonts.googleapis.com/css?family=Fira+Code|Noto+Serif+SC&display=swap" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8165670162444117"
+     crossorigin="anonymous"></script>
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo"></a>
+    <nav id="main-nav">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      
+        <a class="main-nav-link" href="/archives">Archive</a>
+      
+        <a class="main-nav-link" href="/eye-video">Eye</a>
+      
+        <a class="main-nav-link" href="/atom.xml">Rss</a>
+      
+    </nav>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/archives" class="mobile-nav-link">Archive</a>
+  
+    <a href="/eye-video" class="mobile-nav-link">Eye</a>
+  
+    <a href="/atom.xml" class="mobile-nav-link">Rss</a>
+  
+</nav>
+      <div class="outer">
+        <section id="main"><article id="post-HDU_题目1698_Just_a_Hook（线段树）" class="article article-type-post" itemscope
+  itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <header class="article-header">
+      
+      
+  
+    <h1 class="article-title" itemprop="name">
+      HDU 题目1698 Just a Hook（线段树）
+    </h1>
+  
+
+      
+    </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+<p><br>
+</p>
+<p></p>
+<h1 style="text-align:center; font-family:'Times New Roman'; color:rgb(26,92,200)">
+Just a Hook</h1>
+<span style="font-family:'Times New Roman'; font-size:14px"><strong><span style="font-family:Arial; font-size:12px; color:green">Time Limit: 4000/2000 MS (Java/Others)&nbsp;&nbsp;&nbsp;&nbsp;Memory Limit: 32768/32768 K (Java/Others)<br>
+Total Submission(s): 12674&nbsp;&nbsp;&nbsp;&nbsp;Accepted Submission(s): 6309<br>
+</span></strong></span><br style="font-family:'Times New Roman'; font-size:14px">
+<br style="font-family:'Times New Roman'; font-size:14px">
+<div class="panel_title" align="left" style="padding-bottom:0px; background-color:transparent; padding-left:14px; padding-right:14px; font-family:Arial; height:38px; color:rgb(124,169,237); font-size:18px; font-weight:bold; padding-top:0px">
+Problem Description</div>
+<div class="panel_content" style="padding-bottom:0px; margin:0px; padding-left:20px; padding-right:20px; font-family:'Times New Roman'; height:auto; font-size:14px; padding-top:0px">
+In the game of DotA, Pudge’s meat hook is actually the most horrible thing for most of the heroes. The hook is made up of several consecutive metallic sticks which are of the same length.<br>
+<br>
+<center><img alt="" src="https://acm.hdu.edu.cn/data/images/C116-1010-1.JPG" style="border-bottom:medium none; border-left:medium none; border-top:medium none; border-right:medium none"></center>
+<br>
+<br>
+Now Pudge wants to do some operations on the hook.<br>
+<br>
+Let us number the consecutive metallic sticks of the hook from 1 to N. For each operation, Pudge can change the consecutive metallic sticks, numbered from X to Y, into cupreous sticks, silver sticks or golden sticks.<br>
+The total value of the hook is calculated as the sum of values of N metallic sticks. More precisely, the value for each kind of stick is calculated as follows:<br>
+<br>
+For each cupreous stick, the value is 1.<br>
+For each silver stick, the value is 2.<br>
+For each golden stick, the value is 3.<br>
+<br>
+Pudge wants to know the total value of the hook after performing the operations.<br>
+You may consider the original hook is made up of cupreous sticks.<br>
+</div>
+<div class="panel_bottom" style="margin:0px; font-family:'Times New Roman'; height:auto; font-size:14px">
+&nbsp;</div>
+<br style="font-family:'Times New Roman'; font-size:14px">
+<div class="panel_title" align="left" style="padding-bottom:0px; background-color:transparent; padding-left:14px; padding-right:14px; font-family:Arial; height:38px; color:rgb(124,169,237); font-size:18px; font-weight:bold; padding-top:0px">
+Input</div>
+<div class="panel_content" style="padding-bottom:0px; margin:0px; padding-left:20px; padding-right:20px; font-family:'Times New Roman'; height:auto; font-size:14px; padding-top:0px">
+The input consists of several test cases. The first line of the input is the number of the cases. There are no more than 10 cases.<br>
+For each case, the first line contains an integer N, 1&lt;=N&lt;=100,000, which is the number of the sticks of Pudge’s meat hook and the second line contains an integer Q, 0&lt;=Q&lt;=100,000, which is the number of the operations.<br>
+Next Q lines, each line contains three integers X, Y, 1&lt;=X&lt;=Y&lt;=N, Z, 1&lt;=Z&lt;=3, which defines an operation: change the sticks numbered from X to Y into the metal kind Z, where Z=1 represents the cupreous kind, Z=2 represents the silver kind and Z=3 represents
+ the golden kind.<br>
+</div>
+<div class="panel_bottom" style="margin:0px; font-family:'Times New Roman'; height:auto; font-size:14px">
+&nbsp;</div>
+<br style="font-family:'Times New Roman'; font-size:14px">
+<div class="panel_title" align="left" style="padding-bottom:0px; background-color:transparent; padding-left:14px; padding-right:14px; font-family:Arial; height:38px; color:rgb(124,169,237); font-size:18px; font-weight:bold; padding-top:0px">
+Output</div>
+<div class="panel_content" style="padding-bottom:0px; margin:0px; padding-left:20px; padding-right:20px; font-family:'Times New Roman'; height:auto; font-size:14px; padding-top:0px">
+For each case, print a number in a line representing the total value of the hook after the operations. Use the format in the example.<br>
+</div>
+<div class="panel_bottom" style="margin:0px; font-family:'Times New Roman'; height:auto; font-size:14px">
+&nbsp;</div>
+<br style="font-family:'Times New Roman'; font-size:14px">
+<div class="panel_title" align="left" style="padding-bottom:0px; background-color:transparent; padding-left:14px; padding-right:14px; font-family:Arial; height:38px; color:rgb(124,169,237); font-size:18px; font-weight:bold; padding-top:0px">
+Sample Input</div>
+<div class="panel_content" style="padding-bottom:0px; margin:0px; padding-left:20px; padding-right:20px; font-family:'Times New Roman'; height:auto; font-size:14px; padding-top:0px">
+<pre style="margin-top:0px; margin-bottom:0px"><div style="font-family:'Courier New',Courier,monospace">1
+10
+2
+1 5 2
+5 9 3</div></pre>
+</div>
+<div class="panel_bottom" style="margin:0px; font-family:'Times New Roman'; height:auto; font-size:14px">
+&nbsp;</div>
+<br style="font-family:'Times New Roman'; font-size:14px">
+<div class="panel_title" align="left" style="padding-bottom:0px; background-color:transparent; padding-left:14px; padding-right:14px; font-family:Arial; height:38px; color:rgb(124,169,237); font-size:18px; font-weight:bold; padding-top:0px">
+Sample Output</div>
+<div class="panel_content" style="padding-bottom:0px; margin:0px; padding-left:20px; padding-right:20px; font-family:'Times New Roman'; height:auto; font-size:14px; padding-top:0px">
+<pre style="margin-top:0px; margin-bottom:0px"><div style="font-family:'Courier New',Courier,monospace">Case 1: The total value of the hook is 24.</div></pre>
+</div>
+<div class="panel_bottom" style="margin:0px; font-family:'Times New Roman'; height:auto; font-size:14px">
+&nbsp;</div>
+<br>
+<p></p>
+<p><strong><span style="font-family:KaiTi_GB2312; font-size:18px"><br>
+</span></strong></p>
+<p><span style="font-family:KaiTi_GB2312; font-size:18px"><strong>分析：看到题目首先想到了线段树，（因为题目是区间更新）</strong></span><span style="font-family:KaiTi_GB2312; font-size:18px">区间更新需要用到延迟标记（或者说懒惰标记），简单来说就是每次更新的时候不要更新到底，用延迟标记使得更新延迟到下次需要更新or询问到的时候。延迟标记的意思是：这个区间的左右儿子都需要被更新，但是当前区间已经更新了</span><span style="font-family:KaiTi_GB2312; font-size:18px"><strong><br>
+首先 区间 &nbsp;[1,n] 建立线段树，（题目例子 n==10） 如下图；</strong></span></p>
+<p><strong><span style="font-family:KaiTi_GB2312; font-size:18px"><br>
+</span></strong></p>
+<p><strong><span style="font-family:KaiTi_GB2312; font-size:18px"><br>
+</span></strong></p>
+<p><img alt="" src="https://img.blog.csdn.net/20130804114913875"><br>
+</p>
+<p><strong><span style="font-family:KaiTi_GB2312; font-size:18px">然后依次更新区间，分3中情况，向左，向右，分开向左向右，</span></strong></p>
+<p class="p0" style="margin-top:0pt; margin-bottom:0pt"><strong><span style="color:#ff0000">在修改和查询的时候，如果我们到了一个结点p，并且需要分开决定考虑其子结点（不能完全覆盖），那么我们就要看看结点p有没有标记，如果有，就要按照标记修改其子结点的信息，并且给子结点都标上相同的标记，同时消掉p的标记；</span></strong></p>
+<p class="p0" style="margin-top:0pt; margin-bottom:0pt">&nbsp;进行更新操作</p>
+<p class="p0" style="margin-top:0pt; margin-bottom:0pt">1 5 2</p>
+<p class="p0" style="margin-top:0pt; margin-bottom:0pt">区间更新后的树如下：</p>
+<p class="p0" style="margin-top:0pt; margin-bottom:0pt"><img alt="" src="https://img.blog.csdn.net/20130804120131718"><br>
+</p>
+<p class="p0" style="margin-top:0pt; margin-bottom:0pt"><strong><span style="font-family:KaiTi_GB2312; font-size:18px"></span></strong></p>
+<p class="p0" style="margin-top:0pt; margin-bottom:0pt">&nbsp;进行更新操作</p>
+<p class="p0" style="margin-top:0pt; margin-bottom:0pt">5 9 3</p>
+<p class="p0" style="margin-top:0pt; margin-bottom:0pt">区间更新后的树如下</p>
+<p class="p0" style="margin-top:0pt; margin-bottom:0pt"><img alt="" src="https://img.blog.csdn.net/20130804120446312"><br>
+</p>
+<strong><span style="font-family:KaiTi_GB2312; font-size:18px"></span></strong>
+<p class="p0" style="margin-top:0pt; margin-bottom:0pt"><span style="color:#3333ff">假如 再 进行更新操作</span></p>
+<p class="p0" style="margin-top:0pt; margin-bottom:0pt"><span style="color:#3333ff">6 10 1</span></p>
+<p class="p0" style="margin-top:0pt; margin-bottom:0pt"><span style="color:#3333ff">区间更新后的树如下</span></p>
+<img alt="" src="https://img.blog.csdn.net/20130804120500281"><br>
+<p><br>
+</p>
+<p></p>
+<pre class="cpp" name="code">#define N 100001
+#include &lt;iostream&gt;
+#include &lt;stdio.h&gt;
+#include &lt;algorithm&gt;
+
+using namespace std;
+
+
+typedef struct TREE
+{
+    int lside,rside,value;
+}TREE;
+
+TREE tree[N*4];//线段树占空间约为结点个数的 4 倍
+int sum,temp;
+
+void build_tree(int l,int r,int i)
+{
+    tree[i].lside = l;
+    tree[i].rside = r;
+    tree[i].value = 1;//cuperous
+    if(tree[i].lside == tree[i].rside)  return;
+    int mid = (tree[i].lside + tree[i].rside)&gt;&gt;1; 
+    build_tree(l,mid,i&lt;&lt;1); //i*2
+    build_tree(mid+1,r,i&lt;&lt;1|1); //i*2+1
+}
+
+void change(int x,int y,int z,int i)
+{
+//    printf(&quot;x=%d,y=%d,i=%d,tl=%d,tr=%d,v=%d\n&quot;,x,y,i,tree[i].lside,tree[i].rside,tree[i].value);
+    if(x&lt;= tree[i].lside &amp;&amp; y&gt;=tree[i].rside)//正好与跟新区间相同
+    {
+        tree[i].value = z;
+        return ;
+    }
+    if(tree[i].value&gt;0)//不能完全覆盖，需要将下面的都左右子树 都先覆盖为当前结点的标志，
+    {
+    	tree[i&lt;&lt;1].value =  tree[i].value;
+    	tree[i&lt;&lt;1|1].value = tree[i].value;
+    	tree[i].value = 0;
+    }
+    
+    int mid = (tree[i].lside + tree[i].rside)&gt;&gt;1;
+    if(y&lt;=mid) change(x,y,z,i&lt;&lt;1);//向左
+    else if( x&gt;mid ) change(x,y,z,i&lt;&lt;1|1 );//向右
+    else//分开的
+    {
+        change(x,mid,z,i&lt;&lt;1);
+        change(mid+1,y,z,i&lt;&lt;1|1);
+    }
+}
+void count(int i)
+{
+	if(tree[i].value&gt;0)
+	{
+		sum += tree[i].value * (tree[i].rside - tree[i].lside + 1);//区间的value * 区间的长度 
+		return;
+	}
+	count(i&lt;&lt;1);
+	count(i&lt;&lt;1|1);
+    
+}
+int main()
+{
+    int t,i,j,n,q,x,y,z;
+    scanf(&quot;%d&quot;,&amp;t);
+    for(i=1;i&lt;=t;i++)
+    {
+        scanf(&quot;%d&quot;,&amp;n);
+        build_tree(1,n,1);
+        scanf(&quot;%d&quot;,&amp;q);
+        while(q--)
+        {
+            scanf(&quot;%d%d%d&quot;,&amp;x,&amp;y,&amp;z);
+            change(x,y,z,1);
+    //            for(j=1;j&lt;40;j++)
+    //    printf(&quot;j=%d,l=%d,r=%d,v=%d\n&quot;,j,tree[j].lside,tree[j].rside,tree[j].value);
+        }
+        sum = 0;
+        count(1);
+        printf(&quot;Case %d: The total value of the hook is %d.\n&quot;,i,sum);
+    }
+    return 0;
+}
+
+/*
+7
+10
+3
+1 5 2
+5 9 3
+6 10 1
+
+
+*/</pre><br>
+<br>
+<p></p>
+<p><br>
+</p>
+<p><br>
+</p>
+<p><br>
+</p>
+
+      
+    </div>
+</article>
+
+<!-- 上一页 下一页 -->
+
+
+<nav id="article-nav">
+  
+    <a href="/2013/08/04/%E9%94%99%E8%AF%AF%E6%80%BB%E7%BB%93%EF%BC%88%E6%8C%81%E7%BB%AD%E6%9B%B4%E6%96%B0%EF%BC%89/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>上一篇</span>
+      <div class="article-nav-title">
+        
+          错误总结（持续更新）
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2013/08/02/POJ_%E9%A2%98%E7%9B%AE2182_Lost_Cows/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>下一篇</span>
+      <div class="article-nav-title">POJ 题目2182 Lost Cows</div>
+    </a>
+  
+</nav>
+
+
+
+<!-- 相关文章 -->
+
+<!--
+
+-->
+
+
+</section>
+      </div>
+      <footer id="footer">
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      
+      &copy;2024<a target="_blank" rel="noopener" href="https://github.com/hanks-zyh"> Hanks</a>版权所有
+      <br/>
+      <a href="https://beian.miit.gov.cn/" target="_blank">豫ICP备2021022347号</a>
+	  </div>
+  </div>
+ <div id="share">
+  <a id="totop" title="" style="display: block;">返回顶部</a>
+ </div>
+</footer>
+
+    </div>
+    
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/jquery.scrollLoading.js"></script>
+
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/ads.js"></script>
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>ReactiveX | Hanks&#39; Websit</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <script data-ad-client="ca-pub-8165670162444117" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <meta name="referrer" content="never">
+  <meta name="description" content="An API for asynchronous programming with observable streams">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ReactiveX">
+<meta property="og:url" content="https://hanks.pub/2015/12/01/ReactiveX/index.html">
+<meta property="og:site_name" content="Hanks&#39; Websit">
+<meta property="og:description" content="An API for asynchronous programming with observable streams">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://file.bmob.cn/M02/CD/5C/oYYBAFZehqmAAvzxAAEPNTqMZeU527.gif">
+<meta property="og:image" content="https://mcxiaoke.gitbooks.io/rxdocs/content/images/legend.png">
+<meta property="article:published_time" content="2015-12-01T14:28:34.000Z">
+<meta property="article:modified_time" content="2024-02-08T01:29:02.178Z">
+<meta property="article:author" content="Hanks">
+<meta property="article:tag" content="Android">
+<meta property="article:tag" content="Rx">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://file.bmob.cn/M02/CD/5C/oYYBAFZehqmAAvzxAAEPNTqMZeU527.gif">
+  
+  
+  <link href="https://fonts.googleapis.com/css?family=Fira+Code|Noto+Serif+SC&display=swap" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8165670162444117"
+     crossorigin="anonymous"></script>
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo"></a>
+    <nav id="main-nav">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      
+        <a class="main-nav-link" href="/archives">Archive</a>
+      
+        <a class="main-nav-link" href="/eye-video">Eye</a>
+      
+        <a class="main-nav-link" href="/atom.xml">Rss</a>
+      
+    </nav>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/archives" class="mobile-nav-link">Archive</a>
+  
+    <a href="/eye-video" class="mobile-nav-link">Eye</a>
+  
+    <a href="/atom.xml" class="mobile-nav-link">Rss</a>
+  
+</nav>
+      <div class="outer">
+        <section id="main"><article id="post-ReactiveX" class="article article-type-post" itemscope
+  itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <header class="article-header">
+      
+      
+  
+    <h1 class="article-title" itemprop="name">
+      ReactiveX
+    </h1>
+  
+
+      
+    </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      <blockquote>
+<p>An API for asynchronous programming with observable streams</p>
+</blockquote>
+<p><img src="https://file.bmob.cn/M02/CD/5C/oYYBAFZehqmAAvzxAAEPNTqMZeU527.gif"></p>
+<span id="more"></span>
+
+
+<p>理解这个图上面各个部分,简直生动形象的不能再生动了,以后这个图经常看到<br><img src="https://mcxiaoke.gitbooks.io/rxdocs/content/images/legend.png" alt="介绍"></p>
+<h1 id="ReactiveX"><a href="#ReactiveX" class="headerlink" title="ReactiveX"></a>ReactiveX</h1><p><a target="_blank" rel="noopener" href="https://reactivex.io/intro.html">官网</a></p>
+<h2 id="Rx介绍"><a href="#Rx介绍" class="headerlink" title="Rx介绍"></a>Rx介绍</h2><h3 id="ReactiveX的历史"><a href="#ReactiveX的历史" class="headerlink" title="ReactiveX的历史"></a>ReactiveX的历史</h3><p>ReactiveX是Reactive Extensions的缩写，一般简写为Rx，最初是LINQ的一个扩展，由微软的架构师Erik Meijer领导的团队开发，在2012年11月开源，Rx是一个编程模型，目标是提供一致的编程接口，帮助开发者更方便的处理异步数据流，Rx库支持.NET、JavaScript和C++，Rx近几年越来越流行了，现在已经支持几乎全部的流行编程语言了，Rx的大部分语言库由ReactiveX这个组织负责维护，比较流行的有RxJava&#x2F;RxJS&#x2F;Rx.NET，社区网站是 <a target="_blank" rel="noopener" href="https://reactivex.io/%E3%80%82">https://reactivex.io/。</a></p>
+<h3 id="什么是ReactiveX"><a href="#什么是ReactiveX" class="headerlink" title="什么是ReactiveX"></a>什么是ReactiveX</h3><p>微软给的定义是，Rx是一个函数库，让开发者可以利用可观察序列和LINQ风格查询操作符来编写异步和基于事件的程序，使用Rx，开发者可以用Observables表示异步数据流，用LINQ操作符查询异步数据流， 用Schedulers参数化异步数据流的并发处理，Rx可以这样定义：Rx &#x3D; Observables + LINQ + Schedulers。<br>ReactiveX.io给的定义是，Rx是一个使用可观察数据流进行异步编程的编程接口，ReactiveX结合了观察者模式、迭代器模式和函数式编程的精华。</p>
+<h3 id="ReactiveX的应用"><a href="#ReactiveX的应用" class="headerlink" title="ReactiveX的应用"></a>ReactiveX的应用</h3><p>很多公司都在使用ReactiveX，例如Microsoft、Netflix、Github、Trello、SoundCloud。</p>
+<h3 id="ReactiveX宣言"><a href="#ReactiveX宣言" class="headerlink" title="ReactiveX宣言"></a>ReactiveX宣言</h3><p>ReactiveX不仅仅是一个编程接口，它是一种编程思想的突破，它影响了许多其它的程序库和框架以及编程语言。</p>
+<h2 id="Rx模式"><a href="#Rx模式" class="headerlink" title="Rx模式"></a>Rx模式</h2><h3 id="使用观察者模式"><a href="#使用观察者模式" class="headerlink" title="使用观察者模式"></a>使用观察者模式</h3><p>创建：Rx可以方便的创建事件流和数据流<br>组合：Rx使用查询式的操作符组合和变换数据流<br>监听：Rx可以订阅任何可观察的数据流并执行操作</p>
+<h3 id="简化代码"><a href="#简化代码" class="headerlink" title="简化代码"></a>简化代码</h3><p>函数式风格：对可观察数据流使用无副作用的输入输出函数，避免了程序里错综复杂的状态 简化代码：Rx的操作符通通常可以将复杂的难题简化为很少的几行代码<br>异步错误处理：传统的try&#x2F;catch没办法处理异步计算，Rx提供了合适的错误处理机制<br>轻松使用并发：Rx的Observables和Schedulers让开发者可以摆脱底层的线程同步和各种并发问题</p>
+<h3 id="使用Observable的优势"><a href="#使用Observable的优势" class="headerlink" title="使用Observable的优势"></a>使用Observable的优势</h3><p>Rx扩展了观察者模式用于支持数据和事件序列，添加了一些操作符，它让你可以声明式的组合这些序列，而无需关注底层的实现：如线程、同步、线程安全、并发数据结构和非阻塞IO。<br>Observable通过使用最佳的方式访问异步数据序列填补了这个间隙</p>
+<table>
+<thead>
+<tr>
+<th align="left"></th>
+<th align="left">单个数据</th>
+<th align="left">多个数据</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">同步</td>
+<td align="left">T getData()</td>
+<td align="left">Iterable<T> getData()</td>
+</tr>
+<tr>
+<td align="left">异步</td>
+<td align="left">Future<T> getData()</td>
+<td align="left">Observable<T> getData()</td>
+</tr>
+<tr>
+<td align="left">Rx的Observable模型让你可以像使用集合数据一样操作异步事件流，对异步事件流使用各种简单、可组合的操作。</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+</tbody></table>
+<h3 id="Observable可组合"><a href="#Observable可组合" class="headerlink" title="Observable可组合"></a>Observable可组合</h3><p>对于单层的异步操作来说，Java中Future对象的处理方式是非常简单有效的，但是一旦涉及到嵌套，它们就开始变得异常繁琐和复杂。使用Future很难很好的组合带条件的异步执行流程（考虑到运行时各种潜在的问题，甚至可以说是不可能的），当然，要想实现还是可以做到的，但是非常困难，或许你可以用Future.get()，但这样做，异步执行的优势就完全没有了。从另一方面说，Rx的Observable一开始就是为组合异步数据流准备的。</p>
+<h3 id="Observable更灵活"><a href="#Observable更灵活" class="headerlink" title="Observable更灵活"></a>Observable更灵活</h3><p>Rx的Observable不仅支持处理单独的标量值（就像Future可以做的），也支持数据序列，甚至是无穷的数据流。Observable是一个抽象概念，适用于任何场景。Observable拥有它的近亲Iterable的全部优雅与灵活。</p>
+<table>
+<thead>
+<tr>
+<th align="left">Observable是异步的双向push，Iterable是同步的单向pull，对比：</th>
+<th align="left"></th>
+<th align="left"></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">事件</td>
+<td align="left">Iterable(pull)</td>
+<td align="left">Observable(push)</td>
+</tr>
+<tr>
+<td align="left">获取数据</td>
+<td align="left">T next()</td>
+<td align="left">onNext(T)</td>
+</tr>
+<tr>
+<td align="left">异常处理</td>
+<td align="left">throws Exception</td>
+<td align="left">onError(Exception)</td>
+</tr>
+<tr>
+<td align="left">任务完成</td>
+<td align="left">!hasNext()</td>
+<td align="left">onCompleted()</td>
+</tr>
+</tbody></table>
+<h3 id="Observable无偏见"><a href="#Observable无偏见" class="headerlink" title="Observable无偏见"></a>Observable无偏见</h3><p>Rx对于对于并发性或异步性没有任何特殊的偏好，Observable可以用任何方式实现，线程池、事件循环、非阻塞IO、Actor模式，任何满足你的需求的，你擅长或偏好的方式都可以。无论你选择怎样实现它，无论底层实现是阻塞的还是非阻塞的，客户端代码将所有与Observable的交互都当做是异步的。</p>
+<h4 id="Observable是如何实现的？"><a href="#Observable是如何实现的？" class="headerlink" title="Observable是如何实现的？"></a>Observable是如何实现的？</h4><p>public Observable<data> getData();<br>它能与调用者在同一线程同步执行吗？<br>它能异步地在单独的线程执行吗？<br>它会将工作分发到多个线程，返回数据的顺序是任意的吗？<br>它使用Actor模式而不是线程池吗？<br>它使用NIO和事件循环执行异步网络访问吗？<br>它使用事件循环将工作线程从回调线程分离出来吗？<br>从Observer的视角看，这些都无所谓，重要的是：使用Rx，你可以改变你的观念，你可以在完全不影响Observable程序库使用者的情况下，彻底的改变Observable的底层实现。</p>
+<h3 id="使用回调存在很多问题"><a href="#使用回调存在很多问题" class="headerlink" title="使用回调存在很多问题"></a>使用回调存在很多问题</h3><p>回调在不阻塞任何事情的情况下，解决了Future.get()过早阻塞的问题。由于响应结果一旦就绪Callback就会被调用，它们天生就是高效率的。不过，就像使用Future一样，对于单层的异步执行来说，回调很容易使用，对于嵌套的异步组合，它们显得非常笨拙。</p>
+<h3 id="Rx是一个多语言的实现"><a href="#Rx是一个多语言的实现" class="headerlink" title="Rx是一个多语言的实现"></a>Rx是一个多语言的实现</h3><p>Rx在大量的编程语言中都有实现，并尊重实现语言的风格，而且更多的实现正在飞速增加。<br>响应式编程</p>
+<p>Rx提供了一系列的操作符，你可以使用它们来过滤(filter)、选择(select)、变换(transform)、结合(combine)和组合(compose)多个Observable，这些操作符让执行和复合变得非常高效。<br>你可以把Observable当做Iterable的推送方式的等价物，使用Iterable，消费者从生产者那拉取数据，线程阻塞直至数据准备好。使用Observable，在数据准备好时，生产者将数据推送给消费者。数据可以同步或异步的到达，这种方式更灵活。<br>下面的例子展示了相似的高阶函数在Iterable和Observable上的应用</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Iterable</span></span><br><span class="line">getDataFromLocalMemory()</span><br><span class="line">  .skip(<span class="number">10</span>)</span><br><span class="line">  .take(<span class="number">5</span>)</span><br><span class="line">  .map(&#123; s -&gt; <span class="keyword">return</span> s + <span class="string">&quot; transformed&quot;</span> &#125;)</span><br><span class="line">  .forEach(&#123; println <span class="string">&quot;next =&gt; &quot;</span> + it &#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// Observable</span></span><br><span class="line">getDataFromNetwork()</span><br><span class="line">  .skip(<span class="number">10</span>)</span><br><span class="line">  .take(<span class="number">5</span>)</span><br><span class="line">  .map(&#123; s -&gt; <span class="keyword">return</span> s + <span class="string">&quot; transformed&quot;</span> &#125;)</span><br><span class="line">  .subscribe(&#123; println <span class="string">&quot;onNext =&gt; &quot;</span> + it &#125;)</span><br></pre></td></tr></table></figure>
+<p>Observable类型给GOF的观察者模式添加了两种缺少的语义，这样就和Iterable类型中可用的操作一致了：<br>生产者可以发信号给消费者，通知它没有更多数据可用了（对于Iterable，一个for循环正常完成表示没有数据了；对于Observable，就是调用观察者的onCompleted方法）<br>生产者可以发信号给消费者，通知它遇到了一个错误（对于Iterable，迭代过程中发生错误会抛出异常；对于Observable，就是调用观察者(Observer)的onError方法）<br>有了这两种功能，Rx就能使Observable与Iterable保持一致了，唯一的不同是数据流的方向。任何对Iterable的操作，你都可以对Observable使用。<br>名词定义</p>
+<h2 id="这里给出一些名词的翻译"><a href="#这里给出一些名词的翻译" class="headerlink" title="这里给出一些名词的翻译"></a>这里给出一些名词的翻译</h2><p>Reactive 直译为反应性的，有活性的，根据上下文一般翻译为反应式、响应式<br>Iterable 可迭代对象，支持以迭代器的形式遍历，许多语言中都存在这个概念<br>Observable 可观察对象，在Rx中定义为更强大的Iterable，在观察者模式中是被观察的对象，一旦数据产生或发生变化，会通过某种方式通知观察者或订阅者<br>Observer 观察者对象，监听Observable发射的数据并做出响应，Subscriber是它的一个特殊实现 emit 直译为发射，发布，发出，含义是Observable在数据产生或变化时发送通知给Observer，调用Observer对应的方法，文章里一律译为发射 items 直译为项目，条目，在Rx里是指Observable发射的数据项，文章里一律译为数据，数据项</p>
+
+      
+    </div>
+</article>
+
+<!-- 上一页 下一页 -->
+
+
+<nav id="article-nav">
+  
+    <a href="/2015/12/02/mac-os-in-Ubuntu/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>上一篇</span>
+      <div class="article-nav-title">
+        
+          Ubuntu 安装 OS X 10.11  虚拟机
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/11/29/rx_ux/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>下一篇</span>
+      <div class="article-nav-title">使用RxJava 提升用户体验</div>
+    </a>
+  
+</nav>
+
+
+
+<!-- 相关文章 -->
+
+<!--
+
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+      			<a href="/2015/12/01/ReactiveX/">ReactiveX</a>
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+
+-->
+
+
+</section>
+      </div>
+      <footer id="footer">
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      
+      &copy;2024<a target="_blank" rel="noopener" href="https://github.com/hanks-zyh"> Hanks</a>版权所有
+      <br/>
+      <a href="https://beian.miit.gov.cn/" target="_blank">豫ICP备2021022347号</a>
+	  </div>
+  </div>
+ <div id="share">
+  <a id="totop" title="" style="display: block;">返回顶部</a>
+ </div>
+</footer>
+
+    </div>
+    
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/jquery.scrollLoading.js"></script>
+
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/ads.js"></script>
+
+  </div>
+</body>
+</html>

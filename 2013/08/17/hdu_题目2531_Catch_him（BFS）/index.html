@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>hdu 题目2531 Catch him（BFS） | Hanks&#39; Websit</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <script data-ad-client="ca-pub-8165670162444117" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <meta name="referrer" content="never">
+  <meta name="description" content="Catch him Time Limit: 5000&#x2F;1000 MS (Java&#x2F;Others)&nbsp;&nbsp;&nbsp;&nbsp;Memory Limit: 32768&#x2F;32768 K (Java&#x2F;Others) Total Submission(s): 465&nbsp;&nbsp;&nbsp;&nbsp;Accepted Submission(s): 216    Prob">
+<meta property="og:type" content="article">
+<meta property="og:title" content="hdu 题目2531 Catch him（BFS）">
+<meta property="og:url" content="https://hanks.pub/2013/08/17/hdu_%E9%A2%98%E7%9B%AE2531_Catch_him%EF%BC%88BFS%EF%BC%89/index.html">
+<meta property="og:site_name" content="Hanks&#39; Websit">
+<meta property="og:description" content="Catch him Time Limit: 5000&#x2F;1000 MS (Java&#x2F;Others)&nbsp;&nbsp;&nbsp;&nbsp;Memory Limit: 32768&#x2F;32768 K (Java&#x2F;Others) Total Submission(s): 465&nbsp;&nbsp;&nbsp;&nbsp;Accepted Submission(s): 216    Prob">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://acm.hdu.edu.cn/data/images/2531-1.jpg">
+<meta property="article:published_time" content="2013-08-17T15:29:00.000Z">
+<meta property="article:modified_time" content="2024-02-08T01:29:02.186Z">
+<meta property="article:author" content="Hanks">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://acm.hdu.edu.cn/data/images/2531-1.jpg">
+  
+  
+  <link href="https://fonts.googleapis.com/css?family=Fira+Code|Noto+Serif+SC&display=swap" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8165670162444117"
+     crossorigin="anonymous"></script>
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo"></a>
+    <nav id="main-nav">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      
+        <a class="main-nav-link" href="/archives">Archive</a>
+      
+        <a class="main-nav-link" href="/eye-video">Eye</a>
+      
+        <a class="main-nav-link" href="/atom.xml">Rss</a>
+      
+    </nav>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/archives" class="mobile-nav-link">Archive</a>
+  
+    <a href="/eye-video" class="mobile-nav-link">Eye</a>
+  
+    <a href="/atom.xml" class="mobile-nav-link">Rss</a>
+  
+</nav>
+      <div class="outer">
+        <section id="main"><article id="post-hdu_题目2531_Catch_him（BFS）" class="article article-type-post" itemscope
+  itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <header class="article-header">
+      
+      
+  
+    <h1 class="article-title" itemprop="name">
+      hdu 题目2531 Catch him（BFS）
+    </h1>
+  
+
+      
+    </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+<p></p>
+<h1 style="color:rgb(26,92,200); text-align:center; font-family:'Times New Roman'">
+Catch him</h1>
+<span style="font-family:'Times New Roman'; font-size:14px"><strong><span style="font-family:Arial; font-size:12px; color:green">Time Limit: 5000/1000 MS (Java/Others)&nbsp;&nbsp;&nbsp;&nbsp;Memory Limit: 32768/32768 K (Java/Others)<br>
+Total Submission(s): 465&nbsp;&nbsp;&nbsp;&nbsp;Accepted Submission(s): 216<br>
+</span></strong></span><br style="font-family:'Times New Roman'; font-size:14px">
+<br style="font-family:'Times New Roman'; font-size:14px">
+<div class="panel_title" align="left" style="height:38px; background-color:transparent; padding:0px 14px; color:rgb(124,169,237); font-size:18px; font-family:Arial; font-weight:bold">
+Problem Description</div>
+<div class="panel_content" style="height:auto; margin:0px; padding:0px 20px; font-size:14px; font-family:'Times New Roman'">
+在美式足球中，四分卫负责指挥整只球队的进攻战术和跑位，以及给接球员传球的任务。四分卫是一只球队进攻组最重要的球员，而且一般身体都相对比较弱小，所以通常球队会安排5-7名大汉来保护他，其中站在四分卫前方、排成一线的5名球员称为进攻锋线，他们通常都是135公斤左右的壮汉。<br>
+<img src="https://acm.hdu.edu.cn/data/images/2531-1.jpg" alt="" style="border:none"><br>
+对防守方来说，攻击对手的四分卫当然是最直接的限制对手进攻的方法。如果效果好，就可以在对方四分卫传球之前将其按翻在地，称之为擒杀。擒杀是最好的鼓舞防守队士气的方法，因为对方连传球的机会都没有，进攻就结束了，还必须倒退一些距离开球。凶狠的擒杀甚至能够将对方的四分卫弄伤，从而迫使对方更换这个进攻核心。<br>
+在本题中，输入给出准备擒杀四分卫的防守球员的位置、对方每个进攻锋线球员的位置以及对方四分卫的位置，你的任务是求出这名准备擒杀的防守球员至少要移动多少步，才能够擒杀对方四分卫。<br>
+假设对方进攻锋线和四分卫在这个过程中都不会移动。只有1名防守球员，防守球员只要碰到对方四分卫就算擒杀。<br>
+所有的球员都是一块连续的、不中空的2维区域。防守球员不可以从进攻锋线的身体上穿过，也不可以从界外穿过(只能走空地)。<br>
+防守队员不可以转动身体，只能平移。防守队员的身体所有部分向同一个方向(上、下、左、右)移动1&#26684;的过程叫做1步。<br>
+</div>
+<div class="panel_bottom" style="height:auto; margin:0px; font-family:'Times New Roman'; font-size:14px">
+&nbsp;</div>
+<br style="font-family:'Times New Roman'; font-size:14px">
+<div class="panel_title" align="left" style="height:38px; background-color:transparent; padding:0px 14px; color:rgb(124,169,237); font-size:18px; font-family:Arial; font-weight:bold">
+Input</div>
+<div class="panel_content" style="height:auto; margin:0px; padding:0px 20px; font-size:14px; font-family:'Times New Roman'">
+输入包含多组数据。每组数据第一行都是两个整数H，W(0&lt;H,W&lt;=100)，表示整个区域的高度和宽度，H=W=0表示输入结束。接下来有H行，每行W个字符。每个字符如果是’.’，表示这里是空地，如果是’O’，表示是进攻锋线队员的身体，如果是’D’，表示是准备擒杀的防守球员的身体，如果是’Q’，表示是四分卫的身体。<br>
+输入保证符合上面的条件。防守球员的身体总共不超过20&#26684;。<br>
+<br>
+</div>
+<div class="panel_bottom" style="height:auto; margin:0px; font-family:'Times New Roman'; font-size:14px">
+&nbsp;</div>
+<br style="font-family:'Times New Roman'; font-size:14px">
+<div class="panel_title" align="left" style="height:38px; background-color:transparent; padding:0px 14px; color:rgb(124,169,237); font-size:18px; font-family:Arial; font-weight:bold">
+Output</div>
+<div class="panel_content" style="height:auto; margin:0px; padding:0px 20px; font-size:14px; font-family:'Times New Roman'">
+对每组数据，输出包含擒杀所需最少步数的一行。如果不能擒杀，输出带’Impossible’的一行。</div>
+<div class="panel_bottom" style="height:auto; margin:0px; font-family:'Times New Roman'; font-size:14px">
+&nbsp;</div>
+<br style="font-family:'Times New Roman'; font-size:14px">
+<div class="panel_title" align="left" style="height:38px; background-color:transparent; padding:0px 14px; color:rgb(124,169,237); font-size:18px; font-family:Arial; font-weight:bold">
+Sample Input</div>
+<div class="panel_content" style="height:auto; margin:0px; padding:0px 20px; font-size:14px; font-family:'Times New Roman'">
+<pre style="margin-top:0px; margin-bottom:0px"><div style="font-family:'Courier New',Courier,monospace">6 6
+.Q....
+QQ..OO
+.OO..O
+...O.O
+OO.O..
+....DD
+7 7
+.Q.....
+QQ.OOO.
+...O...
+O......
+OO..OO.
+.O.....
+.....DD
+0 0</div></pre>
+</div>
+<div class="panel_bottom" style="height:auto; margin:0px; font-family:'Times New Roman'; font-size:14px">
+&nbsp;</div>
+<br style="font-family:'Times New Roman'; font-size:14px">
+<div class="panel_title" align="left" style="height:38px; background-color:transparent; padding:0px 14px; color:rgb(124,169,237); font-size:18px; font-family:Arial; font-weight:bold">
+Sample Output</div>
+<div class="panel_content" style="height:auto; margin:0px; padding:0px 20px; font-size:14px; font-family:'Times New Roman'">
+<pre style="margin-top:0px; margin-bottom:0px"><div style="font-family:'Courier New',Courier,monospace">Impossible
+9</div></pre>
+</div>
+<div class="panel_bottom" style="height:auto; margin:0px; font-family:'Times New Roman'; font-size:14px">
+&nbsp;</div>
+<div><br>
+</div>
+将防守队员看做一个整体，每次移动都做整体移动
+<p></p>
+<p><br>
+</p>
+<p><pre name="code" class="cpp">#include&lt;stdio.h&gt;
+#include&lt;queue&gt;
+#include&lt;string.h&gt;
+using namespace std;
+int k,h,w;	
+
+struct body{
+	int x[22],y[22],step;
+}s;
+
+int sx[22],sy[22];
+char a[110][110];
+bool vis[110][110];
+int dir[4][2] = {1,0,-1,0,0,1,0,-1};
+
+
+bool catchhim(body tmp){
+	for(int i=0;i&lt;k;i++){
+		if(a[tmp.x[i]][tmp.y[i]]=='Q')
+			return 1;
+	}
+	return 0;
+}
+bool place(body tmp){
+
+	for(int i=0;i&lt;k;i++){
+		if(tmp.x[i]&lt;0 || tmp.x[i]&gt;=h || tmp.y[i]&lt;0 || tmp.y[i]&gt;=w || a[tmp.x[i]][tmp.y[i]]=='O')
+			return 0;
+	}
+	return 1;
+}
+
+void bfs(){
+	
+	queue&lt;body&gt;q;
+	body tmp,cur;
+	int i,j;
+	memset(vis,0,sizeof(vis));
+
+	for(i=0;i&lt;k;i++){
+		tmp.x[i] = sx[i];
+		tmp.y[i] = sy[i];
+	}	
+	tmp.step = 0;
+	
+	q.push(tmp);
+	
+	vis[tmp.x[0]][tmp.y[0]] = 1;
+	
+	while(!q.empty()){
+		
+		tmp = q.front();
+		q.pop();
+		
+		if(catchhim(tmp)){
+			printf(&quot;%d\n&quot;,tmp.step);
+			return ;
+		}
+		
+		for(j=0;j&lt;4;j++){
+			
+			for(i=0;i&lt;k;i++){
+				cur.x[i] = tmp.x[i] + dir[j][0];
+				cur.y[i] = tmp.y[i] + dir[j][1];		
+			}
+			
+			cur.step = tmp.step + 1;
+			
+			if(place(cur) &amp;&amp; !vis[cur.x[0]][cur.y[0]]){
+				vis[cur.x[0]][cur.y[0]] = 1;
+				q.push(cur);
+			}
+		}
+	}
+	printf(&quot;Impossible\n&quot;);
+}
+int main(){
+	while(scanf(&quot;%d%d&quot;,&amp;h,&amp;w),h&amp;&amp;w){
+		getchar();
+		k=0;
+		for(int i=0;i&lt;h;i++){
+			for(int j=0;j&lt;w;j++){
+				scanf(&quot;%c&quot;,&amp;a[i][j]);
+				if(a[i][j]=='D'){
+					sx[k] = i;
+					sy[k++] = j;
+				}
+			}
+			getchar();
+		}
+
+		bfs();	
+	}	
+	return 0;
+}</pre><br>
+<br>
+</p>
+<p><br>
+</p>
+
+      
+    </div>
+</article>
+
+<!-- 上一页 下一页 -->
+
+
+<nav id="article-nav">
+  
+    <a href="/2013/08/19/hdu_%E9%A2%98%E7%9B%AE4217_Data_Structure_%EF%BC%88%E7%BA%BF%E6%AE%B5%E6%A0%91%EF%BC%8C%E5%8D%95%E7%82%B9%E6%9B%B4%E6%96%B0%EF%BC%89/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>上一篇</span>
+      <div class="article-nav-title">
+        
+          hdu 题目4217 Data Structure?（线段树，单点更新）
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2013/08/16/hdu_%E9%A2%98%E7%9B%AE_1384_Wall%EF%BC%88%E5%87%B8%E5%8C%85%EF%BC%89/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>下一篇</span>
+      <div class="article-nav-title">hdu 题目 1384 Wall（凸包）</div>
+    </a>
+  
+</nav>
+
+
+
+<!-- 相关文章 -->
+
+<!--
+
+-->
+
+
+</section>
+      </div>
+      <footer id="footer">
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      
+      &copy;2024<a target="_blank" rel="noopener" href="https://github.com/hanks-zyh"> Hanks</a>版权所有
+      <br/>
+      <a href="https://beian.miit.gov.cn/" target="_blank">豫ICP备2021022347号</a>
+	  </div>
+  </div>
+ <div id="share">
+  <a id="totop" title="" style="display: block;">返回顶部</a>
+ </div>
+</footer>
+
+    </div>
+    
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/jquery.scrollLoading.js"></script>
+
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/ads.js"></script>
+
+  </div>
+</body>
+</html>

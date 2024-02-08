@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Lua 嵌入 Android 原理 | Hanks&#39; Websit</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <script data-ad-client="ca-pub-8165670162444117" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <meta name="referrer" content="never">
+  <meta name="description" content="Lua 作为一个轻量、灵活的嵌入式脚本语言，可供任何需要的程序使用。lua 可利用 C API 方便的嵌入其他系统。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Lua 嵌入 Android 原理">
+<meta property="og:url" content="https://hanks.pub/2017/09/28/lua-into-android/index.html">
+<meta property="og:site_name" content="Hanks&#39; Websit">
+<meta property="og:description" content="Lua 作为一个轻量、灵活的嵌入式脚本语言，可供任何需要的程序使用。lua 可利用 C API 方便的嵌入其他系统。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2017-09-28T08:42:46.000Z">
+<meta property="article:modified_time" content="2024-02-08T01:29:02.188Z">
+<meta property="article:author" content="Hanks">
+<meta property="article:tag" content="Android">
+<meta property="article:tag" content="Lua">
+<meta name="twitter:card" content="summary">
+  
+  
+  <link href="https://fonts.googleapis.com/css?family=Fira+Code|Noto+Serif+SC&display=swap" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8165670162444117"
+     crossorigin="anonymous"></script>
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo"></a>
+    <nav id="main-nav">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      
+        <a class="main-nav-link" href="/archives">Archive</a>
+      
+        <a class="main-nav-link" href="/eye-video">Eye</a>
+      
+        <a class="main-nav-link" href="/atom.xml">Rss</a>
+      
+    </nav>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/archives" class="mobile-nav-link">Archive</a>
+  
+    <a href="/eye-video" class="mobile-nav-link">Eye</a>
+  
+    <a href="/atom.xml" class="mobile-nav-link">Rss</a>
+  
+</nav>
+      <div class="outer">
+        <section id="main"><article id="post-lua-into-android" class="article article-type-post" itemscope
+  itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <header class="article-header">
+      
+      
+  
+    <h1 class="article-title" itemprop="name">
+      Lua 嵌入 Android 原理
+    </h1>
+  
+
+      
+    </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      <p>Lua 作为一个轻量、灵活的嵌入式脚本语言，可供任何需要的程序使用。lua 可利用 C API 方便的嵌入其他系统。</p>
+<span id="more"></span>
+
+<h2 id="Lua-与-C-交互"><a href="#Lua-与-C-交互" class="headerlink" title="Lua 与 C 交互"></a>Lua 与 C 交互</h2><p>通过虚拟栈 栈顶元素索引 -1，栈底元素索引 1</p>
+<h3 id="C-调用-Lua"><a href="#C-调用-Lua" class="headerlink" title="C 调用 Lua"></a>C 调用 Lua</h3><p><code>a.lua</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">print(&quot;hello from lua&quot;)</span><br><span class="line"></span><br><span class="line">function power(a,n)</span><br><span class="line">    return a^n</span><br><span class="line">end</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><code>main.c</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">lua_State * L = luaL_newstate();    // 创建 Lua 与 C 进行数据交互的堆栈并返回指针 L；</span><br><span class="line">luaL_openlibs(L);                   //为堆栈加载所有 Lua 的标准库</span><br><span class="line"></span><br><span class="line">// 1. 执行 lua 脚本</span><br><span class="line">luaL_dostring(L,&quot;print(&#x27;from dostring&#x27;)&quot;); </span><br><span class="line"></span><br><span class="line">// 2. 执行整个 Lua 脚本文件 a.lua</span><br><span class="line">luaL_dofile(L,&quot;a.lua&quot;);                   </span><br><span class="line"></span><br><span class="line">// 3. 调用 Lua 中的方法</span><br><span class="line">lua_getglobal(L,&quot;power&quot;);</span><br><span class="line">lua_pushinteger(L,2);</span><br><span class="line">lua_pushinteger(L,10);</span><br><span class="line">lua_call(L,2,1);</span><br><span class="line">int res = lua_tonumber(L,-1);  // 取出栈顶结果</span><br><span class="line">printf(&quot;power:%d&quot;,res);</span><br><span class="line"></span><br><span class="line">lua_close(L);                   //函数关闭堆栈，释放资源</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="Lua-调用-C"><a href="#Lua-调用-C" class="headerlink" title="Lua 调用 C"></a>Lua 调用 C</h3><p><code>b.lua</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">local res = add(20,3)</span><br><span class="line">print(&#x27;res:&#x27;..res)</span><br></pre></td></tr></table></figure>
+
+<p>main.c</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">//待Lua调用的C注册函数</span><br><span class="line">int add(lua_State* L)</span><br><span class="line">&#123;</span><br><span class="line">	double op1 = lua_tonumber(L,-1);</span><br><span class="line">	double op2 = lua_tonumber(L,-2);</span><br><span class="line">	</span><br><span class="line">    //将函数的结果压入栈中。如果有多个返回值，可以在这里多次压入栈中。</span><br><span class="line">	lua_pushnumber(L,op1 + op2);</span><br><span class="line">	</span><br><span class="line">	return 1; //返回值表示返回值数量，即压入栈中的返回值数量。</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void lua_call_c()</span><br><span class="line">&#123;</span><br><span class="line">    lua_State *L = luaL_newstate();</span><br><span class="line">    luaL_openlibs(L);</span><br><span class="line">    lua_register(L,&quot;add&quot;,add);</span><br><span class="line">    luaL_dofile(L,&quot;b.lua&quot;);</span><br><span class="line">    lua_close(L);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    lua_call_c();</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="Java-与-C-交互"><a href="#Java-与-C-交互" class="headerlink" title="Java 与 C 交互"></a>Java 与 C 交互</h2><p>JNI是Java Native Interface的缩写，它提供了若干的API实现了Java和其他语言的通信（主要是C&#x2F;C++）。</p>
+<p><code>Main.java</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">package com.jni_java;</span><br><span class="line"></span><br><span class="line">public class Main &#123;</span><br><span class="line"></span><br><span class="line">    static native int add(int a, int b);</span><br><span class="line"></span><br><span class="line">    static &#123;</span><br><span class="line">        System.loadLibrary(&quot;libjni_c&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        System.out.println(&quot;hello&quot;);</span><br><span class="line">        System.out.println(&quot;add form c:&quot; + add(2, 3));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>main.c</code> </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">/*</span><br><span class="line"> * main.c</span><br><span class="line"> * Author: hanks</span><br><span class="line"> */</span><br><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &quot;com_jni_java_Main.h&quot;</span><br><span class="line"></span><br><span class="line">JNIEXPORT jint JNICALL Java_com_jni_1java_Main_add(JNIEnv * env, jclass job,</span><br><span class="line">        jint n1, jint n2) &#123;</span><br><span class="line"></span><br><span class="line">    // jni diaoyong java</span><br><span class="line">    jclass clazz = (*env)-&gt;FindClass(env, &quot;com/jni_java/BigOp&quot;);</span><br><span class="line">    if(clazz == NULL)&#123;</span><br><span class="line">        printf(&quot;找不到类&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    jmethodID mid_static_method =  (*env)-&gt;GetStaticMethodID(env, clazz, &quot;bigNumberAdd&quot;, &quot;(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;&quot;);</span><br><span class="line">    if (mid_static_method == NULL) &#123;</span><br><span class="line">        printf(&quot;找不到函数&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    jstring a = (*env)-&gt;NewStringUTF(env, &quot;111111111111111111111111111&quot;);</span><br><span class="line">    jstring b = (*env)-&gt;NewStringUTF(env, &quot;22222222222222222222222222&quot;);</span><br><span class="line">    jobject res = (*env)-&gt;CallStaticObjectMethod(env, clazz, mid_static_method, a, b); </span><br><span class="line">    const char *resultChar = (*env)-&gt;GetStringUTFChars(env, res, NULL);</span><br><span class="line">    printf(&quot;bigAdd: %s&quot;, resultChar);</span><br><span class="line"></span><br><span class="line">    // 删除引用</span><br><span class="line">    (*env)-&gt;DeleteLocalRef(env, clazz);</span><br><span class="line">    (*env)-&gt;DeleteLocalRef(env, a);</span><br><span class="line">    (*env)-&gt;DeleteLocalRef(env, b);</span><br><span class="line"></span><br><span class="line">    return n1 + n2;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<h2 id="Lua-与-Java-交互"><a href="#Lua-与-Java-交互" class="headerlink" title="Lua 与 Java 交互"></a>Lua 与 Java 交互</h2><p>实际上也就是 <code>lua &lt;-&gt; c &lt;-&gt; java </code> ，<br>可以将 lua 编译成对应平台的库 so&#x2F;dll ，然后嵌入 Java 项目。<br>介绍一下开源项目 <a target="_blank" rel="noopener" href="https://github.com/jasonsantos/luajava">luajava</a>  ，该项目实现以下几个方法 借助这几个方法 lua 几乎可以使用所有的 java 类了，参考 luajava.c</p>
+<ol>
+<li>newInstance(className, ……)<br>第一个参数是类名，后面的是构造方法参数</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">local obj = luajava.newInstance(&quot;java.lang.Object&quot;)</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>bindClass(className)<br>这个方法是用来调用类的静态方法的，返回一个java class</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">local sys = luajava.bindClass(&quot;java.lang.System&quot;)</span><br><span class="line">print ( sys:currentTimeMillis() )</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>new(javaClass)<br>创建一个实例</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">local str = luajava.bindClass(&quot;java.lang.String&quot;)</span><br><span class="line">strInstance = luajava.new(str)</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>createProxy(interfaceNames, luaObject)<br>这个是使用 java 接口的方法。luaObject 中实现 java 接口中的方法，然后调用 creatProxy 来构建出这个接口的 lua 版本，相当于用 luaObject来实现 java 接口了。</li>
+</ol>
+<p>可以多个接口同时调用，然后luaObject实现所有这些接口的方法</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">local button = luajava.newInstance(&quot;java.awt.Button&quot;, &quot;execute&quot;)</span><br><span class="line">local buttonProxy = luajava.createProxy(&quot;java.awt.ActionListener&quot;, &#123;</span><br><span class="line">    actionPerformed = function(ev)  </span><br><span class="line">        -- body</span><br><span class="line">    end</span><br><span class="line">&#125;)</span><br><span class="line">button:addActionListener(buttonProxy)</span><br></pre></td></tr></table></figure>
+
+<ol start="5">
+<li>loadLib(className, methodName)<br>调研类的静态方法</li>
+</ol>
+<h2 id="Lua-与-Android-交互"><a href="#Lua-与-Android-交互" class="headerlink" title="Lua 与 Android 交互"></a>Lua 与 Android 交互</h2><p>通过 NDK 编程，编译对应 Android 平台的 so 库，然后调研 Android SDK 来开发 Android</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/mkottman/AndroLua/blob/master/assets/import.lua">androlua</a>，改进版本  <a target="_blank" rel="noopener" href="https://github.com/nirenr/AndroLua_pro">AndroLua_pro</a><br>主要可参考其中 的 <a target="_blank" rel="noopener" href="https://github.com/nirenr/AndroLua_pro/blob/master/src/lua/import.lua">import.lua</a> 和 <a target="_blank" rel="noopener" href="https://github.com/nirenr/AndroLua_pro/blob/master/src/lua/loadlayout.lua">loadlayout.lua</a>,这两个 lua 文件将如何调用 java 中的类和方法进行优化，使得调用起来非常方便。</p>
+<h2 id="相关代码实现"><a href="#相关代码实现" class="headerlink" title="相关代码实现"></a>相关代码实现</h2><p><a target="_blank" rel="noopener" href="https://github.com/hanks-zyh/lua_into_android">lua_into_android</a> </p>
+<blockquote>
+<p>文章来自： <a href="https://hanks.pub/">https://hanks.pub</a></p>
+</blockquote>
+
+      
+    </div>
+</article>
+
+<!-- 上一页 下一页 -->
+
+
+<nav id="article-nav">
+  
+    <a href="/2017/10/11/android-night-mode/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>上一篇</span>
+      <div class="article-nav-title">
+        
+          Android 夜间模式
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/04/28/lua-in-android/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>下一篇</span>
+      <div class="article-nav-title">探究 lua 在 Android 中的应用</div>
+    </a>
+  
+</nav>
+
+
+
+<!-- 相关文章 -->
+
+<!--
+
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+      			<a href="/2017/09/28/lua-into-android/">Lua 嵌入 Android 原理</a>
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+
+-->
+
+
+</section>
+      </div>
+      <footer id="footer">
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      
+      &copy;2024<a target="_blank" rel="noopener" href="https://github.com/hanks-zyh"> Hanks</a>版权所有
+      <br/>
+      <a href="https://beian.miit.gov.cn/" target="_blank">豫ICP备2021022347号</a>
+	  </div>
+  </div>
+ <div id="share">
+  <a id="totop" title="" style="display: block;">返回顶部</a>
+ </div>
+</footer>
+
+    </div>
+    
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/jquery.scrollLoading.js"></script>
+
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/ads.js"></script>
+
+  </div>
+</body>
+</html>

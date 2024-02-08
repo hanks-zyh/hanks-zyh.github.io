@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>NYOJ 题目854 留恋 | Hanks&#39; Websit</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <script data-ad-client="ca-pub-8165670162444117" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <meta name="referrer" content="never">
+  <meta name="description" content="&nbsp; &nbsp; #include&lt;stdio.h&gt; #include&lt;string.h&gt; int col[10005],row[10005];  int main() { 	int t,n,m,i,j,x,y; 	scanf(&quot;%d&quot;,&amp;t); 	while(t--){ 		scanf(&quot;%d%d&quot;,&amp;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="NYOJ 题目854 留恋">
+<meta property="og:url" content="https://hanks.pub/2013/10/26/NYOJ_%E9%A2%98%E7%9B%AE854_%E7%95%99%E6%81%8B/index.html">
+<meta property="og:site_name" content="Hanks&#39; Websit">
+<meta property="og:description" content="&nbsp; &nbsp; #include&lt;stdio.h&gt; #include&lt;string.h&gt; int col[10005],row[10005];  int main() { 	int t,n,m,i,j,x,y; 	scanf(&quot;%d&quot;,&amp;t); 	while(t--){ 		scanf(&quot;%d%d&quot;,&amp;">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img.blog.csdn.net/20131026230005640">
+<meta property="article:published_time" content="2013-10-26T15:00:00.000Z">
+<meta property="article:modified_time" content="2024-02-08T01:29:02.176Z">
+<meta property="article:author" content="Hanks">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img.blog.csdn.net/20131026230005640">
+  
+  
+  <link href="https://fonts.googleapis.com/css?family=Fira+Code|Noto+Serif+SC&display=swap" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8165670162444117"
+     crossorigin="anonymous"></script>
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo"></a>
+    <nav id="main-nav">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      
+        <a class="main-nav-link" href="/archives">Archive</a>
+      
+        <a class="main-nav-link" href="/eye-video">Eye</a>
+      
+        <a class="main-nav-link" href="/atom.xml">Rss</a>
+      
+    </nav>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/archives" class="mobile-nav-link">Archive</a>
+  
+    <a href="/eye-video" class="mobile-nav-link">Eye</a>
+  
+    <a href="/atom.xml" class="mobile-nav-link">Rss</a>
+  
+</nav>
+      <div class="outer">
+        <section id="main"><article id="post-NYOJ_题目854_留恋" class="article article-type-post" itemscope
+  itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <header class="article-header">
+      
+      
+  
+    <h1 class="article-title" itemprop="name">
+      NYOJ 题目854 留恋
+    </h1>
+  
+
+      
+    </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+<p><img src="https://img.blog.csdn.net/20131026230005640" width="494" height="270" alt=""></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<pre class="cpp" name="code">#include&lt;stdio.h&gt;
+#include&lt;string.h&gt;
+int col[10005],row[10005];
+
+int main()
+{
+	int t,n,m,i,j,x,y;
+	scanf(&quot;%d&quot;,&amp;t);
+	while(t--){
+		scanf(&quot;%d%d&quot;,&amp;n,&amp;m);
+		memset(row,0,sizeof(row));
+		memset(col,0,sizeof(col));
+		i = j = x = y = 1;  
+		while(x&lt;=n &amp;&amp; y&lt;=m){ 	
+			//len(i到n) = n-i&#43;1;     
+			//len(j到m) = m-j&#43;1; 
+			if(n-i&#43;1 &lt; m-j&#43;1 ){ j=j&#43;(n-i&#43;1);  i=n&#43;1; } //这里不容易啊  // i先到最底层，要返回 
+			else if(n-i&#43;1 &gt; m-j&#43;1 ){ i = i&#43;(m-j&#43;1);  j=m&#43;1;}  // j先到最底层 
+			else {	i = n&#43;1; j = m&#43;1;	} // 同时到最底层 
+			if(i&gt;n) {  // i到达最底层 
+				i = 1;
+				if(j&lt;=m){  
+					if(row[j]) 	break;
+					row[j] = 1; y&#43;&#43;;
+				}else {row[1] = 1;y&#43;&#43;;}				
+			}
+			if(j&gt;m) {  // j 到达最底层 
+				j = 1;
+				if(i&lt;=n){
+					if(col[i]) break;
+					col[i] = 1;x&#43;&#43;;
+				}else {col[1]=1;x&#43;&#43;;}
+			}	
+		}
+		if(x ==n&#43;1 &amp;&amp; y == m&#43;1) puts(&quot;Possible&quot;); 
+		else puts(&quot;Impossible&quot;);
+	} 
+	return 0;
+	
+}
+
+/*
+3
+2 3
+2 2
+3 6
+*/</pre>
+<p><br>
+&nbsp;</p>
+
+      
+    </div>
+</article>
+
+<!-- 上一页 下一页 -->
+
+
+<nav id="article-nav">
+  
+    <a href="/2013/10/27/(n%E4%B8%AA%E6%95%B0%E9%80%89r%E4%B8%AA%E5%85%A8%E6%8E%92%E5%88%97)/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>上一篇</span>
+      <div class="article-nav-title">
+        
+          (n个数选r个全排列)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2013/10/23/NYOJ_517_%E6%9C%80%E5%B0%8F%E5%85%AC%E5%80%8D%E6%95%B0_%EF%BC%881-n_%E4%B8%AA%E6%95%B0%E7%9A%84%E6%9C%80%E5%B0%8F%E5%85%AC%E5%80%8D%E6%95%B0%EF%BC%8C%E5%A4%A7%E6%95%B0%EF%BC%89/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>下一篇</span>
+      <div class="article-nav-title">NYOJ 517 最小公倍数 （1-n 个数的最小公倍数，大数）</div>
+    </a>
+  
+</nav>
+
+
+
+<!-- 相关文章 -->
+
+<!--
+
+-->
+
+
+</section>
+      </div>
+      <footer id="footer">
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      
+      &copy;2024<a target="_blank" rel="noopener" href="https://github.com/hanks-zyh"> Hanks</a>版权所有
+      <br/>
+      <a href="https://beian.miit.gov.cn/" target="_blank">豫ICP备2021022347号</a>
+	  </div>
+  </div>
+ <div id="share">
+  <a id="totop" title="" style="display: block;">返回顶部</a>
+ </div>
+</footer>
+
+    </div>
+    
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/jquery.scrollLoading.js"></script>
+
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/ads.js"></script>
+
+  </div>
+</body>
+</html>

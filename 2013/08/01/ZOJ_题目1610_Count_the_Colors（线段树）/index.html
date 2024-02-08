@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>ZOJ 题目1610 Count the Colors（线段树） | Hanks&#39; Websit</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <script data-ad-client="ca-pub-8165670162444117" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <meta name="referrer" content="never">
+  <meta name="description" content="Count the Colors     &nbsp; Time Limit: 2 Seconds &nbsp;&nbsp;&nbsp;&nbsp;  Memory Limit: 65536 KB   Painting some colored segments on a line, some previously painted segments may be covered by some">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ZOJ 题目1610 Count the Colors（线段树）">
+<meta property="og:url" content="https://hanks.pub/2013/08/01/ZOJ_%E9%A2%98%E7%9B%AE1610_Count_the_Colors%EF%BC%88%E7%BA%BF%E6%AE%B5%E6%A0%91%EF%BC%89/index.html">
+<meta property="og:site_name" content="Hanks&#39; Websit">
+<meta property="og:description" content="Count the Colors     &nbsp; Time Limit: 2 Seconds &nbsp;&nbsp;&nbsp;&nbsp;  Memory Limit: 65536 KB   Painting some colored segments on a line, some previously painted segments may be covered by some">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2013-08-01T14:08:00.000Z">
+<meta property="article:modified_time" content="2024-02-08T01:29:02.179Z">
+<meta property="article:author" content="Hanks">
+<meta name="twitter:card" content="summary">
+  
+  
+  <link href="https://fonts.googleapis.com/css?family=Fira+Code|Noto+Serif+SC&display=swap" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8165670162444117"
+     crossorigin="anonymous"></script>
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo"></a>
+    <nav id="main-nav">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      
+        <a class="main-nav-link" href="/archives">Archive</a>
+      
+        <a class="main-nav-link" href="/eye-video">Eye</a>
+      
+        <a class="main-nav-link" href="/atom.xml">Rss</a>
+      
+    </nav>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/archives" class="mobile-nav-link">Archive</a>
+  
+    <a href="/eye-video" class="mobile-nav-link">Eye</a>
+  
+    <a href="/atom.xml" class="mobile-nav-link">Rss</a>
+  
+</nav>
+      <div class="outer">
+        <section id="main"><article id="post-ZOJ_题目1610_Count_the_Colors（线段树）" class="article article-type-post" itemscope
+  itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <header class="article-header">
+      
+      
+  
+    <h1 class="article-title" itemprop="name">
+      ZOJ 题目1610 Count the Colors（线段树）
+    </h1>
+  
+
+      
+    </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+<center>
+<h2><span class="bigProblemTitle"><span style="color:#3366ff">Count the Colors</span></span></h2>
+</center>
+<h2>
+<hr>
+</h2>
+<p>&nbsp;</p>
+<center><span style="color:green">Time Limit: </span>2 Seconds &nbsp;&nbsp;&nbsp;&nbsp; <span style="color:green">
+Memory Limit: </span>65536 KB </center>
+<hr>
+<p>Painting some colored segments on a line, some previously painted segments may be covered by some the subsequent ones.</p>
+<p>Your task is counting the segments of different colors you can see at last.</p>
+<p><br>
+<strong>Input<br>
+</strong><br>
+The first line of each data set contains exactly one integer n, 1 &lt;= n &lt;= 8000, equal to the number of colored segments.</p>
+<p>Each of the following n lines consists of exactly 3 nonnegative integers separated by single spaces:<br>
+<br>
+x1 x2 c<br>
+<br>
+x1 and x2 indicate the left endpoint and right endpoint of the segment, c indicates the color of the segment.</p>
+<p>All the numbers are in the range [0, 8000], and they are all integers.</p>
+<p>Input may contain several data set, process to the end of file.</p>
+<p><br>
+<strong>Output</strong><br>
+<br>
+Each line of the output should contain a color index that can be seen from the top, following the count of the segments of this color, they should be printed according to the color index.</p>
+<p>If some color can't be seen, you shouldn't print it.</p>
+<p>Print a blank line after every dataset.</p>
+<p><br>
+<strong>Sample Input</strong><br>
+<br>
+5<br>
+0 4 4<br>
+0 3 1<br>
+3 4 2<br>
+0 2 2<br>
+0 2 3<br>
+4<br>
+0 1 1<br>
+3 4 1<br>
+1 3 2<br>
+1 3 1<br>
+6<br>
+0 1 0<br>
+1 2 1<br>
+2 3 1<br>
+1 2 0<br>
+2 3 0<br>
+1 2 1</p>
+<p><br>
+<strong>Sample Output</strong><br>
+<br>
+1 1<br>
+2 1<br>
+3 1</p>
+<p>1 1</p>
+<p>0 2<br>
+1 1</p>
+<p>&nbsp;</p>
+<p>没有使用线段树的代码：因为8000比较小，不然会超时</p>
+<p>&nbsp;</p>
+<pre class="cpp" name="code">#include&quot;stdio.h&quot;
+#include&lt;string.h&gt;
+
+int main()
+{
+	int tree[8010];
+	int finalcolor[8010];
+	int n,i,j;
+	int ls,rs,c;//临时的表示当前输入数据的左右范围及颜色 
+	int rmax;//表示总的最右边界 
+	while(scanf(&quot;%d&quot;,&amp;n)!=EOF)
+	{
+
+		memset(tree,-1,sizeof(tree));
+		rmax = 0;
+		while(n--)//输入n个颜色,及其染色范围 
+		{
+			scanf(&quot;%d%d%d&quot;,&amp;ls,&amp;rs,&amp;c);
+			if(rs&gt;rmax) rmax = rs;//从1开始的下标中存放的值表示前面一单位段的颜色 
+			for(j=ls+1;j&lt;=rs;j++)//后来输入的颜色会直接覆盖前面的颜色 
+				tree[j] = c;
+			
+		}
+
+		
+		memset(finalcolor,0,sizeof(finalcolor));
+
+		
+		int k;
+		j=0;
+		finalcolor[tree[1]]=1;
+		for(i=2;i&lt;=rmax;i++)
+		{	
+			if(tree[i]==tree[i-1]) continue;	 
+			finalcolor[tree[i]]++;
+	
+		}//for
+		
+		for(i=0;i&lt;=8002;i++)
+		{
+			if(finalcolor[i])
+				printf(&quot;%d %d\n&quot;,i,finalcolor[i]);
+		} 
+		printf(&quot;\n&quot;);
+		
+	}//while
+	return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+/*
+1
+1 2 55
+
+5
+0 4 4
+0 3 1
+3 4 2
+0 2 2
+0 2 3
+4
+0 1 1
+3 4 1
+1 3 2
+1 3 1
+6
+0 1 0
+1 2 1
+2 3 1
+1 2 0
+2 3 0
+1 2 1
+3
+1 2 3
+1 2 2
+1 2 1
+
+*/</pre>
+<p><br>
+&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+      
+    </div>
+</article>
+
+<!-- 上一页 下一页 -->
+
+
+<nav id="article-nav">
+  
+    <a href="/2013/08/02/NYOJ_%E5%A3%AB%E5%85%B5%E6%9D%80%E6%95%8C%EF%BC%88%E4%B8%80%EF%BC%89/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>上一篇</span>
+      <div class="article-nav-title">
+        
+          NYOJ 士兵杀敌（一）
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2013/08/01/C___%E4%B9%8B_STL/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>下一篇</span>
+      <div class="article-nav-title">C++ 之 STL</div>
+    </a>
+  
+</nav>
+
+
+
+<!-- 相关文章 -->
+
+<!--
+
+-->
+
+
+</section>
+      </div>
+      <footer id="footer">
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      
+      &copy;2024<a target="_blank" rel="noopener" href="https://github.com/hanks-zyh"> Hanks</a>版权所有
+      <br/>
+      <a href="https://beian.miit.gov.cn/" target="_blank">豫ICP备2021022347号</a>
+	  </div>
+  </div>
+ <div id="share">
+  <a id="totop" title="" style="display: block;">返回顶部</a>
+ </div>
+</footer>
+
+    </div>
+    
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/jquery.scrollLoading.js"></script>
+
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/ads.js"></script>
+
+  </div>
+</body>
+</html>

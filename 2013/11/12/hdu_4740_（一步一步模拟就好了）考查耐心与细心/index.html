@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>hdu 4740 （一步一步模拟就好了）考查耐心与细心 | Hanks&#39; Websit</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <script data-ad-client="ca-pub-8165670162444117" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <meta name="referrer" content="never">
+  <meta name="description" content="https:&#x2F;&#x2F;acm.hdu.edu.cn&#x2F;showproblem.php?pid&#x3D;4740 &nbsp; 网络赛时这道题没做出来，一直Runtime Error(ACCESS_VIOLATION)，还不心不够静，心态啊！ &nbsp; &nbsp; &nbsp; &#x2F;*************************** #   1. a[n][n] 代表矩阵；初始为0   2. tiger和">
+<meta property="og:type" content="article">
+<meta property="og:title" content="hdu 4740 （一步一步模拟就好了）考查耐心与细心">
+<meta property="og:url" content="https://hanks.pub/2013/11/12/hdu_4740_%EF%BC%88%E4%B8%80%E6%AD%A5%E4%B8%80%E6%AD%A5%E6%A8%A1%E6%8B%9F%E5%B0%B1%E5%A5%BD%E4%BA%86%EF%BC%89%E8%80%83%E6%9F%A5%E8%80%90%E5%BF%83%E4%B8%8E%E7%BB%86%E5%BF%83/index.html">
+<meta property="og:site_name" content="Hanks&#39; Websit">
+<meta property="og:description" content="https:&#x2F;&#x2F;acm.hdu.edu.cn&#x2F;showproblem.php?pid&#x3D;4740 &nbsp; 网络赛时这道题没做出来，一直Runtime Error(ACCESS_VIOLATION)，还不心不够静，心态啊！ &nbsp; &nbsp; &nbsp; &#x2F;*************************** #   1. a[n][n] 代表矩阵；初始为0   2. tiger和">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2013-11-12T10:39:00.000Z">
+<meta property="article:modified_time" content="2024-02-08T01:29:02.182Z">
+<meta property="article:author" content="Hanks">
+<meta name="twitter:card" content="summary">
+  
+  
+  <link href="https://fonts.googleapis.com/css?family=Fira+Code|Noto+Serif+SC&display=swap" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8165670162444117"
+     crossorigin="anonymous"></script>
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo"></a>
+    <nav id="main-nav">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      
+        <a class="main-nav-link" href="/archives">Archive</a>
+      
+        <a class="main-nav-link" href="/eye-video">Eye</a>
+      
+        <a class="main-nav-link" href="/atom.xml">Rss</a>
+      
+    </nav>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/archives" class="mobile-nav-link">Archive</a>
+  
+    <a href="/eye-video" class="mobile-nav-link">Eye</a>
+  
+    <a href="/atom.xml" class="mobile-nav-link">Rss</a>
+  
+</nav>
+      <div class="outer">
+        <section id="main"><article id="post-hdu_4740_（一步一步模拟就好了）考查耐心与细心" class="article article-type-post" itemscope
+  itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <header class="article-header">
+      
+      
+  
+    <h1 class="article-title" itemprop="name">
+      hdu 4740 （一步一步模拟就好了）考查耐心与细心
+    </h1>
+  
+
+      
+    </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+<p><a target="_blank" href="https://acm.hdu.edu.cn/showproblem.php?pid=4740">https://acm.hdu.edu.cn/showproblem.php?pid=4740</a></p>
+<p>&nbsp;</p>
+<p><span style="font-family:KaiTi_GB2312"><span style="font-size:24px">网络赛时这道题没做出来，一直<span style="">Runtime Error</span><span style="">(ACCESS_VIOLATION)，还不心不够静，心态啊！</span></span></span></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<pre class="cpp" name="code">/***************************
+# 
+ 1. a[n][n] 代表矩阵；初始为0 
+ 2. tiger和donkey 同时从起点运动，dfs参数  ： 首先两个坐标（4个参数），表示位置
+                                                两个状态 ，表示tiger和donkey的运动是否，初始1；代表运动
+                                  dfs结束条件 ： 都停止（状态都是0） || 相遇（两个坐标相同） 
+    
+# 2013-11-12 17:33:16 
+# Time: 31MS   Memory: 8384K
+# Author: zyh
+***************************/ 
+
+#define N 1020
+
+#include&lt;iostream&gt;
+#include&lt;algorithm&gt;
+#include&lt;stdio.h&gt;
+#include&lt;string.h&gt;
+#include&lt;stdlib.h&gt;
+#include&lt;math.h&gt;
+
+using namespace std;
+int dir[4][2]={0,1,1,0,0,-1,-1,0};
+int n,flag,vt[N][N],vd[N][N];
+
+void dfs(int tx,int ty,int tdir,bool ts,int dx,int dy,int ddir,bool ds)
+{
+//	printf(&quot;%d,%d,%d,%d,%d,%d,%d,%d\n&quot;,tx,ty,tdir,ts,dx,dy,ddir,ds);
+	if(tx==dx &amp;&amp; ty==dy ){
+		printf(&quot;%d %d\n&quot;,tx,ty);
+		flag = 1;
+		return;
+	}
+	int ntx = tx,nty = ty,ndx = dx,ndy = dy;
+	//分情况：1.都不能动，结束， 1.都能运动；2.tiger动donkey不动，3.donkey动tiger不动 
+	if(!ts &amp;&amp; !ds) return;
+	vt[tx][ty] = vd[dx][dy] = 1 ; 
+	if(ts){
+		if(tx&#43;dir[tdir][0] &gt;=n || ty &#43;dir[tdir][1]&gt;=n //！！！第一次RE是忘了写 &lt;0 的情况了 
+		|| tx&#43;dir[tdir][0] &lt;0 || ty &#43;dir[tdir][1]&lt;0
+		|| vt[tx&#43;dir[tdir][0]][ty &#43;dir[tdir][1]] )//该调头了 
+			tdir = tdir-1&lt;0 ? 3 : tdir-1;	
+		
+		if(tx&#43;dir[tdir][0] &gt;=n || ty &#43;dir[tdir][1]&gt;=n //！！！第二次RE忘了写这里越界的情况了 ！！！ 
+		|| tx&#43;dir[tdir][0] &lt;0 || ty &#43;dir[tdir][1]&lt;0
+		|| vt[tx&#43;dir[tdir][0]][ty &#43;dir[tdir][1]] ) 	ts = 0;//掉头后依然不能继续走，则停止 
+		else ntx = tx&#43;dir[tdir][0],nty = ty &#43;dir[tdir][1];
+	}
+	if(ds){
+		if(dx&#43;dir[ddir][0] &gt;=n || dy &#43;dir[ddir][1]&gt;=n
+		|| dx&#43;dir[ddir][0] &lt;0 || dy &#43;dir[ddir][1]&lt;0
+		|| vd[dx&#43;dir[ddir][0]][dy &#43;dir[ddir][1]] )//该调头了 
+			ddir = ddir&#43;1&gt;3 ? 0 : ddir&#43;1;	
+		
+		if(dx&#43;dir[ddir][0] &gt;=n || dy &#43;dir[ddir][1]&gt;=n 
+		|| dx&#43;dir[ddir][0] &lt;0 || dy &#43;dir[ddir][1]&lt;0
+		|| vd[dx&#43;dir[ddir][0]][dy &#43;dir[ddir][1]] ) ds = 0;//掉头后依然不能继续走，则停止 
+		else ndx = dx&#43;dir[ddir][0],ndy = dy &#43;dir[ddir][1];
+	}
+	dfs(ntx,nty,tdir,ts,ndx,ndy,ddir,ds); //！！！第三次RE 是这里传递参数忘了改了 ！！！ 
+	
+} 
+
+
+int main()
+{
+	int tx,ty,tdir,dx,dy,ddir;
+	while(~scanf(&quot;%d&quot;,&amp;n),n){
+		scanf(&quot;%d%d%d%d%d%d&quot;,&amp;dx,&amp;dy,&amp;ddir,&amp;tx,&amp;ty,&amp;tdir);
+		memset(vt,0,sizeof(vt));
+		memset(vd,0,sizeof(vd));
+		flag=0;
+		dfs(  tx,  ty,  tdir,1,  dx,  dy,  ddir,  1);
+		if(!flag) puts(&quot;-1&quot;);
+	}
+	return 0; 
+}</pre>
+<br>
+
+      
+    </div>
+</article>
+
+<!-- 上一页 下一页 -->
+
+
+<nav id="article-nav">
+  
+    <a href="/2013/11/13/hdu_1102_%EF%BC%88%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91kruskal%E7%AE%97%E6%B3%95--%E5%B9%B6%E6%9F%A5%E9%9B%86%EF%BC%8Cprim%E6%AD%BB%E6%B4%BB%E8%BF%87%E4%B8%8D%E4%BA%86%EF%BC%89/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>上一篇</span>
+      <div class="article-nav-title">
+        
+          hdu 1102 （最小生成树kruskal算法--并查集，prim死活过不了）
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2013/11/11/hdu_%E9%A2%98%E7%9B%AE4034_%EF%BC%88floyd%E7%AE%97%E6%B3%95%E7%9A%84%E7%90%86%E8%A7%A3%E5%8F%98%E5%BD%A2%EF%BC%89/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>下一篇</span>
+      <div class="article-nav-title">hdu 题目4034 （floyd算法的理解变形）</div>
+    </a>
+  
+</nav>
+
+
+
+<!-- 相关文章 -->
+
+<!--
+
+-->
+
+
+</section>
+      </div>
+      <footer id="footer">
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      
+      &copy;2024<a target="_blank" rel="noopener" href="https://github.com/hanks-zyh"> Hanks</a>版权所有
+      <br/>
+      <a href="https://beian.miit.gov.cn/" target="_blank">豫ICP备2021022347号</a>
+	  </div>
+  </div>
+ <div id="share">
+  <a id="totop" title="" style="display: block;">返回顶部</a>
+ </div>
+</footer>
+
+    </div>
+    
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/jquery.scrollLoading.js"></script>
+
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/ads.js"></script>
+
+  </div>
+</body>
+</html>

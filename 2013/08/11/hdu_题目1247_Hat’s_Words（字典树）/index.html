@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>hdu 题目1247 Hat’s Words（字典树） | Hanks&#39; Websit</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <script data-ad-client="ca-pub-8165670162444117" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <meta name="referrer" content="never">
+  <meta name="description" content="Hat’s Words  Time Limit : 2000&#x2F;1000ms (Java&#x2F;Other)&nbsp;&nbsp;&nbsp;Memory Limit : 65536&#x2F;32768K (Java&#x2F;Other)  Total Submission(s) : 5&nbsp;&nbsp;&nbsp;Accepted Submission(s) : 3  Problem Descriptio">
+<meta property="og:type" content="article">
+<meta property="og:title" content="hdu 题目1247 Hat’s Words（字典树）">
+<meta property="og:url" content="https://hanks.pub/2013/08/11/hdu_%E9%A2%98%E7%9B%AE1247_Hat%E2%80%99s_Words%EF%BC%88%E5%AD%97%E5%85%B8%E6%A0%91%EF%BC%89/index.html">
+<meta property="og:site_name" content="Hanks&#39; Websit">
+<meta property="og:description" content="Hat’s Words  Time Limit : 2000&#x2F;1000ms (Java&#x2F;Other)&nbsp;&nbsp;&nbsp;Memory Limit : 65536&#x2F;32768K (Java&#x2F;Other)  Total Submission(s) : 5&nbsp;&nbsp;&nbsp;Accepted Submission(s) : 3  Problem Descriptio">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2013-08-11T15:12:00.000Z">
+<meta property="article:modified_time" content="2024-02-08T01:29:02.184Z">
+<meta property="article:author" content="Hanks">
+<meta name="twitter:card" content="summary">
+  
+  
+  <link href="https://fonts.googleapis.com/css?family=Fira+Code|Noto+Serif+SC&display=swap" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8165670162444117"
+     crossorigin="anonymous"></script>
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo"></a>
+    <nav id="main-nav">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      
+        <a class="main-nav-link" href="/archives">Archive</a>
+      
+        <a class="main-nav-link" href="/eye-video">Eye</a>
+      
+        <a class="main-nav-link" href="/atom.xml">Rss</a>
+      
+    </nav>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/archives" class="mobile-nav-link">Archive</a>
+  
+    <a href="/eye-video" class="mobile-nav-link">Eye</a>
+  
+    <a href="/atom.xml" class="mobile-nav-link">Rss</a>
+  
+</nav>
+      <div class="outer">
+        <section id="main"><article id="post-hdu_题目1247_Hat’s_Words（字典树）" class="article article-type-post" itemscope
+  itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <header class="article-header">
+      
+      
+  
+    <h1 class="article-title" itemprop="name">
+      hdu 题目1247 Hat’s Words（字典树）
+    </h1>
+  
+
+      
+    </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+<p></p>
+<h1 style="font-family:'Times New Roman',Times,serif; color:rgb(26,92,200); text-align:center; margin:18px auto; font-size:28px">
+Hat’s Words</h1>
+<h5 style="font-family:'Times New Roman',Times,serif; font-size:13px; text-align:center; color:green; margin:0px auto">
+Time Limit : 2000/1000ms (Java/Other)&nbsp;&nbsp;&nbsp;Memory Limit : 65536/32768K (Java/Other)</h5>
+<h5 style="font-family:'Times New Roman',Times,serif; font-size:13px; text-align:center; color:green; margin:0px auto">
+Total Submission(s) : 5&nbsp;&nbsp;&nbsp;Accepted Submission(s) : 3</h5>
+<div class="panel_title" align="left" style="height:38px; background-color:transparent; padding:0px 14px; color:rgb(124,169,237); font-size:18px; font-family:Arial; font-weight:bold">
+Problem Description</div>
+<div class="panel_content" style="height:auto; margin:0px; padding:0px 20px; font-size:14px; font-family:'Times New Roman'">
+A hat’s word is a word in the dictionary that is the concatenation of exactly two other words in the dictionary.<br>
+You are to find all the hat’s words in a dictionary.<br>
+</div>
+<div class="panel_bottom" style="height:auto; margin:0px; font-family:Verdana,Arial,Helvetica,sans-serif; font-size:14px">
+&nbsp;</div>
+<br style="font-family:Verdana,Arial,Helvetica,sans-serif; font-size:14px">
+<div class="panel_title" align="left" style="height:38px; background-color:transparent; padding:0px 14px; color:rgb(124,169,237); font-size:18px; font-family:Arial; font-weight:bold">
+Input</div>
+<div class="panel_content" style="height:auto; margin:0px; padding:0px 20px; font-size:14px; font-family:'Times New Roman'">
+Standard input consists of a number of lowercase words, one per line, in alphabetical order. There will be no more than 50,000 words.<br>
+Only one case.<br>
+</div>
+<div class="panel_bottom" style="height:auto; margin:0px; font-family:Verdana,Arial,Helvetica,sans-serif; font-size:14px">
+&nbsp;</div>
+<br style="font-family:Verdana,Arial,Helvetica,sans-serif; font-size:14px">
+<div class="panel_title" align="left" style="height:38px; background-color:transparent; padding:0px 14px; color:rgb(124,169,237); font-size:18px; font-family:Arial; font-weight:bold">
+Output</div>
+<div class="panel_content" style="height:auto; margin:0px; padding:0px 20px; font-size:14px; font-family:'Times New Roman'">
+Your output should contain all the hat’s words, one per line, in alphabetical order.</div>
+<div class="panel_bottom" style="height:auto; margin:0px; font-family:Verdana,Arial,Helvetica,sans-serif; font-size:14px">
+&nbsp;</div>
+<br style="font-family:Verdana,Arial,Helvetica,sans-serif; font-size:14px">
+<div class="panel_title" align="left" style="height:38px; background-color:transparent; padding:0px 14px; color:rgb(124,169,237); font-size:18px; font-family:Arial; font-weight:bold">
+Sample Input</div>
+<div class="panel_content" style="height:auto; margin:0px; padding:0px 20px; font-size:14px; font-family:'Times New Roman'">
+<pre style="margin-top:0px; margin-bottom:0px"><div style="margin:0px; padding:0px; font-family:'Courier New',Courier,monospace">a
+ahat
+hat
+hatword
+hziee
+word
+</div></pre>
+</div>
+<div class="panel_bottom" style="height:auto; margin:0px; font-family:Verdana,Arial,Helvetica,sans-serif; font-size:14px">
+&nbsp;</div>
+<br style="font-family:Verdana,Arial,Helvetica,sans-serif; font-size:14px">
+<div class="panel_title" align="left" style="height:38px; background-color:transparent; padding:0px 14px; color:rgb(124,169,237); font-size:18px; font-family:Arial; font-weight:bold">
+Sample Output</div>
+<div class="panel_content" style="height:auto; margin:0px; padding:0px 20px; font-size:14px; font-family:'Times New Roman'">
+<pre style="margin-top:0px; margin-bottom:0px"><div style="margin:0px; padding:0px; font-family:'Courier New',Courier,monospace">ahat
+hatword
+</div></pre>
+</div>
+<div class="panel_bottom" style="height:auto; margin:0px; font-family:Verdana,Arial,Helvetica,sans-serif; font-size:14px">
+&nbsp;</div>
+<div><br>
+</div>
+<br>
+<p></p>
+<p><strong><span style="font-size:18px">1.将所有单词创建字典树</span></strong></p>
+<p><strong><span style="font-size:18px">2.将每个单词拆分成两个，（如单词 ahat 依次拆分成 a,hat ; &nbsp;ah,at; &nbsp; aha,t; ）依次判断拆分的两个单词是否存在与字典树</span></strong></p>
+<p><br>
+</p>
+<p><br>
+</p>
+<p><br>
+</p>
+<p><pre name="code" class="cpp">#define N 50005
+#include&lt;stdio.h&gt;
+#include&lt;string.h&gt;
+#include&lt;stdlib.h&gt;
+
+typedef struct Tire
+{
+	Tire * child[26];
+	bool flag;
+}Tire;
+
+Tire * root;
+void insert(char * s)//创建字典树
+{
+	Tire *p,*q=root;
+	for(int i=0;i&lt;strlen(s);i++)	{
+		if(q-&gt;child[s[i]-'a']) q = q-&gt;child[s[i]-'a'];
+		else{
+			p = (Tire *)malloc(sizeof(Tire));
+			p-&gt;flag=0;
+			for(int j=0;j&lt;26;j++) p-&gt;child[j]=NULL;
+			q-&gt;child[s[i]-'a'] = p;
+			q = p;
+		}
+	}
+	q-&gt;flag = 1;//标志为1的代表这里是某个单词的结尾
+}
+bool find(char *s)
+{
+	Tire * q=root;
+	for(int i=0;i&lt;strlen(s);i++){	
+		if(q-&gt;child[s[i]-'a']) q = q-&gt;child[s[i]-'a'];
+		else	return false;
+	}
+	if(q-&gt;flag==1) return true;//在字典树中找到该单词
+	else return false;
+}
+int main()
+{
+	char s[N][20],s1[20],s2[20];
+	root = (Tire *)malloc(sizeof(Tire));
+	for(int i=0;i&lt;26;i++) root-&gt;child[i]=NULL;
+	
+	int k=0;
+	while(scanf(&quot;%s&quot;,s[k])!=EOF )
+		insert(s[k++]);
+	for(int i=0;i&lt;k;i++){
+		for(int j=1;j&lt;strlen(s[i]);j++){
+			for(int m=0;m&lt;j;m++) s1[m]=s[i][m]; //将每个单词拆分成两个
+			s1[j] = '\0';
+			sscanf(s[i]+j,&quot;%s&quot;,s2);
+
+			if(find(s1)&amp;&amp;find(s2)) { //拆分的两个单词都存在与字典树
+				puts(s[i]);	break;
+			}
+		}
+	}
+	return 0;
+}</pre><br>
+<br>
+</p>
+<p><strong><span style="font-size:18px"><br>
+</span></strong></p>
+<p><strong><span style="font-size:18px">别人的STL 简单代码，没用过，不懂！！！先贴着，学过STL 以后看，这个效率不高。。</span></strong></p>
+<p><pre name="code" class="cpp">#include &lt;iostream&gt;
+#include &lt;string&gt;
+#include &lt;map&gt;
+using namespace std;
+map &lt;string, int&gt; m_v;
+string str[50006];
+int main() {
+    int k(-1);
+    while(cin &gt;&gt; str[++k]) {
+        m_v[str[k]] = 1;
+    }
+    for(int i = 0; i &lt;= k; i++) {
+        int e = str[i].size()-1;
+        for(int j = 1; j &lt; e; j++) {
+            string s1(str[i], 0, j);
+            string s2(str[i], j);
+            if(m_v[s1] == 1 &amp;&amp; m_v[s2] == 1) {
+                cout &lt;&lt; str[i] &lt;&lt; endl;
+                break;
+            }
+        }
+    }
+    return 0;
+}</pre><br>
+<br>
+</p>
+<p><br>
+</p>
+<p><br>
+</p>
+
+      
+    </div>
+</article>
+
+<!-- 上一页 下一页 -->
+
+
+<nav id="article-nav">
+  
+    <a href="/2013/08/12/hdu_%E9%A2%98%E7%9B%AE2072_%E5%8D%95%E8%AF%8D%E6%95%B0_%EF%BC%88%E5%AD%97%E5%85%B8%E6%A0%91%EF%BC%89/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>上一篇</span>
+      <div class="article-nav-title">
+        
+          hdu 题目2072 单词数 （字典树）
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2013/08/11/%E9%A2%98%E7%9B%AE1045_Fire_Net_%EF%BC%88DFS%EF%BC%89/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>下一篇</span>
+      <div class="article-nav-title">题目1045 Fire Net （DFS）</div>
+    </a>
+  
+</nav>
+
+
+
+<!-- 相关文章 -->
+
+<!--
+
+-->
+
+
+</section>
+      </div>
+      <footer id="footer">
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      
+      &copy;2024<a target="_blank" rel="noopener" href="https://github.com/hanks-zyh"> Hanks</a>版权所有
+      <br/>
+      <a href="https://beian.miit.gov.cn/" target="_blank">豫ICP备2021022347号</a>
+	  </div>
+  </div>
+ <div id="share">
+  <a id="totop" title="" style="display: block;">返回顶部</a>
+ </div>
+</footer>
+
+    </div>
+    
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/jquery.scrollLoading.js"></script>
+
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/ads.js"></script>
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>poj 题目2398 Toy Storage （简单计算几何） | Hanks&#39; Websit</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <script data-ad-client="ca-pub-8165670162444117" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <meta name="referrer" content="never">
+  <meta name="description" content="Toy Storage     Time Limit: 1000MS  Memory Limit: 65536K   Total Submissions: 3299  Accepted: 1887     Description Mom and dad have a problem: their child, Reza, never puts his toys away when he is f">
+<meta property="og:type" content="article">
+<meta property="og:title" content="poj 题目2398 Toy Storage （简单计算几何）">
+<meta property="og:url" content="https://hanks.pub/2013/08/12/poj_%E9%A2%98%E7%9B%AE2398_Toy_Storage_%EF%BC%88%E7%AE%80%E5%8D%95%E8%AE%A1%E7%AE%97%E5%87%A0%E4%BD%95%EF%BC%89/index.html">
+<meta property="og:site_name" content="Hanks&#39; Websit">
+<meta property="og:description" content="Toy Storage     Time Limit: 1000MS  Memory Limit: 65536K   Total Submissions: 3299  Accepted: 1887     Description Mom and dad have a problem: their child, Reza, never puts his toys away when he is f">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://poj.org/images/2398_1.jpg">
+<meta property="article:published_time" content="2013-08-12T11:53:00.000Z">
+<meta property="article:modified_time" content="2024-02-08T01:29:02.190Z">
+<meta property="article:author" content="Hanks">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://poj.org/images/2398_1.jpg">
+  
+  
+  <link href="https://fonts.googleapis.com/css?family=Fira+Code|Noto+Serif+SC&display=swap" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8165670162444117"
+     crossorigin="anonymous"></script>
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo"></a>
+    <nav id="main-nav">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      
+        <a class="main-nav-link" href="/archives">Archive</a>
+      
+        <a class="main-nav-link" href="/eye-video">Eye</a>
+      
+        <a class="main-nav-link" href="/atom.xml">Rss</a>
+      
+    </nav>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/archives" class="mobile-nav-link">Archive</a>
+  
+    <a href="/eye-video" class="mobile-nav-link">Eye</a>
+  
+    <a href="/atom.xml" class="mobile-nav-link">Rss</a>
+  
+</nav>
+      <div class="outer">
+        <section id="main"><article id="post-poj_题目2398_Toy_Storage_（简单计算几何）" class="article article-type-post" itemscope
+  itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <header class="article-header">
+      
+      
+  
+    <h1 class="article-title" itemprop="name">
+      poj 题目2398 Toy Storage （简单计算几何）
+    </h1>
+  
+
+      
+    </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+<div lang="en-US" class="ptt" align="center"><strong><span style="font-size:18px; color:#3333ff">Toy Storage</span></strong></div>
+<div class="plm">
+<table align="center">
+<tbody>
+<tr>
+<td><span style="color:#33cc00"><strong>Time Limit:</strong> 1000MS</span></td>
+<td width="10"><span style="color:#33cc00"></span></td>
+<td><span style="color:#33cc00"><strong>Memory Limit:</strong> 65536K</span></td>
+</tr>
+<tr>
+<td><span style="color:#33cc00"><strong>Total Submissions:</strong> 3299</span></td>
+<td width="10"><span style="color:#33cc00"></span></td>
+<td><span style="color:#33cc00"><strong>Accepted:</strong> 1887</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p class="pst">Description</p>
+<div lang="en-US" class="ptx">Mom and dad have a problem: their child, Reza, never puts his toys away when he is finished playing with them. They gave Reza a rectangular box to put his toys in. Unfortunately, Reza is rebellious and obeys his parents by simply
+ throwing his toys into the box. All the toys get mixed up, and it is impossible for Reza to find his favorite toys anymore.
+<br>
+Reza's parents came up with the following idea. They put cardboard partitions into the box. Even if Reza keeps throwing his toys into the box, at least toys that get thrown into different partitions stay separate. The box looks like this from the top:
+<br>
+<center><img src="https://poj.org/images/2398_1.jpg" alt=""></center>
+<br>
+We want for each positive integer t, such that there exists a partition with t toys, determine how many partitions have t, toys.</div>
+<p class="pst">Input</p>
+<div lang="en-US" class="ptx">The input consists of a number of cases. The first line consists of six integers n, m, x1, y1, x2, y2. The number of cardboards to form the partitions is n (0 &lt; n &lt;= 1000) and the number of toys is given in m (0 &lt; m &lt;= 1000). The
+ coordinates of the upper-left corner and the lower-right corner of the box are (x1, y1) and (x2, y2), respectively. The following n lines each consists of two integers Ui Li, indicating that the ends of the ith cardboard is at the coordinates (Ui, y1) and
+ (Li, y2). You may assume that the cardboards do not intersect with each other. The next m lines each consists of two integers Xi Yi specifying where the ith toy has landed in the box. You may assume that no toy will land on a cardboard.
+<br>
+<br>
+A line consisting of a single 0 terminates the input.</div>
+<p class="pst">Output</p>
+<div lang="en-US" class="ptx">For each box, first provide a header stating &quot;Box&quot; on a line of its own. After that, there will be one line of output per count (t &gt; 0) of toys in a partition. The value t will be followed by a colon and a space, followed the number
+ of partitions containing t toys. Output will be sorted in ascending order of t for each box.</div>
+<p class="pst">Sample Input</p>
+<pre class="sio">4 10 0 10 100 0
+20 20
+80 80
+60 60
+40 40
+5 10
+15 10
+95 10
+25 10
+65 10
+75 10
+35 10
+45 10
+55 10
+85 10
+5 6 0 10 60 0
+4 3
+15 30
+3 1
+6 8
+10 10
+2 1
+2 8
+1 5
+5 5
+40 10
+7 9
+0
+</pre>
+<p class="pst">Sample Output</p>
+<pre class="sio">Box
+2: 5
+Box
+1: 4
+2: 1
+</pre>
+<p>&nbsp;</p>
+<p>更刚才那道题题目几乎一样，只不过这个需要将边进行排序，然后计算每个区域的点的个数；</p>
+<p>&nbsp;</p>
+<pre class="cpp" name="code">#include&lt;iostream&gt; 
+#include&lt;stdio.h&gt;
+#include&lt;algorithm&gt;
+#define N 1005
+using namespace std;
+struct bian{
+	int up;
+	int down;
+};
+bian box[N];
+int cnt[N];
+
+bool cmp(bian a,bian b){
+	if(a.up&lt;b.up) return true;
+	return false;
+}
+int main()
+{
+	int n,m,x1,y1,x2,y2,i,j,xj,yj,ui,li;
+	while(scanf(&quot;%d&quot;,&amp;n),n)
+	{
+		scanf(&quot;%d%d%d%d%d&quot;,&amp;m,&amp;x1,&amp;y1,&amp;x2,&amp;y2);
+		box[n].up= box[n].down = x2;
+		for(i=0;i&lt;n;i++){
+			scanf(&quot;%d%d&quot;,&amp;ui,&amp;li);
+			box[i].up = ui;  box[i].down=li; 
+		}
+		sort(box,box+n+1,cmp); //这里需要排序 
+		for(i=0;i&lt;=n;i++) cnt[i]=0;
+		for(i=0;i&lt;m;i++){
+			scanf(&quot;%d%d&quot;,&amp;xj,&amp;yj);
+			for(j=0;j&lt;=n;j++)
+			{			
+				int b1x = box[j].up ;
+				int b2x = box[j].down;
+				
+				if((b2x-b1x)*(yj-y1)-(y2-y1)*(xj-b1x)&lt;0 ) { //判断点与当前边的关系 
+					cnt[j]++; break;	
+				}	
+			}
+		}
+		sort(cnt,cnt+n+1); //个数排序 
+		printf(&quot;Box\n&quot;);	
+		for(i=1;i&lt;=n;i++){
+			if(cnt[i-1]){	
+				int sum = 1;
+			
+				while(cnt[i]==cnt[i-1]) {
+					i++;sum++;
+				}
+				printf(&quot;%d: %d\n&quot;,cnt[i-1],sum);
+				if(i==n)	printf(&quot;%d: 1\n&quot;,cnt[i]); //最后的单独一个 
+			}		
+		}
+	}
+	return 0;
+}
+</pre>
+<p><br>
+&nbsp;</p>
+
+      
+    </div>
+</article>
+
+<!-- 上一页 下一页 -->
+
+
+<nav id="article-nav">
+  
+    <a href="/2013/08/12/NYOJ_%E9%A2%98%E7%9B%AE3_%E5%A4%9A%E8%BE%B9%E5%BD%A2%E9%87%8D%E5%BF%83/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>上一篇</span>
+      <div class="article-nav-title">
+        
+          NYOJ 题目3 多边形重心
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2013/08/12/poj_%E9%A2%98%E7%9B%AE2318_TOYS_%EF%BC%88%E8%AE%A1%E7%AE%97%E5%87%A0%E4%BD%95%EF%BC%8C%E7%82%B9%E4%B8%8E%E8%BE%B9%E7%9A%84%E5%85%B3%E7%B3%BB%EF%BC%89/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>下一篇</span>
+      <div class="article-nav-title">poj 题目2318 TOYS （计算几何，点与边的关系）</div>
+    </a>
+  
+</nav>
+
+
+
+<!-- 相关文章 -->
+
+<!--
+
+-->
+
+
+</section>
+      </div>
+      <footer id="footer">
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      
+      &copy;2024<a target="_blank" rel="noopener" href="https://github.com/hanks-zyh"> Hanks</a>版权所有
+      <br/>
+      <a href="https://beian.miit.gov.cn/" target="_blank">豫ICP备2021022347号</a>
+	  </div>
+  </div>
+ <div id="share">
+  <a id="totop" title="" style="display: block;">返回顶部</a>
+ </div>
+</footer>
+
+    </div>
+    
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/jquery.scrollLoading.js"></script>
+
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/ads.js"></script>
+
+  </div>
+</body>
+</html>

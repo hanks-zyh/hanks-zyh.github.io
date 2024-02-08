@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>二叉平衡树 | Hanks&#39; Websit</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <script data-ad-client="ca-pub-8165670162444117" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <meta name="referrer" content="never">
+  <meta name="description" content="对于二叉查找树，尽管查找、插入及删除操作的平均运行时间为O(logn)，但是它们的最差运行时间都是O(n),原因在于对树的形状没有限制。  平衡二叉树又称为AVL树，它或者是一棵空树，或者是有下列性质的二叉树：它的左子树和右子树都是平衡二叉树，且左右子树的深度之差的绝对值不超过1。二叉树的的平衡因子BF为：该结点的左子树的深度减去它的右子树的深度，则平衡二叉树的所有结点的平衡因子为只">
+<meta property="og:type" content="article">
+<meta property="og:title" content="二叉平衡树">
+<meta property="og:url" content="https://hanks.pub/2014/02/19/%E4%BA%8C%E5%8F%89%E5%B9%B3%E8%A1%A1%E6%A0%91/index.html">
+<meta property="og:site_name" content="Hanks&#39; Websit">
+<meta property="og:description" content="对于二叉查找树，尽管查找、插入及删除操作的平均运行时间为O(logn)，但是它们的最差运行时间都是O(n),原因在于对树的形状没有限制。  平衡二叉树又称为AVL树，它或者是一棵空树，或者是有下列性质的二叉树：它的左子树和右子树都是平衡二叉树，且左右子树的深度之差的绝对值不超过1。二叉树的的平衡因子BF为：该结点的左子树的深度减去它的右子树的深度，则平衡二叉树的所有结点的平衡因子为只">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://simg.sinajs.cn/blog7style/images/common/sg_trans.gif">
+<meta property="og:image" content="https://simg.sinajs.cn/blog7style/images/common/sg_trans.gif">
+<meta property="og:image" content="https://simg.sinajs.cn/blog7style/images/common/sg_trans.gif">
+<meta property="og:image" content="https://simg.sinajs.cn/blog7style/images/common/sg_trans.gif">
+<meta property="article:published_time" content="2014-02-19T11:17:00.000Z">
+<meta property="article:modified_time" content="2024-02-08T01:29:02.196Z">
+<meta property="article:author" content="Hanks">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://simg.sinajs.cn/blog7style/images/common/sg_trans.gif">
+  
+  
+  <link href="https://fonts.googleapis.com/css?family=Fira+Code|Noto+Serif+SC&display=swap" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8165670162444117"
+     crossorigin="anonymous"></script>
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo"></a>
+    <nav id="main-nav">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      
+        <a class="main-nav-link" href="/archives">Archive</a>
+      
+        <a class="main-nav-link" href="/eye-video">Eye</a>
+      
+        <a class="main-nav-link" href="/atom.xml">Rss</a>
+      
+    </nav>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/archives" class="mobile-nav-link">Archive</a>
+  
+    <a href="/eye-video" class="mobile-nav-link">Eye</a>
+  
+    <a href="/atom.xml" class="mobile-nav-link">Rss</a>
+  
+</nav>
+      <div class="outer">
+        <section id="main"><article id="post-二叉平衡树" class="article article-type-post" itemscope
+  itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <header class="article-header">
+      
+      
+  
+    <h1 class="article-title" itemprop="name">
+      二叉平衡树
+    </h1>
+  
+
+      
+    </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+<div id="sina_keyword_ad_area2" class="articalContent  ">
+			<div>
+<p STYLE="line-height: 26px; margin-top: 0px; margin-right: 0px; margin-bottom: 10px; margin-left: 0px; padding-top: 0px; padding-right: 0px; padding-bottom: 0px; padding-left: 0px; color: rgb(115, 115, 115); font-family: Arial, Helvetica, simsun, u5b8bu4f53; text-align: left; background-color: rgb(255, 255, 255);">
+对于二叉查找树，尽管查找、插入及删除操作的平均运行时间为O(logn)，但是它们的最差运行时间都是O(n),原因在于对树的形状没有限制。<wbr /></P>
+<p STYLE="line-height: 26px; margin-top: 0px; margin-right: 0px; margin-bottom: 10px; margin-left: 0px; padding-top: 0px; padding-right: 0px; padding-bottom: 0px; padding-left: 0px; color: rgb(115, 115, 115); font-family: Arial, Helvetica, simsun, u5b8bu4f53; text-align: left; background-color: rgb(255, 255, 255);">
+平衡二叉树又称为AVL树，它或者是一棵空树，或者是有下列性质的二叉树：它的左子树和右子树都是平衡二叉树，且左右子树的深度之差的绝对值不超过1。二叉树的的平衡因子BF为：该结点的左子树的深度减去它的右子树的深度，则平衡二叉树的所有结点的平衡因子为只可能是：-1、0和1</P>
+<p STYLE="line-height: 26px; margin-top: 0px; margin-right: 0px; margin-bottom: 10px; margin-left: 0px; padding-top: 0px; padding-right: 0px; padding-bottom: 0px; padding-left: 0px; color: rgb(115, 115, 115); font-family: Arial, Helvetica, simsun, u5b8bu4f53; text-align: left; background-color: rgb(255, 255, 255);">
+一棵好的平衡二叉树的特征：</P>
+<p STYLE="line-height: 26px; margin-top: 0px; margin-right: 0px; margin-bottom: 10px; margin-left: 0px; padding-top: 0px; padding-right: 0px; padding-bottom: 0px; padding-left: 0px; color: rgb(115, 115, 115); font-family: Arial, Helvetica, simsun, u5b8bu4f53; text-align: left; background-color: rgb(255, 255, 255);">
+（1）保证有n个结点的树的高度为O(logn)</P>
+<p STYLE="line-height: 26px; margin-top: 0px; margin-right: 0px; margin-bottom: 10px; margin-left: 0px; padding-top: 0px; padding-right: 0px; padding-bottom: 0px; padding-left: 0px; color: rgb(115, 115, 115); font-family: Arial, Helvetica, simsun, u5b8bu4f53; text-align: left; background-color: rgb(255, 255, 255);">
+（2）容易维护，也就是说，在做数据项的插入或删除操作时，为平衡树所做的一些辅助操作时间开销为O(1)</P>
+<p STYLE="line-height: 26px; margin-top: 0px; margin-right: 0px; margin-bottom: 10px; margin-left: 0px; padding-top: 0px; padding-right: 0px; padding-bottom: 0px; padding-left: 0px; color: rgb(115, 115, 115); font-family: Arial, Helvetica, simsun, u5b8bu4f53; text-align: left; background-color: rgb(255, 255, 255);">
+一、平衡二叉树的构造</P>
+<p STYLE="line-height: 26px; margin-top: 0px; margin-right: 0px; margin-bottom: 10px; margin-left: 0px; padding-top: 0px; padding-right: 0px; padding-bottom: 0px; padding-left: 0px; color: rgb(115, 115, 115); font-family: Arial, Helvetica, simsun, u5b8bu4f53; text-align: left; background-color: rgb(255, 255, 255);">
+在一棵二叉查找树中插入结点后，调整其为平衡二叉树。若向平衡二叉树中插入一个新结点后破坏了平衡二叉树的平衡性。首先要找出插入新结点后失去平衡的最小子树根结点的指针。然后再调整这个子树中有关结点之间的链接关系，使之成为新的平衡子树。当失去平衡的最小子树被调整为平衡子树后，原有其他所有不平衡子树无需调整，整个二叉排序树就又成为一棵平衡二叉树</P>
+<p STYLE="line-height: 26px; margin-top: 0px; margin-right: 0px; margin-bottom: 10px; margin-left: 0px; padding-top: 0px; padding-right: 0px; padding-bottom: 0px; padding-left: 0px; color: rgb(115, 115, 115); font-family: Arial, Helvetica, simsun, u5b8bu4f53; text-align: left; background-color: rgb(255, 255, 255);">
+1.调整方法</P>
+<p STYLE="line-height: 26px; margin-top: 0px; margin-right: 0px; margin-bottom: 10px; margin-left: 0px; padding-top: 0px; padding-right: 0px; padding-bottom: 0px; padding-left: 0px; color: rgb(115, 115, 115); font-family: Arial, Helvetica, simsun, u5b8bu4f53; text-align: left; background-color: rgb(255, 255, 255);">
+（1）插入点位置必须<font COLOR="#FF0000">满足二叉查找树的性质</FONT>，即任意一棵子树的左结点都小于根结点，右结点大于根结点</P>
+<p STYLE="line-height: 26px; margin-top: 0px; margin-right: 0px; margin-bottom: 10px; margin-left: 0px; padding-top: 0px; padding-right: 0px; padding-bottom: 0px; padding-left: 0px; color: rgb(115, 115, 115); font-family: Arial, Helvetica, simsun, u5b8bu4f53; text-align: left; background-color: rgb(255, 255, 255);">
+（2）找出插入结点后<strong><font COLOR="#FF0000">不平衡的最小二叉树</FONT></STRONG>进行调整，如果是整个树不平衡，才进行整个树的调整。</P>
+<p STYLE="line-height: 26px; margin-top: 0px; margin-right: 0px; margin-bottom: 10px; margin-left: 0px; padding-top: 0px; padding-right: 0px; padding-bottom: 0px; padding-left: 0px; color: rgb(115, 115, 115); font-family: Arial, Helvetica, simsun, u5b8bu4f53; text-align: left; background-color: rgb(255, 255, 255);">
+2.调整方式</P>
+<p STYLE="line-height: 26px; margin-top: 0px; margin-right: 0px; margin-bottom: 10px; margin-left: 0px; padding-top: 0px; padding-right: 0px; padding-bottom: 0px; padding-left: 0px; color: rgb(115, 115, 115); font-family: Arial, Helvetica, simsun, u5b8bu4f53; text-align: left; background-color: rgb(255, 255, 255);">
+（1）LL型</P>
+<p STYLE="line-height: 26px; margin-top: 0px; margin-right: 0px; margin-bottom: 10px; margin-left: 0px; padding-top: 0px; padding-right: 0px; padding-bottom: 0px; padding-left: 0px; color: rgb(115, 115, 115); font-family: Arial, Helvetica, simsun, u5b8bu4f53; text-align: left; background-color: rgb(255, 255, 255);">
+LL型：插入位置<font COLOR="#FF0000"><strong>为左子树的左结点，进行向右旋转</STRONG></FONT></P>
+<div STYLE="line-height: 26px; color: rgb(115, 115, 115); font-family: Arial, Helvetica, simsun, u5b8bu4f53; text-align: left; background-color: rgb(255, 255, 255);">
+<img ALT="平衡二叉树 - 枫叶 - 枫叶" src="https://simg.sinajs.cn/blog7style/images/common/sg_trans.gif" real_src ="https://img115.ph.126.net/SqbMtCG391VVP3FXrnR_bg==/2010012808692889579.gif" STYLE="border-style: initial; border-color: initial; max-width: 100%; margin-top: 0px; margin-right: 10px; margin-bottom: 0px; margin-left: 0px;"  TITLE="二叉平衡树" /></DIV>
+<div STYLE="line-height: 26px; color: rgb(115, 115, 115); font-family: Arial, Helvetica, simsun, u5b8bu4f53; text-align: left; background-color: rgb(255, 255, 255);">
+由于在A的左孩子B的左子树上插入结点F，使A的平衡因子由1变为2，成为不平衡的最小二叉树根结点。此时A结点顺时针右旋转，旋转过程中遵循“旋转优先”的规则，A结点替换D结点成为B结点的右子树，D结点成为A结点的左孩子。</DIV>
+<div STYLE="line-height: 26px; color: rgb(115, 115, 115); font-family: Arial, Helvetica, simsun, u5b8bu4f53; text-align: left; background-color: rgb(255, 255, 255);">
+（2）RR型</DIV>
+<div STYLE="line-height: 26px; color: rgb(115, 115, 115); font-family: Arial, Helvetica, simsun, u5b8bu4f53; text-align: left; background-color: rgb(255, 255, 255);">
+RR型：插入位置<font COLOR="#FF0000"><strong>为右子树的右孩子，进行向左旋转</STRONG></FONT></DIV>
+<div STYLE="line-height: 26px; color: rgb(115, 115, 115); font-family: Arial, Helvetica, simsun, u5b8bu4f53; text-align: left; background-color: rgb(255, 255, 255);">
+<div STYLE="line-height: 26px;"><img ALT="平衡二叉树 - 枫叶 - 枫叶" src="https://simg.sinajs.cn/blog7style/images/common/sg_trans.gif" real_src ="https://img609.ph.126.net/hS3sNmPFqzhsRN5AVZQECQ==/1891511843497439874.gif" STYLE="border-style: initial; border-color: initial; max-width: 100%; margin-top: 0px; margin-right: 10px; margin-bottom: 0px; margin-left: 0px;"  TITLE="二叉平衡树" /></DIV>
+<div STYLE="line-height: 26px;">
+由于在A的右子树C的右子树插入了结点F，A的平衡因子由-1变为-2，成为不平衡的最小二叉树根结点。此时，A结点逆时针左旋转，遵循“旋转优先”的规则，A结点替换D结点成为C的左子树，D结点成为A的右子树。</DIV>
+<div STYLE="line-height: 26px;">（3）LR型</DIV>
+<div STYLE="line-height: 26px;">LR型：插入位置为<font COLOR="#FF0000"><strong>左子树的右孩子，要进行两次旋转，先左旋转，再右旋转；第一次最小不平衡子树的根结点先不动，调整插入结点所在的子树，第二次再调整最小不平衡子树。</STRONG></FONT></DIV>
+<div STYLE="line-height: 26px;">
+<div STYLE="line-height: 26px;"><img ALT="平衡二叉树 - 枫叶 - 枫叶" src="https://simg.sinajs.cn/blog7style/images/common/sg_trans.gif" real_src ="https://img.ph.126.net/Q-WMPZXSJAhOiyI9OuqXPQ==/3372914645925000410.gif" STYLE="border-style: initial; border-color: initial; max-width: 100%; margin-top: 0px; margin-right: 10px; margin-bottom: 0px; margin-left: 0px;"  TITLE="二叉平衡树" /></DIV>
+&nbsp;<wbr></DIV>
+&nbsp;<wbr>由于在A的左子树B的右子树上插入了结点F，A的平衡因子由1变为了2，成为不平衡的最小二叉树根结点。第一次旋转A结点不动，先将B的右子树的根结点D向左上旋转提升到B结点的位置，然后再把该D结点向右上旋转提升到A结点的位置。</DIV>
+<div STYLE="line-height: 26px; color: rgb(115, 115, 115); font-family: Arial, Helvetica, simsun, u5b8bu4f53; text-align: left; background-color: rgb(255, 255, 255);">
+（4）RL型</DIV>
+<div STYLE="line-height: 26px; color: rgb(115, 115, 115); font-family: Arial, Helvetica, simsun, u5b8bu4f53; text-align: left; background-color: rgb(255, 255, 255);">
+RL型：插入位置为右子树的左孩子，进行两次调整，先右旋转再左旋转；处理情况与LR类似。</DIV>
+<div STYLE="line-height: 26px; color: rgb(115, 115, 115); font-family: Arial, Helvetica, simsun, u5b8bu4f53; text-align: left; background-color: rgb(255, 255, 255);">
+<div STYLE="line-height: 26px;"><img HEIGHT="222" ALT="平衡二叉树 - 枫叶 - 枫叶" src="https://simg.sinajs.cn/blog7style/images/common/sg_trans.gif" real_src ="https://img74.ph.126.net/QCtqXv7LRpZ78m-nrdy6zA==/1852386821735086852.gif" WIDTH="560" STYLE="border-style: initial; border-color: initial; max-width: 100%; margin-top: 0px; margin-right: 10px; margin-bottom: 0px; margin-left: 0px; width: 547px; height: 229px;"  TITLE="二叉平衡树" /></DIV>
+</DIV>
+</DIV>
+<div><br /></DIV>
+<div>code：</DIV>
+<div><br /></DIV>
+<div>#define LH +1</DIV>
+<div>#define EH 0</DIV>
+<div>#define RH -1</DIV>
+<div>#define ElemType int</DIV>
+<div>#define Status int</DIV>
+<div>#define EQ(a,b) ((a)==(b))</DIV>
+<div>#define LT(a,b) ((a)&lt;(b))</DIV>
+<div>#define LQ(a,b) ((a)&gt;(b))</DIV>
+<div><br /></DIV>
+<div>typedef struct BSTNode</DIV>
+<div>{</DIV>
+<div>ElemType data;</DIV>
+<div>int bf; // 节点的平衡因子</DIV>
+<div>struct BSTNode * lchild, * rchild; //左右孩子指针</DIV>
+<div>}BSTNode, * BSTree;</DIV>
+<div><br /></DIV>
+<div>#include</DIV>
+<div>#include</DIV>
+<div>#include</DIV>
+<div>using namespace std;</DIV>
+<div>void R_Rotate(BSTree &amp; p)</DIV>
+<div>{</DIV>
+<div>//对以*p 为根的二叉排序树做右旋处理，处理之后p指向新的树根结点，即旋转处理之前的左子树的根结点</DIV>
+<div>BSTree lc;</DIV>
+<div>lc = p-&gt;lchild;//lc指向p的左子树</DIV>
+<div>p-&gt;lchild = lc-&gt;rchild;//p左子树lc的有右子树</DIV>
+<div>lc-&gt;rchild = p; //lc右子树指向p</DIV>
+<div>p = lc;//p指向新的根结点</DIV>
+<div>}//R_Rotate</DIV>
+<div>void L_Rotate(BSTree &amp; p)</DIV>
+<div>{</DIV>
+<div>//对以*p 为根的二叉排序树做左旋处理，处理之后p指向新的树根结点，即旋转处理之前的左子树的根结点</DIV>
+<div>BSTree rc;</DIV>
+<div>rc = p-&gt;rchild;//rc指向p的左子树</DIV>
+<div>p-&gt;rchild = rc-&gt;lchild;//p左子树rc的左子树</DIV>
+<div>rc-&gt;lchild = p; //rc左子树指向p</DIV>
+<div>p = rc;//p指向新的根结点</DIV>
+<div>}//R_Rotate</DIV>
+<div>void LeftBalance( BSTree &amp; T)</DIV>
+<div>{</DIV>
+<div>BSTree lc,rd;</DIV>
+<div>lc = T-&gt;lchild;</DIV>
+<div><br /></DIV>
+<div>switch(lc-&gt;bf)</DIV>
+<div>{</DIV>
+<div>case LH:</DIV>
+<div>lc-&gt;bf = T-&gt;bf = EH;</DIV>
+<div>R_Rotate(T); break;</DIV>
+<div>case RH:</DIV>
+<div>rd = lc-&gt;rchild;</DIV>
+<div>T-&gt;lchild = rd-&gt;rchild;</DIV>
+<div>lc-&gt;rchild = rd-&gt;lchild;</DIV>
+<div>rd-&gt;lchild = lc;</DIV>
+<div>rd-&gt;rchild = T;</DIV>
+<div><br /></DIV>
+<div>T = rd;</DIV>
+<div>}//switch(lc-&gt;bf)</DIV>
+<div>}//LeftBalance</DIV>
+<div>void RightBalance( BSTree &amp; T)</DIV>
+<div>{</DIV>
+<div>BSTree rc,rd;</DIV>
+<div>rc = T-&gt;rchild;</DIV>
+<div><br /></DIV>
+<div>switch(rc-&gt;bf)</DIV>
+<div>{</DIV>
+<div>case RH:</DIV>
+<div>rc-&gt;bf = T-&gt;bf = EH;</DIV>
+<div>L_Rotate(T); break;</DIV>
+<div>case LH:</DIV>
+<div>rd = rc-&gt;lchild;</DIV>
+<div>T-&gt;rchild = rd-&gt;lchild;</DIV>
+<div>rc-&gt;lchild = rd-&gt;rchild;</DIV>
+<div>rd-&gt;rchild = rc;</DIV>
+<div>rd-&gt;lchild = T;</DIV>
+<div><br /></DIV>
+<div>T = rd;</DIV>
+<div>}//switch(rc-&gt;bf)</DIV>
+<div>}//RightBalance</DIV>
+<div>Status InsertAVL ( BSTree &amp;T , ElemType e, bool
+&amp;taller )</DIV>
+<div>{//若平衡二叉树中不存在e，则插入新节点e返回1，否则返回0.
+&nbsp;<wbr>若因插入结点使树不平衡，进行旋转，taller代表树是否长高</DIV>
+<div><br /></DIV>
+<div>if(!T){ //空树，直接插入</DIV>
+<div>T = (BSTNode *)malloc(sizeof(BSTNode)); T-&gt;data =
+e;&nbsp;<wbr></DIV>
+<div>T-&gt;lchild = T-&gt;rchild = NULL; T-&gt;bf = EH; taller =
+true;</DIV>
+<div>}</DIV>
+<div><br /></DIV>
+<div>else {</DIV>
+<div>if(EQ(e,T-&gt;data) ){ &nbsp;<wbr> taller= false;
+return 0;} &nbsp;<wbr>//已存在e</DIV>
+<div>if(LT(e,T-&gt;data) ) { // e&lt;根结点，向左查找左子树</DIV>
+<div>if(!InsertAVL(T-&gt;lchild,e,taller) ) &nbsp;<wbr>
+&nbsp;<wbr>return 0;///未插入</DIV>
+<div>if( taller ) &nbsp;<wbr>//已插入左子树并使树长高</DIV>
+<div>switch (T-&gt;bf)//检察 T 的平衡度</DIV>
+<div>{</DIV>
+<div>case LH: //原左子树高于右子树，则左平衡处理</DIV>
+<div>LeftBalance(T); taller = false; break;</DIV>
+<div>case EH:</DIV>
+<div>T-&gt;bf = LH; taller = true; break;</DIV>
+<div>case RH:</DIV>
+<div>T-&gt;bf = EH; taller = false; break;</DIV>
+<div>}</DIV>
+<div>}//if</DIV>
+<div>else</DIV>
+<div>{</DIV>
+<div>if(!InsertAVL(T-&gt;rchild,e,taller) ) &nbsp;<wbr>
+&nbsp;<wbr>return 0;</DIV>
+<div>if( taller )</DIV>
+<div>switch (T-&gt;bf)</DIV>
+<div>{</DIV>
+<div>case LH:</DIV>
+<div>T-&gt;bf = EH;taller = false; break;</DIV>
+<div>case EH:</DIV>
+<div>T-&gt;bf = RH; taller = true; break;</DIV>
+<div>case RH:</DIV>
+<div>RightBalance(T); taller = false; break;</DIV>
+<div>}</DIV>
+<div>}//else</DIV>
+<div>}//else</DIV>
+<div>return 1;</DIV>
+<div>}//InsertAVL</DIV>
+<div>void InOrderTraverse(BSTree &nbsp;<wbr>T)</DIV>
+<div>{//中序遍历二叉树，递归</DIV>
+<div>if(T){</DIV>
+<div>InOrderTraverse(T-&gt;lchild);</DIV>
+<div>cout&lt;&lt; T-&gt;data&lt;&lt;" ";</DIV>
+<div>InOrderTraverse(T-&gt;rchild);</DIV>
+<div>}</DIV>
+<div>}</DIV>
+<div>int main()</DIV>
+<div>{</DIV>
+<div>ElemType e;</DIV>
+<div>int n;</DIV>
+<div>BSTree T;</DIV>
+<div>T = NULL;</DIV>
+<div>bool taller;</DIV>
+<div>cout&lt;&lt;"请输入二叉平衡树结点个数:";</DIV>
+<div>cin&gt;&gt;n; &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr>cout&lt;&lt;"请输入"&lt;&lt;n&lt;&lt;"个要插入的元素（空格隔开）：";</DIV>
+<div>while(n--){</DIV>
+<div>cin&gt;&gt;e;</DIV>
+<div>InsertAVL(T,e,taller);</DIV>
+<div>}</DIV>
+<div>cout&lt;&lt;"二叉排序树中序遍历为："; InOrderTraverse(T);
+cout&lt;&lt;endl;</DIV>
+<div>return 0;</DIV>
+<div>}</DIV>
+<div><br /></DIV>							
+		</div>
+
+      
+    </div>
+</article>
+
+<!-- 上一页 下一页 -->
+
+
+<nav id="article-nav">
+  
+    <a href="/2014/02/19/%E4%BA%8C%E5%8F%89%E6%8E%92%E5%BA%8F%E6%A0%91/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>上一篇</span>
+      <div class="article-nav-title">
+        
+          二叉排序树
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2014/02/19/%E4%BA%8C%E5%8F%89%E6%A0%91/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>下一篇</span>
+      <div class="article-nav-title">二叉树</div>
+    </a>
+  
+</nav>
+
+
+
+<!-- 相关文章 -->
+
+<!--
+
+-->
+
+
+</section>
+      </div>
+      <footer id="footer">
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      
+      &copy;2024<a target="_blank" rel="noopener" href="https://github.com/hanks-zyh"> Hanks</a>版权所有
+      <br/>
+      <a href="https://beian.miit.gov.cn/" target="_blank">豫ICP备2021022347号</a>
+	  </div>
+  </div>
+ <div id="share">
+  <a id="totop" title="" style="display: block;">返回顶部</a>
+ </div>
+</footer>
+
+    </div>
+    
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/jquery.scrollLoading.js"></script>
+
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/ads.js"></script>
+
+  </div>
+</body>
+</html>

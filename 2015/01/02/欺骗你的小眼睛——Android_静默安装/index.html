@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>欺骗你的小眼睛——Android 静默安装 | Hanks&#39; Websit</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <script data-ad-client="ca-pub-8165670162444117" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <meta name="referrer" content="never">
+  <meta name="description" content="我们一般代码调用安装apk会写下面的代码  Intent intent &#x3D; new  Intent(Intent.ACTION_VIEW); File apkFile &#x3D; new File(Environment.getExternalStorageDirectory().getAbsolutePath()+&quot;&#x2F;1.apk&quot;); intent.setDataAndType(U">
+<meta property="og:type" content="article">
+<meta property="og:title" content="欺骗你的小眼睛——Android 静默安装">
+<meta property="og:url" content="https://hanks.pub/2015/01/02/%E6%AC%BA%E9%AA%97%E4%BD%A0%E7%9A%84%E5%B0%8F%E7%9C%BC%E7%9D%9B%E2%80%94%E2%80%94Android_%E9%9D%99%E9%BB%98%E5%AE%89%E8%A3%85/index.html">
+<meta property="og:site_name" content="Hanks&#39; Websit">
+<meta property="og:description" content="我们一般代码调用安装apk会写下面的代码  Intent intent &#x3D; new  Intent(Intent.ACTION_VIEW); File apkFile &#x3D; new File(Environment.getExternalStorageDirectory().getAbsolutePath()+&quot;&#x2F;1.apk&quot;); intent.setDataAndType(U">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2015-01-02T03:13:00.000Z">
+<meta property="article:modified_time" content="2024-02-08T01:29:02.202Z">
+<meta property="article:author" content="Hanks">
+<meta name="twitter:card" content="summary">
+  
+  
+  <link href="https://fonts.googleapis.com/css?family=Fira+Code|Noto+Serif+SC&display=swap" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8165670162444117"
+     crossorigin="anonymous"></script>
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo"></a>
+    <nav id="main-nav">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      
+        <a class="main-nav-link" href="/archives">Archive</a>
+      
+        <a class="main-nav-link" href="/eye-video">Eye</a>
+      
+        <a class="main-nav-link" href="/atom.xml">Rss</a>
+      
+    </nav>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/archives" class="mobile-nav-link">Archive</a>
+  
+    <a href="/eye-video" class="mobile-nav-link">Eye</a>
+  
+    <a href="/atom.xml" class="mobile-nav-link">Rss</a>
+  
+</nav>
+      <div class="outer">
+        <section id="main"><article id="post-欺骗你的小眼睛——Android_静默安装" class="article article-type-post" itemscope
+  itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <header class="article-header">
+      
+      
+  
+    <h1 class="article-title" itemprop="name">
+      欺骗你的小眼睛——Android 静默安装
+    </h1>
+  
+
+      
+    </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+<p style="text-align:left">我们一般代码调用安装apk会写下面的代码</p>
+<p style="text-align:left"></p>
+<pre code_snippet_id="569739" snippet_file_name="blog_20150102_1_7842544"  code_snippet_id="569739" snippet_file_name="blog_20150102_1_7842544" name="code" class="java">Intent intent = new  Intent(Intent.ACTION_VIEW);
+File apkFile = new File(Environment.getExternalStorageDirectory().getAbsolutePath()+&quot;/1.apk&quot;);
+intent.setDataAndType(Uri.fromFile(apkFile),&quot;application/vnd.android.package-archive&quot;);
+startActivity(intent);</pre>
+<p></p>
+<p style="text-align:left"><br>
+</p>
+<p style="text-align:left">我们安装apk时系统会分析apk，然后弹出如下图的提示</p>
+<p style="text-align:left"><img src="" alt=""><img src="" alt=""><br>
+</p>
+<p style="text-align:left"><img src="" alt=""><br>
+</p>
+<p style="text-align:left">当我们点击安装后，系统会进行安装</p>
+<p style="text-align:left">这里我们查看系统源码来看一下系统是怎么执行安装程序的</p>
+<p style="text-align:left"><br>
+</p>
+<p style="text-align:left">首先我们找到<span style="font-size:18px"><strong>PackageInstallerActivity.java,</strong></span><span style="font-size:12px">一看命名规则就知道是apk安装的界面</span></p>
+<p style="text-align:left"><span style="font-size:12px"><br>
+</span></p>
+<p style="text-align:left"><span style="font-size:12px">既然是Activity 那么我们首先来看<span style="color:#33ff33">onCreate()</span>方法</span></p>
+<p style="text-align:left"><span style="font-size:12px"></span></p>
+<pre code_snippet_id="569739" snippet_file_name="blog_20150102_2_3778679"  code_snippet_id="569739" snippet_file_name="blog_20150102_2_3778679" name="code" class="java">@Override
+    protected void onCreate(Bundle icicle) {
+        super.onCreate(icicle);
+        //get intent information  获取Intent信息
+        final Intent intent = getIntent();
+        mPackageURI = intent.getData();//apk的uri
+        mPm = getPackageManager(); 
+        mPkgInfo = PackageUtil.getPackageInfo(mPackageURI);
+        
+        // Check for parse errors 检查apk是否有错误
+        if(mPkgInfo == null) {
+            Log.w(TAG, &quot;Parse error when parsing manifest. Discontinuing installation&quot;);
+            showDialogInner(DLG_PACKAGE_ERROR);
+            return;
+        }
+        
+        //set view
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        setContentView(R.layout.install_start); //这就是上面的界面
+        mInstallConfirm = findViewById(R.id.install_confirm_panel);
+        mInstallConfirm.setVisibility(View.INVISIBLE);
+        PackageUtil.AppSnippet as = PackageUtil.getAppSnippet(this,
+                mPkgInfo.applicationInfo, mPackageURI);
+        PackageUtil.initSnippetForNewApp(this, as, R.id.app_snippet);
+       //check setting //是否设置了 允许安装未知来源，就是设置那里的
+        if(!isInstallingUnknownAppsAllowed()) {
+            //ask user to enable setting first
+            showDialogInner(DLG_UNKNOWN_APPS);
+            return;
+        }
+        initiateInstall();
+    }
+    </pre>
+<p></p>
+<p style="text-align:left"><span style="font-size:12px"><br>
+</span></p>
+<p style="text-align:left"><span style="font-size:12px"><br>
+</span></p>
+<p style="text-align:left"><span style="font-size:12px">然后看initiateInstall（）方法</span></p>
+<p style="text-align:left"><span style="font-size:12px"></span></p>
+<pre code_snippet_id="569739" snippet_file_name="blog_20150102_3_454787"  code_snippet_id="569739" snippet_file_name="blog_20150102_3_454787" name="code" class="java">  private void initiateInstall() {
+        String pkgName = mPkgInfo.packageName;
+        // Check if there is already a package on the device with this name
+        // but it has been renamed to something else. //检查是否有相同包名的应用
+        String[] oldName = mPm.canonicalToCurrentPackageNames(new String[] { pkgName });
+        if (oldName != null &amp;&amp; oldName.length &gt; 0 &amp;&amp; oldName[0] != null) {
+            pkgName = oldName[0];
+            mPkgInfo.setPackageName(pkgName);
+        }
+        // Check if package is already installed. display confirmation dialog if replacing pkg检查是否已经安装过了
+        try {
+            mAppInfo = mPm.getApplicationInfo(pkgName,
+                    PackageManager.GET_UNINSTALLED_PACKAGES);
+        } catch (NameNotFoundException e) {
+            mAppInfo = null;
+        }
+        if (mAppInfo == null) {
+            startInstallConfirm();//安装
+        } else {
+            if(localLOGV) Log.i(TAG, &quot;Replacing existing package:&quot;+
+                    mPkgInfo.applicationInfo.packageName);
+            showDialogInner(DLG_REPLACE_APP);
+        }
+    }
+    </pre><br>
+<br>
+<p></p>
+<p style="text-align:left"><span style="font-size:12px">来到startInstallConfirm（）</span></p>
+<p style="text-align:left"><span style="font-size:12px"></span></p>
+<pre code_snippet_id="569739" snippet_file_name="blog_20150102_4_9573109"  code_snippet_id="569739" snippet_file_name="blog_20150102_4_9573109" name="code" class="java">    private void startInstallConfirm() {
+        LinearLayout permsSection = (LinearLayout) mInstallConfirm.findViewById(R.id.permissions_section);
+        LinearLayout securityList = (LinearLayout) permsSection.findViewById(
+                R.id.security_settings_list);
+        boolean permVisible = false;
+        if(mPkgInfo != null) {
+            AppSecurityPermissions asp = new AppSecurityPermissions(this, mPkgInfo);
+            if(asp.getPermissionCount() &gt; 0) {
+                permVisible = true;
+                securityList.addView(asp.getPermissionsView());
+            }
+        }
+        if(!permVisible){
+            permsSection.setVisibility(View.INVISIBLE);
+        }
+        mInstallConfirm.setVisibility(View.VISIBLE);
+        mOk = (Button)findViewById(R.id.ok_button); //确认按钮
+        mCancel = (Button)findViewById(R.id.cancel_button);
+        mOk.setOnClickListener(this);
+        mCancel.setOnClickListener(this);
+    }
+</pre><br>
+找点击事件 onClick()
+<p></p>
+<p style="text-align:left"></p>
+<pre code_snippet_id="569739" snippet_file_name="blog_20150102_5_9804247"  code_snippet_id="569739" snippet_file_name="blog_20150102_5_9804247" name="code" class="java" style="font-size:12px;"> public void onClick(View v) {
+        if(v == mOk) { //开始安装，弹出安装进度界面
+            // Start subactivity to actually install the application
+            Intent newIntent = new Intent();
+            newIntent.putExtra(PackageUtil.INTENT_ATTR_APPLICATION_INFO,
+                    mPkgInfo.applicationInfo);
+            newIntent.setData(mPackageURI);
+            newIntent.setClass(this, InstallAppProgress.class); //这里调到了InstallAppProgress.java
+            String installerPackageName = getIntent().getStringExtra(Intent.EXTRA_INSTALLER_PACKAGE_NAME);
+            if (installerPackageName != null) {
+                newIntent.putExtra(Intent.EXTRA_INSTALLER_PACKAGE_NAME, installerPackageName);
+            }
+            if(localLOGV) Log.i(TAG, &quot;downloaded app uri=&quot;+mPackageURI);
+            startActivity(newIntent);
+            finish();
+        } else if(v == mCancel) {
+            // Cancel and finish
+            finish();
+        }
+    }</pre><br>
+<span style="font-size:12px">继续跟踪 到</span><span style="font-size:18px">InstallAppProgress.java &nbsp; 的onCreate()</span>
+<p></p>
+<p style="text-align:left"><span style="font-size:18px"></span></p>
+<pre code_snippet_id="569739" snippet_file_name="blog_20150102_6_3067029"  code_snippet_id="569739" snippet_file_name="blog_20150102_6_3067029" name="code" class="java">  @Override
+    public void onCreate(Bundle icicle) {
+        super.onCreate(icicle);
+        Intent intent = getIntent();
+        mAppInfo = intent.getParcelableExtra(PackageUtil.INTENT_ATTR_APPLICATION_INFO);
+        mPackageURI = intent.getData();
+        initView();
+    }</pre><br>
+initView();
+<p></p>
+<p style="text-align:left"><span style="font-size:18px"></span></p>
+<pre code_snippet_id="569739" snippet_file_name="blog_20150102_7_7607723"  code_snippet_id="569739" snippet_file_name="blog_20150102_7_7607723" name="code" class="java">    public void initView() {
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        setContentView(R.layout.op_progress);
+        int installFlags = 0; //设置錐lag
+        PackageManager pm = getPackageManager();
+        try {
+            PackageInfo pi = pm.getPackageInfo(mAppInfo.packageName, 
+                    PackageManager.GET_UNINSTALLED_PACKAGES);
+            if(pi != null) {
+                installFlags |= PackageManager.INSTALL_REPLACE_EXISTING; //替换已经存在的
+            }
+        } catch (NameNotFoundException e) {
+        }
+        if((installFlags &amp; PackageManager.INSTALL_REPLACE_EXISTING )!= 0) {
+            Log.w(TAG, &quot;Replacing package:&quot; + mAppInfo.packageName);
+        }
+        PackageUtil.AppSnippet as = PackageUtil.getAppSnippet(this, mAppInfo,
+                mPackageURI);
+        mLabel = as.label;
+        PackageUtil.initSnippetForNewApp(this, as, R.id.app_snippet);
+        mStatusTextView = (TextView)findViewById(R.id.center_text);
+        mStatusTextView.setText(R.string.installing);
+        mProgressBar = (ProgressBar) findViewById(R.id.progress_bar);
+        mProgressBar.setIndeterminate(true);
+        // Hide button till progress is being displayed
+        mOkPanel = (View)findViewById(R.id.buttons_panel);
+        mDoneButton = (Button)findViewById(R.id.done_button);
+        mLaunchButton = (Button)findViewById(R.id.launch_button);
+        mOkPanel.setVisibility(View.INVISIBLE);
+
+        String installerPackageName = getIntent().getStringExtra(
+                Intent.EXTRA_INSTALLER_PACKAGE_NAME);
+        PackageInstallObserver observer = new PackageInstallObserver();
+        pm.installPackage(mPackageURI, observer, installFlags, installerPackageName);//安装的代码
+    }
+</pre><br>
+<br>
+<p></p>
+<p style="text-align:left"><span style="font-size:18px">几经周折，总算找到了。。。</span></p>
+<p style="text-align:left"><span style="font-size:18px">下几句 关键的</span></p>
+<p style="text-align:left"><span style="font-size:18px">&nbsp; &nbsp; &nbsp; <span style="font-family:Comic Sans MS">
+&nbsp; &nbsp;int installFlags = <span style="color:#ff0000">0</span>; //设置Flag<br>
+&nbsp; &nbsp; &nbsp; &nbsp; PackageManager pm = getPackageManager();<br>
+&nbsp; &nbsp; &nbsp; &nbsp; try {<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; PackageInfo pi = pm.getPackageInfo(mAppInfo.packageName,&nbsp;<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; PackageManager.GET_UNINSTALLED_PACKAGES);<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; if(pi != null) {<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; installFlags |= PackageManager.INSTALL_REPLACE_EXISTING; //替换已经存在的<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }<br>
+&nbsp; &nbsp; &nbsp; &nbsp; } catch (NameNotFoundException e) {<br>
+&nbsp; &nbsp; &nbsp; &nbsp; }<br>
+&nbsp; &nbsp; &nbsp;<br>
+&nbsp; &nbsp; &nbsp; &nbsp; PackageUtil.AppSnippet as = PackageUtil.getAppSnippet(this, mAppInfo,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; mPackageURI);<br>
+&nbsp; &nbsp; &nbsp; &nbsp; String installerPackageName = getIntent().getStringExtra(<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Intent.EXTRA_INSTALLER_PACKAGE_NAME);<br>
+&nbsp; &nbsp; &nbsp; &nbsp; PackageInstallObserver observer = new PackageInstallObserver();<br>
+&nbsp; &nbsp; &nbsp; &nbsp;<span style="color:#ff0000"> pm.installPackage(mPackageURI, observer, installFlags, installerPackageName);//安装的代</span></span></span></p>
+<p style="text-align:left"><span style="font-size:18px"><br>
+</span></p>
+<p style="text-align:left"><span style="font-size:18px">我们可以通过上面的代码直接进行安装，</span></p>
+<p style="text-align:left"><span style="font-size:18px">不过我们需要<span style="font-family:monospace; font-size:14px; white-space:pre-wrap">android.Manifest.permission#INSTALL_PACKAGE</span></span><span style="font-family:monospace; font-size:14px; white-space:pre-wrap">,</span></p>
+<p style="text-align:left"><span style="font-family:monospace; font-size:14px; white-space:pre-wrap">此权限只有</span><span style="font-family:monospace; font-size:14px; white-space:pre-wrap">system</span><span style="font-family:monospace; font-size:14px; white-space:pre-wrap">应用</span><span style="font-family:monospace; font-size:14px; white-space:pre-wrap">才能使用.</span></p>
+<p style="text-align:left"><span style="font-family:monospace; font-size:14px; white-space:pre-wrap">所以此应用必须放入system/app下,</span></p>
+<p style="text-align:left"><span style="font-family:monospace; white-space:pre-wrap"></span></p>
+<div><span style="font-size:24px">解决思路</span></div>
+<div><span style="font-size:24px"><span style="color:#97CDCC">•</span>将我们的应用伪装成系统的应用</span></div>
+<div><span style="font-size:24px">实现步骤</span></div>
+<div><span style="font-size:24px"><span style="color:#97CDCC">•</span>共享系统UID</span></div>
+<div><span style="font-size:24px"><span style="color:rgb(151,205,204)">•</span>使用系统签名（匹配签名需要公钥和密钥两个文件生成keystore）</span></div>
+<span style="font-size:14px"><br>
+</span>
+<p></p>
+<p style="text-align:left"><span style="font-size:12px"><br>
+</span></p>
+<p style="text-align:left"><span style="font-size:12px"><br>
+</span></p>
+<p style="text-align:left"><span style="font-size:24px">还有静默安装的一种方式是使用root权限 &nbsp;adb指令执行 install -r 进行安装</span></p>
+<p style="text-align:left"><span style="font-size:12px"><br>
+</span></p>
+<p style="text-align:left"><span style="font-size:12px"><br>
+</span></p>
+<p style="text-align:left"><span style="font-size:12px"><br>
+</span></p>
+<p style="text-align:left"><br>
+</p>
+
+      
+    </div>
+</article>
+
+<!-- 上一页 下一页 -->
+
+
+<nav id="article-nav">
+  
+    <a href="/2015/01/04/2015%E6%96%B0%E7%9A%84%E5%BC%80%E5%A7%8B/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>上一篇</span>
+      <div class="article-nav-title">
+        
+          2015新的开始
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2014/11/20/%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91%E4%B8%AD%E5%AF%B9_Crash_%E8%BF%9B%E8%A1%8C%E5%A4%84%E7%90%86/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>下一篇</span>
+      <div class="article-nav-title">应用开发中对 Crash 进行处理</div>
+    </a>
+  
+</nav>
+
+
+
+<!-- 相关文章 -->
+
+<!--
+
+-->
+
+
+</section>
+      </div>
+      <footer id="footer">
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      
+      &copy;2024<a target="_blank" rel="noopener" href="https://github.com/hanks-zyh"> Hanks</a>版权所有
+      <br/>
+      <a href="https://beian.miit.gov.cn/" target="_blank">豫ICP备2021022347号</a>
+	  </div>
+  </div>
+ <div id="share">
+  <a id="totop" title="" style="display: block;">返回顶部</a>
+ </div>
+</footer>
+
+    </div>
+    
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/jquery.scrollLoading.js"></script>
+
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/ads.js"></script>
+
+  </div>
+</body>
+</html>

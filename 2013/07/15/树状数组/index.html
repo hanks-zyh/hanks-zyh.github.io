@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>树状数组 | Hanks&#39; Websit</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <script data-ad-client="ca-pub-8165670162444117" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <meta name="referrer" content="never">
+  <meta name="description" content="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 一个数组很大的时候，几项求和（不一定求和，求和最常见），累加就显得太耗时了，时间复杂度为O(n)，并且采用累加的方法还有一个局限，那就是，当修改掉数组中的元素后，仍然要你求数组中某段元素的和，就显得麻烦了。所以我们就要用到树状数组，时间复杂度为O（lgn），相比之下就快得多 &nbsp;&nbsp;&nbsp;&nbsp;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="树状数组">
+<meta property="og:url" content="https://hanks.pub/2013/07/15/%E6%A0%91%E7%8A%B6%E6%95%B0%E7%BB%84/index.html">
+<meta property="og:site_name" content="Hanks&#39; Websit">
+<meta property="og:description" content="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 一个数组很大的时候，几项求和（不一定求和，求和最常见），累加就显得太耗时了，时间复杂度为O(n)，并且采用累加的方法还有一个局限，那就是，当修改掉数组中的元素后，仍然要你求数组中某段元素的和，就显得麻烦了。所以我们就要用到树状数组，时间复杂度为O（lgn），相比之下就快得多 &nbsp;&nbsp;&nbsp;&nbsp;">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://images.cnblogs.com/cnblogs_com/yykkciwei/TArry.jpg">
+<meta property="article:published_time" content="2013-07-14T16:13:00.000Z">
+<meta property="article:modified_time" content="2024-02-08T01:29:02.201Z">
+<meta property="article:author" content="Hanks">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://images.cnblogs.com/cnblogs_com/yykkciwei/TArry.jpg">
+  
+  
+  <link href="https://fonts.googleapis.com/css?family=Fira+Code|Noto+Serif+SC&display=swap" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8165670162444117"
+     crossorigin="anonymous"></script>
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo"></a>
+    <nav id="main-nav">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      
+        <a class="main-nav-link" href="/archives">Archive</a>
+      
+        <a class="main-nav-link" href="/eye-video">Eye</a>
+      
+        <a class="main-nav-link" href="/atom.xml">Rss</a>
+      
+    </nav>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/archives" class="mobile-nav-link">Archive</a>
+  
+    <a href="/eye-video" class="mobile-nav-link">Eye</a>
+  
+    <a href="/atom.xml" class="mobile-nav-link">Rss</a>
+  
+</nav>
+      <div class="outer">
+        <section id="main"><article id="post-树状数组" class="article article-type-post" itemscope
+  itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <header class="article-header">
+      
+      
+  
+    <h1 class="article-title" itemprop="name">
+      树状数组
+    </h1>
+  
+
+      
+    </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+<span style="font-size:18px"><strong><span style="color:#ff0000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 一个<span style="color:#000099">数组很大</span>的时候，几项求和（不一定求和，求和最常见），累加就显得太耗时了，时间复杂度为O(n)，并且采用累加的方法还有一个局限，那就是，当<span style="color:#000099">修改掉数组中的元素</span>后，仍然要你<span style="color:#000099">求数组中某段元素的和</span>，就显得麻烦了</span>。所以我们就要用到树状数组，时间复杂度为O（lgn），相比之下就快得多</strong></span>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 树状数组图：</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img border="0" alt="" src="https://images.cnblogs.com/cnblogs_com/yykkciwei/TArry.jpg" width="736" height="297"></p>
+<p>c1=a1，c2=a1&#43;a2，c3=a3，c4=a1&#43;a2&#43;a3&#43;a4，c5=a5，c6=a5&#43;a6，c7=a7，c8=a1&#43;a2&#43;a3&#43;a4&#43;a5&#43;a6&#43;a7&#43;a8，c9=a9，c10=a9&#43;a10，c11=a11........c16=a1&#43;a2&#43;a3&#43;a4&#43;a5&#43;.......&#43;a16。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;分析上面的几组式子可知：</p>
+<ol>
+<ol>
+<li><span style="color:#009900">当 i 为奇数时，ci=ai ；</span></li><li><span style="color:#009900">当 i 为偶数时，就要看 i 的因子中最多有二的多少次幂，例如，6 的因子中有 2 的一次幂，等于 2 ，所以 c6=a5&#43;a6（由六向前数两个数的和），4 的因子中有 2 的两次幂，等于 4 ，所以 c4=a1&#43;a2&#43;a3&#43;a4（由四向前数四个数的和）。</span></li></ol>
+</ol>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;有公式：cn =&nbsp; a(n-2^k&#43;1)&#43;.........&#43;an（其中 k 为 n 的二进制表示中从右往左数的 0 的个数，2^k则是n的因子中最大的2的次幂）。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;那么，如何<span style="color:#000099">求 2^k</span> 呢？求法如下：</p>
+<pre class="cpp" name="code">int lowbit(int i)
+{  // 返回i的因子中含有 2的最大幂,如6的因子中最大2的幂是2^1 = 2 ，8的因子最大2次幂 2^3 = 8；
+	return i&amp;(-i);
+}</pre>
+<p>lowbit（）的返回&#20540;就是 2^k 次方的&#20540;。</p>
+<p>&nbsp;</p>
+<p><strong>（一）创建树状数组</strong></p>
+<pre class="cpp" name="code">for(i=1;i&lt;=n;i++)
+	{
+		scanf(&quot;%d&quot;,&amp;e);
+		a[i] = e;
+		if(i&amp;1)//奇数,树状数组与原始位置数据一样
+			Tree_a[i] = a[i];
+		else //偶数，树状数组对应位置存的为几项的和
+		{
+			int sum = 0;
+			for(j=i+1-lowbit(i);j&lt;=i;j++)	sum += a[j];//求出从a[i]与前 lowbit(i) 项的和
+			Tree_a[i] = sum;
+		}
+	}//建好树状数组Tree_a[] ,  原始数组a[]</pre>
+<p><br>
+<strong>（二）当数组中的元素有变更时，树状数组就发挥它的优势了，算法如下（修改为给某个节点x加上&nbsp;y，数组长度n ）：</strong></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </p>
+<pre class="cpp" name="code">void change(int x, int y,int n)
+{//给x位置增加y，则x到n之间需要调整
+	while(x&lt;=n)
+	{
+		Tree_a[x] += y;
+		x += lowbit(x);//只调整个别的
+	}
+}</pre>
+<p><br>
+<strong>（三）求x到y之间的数据的和（根据数组数组求）</strong></p>
+<p><span style="color:#000099">SUM = f_sum(y) - f_sum(x-1);</span></p>
+<pre class="cpp" name="code">int f_sum(int x)
+{//返回前x个数的和
+	if(x==0) return 0;
+	int sum = 0;
+	while( x&gt;0 )
+	{
+		sum += Tree_a[x]; //求前x数的和
+		x -= lowbit(x);
+	}
+	return sum;
+}</pre>
+<p><br>
+&nbsp;</p>
+
+      
+    </div>
+</article>
+
+<!-- 上一页 下一页 -->
+
+
+<nav id="article-nav">
+  
+    <a href="/2013/07/15/%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E8%BE%93%E5%85%A5/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>上一篇</span>
+      <div class="article-nav-title">
+        
+          字符串的输入
+        
+      </div>
+    </a>
+  
+  
+    <a href="/1970/01/01/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>下一篇</span>
+      <div class="article-nav-title">Hello World</div>
+    </a>
+  
+</nav>
+
+
+
+<!-- 相关文章 -->
+
+<!--
+
+-->
+
+
+</section>
+      </div>
+      <footer id="footer">
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      
+      &copy;2024<a target="_blank" rel="noopener" href="https://github.com/hanks-zyh"> Hanks</a>版权所有
+      <br/>
+      <a href="https://beian.miit.gov.cn/" target="_blank">豫ICP备2021022347号</a>
+	  </div>
+  </div>
+ <div id="share">
+  <a id="totop" title="" style="display: block;">返回顶部</a>
+ </div>
+</footer>
+
+    </div>
+    
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/jquery.scrollLoading.js"></script>
+
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/ads.js"></script>
+
+  </div>
+</body>
+</html>

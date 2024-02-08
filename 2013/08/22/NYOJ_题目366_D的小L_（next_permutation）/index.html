@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>NYOJ 题目366 D的小L （next_permutation） | Hanks&#39; Websit</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <script data-ad-client="ca-pub-8165670162444117" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <meta name="referrer" content="never">
+  <meta name="description" content="D的小L 时间限制：4000 ms &nbsp;|&nbsp; 内存限制：65535 KB 难度：2  描述 &nbsp; &nbsp; &nbsp; 一天TC的匡匡找ACM的小L玩三国杀，但是这会小L忙着哩，不想和匡匡玩但又怕匡匡生气，这时小L给匡匡出了个题目想难倒匡匡(小L很D吧)，有一个数n(0&lt;n&lt;10),写出1到n的全排列，这时匡匡有点囧了，，，聪明的你能帮匡匡解围吗？">
+<meta property="og:type" content="article">
+<meta property="og:title" content="NYOJ 题目366 D的小L （next_permutation）">
+<meta property="og:url" content="https://hanks.pub/2013/08/22/NYOJ_%E9%A2%98%E7%9B%AE366_D%E7%9A%84%E5%B0%8FL_%EF%BC%88next_permutation%EF%BC%89/index.html">
+<meta property="og:site_name" content="Hanks&#39; Websit">
+<meta property="og:description" content="D的小L 时间限制：4000 ms &nbsp;|&nbsp; 内存限制：65535 KB 难度：2  描述 &nbsp; &nbsp; &nbsp; 一天TC的匡匡找ACM的小L玩三国杀，但是这会小L忙着哩，不想和匡匡玩但又怕匡匡生气，这时小L给匡匡出了个题目想难倒匡匡(小L很D吧)，有一个数n(0&lt;n&lt;10),写出1到n的全排列，这时匡匡有点囧了，，，聪明的你能帮匡匡解围吗？">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://59.69.128.200/JudgeOnline/admin/kind/plugins/emoticons/44.gif">
+<meta property="og:image" content="https://59.69.128.200/JudgeOnline/admin/kind/plugins/emoticons/18.gif">
+<meta property="article:published_time" content="2013-08-22T05:17:00.000Z">
+<meta property="article:modified_time" content="2024-02-08T01:29:02.175Z">
+<meta property="article:author" content="Hanks">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://59.69.128.200/JudgeOnline/admin/kind/plugins/emoticons/44.gif">
+  
+  
+  <link href="https://fonts.googleapis.com/css?family=Fira+Code|Noto+Serif+SC&display=swap" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8165670162444117"
+     crossorigin="anonymous"></script>
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo"></a>
+    <nav id="main-nav">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      
+        <a class="main-nav-link" href="/archives">Archive</a>
+      
+        <a class="main-nav-link" href="/eye-video">Eye</a>
+      
+        <a class="main-nav-link" href="/atom.xml">Rss</a>
+      
+    </nav>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/archives" class="mobile-nav-link">Archive</a>
+  
+    <a href="/eye-video" class="mobile-nav-link">Eye</a>
+  
+    <a href="/atom.xml" class="mobile-nav-link">Rss</a>
+  
+</nav>
+      <div class="outer">
+        <section id="main"><article id="post-NYOJ_题目366_D的小L_（next_permutation）" class="article article-type-post" itemscope
+  itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <header class="article-header">
+      
+      
+  
+    <h1 class="article-title" itemprop="name">
+      NYOJ 题目366 D的小L （next_permutation）
+    </h1>
+  
+
+      
+    </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+<h4 class="problem-display"></h4>
+<h2 class="problem-display" align="center"><span style="color:#3366ff; background-color:#ffffff">D的小L</span></h2>
+<div class="problem-ins" align="center"><span style="color:#009900; background-color:#ffffff">时间限制：<span id="problem[time_limit]" class="editable highlight">4000</span> ms &nbsp;|&nbsp; 内存限制：<span id="problem[memory_limit]" class="editable highlight">65535</span> KB</span></div>
+<div class="problem-ins" align="center"><span style="background-color:#ffffff"><span style="color:#009900">难度：<span class="editable highlight">2</span></span></span></div>
+<div class="clr"></div>
+<dl class="problem-display"><dt>描述 </dt><dd>&nbsp; &nbsp; &nbsp; 一天TC的匡匡找ACM的小L玩三国杀，但是这会小L忙着哩，不想和匡匡玩但又怕匡匡生气，这时小L给匡匡出了个题目想难倒匡匡(小L很D吧<img border="0" alt="" src="https://59.69.128.200/JudgeOnline/admin/kind/plugins/emoticons/44.gif">)，有一个数n(0&lt;n&lt;10),写出1到n的全排列，这时匡匡有点囧了<img border="0" alt="" src="https://59.69.128.200/JudgeOnline/admin/kind/plugins/emoticons/18.gif">，，，聪明的你能帮匡匡解围吗？
+<div class="clr"></div>
+<dl class="others"><dt>输入 </dt><dd>第一行输入一个数N（0&lt;N&lt;10）,表示有N组测试数据。后面的N行输入多组输入数据，每组输入数据都是一个整数x(0&lt;x&lt;10) </dd><dt>输出 </dt><dd>按特定顺序输出所有组合。<br>
+特定顺序：每一个组合中的&#20540;从小到大排列，组合之间按字典序排列。 </dd><dt>样例输入 </dt><dd>
+<pre id="sample_input">2
+2
+3</pre>
+</dd><dt>样例输出 </dt><dd>
+<pre id="sample_output">12
+21
+123
+132
+213
+231
+312
+321</pre>
+</dd></dl>
+</dd></dl>
+<p>先看一下全排列吧：<a target="_blank" href="https://blog.csdn.net/morewindows/article/details/7370155" target="_blank">大牛空间全排列</a>，比较详细</p>
+<dl></dl>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>代码一：简单STL 之 next_permutation();</p>
+<p>&nbsp;</p>
+<p><a target="_blank" href="https://shenan1984.blog.163.com/blog/static/2530851020081124954081/" target="_blank">next_permutation，prev_permutation详细</a></p>
+<p>&nbsp;</p>
+<pre class="cpp" name="code">/***************************
+# 2013-8-22 12:56:46 
+# Time: 8MS   Memory: 232KB
+# Author: zyh
+# Status: Accepted
+***************************/ 
+
+#include&lt;iostream&gt;
+#include&lt;stdio.h&gt;
+#include&lt;string.h&gt;
+#include&lt;stdlib.h&gt;
+#include&lt;algorithm&gt;
+
+using namespace std;
+
+int main()
+{
+	int n,x,i,j;char s[12];
+	scanf(&quot;%d&quot;,&amp;n);
+	while(n--)
+	{
+		scanf(&quot;%d&quot;,&amp;x);
+		for(i=0;i&lt;x;i++) s[i]=i+'1';
+		s[i]='\0';
+		do{
+			puts(s);
+		}while(next_permutation(s,s+x));//全排列函数应用
+	}
+	return 0;
+} </pre>
+<p><br>
+&nbsp;</p>
+<p>代码二： 递归求全排列， 两个数组；</p>
+<p>一个S[ ]存放原来的数， 另个 S1[ ]存放 排列, 从S1的0位置存放，存到长度输出一个全排列</p>
+<p>&nbsp;</p>
+<pre class="cpp" name="code">/***************************
+# 2013-8-22 15:46:46 
+# Time: 8MS   Memory: 232KB
+# Author: zyh
+# Status: Accepted
+***************************/ 
+
+#include&lt;stdio.h&gt;
+#include&lt;string.h&gt;
+
+int x;
+bool vis[12];
+char s[12],s1[12];
+
+void permutation(int t)
+{
+	if(t==x){
+		s1[x] = '\0'; //这里不要忘了，用字符数组存储字符串要注意末尾 '\0' 
+		puts(s1);
+	} 
+	for(int i=0;i&lt;x;i++){
+		if(!vis[s[i]-'1']){
+			s1[t] = s[i];
+			vis[s[i]-'1'] = 1;
+			permutation(t+1); 
+			vis[s[i]-'1'] = 0;
+		}
+	}
+}
+int main()
+{
+	int n,i;
+	scanf(&quot;%d&quot;,&amp;n);
+	while(n--)
+	{
+		memset(vis,0,sizeof(vis));
+		scanf(&quot;%d&quot;,&amp;x);
+		for(i=0;i&lt;x;i++) {
+			s[i] = i+'1';
+		}
+		s[i] = '\0';
+		permutation(0);
+	}
+	return 0;
+} 
+</pre>
+<p><br>
+</p>
+
+      
+    </div>
+</article>
+
+<!-- 上一页 下一页 -->
+
+
+<nav id="article-nav">
+  
+    <a href="/2013/08/22/NYOJ_%E9%A2%98%E7%9B%AE685_%E6%9F%A5%E6%89%BE%E5%AD%97%E7%AC%A6%E4%B8%B2%EF%BC%88STL----map%EF%BC%89/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>上一篇</span>
+      <div class="article-nav-title">
+        
+          NYOJ 题目685 查找字符串（STL----map）
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2013/08/22/NYOJ_%E9%A2%98%E7%9B%AE_55_%E6%87%92%E7%9C%81%E4%BA%8B%E7%9A%84%E5%B0%8F%E6%98%8E%EF%BC%88priority_queue%EF%BC%89/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>下一篇</span>
+      <div class="article-nav-title">NYOJ 题目 55 懒省事的小明（priority_queue）</div>
+    </a>
+  
+</nav>
+
+
+
+<!-- 相关文章 -->
+
+<!--
+
+-->
+
+
+</section>
+      </div>
+      <footer id="footer">
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      
+      &copy;2024<a target="_blank" rel="noopener" href="https://github.com/hanks-zyh"> Hanks</a>版权所有
+      <br/>
+      <a href="https://beian.miit.gov.cn/" target="_blank">豫ICP备2021022347号</a>
+	  </div>
+  </div>
+ <div id="share">
+  <a id="totop" title="" style="display: block;">返回顶部</a>
+ </div>
+</footer>
+
+    </div>
+    
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/jquery.scrollLoading.js"></script>
+
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/ads.js"></script>
+
+  </div>
+</body>
+</html>

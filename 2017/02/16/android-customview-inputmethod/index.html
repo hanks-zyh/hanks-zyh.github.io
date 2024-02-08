@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Android 自定义 view 连接输入法 | Hanks&#39; Websit</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <script data-ad-client="ca-pub-8165670162444117" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <meta name="referrer" content="never">
+  <meta name="description" content="在 View 的源码里面有一个方法名为： onCreateInputConnection , 通过该方法可使自定义 view 连接 inputMethod, 可以接受输入信息。该方法的解释如下：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android 自定义 view 连接输入法">
+<meta property="og:url" content="https://hanks.pub/2017/02/16/android-customview-inputmethod/index.html">
+<meta property="og:site_name" content="Hanks&#39; Websit">
+<meta property="og:description" content="在 View 的源码里面有一个方法名为： onCreateInputConnection , 通过该方法可使自定义 view 连接 inputMethod, 可以接受输入信息。该方法的解释如下：">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://dn-coding-net-production-pp.qbox.me/ef22bd81-91e8-4203-b695-2ba86c7b8dc6.gif">
+<meta property="article:published_time" content="2017-02-16T14:33:39.000Z">
+<meta property="article:modified_time" content="2024-02-08T01:29:02.179Z">
+<meta property="article:author" content="Hanks">
+<meta property="article:tag" content="Android">
+<meta property="article:tag" content="View">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://dn-coding-net-production-pp.qbox.me/ef22bd81-91e8-4203-b695-2ba86c7b8dc6.gif">
+  
+  
+  <link href="https://fonts.googleapis.com/css?family=Fira+Code|Noto+Serif+SC&display=swap" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8165670162444117"
+     crossorigin="anonymous"></script>
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo"></a>
+    <nav id="main-nav">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      
+        <a class="main-nav-link" href="/archives">Archive</a>
+      
+        <a class="main-nav-link" href="/eye-video">Eye</a>
+      
+        <a class="main-nav-link" href="/atom.xml">Rss</a>
+      
+    </nav>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/archives" class="mobile-nav-link">Archive</a>
+  
+    <a href="/eye-video" class="mobile-nav-link">Eye</a>
+  
+    <a href="/atom.xml" class="mobile-nav-link">Rss</a>
+  
+</nav>
+      <div class="outer">
+        <section id="main"><article id="post-android-customview-inputmethod" class="article article-type-post" itemscope
+  itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <header class="article-header">
+      
+      
+  
+    <h1 class="article-title" itemprop="name">
+      Android 自定义 view 连接输入法
+    </h1>
+  
+
+      
+    </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      <p>在 <code>View</code> 的源码里面有一个方法名为： <code>onCreateInputConnection</code> , 通过该方法可使自定义 view 连接 inputMethod, 可以接受输入信息。该方法的解释如下：</p>
+<span id="more"></span>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * Create a new InputConnection for an InputMethod to interact</span><br><span class="line"> * with the view.  The default implementation returns null, since it doesn&#x27;t</span><br><span class="line"> * support input methods.  You can override this to implement such support.</span><br><span class="line"> * This is only needed for views that take focus and text input.</span><br><span class="line"> *</span><br><span class="line"> * &lt;p&gt;When implementing this, you probably also want to implement</span><br><span class="line"> * &#123;@link #onCheckIsTextEditor()&#125; to indicate you will return a</span><br><span class="line"> * non-null InputConnection.&lt;/p&gt;</span><br><span class="line"> *</span><br><span class="line"> * &lt;p&gt;Also, take good care to fill in the &#123;@link android.view.inputmethod.EditorInfo&#125;</span><br><span class="line"> * object correctly and in its entirety, so that the connected IME can rely</span><br><span class="line"> * on its values. For example, &#123;@link android.view.inputmethod.EditorInfo#initialSelStart&#125;</span><br><span class="line"> * and  &#123;@link android.view.inputmethod.EditorInfo#initialSelEnd&#125; members</span><br><span class="line"> * must be filled in with the correct cursor position for IMEs to work correctly</span><br><span class="line"> * with your application.&lt;/p&gt;</span><br><span class="line"> *</span><br><span class="line"> * @param outAttrs Fill in with attribute information about the connection.</span><br><span class="line"> */</span><br><span class="line">public InputConnection onCreateInputConnection(EditorInfo outAttrs) &#123;</span><br><span class="line">    return null;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>onCreateInputConnection 方法连接了 view 和 inputMethod，通过创建一个 InputConnection 来接受输入法的信息。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * Created by hanks on 2017/2/16.</span><br><span class="line"> */</span><br><span class="line"></span><br><span class="line">public class KInputConnection extends BaseInputConnection &#123;</span><br><span class="line"></span><br><span class="line">    public KInputConnection(View targetView, boolean fullEditor) &#123;</span><br><span class="line">        super(targetView, fullEditor);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // 输入法的按键信息</span><br><span class="line">    @Override</span><br><span class="line">    public boolean sendKeyEvent(KeyEvent event) &#123;</span><br><span class="line">        switch (event.getKeyCode()) &#123;</span><br><span class="line">            case KeyEvent.KEYCODE_DEL:</span><br><span class="line">                if (event.getAction()== KeyEvent.ACTION_UP</span><br><span class="line">                        &amp;&amp; onCommitTextListener != null) &#123;</span><br><span class="line">                    onCommitTextListener.onDeleteText();</span><br><span class="line">                &#125;</span><br><span class="line">                break;</span><br><span class="line">        &#125;</span><br><span class="line">        return super.sendKeyEvent(event);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    // 输入法提交了一个 text</span><br><span class="line">    @Override</span><br><span class="line">    public boolean commitText(CharSequence text, int newCursorPosition) &#123;</span><br><span class="line">        if (onCommitTextListener != null) &#123;</span><br><span class="line">            onCommitTextListener.commitText(text, newCursorPosition);</span><br><span class="line">        &#125;</span><br><span class="line">        return true;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private OnCommitTextListener  onCommitTextListener;</span><br><span class="line"></span><br><span class="line">    public void setOnCommitTextListener(OnCommitTextListener onCommitTextListener) &#123;</span><br><span class="line">        this.onCommitTextListener = onCommitTextListener;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public interface OnCommitTextListener &#123;</span><br><span class="line">        boolean commitText(CharSequence text, int newCursorPosition);</span><br><span class="line"></span><br><span class="line">        void onDeleteText();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * 支持输入法的 view</span><br><span class="line"> * Created by hanks on 2017/2/16.</span><br><span class="line"> */</span><br><span class="line"></span><br><span class="line">public class KInputView extends View &#123;</span><br><span class="line"></span><br><span class="line">    private StringBuilder content = new StringBuilder();</span><br><span class="line">    private KInputConnection inputConnection;</span><br><span class="line">    private TextPaint paint;</span><br><span class="line">    private InputMethodManager inputMethodManager;</span><br><span class="line"></span><br><span class="line">    public KInputView(Context context) &#123;</span><br><span class="line">        this(context, null);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public KInputView(Context context, AttributeSet attrs) &#123;</span><br><span class="line">        super(context, attrs);</span><br><span class="line">        init();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private void init() &#123;</span><br><span class="line"></span><br><span class="line">        // 设置可以接受到焦点</span><br><span class="line">        this.setFocusable(true);</span><br><span class="line">        this.setFocusableInTouchMode(true);</span><br><span class="line"></span><br><span class="line">        // 获取 InputMethodManager</span><br><span class="line">        inputMethodManager = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);</span><br><span class="line"></span><br><span class="line">        paint = new TextPaint(Paint.ANTI_ALIAS_FLAG);</span><br><span class="line">        paint.setColor(Color.BLUE);</span><br><span class="line">        float textSize = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 14, getResources().getDisplayMetrics());</span><br><span class="line">        paint.setTextSize(textSize);</span><br><span class="line">        setOnClickListener(new OnClickListener() &#123;</span><br><span class="line">            @Override</span><br><span class="line">            public void onClick(View v) &#123;</span><br><span class="line">                // 弹出、关闭输入法</span><br><span class="line">                inputMethodManager.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public InputConnection onCreateInputConnection(EditorInfo editorInfo) &#123;</span><br><span class="line">        return getInputConnection(editorInfo);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    protected void onDraw(Canvas canvas) &#123;</span><br><span class="line">        // 使用 StaticLayout 来 draw</span><br><span class="line">        new StaticLayout(content, paint, getWidth(), Layout.Alignment.ALIGN_NORMAL, 1.5f, 0, false).draw(canvas);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private InputConnection getInputConnection(EditorInfo editorInfo) &#123;</span><br><span class="line">        if (inputConnection != null) &#123;</span><br><span class="line">            return inputConnection;</span><br><span class="line">        &#125;</span><br><span class="line">        inputConnection = new KInputConnection(this, false);</span><br><span class="line">        inputConnection.setOnCommitTextListener(new KInputConnection.OnCommitTextListener() &#123;</span><br><span class="line">            @Override</span><br><span class="line">            public boolean commitText(CharSequence text, int newCursorPosition) &#123;</span><br><span class="line">                content.append(text);</span><br><span class="line">                invalidate();</span><br><span class="line">                return false;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            @Override</span><br><span class="line">            public void onDeleteText() &#123;</span><br><span class="line">                if (content.length() &lt;= 0) &#123;</span><br><span class="line">                    return;</span><br><span class="line">                &#125;</span><br><span class="line">                content.deleteCharAt(content.length() - 1);</span><br><span class="line">                invalidate();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">        return inputConnection;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="效果图"><a href="#效果图" class="headerlink" title="效果图"></a>效果图</h3><p><img src="https://dn-coding-net-production-pp.qbox.me/ef22bd81-91e8-4203-b695-2ba86c7b8dc6.gif" alt="自定义 View"> </p>
+
+      
+    </div>
+</article>
+
+<!-- 上一页 下一页 -->
+
+
+<nav id="article-nav">
+  
+    <a href="/2017/03/22/proxy-test/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>上一篇</span>
+      <div class="article-nav-title">
+        
+          请求代理
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/01/10/android-lua/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>下一篇</span>
+      <div class="article-nav-title">Android 与 Lua</div>
+    </a>
+  
+</nav>
+
+
+
+<!-- 相关文章 -->
+
+<!--
+
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+      			<a href="/2017/02/16/android-customview-inputmethod/">Android 自定义 view 连接输入法</a>
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+
+-->
+
+
+</section>
+      </div>
+      <footer id="footer">
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      
+      &copy;2024<a target="_blank" rel="noopener" href="https://github.com/hanks-zyh"> Hanks</a>版权所有
+      <br/>
+      <a href="https://beian.miit.gov.cn/" target="_blank">豫ICP备2021022347号</a>
+	  </div>
+  </div>
+ <div id="share">
+  <a id="totop" title="" style="display: block;">返回顶部</a>
+ </div>
+</footer>
+
+    </div>
+    
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/jquery.scrollLoading.js"></script>
+
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/ads.js"></script>
+
+  </div>
+</body>
+</html>

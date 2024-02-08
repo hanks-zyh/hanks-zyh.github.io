@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Android性能优化 | Hanks&#39; Websit</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <script data-ad-client="ca-pub-8165670162444117" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <meta name="referrer" content="never">
+  <meta name="description" content="布局优化,绘制优化,内存泄露优化,响应速度优化,listview优化,bitmap优化,多线程优化Traceview,Systrace,Oprofile,Heap Viewer,Memory Monitor,Allocation Tracker">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android性能优化">
+<meta property="og:url" content="https://hanks.pub/2016/01/20/android-optimization/index.html">
+<meta property="og:site_name" content="Hanks&#39; Websit">
+<meta property="og:description" content="布局优化,绘制优化,内存泄露优化,响应速度优化,listview优化,bitmap优化,多线程优化Traceview,Systrace,Oprofile,Heap Viewer,Memory Monitor,Allocation Tracker">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://www.splitshire.com/wp-content/uploads/2015/03/SplitShire-5390-1800x1200-970x500.jpg">
+<meta property="article:published_time" content="2016-01-20T13:51:09.000Z">
+<meta property="article:modified_time" content="2024-02-08T01:29:02.180Z">
+<meta property="article:author" content="Hanks">
+<meta property="article:tag" content="Android">
+<meta property="article:tag" content="性能优化">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.splitshire.com/wp-content/uploads/2015/03/SplitShire-5390-1800x1200-970x500.jpg">
+  
+  
+  <link href="https://fonts.googleapis.com/css?family=Fira+Code|Noto+Serif+SC&display=swap" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8165670162444117"
+     crossorigin="anonymous"></script>
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo"></a>
+    <nav id="main-nav">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      
+        <a class="main-nav-link" href="/archives">Archive</a>
+      
+        <a class="main-nav-link" href="/eye-video">Eye</a>
+      
+        <a class="main-nav-link" href="/atom.xml">Rss</a>
+      
+    </nav>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/archives" class="mobile-nav-link">Archive</a>
+  
+    <a href="/eye-video" class="mobile-nav-link">Eye</a>
+  
+    <a href="/atom.xml" class="mobile-nav-link">Rss</a>
+  
+</nav>
+      <div class="outer">
+        <section id="main"><article id="post-android-optimization" class="article article-type-post" itemscope
+  itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <header class="article-header">
+      
+      
+  
+    <h1 class="article-title" itemprop="name">
+      Android性能优化
+    </h1>
+  
+
+      
+    </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      <p>布局优化,绘制优化,内存泄露优化,响应速度优化,listview优化,bitmap优化,多线程优化<br>Traceview,Systrace,Oprofile,Heap Viewer,Memory Monitor,Allocation Tracker</p>
+<span id="more"></span>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/Tencent_Bugly/article/details/46276565">量化流畅度</a></p>
+<h3 id="布局优化"><a href="#布局优化" class="headerlink" title="布局优化"></a>布局优化</h3><p>include 重用布局<br>merge 减少层级嵌套<br>viewstub 延迟加载<br>space 空白占位</p>
+<h3 id="绘制优化"><a href="#绘制优化" class="headerlink" title="绘制优化"></a>绘制优化</h3><p>(onMeasure,onLayout,onDraw)<br>ondraw<br>过度绘制</p>
+<h3 id="内存泄露优化"><a href="#内存泄露优化" class="headerlink" title="内存泄露优化"></a>内存泄露优化</h3><p><a target="_blank" rel="noopener" href="https://yq.aliyun.com/articles/3009">Android 内存泄漏总结</a><br>分析工具MAT, leakcanary<br>静态变量引用<br>单例模式<br>属性动画</p>
+<h3 id="响应速度优化"><a href="#响应速度优化" class="headerlink" title="响应速度优化"></a>响应速度优化</h3><p>anr, 分析&#x2F;data&#x2F;anr下的traces.txt<br>启动时间，冷启动</p>
+<h3 id="listview优化"><a href="#listview优化" class="headerlink" title="listview优化"></a>listview优化</h3><p>复用view<br>viewholder<br>滑动状态不同加载策略<br>getview不要耗时操作<br>大的item分成小的item<br>创建多种viewtype<br>item的布局嵌套<br>item子view的大小<br>RecyclerView</p>
+<h3 id="避免OOM"><a href="#避免OOM" class="headerlink" title="避免OOM"></a>避免OOM</h3><h4 id="减小对象的内存占用"><a href="#减小对象的内存占用" class="headerlink" title="减小对象的内存占用"></a>减小对象的内存占用</h4><p>使用更加轻量的数据结构 ArrayMap&#x2F;SparseArray<br>避免在Android里面使用Enum<br>减小Bitmap对象的内存占用<br>使用更小的图片 jpg&#x2F;png&#x2F;webp</p>
+<h4 id="内存对象的重复利用"><a href="#内存对象的重复利用" class="headerlink" title="内存对象的重复利用"></a>内存对象的重复利用</h4><p>对象池 LRU策略<br>复用系统自带的资源<br>注意在ListView&#x2F;GridView等出现大量重复子组件的视图里面对ConvertView的复用<br>Bitmap对象的复用 inBitmap<br>避免在onDraw方法里面执行对象的创建<br>StringBuilder</p>
+<h3 id="bitmap优化"><a href="#bitmap优化" class="headerlink" title="bitmap优化"></a>bitmap优化</h3><p>重新采样 缩放<br>模糊：缩小，模糊，放大</p>
+<h3 id="多线程优化"><a href="#多线程优化" class="headerlink" title="多线程优化"></a>多线程优化</h3><p>Java内存模型<br>线程池</p>
+<p><img src="https://www.splitshire.com/wp-content/uploads/2015/03/SplitShire-5390-1800x1200-970x500.jpg"></p>
+<p>参考链接:</p>
+<p><a target="_blank" rel="noopener" href="https://hukai.me/android-performance-oom/">https://hukai.me/android-performance-oom/</a><br><a target="_blank" rel="noopener" href="https://github.com/Piasy/notes/blob/master/Android-Java%2FAndroidPerformancePatterns.md">https://github.com/Piasy/notes/blob/master/Android-Java%2FAndroidPerformancePatterns.md</a><br><a target="_blank" rel="noopener" href="https://www.trinea.cn/android/performance/">https://www.trinea.cn/android/performance/</a><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/yanbober/article/details/48394201">https://blog.csdn.net/yanbober/article/details/48394201</a><br><a target="_blank" rel="noopener" href="https://www.kancloud.cn/kancloud/android-performance/53233">https://www.kancloud.cn/kancloud/android-performance/53233</a></p>
+<blockquote>
+<p>文章来自： <a href="https://hanks.pub/">https://hanks.pub</a></p>
+</blockquote>
+
+      
+    </div>
+</article>
+
+<!-- 上一页 下一页 -->
+
+
+<nav id="article-nav">
+  
+    <a href="/2016/02/01/framework-activity-oncreate/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>上一篇</span>
+      <div class="article-nav-title">
+        
+          Framework分析-点击Launcher中的图标启动Activity
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/01/14/framework-application/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>下一篇</span>
+      <div class="article-nav-title">Framework分析-Application的onCreate</div>
+    </a>
+  
+</nav>
+
+
+
+<!-- 相关文章 -->
+
+<!--
+
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+      			<a href="/2016/01/20/android-optimization/">Android性能优化</a>
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+
+-->
+
+
+</section>
+      </div>
+      <footer id="footer">
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      
+      &copy;2024<a target="_blank" rel="noopener" href="https://github.com/hanks-zyh"> Hanks</a>版权所有
+      <br/>
+      <a href="https://beian.miit.gov.cn/" target="_blank">豫ICP备2021022347号</a>
+	  </div>
+  </div>
+ <div id="share">
+  <a id="totop" title="" style="display: block;">返回顶部</a>
+ </div>
+</footer>
+
+    </div>
+    
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/jquery.scrollLoading.js"></script>
+
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/ads.js"></script>
+
+  </div>
+</body>
+</html>

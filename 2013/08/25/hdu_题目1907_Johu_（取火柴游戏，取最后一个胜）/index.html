@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>hdu 题目1907 Johu （取火柴游戏，取最后一个胜） | Hanks&#39; Websit</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <script data-ad-client="ca-pub-8165670162444117" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <meta name="referrer" content="never">
+  <meta name="description" content="John  Time Limit: 5000&#x2F;1000 MS (Java&#x2F;Others)&nbsp;&nbsp;&nbsp;&nbsp;Memory Limit: 65535&#x2F;32768 K (Java&#x2F;Others)  Total Submission(s): 2179&nbsp;&nbsp;&nbsp;&nbsp;Accepted Submission(s): 1175    Proble">
+<meta property="og:type" content="article">
+<meta property="og:title" content="hdu 题目1907 Johu （取火柴游戏，取最后一个胜）">
+<meta property="og:url" content="https://hanks.pub/2013/08/25/hdu_%E9%A2%98%E7%9B%AE1907_Johu_%EF%BC%88%E5%8F%96%E7%81%AB%E6%9F%B4%E6%B8%B8%E6%88%8F%EF%BC%8C%E5%8F%96%E6%9C%80%E5%90%8E%E4%B8%80%E4%B8%AA%E8%83%9C%EF%BC%89/index.html">
+<meta property="og:site_name" content="Hanks&#39; Websit">
+<meta property="og:description" content="John  Time Limit: 5000&#x2F;1000 MS (Java&#x2F;Others)&nbsp;&nbsp;&nbsp;&nbsp;Memory Limit: 65535&#x2F;32768 K (Java&#x2F;Others)  Total Submission(s): 2179&nbsp;&nbsp;&nbsp;&nbsp;Accepted Submission(s): 1175    Proble">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2013-08-25T11:13:00.000Z">
+<meta property="article:modified_time" content="2024-02-08T01:29:02.185Z">
+<meta property="article:author" content="Hanks">
+<meta name="twitter:card" content="summary">
+  
+  
+  <link href="https://fonts.googleapis.com/css?family=Fira+Code|Noto+Serif+SC&display=swap" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8165670162444117"
+     crossorigin="anonymous"></script>
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo"></a>
+    <nav id="main-nav">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      
+        <a class="main-nav-link" href="/archives">Archive</a>
+      
+        <a class="main-nav-link" href="/eye-video">Eye</a>
+      
+        <a class="main-nav-link" href="/atom.xml">Rss</a>
+      
+    </nav>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/archives" class="mobile-nav-link">Archive</a>
+  
+    <a href="/eye-video" class="mobile-nav-link">Eye</a>
+  
+    <a href="/atom.xml" class="mobile-nav-link">Rss</a>
+  
+</nav>
+      <div class="outer">
+        <section id="main"><article id="post-hdu_题目1907_Johu_（取火柴游戏，取最后一个胜）" class="article article-type-post" itemscope
+  itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <header class="article-header">
+      
+      
+  
+    <h1 class="article-title" itemprop="name">
+      hdu 题目1907 Johu （取火柴游戏，取最后一个胜）
+    </h1>
+  
+
+      
+    </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+<p></p>
+<h1 style="text-align:center; color:rgb(26,92,200)">John</h1>
+<span size="&#43;0" style=""></span>
+<div style="text-align:center"><span style="color:green; font-family:Arial; font-weight:bold">Time Limit: 5000/1000 MS (Java/Others)&nbsp;&nbsp;&nbsp;&nbsp;Memory Limit: 65535/32768 K (Java/Others)</span></div>
+<strong></strong>
+<div style="text-align:center"><span style="color:green; font-family:Arial">Total Submission(s): 2179&nbsp;&nbsp;&nbsp;&nbsp;Accepted Submission(s): 1175</span></div>
+<div style="text-align:center"><br>
+</div>
+<br>
+<div class="panel_title" align="left">Problem Description</div>
+<div class="panel_content">Little John is playing very funny game with his younger brother. There is one big box filled with M&amp;Ms of different colors. At first John has to eat several M&amp;Ms of the same color. Then his opponent has to make a turn. And so on.
+ Please note that each player has to eat at least one M&amp;M during his turn. If John (or his brother) will eat the last M&amp;M from the box he will be considered as a looser and he will have to buy a new candy box.<br>
+<br>
+Both of players are using optimal game strategy. John starts first always. You will be given information about M&amp;Ms and your task is to determine a winner of such a beautiful game.<br>
+<br>
+</div>
+<div class="panel_bottom">&nbsp;</div>
+<br>
+<div class="panel_title" align="left">Input</div>
+<div class="panel_content">The first line of input will contain a single integer T – the number of test cases. Next T pairs of lines will describe tests in a following format. The first line of each test will contain an integer N – the amount of different M&amp;M
+ colors in a box. Next line will contain N integers Ai, separated by spaces – amount of M&amp;Ms of i-th color.<br>
+<br>
+Constraints:<br>
+1 &lt;= T &lt;= 474,<br>
+1 &lt;= N &lt;= 47,<br>
+1 &lt;= Ai &lt;= 4747<br>
+<br>
+</div>
+<div class="panel_bottom">&nbsp;</div>
+<br>
+<div class="panel_title" align="left">Output</div>
+<div class="panel_content">Output T lines each of them containing information about game winner. Print “John” if John will win the game or “Brother” in other case.<br>
+<br>
+</div>
+<div class="panel_bottom">&nbsp;</div>
+<br>
+<div class="panel_title" align="left">Sample Input</div>
+<div class="panel_content">
+<pre><div style="font-family:Courier New,Courier,monospace">2
+3
+3 5 1
+1
+1</div></pre>
+</div>
+<div class="panel_bottom">&nbsp;</div>
+<br>
+<div class="panel_title" align="left">Sample Output</div>
+<div class="panel_content">
+<pre><div style="font-family:Courier New,Courier,monospace">John
+Brother</div></pre>
+</div>
+<div class="panel_bottom">&nbsp;
+<p>&nbsp;<strong><span style="font-size:18px"><span style="color:#3333ff">先者必败条件</span>：&nbsp;<span style="color:#ff0000">奇异局势&amp;&amp; 充裕堆数目&gt;=2</span>&nbsp; &nbsp;或者 &nbsp;<span style="color:#ff0000">非奇异局势&amp;&amp; 孤单堆数目==n</span></span></strong></p>
+<br>
+</div>
+<pre name="code" class="cpp">/***************************
+# 2013-8-23 17:04:27 
+# Time: MS   Memory: KB
+# Author: zyh
+# Status: Accepted
+***************************/ 
+
+#include&lt;iostream&gt;
+#include&lt;stdio.h&gt;
+#include&lt;string.h&gt;
+#include&lt;stdlib.h&gt;
+#include&lt;algorithm&gt;
+
+using namespace std;
+
+int main()
+{
+    int n,m,t,sum,cnt1,cnt2,flag,i,a[48];
+    scanf(&quot;%d&quot;,&amp;t);
+    while(t--)
+    {
+        scanf(&quot;%d&quot;,&amp;n); 
+        for(sum=cnt1=cnt2=0,i=0;i&lt;n;i++){
+            scanf(&quot;%d&quot;,&amp;a[i]);
+            if(a[i]&gt;1) cnt1++; //充裕堆数目 
+            else cnt2++; //孤单堆数目 
+            sum ^= a[i];
+        }
+
+        if((sum==0&amp;&amp;cnt1&gt;=2) || (sum &amp;&amp; cnt2==n)  )printf(&quot;Brother\n&quot;);
+        else printf(&quot;John\n&quot;);
+         
+    }
+    return 0;
+} </pre><br>
+<br>
+<br>
+<p></p>
+<p><br>
+</p>
+<p><br>
+</p>
+
+      
+    </div>
+</article>
+
+<!-- 上一页 下一页 -->
+
+
+<nav id="article-nav">
+  
+    <a href="/2013/08/27/hdu_%E9%A2%98%E7%9B%AE1028_Ignatius_and_the_Princess_III%EF%BC%88%E6%AF%8D%E5%87%BD%E6%95%B0%E5%8F%8A%E5%85%B6%E5%BA%94%E7%94%A8%EF%BC%89/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>上一篇</span>
+      <div class="article-nav-title">
+        
+          hdu 题目1028 Ignatius and the Princess III（母函数及其应用）
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2013/08/25/hdu_%E9%A2%98%E7%9B%AE2147_kiki's_game_%EF%BC%88%E7%BB%84%E5%90%88%E6%B8%B8%E6%88%8F%EF%BC%8C%E5%BF%85%E8%B4%A5%E7%82%B9%E5%92%8C%E5%BF%85%E8%83%9C%E7%82%B9%EF%BC%89/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>下一篇</span>
+      <div class="article-nav-title">hdu 题目2147 kiki&#39;s game （组合游戏，必败点和必胜点）</div>
+    </a>
+  
+</nav>
+
+
+
+<!-- 相关文章 -->
+
+<!--
+
+-->
+
+
+</section>
+      </div>
+      <footer id="footer">
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      
+      &copy;2024<a target="_blank" rel="noopener" href="https://github.com/hanks-zyh"> Hanks</a>版权所有
+      <br/>
+      <a href="https://beian.miit.gov.cn/" target="_blank">豫ICP备2021022347号</a>
+	  </div>
+  </div>
+ <div id="share">
+  <a id="totop" title="" style="display: block;">返回顶部</a>
+ </div>
+</footer>
+
+    </div>
+    
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/jquery.scrollLoading.js"></script>
+
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/ads.js"></script>
+
+  </div>
+</body>
+</html>

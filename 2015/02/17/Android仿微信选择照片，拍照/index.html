@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Android仿微信选择照片，拍照 | Hanks&#39; Websit</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <script data-ad-client="ca-pub-8165670162444117" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <meta name="referrer" content="never">
+  <meta name="description" content="效果图： 使用的方法简单粗暴，直接利用ContentResolver查询系统媒体数据库，拿到每张图片的实际路径，然后得到他们所在的目录，将其按目录分类（原来测试的是拿到缩略图，但是在模拟器上测试可以，我的手机上一直报找不到缩略图的异常，可能是垃圾手机的原因，不过微信也是没用那缩略图）我把代码都封装到一个Activity中了（SelectPictureActivity.java），下次再使用直接复制">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android仿微信选择照片，拍照">
+<meta property="og:url" content="https://hanks.pub/2015/02/17/Android%E4%BB%BF%E5%BE%AE%E4%BF%A1%E9%80%89%E6%8B%A9%E7%85%A7%E7%89%87%EF%BC%8C%E6%8B%8D%E7%85%A7/index.html">
+<meta property="og:site_name" content="Hanks&#39; Websit">
+<meta property="og:description" content="效果图： 使用的方法简单粗暴，直接利用ContentResolver查询系统媒体数据库，拿到每张图片的实际路径，然后得到他们所在的目录，将其按目录分类（原来测试的是拿到缩略图，但是在模拟器上测试可以，我的手机上一直报找不到缩略图的异常，可能是垃圾手机的原因，不过微信也是没用那缩略图）我把代码都封装到一个Activity中了（SelectPictureActivity.java），下次再使用直接复制">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img.blog.csdn.net/20150217200638079">
+<meta property="article:published_time" content="2015-02-17T12:22:00.000Z">
+<meta property="article:modified_time" content="2024-02-08T01:29:02.169Z">
+<meta property="article:author" content="Hanks">
+<meta property="article:tag" content="Android">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img.blog.csdn.net/20150217200638079">
+  
+  
+  <link href="https://fonts.googleapis.com/css?family=Fira+Code|Noto+Serif+SC&display=swap" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8165670162444117"
+     crossorigin="anonymous"></script>
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo"></a>
+    <nav id="main-nav">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      
+        <a class="main-nav-link" href="/archives">Archive</a>
+      
+        <a class="main-nav-link" href="/eye-video">Eye</a>
+      
+        <a class="main-nav-link" href="/atom.xml">Rss</a>
+      
+    </nav>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/archives" class="mobile-nav-link">Archive</a>
+  
+    <a href="/eye-video" class="mobile-nav-link">Eye</a>
+  
+    <a href="/atom.xml" class="mobile-nav-link">Rss</a>
+  
+</nav>
+      <div class="outer">
+        <section id="main"><article id="post-Android仿微信选择照片，拍照" class="article article-type-post" itemscope
+  itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <header class="article-header">
+      
+      
+  
+    <h1 class="article-title" itemprop="name">
+      Android仿微信选择照片，拍照
+    </h1>
+  
+
+      
+    </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      <p><strong>效果图：</strong><br><img src="https://img.blog.csdn.net/20150217200638079" alt="效果图："></p>
+<p>使用的方法简单粗暴，直接利用ContentResolver查询系统媒体数据库，拿到每张图片的实际路径，然后得到他们所在的目录，将其按目录分类（原来测试的是拿到缩略图，但是在模拟器上测试可以，我的手机上一直报找不到缩略图的异常，可能是垃圾手机的原因，不过微信也是没用那缩略图）<br>我把代码都封装到一个Activity中了（SelectPictureActivity.java），下次再使用直接复制就可以用，布局样式需要在layout中修改</p>
+<p><strong>使用</strong><br>startActivityForResult(new Intent(this, SelectPictureActivity.class), REQUEST_PICK);</p>
+<p>然后选择完成返回选择的图片路径的list</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">@SuppressWarnings(&quot;unchecked&quot;)</span><br><span class="line">  @Override</span><br><span class="line">  protected void onActivityResult(int requestCode, int resultCode, Intent data) &#123;</span><br><span class="line">      // super.onActivityResult(requestCode, resultCode, data);</span><br><span class="line">      if (resultCode == RESULT_OK) &#123;</span><br><span class="line">          selectedPicture = (ArrayList&lt;String&gt;) data</span><br><span class="line">                  .getSerializableExtra(SelectPictureActivity.INTENT_SELECTED_PICTURE);</span><br><span class="line">          adapter.notifyDataSetChanged();</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<p>完整的代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br><span class="line">291</span><br><span class="line">292</span><br><span class="line">293</span><br><span class="line">294</span><br><span class="line">295</span><br><span class="line">296</span><br><span class="line">297</span><br><span class="line">298</span><br><span class="line">299</span><br><span class="line">300</span><br><span class="line">301</span><br><span class="line">302</span><br><span class="line">303</span><br><span class="line">304</span><br><span class="line">305</span><br><span class="line">306</span><br><span class="line">307</span><br><span class="line">308</span><br><span class="line">309</span><br><span class="line">310</span><br><span class="line">311</span><br><span class="line">312</span><br><span class="line">313</span><br><span class="line">314</span><br><span class="line">315</span><br><span class="line">316</span><br><span class="line">317</span><br><span class="line">318</span><br><span class="line">319</span><br><span class="line">320</span><br><span class="line">321</span><br><span class="line">322</span><br><span class="line">323</span><br><span class="line">324</span><br><span class="line">325</span><br><span class="line">326</span><br><span class="line">327</span><br><span class="line">328</span><br><span class="line">329</span><br><span class="line">330</span><br><span class="line">331</span><br><span class="line">332</span><br><span class="line">333</span><br><span class="line">334</span><br><span class="line">335</span><br><span class="line">336</span><br><span class="line">337</span><br><span class="line">338</span><br><span class="line">339</span><br><span class="line">340</span><br><span class="line">341</span><br><span class="line">342</span><br><span class="line">343</span><br><span class="line">344</span><br><span class="line">345</span><br><span class="line">346</span><br><span class="line">347</span><br><span class="line">348</span><br><span class="line">349</span><br><span class="line">350</span><br><span class="line">351</span><br><span class="line">352</span><br><span class="line">353</span><br><span class="line">354</span><br><span class="line">355</span><br><span class="line">356</span><br><span class="line">357</span><br><span class="line">358</span><br><span class="line">359</span><br><span class="line">360</span><br><span class="line">361</span><br><span class="line">362</span><br><span class="line">363</span><br><span class="line">364</span><br><span class="line">365</span><br><span class="line">366</span><br><span class="line">367</span><br><span class="line">368</span><br><span class="line">369</span><br><span class="line">370</span><br><span class="line">371</span><br><span class="line">372</span><br><span class="line">373</span><br><span class="line">374</span><br><span class="line">375</span><br><span class="line">376</span><br><span class="line">377</span><br><span class="line">378</span><br><span class="line">379</span><br><span class="line">380</span><br><span class="line">381</span><br><span class="line">382</span><br><span class="line">383</span><br><span class="line">384</span><br><span class="line">385</span><br><span class="line">386</span><br><span class="line">387</span><br><span class="line">388</span><br><span class="line">389</span><br><span class="line">390</span><br><span class="line">391</span><br><span class="line">392</span><br><span class="line">393</span><br><span class="line">394</span><br><span class="line">395</span><br><span class="line">396</span><br><span class="line">397</span><br><span class="line">398</span><br><span class="line">399</span><br><span class="line">400</span><br><span class="line">401</span><br><span class="line">402</span><br><span class="line">403</span><br><span class="line">404</span><br><span class="line">405</span><br><span class="line">406</span><br><span class="line">407</span><br><span class="line">408</span><br><span class="line">409</span><br><span class="line">410</span><br><span class="line">411</span><br><span class="line">412</span><br><span class="line">413</span><br><span class="line">414</span><br><span class="line">415</span><br><span class="line">416</span><br><span class="line">417</span><br><span class="line">418</span><br><span class="line">419</span><br><span class="line">420</span><br><span class="line">421</span><br><span class="line">422</span><br><span class="line">423</span><br><span class="line">424</span><br><span class="line">425</span><br><span class="line">426</span><br><span class="line">427</span><br><span class="line">428</span><br><span class="line">429</span><br><span class="line">430</span><br><span class="line">431</span><br><span class="line">432</span><br><span class="line">433</span><br><span class="line">434</span><br><span class="line">435</span><br><span class="line">436</span><br><span class="line">437</span><br><span class="line">438</span><br><span class="line">439</span><br><span class="line">440</span><br><span class="line">441</span><br><span class="line">442</span><br></pre></td><td class="code"><pre><span class="line">package com.zyh.selectpicture;</span><br><span class="line"></span><br><span class="line">import java.io.File;</span><br><span class="line">import java.text.SimpleDateFormat;</span><br><span class="line">import java.util.ArrayList;</span><br><span class="line">import java.util.Date;</span><br><span class="line">import java.util.HashMap;</span><br><span class="line">import java.util.List;</span><br><span class="line"></span><br><span class="line">import android.app.Activity;</span><br><span class="line">import android.content.ContentResolver;</span><br><span class="line">import android.content.Context;</span><br><span class="line">import android.content.Intent;</span><br><span class="line">import android.database.Cursor;</span><br><span class="line">import android.graphics.Bitmap;</span><br><span class="line">import android.net.Uri;</span><br><span class="line">import android.os.Bundle;</span><br><span class="line">import android.os.Environment;</span><br><span class="line">import android.provider.MediaStore;</span><br><span class="line">import android.util.Log;</span><br><span class="line">import android.view.View;</span><br><span class="line">import android.view.View.OnClickListener;</span><br><span class="line">import android.view.ViewGroup;</span><br><span class="line">import android.view.Window;</span><br><span class="line">import android.view.animation.Animation;</span><br><span class="line">import android.view.animation.Animation.AnimationListener;</span><br><span class="line">import android.view.animation.TranslateAnimation;</span><br><span class="line">import android.widget.AdapterView;</span><br><span class="line">import android.widget.AdapterView.OnItemClickListener;</span><br><span class="line">import android.widget.BaseAdapter;</span><br><span class="line">import android.widget.Button;</span><br><span class="line">import android.widget.GridView;</span><br><span class="line">import android.widget.ImageView;</span><br><span class="line">import android.widget.ListView;</span><br><span class="line">import android.widget.TextView;</span><br><span class="line">import android.widget.Toast;</span><br><span class="line"></span><br><span class="line">import com.nostra13.universalimageloader.core.DisplayImageOptions;</span><br><span class="line">import com.nostra13.universalimageloader.core.ImageLoader;</span><br><span class="line">import com.nostra13.universalimageloader.core.assist.ImageScaleType;</span><br><span class="line"></span><br><span class="line">public class SelectPictureActivity extends Activity &#123;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 最多选择图片的个数</span><br><span class="line">     */</span><br><span class="line">    private static int MAX_NUM = 6;</span><br><span class="line">    private static final int TAKE_PICTURE = 520;</span><br><span class="line"></span><br><span class="line">    public static final String INTENT_MAX_NUM = &quot;intent_max_num&quot;;</span><br><span class="line">    public static final String INTENT_SELECTED_PICTURE = &quot;intent_selected_picture&quot;;</span><br><span class="line"></span><br><span class="line">    private Context context;</span><br><span class="line">    private GridView gridview;</span><br><span class="line">    private PictureAdapter adapter;</span><br><span class="line">    /**</span><br><span class="line">     * 临时的辅助类，用于防止同一个文件夹的多次扫描</span><br><span class="line">     */</span><br><span class="line">    private HashMap&lt;String, Integer&gt; tmpDir = new HashMap&lt;String, Integer&gt;();</span><br><span class="line">    private ArrayList&lt;ImageFloder&gt; mDirPaths = new ArrayList&lt;ImageFloder&gt;();</span><br><span class="line"></span><br><span class="line">    private ImageLoader loader;</span><br><span class="line">    private DisplayImageOptions options;</span><br><span class="line">    private ContentResolver mContentResolver;</span><br><span class="line">    private Button btn_select, btn_ok;</span><br><span class="line">    private ListView listview;</span><br><span class="line">    private FolderAdapter folderAdapter;</span><br><span class="line">    private ImageFloder imageAll, currentImageFolder;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 已选择的图片</span><br><span class="line">     */</span><br><span class="line">    private ArrayList&lt;String&gt; selectedPicture = new ArrayList&lt;String&gt;();</span><br><span class="line">    private String cameraPath = null;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    protected void onCreate(Bundle savedInstanceState) &#123;</span><br><span class="line">        super.onCreate(savedInstanceState);</span><br><span class="line">        requestWindowFeature(Window.FEATURE_NO_TITLE);</span><br><span class="line">        setContentView(R.layout.activity_select_picture);</span><br><span class="line">        MAX_NUM = getIntent().getIntExtra(INTENT_MAX_NUM, 6);</span><br><span class="line">        context = this;</span><br><span class="line">        mContentResolver = getContentResolver();</span><br><span class="line">        loader = ImageLoader.getInstance();</span><br><span class="line">        options = new DisplayImageOptions.Builder().showImageOnLoading(R.drawable.ic_launcher)</span><br><span class="line">                .showImageForEmptyUri(R.drawable.ic_launcher).showImageOnFail(R.drawable.ic_launcher)</span><br><span class="line">                .cacheInMemory(true).cacheOnDisk(true).considerExifParams(true)</span><br><span class="line">                .imageScaleType(ImageScaleType.EXACTLY).bitmapConfig(Bitmap.Config.RGB_565).build();</span><br><span class="line">        initView();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void select(View v) &#123;</span><br><span class="line">        if (listview.getVisibility() == 0) &#123;</span><br><span class="line">            hideListAnimation();</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            listview.setVisibility(0);</span><br><span class="line">            showListAnimation();</span><br><span class="line">            folderAdapter.notifyDataSetChanged();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void showListAnimation() &#123;</span><br><span class="line">        TranslateAnimation ta = new TranslateAnimation(1, 0f, 1, 0f, 1, 1f, 1, 0f);</span><br><span class="line">        ta.setDuration(200);</span><br><span class="line">        listview.startAnimation(ta);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void hideListAnimation() &#123;</span><br><span class="line">        TranslateAnimation ta = new TranslateAnimation(1, 0f, 1, 0f, 1, 0f, 1, 1f);</span><br><span class="line">        ta.setDuration(200);</span><br><span class="line">        listview.startAnimation(ta);</span><br><span class="line">        ta.setAnimationListener(new AnimationListener() &#123;</span><br><span class="line">            @Override</span><br><span class="line">            public void onAnimationStart(Animation animation) &#123;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            @Override</span><br><span class="line">            public void onAnimationRepeat(Animation animation) &#123;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            @Override</span><br><span class="line">            public void onAnimationEnd(Animation animation) &#123;</span><br><span class="line">                listview.setVisibility(8);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 点击完成按钮</span><br><span class="line">     *</span><br><span class="line">     * @version 1.0</span><br><span class="line">     * @author zyh</span><br><span class="line">     * @param v</span><br><span class="line">     */</span><br><span class="line">    public void ok(View v) &#123;</span><br><span class="line">        Intent data = new Intent();</span><br><span class="line">        data.putExtra(INTENT_SELECTED_PICTURE, selectedPicture);</span><br><span class="line">        setResult(RESULT_OK, data);</span><br><span class="line">        this.finish();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private void initView() &#123;</span><br><span class="line">        imageAll = new ImageFloder();</span><br><span class="line">        imageAll.setDir(&quot;/所有图片&quot;);</span><br><span class="line">        currentImageFolder = imageAll;</span><br><span class="line">        mDirPaths.add(imageAll);</span><br><span class="line">        btn_ok = (Button) findViewById(R.id.btn_ok);</span><br><span class="line">        btn_select = (Button) findViewById(R.id.btn_select);</span><br><span class="line">        btn_ok.setText(&quot;完成0/&quot; + MAX_NUM);</span><br><span class="line"></span><br><span class="line">        gridview = (GridView) findViewById(R.id.gridview);</span><br><span class="line">        adapter = new PictureAdapter();</span><br><span class="line">        gridview.setAdapter(adapter);</span><br><span class="line"></span><br><span class="line">        gridview.setOnItemClickListener(new OnItemClickListener() &#123;</span><br><span class="line">            @Override</span><br><span class="line">            public void onItemClick(AdapterView&lt;?&gt; parent, View view, int position, long id) &#123;</span><br><span class="line">                if (position == 0) &#123;</span><br><span class="line">                    goCamare();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        listview = (ListView) findViewById(R.id.listview);</span><br><span class="line">        folderAdapter = new FolderAdapter();</span><br><span class="line">        listview.setAdapter(folderAdapter);</span><br><span class="line">        listview.setOnItemClickListener(new OnItemClickListener() &#123;</span><br><span class="line">            @Override</span><br><span class="line">            public void onItemClick(AdapterView&lt;?&gt; parent, View view, int position, long id) &#123;</span><br><span class="line">                currentImageFolder = mDirPaths.get(position);</span><br><span class="line">                Log.d(&quot;zyh&quot;, position + &quot;-------&quot; + currentImageFolder.getName() + &quot;----&quot;</span><br><span class="line">                        + currentImageFolder.images.size());</span><br><span class="line">                hideListAnimation();</span><br><span class="line">                adapter.notifyDataSetChanged();</span><br><span class="line">                btn_select.setText(currentImageFolder.getName());</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">        getThumbnail();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 使用相机拍照</span><br><span class="line">     *</span><br><span class="line">     * @version 1.0</span><br><span class="line">     * @author zyh</span><br><span class="line">     */</span><br><span class="line">    protected void goCamare() &#123;</span><br><span class="line">        if (selectedPicture.size() + 1 &gt; MAX_NUM) &#123;</span><br><span class="line">            Toast.makeText(context, &quot;最多选择&quot; + MAX_NUM + &quot;张&quot;, Toast.LENGTH_SHORT).show();</span><br><span class="line">            return;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        Intent openCameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);</span><br><span class="line">        Uri imageUri = getOutputMediaFileUri();</span><br><span class="line">        openCameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);</span><br><span class="line">        startActivityForResult(openCameraIntent, TAKE_PICTURE);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 用于拍照时获取输出的Uri</span><br><span class="line">     *</span><br><span class="line">     * @version 1.0</span><br><span class="line">     * @author zyh</span><br><span class="line">     * @return</span><br><span class="line">     */</span><br><span class="line">    protected Uri getOutputMediaFileUri() &#123;</span><br><span class="line">        File mediaStorageDir = new File(</span><br><span class="line">                Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), &quot;Night&quot;);</span><br><span class="line">        if (!mediaStorageDir.exists()) &#123;</span><br><span class="line">            if (!mediaStorageDir.mkdirs()) &#123;</span><br><span class="line">                Log.d(&quot;MyCameraApp&quot;, &quot;failed to create directory&quot;);</span><br><span class="line">                return null;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        String timeStamp = new SimpleDateFormat(&quot;yyyyMMdd_HHmmss&quot;).format(new Date());</span><br><span class="line">        File mediaFile = new File(mediaStorageDir.getPath() + File.separator + &quot;IMG_&quot; + timeStamp + &quot;.jpg&quot;);</span><br><span class="line">        cameraPath = mediaFile.getAbsolutePath();</span><br><span class="line">        return Uri.fromFile(mediaFile);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    protected void onActivityResult(int requestCode, int resultCode, Intent data) &#123;</span><br><span class="line">        // super.onActivityResult(requestCode, resultCode, data);</span><br><span class="line">        if (resultCode == RESULT_OK &amp;&amp; cameraPath != null) &#123;</span><br><span class="line">            selectedPicture.add(cameraPath);</span><br><span class="line">            Intent data2 = new Intent();</span><br><span class="line">            data2.putExtra(INTENT_SELECTED_PICTURE, selectedPicture);</span><br><span class="line">            setResult(RESULT_OK, data2);</span><br><span class="line">            this.finish();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void back(View v) &#123;</span><br><span class="line">        onBackPressed();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    class PictureAdapter extends BaseAdapter &#123;</span><br><span class="line">        @Override</span><br><span class="line">        public int getCount() &#123;</span><br><span class="line">            return currentImageFolder.images.size() + 1;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        @Override</span><br><span class="line">        public Object getItem(int position) &#123;</span><br><span class="line">            return null;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        @Override</span><br><span class="line">        public long getItemId(int position) &#123;</span><br><span class="line">            return 0;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        @Override</span><br><span class="line">        public View getView(int position, View convertView, ViewGroup parent) &#123;</span><br><span class="line"></span><br><span class="line">            ViewHolder holder = null;</span><br><span class="line">            if (convertView == null) &#123;</span><br><span class="line">                convertView = View.inflate(context, R.layout.grid_item_picture, null);</span><br><span class="line">                holder = new ViewHolder();</span><br><span class="line">                holder.iv = (ImageView) convertView.findViewById(R.id.iv);</span><br><span class="line">                holder.checkBox = (Button) convertView.findViewById(R.id.check);</span><br><span class="line">                convertView.setTag(holder);</span><br><span class="line">            &#125; else &#123;</span><br><span class="line">                holder = (ViewHolder) convertView.getTag();</span><br><span class="line">            &#125;</span><br><span class="line">            if (position == 0) &#123;</span><br><span class="line">                holder.iv.setImageResource(R.drawable.pickphotos_to_camera_normal);</span><br><span class="line">                holder.checkBox.setVisibility(View.INVISIBLE);</span><br><span class="line">            &#125; else &#123;</span><br><span class="line">                position = position - 1;</span><br><span class="line">                holder.checkBox.setVisibility(View.VISIBLE);</span><br><span class="line">                final ImageItem item = currentImageFolder.images.get(position);</span><br><span class="line">                loader.displayImage(&quot;file://&quot; + item.path, holder.iv, options);</span><br><span class="line">                boolean isSelected = selectedPicture.contains(item.path);</span><br><span class="line">                holder.checkBox.setOnClickListener(new OnClickListener() &#123;</span><br><span class="line">                    @Override</span><br><span class="line">                    public void onClick(View v) &#123;</span><br><span class="line">                        if (!v.isSelected() &amp;&amp; selectedPicture.size() + 1 &gt; MAX_NUM) &#123;</span><br><span class="line">                            Toast.makeText(context, &quot;最多选择&quot; + MAX_NUM + &quot;张&quot;, Toast.LENGTH_SHORT).show();</span><br><span class="line">                            return;</span><br><span class="line">                        &#125;</span><br><span class="line">                        if (selectedPicture.contains(item.path)) &#123;</span><br><span class="line">                            selectedPicture.remove(item.path);</span><br><span class="line">                        &#125; else &#123;</span><br><span class="line">                            selectedPicture.add(item.path);</span><br><span class="line">                        &#125;</span><br><span class="line">                        btn_ok.setText(&quot;完成&quot; + selectedPicture.size() + &quot;/&quot; + MAX_NUM);</span><br><span class="line">                        v.setSelected(selectedPicture.contains(item.path));</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;);</span><br><span class="line">                holder.checkBox.setSelected(isSelected);</span><br><span class="line">            &#125;</span><br><span class="line">            return convertView;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    class ViewHolder &#123;</span><br><span class="line">        ImageView iv;</span><br><span class="line">        Button checkBox;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    class FolderAdapter extends BaseAdapter &#123;</span><br><span class="line"></span><br><span class="line">        @Override</span><br><span class="line">        public int getCount() &#123;</span><br><span class="line">            return mDirPaths.size();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        @Override</span><br><span class="line">        public Object getItem(int position) &#123;</span><br><span class="line">            return null;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        @Override</span><br><span class="line">        public long getItemId(int position) &#123;</span><br><span class="line">            return 0;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        @Override</span><br><span class="line">        public View getView(int position, View convertView, ViewGroup parent) &#123;</span><br><span class="line">            FolderViewHolder holder = null;</span><br><span class="line">            if (convertView == null) &#123;</span><br><span class="line">                convertView = View.inflate(context, R.layout.list_dir_item, null);</span><br><span class="line">                holder = new FolderViewHolder();</span><br><span class="line">                holder.id_dir_item_image = (ImageView) convertView.findViewById(R.id.id_dir_item_image);</span><br><span class="line">                holder.id_dir_item_name = (TextView) convertView.findViewById(R.id.id_dir_item_name);</span><br><span class="line">                holder.id_dir_item_count = (TextView) convertView.findViewById(R.id.id_dir_item_count);</span><br><span class="line">                holder.choose = (ImageView) convertView.findViewById(R.id.choose);</span><br><span class="line">                convertView.setTag(holder);</span><br><span class="line">            &#125; else &#123;</span><br><span class="line">                holder = (FolderViewHolder) convertView.getTag();</span><br><span class="line">            &#125;</span><br><span class="line">            ImageFloder item = mDirPaths.get(position);</span><br><span class="line">            loader.displayImage(&quot;file://&quot; + item.getFirstImagePath(), holder.id_dir_item_image, options);</span><br><span class="line">            holder.id_dir_item_count.setText(item.images.size() + &quot;张&quot;);</span><br><span class="line">            holder.id_dir_item_name.setText(item.getName());</span><br><span class="line">            holder.choose.setVisibility(currentImageFolder == item ? 0 : 8);</span><br><span class="line">            return convertView;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    class FolderViewHolder &#123;</span><br><span class="line">        ImageView id_dir_item_image;</span><br><span class="line">        ImageView choose;</span><br><span class="line">        TextView id_dir_item_name;</span><br><span class="line">        TextView id_dir_item_count;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 得到缩略图</span><br><span class="line">     */</span><br><span class="line">    private void getThumbnail() &#123;</span><br><span class="line">        Cursor mCursor = mContentResolver.query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,</span><br><span class="line">                new String[] &#123; MediaStore.Images.ImageColumns.DATA &#125;, &quot;&quot;, null,</span><br><span class="line">                MediaStore.MediaColumns.DATE_ADDED + &quot; DESC&quot;);</span><br><span class="line">        Log.e(&quot;TAG&quot;, mCursor.getCount() + &quot;&quot;);</span><br><span class="line">        if (mCursor.moveToFirst()) &#123;</span><br><span class="line">            int _date = mCursor.getColumnIndex(MediaStore.Images.Media.DATA);</span><br><span class="line">            do &#123;</span><br><span class="line">                // 获取图片的路径</span><br><span class="line">                String path = mCursor.getString(_date);</span><br><span class="line">                Log.e(&quot;TAG&quot;, path);</span><br><span class="line">                imageAll.images.add(new ImageItem(path));</span><br><span class="line">                // 获取该图片的父路径名</span><br><span class="line">                File parentFile = new File(path).getParentFile();</span><br><span class="line">                if (parentFile == null) &#123;</span><br><span class="line">                    continue;</span><br><span class="line">                &#125;</span><br><span class="line">                ImageFloder imageFloder = null;</span><br><span class="line">                String dirPath = parentFile.getAbsolutePath();</span><br><span class="line">                if (!tmpDir.containsKey(dirPath)) &#123;</span><br><span class="line">                    // 初始化imageFloder</span><br><span class="line">                    imageFloder = new ImageFloder();</span><br><span class="line">                    imageFloder.setDir(dirPath);</span><br><span class="line">                    imageFloder.setFirstImagePath(path);</span><br><span class="line">                    mDirPaths.add(imageFloder);</span><br><span class="line">                    Log.d(&quot;zyh&quot;, dirPath + &quot;,&quot; + path);</span><br><span class="line">                    tmpDir.put(dirPath, mDirPaths.indexOf(imageFloder));</span><br><span class="line">                &#125; else &#123;</span><br><span class="line">                    imageFloder = mDirPaths.get(tmpDir.get(dirPath));</span><br><span class="line">                &#125;</span><br><span class="line">                imageFloder.images.add(new ImageItem(path));</span><br><span class="line">            &#125; while (mCursor.moveToNext());</span><br><span class="line">        &#125;</span><br><span class="line">        mCursor.close();</span><br><span class="line">        for (int i = 0; i &lt; mDirPaths.size(); i++) &#123;</span><br><span class="line">            ImageFloder f = mDirPaths.get(i);</span><br><span class="line">            Log.d(&quot;zyh&quot;, i + &quot;-----&quot; + f.getName() + &quot;---&quot; + f.images.size());</span><br><span class="line">        &#125;</span><br><span class="line">        tmpDir = null;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    class ImageFloder &#123;</span><br><span class="line">        /**</span><br><span class="line">         * 图片的文件夹路径</span><br><span class="line">         */</span><br><span class="line">        private String dir;</span><br><span class="line"></span><br><span class="line">        /**</span><br><span class="line">         * 第一张图片的路径</span><br><span class="line">         */</span><br><span class="line">        private String firstImagePath;</span><br><span class="line">        /**</span><br><span class="line">         * 文件夹的名称</span><br><span class="line">         */</span><br><span class="line">        private String name;</span><br><span class="line"></span><br><span class="line">        public List&lt;ImageItem&gt; images = new ArrayList&lt;ImageItem&gt;();</span><br><span class="line"></span><br><span class="line">        public String getDir() &#123;</span><br><span class="line">            return dir;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        public void setDir(String dir) &#123;</span><br><span class="line">            this.dir = dir;</span><br><span class="line">            int lastIndexOf = this.dir.lastIndexOf(&quot;/&quot;);</span><br><span class="line">            this.name = this.dir.substring(lastIndexOf);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        public String getFirstImagePath() &#123;</span><br><span class="line">            return firstImagePath;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        public void setFirstImagePath(String firstImagePath) &#123;</span><br><span class="line">            this.firstImagePath = firstImagePath;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        public String getName() &#123;</span><br><span class="line">            return name;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    class ImageItem &#123;</span><br><span class="line">        String path;</span><br><span class="line"></span><br><span class="line">        public ImageItem(String p) &#123;</span><br><span class="line">            this.path = p;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>源码下载：<a target="_blank" rel="noopener" href="https://github.com/18236887539/SelectPicture">https://github.com/18236887539/SelectPicture</a></p>
+
+      
+    </div>
+</article>
+
+<!-- 上一页 下一页 -->
+
+
+<nav id="article-nav">
+  
+    <a href="/2015/02/22/Windows_%E4%B8%8B%E5%AE%89%E8%A3%85_Jekyll/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>上一篇</span>
+      <div class="article-nav-title">
+        
+          Windows 下安装 Jekyll
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/02/15/%E7%BB%93%E5%90%88Android%E5%AD%A6%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F--%E5%8E%9F%E5%9E%8B%E6%A8%A1%E5%BC%8F(Prototype)/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>下一篇</span>
+      <div class="article-nav-title">结合Android学设计模式--原型模式(Prototype)</div>
+    </a>
+  
+</nav>
+
+
+
+<!-- 相关文章 -->
+
+<!--
+
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+      			<a href="/2015/02/17/Android%E4%BB%BF%E5%BE%AE%E4%BF%A1%E9%80%89%E6%8B%A9%E7%85%A7%E7%89%87%EF%BC%8C%E6%8B%8D%E7%85%A7/">Android仿微信选择照片，拍照</a>
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+
+-->
+
+
+</section>
+      </div>
+      <footer id="footer">
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      
+      &copy;2024<a target="_blank" rel="noopener" href="https://github.com/hanks-zyh"> Hanks</a>版权所有
+      <br/>
+      <a href="https://beian.miit.gov.cn/" target="_blank">豫ICP备2021022347号</a>
+	  </div>
+  </div>
+ <div id="share">
+  <a id="totop" title="" style="display: block;">返回顶部</a>
+ </div>
+</footer>
+
+    </div>
+    
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/jquery.scrollLoading.js"></script>
+
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/ads.js"></script>
+
+  </div>
+</body>
+</html>

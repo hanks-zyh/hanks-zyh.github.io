@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>hdu 题目1298 T9（字典树） | Hanks&#39; Websit</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <script data-ad-client="ca-pub-8165670162444117" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <meta name="referrer" content="never">
+  <meta name="description" content="T9 Time Limit: 2000&#x2F;1000 MS (Java&#x2F;Others)&nbsp;&nbsp;&nbsp;&nbsp;Memory Limit: 65536&#x2F;32768 K (Java&#x2F;Others) Total Submission(s): 1272&nbsp;&nbsp;&nbsp;&nbsp;Accepted Submission(s): 505    Problem De">
+<meta property="og:type" content="article">
+<meta property="og:title" content="hdu 题目1298 T9（字典树）">
+<meta property="og:url" content="https://hanks.pub/2013/08/11/hdu_%E9%A2%98%E7%9B%AE1298_T9%EF%BC%88%E5%AD%97%E5%85%B8%E6%A0%91%EF%BC%89/index.html">
+<meta property="og:site_name" content="Hanks&#39; Websit">
+<meta property="og:description" content="T9 Time Limit: 2000&#x2F;1000 MS (Java&#x2F;Others)&nbsp;&nbsp;&nbsp;&nbsp;Memory Limit: 65536&#x2F;32768 K (Java&#x2F;Others) Total Submission(s): 1272&nbsp;&nbsp;&nbsp;&nbsp;Accepted Submission(s): 505    Problem De">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://acm.hdu.edu.cn/data/images/1298-1.gif">
+<meta property="og:image" content="https://static.blog.csdn.net/xheditor/xheditor_emot/default/wail.gif">
+<meta property="article:published_time" content="2013-08-11T00:53:00.000Z">
+<meta property="article:modified_time" content="2024-02-08T01:29:02.184Z">
+<meta property="article:author" content="Hanks">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://acm.hdu.edu.cn/data/images/1298-1.gif">
+  
+  
+  <link href="https://fonts.googleapis.com/css?family=Fira+Code|Noto+Serif+SC&display=swap" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8165670162444117"
+     crossorigin="anonymous"></script>
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo"></a>
+    <nav id="main-nav">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      
+        <a class="main-nav-link" href="/archives">Archive</a>
+      
+        <a class="main-nav-link" href="/eye-video">Eye</a>
+      
+        <a class="main-nav-link" href="/atom.xml">Rss</a>
+      
+    </nav>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/archives" class="mobile-nav-link">Archive</a>
+  
+    <a href="/eye-video" class="mobile-nav-link">Eye</a>
+  
+    <a href="/atom.xml" class="mobile-nav-link">Rss</a>
+  
+</nav>
+      <div class="outer">
+        <section id="main"><article id="post-hdu_题目1298_T9（字典树）" class="article article-type-post" itemscope
+  itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <header class="article-header">
+      
+      
+  
+    <h1 class="article-title" itemprop="name">
+      hdu 题目1298 T9（字典树）
+    </h1>
+  
+
+      
+    </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+<p></p>
+<h1 style="color:rgb(26,92,200); text-align:center; font-family:'Times New Roman'">
+T9</h1>
+<span style="font-family:'Times New Roman'; font-size:14px"><strong><span style="font-family:Arial; font-size:12px; color:green"><span style="white-space:pre"></span>Time Limit: 2000/1000 MS (Java/Others)&nbsp;&nbsp;&nbsp;&nbsp;Memory Limit: 65536/32768 K (Java/Others)<br>
+<span style="white-space:pre"></span>Total Submission(s): 1272&nbsp;&nbsp;&nbsp;&nbsp;Accepted Submission(s): 505<br>
+</span></strong></span><br style="font-family:'Times New Roman'; font-size:14px">
+<br style="font-family:'Times New Roman'; font-size:14px">
+<div class="panel_title" align="left" style="height:38px; background-color:transparent; padding:0px 14px; color:rgb(124,169,237); font-size:18px; font-family:Arial; font-weight:bold">
+Problem Description</div>
+<div class="panel_content" style="height:auto; margin:0px; padding:0px 20px; font-size:14px; font-family:'Times New Roman'">
+A while ago it was quite cumbersome to create a message for the Short Message Service (SMS) on a mobile phone. This was because you only have nine keys and the alphabet has more than nine letters, so most characters could only be entered by pressing one key
+ several times. For example, if you wanted to type &quot;hello&quot; you had to press key 4 twice, key 3 twice, key 5 three times, again key 5 three times, and finally key 6 three times. This procedure is very tedious and keeps many people from using the Short Message
+ Service.<br>
+<br>
+This led manufacturers of mobile phones to try and find an easier way to enter text on a mobile phone. The solution they developed is called T9 text input. The &quot;9&quot; in the name means that you can enter almost arbitrary words with just nine keys and without pressing
+ them more than once per character. The idea of the solution is that you simply start typing the keys without repetition, and the software uses a built-in dictionary to look for the &quot;most probable&quot; word matching the input. For example, to enter &quot;hello&quot; you
+ simply press keys 4, 3, 5, 5, and 6 once. Of course, this could also be the input for the word &quot;gdjjm&quot;, but since this is no sensible English word, it can safely be ignored. By ruling out all other &quot;improbable&quot; solutions and only taking proper English words
+ into account, this method can speed up writing of short messages considerably. Of course, if the word is not in the dictionary (like a name) then it has to be typed in manually using key repetition again.<br>
+<br>
+<center><img src="https://acm.hdu.edu.cn/data/images/1298-1.gif" alt="" style="border:none"><br>
+Figure 8: The Number-keys of a mobile phone.</center>
+<br>
+<br>
+More precisely, with every character typed, the phone will show the most probable combination of characters it has found up to that point. Let us assume that the phone knows about the words &quot;idea&quot; and &quot;hello&quot;, with &quot;idea&quot; occurring more often. Pressing the
+ keys 4, 3, 5, 5, and 6, one after the other, the phone offers you &quot;i&quot;, &quot;id&quot;, then switches to &quot;hel&quot;, &quot;hell&quot;, and finally shows &quot;hello&quot;.<br>
+<br>
+Write an implementation of the T9 text input which offers the most probable character combination after every keystroke. The probability of a character combination is defined to be the sum of the probabilities of all words in the dictionary that begin with
+ this character combination. For example, if the dictionary contains three words &quot;hell&quot;, &quot;hello&quot;, and &quot;hellfire&quot;, the probability of the character combination &quot;hell&quot; is the sum of the probabilities of these words. If some combinations have the same probability,
+ your program is to select the first one in alphabetic order. The user should also be able to type the beginning of words. For example, if the word &quot;hello&quot; is in the dictionary, the user can also enter the word &quot;he&quot; by pressing the keys 4 and 3 even if this
+ word is not listed in the dictionary.<br>
+</div>
+<div class="panel_bottom" style="height:auto; margin:0px; font-family:'Times New Roman'; font-size:14px">
+&nbsp;</div>
+<br style="font-family:'Times New Roman'; font-size:14px">
+<div class="panel_title" align="left" style="height:38px; background-color:transparent; padding:0px 14px; color:rgb(124,169,237); font-size:18px; font-family:Arial; font-weight:bold">
+Input</div>
+<div class="panel_content" style="height:auto; margin:0px; padding:0px 20px; font-size:14px; font-family:'Times New Roman'">
+The first line contains the number of scenarios.<br>
+<br>
+Each scenario begins with a line containing the number w of distinct words in the dictionary (0&lt;=w&lt;=1000). These words are given in the next w lines. (They are not guaranteed in ascending alphabetic order, although it's a dictionary.) Every line starts with
+ the word which is a sequence of lowercase letters from the alphabet without whitespace, followed by a space and an integer p, 1&lt;=p&lt;=100, representing the probability of that word. No word will contain more than 100 letters.<br>
+<br>
+Following the dictionary, there is a line containing a single integer m. Next follow m lines, each consisting of a sequence of at most 100 decimal digits 2-9, followed by a single 1 meaning &quot;next word&quot;.<br>
+</div>
+<div class="panel_bottom" style="height:auto; margin:0px; font-family:'Times New Roman'; font-size:14px">
+&nbsp;</div>
+<br style="font-family:'Times New Roman'; font-size:14px">
+<div class="panel_title" align="left" style="height:38px; background-color:transparent; padding:0px 14px; color:rgb(124,169,237); font-size:18px; font-family:Arial; font-weight:bold">
+Output</div>
+<div class="panel_content" style="height:auto; margin:0px; padding:0px 20px; font-size:14px; font-family:'Times New Roman'">
+The output for each scenario begins with a line containing &quot;Scenario #i:&quot;, where i is the number of the scenario starting at 1.<br>
+<br>
+For every number sequence s of the scenario, print one line for every keystroke stored in s, except for the 1 at the end. In this line, print the most probable word prefix defined by the probabilities in the dictionary and the T9 selection rules explained above.
+ Whenever none of the words in the dictionary match the given number sequence, print &quot;MANUALLY&quot; instead of a prefix.<br>
+<br>
+Terminate the output for every number sequence with a blank line, and print an additional blank line at the end of every scenario.<br>
+</div>
+<div class="panel_bottom" style="height:auto; margin:0px; font-family:'Times New Roman'; font-size:14px">
+&nbsp;</div>
+<br style="font-family:'Times New Roman'; font-size:14px">
+<div class="panel_title" align="left" style="height:38px; background-color:transparent; padding:0px 14px; color:rgb(124,169,237); font-size:18px; font-family:Arial; font-weight:bold">
+Sample Input</div>
+<div class="panel_content" style="height:auto; margin:0px; padding:0px 20px; font-size:14px; font-family:'Times New Roman'">
+<pre style="margin-top:0px; margin-bottom:0px"><div style="font-family:'Courier New',Courier,monospace">2
+5
+hell 3
+hello 4
+idea 8
+next 8
+super 3
+2
+435561
+43321
+7
+another 5
+contest 6
+follow 3
+give 13
+integer 6
+new 14
+program 4
+5
+77647261
+6391
+4681
+26684371
+77771</div></pre>
+</div>
+<div class="panel_bottom" style="height:auto; margin:0px; font-family:'Times New Roman'; font-size:14px">
+&nbsp;</div>
+<br style="font-family:'Times New Roman'; font-size:14px">
+<div class="panel_title" align="left" style="height:38px; background-color:transparent; padding:0px 14px; color:rgb(124,169,237); font-size:18px; font-family:Arial; font-weight:bold">
+Sample Output</div>
+<div class="panel_content" style="height:auto; margin:0px; padding:0px 20px; font-size:14px; font-family:'Times New Roman'">
+<pre style="margin-top:0px; margin-bottom:0px"><div style="font-family:'Courier New',Courier,monospace">Scenario #1:
+i
+id
+hel
+hell
+hello
+
+i
+id
+ide
+idea
+
+
+Scenario #2:
+p
+pr
+pro
+prog
+progr
+progra
+program
+
+n
+ne
+new
+
+g
+in
+int
+
+c
+co
+con
+cont
+anoth
+anothe
+another
+
+p
+pr
+MANUALLY
+MANUALLY</div></pre>
+</div>
+<br>
+<p></p>
+<p><br>
+</p>
+<p><span style="font-family:KaiTi_GB2312; font-size:18px; color:#6600cc"><strong>1.建立字典树，把每个字典单词都存入字典树</strong></span></p>
+<p><span style="font-family:KaiTi_GB2312; font-size:18px"></span></p>
+<p><span style="font-family:KaiTi_GB2312"><span style="font-size:18px; color:rgb(255,0,0)"><strong>注意</strong></span><span style="font-size:18px; color:rgb(255,102,0)"><strong>：</strong></span><span style="color:#ff6600; font-size:18px"><strong>题目中说</strong></span><span style="font-family:'Times New Roman'"><span style="font-size:14px">For
+ example, if the dictionary contains three words &quot;hell&quot;, &quot;hello&quot;, and &quot;hellfire&quot;, the probability of the character combination &quot;hell&quot; is</span><span style="color:#ff0000"><strong><em><u> the sum</u></em></strong></span><span style="font-size:14px"> of the probabilities
+ of these words</span></span></span></p>
+<p style="font-weight:bold"><span style="font-family:KaiTi_GB2312; font-size:18px"><strong><span style="font-family:'Times New Roman'; font-size:14px"><span style="color:#ff6600">所以建立字典树时多次次出现的字符</span><span style="color:#6633ff">，优先级要累加</span><span style="color:#ff6600">
+ ，一开始没看清题目，一直错误的以为是只要有优先级高的，替换原来的优先级<img alt="大哭" src="https://static.blog.csdn.net/xheditor/xheditor_emot/default/wail.gif">，</span></span></strong></span></p>
+<p style="font-weight:bold"><span style="font-family:KaiTi_GB2312; font-size:18px"><strong><span style="font-family:'Times New Roman'; font-size:14px"><span style="color:#ff6600">实在WA的受不了看了别人的代码，自己一开始写的也比较乱</span></span></strong></span></p>
+<br>
+<p><span style="font-family:KaiTi_GB2312; font-size:18px; color:#6600cc"><strong>2.接受按键字符串，循环从第一个字符到后一个字符（除去1）；</strong></span></p>
+<p><span style="font-family:KaiTi_GB2312; font-size:18px; color:#6600cc"><strong>3 dfs 参数：int &nbsp;len 当前所要搜索的长度，</strong></span></p>
+<p><span style="font-family:KaiTi_GB2312; font-size:18px; color:#6600cc"><strong><span style="white-space:pre"></span>&nbsp; &nbsp; int &nbsp;cur 当前已经搜索的长度</strong></span></p>
+<p><span style="font-family:KaiTi_GB2312; font-size:18px; color:#6600cc"><strong><span style="white-space:pre"></span>&nbsp; &nbsp; Tire * p 当前所在结点</strong></span></p>
+<p><span style="font-family:KaiTi_GB2312; font-size:18px; color:#6600cc"><strong>4.每搜索到一个字母，将其存入 find[cur]，然后cur&#43;1；</strong></span></p>
+<p><span style="font-family:KaiTi_GB2312; font-size:18px; color:#6600cc"><strong>当 cur == len 时，返回当前结点的优先级最高的find[]</strong></span></p>
+<p><br>
+</p>
+<p></p>
+<pre name="code" class="cpp">#include&lt;stdio.h&gt;
+#include&lt;string.h&gt;
+#include&lt;stdlib.h&gt;
+const int N = 102;
+
+typedef struct Tire
+{
+	Tire * child[26];
+	int pro;
+}Tire;
+
+Tire * root;    int Max;         char key[N],ans[N],find[N];
+
+void insert(char * s,int pr)
+{
+	Tire * p, * q = root;
+	for(int i=0;i&lt;strlen(s);i++){	
+		if(q-&gt;child[s[i]-'a']) {
+			q = q-&gt;child[s[i]-'a'];
+			q-&gt;pro += pr;//优先级累加
+		}
+		else{
+			p = (Tire *)malloc(sizeof(Tire));
+			for(int j=0;j&lt;26;j++) p-&gt;child[j] = NULL;
+			p-&gt;pro = pr;//新结点直接把优先级赋值
+			
+			q-&gt;child[s[i]-'a'] = p;
+			q = p;
+		}	
+	}
+}
+
+void dfs(int len,int cur,Tire *p)
+{
+	int i,x,y;
+	if(cur == len)
+	{
+		if(p-&gt;pro &gt; Max) //总是存优先级最高的
+		{
+			Max = p-&gt;pro;
+			for(i=0; i&lt;len;i++)   ans[i] = find[i];
+			ans[i] = '\0';
+		}
+		return;
+	}
+	int k = key[cur]-'0';
+	switch(k)
+	{
+		case 2: x=0; y=2; break;
+		case 3: x=3; y=5; break;
+		case 4: x=6; y=8; break;
+		case 5: x=9; y=11; break;
+		case 6: x=12; y=14; break;
+		case 7: x=15; y=18; break;
+		case 8: x=19; y=21; break;
+		case 9: x=22; y=25; break;
+	}
+	for(i=x;i&lt;=y;i++){
+		if(p-&gt;child[i]==NULL) continue;
+		find[cur] = i+'a';
+		dfs(len,cur+1,p-&gt;child[i]);
+	}
+}
+int main()
+{
+	int t,w,m,i,pr,Case;
+	char s[N];
+	
+	scanf(&quot;%d&quot;,&amp;Case);
+	for(t=1;t&lt;=Case;t++)
+	{
+		root = (Tire *)malloc(sizeof(Tire));
+		for(i=0;i&lt;26;i++) root-&gt;child[i] = NULL;
+		scanf(&quot;%d&quot;,&amp;w);
+		while(w--){
+			scanf(&quot;%s%d&quot;,s,&amp;pr);
+			insert(s,pr);
+		}
+		scanf(&quot;%d&quot;,&amp;m);
+		printf(&quot;Scenario #%d:\n&quot;,t);
+		while(m--){
+			scanf(&quot;%s&quot;,key);
+			for(i=1;i&lt;strlen(key);i++){
+				Max = 0;
+				dfs(i,0,root);
+				if(Max == 0) printf(&quot;MANUALLY\n&quot;);
+				else puts(ans);
+			}
+			puts(&quot;&quot;);
+		}
+		puts(&quot;&quot;);
+	}
+	return 0;
+}</pre><br>
+<br>
+<p></p>
+<p><br>
+</p>
+<p><br>
+</p>
+
+      
+    </div>
+</article>
+
+<!-- 上一页 下一页 -->
+
+
+<nav id="article-nav">
+  
+    <a href="/2013/08/11/OJ_%E7%B3%BB%E7%BB%9F_C___%E4%B8%8E_G___%E6%8F%90%E4%BA%A4%E6%97%B6%E3%80%82%E3%80%82%E3%80%82/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>上一篇</span>
+      <div class="article-nav-title">
+        
+          OJ 系统 C++ 与 G++ 提交时。。。
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2013/08/09/hdu_%E9%A2%98%E7%9B%AE1078FatMouse_and_Cheese%EF%BC%88%E8%AE%B0%E5%BF%86%E6%90%9C%E7%B4%A2%EF%BC%89/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>下一篇</span>
+      <div class="article-nav-title">hdu 题目1078FatMouse and Cheese（记忆搜索）</div>
+    </a>
+  
+</nav>
+
+
+
+<!-- 相关文章 -->
+
+<!--
+
+-->
+
+
+</section>
+      </div>
+      <footer id="footer">
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      
+      &copy;2024<a target="_blank" rel="noopener" href="https://github.com/hanks-zyh"> Hanks</a>版权所有
+      <br/>
+      <a href="https://beian.miit.gov.cn/" target="_blank">豫ICP备2021022347号</a>
+	  </div>
+  </div>
+ <div id="share">
+  <a id="totop" title="" style="display: block;">返回顶部</a>
+ </div>
+</footer>
+
+    </div>
+    
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/jquery.scrollLoading.js"></script>
+
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/ads.js"></script>
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,1232 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>常用字符，整形，浮点型相互装换函… | Hanks&#39; Websit</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <script data-ad-client="ca-pub-8165670162444117" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <meta name="referrer" content="never">
+  <meta name="description" content="首先就是memcpy 表头文件: #include 定义函数: void *memcpy(void *dest, const void *src, size_t n) 函数说明: memcpy()用来拷贝src所指的内存内容前n个字节到dest所指的内存地址上。与strcpy()不同的是,memcpy()会完整的复制n个字节,不会因为遇到字符串结束&#39;\0&#39;而结束 返回值:&nbsp;&amp;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="常用字符，整形，浮点型相互装换函…">
+<meta property="og:url" content="https://hanks.pub/2014/02/19/%E5%B8%B8%E7%94%A8%E5%AD%97%E7%AC%A6%EF%BC%8C%E6%95%B4%E5%BD%A2%EF%BC%8C%E6%B5%AE%E7%82%B9%E5%9E%8B%E7%9B%B8%E4%BA%92%E8%A3%85%E6%8D%A2%E5%87%BD%E2%80%A6/index.html">
+<meta property="og:site_name" content="Hanks&#39; Websit">
+<meta property="og:description" content="首先就是memcpy 表头文件: #include 定义函数: void *memcpy(void *dest, const void *src, size_t n) 函数说明: memcpy()用来拷贝src所指的内存内容前n个字节到dest所指的内存地址上。与strcpy()不同的是,memcpy()会完整的复制n个字节,不会因为遇到字符串结束&#39;\0&#39;而结束 返回值:&nbsp;&amp;">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2014-02-19T11:17:00.000Z">
+<meta property="article:modified_time" content="2024-02-08T01:29:02.200Z">
+<meta property="article:author" content="Hanks">
+<meta name="twitter:card" content="summary">
+  
+  
+  <link href="https://fonts.googleapis.com/css?family=Fira+Code|Noto+Serif+SC&display=swap" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8165670162444117"
+     crossorigin="anonymous"></script>
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo"></a>
+    <nav id="main-nav">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      
+        <a class="main-nav-link" href="/archives">Archive</a>
+      
+        <a class="main-nav-link" href="/eye-video">Eye</a>
+      
+        <a class="main-nav-link" href="/atom.xml">Rss</a>
+      
+    </nav>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/archives" class="mobile-nav-link">Archive</a>
+  
+    <a href="/eye-video" class="mobile-nav-link">Eye</a>
+  
+    <a href="/atom.xml" class="mobile-nav-link">Rss</a>
+  
+</nav>
+      <div class="outer">
+        <section id="main"><article id="post-常用字符，整形，浮点型相互装换函…" class="article article-type-post" itemscope
+  itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <header class="article-header">
+      
+      
+  
+    <h1 class="article-title" itemprop="name">
+      常用字符，整形，浮点型相互装换函…
+    </h1>
+  
+
+      
+    </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+<div id="sina_keyword_ad_area2" class="articalContent  ">
+			<div STYLE="">
+<p STYLE="text-indent: 2em;"><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">首先就是<span LANG="EN-US" XML:LANG="EN-US">memcpy</SPAN></SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">表头文件<span LANG="EN-US" XML:LANG="EN-US">: #include</SPAN></SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">定义函数<span LANG="EN-US" XML:LANG="EN-US">: void *memcpy(void *dest, const void *src, size_t
+n)</SPAN></SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">函数说明<span LANG="EN-US" XML:LANG="EN-US">: memcpy()</SPAN>用来拷贝<span LANG="EN-US" XML:LANG="EN-US">src</SPAN>所指的内存内容前<span LANG="EN-US" XML:LANG="EN-US">n</SPAN>个字节到<span LANG="EN-US" XML:LANG="EN-US">dest</SPAN>所指的内存地址上。与<span LANG="EN-US" XML:LANG="EN-US">strcpy()</SPAN>不同的是<span LANG="EN-US" XML:LANG="EN-US">,memcpy()</SPAN>会完整的复制<span LANG="EN-US" XML:LANG="EN-US">n</SPAN>个字节<span LANG="EN-US" XML:LANG="EN-US">,</SPAN>不会因为遇到字符串结束<span LANG="EN-US" XML:LANG="EN-US">'\0'</SPAN>而结束</SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">返回值<span LANG="EN-US" XML:LANG="EN-US">:&nbsp;<wbr>&nbsp;<wbr></SPAN>
+返回指向<span LANG="EN-US" XML:LANG="EN-US">dest</SPAN>的指针</SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">附加说明<span LANG="EN-US" XML:LANG="EN-US">:</SPAN> 指针<span LANG="EN-US" XML:LANG="EN-US">src</SPAN>和<span LANG="EN-US" XML:LANG="EN-US">dest</SPAN>所指的内存区域不可重叠</SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">例如：</SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">你需要复制串<span LANG="EN-US" XML:LANG="EN-US">str=</SPAN>“<span LANG="EN-US" XML:LANG="EN-US">wangyucao1989</SPAN>”中的“<span LANG="EN-US" XML:LANG="EN-US">yucao</SPAN>”，那么可以这么写：</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">memcpy(newstr,str+4,5);</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">除了<span LANG="EN-US" XML:LANG="EN-US">memcpy</SPAN>之外，<span LANG="EN-US" XML:LANG="EN-US">string</SPAN>还提供了<span LANG="EN-US" XML:LANG="EN-US">strncpy</SPAN>函数：</SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">函数名称<span LANG="EN-US" XML:LANG="EN-US">: strncpy</SPAN></SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">函数原型<span LANG="EN-US" XML:LANG="EN-US">: char *strncpy(char *dest, const char
+*src</SPAN>，<span LANG="EN-US" XML:LANG="EN-US">int
+count)</SPAN></SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">函数功能<span LANG="EN-US" XML:LANG="EN-US">:</SPAN> 将字符串<span LANG="EN-US" XML:LANG="EN-US">src</SPAN>中的<span LANG="EN-US" XML:LANG="EN-US">count</SPAN>个字符拷贝到字符串<span LANG="EN-US" XML:LANG="EN-US">dest</SPAN>中去</SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">函数返回<span LANG="EN-US" XML:LANG="EN-US">:</SPAN> 指向<span LANG="EN-US" XML:LANG="EN-US">dest</SPAN>的指针</SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">参数说明<span LANG="EN-US" XML:LANG="EN-US">: dest-</SPAN>目的字符串，<span LANG="EN-US" XML:LANG="EN-US">src-</SPAN>源字符串，<span LANG="EN-US" XML:LANG="EN-US">count-</SPAN>拷贝的字符个数</SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">所属文档<span LANG="EN-US" XML:LANG="EN-US">:</SPAN></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">还是上面的例子，这个程序可以这样写：</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">#include</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">#include</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">int main()</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">{</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> char
+str[] = "wangyucao1989";</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> char
+newstr[6];</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+//memcpy(newstr,str+4,5);</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+strncpy(newstr,str+4,5);</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+newstr[5] = '\0';</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+printf("%s\n",newstr);</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+return 0;</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">}</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">========================================================</SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">位运算：</SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">运算方法有六种：</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&amp;</SPAN> <span STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑">与运算
+</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">|</SPAN> <span STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑">或运算
+</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">^</SPAN> <span STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑">异或运算
+</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">~</SPAN> <span STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑">非运算<span LANG="EN-US" XML:LANG="EN-US">(</SPAN>求补<span LANG="EN-US" XML:LANG="EN-US">)</SPAN></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&gt;&gt;</SPAN> <span STYLE="font-size:12.0pt; mso-bidi-font-size:11.0pt;font-family:华文细黑">右移运算
+</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&lt;&lt;</SPAN> <span STYLE="font-size:12.0pt; mso-bidi-font-size:11.0pt;font-family:华文细黑">左移运算
+</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">运用这些基本的运算，我们可以解决<span LANG="EN-US" XML:LANG="EN-US">acm</SPAN>所需的各种运算<span LANG="EN-US" XML:LANG="EN-US">,</SPAN>给<span LANG="EN-US" XML:LANG="EN-US">Bit</SPAN>赋<span LANG="EN-US" XML:LANG="EN-US">1</SPAN>，赋<span LANG="EN-US" XML:LANG="EN-US">0</SPAN>，给他的值取反，还有好多段操作。如下：</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">功能<span LANG="EN-US" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+|&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr></SPAN>
+示例<span LANG="EN-US" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+|</SPAN> 位运算</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">-----------------+---------------------+--------------------</SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">去掉最后一位<span LANG="EN-US" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+| (101101-&gt;10110)&nbsp;<wbr>&nbsp;<wbr> | x
+&gt;&gt; 1</SPAN></SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">在最后加一个<span LANG="EN-US" XML:LANG="EN-US">0&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> |
+(101101-&gt;1011010) | x &lt; &lt; 1</SPAN></SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">在最后加一个<span LANG="EN-US" XML:LANG="EN-US">1&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> |
+(101101-&gt;1011011) | x &lt; &lt; 1+1</SPAN></SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">把最后一位变成<span LANG="EN-US" XML:LANG="EN-US">1&nbsp;<wbr> |
+(101100-&gt;101101)&nbsp;<wbr> | x | 1</SPAN></SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">把最后一位变成<span LANG="EN-US" XML:LANG="EN-US">0&nbsp;<wbr> |
+(101101-&gt;101100)&nbsp;<wbr> | x | 1-1</SPAN></SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">最后一位取反<span LANG="EN-US" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+| (101101-&gt;101100)&nbsp;<wbr> | x ^ 1</SPAN></SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">把右数第<span LANG="EN-US" XML:LANG="EN-US">k</SPAN>位变成<span LANG="EN-US" XML:LANG="EN-US">1 |
+(101001-&gt;101101,k=3) | x | (1 &lt; &lt; (k-1))</SPAN></SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">把右数第<span LANG="EN-US" XML:LANG="EN-US">k</SPAN>位变成<span LANG="EN-US" XML:LANG="EN-US">0 |
+(101101-&gt;101001,k=3) | x &amp; ~ (1 &lt; &lt;
+(k-1))</SPAN></SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">右数第<span LANG="EN-US" XML:LANG="EN-US">k</SPAN>位取反<span LANG="EN-US" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> |
+(101001-&gt;101101,k=3) | x ^ (1 &lt;
+&lt; (k-1))</SPAN></SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">取末三位<span LANG="EN-US" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+|
+(1101101-&gt;101)&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+| x &amp; 7</SPAN></SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">取末<span LANG="EN-US" XML:LANG="EN-US">k</SPAN>位<span LANG="EN-US" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+| (1101101-&gt;1101,k=5)&nbsp;<wbr> | x &amp; ((1 &lt; &lt;
+k)-1)</SPAN></SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">取右数第<span LANG="EN-US" XML:LANG="EN-US">k</SPAN>位<span LANG="EN-US" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+|
+(1101101-&gt;1,k=4)&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+| x &gt;&gt; (k-1) &amp; 1</SPAN></SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">把末<span LANG="EN-US" XML:LANG="EN-US">k</SPAN>位变成<span LANG="EN-US" XML:LANG="EN-US">1&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+| (101001-&gt;101111,k=4) | x | (1 &lt;
+&lt; k-1)</SPAN></SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">末<span LANG="EN-US" XML:LANG="EN-US">k</SPAN>位取反<span LANG="EN-US" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+| (101001-&gt;100110,k=4) | x ^ (1 &lt;
+&lt; k-1)</SPAN></SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">把右边连续的<span LANG="EN-US" XML:LANG="EN-US">1</SPAN>变成<span LANG="EN-US" XML:LANG="EN-US">0 |
+(100101111-&gt;100100000) | x &amp; (x+1)</SPAN></SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">把右起第一个<span LANG="EN-US" XML:LANG="EN-US">0</SPAN>变成<span LANG="EN-US" XML:LANG="EN-US">1 |
+(100101111-&gt;100111111) | x | (x+1)</SPAN></SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">把右边连续的<span LANG="EN-US" XML:LANG="EN-US">0</SPAN>变成<span LANG="EN-US" XML:LANG="EN-US">1 |
+(11011000-&gt;11011111)&nbsp;<wbr>&nbsp;<wbr> | x |
+(x-1)</SPAN></SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">取右边连续的<span LANG="EN-US" XML:LANG="EN-US">1&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+&nbsp;<wbr>&nbsp;<wbr>|
+(100101111-&gt;1111)&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+| (x ^ (x+1)) &gt;&gt; 1</SPAN></SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">去掉右起第一个<span LANG="EN-US" XML:LANG="EN-US">1</SPAN>的左边 <span LANG="EN-US" XML:LANG="EN-US">|
+(100101000-&gt;1000)&nbsp;<wbr>&nbsp;<wbr> | x &amp;
+(x ^ (x-1))</SPAN></SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">判断奇数
+<span LANG="EN-US" XML:LANG="EN-US">(x&amp;1)==1</SPAN></SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">判断偶数
+<span LANG="EN-US" XML:LANG="EN-US">(x&amp;1)==0</SPAN></SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">取右边第一个<span LANG="EN-US" XML:LANG="EN-US">1</SPAN>所在位置 <span LANG="EN-US" XML:LANG="EN-US">x&amp;-x</SPAN></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">================================================================</SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">类型转换：</SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">函数名<span LANG="EN-US" XML:LANG="EN-US">: abs</SPAN> 功<span LANG="EN-US" XML:LANG="EN-US">&nbsp;<wbr></SPAN> 能<span LANG="EN-US" XML:LANG="EN-US">:</SPAN> 求整数的绝对值</SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">用<span LANG="EN-US" XML:LANG="EN-US">&nbsp;<wbr></SPAN> 法<span LANG="EN-US" XML:LANG="EN-US">: int abs(int i);</SPAN></SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">程序例<span LANG="EN-US" XML:LANG="EN-US">:</SPAN></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">#include</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">#include</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">int main(void)</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">{</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr> int number = -1234;</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr> printf("number:
+%d&nbsp;<wbr> absolute value: %d\n", number,
+abs(number));</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr> return 0;</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">}</SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">函数名<span LANG="EN-US" XML:LANG="EN-US">: atof</SPAN></SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">功<span LANG="EN-US" XML:LANG="EN-US">&nbsp;<wbr></SPAN> 能<span LANG="EN-US" XML:LANG="EN-US">:</SPAN> 把字符串转换成浮点数</SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">用<span LANG="EN-US" XML:LANG="EN-US">&nbsp;<wbr></SPAN> 法<span LANG="EN-US" XML:LANG="EN-US">: double atof(const char *nptr);</SPAN></SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">程序例<span LANG="EN-US" XML:LANG="EN-US">:</SPAN></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">#include</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">#include</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">int main(void)</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">{</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr> float
+f;</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr> char *str =
+"12345.67";</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr> f =
+atof(str);</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr>
+printf("string = %s float = %f\n", str, f);</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr> return
+0;</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">}</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">函数名<span LANG="EN-US" XML:LANG="EN-US">: atoi</SPAN></SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">功<span LANG="EN-US" XML:LANG="EN-US">&nbsp;<wbr></SPAN> 能<span LANG="EN-US" XML:LANG="EN-US">:</SPAN> 把字符串转换成长整型数</SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">用<span LANG="EN-US" XML:LANG="EN-US">&nbsp;<wbr></SPAN> 法<span LANG="EN-US" XML:LANG="EN-US">: int atoi(const char *nptr);</SPAN></SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">程序例<span LANG="EN-US" XML:LANG="EN-US">:</SPAN></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">#include</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">#include</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">int main(void)</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">{</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr> int
+n;</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr> char *str =
+"12345.67";</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr> n =
+atoi(str);</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr>
+printf("string = %s integer = %d\n", str, n);</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr> return
+0;</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">}</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">函数名<span LANG="EN-US" XML:LANG="EN-US">: atol</SPAN></SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">功<span LANG="EN-US" XML:LANG="EN-US">&nbsp;<wbr></SPAN> 能<span LANG="EN-US" XML:LANG="EN-US">:</SPAN> 把字符串转换成长整型数</SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">用<span LANG="EN-US" XML:LANG="EN-US">&nbsp;<wbr></SPAN> 法<span LANG="EN-US" XML:LANG="EN-US">: long atol(const char *nptr);</SPAN></SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">程序例<span LANG="EN-US" XML:LANG="EN-US">:</SPAN></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">#include</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">#include</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">int main(void)</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">{</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr> long
+l;</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr> char *str =
+"98765432";</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr> l =
+atol(lstr);</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr>
+printf("string = %s integer = %ld\n", str, l);</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr>
+return(0);</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">}</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">===========================================================</SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">其他函数：</SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">函数名<span LANG="EN-US" XML:LANG="EN-US">: bsearch</SPAN></SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">功<span LANG="EN-US" XML:LANG="EN-US">&nbsp;<wbr></SPAN> 能<span LANG="EN-US" XML:LANG="EN-US">:</SPAN> 二分法搜索</SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">用<span LANG="EN-US" XML:LANG="EN-US">&nbsp;<wbr></SPAN> 法<span LANG="EN-US" XML:LANG="EN-US">: void *bsearch(const void *key, const void *base,
+size_t *nelem,&nbsp;<wbr> size_t width, int(*fcmp)(const
+void *, const *));</SPAN></SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">程序例<span LANG="EN-US" XML:LANG="EN-US">:</SPAN></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">#include</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">#include</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">#define NELEMS(arr) (sizeof(arr) /
+sizeof(arr[0]))</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">int numarray[] = {123, 145, 512, 627, 800,
+933};</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">int numeric (const int *p1, const int
+*p2)</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">{</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr> return(*p1 -
+*p2);</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">}</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">int lookup(int key)</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">{</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr> int
+*itemptr;</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr> itemptr =
+bsearch (&amp;key, numarray, NELEMS(numarray),</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+sizeof(int), (int(*)(const void *,const void
+*))numeric);</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr> return
+(itemptr != NULL);</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">}</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">int main(void)</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">{</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr> if
+(lookup(512))</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+printf("512 is in the table.\n");</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr>
+else</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+printf("512 isn't in the table.\n");</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr> return
+0;</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">}</SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">函数名<span LANG="EN-US" XML:LANG="EN-US">: fabs</SPAN></SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">功<span LANG="EN-US" XML:LANG="EN-US">&nbsp;<wbr></SPAN> 能<span LANG="EN-US" XML:LANG="EN-US">:</SPAN> 返回浮点数的绝对值</SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">用<span LANG="EN-US" XML:LANG="EN-US">&nbsp;<wbr></SPAN> 法<span LANG="EN-US" XML:LANG="EN-US">: double fabs(double x);</SPAN></SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">程序例<span LANG="EN-US" XML:LANG="EN-US">:</SPAN></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">#include</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">#include</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">int main(void)</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">{</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr>
+float&nbsp;<wbr> number = -1234.0;</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr>
+printf("number: %f&nbsp;<wbr> absolute value:
+%f\n",</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr> number,
+fabs(number));</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr> return
+0;</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">}</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">函数名<span LANG="EN-US" XML:LANG="EN-US">: fcvt</SPAN></SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">功<span LANG="EN-US" XML:LANG="EN-US">&nbsp;<wbr></SPAN> 能<span LANG="EN-US" XML:LANG="EN-US">:</SPAN> 把一个浮点数转换为字符串</SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">用<span LANG="EN-US" XML:LANG="EN-US">&nbsp;<wbr></SPAN> 法<span LANG="EN-US" XML:LANG="EN-US">: char *fcvt(double value, int ndigit, int *decpt,
+int *sign);</SPAN></SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">程序例<span LANG="EN-US" XML:LANG="EN-US">:</SPAN></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">#include</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">#include</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">#include</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">int main(void)</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">{</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr> char
+*string;</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr> double
+value;</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr> int dec,
+sign;</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr> int ndig =
+10;</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr>
+clrscr();</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr> value =
+9.876;</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr> string =
+ecvt(value, ndig, &amp;dec, &amp;sign);</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr>
+printf("string =
+%s&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+dec = %d \</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+sign = %d\n", string, dec, sign);</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr> value =
+-123.45;</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr> ndig=
+15;</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr> string =
+ecvt(value,ndig,&amp;dec,&amp;sign);</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr>
+printf("string = %s dec = %d sign = %d\n",</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+string, dec, sign);</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr> value =
+0.6789e5;</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr> ndig =
+5;</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr> string =
+ecvt(value,ndig,&amp;dec,&amp;sign);</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr>
+printf("string =
+%s&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+dec = %d\</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+sign = %d\n", string, dec, sign);</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr> return
+0;</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">}</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">函数名<span LANG="EN-US" XML:LANG="EN-US">: gcvt</SPAN></SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">功<span LANG="EN-US" XML:LANG="EN-US">&nbsp;<wbr></SPAN> 能<span LANG="EN-US" XML:LANG="EN-US">:</SPAN> 把浮点数转换成字符串</SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">用<span LANG="EN-US" XML:LANG="EN-US">&nbsp;<wbr></SPAN> 法<span LANG="EN-US" XML:LANG="EN-US">: char *gcvt(double value, int ndigit, char
+*buf);</SPAN></SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">程序例<span LANG="EN-US" XML:LANG="EN-US">:</SPAN></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">#include</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">#include</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">int main(void)</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">{</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr> char
+str[25];</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr> double
+num;</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr> int sig =
+5;</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr> num =
+9.876;</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr> gcvt(num,
+sig, str);</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr>
+printf("string = %s\n", str);</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr> num =
+-123.4567;</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr> gcvt(num,
+sig, str);</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr>
+printf("string = %s\n", str);</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr> num =
+0.678e5;</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr> gcvt(num,
+sig, str);</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr>
+printf("string = %s\n", str);</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr>
+return(0);</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">}</SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">函数名<span LANG="EN-US" XML:LANG="EN-US">: itoa</SPAN></SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">功<span LANG="EN-US" XML:LANG="EN-US">&nbsp;<wbr></SPAN> 能<span LANG="EN-US" XML:LANG="EN-US">:</SPAN> 把一整数转换为字符串</SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">用<span LANG="EN-US" XML:LANG="EN-US">&nbsp;<wbr></SPAN> 法<span LANG="EN-US" XML:LANG="EN-US">: char *itoa(int value, char *string, int
+radix);</SPAN></SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">程序例<span LANG="EN-US" XML:LANG="EN-US">:</SPAN></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">#include</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">#include</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">int main(void)</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">{</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr> int number =
+12345;</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr> char
+string[25];</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr> itoa(number,
+string, 10);</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr>
+printf("integer = %d string = %s\n", number, string);</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr> return
+0;</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">}</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">函数名<span LANG="EN-US" XML:LANG="EN-US">: labs</SPAN></SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">功<span LANG="EN-US" XML:LANG="EN-US">&nbsp;<wbr></SPAN> 能<span LANG="EN-US" XML:LANG="EN-US">:</SPAN> 取长整型绝对值</SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">用<span LANG="EN-US" XML:LANG="EN-US">&nbsp;<wbr></SPAN> 法<span LANG="EN-US" XML:LANG="EN-US">: long labs(long n);</SPAN></SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">程序例<span LANG="EN-US" XML:LANG="EN-US">:</SPAN></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">#include</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">#include</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">int main(void)</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">{</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr> long
+result;</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr> long x =
+-12345678L;</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr> result=
+labs(x);</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr>
+printf("number: %ld abs value: %ld\n",</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+x, result);</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr> return
+0;</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">}</SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">函数名<span LANG="EN-US" XML:LANG="EN-US">: memcpy</SPAN></SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">功<span LANG="EN-US" XML:LANG="EN-US">&nbsp;<wbr></SPAN> 能<span LANG="EN-US" XML:LANG="EN-US">:</SPAN> 从源<span LANG="EN-US" XML:LANG="EN-US">source</SPAN>中拷贝<span LANG="EN-US" XML:LANG="EN-US">n</SPAN>个字节到目标<span LANG="EN-US" XML:LANG="EN-US">destin</SPAN>中</SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">用<span LANG="EN-US" XML:LANG="EN-US">&nbsp;<wbr></SPAN> 法<span LANG="EN-US" XML:LANG="EN-US">: void *memcpy(void *destin, void *source,
+unsigned n);</SPAN></SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">程序例<span LANG="EN-US" XML:LANG="EN-US">:</SPAN></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">#include</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">#include</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">int main(void)</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">{</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr> char src[] =
+"******************************";</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr> char dest[] =
+"abcdefghijlkmnopqrstuvwx<wbr>yz0123456709";</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr> char
+*ptr;</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr>
+printf("destination before memcpy: %s\n", dest);</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr> ptr =
+memcpy(dest, src, strlen(src));</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr> if
+(ptr)</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+printf("destination after memcpy:&nbsp;<wbr> %s\n",
+dest);</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr>
+else</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+printf("memcpy failed\n");</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr> return
+0;</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">}</SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">函数名<span LANG="EN-US" XML:LANG="EN-US">: memset</SPAN></SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">功<span LANG="EN-US" XML:LANG="EN-US">&nbsp;<wbr></SPAN> 能<span LANG="EN-US" XML:LANG="EN-US">:</SPAN> 设置<span LANG="EN-US" XML:LANG="EN-US">s</SPAN>中的所有字节为<span LANG="EN-US" XML:LANG="EN-US">ch,
+s</SPAN>数组的大小由<span LANG="EN-US" XML:LANG="EN-US">n</SPAN>给定</SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">用<span LANG="EN-US" XML:LANG="EN-US">&nbsp;<wbr></SPAN> 法<span LANG="EN-US" XML:LANG="EN-US">: void *memset(void *s, char ch, unsigned
+n);</SPAN></SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">程序例<span LANG="EN-US" XML:LANG="EN-US">:</SPAN></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">#include</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">#include</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">#include</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">int main(void)</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">{</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr> char buffer[]
+= "Hello world\n";</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr>
+printf("Buffer before memset: %s\n", buffer);</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr>
+memset(buffer, '*', strlen(buffer) - 1);</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr>
+printf("Buffer after memset:&nbsp;<wbr> %s\n",
+buffer);</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr> return
+0;</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">}</SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">函数名<span LANG="EN-US" XML:LANG="EN-US">: pow</SPAN> 功<span LANG="EN-US" XML:LANG="EN-US">&nbsp;<wbr></SPAN> 能<span LANG="EN-US" XML:LANG="EN-US">:</SPAN> 指数函数<span LANG="EN-US" XML:LANG="EN-US">(x</SPAN>的<span LANG="EN-US" XML:LANG="EN-US">y</SPAN>次方<span LANG="EN-US" XML:LANG="EN-US">)</SPAN></SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">用<span LANG="EN-US" XML:LANG="EN-US">&nbsp;<wbr></SPAN> 法<span LANG="EN-US" XML:LANG="EN-US">: double pow(double x, double
+y);</SPAN></SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">程序例<span LANG="EN-US" XML:LANG="EN-US">:</SPAN></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">#include</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">#include</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">int main(void)</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">{</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr> double x =
+2.0, y = 3.0;</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr> printf("%lf
+raised to %lf is %lf\n", x, y, pow(x, y));</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr> return
+0;</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">}</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">函数名<span LANG="EN-US" XML:LANG="EN-US">: qsort</SPAN></SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">功<span LANG="EN-US" XML:LANG="EN-US">&nbsp;<wbr></SPAN> 能<span LANG="EN-US" XML:LANG="EN-US">:</SPAN> 使用快速排序例程进行排序</SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">用<span LANG="EN-US" XML:LANG="EN-US">&nbsp;<wbr></SPAN> 法<span LANG="EN-US" XML:LANG="EN-US">: void qsort(void *base, int nelem, int width, int
+(*fcmp)());</SPAN></SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">程序例<span LANG="EN-US" XML:LANG="EN-US">:</SPAN></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">#include</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">#include</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">#include</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">int sort_function( const void *a, const void
+*b);</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">char list[5][4] = { "cat", "car", "cab", "cap",
+"can" };</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">int main(void)</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">{</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr>
+int&nbsp;<wbr> x;</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr> qsort((void
+*)list, 5, sizeof(list[0]), sort_function);</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr> for (x = 0; x
+&lt; 5; x++)</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+printf("%s\n", list[x]);</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr> return
+0;</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">}</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">int sort_function( const void *a, const void
+*b)</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">{</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr> return(
+strcmp(a,b) );</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">}</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">函数名<span LANG="EN-US" XML:LANG="EN-US">: sqrt</SPAN></SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">功<span LANG="EN-US" XML:LANG="EN-US">&nbsp;<wbr></SPAN> 能<span LANG="EN-US" XML:LANG="EN-US">:</SPAN> 计算平方根</SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">用<span LANG="EN-US" XML:LANG="EN-US">&nbsp;<wbr></SPAN> 法<span LANG="EN-US" XML:LANG="EN-US">: double sqrt(double x);</SPAN></SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">程序例<span LANG="EN-US" XML:LANG="EN-US">:</SPAN></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">#include</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">#include</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">int main(void)</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">{</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+double x = 4.0, result;</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+result = sqrt(x);</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+printf("The square root of %lf is %lf\n", x, result);</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+return 0;</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">}</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">========================================================</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">字符串函数：</SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">函数名<span LANG="EN-US" XML:LANG="EN-US">: sscanf</SPAN></SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">功<span LANG="EN-US" XML:LANG="EN-US">&nbsp;<wbr></SPAN> 能<span LANG="EN-US" XML:LANG="EN-US">:</SPAN> 执行从字符串中的格式化输入</SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">用<span LANG="EN-US" XML:LANG="EN-US">&nbsp;<wbr></SPAN> 法<span LANG="EN-US" XML:LANG="EN-US">: int sscanf(char *string, char
+*format[,argument,...]);</SPAN></SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">程序例<span LANG="EN-US" XML:LANG="EN-US">:</SPAN></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">#include</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">#include</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">int main(void)</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">{</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr> char
+label[20];</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr> char
+name[20];</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr> int entries =
+0;</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr> int loop,
+age;</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr> double
+salary;</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr> struct
+Entry_struct</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr> {</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+char&nbsp;<wbr> name[20];</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+int&nbsp;<wbr>&nbsp;<wbr> age;</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+float salary;</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr> }
+entry[20];</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p>&nbsp;<wbr></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr>
+printf("\n\nPlease enter a label for the chart: ");</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr> scanf(" s",
+label);</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr>
+fflush(stdin);&nbsp;<wbr></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p>&nbsp;<wbr></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr> printf("How
+many entries will there be? (less than 20) ");</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr> scanf("%d",
+&amp;entries);</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr>
+fflush(stdin);&nbsp;<wbr>&nbsp;<wbr></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p>&nbsp;<wbr></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr> for
+(loop=0;loop</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr> {</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+printf("Entry %d\n", loop);</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+printf("&nbsp;<wbr> Name&nbsp;<wbr>&nbsp;<wbr>
+: ");</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+scanf("%[A-Za-z]", entry[loop].name);</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+fflush(stdin);&nbsp;<wbr></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p>&nbsp;<wbr></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+printf("&nbsp;<wbr>
+Age&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> :
+");</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+scanf("%d", &amp;entry[loop].age);</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+fflush(stdin);&nbsp;<wbr></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p>&nbsp;<wbr></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+printf("&nbsp;<wbr> Salary : ");</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+scanf("%f", &amp;entry[loop].salary);</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+fflush(stdin);</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr> }</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p>&nbsp;<wbr></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr>
+printf("\nPlease enter your name, age and salary\n");</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr> scanf(" s %d
+%lf", name, &amp;age, &amp;salary);</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p>&nbsp;<wbr></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr>
+printf("\n\nTable %s\n",label);</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr>
+printf("Compiled by %s&nbsp;<wbr> age %d&nbsp;<wbr>
+$.2lf\n", name, age, salary);</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr>
+printf("-----------------------------------------------------\n");</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr> for
+(loop=0;loop</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+printf("M | %-20s | ] | .2lf\n",</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+loop + 1,</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr> entry[loop].name,</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr> entry[loop].age,</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr> entry[loop].salary);</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr>
+printf("-----------------------------------------------------\n");</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr> return
+0;</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">}</SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">函数名<span LANG="EN-US" XML:LANG="EN-US">: stpcpy</SPAN></SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">功<span LANG="EN-US" XML:LANG="EN-US">&nbsp;<wbr></SPAN> 能<span LANG="EN-US" XML:LANG="EN-US">:</SPAN> 拷贝一个字符串到另一个</SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">用<span LANG="EN-US" XML:LANG="EN-US">&nbsp;<wbr></SPAN> 法<span LANG="EN-US" XML:LANG="EN-US">: char *stpcpy(char *destin, char
+*source);</SPAN></SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">程序例<span LANG="EN-US" XML:LANG="EN-US">:</SPAN></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">#include</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">#include</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">int main(void)</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">{</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr> char
+string[10];</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr> char *str1 =
+"abcdefghi";</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr>
+stpcpy(string, str1);</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr>
+printf("%s\n", string);</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr> return
+0;</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">}</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">函数名<span LANG="EN-US" XML:LANG="EN-US">: strcat</SPAN></SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">功<span LANG="EN-US" XML:LANG="EN-US">&nbsp;<wbr></SPAN> 能<span LANG="EN-US" XML:LANG="EN-US">:</SPAN> 字符串拼接函数</SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">用<span LANG="EN-US" XML:LANG="EN-US">&nbsp;<wbr></SPAN> 法<span LANG="EN-US" XML:LANG="EN-US">: char *strcat(char *destin, char
+*source);</SPAN></SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">程序例<span LANG="EN-US" XML:LANG="EN-US">:</SPAN></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">#include</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">#include</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">int main(void)</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">{</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr> char
+destination[25];</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr> char *blank =
+" ", *c = "C++", *Borland = "Borland";</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr>
+strcpy(destination, Borland);</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr>
+strcat(destination, blank);</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr>
+strcat(destination, c);</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr>
+printf("%s\n", destination);</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr> return
+0;</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">}</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">函数名<span LANG="EN-US" XML:LANG="EN-US">: strchr</SPAN></SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">功<span LANG="EN-US" XML:LANG="EN-US">&nbsp;<wbr></SPAN> 能<span LANG="EN-US" XML:LANG="EN-US">:</SPAN> 在一个串中查找给定字符的第一个匹配之处<span LANG="EN-US" XML:LANG="EN-US">\</SPAN></SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">用<span LANG="EN-US" XML:LANG="EN-US">&nbsp;<wbr></SPAN> 法<span LANG="EN-US" XML:LANG="EN-US">: char *strchr(char *str, char
+c);</SPAN></SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">程序例<span LANG="EN-US" XML:LANG="EN-US">:</SPAN></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">#include</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">#include</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">int main(void)</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">{</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> char
+string[15];</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> char
+*ptr, c = 'r';</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+strcpy(string, "This is a string");</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> ptr
+= strchr(string, c);</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> if
+(ptr)</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+printf("The character %c is at position: %d\n", c,
+ptr-string);</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+else</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+printf("The character was not found\n");</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+return 0;</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">}</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">函数名<span LANG="EN-US" XML:LANG="EN-US">: strcmp</SPAN></SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">功<span LANG="EN-US" XML:LANG="EN-US">&nbsp;<wbr></SPAN> 能<span LANG="EN-US" XML:LANG="EN-US">:</SPAN> 串比较</SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">用<span LANG="EN-US" XML:LANG="EN-US">&nbsp;<wbr></SPAN> 法<span LANG="EN-US" XML:LANG="EN-US">: int strcmp(char *str1, char
+*str2);</SPAN></SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">程序例<span LANG="EN-US" XML:LANG="EN-US">:</SPAN></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">#include</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">#include</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">int main(void)</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">{</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> char
+*buf1 = "aaa", *buf2 = "bbb", *buf3 = "ccc";</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> int
+ptr;</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> ptr
+= strcmp(buf2, buf1);</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> if
+(ptr &gt; 0)</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+printf("buffer 2 is greater than buffer 1\n");</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+else</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+printf("buffer 2 is less than buffer 1\n");</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> ptr
+= strcmp(buf2, buf3);</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> if
+(ptr &gt; 0)</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+printf("buffer 2 is greater than buffer 3\n");</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+else</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+printf("buffer 2 is less than buffer 3\n");</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+return 0;</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">}</SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">函数名<span LANG="EN-US" XML:LANG="EN-US">: strcpy</SPAN></SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">功<span LANG="EN-US" XML:LANG="EN-US">&nbsp;<wbr></SPAN> 能<span LANG="EN-US" XML:LANG="EN-US">:</SPAN> 串拷贝用 法<span LANG="EN-US" XML:LANG="EN-US">: char *strcpy(char *str1, char *str2);</SPAN></SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">程序例<span LANG="EN-US" XML:LANG="EN-US">:</SPAN></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">#include</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">#include</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">int main(void)</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">{</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> char
+string[10];</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> char
+*str1 = "abcdefghi";</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+strcpy(string, str1);</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+printf("%s\n", string);</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+return 0;</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">}</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">函数名<span LANG="EN-US" XML:LANG="EN-US">: strrev</SPAN></SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">功<span LANG="EN-US" XML:LANG="EN-US">&nbsp;<wbr></SPAN> 能<span LANG="EN-US" XML:LANG="EN-US">:</SPAN> 串倒转用 法<span LANG="EN-US" XML:LANG="EN-US">: char *strrev(char *str);</SPAN></SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">程序例<span LANG="EN-US" XML:LANG="EN-US">:</SPAN></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">#include</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">#include</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">int main(void)</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">{</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr> char *forward
+= "string";</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr>
+printf("Before strrev(): %s\n", forward);</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr>
+strrev(forward);</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr> printf("After
+strrev():&nbsp;<wbr> %s\n", forward);</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr> return
+0;</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">}</SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">函数名<span LANG="EN-US" XML:LANG="EN-US">: strset</SPAN></SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">功<span LANG="EN-US" XML:LANG="EN-US">&nbsp;<wbr></SPAN> 能<span LANG="EN-US" XML:LANG="EN-US">:</SPAN> 将一个串中的所有字符都设为指定字符</SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">用<span LANG="EN-US" XML:LANG="EN-US">&nbsp;<wbr></SPAN> 法<span LANG="EN-US" XML:LANG="EN-US">: char *strset(char *str, char
+c);</SPAN></SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">程序例<span LANG="EN-US" XML:LANG="EN-US">:</SPAN></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">#include</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">#include</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">int main(void)</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">{</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr> char
+string[10] = "123456789";</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr> char symbol =
+'c';</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr>
+printf("Before strset(): %s\n", string);</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>
+&nbsp;<wbr>strset(string, symbol);</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr> printf("After
+strset():&nbsp;<wbr> %s\n", string);</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr> return
+0;</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">}</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">函数名<span LANG="EN-US" XML:LANG="EN-US">: strstr</SPAN></SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">功<span LANG="EN-US" XML:LANG="EN-US">&nbsp;<wbr></SPAN> 能<span LANG="EN-US" XML:LANG="EN-US">:</SPAN> 在串中查找指定字符串的第一次出现</SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">用<span LANG="EN-US" XML:LANG="EN-US">&nbsp;<wbr></SPAN> 法<span LANG="EN-US" XML:LANG="EN-US">: char *strstr(char *str1, char
+*str2);</SPAN></SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">程序例<span LANG="EN-US" XML:LANG="EN-US">:</SPAN></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">#include</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">#include</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">int main(void)</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">{</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr> char *str1 =
+"Borland International", *str2 = "nation", *ptr;</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr> ptr =
+strstr(str1, str2);</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr> printf("The
+substring is: %s\n", ptr);</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr> return
+0;</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">}</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">函数名<span LANG="EN-US" XML:LANG="EN-US">: strtod</SPAN></SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">功<span LANG="EN-US" XML:LANG="EN-US">&nbsp;<wbr></SPAN> 能<span LANG="EN-US" XML:LANG="EN-US">:</SPAN> 将字符串转换为<span LANG="EN-US" XML:LANG="EN-US">double</SPAN>型值</SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">用<span LANG="EN-US" XML:LANG="EN-US">&nbsp;<wbr></SPAN> 法<span LANG="EN-US" XML:LANG="EN-US">: double strtod(char *str, char
+**endptr);</SPAN></SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">程序例<span LANG="EN-US" XML:LANG="EN-US">:</SPAN></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">#include</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">#include</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">int main(void)</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">{</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr> char
+input[80], *endptr;</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr> double
+value;</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr> printf("Enter
+a floating point number:");</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr>
+gets(input);</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr> value =
+strtod(input, &amp;endptr);</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr> printf("The
+string is %s the number is %lf\n", input, value);</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr> return
+0;</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">}</SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">函数名<span LANG="EN-US" XML:LANG="EN-US">: strtol</SPAN></SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">功<span LANG="EN-US" XML:LANG="EN-US">&nbsp;<wbr></SPAN> 能<span LANG="EN-US" XML:LANG="EN-US">:</SPAN> 将串转换为长整数</SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">用<span LANG="EN-US" XML:LANG="EN-US">&nbsp;<wbr></SPAN> 法<span LANG="EN-US" XML:LANG="EN-US">: long strtol(char *str, char **endptr, int
+base);</SPAN></SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">程序例<span LANG="EN-US" XML:LANG="EN-US">:</SPAN></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">#include</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">#include</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">int main(void)</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">{</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr> char *string
+= "87654321", *endptr;</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr> long
+lnumber;</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr> lnumber =
+strtol(string, &amp;endptr, 10);</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr>
+printf("string = %s&nbsp;<wbr> long = %ld\n", string,
+lnumber);</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr> return
+0;</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">}</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">函数名<span LANG="EN-US" XML:LANG="EN-US">: strupr</SPAN></SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">功<span LANG="EN-US" XML:LANG="EN-US">&nbsp;<wbr></SPAN> 能<span LANG="EN-US" XML:LANG="EN-US">:</SPAN> 将串中的小写字母转换为大写字母</SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">用<span LANG="EN-US" XML:LANG="EN-US">&nbsp;<wbr></SPAN> 法<span LANG="EN-US" XML:LANG="EN-US">: char *strupr(char *str);</SPAN></SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">程序例<span LANG="EN-US" XML:LANG="EN-US">:</SPAN></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">#include</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">#include</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">int main(void)</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">{</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr> char *string
+= "abcdefghijklmnopqrstuvwx<wbr>yz", *ptr;</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr> ptr =
+strupr(string);</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr>
+printf("%s\n", ptr);</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr> return
+0;</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">}</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">函数名<span LANG="EN-US" XML:LANG="EN-US">: tolower</SPAN></SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">功<span LANG="EN-US" XML:LANG="EN-US">&nbsp;<wbr></SPAN> 能<span LANG="EN-US" XML:LANG="EN-US">:</SPAN> 把字符转换成小写字母</SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">用<span LANG="EN-US" XML:LANG="EN-US">&nbsp;<wbr></SPAN> 法<span LANG="EN-US" XML:LANG="EN-US">: int tolower(int c);</SPAN></SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">程序例<span LANG="EN-US" XML:LANG="EN-US">:</SPAN></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">#include</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">#include</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">#include</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">int main(void)</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">{</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr> int length,
+i;</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr> char *string
+= "THIS IS A STRING";</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr> length =
+strlen(string);</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr> for (i=0;
+i</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr> {</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+string[i] = tolower(string[i]);</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr> }</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr>
+printf("%s\n",string);</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr> return
+0;</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">}</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">函数名<span LANG="EN-US" XML:LANG="EN-US">: toupper</SPAN></SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">功<span LANG="EN-US" XML:LANG="EN-US">&nbsp;<wbr></SPAN> 能<span LANG="EN-US" XML:LANG="EN-US">:</SPAN> 把字符转换成大写字母</SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">用<span LANG="EN-US" XML:LANG="EN-US">&nbsp;<wbr></SPAN> 法<span LANG="EN-US" XML:LANG="EN-US">: int toupper(int c);</SPAN></SPAN></P>
+<p><span STYLE="font-size:12.0pt;mso-bidi-font-size:11.0pt; font-family:华文细黑">程序例<span LANG="EN-US" XML:LANG="EN-US">:</SPAN></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">#include</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">#include</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">#include</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">int main(void)</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">{</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr> int length,
+i;</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr> char *string
+= "this is a string";</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr> length =
+strlen(string);</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr> for (i=0;
+i</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr> {</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+string[i] = toupper(string[i]);</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr> }</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr>
+printf("%s\n",string);</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr>&nbsp;<wbr> return
+0;</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">}</SPAN></P>
+<p><span LANG="EN-US" STYLE="font-size:12.0pt;mso-bidi-font-size: 11.0pt;font-family:华文细黑" XML:LANG="EN-US">&nbsp;<wbr></SPAN></P>
+</DIV>							
+		</div>
+
+      
+    </div>
+</article>
+
+<!-- 上一页 下一页 -->
+
+
+<nav id="article-nav">
+  
+    <a href="/2014/02/19/%E5%BE%AA%E7%8E%AF%E9%98%9F%E5%88%97/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>上一篇</span>
+      <div class="article-nav-title">
+        
+          循环队列
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2014/02/19/%E6%97%A0%E5%90%91%E5%9B%BE%E7%9A%84%E9%82%BB%E6%8E%A5%E8%A1%A8%E5%88%9B%E5%BB%BA%E4%BB%A5%E5%8F%8A%E5%9B%BE%E7%9A%84%E6%B7%B1%E5%BA%A6%E5%92%8C%E2%80%A6/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>下一篇</span>
+      <div class="article-nav-title">无向图的邻接表创建以及图的深度和…</div>
+    </a>
+  
+</nav>
+
+
+
+<!-- 相关文章 -->
+
+<!--
+
+-->
+
+
+</section>
+      </div>
+      <footer id="footer">
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      
+      &copy;2024<a target="_blank" rel="noopener" href="https://github.com/hanks-zyh"> Hanks</a>版权所有
+      <br/>
+      <a href="https://beian.miit.gov.cn/" target="_blank">豫ICP备2021022347号</a>
+	  </div>
+  </div>
+ <div id="share">
+  <a id="totop" title="" style="display: block;">返回顶部</a>
+ </div>
+</footer>
+
+    </div>
+    
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/jquery.scrollLoading.js"></script>
+
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/ads.js"></script>
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>错误总结（持续更新） | Hanks&#39; Websit</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <script data-ad-client="ca-pub-8165670162444117" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <meta name="referrer" content="never">
+  <meta name="description" content="首先声明：本人菜鸟。。。   1。在写程序时，我总是爱在 定义一个全局变量 &nbsp;max &nbsp; ，结果程序一直调试正确，，， 后来查了一下，max 是 algorithm 头文件中已经定义的函数， 我把它当做一个变量，来使用，总是出错，后来把max 改成 Max 就OK了（这点是女友指点的，一开始就是没想到是，万分感激女友(*^__^*) 嘻嘻……）。   2.定义很多个大数组">
+<meta property="og:type" content="article">
+<meta property="og:title" content="错误总结（持续更新）">
+<meta property="og:url" content="https://hanks.pub/2013/08/04/%E9%94%99%E8%AF%AF%E6%80%BB%E7%BB%93%EF%BC%88%E6%8C%81%E7%BB%AD%E6%9B%B4%E6%96%B0%EF%BC%89/index.html">
+<meta property="og:site_name" content="Hanks&#39; Websit">
+<meta property="og:description" content="首先声明：本人菜鸟。。。   1。在写程序时，我总是爱在 定义一个全局变量 &nbsp;max &nbsp; ，结果程序一直调试正确，，， 后来查了一下，max 是 algorithm 头文件中已经定义的函数， 我把它当做一个变量，来使用，总是出错，后来把max 改成 Max 就OK了（这点是女友指点的，一开始就是没想到是，万分感激女友(*^__^*) 嘻嘻……）。   2.定义很多个大数组">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2013-08-04T04:39:00.000Z">
+<meta property="article:modified_time" content="2024-02-08T01:29:02.205Z">
+<meta property="article:author" content="Hanks">
+<meta name="twitter:card" content="summary">
+  
+  
+  <link href="https://fonts.googleapis.com/css?family=Fira+Code|Noto+Serif+SC&display=swap" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8165670162444117"
+     crossorigin="anonymous"></script>
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo"></a>
+    <nav id="main-nav">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      
+        <a class="main-nav-link" href="/archives">Archive</a>
+      
+        <a class="main-nav-link" href="/eye-video">Eye</a>
+      
+        <a class="main-nav-link" href="/atom.xml">Rss</a>
+      
+    </nav>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/archives" class="mobile-nav-link">Archive</a>
+  
+    <a href="/eye-video" class="mobile-nav-link">Eye</a>
+  
+    <a href="/atom.xml" class="mobile-nav-link">Rss</a>
+  
+</nav>
+      <div class="outer">
+        <section id="main"><article id="post-错误总结（持续更新）" class="article article-type-post" itemscope
+  itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <header class="article-header">
+      
+      
+  
+    <h1 class="article-title" itemprop="name">
+      错误总结（持续更新）
+    </h1>
+  
+
+      
+    </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+<p><br>
+</p>
+<p><span style="font-family:KaiTi_GB2312; font-size:24px"><strong>首先声明：本人菜鸟。。。</strong></span></p>
+<p><span style="font-family:KaiTi_GB2312; font-size:24px"><strong><br>
+</strong></span></p>
+<p><span style="font-family:KaiTi_GB2312; font-size:24px"><strong>1。在写程序时，我总是爱在 定义一个全局变量 &nbsp;max &nbsp; ，结果程序一直调试正确，，，</strong></span></p>
+<p><span style="font-family:KaiTi_GB2312; font-size:24px"><strong>后来查了一下，max 是 algorithm 头文件中已经定义的函数， 我把它当做一个变量，来使用，总是出错，后来把max 改成 Max 就OK了（这点是女友指点的，一开始就是没想到是，万分感激女友(*^__^*) 嘻嘻……）。</strong></span></p>
+<p><span style="font-family:KaiTi_GB2312; font-size:24px"><strong><br>
+</strong></span></p>
+<p><span style="font-family:KaiTi_GB2312; font-size:24px"><strong>2.定义很多个大数组时比如说是1000000，可以#define N 1000000；或者 const int N = 1000000；</strong></span></p>
+<p><span style="font-family:KaiTi_GB2312; font-size:24px"><strong>然后定义数组 a[N],b[N]....</strong></span></p>
+<p><span style="font-family:KaiTi_GB2312; font-size:24px"><strong>以前总爱用到一个写一个 ，如果程序<span style="font-family:Tahoma; color:#0800">Runtime Error</span><span style="font-family:Tahoma; color:#0800">(ACCESS_VIOLATION)，</span></strong></span></p>
+<p><span style="font-family:KaiTi_GB2312; font-size:24px"><strong><span>一般需要改数组大小，，结果就悲催的一个一个改，小的话，再改。。。</span></strong></span></p>
+<p><span style="font-family:KaiTi_GB2312; font-size:24px"><strong><span><br>
+</span></strong></span></p>
+<p><span style="font-family:KaiTi_GB2312; font-size:24px"><strong><span>3.尽量把程序里面一块一块的功能分成一个一个的子函数来写，</span></strong></span></p>
+<p><span style="font-family:KaiTi_GB2312; font-size:24px"><strong><span>然后在调用，这样做的好处在于调试程序的时候可以一个功能一个的调试，提高了效率，说道效率，这几天效率一直很低，，，有时候一天也调不对一个程序，整的都快要崩溃了，几乎想放弃，不过在你恍然大悟的那一刻，程序AC 了，然后就又有信心坚持下去了、、</span></strong></span></p>
+<p><span style="font-family:KaiTi_GB2312; font-size:24px"><strong><span><br>
+</span></strong></span></p>
+<p><span style="font-family:KaiTi_GB2312; font-size:24px"><strong><span>4.。还是应该多做总结，发现前面已经弄懂的问题，如果不及时总结的话，还没过几天就忘了，记了个大概，真的用的时候又模糊了，无从下手，，</span></strong></span></p>
+<p><span style="font-family:KaiTi_GB2312; font-size:24px"><strong><span></span></strong></span>&nbsp;</p>
+<p><span style="font-family:KaiTi_GB2312; font-size:24px"><strong><span></span></strong></span>&nbsp;</p>
+<p><span style="font-family:KaiTi_GB2312; font-size:24px"><strong><span>5.全局变量，这几天写的程序都用到全局变量，，然后在写子函数时需要调用，有时候会发现，子函数里面调用了但是不管用，检查一下发现，既然定义了全局变量，就不能再在函数内部定义相同名字的变量了，否则容易出错，</span></strong></span></p>
+<p><span style="font-family:KaiTi_GB2312; font-size:24px"><strong><span></span></strong></span>&nbsp;</p>
+<p><span style="font-family:KaiTi_GB2312; font-size:24px"><strong><span>6，今天又遇到一个错误，直接导致WA ，在使用数组时，每组测试数据都要将数组进行初始化， 递归函数要对第一次调用前初始化。。。。</span></strong></span></p>
+<p><span style="font-family:KaiTi_GB2312; font-size:24px"><strong><span></span></strong></span>&nbsp;</p>
+<p><span style="font-family:KaiTi_GB2312; font-size:24px"><strong><span>7.二维数组访问时的下标问题，，！！</span></strong></span></p>
+<p><br>
+</p>
+<p><span style="font-family:KaiTi_GB2312; font-size:24px"><strong>8、对于int a[N][N]，二维数组，定义到主函数外面，否则N较大时（&gt;1000）容易会出错</strong></span></p>
+<p><strong><span style="font-family:楷体_GB2312; font-size:24px"></span></strong>&nbsp;</p>
+<p><strong><span style="font-family:楷体_GB2312; font-size:24px">9.对于栈，队列，能用数组尽量用数组，时间能减少不少，今天遇到一题，一直用G&#43;&#43;提交超时，后来用C&#43;&#43; 提交则前面几个全部通过。</span></strong></p>
+<p><strong><span style="font-family:楷体_GB2312; font-size:24px"><br>
+</span></strong></p>
+<p><strong><span style="font-family:楷体_GB2312; font-size:24px">10.HDU oj 系统，对于 64位整型 要用__in64,输出用 %I64d</span></strong></p>
+<p><strong><span style="font-family:楷体_GB2312; font-size:24px">不要用long long，可能会出错。。。。</span></strong></p>
+<p><strong><span style="font-family:楷体_GB2312; font-size:24px"></span></strong>&nbsp;</p>
+<p>&nbsp;</p>
+<p><span style="font-family:KaiTi_GB2312; font-size:24px"><strong><span></span></strong></span>&nbsp;</p>
+<p><span style="font-family:KaiTi_GB2312; font-size:24px"><strong><span></span></strong></span>&nbsp;</p>
+
+      
+    </div>
+</article>
+
+<!-- 上一页 下一页 -->
+
+
+<nav id="article-nav">
+  
+    <a href="/2013/08/04/HDU_%E9%A2%98%E7%9B%AE3791_%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>上一篇</span>
+      <div class="article-nav-title">
+        
+          HDU 题目3791 二叉搜索树
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2013/08/04/HDU_%E9%A2%98%E7%9B%AE1698_Just_a_Hook%EF%BC%88%E7%BA%BF%E6%AE%B5%E6%A0%91%EF%BC%89/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>下一篇</span>
+      <div class="article-nav-title">HDU 题目1698 Just a Hook（线段树）</div>
+    </a>
+  
+</nav>
+
+
+
+<!-- 相关文章 -->
+
+<!--
+
+-->
+
+
+</section>
+      </div>
+      <footer id="footer">
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      
+      &copy;2024<a target="_blank" rel="noopener" href="https://github.com/hanks-zyh"> Hanks</a>版权所有
+      <br/>
+      <a href="https://beian.miit.gov.cn/" target="_blank">豫ICP备2021022347号</a>
+	  </div>
+  </div>
+ <div id="share">
+  <a id="totop" title="" style="display: block;">返回顶部</a>
+ </div>
+</footer>
+
+    </div>
+    
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/jquery.scrollLoading.js"></script>
+
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/ads.js"></script>
+
+  </div>
+</body>
+</html>

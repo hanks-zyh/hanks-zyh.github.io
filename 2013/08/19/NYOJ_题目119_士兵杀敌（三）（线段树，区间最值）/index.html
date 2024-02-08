@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>NYOJ 题目119 士兵杀敌（三）（线段树，区间最值） | Hanks&#39; Websit</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <script data-ad-client="ca-pub-8165670162444117" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <meta name="referrer" content="never">
+  <meta name="description" content="士兵杀敌（三） 时间限制：2000 ms &nbsp;|&nbsp; 内存限制：65535 KB  难度：5  描述  南将军统率着N个士兵，士兵分别编号为1~N,南将军经常爱拿某一段编号内杀敌数最高的人与杀敌数最低的人进行比较，计算出两个人的杀敌数差&#20540;，用这种方法一方面能鼓舞杀敌数高的人，另一方面也算是批评杀敌数低的人，起到了很好的效果。 所以，南将军经常问军师小工第i号士兵到">
+<meta property="og:type" content="article">
+<meta property="og:title" content="NYOJ 题目119 士兵杀敌（三）（线段树，区间最值）">
+<meta property="og:url" content="https://hanks.pub/2013/08/19/NYOJ_%E9%A2%98%E7%9B%AE119_%E5%A3%AB%E5%85%B5%E6%9D%80%E6%95%8C%EF%BC%88%E4%B8%89%EF%BC%89%EF%BC%88%E7%BA%BF%E6%AE%B5%E6%A0%91%EF%BC%8C%E5%8C%BA%E9%97%B4%E6%9C%80%E5%80%BC%EF%BC%89/index.html">
+<meta property="og:site_name" content="Hanks&#39; Websit">
+<meta property="og:description" content="士兵杀敌（三） 时间限制：2000 ms &nbsp;|&nbsp; 内存限制：65535 KB  难度：5  描述  南将军统率着N个士兵，士兵分别编号为1~N,南将军经常爱拿某一段编号内杀敌数最高的人与杀敌数最低的人进行比较，计算出两个人的杀敌数差&#20540;，用这种方法一方面能鼓舞杀敌数高的人，另一方面也算是批评杀敌数低的人，起到了很好的效果。 所以，南将军经常问军师小工第i号士兵到">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2013-08-19T14:12:00.000Z">
+<meta property="article:modified_time" content="2024-02-08T01:29:02.174Z">
+<meta property="article:author" content="Hanks">
+<meta name="twitter:card" content="summary">
+  
+  
+  <link href="https://fonts.googleapis.com/css?family=Fira+Code|Noto+Serif+SC&display=swap" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8165670162444117"
+     crossorigin="anonymous"></script>
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo"></a>
+    <nav id="main-nav">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      
+        <a class="main-nav-link" href="/archives">Archive</a>
+      
+        <a class="main-nav-link" href="/eye-video">Eye</a>
+      
+        <a class="main-nav-link" href="/atom.xml">Rss</a>
+      
+    </nav>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/archives" class="mobile-nav-link">Archive</a>
+  
+    <a href="/eye-video" class="mobile-nav-link">Eye</a>
+  
+    <a href="/atom.xml" class="mobile-nav-link">Rss</a>
+  
+</nav>
+      <div class="outer">
+        <section id="main"><article id="post-NYOJ_题目119_士兵杀敌（三）（线段树，区间最值）" class="article article-type-post" itemscope
+  itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <header class="article-header">
+      
+      
+  
+    <h1 class="article-title" itemprop="name">
+      NYOJ 题目119 士兵杀敌（三）（线段树，区间最值）
+    </h1>
+  
+
+      
+    </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+<h4 class="problem-display"></h4>
+<h2 class="problem-display" align="center"><span style="color:#3366ff">士兵杀敌（三）</span></h2>
+<div class="problem-ins" align="center"><span style="color:#33cc00">时间限制：<span id="problem[time_limit]" class="editable highlight">2000</span> ms &nbsp;|&nbsp; 内存限制：<span id="problem[memory_limit]" class="editable highlight">65535</span> KB
+</span></div>
+<div class="problem-ins" align="center"><span style="color:#33cc00">难度：<span class="editable highlight">5</span></span></div>
+<div class="clr"></div>
+<dl class="problem-display"><dt>描述 </dt><dd>
+<p>南将军统率着N个士兵，士兵分别编号为1~N,南将军经常爱拿某一段编号内杀敌数最高的人与杀敌数最低的人进行比较，计算出两个人的杀敌数差&#20540;，用这种方法一方面能鼓舞杀敌数高的人，另一方面也算是批评杀敌数低的人，起到了很好的效果。</p>
+<p>所以，南将军经常问军师小工第i号士兵到第j号士兵中，杀敌数最高的人与杀敌数最低的人之间军功差&#20540;是多少。</p>
+<p>现在，请你写一个程序，帮小工回答南将军每次的询问吧。</p>
+<p>注意，南将军可能询问很多次。</p>
+<div class="clr"></div>
+<dl class="others"><dt>输入 </dt><dd>只有一组测试数据<br>
+第一行是两个整数N,Q，其中N表示士兵的总数。Q表示南将军询问的次数。(1&lt;N&lt;=100000,1&lt;Q&lt;=1000000)<br>
+随后的一行有N个整数Vi(0&lt;=Vi&lt;100000000)，分别表示每个人的杀敌数。<br>
+再之后的Q行，每行有两个正正数m,n，表示南将军询问的是第m号士兵到第n号士兵。 </dd><dt>输出 </dt><dd>对于每次询问，输出第m号士兵到第n号士兵之间所有士兵杀敌数的最大&#20540;与最小&#20540;的差。 </dd><dt>样例输入 </dt><dd>
+<pre id="sample_input">5 2
+1 2 6 9 3
+1 2
+2 4</pre>
+</dd><dt>样例输出 </dt><dd>
+<pre id="sample_output">1
+7</pre>
+</dd></dl>
+</dd></dl>
+<p>还可以用RMQ（目前还不会），</p>
+<p>这是线段树做的。。时间空间复杂度大，</p>
+<dl></dl>
+<p>注意求最大最小&#20540;。。。。</p>
+<p>&nbsp;</p>
+<pre class="cpp" name="code"> 
+/********************** 
+2013-8-19 18:35:49 
+Time: 500MS  Memory: 7180K 
+Author: zyh
+Status: Accepted
+**********************/ 
+#define N 100010
+#define MAX(a,b) (a)&gt;(b)?(a):(b)
+#define MIN(a,b) (a)&lt;(b)?(a):(b)
+#include&lt;iostream&gt;
+#include&lt;stdio.h&gt;
+#include&lt;string.h&gt;
+#include&lt;stdlib.h&gt;
+#include&lt;algorithm&gt;
+
+using namespace std;
+
+struct IntervalTree{
+	int  L,R;
+	int  max,min;
+}tree[N*4];
+
+int aa[N];
+
+void build(int p,int l,int r){
+	
+	tree[p].L = l; tree[p].R = r;
+	tree[p].max = -1;
+	tree[p].min = 100000010;
+	if(l==r) {
+		tree[p].max = aa[l];
+		tree[p].min = aa[l];
+		return ;
+	}
+	int mid = (l+r)&gt;&gt;1;
+	
+	build(p&lt;&lt;1,l,mid);
+	build(p&lt;&lt;1|1,mid+1,r);
+
+	tree[p].max = MAX(tree[p&lt;&lt;1].max,tree[p&lt;&lt;1|1].max);
+	tree[p].min = MIN(tree[p&lt;&lt;1].min,tree[p&lt;&lt;1|1].min);
+}
+
+
+
+int Max,Min;
+void query(int  p,int  l,int  r){
+	
+	if( l == tree[p].L &amp;&amp; r == tree[p].R ){
+	
+		if(tree[p].max&gt;Max) Max = tree[p].max;
+		if(tree[p].min&lt;Min) Min = tree[p].min;
+		return ;
+	}
+
+	int  mid = (tree[p].L + tree[p].R)&gt;&gt;1;
+	
+	if(r&lt;=mid)	 query(p&lt;&lt;1,l,r);
+	else if(l&gt;mid)	query(p&lt;&lt;1|1,l,r);
+	else{	
+		query(p&lt;&lt;1,l,mid);
+		query(p&lt;&lt;1|1,mid+1,r);	
+	}
+}
+
+int main()
+{
+	int n,m,i,a,b;	
+	char s[2];
+	scanf(&quot;%d%d&quot;,&amp;n,&amp;m);
+	for(i=1;i&lt;=n;i++) scanf(&quot;%d&quot;,&amp;aa[i]);
+	build(1,1,n);
+
+	while(m--){
+			scanf(&quot;%d%d&quot;,&amp;a,&amp;b);
+			Min = 100000010; Max = -1;
+			query(1,a,b);
+			printf(&quot;%d\n&quot;,Max-Min);//一开始用的longlong输出，“%lld”，后来忘改了，导致WA好几次不解
+	}
+	
+	return 0;
+}         </pre>
+<p><br>
+&nbsp;</p>
+<p>&nbsp;</p>
+
+      
+    </div>
+</article>
+
+<!-- 上一页 下一页 -->
+
+
+<nav id="article-nav">
+  
+    <a href="/2013/08/20/hdu_%E9%A2%98%E7%9B%AE1596_find_the_safest_road_%EF%BC%88%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84_dijkstra%EF%BC%89/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>上一篇</span>
+      <div class="article-nav-title">
+        
+          hdu 题目1596 find the safest road （最短路径 dijkstra）
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2013/08/19/poj_%E9%A2%98%E7%9B%AE3468_A_Simple_Problem_with_Integers_%EF%BC%88%E7%BA%BF%E6%AE%B5%E6%A0%91%EF%BC%89/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>下一篇</span>
+      <div class="article-nav-title">poj 题目3468 A Simple Problem with Integers （线段树）</div>
+    </a>
+  
+</nav>
+
+
+
+<!-- 相关文章 -->
+
+<!--
+
+-->
+
+
+</section>
+      </div>
+      <footer id="footer">
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      
+      &copy;2024<a target="_blank" rel="noopener" href="https://github.com/hanks-zyh"> Hanks</a>版权所有
+      <br/>
+      <a href="https://beian.miit.gov.cn/" target="_blank">豫ICP备2021022347号</a>
+	  </div>
+  </div>
+ <div id="share">
+  <a id="totop" title="" style="display: block;">返回顶部</a>
+ </div>
+</footer>
+
+    </div>
+    
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/jquery.scrollLoading.js"></script>
+
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/ads.js"></script>
+
+  </div>
+</body>
+</html>

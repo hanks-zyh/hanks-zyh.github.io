@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>OJ 系统 C++ 与 G++ 提交时。。。 | Hanks&#39; Websit</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <script data-ad-client="ca-pub-8165670162444117" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <meta name="referrer" content="never">
+  <meta name="description" content="百度搜索整理 oj 中G&#43;&#43;和C&#43;&#43;区别 1、输出double类型时，如果采用G&#43;&#43;提交，scanf采用%lf,prinf采用%f，否则会报错   2、使用GCC&#x2F;G&#43;&#43;的提醒:    对于64位整数, long long int 和 __int64 都是支持并且等价的.但是在读和写的时候只支持scanf(&quot;% I64d&amp;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="OJ 系统 C++ 与 G++ 提交时。。。">
+<meta property="og:url" content="https://hanks.pub/2013/08/11/OJ_%E7%B3%BB%E7%BB%9F_C___%E4%B8%8E_G___%E6%8F%90%E4%BA%A4%E6%97%B6%E3%80%82%E3%80%82%E3%80%82/index.html">
+<meta property="og:site_name" content="Hanks&#39; Websit">
+<meta property="og:description" content="百度搜索整理 oj 中G&#43;&#43;和C&#43;&#43;区别 1、输出double类型时，如果采用G&#43;&#43;提交，scanf采用%lf,prinf采用%f，否则会报错   2、使用GCC&#x2F;G&#43;&#43;的提醒:    对于64位整数, long long int 和 __int64 都是支持并且等价的.但是在读和写的时候只支持scanf(&quot;% I64d&amp;">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2013-08-11T06:15:00.000Z">
+<meta property="article:modified_time" content="2024-02-08T01:29:02.177Z">
+<meta property="article:author" content="Hanks">
+<meta name="twitter:card" content="summary">
+  
+  
+  <link href="https://fonts.googleapis.com/css?family=Fira+Code|Noto+Serif+SC&display=swap" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8165670162444117"
+     crossorigin="anonymous"></script>
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo"></a>
+    <nav id="main-nav">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      
+        <a class="main-nav-link" href="/archives">Archive</a>
+      
+        <a class="main-nav-link" href="/eye-video">Eye</a>
+      
+        <a class="main-nav-link" href="/atom.xml">Rss</a>
+      
+    </nav>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/archives" class="mobile-nav-link">Archive</a>
+  
+    <a href="/eye-video" class="mobile-nav-link">Eye</a>
+  
+    <a href="/atom.xml" class="mobile-nav-link">Rss</a>
+  
+</nav>
+      <div class="outer">
+        <section id="main"><article id="post-OJ_系统_C___与_G___提交时。。。" class="article article-type-post" itemscope
+  itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <header class="article-header">
+      
+      
+  
+    <h1 class="article-title" itemprop="name">
+      OJ 系统 C++ 与 G++ 提交时。。。
+    </h1>
+  
+
+      
+    </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+<p style="text-align:center"><strong><span style="font-size:24px; color:#3333ff">百度搜索整理</span></strong></p>
+<h2>oj 中G&#43;&#43;和C&#43;&#43;区别</h2>
+<span style="font-family:SimSun; font-size:14px">1、输出double类型时，如果采用G&#43;&#43;提交，scanf采用%lf,prinf采用%f，否则会报错<br>
+<br>
+<br>
+2、使用GCC/G&#43;&#43;的提醒:<br>
+<br>
+<br>
+</span>
+<blockquote style="margin:0 0 0 40px; border:none; padding:0px"><span style="font-family:SimSun; font-size:14px">对于64位整数, long long int 和 __int64 都是支持并且等价的.但是在读和写的时候只支持scanf(&quot;%<br>
+</span><span style="font-family:SimSun; font-size:14px">I64d&quot;, ...)和printf(&quot;%I64d&quot;, ...).<br>
+</span><span style="font-family:SimSun; font-size:14px">不支持&quot;%lld&quot;是因为MinGW下的GCC和G&#43;&#43;使用的msvcrt.dll动态链接库并不支持C99标准.<br>
+</span><span style="font-family:SimSun; font-size:14px">根据ISO C&#43;&#43;标准,在G&#43;&#43;下,main函数的返回&#20540;必须是int,否则将会导致Compile Error(编译错误)的判答</span></blockquote>
+<span style="font-family:SimSun; font-size:14px"><br>
+<br>
+3、G&#43;&#43;/GCC使用scanf、printf时注意引用&lt;stdio.h&gt;，只引用&lt;iostream&gt;不识别<br>
+<br>
+<br>
+4、GCC/G&#43;&#43; 用的是MinGW的编译器 &nbsp;，C/C&#43;&#43; 用的是VC的编译器<br>
+<br>
+</span>
+<blockquote style="margin:0 0 0 40px; border:none; padding:0px"><span style="font-family:SimSun; font-size:14px">有细节区别<br>
+</span><span style="font-family:SimSun; font-size:14px">比如MinGW的iostream不包含printf但VC包含<br>
+</span><span style="font-family:SimSun; font-size:14px">VC有&gt;?=运算符但MinGW没有</span></blockquote>
+<br>
+<br>
+<h2><br>
+C&#43;&#43;64位整型</h2>
+<br>
+在做ACM题时，经常都会遇到一些比较大的整数。而常用的内置整数类型常常显得太小了：其中long 和 int 范围是[-2^31,2^31)，即-2147483648~2147483647。而unsigned范围是[0,2^32)，即0~4294967295。也就是说，常规的32位整数只能够处理40亿以下的数。<br>
+　　那遇到比40亿要大的数怎么办呢？这时就要用到C&#43;&#43;的64位扩展了。不同的编译器对64位整数的扩展有所不同。基于ACM的需要，下面仅介绍VC6.0与g&#43;&#43;编译器的扩展。<br>
+　　VC的64位整数分别叫做__int64与unsigned __int64，其范围分别是[-2^63, 2^63)与[0,2^64)，即-9223372036854775808~9223372036854775807与0~18446744073709551615(约1800亿亿)。对64位整数的运算与32位整数基本相同，都支持四则运算与位运算等。当进行64位与32位的混合运算时，32位整数会被隐式转换成64位整数。但是，VC的输入输出与__int64的兼容就不是很好了，如果你写下这样一段代码：<br>
+1 __int64 a;<br>
+2 cin &gt;&gt; a;<br>
+3 cout &lt;&lt; a;<br>
+<br>
+<br>
+那么，在第2行会收到“error C2679: binary '&gt;&gt;' : no operator defined which takes a right-hand operand of type '__int64' (or there is no acceptable conversion)”的错误；在第3行会收到“error C2593: 'operator &lt;&lt;' is ambiguous”的错误。那是不是就不能进行输入输出呢？当然不是，你可以使用C的写法：<br>
+scanf(&quot;%I64d&quot;,&amp;a);<br>
+printf(&quot;%I64d&quot;,a);<br>
+就可以正确输入输出了。当使用unsigned __int64时，把&quot;I64d&quot;改为&quot;I64u&quot;就可以了。<br>
+　　OJ通常使用g&#43;&#43;编译器。其64位扩展方式与VC有所不同，它们分别叫做long long 与 unsigned long long。处理规模与除输入输出外的使用方法同上。对于输入输出，它的扩展比VC好。既可以使用<br>
+1 long long a;<br>
+2 cin&gt;&gt;a;<br>
+3 cout&lt;&lt;a;<br>
+也可以使用<br>
+scanf(&quot;%lld&quot;,&amp;a);<br>
+printf(&quot;%lld&quot;,a);<br>
+<br>
+<br>
+<p>使用无符号数时，将&quot;%lld&quot;改成&quot;%llu&quot;即可</p>
+<p><br>
+</p>
+<p><br>
+</p>
+
+      
+    </div>
+</article>
+
+<!-- 上一页 下一页 -->
+
+
+<nav id="article-nav">
+  
+    <a href="/2013/08/11/%E9%A2%98%E7%9B%AE1045_Fire_Net_%EF%BC%88DFS%EF%BC%89/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>上一篇</span>
+      <div class="article-nav-title">
+        
+          题目1045 Fire Net （DFS）
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2013/08/11/hdu_%E9%A2%98%E7%9B%AE1298_T9%EF%BC%88%E5%AD%97%E5%85%B8%E6%A0%91%EF%BC%89/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>下一篇</span>
+      <div class="article-nav-title">hdu 题目1298 T9（字典树）</div>
+    </a>
+  
+</nav>
+
+
+
+<!-- 相关文章 -->
+
+<!--
+
+-->
+
+
+</section>
+      </div>
+      <footer id="footer">
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      
+      &copy;2024<a target="_blank" rel="noopener" href="https://github.com/hanks-zyh"> Hanks</a>版权所有
+      <br/>
+      <a href="https://beian.miit.gov.cn/" target="_blank">豫ICP备2021022347号</a>
+	  </div>
+  </div>
+ <div id="share">
+  <a id="totop" title="" style="display: block;">返回顶部</a>
+ </div>
+</footer>
+
+    </div>
+    
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/jquery.scrollLoading.js"></script>
+
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/ads.js"></script>
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>hdu 题目 1384 Wall（凸包） | Hanks&#39; Websit</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <script data-ad-client="ca-pub-8165670162444117" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <meta name="referrer" content="never">
+  <meta name="description" content="Graham求凸包：https:&#x2F;&#x2F;www.2cto.com&#x2F;kf&#x2F;201301&#x2F;184235.html  &nbsp;  Wall Time Limit: 2000&#x2F;1000 MS (Java&#x2F;Others)&nbsp;&nbsp;&nbsp;&nbsp;Memory Limit: 65536&#x2F;32768 K (Java&#x2F;Others) Total Submission(s): 2497&amp;nb">
+<meta property="og:type" content="article">
+<meta property="og:title" content="hdu 题目 1384 Wall（凸包）">
+<meta property="og:url" content="https://hanks.pub/2013/08/16/hdu_%E9%A2%98%E7%9B%AE_1384_Wall%EF%BC%88%E5%87%B8%E5%8C%85%EF%BC%89/index.html">
+<meta property="og:site_name" content="Hanks&#39; Websit">
+<meta property="og:description" content="Graham求凸包：https:&#x2F;&#x2F;www.2cto.com&#x2F;kf&#x2F;201301&#x2F;184235.html  &nbsp;  Wall Time Limit: 2000&#x2F;1000 MS (Java&#x2F;Others)&nbsp;&nbsp;&nbsp;&nbsp;Memory Limit: 65536&#x2F;32768 K (Java&#x2F;Others) Total Submission(s): 2497&amp;nb">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://acm.hdu.edu.cn/data/images/1348-1.gif">
+<meta property="article:published_time" content="2013-08-16T13:12:00.000Z">
+<meta property="article:modified_time" content="2024-02-08T01:29:02.186Z">
+<meta property="article:author" content="Hanks">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://acm.hdu.edu.cn/data/images/1348-1.gif">
+  
+  
+  <link href="https://fonts.googleapis.com/css?family=Fira+Code|Noto+Serif+SC&display=swap" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8165670162444117"
+     crossorigin="anonymous"></script>
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo"></a>
+    <nav id="main-nav">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      
+        <a class="main-nav-link" href="/archives">Archive</a>
+      
+        <a class="main-nav-link" href="/eye-video">Eye</a>
+      
+        <a class="main-nav-link" href="/atom.xml">Rss</a>
+      
+    </nav>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/archives" class="mobile-nav-link">Archive</a>
+  
+    <a href="/eye-video" class="mobile-nav-link">Eye</a>
+  
+    <a href="/atom.xml" class="mobile-nav-link">Rss</a>
+  
+</nav>
+      <div class="outer">
+        <section id="main"><article id="post-hdu_题目_1384_Wall（凸包）" class="article article-type-post" itemscope
+  itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <header class="article-header">
+      
+      
+  
+    <h1 class="article-title" itemprop="name">
+      hdu 题目 1384 Wall（凸包）
+    </h1>
+  
+
+      
+    </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+<p>Graham求凸包：<a target="_blank" href="https://www.2cto.com/kf/201301/184235.html">https://www.2cto.com/kf/201301/184235.html</a></p>
+<h1 style="font-family:'Times New Roman'; color:rgb(26,92,200); text-align:center">
+&nbsp;</h1>
+<h1 style="font-family:'Times New Roman'; color:rgb(26,92,200); text-align:center">
+Wall</h1>
+<span style="font-family:'Times New Roman'; font-size:14px"><strong><span style="font-family:Arial; font-size:12px; color:green">Time Limit: 2000/1000 MS (Java/Others)&nbsp;&nbsp;&nbsp;&nbsp;Memory Limit: 65536/32768 K (Java/Others)<br>
+Total Submission(s): 2497&nbsp;&nbsp;&nbsp;&nbsp;Accepted Submission(s): 695<br>
+</span></strong></span><br style="font-size:14px; font-family:'Times New Roman'">
+<br style="font-size:14px; font-family:'Times New Roman'">
+<div class="panel_title" align="left" style="font-size:18px; height:38px; font-family:Arial; font-weight:bold; color:rgb(124,169,237); padding-bottom:0px; padding-top:0px; padding-left:14px; padding-right:14px; background-color:transparent">
+Problem Description</div>
+<div class="panel_content" style="font-size:14px; height:auto; font-family:'Times New Roman'; padding-bottom:0px; padding-top:0px; padding-left:20px; margin:0px; padding-right:20px">
+Once upon a time there was a greedy King who ordered his chief Architect to build a wall around the King's castle. The King was so greedy, that he would not listen to his Architect's proposals to build a beautiful brick wall with a perfect shape and nice tall
+ towers. Instead, he ordered to build the wall around the whole castle using the least amount of stone and labor, but demanded that the wall should not come closer to the castle than a certain distance. If the King finds that the Architect has used more resources
+ to build the wall than it was absolutely necessary to satisfy those requirements, then the Architect will loose his head. Moreover, he demanded Architect to introduce at once a plan of the wall listing the exact amount of resources that are needed to build
+ the wall.<br>
+Your task is to help poor Architect to save his head, by writing a program that will find the minimum possible length of the wall that he could build around the castle to satisfy King's requirements.<br>
+<br>
+<center><img alt="" src="https://acm.hdu.edu.cn/data/images/1348-1.gif" style="border-top:medium none; border-right:medium none; border-bottom:medium none; border-left:medium none"></center>
+<br>
+<br>
+The task is somewhat simplified by the fact, that the King's castle has a polygonal shape and is situated on a flat ground. The Architect has already established a Cartesian coordinate system and has precisely measured the coordinates of all castle's vertices
+ in feet.<br>
+</div>
+<div class="panel_bottom" style="font-size:14px; height:auto; font-family:'Times New Roman'; margin:0px">
+&nbsp;</div>
+<br style="font-size:14px; font-family:'Times New Roman'">
+<div class="panel_title" align="left" style="font-size:18px; height:38px; font-family:Arial; font-weight:bold; color:rgb(124,169,237); padding-bottom:0px; padding-top:0px; padding-left:14px; padding-right:14px; background-color:transparent">
+Input</div>
+<div class="panel_content" style="font-size:14px; height:auto; font-family:'Times New Roman'; padding-bottom:0px; padding-top:0px; padding-left:20px; margin:0px; padding-right:20px">
+The first line of the input file contains two integer numbers N and L separated by a space. N (3 &lt;= N &lt;= 1000) is the number of vertices in the King's castle, and L (1 &lt;= L &lt;= 1000) is the minimal number of feet that King allows for the wall to come close to
+ the castle.<br>
+<br>
+Next N lines describe coordinates of castle's vertices in a clockwise order. Each line contains two integer numbers Xi and Yi separated by a space (-10000 &lt;= Xi, Yi &lt;= 10000) that represent the coordinates of ith vertex. All vertices are different and the sides
+ of the castle do not intersect anywhere except for vertices.<br>
+</div>
+<div class="panel_bottom" style="font-size:14px; height:auto; font-family:'Times New Roman'; margin:0px">
+&nbsp;</div>
+<br style="font-size:14px; font-family:'Times New Roman'">
+<div class="panel_title" align="left" style="font-size:18px; height:38px; font-family:Arial; font-weight:bold; color:rgb(124,169,237); padding-bottom:0px; padding-top:0px; padding-left:14px; padding-right:14px; background-color:transparent">
+Output</div>
+<div class="panel_content" style="font-size:14px; height:auto; font-family:'Times New Roman'; padding-bottom:0px; padding-top:0px; padding-left:20px; margin:0px; padding-right:20px">
+Write to the output file the single number that represents the minimal possible length of the wall in feet that could be built around the castle to satisfy King's requirements. You must present the integer number of feet to the King, because the floating numbers
+ are not invented yet. However, you must round the result in such a way, that it is accurate to 8 inches (1 foot is equal to 12 inches), since the King will not tolerate larger error in the estimates.<br>
+<br>
+This problem contains multiple test cases!<br>
+<br>
+The first line of a multiple input is an integer N, then a blank line followed by N input blocks. Each input block is in the format indicated in the problem description. There is a blank line between input blocks.<br>
+<br>
+The output format consists of N output blocks. There is a blank line between output blocks.<br>
+</div>
+<div class="panel_bottom" style="font-size:14px; height:auto; font-family:'Times New Roman'; margin:0px">
+&nbsp;</div>
+<br style="font-size:14px; font-family:'Times New Roman'">
+<div class="panel_title" align="left" style="font-size:18px; height:38px; font-family:Arial; font-weight:bold; color:rgb(124,169,237); padding-bottom:0px; padding-top:0px; padding-left:14px; padding-right:14px; background-color:transparent">
+Sample Input</div>
+<div class="panel_content" style="font-size:14px; height:auto; font-family:'Times New Roman'; padding-bottom:0px; padding-top:0px; padding-left:20px; margin:0px; padding-right:20px">
+<pre style="margin-bottom:0px; margin-top:0px"><div style="font-family:'Courier New',Courier,monospace">1
+
+9 100
+200 400
+300 400
+300 300
+400 300
+400 400
+500 400
+500 200
+350 200
+200 200</div></pre>
+</div>
+<div class="panel_bottom" style="font-size:14px; height:auto; font-family:'Times New Roman'; margin:0px">
+&nbsp;</div>
+<br style="font-size:14px; font-family:'Times New Roman'">
+<div class="panel_title" align="left" style="font-size:18px; height:38px; font-family:Arial; font-weight:bold; color:rgb(124,169,237); padding-bottom:0px; padding-top:0px; padding-left:14px; padding-right:14px; background-color:transparent">
+Sample Output</div>
+<div class="panel_content" style="font-size:14px; height:auto; font-family:'Times New Roman'; padding-bottom:0px; padding-top:0px; padding-left:20px; margin:0px; padding-right:20px">
+<pre style="margin-bottom:0px; margin-top:0px"><div style="font-family:'Courier New',Courier,monospace">1628</div></pre>
+</div>
+<div class="panel_bottom" style="font-size:14px; height:auto; font-family:'Times New Roman'; margin:0px">
+&nbsp;</div>
+<div><br>
+</div>
+<br>
+<p></p>
+<p><span style="font-size:18px">1.寻找凸包的边上的点，求出周长</span></p>
+<p><span style="font-size:18px">2.周长加上 给出的半径的 圆弧和（即一个圆周）</span></p>
+<p><br>
+</p>
+<p><pre class="cpp" name="code">#include&lt;algorithm&gt;
+#include&lt;math.h&gt;
+#include&lt;stdio.h&gt;
+#include&lt;string.h&gt;
+#define PI 3.1415926
+
+using namespace std;
+
+struct point{
+    int x,y;
+}p[1005];
+bool vis[1005];
+
+bool cmp(point a,point b){
+    if(a.x&lt;b.x) return 1;
+    else if(a.x==b.x){
+        if(a.y&lt;b.y) return 1;
+        else return 0;
+    }
+    else return 0;
+}
+double cross(point a,point b,point c){
+    return (b.x-a.x)*(c.y-b.y) - (b.y-a.y)*(c.x-b.x);
+}
+double dis(point A,point B)  
+{  
+    return sqrt((double)((B.x-A.x)*(B.x-A.x)+(B.y-A.y)*(B.y-A.y)));  
+}  
+
+int main(){
+
+
+    int rear,front;
+    int que[10000];
+    int t,n,l,i,temp;
+    scanf(&quot;%d&quot;,&amp;t);
+    while(t--){
+        scanf(&quot;%d%d&quot;,&amp;n,&amp;l);                                 
+        for(i=0;i&lt;n;i++) 
+            scanf(&quot;%d %d&quot;,&amp;p[i].x,&amp;p[i].y);
+    
+        sort(p,p+n,cmp);//排序，找到第一个在凸包上的点 p[0] 
+
+        memset(vis,0,sizeof(vis)); 
+        vis[0]=1;
+        
+        temp =rear = front =0;
+              
+        while(1){
+            
+            int t = -1;
+            for(int j=0;j&lt;n;j++){
+                if(!vis[j]) {
+                    t = j;
+                    break;
+                }               
+            }    
+            if(t==-1) break; //全部访问完毕退出 
+            
+            for(i=0;i&lt;n;i++){
+                if( (cross(p[temp],p[t],p[i])&gt;0 
+                || (cross(p[temp],p[t],p[i])==0 
+                &amp;&amp; dis(p[temp],p[i]) &gt; dis(p[temp],p[t])))){
+                    t = i;
+                }
+            }
+            
+            if(vis[t]) break;
+            que[rear++]= t;
+            vis[t] = 1;
+            temp = t;
+        }
+        
+        que[rear++] = 0;
+        double sum=0;
+        temp = 0; int in;
+        while(front != rear){ //计算凸包边长和
+            in = que[front++];
+            sum += dis(p[in],p[temp]);
+            temp = in;                                    
+        }
+        
+        printf(&quot;%.0f\n&quot;,sum+PI*l*2  );
+        if(t) printf(&quot;\n&quot;);
+    }
+    return 0;
+}   </pre><br>
+<br>
+</p>
+<p></p>
+<p><br>
+</p>
+
+      
+    </div>
+</article>
+
+<!-- 上一页 下一页 -->
+
+
+<nav id="article-nav">
+  
+    <a href="/2013/08/17/hdu_%E9%A2%98%E7%9B%AE2531_Catch_him%EF%BC%88BFS%EF%BC%89/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>上一篇</span>
+      <div class="article-nav-title">
+        
+          hdu 题目2531 Catch him（BFS）
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2013/08/15/hdu_%E9%A2%98%E7%9B%AE1253_%E8%83%9C%E5%88%A9%E5%A4%A7%E9%80%83%E4%BA%A1%EF%BC%88BFS%EF%BC%89/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>下一篇</span>
+      <div class="article-nav-title">hdu 题目1253 胜利大逃亡（BFS）</div>
+    </a>
+  
+</nav>
+
+
+
+<!-- 相关文章 -->
+
+<!--
+
+-->
+
+
+</section>
+      </div>
+      <footer id="footer">
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      
+      &copy;2024<a target="_blank" rel="noopener" href="https://github.com/hanks-zyh"> Hanks</a>版权所有
+      <br/>
+      <a href="https://beian.miit.gov.cn/" target="_blank">豫ICP备2021022347号</a>
+	  </div>
+  </div>
+ <div id="share">
+  <a id="totop" title="" style="display: block;">返回顶部</a>
+ </div>
+</footer>
+
+    </div>
+    
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/jquery.scrollLoading.js"></script>
+
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/ads.js"></script>
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>用Android Studio进行NDK开发(简化流程) | Hanks&#39; Websit</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <script data-ad-client="ca-pub-8165670162444117" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <meta name="referrer" content="never">
+  <meta name="description" content="开发环境Android Studio 1.3 RC3android-ndk-r10e   转载请注明出处 :  https:&#x2F;&#x2F;blog.csdn.net&#x2F;hpu_zyh&#x2F;article&#x2F;details&#x2F;48184581博客主页  |   简书  |  知乎  |  微博  |  github  ###1. 准备NDK环境我这里下载的是android-ndk-r10e进入Android stud">
+<meta property="og:type" content="article">
+<meta property="og:title" content="用Android Studio进行NDK开发(简化流程)">
+<meta property="og:url" content="https://hanks.pub/2015/09/02/%E7%94%A8Android_Studio%E8%BF%9B%E8%A1%8CNDK%E5%BC%80%E5%8F%91(%E7%AE%80%E5%8C%96%E6%B5%81%E7%A8%8B)/index.html">
+<meta property="og:site_name" content="Hanks&#39; Websit">
+<meta property="og:description" content="开发环境Android Studio 1.3 RC3android-ndk-r10e   转载请注明出处 :  https:&#x2F;&#x2F;blog.csdn.net&#x2F;hpu_zyh&#x2F;article&#x2F;details&#x2F;48184581博客主页  |   简书  |  知乎  |  微博  |  github  ###1. 准备NDK环境我这里下载的是android-ndk-r10e进入Android stud">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img.blog.csdn.net/20150902221536713">
+<meta property="og:image" content="https://img.blog.csdn.net/20150902223647139">
+<meta property="og:image" content="https://img.blog.csdn.net/20150902222115560">
+<meta property="og:image" content="https://img.blog.csdn.net/20150902222221488">
+<meta property="og:image" content="https://img.blog.csdn.net/20150902222137395">
+<meta property="og:image" content="https://img.blog.csdn.net/20150902222237008">
+<meta property="og:image" content="https://img.blog.csdn.net/20150902222152383">
+<meta property="article:published_time" content="2015-09-02T14:32:00.000Z">
+<meta property="article:modified_time" content="2024-02-08T01:29:02.202Z">
+<meta property="article:author" content="Hanks">
+<meta property="article:tag" content="Android">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img.blog.csdn.net/20150902221536713">
+  
+  
+  <link href="https://fonts.googleapis.com/css?family=Fira+Code|Noto+Serif+SC&display=swap" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8165670162444117"
+     crossorigin="anonymous"></script>
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo"></a>
+    <nav id="main-nav">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      
+        <a class="main-nav-link" href="/archives">Archive</a>
+      
+        <a class="main-nav-link" href="/eye-video">Eye</a>
+      
+        <a class="main-nav-link" href="/atom.xml">Rss</a>
+      
+    </nav>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/archives" class="mobile-nav-link">Archive</a>
+  
+    <a href="/eye-video" class="mobile-nav-link">Eye</a>
+  
+    <a href="/atom.xml" class="mobile-nav-link">Rss</a>
+  
+</nav>
+      <div class="outer">
+        <section id="main"><article id="post-用Android_Studio进行NDK开发(简化流程)" class="article article-type-post" itemscope
+  itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <header class="article-header">
+      
+      
+  
+    <h1 class="article-title" itemprop="name">
+      用Android Studio进行NDK开发(简化流程)
+    </h1>
+  
+
+      
+    </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      <blockquote>
+<p>开发环境<br><strong>Android Studio 1.3 RC3</strong><br><strong>android-ndk-r10e</strong></p>
+</blockquote>
+<blockquote>
+<p>转载请注明出处 :  <a target="_blank" rel="noopener" href="https://blog.csdn.net/hpu_zyh/article/details/48184581">https://blog.csdn.net/hpu_zyh/article/details/48184581</a><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/hpu_zyh">博客主页</a>  |   <a target="_blank" rel="noopener" href="https://www.jianshu.com/users/3e9f552e6ba7">简书</a>  |  <a target="_blank" rel="noopener" href="https://www.zhihu.com/people/yuhan-zhang-36">知乎</a>  |  <a target="_blank" rel="noopener" href="https://weibo.com/u/2359002991">微博</a>  |  <a target="_blank" rel="noopener" href="https://github.com/hanks-zyh">github</a></p>
+</blockquote>
+<p>###1. 准备NDK环境<br>我这里下载的是<code>android-ndk-r10e</code><br>进入Android studio 的 <code>Project Structure</code>-&gt;<code>SDK location</code> -&gt; <code>Android NDK location</code>, 设置<strong>android-ndk-r10e</strong>的路径, 配置好即可进行开发了(就是这么简单)<br><img src="https://img.blog.csdn.net/20150902221536713" alt="这里写图片描述"></p>
+<p>###2. NDK开发<br>####创建工程,配置NDK<br>在Android studio中创建一个新的Android项目, 修改项目下的<code>build.gradle</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">apply plugin: &#x27;com.android.application&#x27;</span><br><span class="line"></span><br><span class="line">android &#123;</span><br><span class="line">    compileSdkVersion 22</span><br><span class="line">    buildToolsVersion &quot;23.0.0 rc2&quot;</span><br><span class="line"></span><br><span class="line">    defaultConfig &#123;</span><br><span class="line">        applicationId &quot;hanks.com.hkjni&quot;</span><br><span class="line">        minSdkVersion 15</span><br><span class="line">        targetSdkVersion 22</span><br><span class="line">        versionCode 1</span><br><span class="line">        versionName &quot;1.0&quot;</span><br><span class="line"></span><br><span class="line">        ndk&#123;</span><br><span class="line">            moduleName &quot;hkjni&quot;   //生成的so名字</span><br><span class="line">            abiFilters &quot;armeabi&quot;, &quot;armeabi-v7a&quot;, &quot;x86&quot;  //输出指定三种abi体系结构下的so库。</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    buildTypes &#123;</span><br><span class="line">        release &#123;</span><br><span class="line">            minifyEnabled false</span><br><span class="line">            proguardFiles getDefaultProguardFile(&#x27;proguard-android.txt&#x27;), &#x27;proguard-rules.pro&#x27;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">dependencies &#123;</span><br><span class="line">    compile fileTree(dir: &#x27;libs&#x27;, include: [&#x27;*.jar&#x27;])</span><br><span class="line">    compile &#x27;com.android.support:appcompat-v7:22.2.0&#x27;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>编写 	<code>MainActivity</code><br><img src="https://img.blog.csdn.net/20150902223647139" alt="这里写图片描述"></p>
+<p>在<code>src\main</code>目录下创建 <code>jni</code>目录<br>创建需要调用的 <code>c语言</code>文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">#include &quot;jni.h&quot;</span><br><span class="line"></span><br><span class="line">JNIEXPORT jstring JNICALL Java_hanks_com_hkjni_MainActivity_getHello (JNIEnv * env , jobject obj)&#123;</span><br><span class="line">    char * str = &quot;from hkcode&quot;;</span><br><span class="line">    return (*env)-&gt;NewStringUTF(env,str);</span><br><span class="line">    //如果不知道这个方法名怎么写可以通过 javah 生成</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="https://img.blog.csdn.net/20150902222115560" alt="这里写图片描述"></p>
+<p><img src="https://img.blog.csdn.net/20150902222221488" alt="这里写图片描述"></p>
+<p><strong>下面就可以直接运行了!!!(感觉比以前轻松好多啊)</strong></p>
+<p>   如果不知道这个方法名怎么写可以通过 <strong>javah</strong>命令 生成,然后<strong>复制</strong>即可, 知道命名规则的话直接编写 .c 文件也可以<br>   <img src="https://img.blog.csdn.net/20150902222137395" alt="这里写图片描述"></p>
+<p><img src="https://img.blog.csdn.net/20150902222237008" alt="这里写图片描述">   </p>
+<hr>
+<p>以前用Eclipse还有编辑 <code>Android.mk</code>文件,现在Android studio 自动生成了</p>
+<p><img src="https://img.blog.csdn.net/20150902222152383" alt="这里写图片描述"></p>
+
+      
+    </div>
+</article>
+
+<!-- 上一页 下一页 -->
+
+
+<nav id="article-nav">
+  
+    <a href="/2015/09/14/Gradle_in_Android_Studio_(1)_-_%E6%9E%84%E5%BB%BA%E7%B3%BB%E7%BB%9F%E6%A6%82%E8%BF%B0/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>上一篇</span>
+      <div class="article-nav-title">
+        
+          Gradle in Android Studio (1) - 构建系统概述
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/08/29/%E6%8F%90%E9%AB%98%E6%95%88%E7%8E%87_Emmet.vim/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>下一篇</span>
+      <div class="article-nav-title">提高效率 Emmet.vim</div>
+    </a>
+  
+</nav>
+
+
+
+<!-- 相关文章 -->
+
+<!--
+
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+      			<a href="/2015/09/02/%E7%94%A8Android_Studio%E8%BF%9B%E8%A1%8CNDK%E5%BC%80%E5%8F%91(%E7%AE%80%E5%8C%96%E6%B5%81%E7%A8%8B)/">用Android Studio进行NDK开发(简化流程)</a>
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+
+-->
+
+
+</section>
+      </div>
+      <footer id="footer">
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      
+      &copy;2024<a target="_blank" rel="noopener" href="https://github.com/hanks-zyh"> Hanks</a>版权所有
+      <br/>
+      <a href="https://beian.miit.gov.cn/" target="_blank">豫ICP备2021022347号</a>
+	  </div>
+  </div>
+ <div id="share">
+  <a id="totop" title="" style="display: block;">返回顶部</a>
+ </div>
+</footer>
+
+    </div>
+    
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/jquery.scrollLoading.js"></script>
+
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/ads.js"></script>
+
+  </div>
+</body>
+</html>

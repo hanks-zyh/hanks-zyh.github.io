@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>已知二叉树前、中序遍历，求… | Hanks&#39; Websit</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <script data-ad-client="ca-pub-8165670162444117" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <meta name="referrer" content="never">
+  <meta name="description" content="原文地址：已知二叉树前、中序遍历，求它的后序遍历作者：hongxian这是我今天做网易笔试题最后的编程题所碰到的问题。由于考试时时间比较紧，写的代码难免有瑕疵。 sample input ABDGCEF DGBAECF sample output GDBEFCA &nbsp;  思路：比较容易想到的方法是把它还原为二叉树再进行后序遍历。不过这样就比较麻烦了。下面的方法跳过建树的过程直接求">
+<meta property="og:type" content="article">
+<meta property="og:title" content="已知二叉树前、中序遍历，求…">
+<meta property="og:url" content="https://hanks.pub/2014/02/19/%E5%B7%B2%E7%9F%A5%E4%BA%8C%E5%8F%89%E6%A0%91%E5%89%8D%E3%80%81%E4%B8%AD%E5%BA%8F%E9%81%8D%E5%8E%86%EF%BC%8C%E6%B1%82%E2%80%A6/index.html">
+<meta property="og:site_name" content="Hanks&#39; Websit">
+<meta property="og:description" content="原文地址：已知二叉树前、中序遍历，求它的后序遍历作者：hongxian这是我今天做网易笔试题最后的编程题所碰到的问题。由于考试时时间比较紧，写的代码难免有瑕疵。 sample input ABDGCEF DGBAECF sample output GDBEFCA &nbsp;  思路：比较容易想到的方法是把它还原为二叉树再进行后序遍历。不过这样就比较麻烦了。下面的方法跳过建树的过程直接求">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2014-02-19T11:17:00.000Z">
+<meta property="article:modified_time" content="2024-02-08T01:29:02.199Z">
+<meta property="article:author" content="Hanks">
+<meta name="twitter:card" content="summary">
+  
+  
+  <link href="https://fonts.googleapis.com/css?family=Fira+Code|Noto+Serif+SC&display=swap" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8165670162444117"
+     crossorigin="anonymous"></script>
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo"></a>
+    <nav id="main-nav">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      
+        <a class="main-nav-link" href="/archives">Archive</a>
+      
+        <a class="main-nav-link" href="/eye-video">Eye</a>
+      
+        <a class="main-nav-link" href="/atom.xml">Rss</a>
+      
+    </nav>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/archives" class="mobile-nav-link">Archive</a>
+  
+    <a href="/eye-video" class="mobile-nav-link">Eye</a>
+  
+    <a href="/atom.xml" class="mobile-nav-link">Rss</a>
+  
+</nav>
+      <div class="outer">
+        <section id="main"><article id="post-已知二叉树前、中序遍历，求…" class="article article-type-post" itemscope
+  itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <header class="article-header">
+      
+      
+  
+    <h1 class="article-title" itemprop="name">
+      已知二叉树前、中序遍历，求…
+    </h1>
+  
+
+      
+    </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+<div id="sina_keyword_ad_area2" class="articalContent  ">
+			<div class="blogzz_abstract borderc" style="padding-top:15px;margin:20px 0; border:none; border-top:1px dotted #ccc;"><div class="blogzz_ainfo" style="margin-bottom:12px;"><span style="margin-right:25px;"><strong>原文地址：</strong><a target="_blank" href="https://blog.sina.com.cn/s/blog_5b57a49b0100b9to.html" title="已知二叉树前、中序遍历，求它的后序遍历">已知二叉树前、中序遍历，求它的后序遍历</a></span><span><strong>作者：</strong><a href="https://blog.sina.com.cn/u/1532470427"  title="hongxian" target="_blank" >hongxian</a></span></div><div class="blogzz_acon"><p>这是我今天做网易笔试题最后的编程题所碰到的问题。由于考试时时间比较紧，写的代码难免有瑕疵。</P>
+<p>sample input</P>
+<p>ABDGCEF</P>
+<p>DGBAECF</P>
+<p>sample output</P>
+<p>GDBEFCA</P>
+<p>&nbsp;<wbr></P>
+<p>
+思路：比较容易想到的方法是把它还原为二叉树再进行后序遍历。不过这样就比较麻烦了。下面的方法跳过建树的过程直接求后序遍历的。时间复杂度为O(n^2),空间复杂度为O(n)。当然这不是最优的，本人已经想到改进的方法，可以把时间复杂度降到O(nlogn)。不过由于懒惰，所以就苟且用这个吧。实际上有简短的递归方法。所以仅当做一种另类的想法记录一下。</P>
+<p>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+用一个order数组存中序遍历中的字符在后序遍历中的顺序，从大到小。比如sample input中所得的order为：5 6 4 0
+3 1 2。</P>
+<p>直接用上面的例子说明算法过程：</P>
+<p>order=0 0 0 0 0 0 0</P>
+<p>对于str1中的A，找出它在str2中的位置为4，它左右order的值都和4位置的order的值相同，说明它有左、右子树</P>
+<p>改变order的值为：</P>
+<p>2 2 2 0 1 1 1</P>
+<p>对于str1中的B，找出它在str2中的位置3，它左order的值和当前order值相同，说明它有左子树，</P>
+<p>改变order的值为：</P>
+<p>3 3 2 0 1 1 1</P>
+<p>对于str1中的D，找出它在str2中的位置1，改变order的值为：</P>
+<p>3 4 2 0 1 1 1</P>
+<p>对于str1中的G，找出它在str2中的位置2，改变order的值为：</P>
+<p>3 4 2 0 1 1 1</P>
+<p>对于str1中的C，找出它在str2中的位置6，改变order的值为：</P>
+<p>5&nbsp;<wbr>6&nbsp;<wbr>4 0&nbsp;<wbr>3 1
+2</P>
+<p>....</P>
+<p>处理完后就得到order的值为5&nbsp;<wbr>6&nbsp;<wbr>4
+0&nbsp;<wbr>3 1 2，恰好是后序遍历中str2的字符被反问到的顺序（从大到小）。</P>
+<p>&nbsp;<wbr></P>
+<p>代码：</P>
+<p>&nbsp;<wbr></P>
+<p>#include &lt;iostream&gt;<br />
+#include &lt;string&gt;<br />
+using namespace std;</P>
+<p>const int maxn=100;</P>
+<p>int find(char c,char str[])<br />
+{<br />
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> int
+len=strlen(str);<br />
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> for (int
+i=0;i&lt;len;i++)<br />
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+if (c==str[i]) return i;<br />
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> return
+len;<br />
+}</P>
+<p>int main()<br />
+{<br />
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> char
+str1[maxn],str2[maxn],str[maxn];<br />
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+cin&gt;&gt;str1&gt;&gt;str2;//输入前、中序遍历<br />
+
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> int
+len=strlen(str1);<br />
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> if
+(len!=strlen(str2)) return -1;<br />
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> int
+order[maxn]={0};//order初始化为0<br />
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> for (int
+i=0;i&lt;len;i++)<br />
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> {<br />
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+int k=find(str1[i],str2);//找到前序第i个字符在中序字符中的位置<br />
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+int t=0;<br />
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+if (k&gt;0 &amp;&amp;
+order[k-1]==order[k]) t++;//有左子树<br />
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+if (k&lt;len-1 &amp;&amp;
+order[k+1]==order[k]) t++;//有右子树</P>
+<p>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+for (int j=0;j&lt;len;j++) if
+(order[j]&gt;order[k]) order[j]+=t;//对于上面一层的加深层数</P>
+<p>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+if (t==2)<br />
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+{<br />
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+for (int j=k-1;j&gt;=0;j--) if
+(order[j]&gt;=order[k]) order[j]+=t; else
+break;//左子树被访问顺序会比右子树快1，所以下面order[j]+=t-1;<br />
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+for (int j=k+1;j&lt;len;j++) if
+(order[j]&gt;=order[k]) order[j]+=t-1; else
+break;<br />
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+continue;<br />
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+}</P>
+<p>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+if (t==1)<br />
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+{<br />
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+if (k&gt;0 &amp;&amp;
+order[k-1]==order[k])//有左子树<br />
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+for (int j=k-1;j&gt;=0;j--) if (order[k]==order[j])
+order[j]+=t; else break;<br />
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+if (k&lt;len-1 &amp;&amp;
+order[k+1]==order[k])//有右子树<br />
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+for (int j=k+1;j&lt;len;j++) if (order[k]==order[j])
+order[j]+=t; else break;<br />
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+}<br />
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> }</P>
+<p>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> for (int
+i=0;i&lt;len;i++)//映射中序为后序<br />
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+str[len-order[i]-1]=str2[i];</P>
+<p>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+str[len]=0;<br />
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+cout&lt;&lt;str&lt;&lt;endl;//输出<br />
+
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> return
+0;<br />
+}<br /></P>
+<p>&nbsp;<wbr></P>
+<p>&nbsp;<wbr></P>
+<p>&nbsp;<wbr></P></div></div>							
+		</div>
+
+      
+    </div>
+</article>
+
+<!-- 上一页 下一页 -->
+
+
+<nav id="article-nav">
+  
+    <a href="/2014/02/19/%E4%BA%8C%E5%8F%89%E6%A0%91/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>上一篇</span>
+      <div class="article-nav-title">
+        
+          二叉树
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2014/02/19/%E5%B7%B2%E7%9F%A5%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E4%B8%AD%E5%BA%8F%E9%81%8D%E5%8E%86%E5%92%8C%E5%89%8D%E5%BA%8F%E9%81%8D%E5%8E%86%EF%BC%8C%E2%80%A6/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>下一篇</span>
+      <div class="article-nav-title">已知二叉树的中序遍历和前序遍历，…</div>
+    </a>
+  
+</nav>
+
+
+
+<!-- 相关文章 -->
+
+<!--
+
+-->
+
+
+</section>
+      </div>
+      <footer id="footer">
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      
+      &copy;2024<a target="_blank" rel="noopener" href="https://github.com/hanks-zyh"> Hanks</a>版权所有
+      <br/>
+      <a href="https://beian.miit.gov.cn/" target="_blank">豫ICP备2021022347号</a>
+	  </div>
+  </div>
+ <div id="share">
+  <a id="totop" title="" style="display: block;">返回顶部</a>
+ </div>
+</footer>
+
+    </div>
+    
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/jquery.scrollLoading.js"></script>
+
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/ads.js"></script>
+
+  </div>
+</body>
+</html>

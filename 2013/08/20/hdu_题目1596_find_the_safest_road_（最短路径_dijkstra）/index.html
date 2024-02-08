@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>hdu 题目1596 find the safest road （最短路径 dijkstra） | Hanks&#39; Websit</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <script data-ad-client="ca-pub-8165670162444117" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <meta name="referrer" content="never">
+  <meta name="description" content="find the safest road Time Limit: 10000&#x2F;5000 MS (Java&#x2F;Others)&nbsp;&nbsp;&nbsp;&nbsp;Memory Limit: 32768&#x2F;32768 K (Java&#x2F;Others) Total Submission(s): 4943&nbsp;&nbsp;&nbsp;&nbsp;Accepted Submission(s):">
+<meta property="og:type" content="article">
+<meta property="og:title" content="hdu 题目1596 find the safest road （最短路径 dijkstra）">
+<meta property="og:url" content="https://hanks.pub/2013/08/20/hdu_%E9%A2%98%E7%9B%AE1596_find_the_safest_road_%EF%BC%88%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84_dijkstra%EF%BC%89/index.html">
+<meta property="og:site_name" content="Hanks&#39; Websit">
+<meta property="og:description" content="find the safest road Time Limit: 10000&#x2F;5000 MS (Java&#x2F;Others)&nbsp;&nbsp;&nbsp;&nbsp;Memory Limit: 32768&#x2F;32768 K (Java&#x2F;Others) Total Submission(s): 4943&nbsp;&nbsp;&nbsp;&nbsp;Accepted Submission(s):">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2013-08-20T03:22:00.000Z">
+<meta property="article:modified_time" content="2024-02-08T01:29:02.185Z">
+<meta property="article:author" content="Hanks">
+<meta name="twitter:card" content="summary">
+  
+  
+  <link href="https://fonts.googleapis.com/css?family=Fira+Code|Noto+Serif+SC&display=swap" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8165670162444117"
+     crossorigin="anonymous"></script>
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo"></a>
+    <nav id="main-nav">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      
+        <a class="main-nav-link" href="/archives">Archive</a>
+      
+        <a class="main-nav-link" href="/eye-video">Eye</a>
+      
+        <a class="main-nav-link" href="/atom.xml">Rss</a>
+      
+    </nav>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/archives" class="mobile-nav-link">Archive</a>
+  
+    <a href="/eye-video" class="mobile-nav-link">Eye</a>
+  
+    <a href="/atom.xml" class="mobile-nav-link">Rss</a>
+  
+</nav>
+      <div class="outer">
+        <section id="main"><article id="post-hdu_题目1596_find_the_safest_road_（最短路径_dijkstra）" class="article article-type-post" itemscope
+  itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <header class="article-header">
+      
+      
+  
+    <h1 class="article-title" itemprop="name">
+      hdu 题目1596 find the safest road （最短路径 dijkstra）
+    </h1>
+  
+
+      
+    </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+<h1 align="center"><span style="color:#3366ff">find the safest road</span></h1>
+<p align="center"><span style="color:#33cc00"><span><strong><span style="font-family:Arial; font-size:12px; font-weight:bold">Time Limit: 10000/5000 MS (Java/Others)&nbsp;&nbsp;&nbsp;&nbsp;Memory Limit: 32768/32768 K (Java/Others)<br>
+Total Submission(s): 4943&nbsp;&nbsp;&nbsp;&nbsp;Accepted Submission(s): 1797<br>
+</span></strong></span><br>
+</span><br>
+</p>
+<div class="panel_title" align="left">Problem Description</div>
+<p>&nbsp;</p>
+<div class="panel_content">XX星球有很多城市，每个城市之间有一条或多条飞行通道，但是并不是所有的路都是很安全的，每一条路有一个安全系数s,s是在 0 和 1 间的实数(包括0，1)，一条从u 到 v 的通道P 的安全度为Safe(P) = s(e1)*s(e2)…*s(ek) e1,e2,ek是P 上的边 ，现在8600 想出去旅游，面对这这么多的路，他想找一条最安全的路。但是8600 的数学不好，想请你帮忙 ^_^</div>
+<div class="panel_bottom">&nbsp;</div>
+<p><br>
+&nbsp;</p>
+<div class="panel_title" align="left">Input</div>
+<p>&nbsp;</p>
+<div class="panel_content">输入包括多个测试实例，每个实例包括：<br>
+第一行：n。n表示城市的个数n&lt;=1000;<br>
+接着是一个n*n的矩阵表示两个城市之间的安全系数，(0可以理解为那两个城市之间没有直接的通道)<br>
+接着是Q个8600要旅游的路线,每行有两个数字，表示8600所在的城市和要去的城市</div>
+<div class="panel_bottom">&nbsp;</div>
+<p><br>
+&nbsp;</p>
+<div class="panel_title" align="left">Output</div>
+<p>&nbsp;</p>
+<div class="panel_content">如果86无法达到他的目的地，输出&quot;What a pity!&quot;,<br>
+其他的输出这两个城市之间的最安全道路的安全系数,保留三位小数。</div>
+<div class="panel_bottom">&nbsp;</div>
+<p><br>
+&nbsp;</p>
+<div class="panel_title" align="left">Sample Input</div>
+<p>&nbsp;</p>
+<div class="panel_content">
+<pre style="margin:0px; font-size:14px"><div style="font-family:'Courier New',Courier,monospace">3
+1 0.5 0.5
+0.5 1 0.4
+0.5 0.4 1
+3
+1 2
+2 3
+1 3</div></pre>
+</div>
+<div class="panel_bottom">&nbsp;</div>
+<p><br>
+&nbsp;</p>
+<div class="panel_title" align="left">Sample Output</div>
+<p>&nbsp;</p>
+<div class="panel_content">
+<pre style="margin:0px; font-size:14px"><div style="font-family:'Courier New',Courier,monospace">0.500
+0.400
+0.500</div></pre>
+</div>
+<div class="panel_bottom">&nbsp;</div>
+<p><br>
+<br>
+&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;最短路径问题。不过这道题是求最大&#20540;的，原理一样、、、</p>
+<p>用G&#43;&#43;提交会出现，C&#43;&#43;AC，不过真耗时</p>
+<pre class="cpp" name="code">/********************** 
+2013-8-20 11:16:05 
+Time: 1031 MS   Memory: 6664 KB
+Author: zyh
+Status: Accepted
+**********************/ 
+#define N 1005
+#include&lt;stdio.h&gt;
+
+double G[N][N],dis[N];
+bool vis[N];
+int n,t;
+
+void dijkstra(int s){
+	
+	int i,j;	
+	for(i=1;i&lt;=n;i++){//初始化
+		vis[i]=0;
+		dis[i] = G[s][i]*G[s][s];
+	}
+	vis[s] = 1;	dis[s] = G[s][s];
+	for(i=1;i&lt;=n;i++){
+		
+		double max =0; //double 一开始忘了，花了大量时间找错误了 
+		int last ;
+		for(j=1;j&lt;=n;j++){//寻找当前最大安全系数
+			if(!vis[j] &amp;&amp; dis[j]&gt;max){
+				max = dis[j];
+				last = j; 
+			} 
+		}
+		vis[last] = 1;
+		for(j=1;j&lt;=n;j++){	//跟新dis【】		
+			if(!vis[j]){		
+				double newdis = dis[last]*G[last][j];	//还有这里 d ouble	
+				if(dis[j] &lt; newdis )	dis[j] = newdis;												
+			}		
+		}	
+	}
+	if(dis[t]&lt;0.00000000001) printf(&quot;What a pity!\n&quot;);
+	else printf(&quot;%.3lf\n&quot;,dis[t]);
+	
+	
+}
+
+int main()
+{
+	int s,d,i,j,q;	
+	while(scanf(&quot;%d&quot;,&amp;n)!=EOF)
+	{
+		for(i=1;i&lt;=n;i++){
+			for(j=1;j&lt;=n;j++)
+				scanf(&quot;%lf&quot;,&amp;G[i][j]);
+		}	
+		scanf(&quot;%d&quot;,&amp;q);
+		while(q--){
+			scanf(&quot;%d%d&quot;,&amp;s,&amp;t);
+			dijkstra(s); 
+		}		
+	}
+	return 0;
+} 
+
+/*
+3
+1 0.5 0.5
+0.5 1 0.4
+0.5 0.4 1
+3
+1 2
+2 3
+1 3
+3
+1 0.5 0
+0.5 1 0
+0 0 1
+3
+1 2
+2 3
+1 3
+3
+1 0.5 0
+0.5 1 0.4
+0 0.4 1
+3
+1 2
+2 3
+1 3
+*/</pre>
+<p><br>
+&nbsp;</p>
+<p>&nbsp;</p>
+
+      
+    </div>
+</article>
+
+<!-- 上一页 下一页 -->
+
+
+<nav id="article-nav">
+  
+    <a href="/2013/08/20/hdu_%E9%A2%98%E7%9B%AE2122_HDU_Today_%EF%BC%88%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84%EF%BC%8CDijkstra%EF%BC%89/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>上一篇</span>
+      <div class="article-nav-title">
+        
+          hdu 题目2122 HDU Today （最短路径，Dijkstra）
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2013/08/19/NYOJ_%E9%A2%98%E7%9B%AE119_%E5%A3%AB%E5%85%B5%E6%9D%80%E6%95%8C%EF%BC%88%E4%B8%89%EF%BC%89%EF%BC%88%E7%BA%BF%E6%AE%B5%E6%A0%91%EF%BC%8C%E5%8C%BA%E9%97%B4%E6%9C%80%E5%80%BC%EF%BC%89/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>下一篇</span>
+      <div class="article-nav-title">NYOJ 题目119 士兵杀敌（三）（线段树，区间最值）</div>
+    </a>
+  
+</nav>
+
+
+
+<!-- 相关文章 -->
+
+<!--
+
+-->
+
+
+</section>
+      </div>
+      <footer id="footer">
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      
+      &copy;2024<a target="_blank" rel="noopener" href="https://github.com/hanks-zyh"> Hanks</a>版权所有
+      <br/>
+      <a href="https://beian.miit.gov.cn/" target="_blank">豫ICP备2021022347号</a>
+	  </div>
+  </div>
+ <div id="share">
+  <a id="totop" title="" style="display: block;">返回顶部</a>
+ </div>
+</footer>
+
+    </div>
+    
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/jquery.scrollLoading.js"></script>
+
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/ads.js"></script>
+
+  </div>
+</body>
+</html>

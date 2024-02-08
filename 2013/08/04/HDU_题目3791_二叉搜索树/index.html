@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>HDU 题目3791 二叉搜索树 | Hanks&#39; Websit</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <script data-ad-client="ca-pub-8165670162444117" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <meta name="referrer" content="never">
+  <meta name="description" content="&nbsp; &nbsp; 二叉搜索树 Time Limit: 2000&#x2F;1000 MS (Java&#x2F;Others)&nbsp;&nbsp;&nbsp;&nbsp;Memory Limit: 32768&#x2F;32768 K (Java&#x2F;Others) Total Submission(s): 2075&nbsp;&nbsp;&nbsp;&nbsp;Accepted Submission(s): 92">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HDU 题目3791 二叉搜索树">
+<meta property="og:url" content="https://hanks.pub/2013/08/04/HDU_%E9%A2%98%E7%9B%AE3791_%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91/index.html">
+<meta property="og:site_name" content="Hanks&#39; Websit">
+<meta property="og:description" content="&nbsp; &nbsp; 二叉搜索树 Time Limit: 2000&#x2F;1000 MS (Java&#x2F;Others)&nbsp;&nbsp;&nbsp;&nbsp;Memory Limit: 32768&#x2F;32768 K (Java&#x2F;Others) Total Submission(s): 2075&nbsp;&nbsp;&nbsp;&nbsp;Accepted Submission(s): 92">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2013-08-04T08:48:00.000Z">
+<meta property="article:modified_time" content="2024-02-08T01:29:02.172Z">
+<meta property="article:author" content="Hanks">
+<meta name="twitter:card" content="summary">
+  
+  
+  <link href="https://fonts.googleapis.com/css?family=Fira+Code|Noto+Serif+SC&display=swap" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8165670162444117"
+     crossorigin="anonymous"></script>
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo"></a>
+    <nav id="main-nav">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      
+        <a class="main-nav-link" href="/archives">Archive</a>
+      
+        <a class="main-nav-link" href="/eye-video">Eye</a>
+      
+        <a class="main-nav-link" href="/atom.xml">Rss</a>
+      
+    </nav>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/archives" class="mobile-nav-link">Archive</a>
+  
+    <a href="/eye-video" class="mobile-nav-link">Eye</a>
+  
+    <a href="/atom.xml" class="mobile-nav-link">Rss</a>
+  
+</nav>
+      <div class="outer">
+        <section id="main"><article id="post-HDU_题目3791_二叉搜索树" class="article article-type-post" itemscope
+  itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <header class="article-header">
+      
+      
+  
+    <h1 class="article-title" itemprop="name">
+      HDU 题目3791 二叉搜索树
+    </h1>
+  
+
+      
+    </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h1 style="">二叉搜索树</h1>
+<p><span style=""><strong><span style="font-family:Arial; font-size:12px; color:green; font-weight:bold">Time Limit: 2000/1000 MS (Java/Others)&nbsp;&nbsp;&nbsp;&nbsp;Memory Limit: 32768/32768 K (Java/Others)<br>
+Total Submission(s): 2075&nbsp;&nbsp;&nbsp;&nbsp;Accepted Submission(s): 926<br>
+</span></strong></span><br style="">
+<br style="">
+</p>
+<div class="panel_title" align="left" style="">Problem Description</div>
+<p>&nbsp;</p>
+<div class="panel_content" style="">判断两序列是否为同一二叉搜索树序列</div>
+<div class="panel_bottom" style="">&nbsp;</div>
+<p><br style="">
+&nbsp;</p>
+<div class="panel_title" align="left" style="">Input</div>
+<p>&nbsp;</p>
+<div class="panel_content" style="">开始一个数n，(1&lt;=n&lt;=20) 表示有n个需要判断，n= 0 的时候输入结束。<br>
+接下去一行是一个序列，序列长度小于10，包含(0~9)的数字，没有重复数字，根据这个序列可以构造出一颗二叉搜索树。<br>
+接下去的n行有n个序列，每个序列&#26684;式跟第一个序列一样，请判断这两个序列是否能组成同一颗二叉搜索树。</div>
+<div class="panel_bottom" style="">&nbsp;</div>
+<p><br style="">
+&nbsp;</p>
+<div class="panel_title" align="left" style="">Output</div>
+<p>&nbsp;</p>
+<div class="panel_content" style="">如果序列相同则输出YES，否则输出NO<br>
+</div>
+<div class="panel_bottom" style="">&nbsp;</div>
+<p><br style="">
+&nbsp;</p>
+<div class="panel_title" align="left" style="">Sample Input</div>
+<p>&nbsp;</p>
+<div class="panel_content" style="">
+<pre style="margin:0px; font-size:14px"><div style="font-family:'Courier New',Courier,monospace">2
+567432
+543267
+576342
+0</div></pre>
+</div>
+<div class="panel_bottom" style="">&nbsp;</div>
+<p><br style="">
+&nbsp;</p>
+<div class="panel_title" align="left" style="">Sample Output</div>
+<p>&nbsp;</p>
+<div class="panel_content" style="">
+<pre style="margin:0px; font-size:14px"><div style="font-family:'Courier New',Courier,monospace">YES
+NO</div></pre>
+</div>
+<p><br>
+&nbsp;</p>
+<p>分析：二叉搜索树即二叉排序树，本题只要建立好儿茶排序树，然后两个从根节点进行比较即可比较完相同即为YES，否则NO</p>
+<pre class="cpp" name="code">/*
+时间：2013/08/04 15:36
+author ：zyh 
+*/
+
+#include &lt;iostream&gt;
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;string.h&gt;
+
+using namespace std;
+
+typedef struct node
+{
+ 		char elem;
+ 		node * lchild;
+		node * rchild;
+}node,tree;
+
+void Traverse(tree * t)
+{
+	if(!t) return;
+	printf(&quot;** %c &quot;,t-&gt;elem);
+	Traverse(t-&gt;lchild);
+	Traverse(t-&gt;rchild);
+}
+void insert(tree* &amp;t,char e)
+{	 
+	 if( !t )
+	 {
+		node * p = (node *)malloc(sizeof(node));
+ 		p-&gt;elem = e;
+ 		p-&gt;lchild = p-&gt;rchild = NULL;
+		t = p;
+	 }
+	 
+	 else if(e&lt; t-&gt;elem)
+	 {
+		insert(t-&gt;lchild,e);
+	 }
+	 else insert(t-&gt;rchild,e);
+//	 Traverse(t);
+}
+int flag ;
+void same(tree * t1,tree * t2)
+{
+	if( (!t1 &amp;&amp; t2) || (t1 &amp;&amp; !t2 ) )
+	{
+		flag = 0;
+		return;
+	} 
+	if(!t1 &amp;&amp; !t2) return;
+	if(t1-&gt;elem != t2-&gt;elem ) 
+	{
+		flag = 0;
+		return;
+	}
+	same(t1-&gt;lchild,t2-&gt;lchild);
+	same(t1-&gt;rchild,t2-&gt;rchild);
+}
+int main()
+{
+ 	tree * t;
+ 	tree * t1;
+ 	int i,n;
+ 	char s[12],s1[12];
+ 	while(scanf(&quot;%d&quot;,&amp;n),n)
+ 	{
+		getchar();
+		gets(s);
+	//	puts(s);
+		t=NULL;
+		
+		for(i=0;i&lt;strlen(s);i++)
+		 insert(t,s[i]);
+	//	Traverse(t);puts(&quot;&quot;);
+		while(n--)
+		{
+			t1=NULL;
+			flag = 1;
+			gets(s1);
+		//	puts(s1);
+			for(i=0;i&lt;strlen(s1);i++)
+		 		insert(t1,s1[i]);
+		 //	Traverse(t1);puts(&quot;&quot;);
+		 	same(t,t1);
+		 	if(flag) printf(&quot;YES\n&quot;);
+		 	else printf(&quot;NO\n&quot;);
+		}
+		
+	}
+ 	return 0;
+}
+/*
+2
+567432
+543267
+576342
+*/</pre>
+<p><br>
+&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+      
+    </div>
+</article>
+
+<!-- 上一页 下一页 -->
+
+
+<nav id="article-nav">
+  
+    <a href="/2013/08/04/HDU_%E9%A2%98%E7%9B%AE1166_%E6%95%8C%E5%85%B5%E5%B8%83%E9%98%B5/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>上一篇</span>
+      <div class="article-nav-title">
+        
+          HDU 题目1166 敌兵布阵
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2013/08/04/%E9%94%99%E8%AF%AF%E6%80%BB%E7%BB%93%EF%BC%88%E6%8C%81%E7%BB%AD%E6%9B%B4%E6%96%B0%EF%BC%89/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>下一篇</span>
+      <div class="article-nav-title">错误总结（持续更新）</div>
+    </a>
+  
+</nav>
+
+
+
+<!-- 相关文章 -->
+
+<!--
+
+-->
+
+
+</section>
+      </div>
+      <footer id="footer">
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      
+      &copy;2024<a target="_blank" rel="noopener" href="https://github.com/hanks-zyh"> Hanks</a>版权所有
+      <br/>
+      <a href="https://beian.miit.gov.cn/" target="_blank">豫ICP备2021022347号</a>
+	  </div>
+  </div>
+ <div id="share">
+  <a id="totop" title="" style="display: block;">返回顶部</a>
+ </div>
+</footer>
+
+    </div>
+    
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/jquery.scrollLoading.js"></script>
+
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/ads.js"></script>
+
+  </div>
+</body>
+</html>

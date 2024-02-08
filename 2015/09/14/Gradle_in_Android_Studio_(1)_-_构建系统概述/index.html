@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Gradle in Android Studio (1) - 构建系统概述 | Hanks&#39; Websit</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <script data-ad-client="ca-pub-8165670162444117" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <meta name="referrer" content="never">
+  <meta name="description" content="#构建系统概述  Android构建系统是用于构建，测试，运行和打包app的工具包。构建系统可以集成到Android Studio菜单中,也可以单独使用命令行运行。构建系统的特点：  自定义，配置和扩展构建过程; 为同一个project或者moudles,创建多个不同的APP; 重用代码和资源。   原文地址  转载请注明出处 :  https:&#x2F;&#x2F;blog.csdn.net&#x2F;hpu_zyh&#x2F;ar">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Gradle in Android Studio (1) - 构建系统概述">
+<meta property="og:url" content="https://hanks.pub/2015/09/14/Gradle_in_Android_Studio_(1)_-_%E6%9E%84%E5%BB%BA%E7%B3%BB%E7%BB%9F%E6%A6%82%E8%BF%B0/index.html">
+<meta property="og:site_name" content="Hanks&#39; Websit">
+<meta property="og:description" content="#构建系统概述  Android构建系统是用于构建，测试，运行和打包app的工具包。构建系统可以集成到Android Studio菜单中,也可以单独使用命令行运行。构建系统的特点：  自定义，配置和扩展构建过程; 为同一个project或者moudles,创建多个不同的APP; 重用代码和资源。   原文地址  转载请注明出处 :  https:&#x2F;&#x2F;blog.csdn.net&#x2F;hpu_zyh&#x2F;ar">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img.blog.csdn.net/20150914213150128">
+<meta property="article:published_time" content="2015-09-14T13:32:00.000Z">
+<meta property="article:modified_time" content="2024-02-08T01:29:02.171Z">
+<meta property="article:author" content="Hanks">
+<meta property="article:tag" content="Android">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img.blog.csdn.net/20150914213150128">
+  
+  
+  <link href="https://fonts.googleapis.com/css?family=Fira+Code|Noto+Serif+SC&display=swap" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8165670162444117"
+     crossorigin="anonymous"></script>
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo"></a>
+    <nav id="main-nav">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      
+        <a class="main-nav-link" href="/archives">Archive</a>
+      
+        <a class="main-nav-link" href="/eye-video">Eye</a>
+      
+        <a class="main-nav-link" href="/atom.xml">Rss</a>
+      
+    </nav>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/archives" class="mobile-nav-link">Archive</a>
+  
+    <a href="/eye-video" class="mobile-nav-link">Eye</a>
+  
+    <a href="/atom.xml" class="mobile-nav-link">Rss</a>
+  
+</nav>
+      <div class="outer">
+        <section id="main"><article id="post-Gradle_in_Android_Studio_(1)_-_构建系统概述" class="article article-type-post" itemscope
+  itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <header class="article-header">
+      
+      
+  
+    <h1 class="article-title" itemprop="name">
+      Gradle in Android Studio (1) - 构建系统概述
+    </h1>
+  
+
+      
+    </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      <p>#构建系统概述</p>
+<blockquote>
+<p>Android构建系统是用于构建，测试，运行和打包app的工具包。构建系统可以集成到Android Studio菜单中,也可以单独使用命令行运行。构建系统的特点：</p>
+<ul>
+<li>自定义，配置和扩展构建过程;</li>
+<li>为同一个<code>project</code>或者<code>moudles</code>,创建多个不同的APP;</li>
+<li>重用代码和资源。</li>
+</ul>
+</blockquote>
+<p><a target="_blank" rel="noopener" href="https://developer.android.com/intl/zh-cn/sdk/installing/studio-build.html">原文地址</a></p>
+<blockquote>
+<p>转载请注明出处 :  <a target="_blank" rel="noopener" href="https://blog.csdn.net/hpu_zyh/article/details/48447081">https://blog.csdn.net/hpu_zyh/article/details/48447081</a><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/hpu_zyh">博客主页</a>  |   <a target="_blank" rel="noopener" href="https://www.jianshu.com/users/3e9f552e6ba7">简书</a>  |  <a target="_blank" rel="noopener" href="https://www.zhihu.com/people/yuhan-zhang-36">知乎</a>  |  <a target="_blank" rel="noopener" href="https://weibo.com/u/2359002991">微博</a>  |  <a target="_blank" rel="noopener" href="https://github.com/hanks-zyh">github</a></p>
+</blockquote>
+<p>##构建过程<br>构建<code>.apk</code>文件的过程涉及到许多工具,并且产生一些中间文件。如果您正在使用Android Studio，每次执行你的<code>project</code>或者<code>module</code>的 <code>Gradle build task</code> 都可以看到完整的构建过程。构建过程是非常灵活的,大部分的构建过程都是可配置和可扩展的。下图描述了构建过程中涉及的一些工具和构建流程：<br><img src="https://img.blog.csdn.net/20150914213150128" alt="这里写图片描述"></p>
+<p>一个典型的构建过程的一般如上图所示。构建系统读取配置的<code>product flavors</code> <code>build types</code> <code>dependencies</code>,然后合并所有的资源。如果不同的文件夹中包含相同的资源名称或设置，下面覆盖的优先顺序是：<code>dependencies</code>覆盖<code>build types</code>， <code>build types</code>覆盖<code>product flavors</code>，<code>product flavors</code>覆盖<code>源代码目录</code>。</p>
+<ul>
+<li><code>Android的资产打包工具（AAPT）</code>把你的应用程序资源文件进行编译，如<code>AndroidManifest.xml</code>文件和一些<code>XML文件</code>，<code>R.java</code>文件是由你的Java代码中引用的资源自动生成的。</li>
+<li><code>aidl工具</code>，将<code>.aidl接口</code>转换成<code>Java接口</code>。</li>
+<li>所有的Java代码，包括<code>R.java</code>和<code>.aidl文件</code>，由Java编译器编译成<code>.class文件</code>。</li>
+<li><code>DEX工具</code>转换<code>.class文件</code>的Dalvik字节码。使用的<code>第三方库</code>和<code>.class文件</code>也被转换成<code>.dex文件</code>，以便它们可以被打包成最终的<code>.apk文件</code>。</li>
+<li>所有非编译资源（如图片），已编译的资源，以及<code>.dex文件</code>被发送到<code>apkbuilder工具</code>打包成一个apk文件。</li>
+<li>一旦apk文件生成，它在安装之前需要使用debug或者release key进行签名 。</li>
+<li>最后，应用程序被签名后，使用<code>zipalign工具</code>压缩<code>.apk文件</code>, 减少最终的.apk所占空间<blockquote>
+<p>注：应用程序被限制在64K方法参考限值。如果您的应用程序达到此限制，构建过程输出以下错误信息：</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Unable to execute dex: method ID not in [0, 0xffff]: 65536.</span><br></pre></td></tr></table></figure>
+为了避免这种错误，请参阅构建应用程序与在<a href="#">65K方法</a>。</li>
+</ul>
+<p>##构建输出<br>构建生成APK每个 <code>build variant</code> 在<code>app/build</code>文件夹<code>app/build/outputs/apk/</code>目录中包含一个名为<code>app-&lt;flavor&gt;-&lt;buildtype&gt;.apk</code>的 .apk文件;例如, <code>app-full-release.apk</code> 和 <code>app-demo-debug.apk</code>.</p>
+
+      
+    </div>
+</article>
+
+<!-- 上一页 下一页 -->
+
+
+<nav id="article-nav">
+  
+    <a href="/2015/09/14/Gradle_in_Android_Studio_(2)_-_%E9%85%8D%E7%BD%AEGradle/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>上一篇</span>
+      <div class="article-nav-title">
+        
+          Gradle in Android Studio (2) - 配置Gradle
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/09/02/%E7%94%A8Android_Studio%E8%BF%9B%E8%A1%8CNDK%E5%BC%80%E5%8F%91(%E7%AE%80%E5%8C%96%E6%B5%81%E7%A8%8B)/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>下一篇</span>
+      <div class="article-nav-title">用Android Studio进行NDK开发(简化流程)</div>
+    </a>
+  
+</nav>
+
+
+
+<!-- 相关文章 -->
+
+<!--
+
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+      			<a href="/2015/09/14/Gradle_in_Android_Studio_(1)_-_%E6%9E%84%E5%BB%BA%E7%B3%BB%E7%BB%9F%E6%A6%82%E8%BF%B0/">Gradle in Android Studio (1) - 构建系统概述</a>
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+
+-->
+
+
+</section>
+      </div>
+      <footer id="footer">
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      
+      &copy;2024<a target="_blank" rel="noopener" href="https://github.com/hanks-zyh"> Hanks</a>版权所有
+      <br/>
+      <a href="https://beian.miit.gov.cn/" target="_blank">豫ICP备2021022347号</a>
+	  </div>
+  </div>
+ <div id="share">
+  <a id="totop" title="" style="display: block;">返回顶部</a>
+ </div>
+</footer>
+
+    </div>
+    
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/jquery.scrollLoading.js"></script>
+
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/ads.js"></script>
+
+  </div>
+</body>
+</html>

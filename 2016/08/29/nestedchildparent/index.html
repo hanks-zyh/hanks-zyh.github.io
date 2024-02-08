@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>NestedScrollingParent 实现复杂交互效果 | Hanks&#39; Websit</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <script data-ad-client="ca-pub-8165670162444117" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <meta name="referrer" content="never">
+  <meta name="description" content="最终效果：上下排列 3 个 view， 依次为 RecyclerView ，NestedScrollView，RecyclerView，规则：子 View 可以滚动时 Touch 事件给子 view 消费，否则给父布局。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="NestedScrollingParent 实现复杂交互效果">
+<meta property="og:url" content="https://hanks.pub/2016/08/29/nestedchildparent/index.html">
+<meta property="og:site_name" content="Hanks&#39; Websit">
+<meta property="og:description" content="最终效果：上下排列 3 个 view， 依次为 RecyclerView ，NestedScrollView，RecyclerView，规则：子 View 可以滚动时 Touch 事件给子 view 消费，否则给父布局。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://ww3.sinaimg.cn/large/8c9b876fjw1f7asx0kp5rg20b40jlx6s.gif">
+<meta property="og:image" content="https://ww1.sinaimg.cn/large/8c9b876fjw1f7ay490vzjj20ga0xgwf5.jpg">
+<meta property="article:published_time" content="2016-08-29T13:49:44.000Z">
+<meta property="article:modified_time" content="2024-02-08T01:29:02.189Z">
+<meta property="article:author" content="Hanks">
+<meta property="article:tag" content="Android">
+<meta property="article:tag" content="NestedScrolling">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://ww3.sinaimg.cn/large/8c9b876fjw1f7asx0kp5rg20b40jlx6s.gif">
+  
+  
+  <link href="https://fonts.googleapis.com/css?family=Fira+Code|Noto+Serif+SC&display=swap" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8165670162444117"
+     crossorigin="anonymous"></script>
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo"></a>
+    <nav id="main-nav">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      
+        <a class="main-nav-link" href="/archives">Archive</a>
+      
+        <a class="main-nav-link" href="/eye-video">Eye</a>
+      
+        <a class="main-nav-link" href="/atom.xml">Rss</a>
+      
+    </nav>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/archives" class="mobile-nav-link">Archive</a>
+  
+    <a href="/eye-video" class="mobile-nav-link">Eye</a>
+  
+    <a href="/atom.xml" class="mobile-nav-link">Rss</a>
+  
+</nav>
+      <div class="outer">
+        <section id="main"><article id="post-nestedchildparent" class="article article-type-post" itemscope
+  itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <header class="article-header">
+      
+      
+  
+    <h1 class="article-title" itemprop="name">
+      NestedScrollingParent 实现复杂交互效果
+    </h1>
+  
+
+      
+    </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      <p>最终效果：<br>上下排列 3 个 view， 依次为 RecyclerView ，NestedScrollView，RecyclerView，规则：子 View 可以滚动时 Touch 事件给子 view 消费，否则给父布局。</p>
+<img src="https://ww3.sinaimg.cn/large/8c9b876fjw1f7asx0kp5rg20b40jlx6s.gif" alt="img" width="240" height="427">
+
+<span id="more"></span>
+
+<h2 id="1-接口"><a href="#1-接口" class="headerlink" title="1. 接口"></a>1. 接口</h2><p><code>NestedScrollingParent</code> 用来配置子视图（ <code>NestedScrollingChild</code> ）嵌套滚动。</p>
+<p><code>NestedScrollingParent</code> 简称 <code>NP</code><br><code>NestedScrollingChild</code> 简称 <code>NC</code></p>
+<ol>
+<li><p>NC 产生一个 touch 事件，调用 <code>startNestedScroll</code>，表示开始分享出去 touch 事件， NP 的 <code>onStartNestedScroll</code> 判断是否需要跟 NC 配合，返回 true 表示接受</p>
+</li>
+<li><p>NC 调用 <code>dispatchNestedPreScroll</code> ，通知 NP 将要进行一个 Touch 事件，如移动 5个像素，NP 的 <code>onNestedPreScroll</code> 中收到通知，知道 NC 要准备移动5个像素，这时候 NP 正好也需要滑动 2 个像素，然后在 <code>onNestedPreScroll</code> 的参数 <code>consumed[]</code> 数组对应的方向（下标为0的x轴，下标为1的y轴）赋值 2，表示消费 2 个像素</p>
+</li>
+<li><p>NC 拿到 <code>consumed[]</code> 数组，知道 NP 消费了 2 个像素，剩下了 3 个像素，然后自己根据需要再移动 3 个像素的距离，如果这时候 NC 由于某个原因只移动了 2 个像素，那么剩下的 1 个像素距离会调用 <code>dispatchNestedScroll</code> 给 NP，NP 在 <code>onNestedScroll</code> 处理剩下的未消费的 1 像素。最后，NC 调用 <code>stopNestedScroll</code> ，最后 NP 调用 <code>onStopNestedScroll </code>结束。</p>
+</li>
+<li><p>同 NestedScroll 类似的还有一套 NestedFling 操作，整体流程类似，NC 快速滑动产生一个 fling 事件，处理流程 NC.<code>dispatchNestedPreFling</code> -&gt; NP.<code>onNestedPreFling</code> -&gt; NC.<code>dispatchNestedFling</code> -&gt; NP.<code>onNestedFling</code></p>
+</li>
+</ol>
+<p>为什么 NC 和 NP 能相互配合滚动？ 主要的源码在 <a target="_blank" rel="noopener" href="https://androidxref.com/7.0.0_r1/xref/frameworks/support/v4/java/android/support/v4/view/NestedScrollingChildHelper.java">NestedScrollingChildHelper</a> 和  <a target="_blank" rel="noopener" href="https://androidxref.com/7.0.0_r1/xref/frameworks/support/v4/java/android/support/v4/view/NestedScrollingParentHelper.java">NestedScrollingParentHelper</a></p>
+<h2 id="效果实现"><a href="#效果实现" class="headerlink" title="效果实现"></a>效果实现</h2><p>自定 ViewGroup ，实现 <code>NestedScrollingParent</code> 接口，一个 <code>NestedScrollingParentHelper</code> 成员变量作为辅助</p>
+<p>布局 </p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;utf-8&quot;</span>?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">xyz.hanks.nestedwebview.nestedscroll.NScrollView</span></span></span><br><span class="line"><span class="tag">    <span class="attr">xmlns:android</span>=<span class="string">&quot;https://schemas.android.com/apk/res/android&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_width</span>=<span class="string">&quot;match_parent&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_height</span>=<span class="string">&quot;match_parent&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">android.support.v7.widget.RecyclerView</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:id</span>=<span class="string">&quot;@+id/recyclerView0&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_width</span>=<span class="string">&quot;match_parent&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_height</span>=<span class="string">&quot;match_parent&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:background</span>=<span class="string">&quot;#20f0&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:scrollbarSize</span>=<span class="string">&quot;3dp&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:scrollbars</span>=<span class="string">&quot;vertical&quot;</span>/&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">android.support.v4.widget.NestedScrollView</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_width</span>=<span class="string">&quot;match_parent&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_height</span>=<span class="string">&quot;wrap_content&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="name">LinearLayout</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:layout_width</span>=<span class="string">&quot;match_parent&quot;</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:layout_height</span>=<span class="string">&quot;wrap_content&quot;</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:background</span>=<span class="string">&quot;#e1e1e1&quot;</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:orientation</span>=<span class="string">&quot;vertical&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">            <span class="tag">&lt;<span class="name">TextView</span></span></span><br><span class="line"><span class="tag">                <span class="attr">android:layout_width</span>=<span class="string">&quot;match_parent&quot;</span></span></span><br><span class="line"><span class="tag">                <span class="attr">android:layout_height</span>=<span class="string">&quot;100dp&quot;</span></span></span><br><span class="line"><span class="tag">                <span class="attr">android:text</span>=<span class="string">&quot;cdsadadlick&quot;</span>/&gt;</span></span><br><span class="line"></span><br><span class="line">            <span class="tag">&lt;<span class="name">Button</span></span></span><br><span class="line"><span class="tag">                <span class="attr">android:layout_width</span>=<span class="string">&quot;match_parent&quot;</span></span></span><br><span class="line"><span class="tag">                <span class="attr">android:layout_height</span>=<span class="string">&quot;100dp&quot;</span></span></span><br><span class="line"><span class="tag">                <span class="attr">android:text</span>=<span class="string">&quot;asddasda&quot;</span>/&gt;</span></span><br><span class="line"></span><br><span class="line">            <span class="tag">&lt;<span class="name">TextView</span></span></span><br><span class="line"><span class="tag">                <span class="attr">android:layout_width</span>=<span class="string">&quot;match_parent&quot;</span></span></span><br><span class="line"><span class="tag">                <span class="attr">android:layout_height</span>=<span class="string">&quot;100dp&quot;</span></span></span><br><span class="line"><span class="tag">                <span class="attr">android:text</span>=<span class="string">&quot;asdadarewe&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">LinearLayout</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">android.support.v4.widget.NestedScrollView</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">android.support.v7.widget.RecyclerView</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:id</span>=<span class="string">&quot;@+id/recyclerView&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_width</span>=<span class="string">&quot;match_parent&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_height</span>=<span class="string">&quot;match_parent&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:background</span>=<span class="string">&quot;#2f00&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:scrollbarStyle</span>=<span class="string">&quot;insideInset&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:scrollbars</span>=<span class="string">&quot;vertical&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">xyz.hanks.nestedwebview.nestedscroll.NScrollView</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>基础的 onMeasure ，onLayout</p>
+<p><img src="https://ww1.sinaimg.cn/large/8c9b876fjw1f7ay490vzjj20ga0xgwf5.jpg" alt="onLayout"></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * NestedScrollView</span></span><br><span class="line"><span class="comment"> * Created by hanks on 16/8/22.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">NScrollView</span> <span class="keyword">extends</span> <span class="title class_">ViewGroup</span> <span class="keyword">implements</span> <span class="title class_">NestedScrollingParent</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">TAG</span> <span class="operator">=</span> <span class="string">&quot;NScrollView&quot;</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> <span class="variable">maxDistance</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> <span class="variable">totalHeight</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">private</span> NestedScrollingParentHelper mParentHelper;</span><br><span class="line">    <span class="keyword">private</span> List&lt;View&gt; nestedScrollingChildList = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">    <span class="keyword">private</span> ScrollerCompat scroller;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">NScrollView</span><span class="params">(Context context)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>(context, <span class="literal">null</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">NScrollView</span><span class="params">(Context context, AttributeSet attrs)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>(context, attrs, <span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">NScrollView</span><span class="params">(Context context, AttributeSet attrs, <span class="type">int</span> defStyleAttr)</span> &#123;</span><br><span class="line">        <span class="built_in">super</span>(context, attrs, defStyleAttr);</span><br><span class="line">        setOverScrollMode(View.OVER_SCROLL_NEVER);</span><br><span class="line">        mParentHelper = <span class="keyword">new</span> <span class="title class_">NestedScrollingParentHelper</span>(<span class="built_in">this</span>);</span><br><span class="line">        scroller = ScrollerCompat.create(context);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">onMeasure</span><span class="params">(<span class="type">int</span> widthMeasureSpec, <span class="type">int</span> heightMeasureSpec)</span> &#123;</span><br><span class="line">        <span class="built_in">super</span>.onMeasure(widthMeasureSpec, heightMeasureSpec);</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; getChildCount(); i++) &#123;</span><br><span class="line">            <span class="type">View</span> <span class="variable">child</span> <span class="operator">=</span> getChildAt(i);</span><br><span class="line">            measureChild(child, widthMeasureSpec, heightMeasureSpec);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">onLayout</span><span class="params">(<span class="type">boolean</span> changed, <span class="type">int</span> l, <span class="type">int</span> t, <span class="type">int</span> r, <span class="type">int</span> b)</span> &#123;</span><br><span class="line"></span><br><span class="line">        <span class="type">int</span> <span class="variable">parentHeight</span> <span class="operator">=</span> getMeasuredHeight();</span><br><span class="line">        <span class="type">int</span> <span class="variable">top</span> <span class="operator">=</span> t;</span><br><span class="line">        <span class="type">int</span> <span class="variable">lastChildHeight</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; getChildCount(); i++) &#123;</span><br><span class="line">            <span class="type">View</span> <span class="variable">child</span> <span class="operator">=</span>  getChildAt(i);</span><br><span class="line">            <span class="type">LayoutParams</span> <span class="variable">layoutParams</span> <span class="operator">=</span> child.getLayoutParams();</span><br><span class="line">            <span class="keyword">if</span> (layoutParams.height == LayoutParams.MATCH_PARENT) &#123;</span><br><span class="line">                layoutParams.height = parentHeight;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="type">int</span> <span class="variable">childMeasuredHeight</span> <span class="operator">=</span> child.getMeasuredHeight();</span><br><span class="line">                layoutParams.height = childMeasuredHeight;</span><br><span class="line">            &#125;</span><br><span class="line">            log(child + <span class="string">&quot;,&quot;</span> + layoutParams.height);</span><br><span class="line">            child.setLayoutParams(layoutParams);</span><br><span class="line">            child.layout(l, top, r, top + layoutParams.height);</span><br><span class="line">            top += layoutParams.height;</span><br><span class="line">            lastChildHeight = layoutParams.height;</span><br><span class="line">        &#125;</span><br><span class="line">        maxDistance = top - lastChildHeight;</span><br><span class="line">        totalHeight = top;</span><br><span class="line">        <span class="comment">//viewGroup.layout(l, t, r, top);</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">onFinishInflate</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="built_in">super</span>.onFinishInflate();</span><br><span class="line"></span><br><span class="line">        nestedScrollingChildList.clear();</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; getChildCount(); i++) &#123;</span><br><span class="line">            <span class="type">View</span> <span class="variable">child</span> <span class="operator">=</span>  getChildAt(i);</span><br><span class="line">            nestedScrollingChildList.add(child);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">consumeEvent</span><span class="params">(<span class="type">int</span> dx, <span class="type">int</span> dy, <span class="type">int</span>[] consumed)</span> &#123;</span><br><span class="line">        scrollBy(dx, dy);</span><br><span class="line">        consumed[<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line">        consumed[<span class="number">1</span>] = dy;</span><br><span class="line">        log(<span class="string">&quot;parent consumed pre : &quot;</span> + consumed[<span class="number">1</span>]);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">getCurrentWrapline</span><span class="params">(View target)</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">line</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (View view : nestedScrollingChildList) &#123;</span><br><span class="line">            <span class="keyword">if</span> (view == target) &#123;</span><br><span class="line">                <span class="keyword">return</span> line;</span><br><span class="line">            &#125;</span><br><span class="line">            line += view.getHeight();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> line;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">onStartNestedScroll</span><span class="params">(View child, View target, <span class="type">int</span> nestedScrollAxes)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> (nestedScrollAxes &amp; SCROLL_AXIS_VERTICAL) != <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">onNestedScrollAccepted</span><span class="params">(View child, View target, <span class="type">int</span> axes)</span> &#123;</span><br><span class="line">        mParentHelper.onNestedScrollAccepted(child, target, axes);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">onNestedPreScroll</span><span class="params">(View target, <span class="type">int</span> dx, <span class="type">int</span> dy, <span class="type">int</span>[] consumed)</span> &#123;</span><br><span class="line">        logi(<span class="string">&quot;======== onStartNestedScroll =======&quot;</span>);</span><br><span class="line">        <span class="type">int</span> <span class="variable">scrollY</span> <span class="operator">=</span> getScrollY();</span><br><span class="line">        <span class="type">int</span> <span class="variable">line</span> <span class="operator">=</span> getCurrentWrapline(target);</span><br><span class="line">        <span class="type">boolean</span> <span class="variable">targetScrollDown</span> <span class="operator">=</span> ScrollUtils.canChildScrollDown(target);</span><br><span class="line">        <span class="type">boolean</span> <span class="variable">targetScrollUp</span> <span class="operator">=</span> ScrollUtils.canChildScrollUp(target);</span><br><span class="line">        log(<span class="string">&quot;onNestedPreScroll: target = [&quot;</span> + target.getClass().getName() + <span class="string">&quot;], dx = [&quot;</span> + dx + <span class="string">&quot;], dy = [&quot;</span> + dy + <span class="string">&quot;], consumed = [&quot;</span> + consumed + <span class="string">&quot;]&quot;</span>);</span><br><span class="line">        log(<span class="string">&quot;scrollY:&quot;</span> + scrollY + <span class="string">&quot;,lien:&quot;</span> + line + <span class="string">&quot;,scrollDown:&quot;</span> + targetScrollDown + <span class="string">&quot;scrollUp:&quot;</span> + targetScrollUp + <span class="string">&quot;,maxDistance&quot;</span> + maxDistance);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (scrollY == line</span><br><span class="line">                &amp;&amp; ((dy &gt; <span class="number">0</span> &amp;&amp; targetScrollDown) || (dy &lt; <span class="number">0</span> &amp;&amp; targetScrollUp))) &#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (scrollY + dy &lt; <span class="number">0</span> || scrollY + dy &gt; maxDistance) &#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        consumeEvent(<span class="number">0</span>, dy, consumed);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">onNestedScroll</span><span class="params">(View target, <span class="type">int</span> dxConsumed, <span class="type">int</span> dyConsumed, <span class="type">int</span> dxUnconsumed, <span class="type">int</span> dyUnconsumed)</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">scrollY</span> <span class="operator">=</span> getScrollY();</span><br><span class="line">        <span class="keyword">if</span> (scrollY + dyUnconsumed &lt; <span class="number">0</span> || scrollY + dyUnconsumed &gt; maxDistance) &#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        scrollBy(dxUnconsumed, dyUnconsumed);</span><br><span class="line">        log(<span class="string">&quot;onNestedScroll: target = [&quot;</span> + target.getClass().getName() + <span class="string">&quot;], dxConsumed = [&quot;</span> + dxConsumed + <span class="string">&quot;], dyConsumed = [&quot;</span> + dyConsumed + <span class="string">&quot;], dxUnconsumed = [&quot;</span> + dxUnconsumed + <span class="string">&quot;], dyUnconsumed = [&quot;</span> + dyUnconsumed + <span class="string">&quot;]&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">onNestedPreFling</span><span class="params">(View target, <span class="type">float</span> velocityX, <span class="type">float</span> velocityY)</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">scrollY</span> <span class="operator">=</span> getScrollY();</span><br><span class="line">        log(<span class="string">&quot;onNestedPreFling: target = [&quot;</span> + target.getClass().getName() + <span class="string">&quot;], velocityX = [&quot;</span> + velocityX + <span class="string">&quot;], velocityY = [&quot;</span> + velocityY + <span class="string">&quot;]&quot;</span> + <span class="string">&quot;,scrollY:&quot;</span> + scrollY);</span><br><span class="line">        <span class="type">int</span> <span class="variable">line</span> <span class="operator">=</span> getCurrentWrapline(target);</span><br><span class="line">        <span class="keyword">if</span> (scrollY != line) &#123;</span><br><span class="line">            fling((<span class="type">int</span>) velocityY, scrollY);</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">fling</span><span class="params">(<span class="type">int</span> velocityY, <span class="type">int</span> scrollY)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (getChildCount() &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="type">int</span> <span class="variable">height</span> <span class="operator">=</span> getHeight() - getPaddingTop() - getPaddingBottom();</span><br><span class="line">            <span class="type">int</span> <span class="variable">bottom</span> <span class="operator">=</span> totalHeight;</span><br><span class="line">            scroller.fling(<span class="number">0</span>, scrollY, <span class="number">0</span>, velocityY, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>,</span><br><span class="line">                    Math.max(<span class="number">0</span>, bottom - height));</span><br><span class="line">            invalidate();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">computeScroll</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (scroller.computeScrollOffset()) &#123;</span><br><span class="line">            <span class="type">int</span> <span class="variable">y</span> <span class="operator">=</span> scroller.getCurrY();</span><br><span class="line">            scrollTo(<span class="number">0</span>, y);</span><br><span class="line">            invalidate();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">onNestedFling</span><span class="params">(View target, <span class="type">float</span> velocityX, <span class="type">float</span> velocityY, <span class="type">boolean</span> consumed)</span> &#123;</span><br><span class="line">        log(<span class="string">&quot;onNestedFling: target = [&quot;</span> + target.getClass().getName() + <span class="string">&quot;], velocityX = [&quot;</span> + velocityX + <span class="string">&quot;], velocityY = [&quot;</span> + velocityY + <span class="string">&quot;], consumed = [&quot;</span> + consumed + <span class="string">&quot;]&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">onStopNestedScroll</span><span class="params">(View target)</span> &#123;</span><br><span class="line">        logi(<span class="string">&quot;======== onStopNestedScroll =======&quot;</span>);</span><br><span class="line">        mParentHelper.onStopNestedScroll(target);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">log</span><span class="params">(String s)</span> &#123;</span><br><span class="line">        Log.e(TAG, s);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">logi</span><span class="params">(String s)</span> &#123;</span><br><span class="line">        Log.i(TAG, s);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">logw</span><span class="params">(String s)</span> &#123;</span><br><span class="line">        Log.w(TAG, s);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<blockquote>
+<p>文章来自： <a href="https://hanks.pub/">https://hanks.pub</a></p>
+</blockquote>
+
+      
+    </div>
+</article>
+
+<!-- 上一页 下一页 -->
+
+
+<nav id="article-nav">
+  
+    <a href="/2016/08/31/nestedscrollchild/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>上一篇</span>
+      <div class="article-nav-title">
+        
+          WebView 实现 NestedScrollingChild
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/08/04/telegram-bot/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>下一篇</span>
+      <div class="article-nav-title">写一个福利 Telegram 机器人</div>
+    </a>
+  
+</nav>
+
+
+
+<!-- 相关文章 -->
+
+<!--
+
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+      			<a href="/2016/08/29/nestedchildparent/">NestedScrollingParent 实现复杂交互效果</a>
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+
+-->
+
+
+</section>
+      </div>
+      <footer id="footer">
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      
+      &copy;2024<a target="_blank" rel="noopener" href="https://github.com/hanks-zyh"> Hanks</a>版权所有
+      <br/>
+      <a href="https://beian.miit.gov.cn/" target="_blank">豫ICP备2021022347号</a>
+	  </div>
+  </div>
+ <div id="share">
+  <a id="totop" title="" style="display: block;">返回顶部</a>
+ </div>
+</footer>
+
+    </div>
+    
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/jquery.scrollLoading.js"></script>
+
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/ads.js"></script>
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>redirect</title>
+</head>
+
+<body>
+
+    <a target="_blank" href="https://qm.qq.com/cgi-bin/qm/qr?k=nGt9NxEwCsTnSlBBLZnbHJzTFqpYvw6k&jump_from=webapi"><img border="0" src="//pub.idqqimg.com/wpa/images/group.png" alt="B站粉丝小组件交流群" title="B站粉丝小组件交流群"></a>
+
+    <script>
+        function getQueryString(name) {
+            var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
+            var r = window.location.search.substr(1).match(reg);
+            if (r != null) {
+                return unescape(r[2]);
+            }
+            return null;
+        }
+
+        var pkg = getQueryString('from');
+        var type = getQueryString('type');
+        var version = getQueryString('v');
+        var url = 'https://www.coolapk.com/apk/' + pkg;
+        if (type == 'weibo') {
+            url = 'https://weibo.com/u/2359002991'
+        } else if (type == 'weixin_pub') {
+            url = 'http://mp.weixin.qq.com/mp/getmasssendmsg?__biz=MzAwNjgzOTEwNg==#wechat_redirect'
+        } else if (type == 'bilibili') {
+            url = 'https://space.bilibili.com/14506847'
+        }  else if (type == 'qq') {
+            if (pkg == 'com.android.cf.bzfs') {
+                url = 'https://qm.qq.com/cgi-bin/qm/qr?k=nGt9NxEwCsTnSlBBLZnbHJzTFqpYvw6k&jump_from=webapi'
+            }
+        } else if (type == 'update') {
+            url = 'https://www.coolapk.com/apk/' + pkg;
+        }
+        window.location = url
+    </script>
+
+</body>
+
+</html>

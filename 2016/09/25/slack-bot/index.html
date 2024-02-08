@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>slack bot | Hanks&#39; Websit</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <script data-ad-client="ca-pub-8165670162444117" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <meta name="referrer" content="never">
+  <meta name="description" content="創建機器人利用机器人可以做一些重复性的工作。创建 bot user，就是可以跟它进行实时聊天。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="slack bot">
+<meta property="og:url" content="https://hanks.pub/2016/09/25/slack-bot/index.html">
+<meta property="og:site_name" content="Hanks&#39; Websit">
+<meta property="og:description" content="創建機器人利用机器人可以做一些重复性的工作。创建 bot user，就是可以跟它进行实时聊天。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://ws4.sinaimg.cn/large/8c9b876fjw1f864v443vpj20se0ezq4m.jpg">
+<meta property="og:image" content="https://ws4.sinaimg.cn/large/8c9b876fjw1f864vqez0bj20sr0mrdio.jpg">
+<meta property="og:image" content="https://ws4.sinaimg.cn/large/8c9b876fjw1f865asb5w4j20uk0j90ug.jpg">
+<meta property="og:image" content="https://ws4.sinaimg.cn/large/8c9b876fjw1f865kgcc7dj20tl0o4djn.jpg">
+<meta property="article:published_time" content="2016-09-25T13:36:49.000Z">
+<meta property="article:modified_time" content="2024-02-08T01:29:02.192Z">
+<meta property="article:author" content="Hanks">
+<meta property="article:tag" content="bot">
+<meta property="article:tag" content="slack">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://ws4.sinaimg.cn/large/8c9b876fjw1f864v443vpj20se0ezq4m.jpg">
+  
+  
+  <link href="https://fonts.googleapis.com/css?family=Fira+Code|Noto+Serif+SC&display=swap" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8165670162444117"
+     crossorigin="anonymous"></script>
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo"></a>
+    <nav id="main-nav">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      
+        <a class="main-nav-link" href="/archives">Archive</a>
+      
+        <a class="main-nav-link" href="/eye-video">Eye</a>
+      
+        <a class="main-nav-link" href="/atom.xml">Rss</a>
+      
+    </nav>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/archives" class="mobile-nav-link">Archive</a>
+  
+    <a href="/eye-video" class="mobile-nav-link">Eye</a>
+  
+    <a href="/atom.xml" class="mobile-nav-link">Rss</a>
+  
+</nav>
+      <div class="outer">
+        <section id="main"><article id="post-slack-bot" class="article article-type-post" itemscope
+  itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <header class="article-header">
+      
+      
+  
+    <h1 class="article-title" itemprop="name">
+      slack bot
+    </h1>
+  
+
+      
+    </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      <h2 id="創建機器人"><a href="#創建機器人" class="headerlink" title="創建機器人"></a>創建機器人</h2><p>利用机器人可以做一些重复性的工作。<br>创建 bot user，就是可以跟它进行实时聊天。</p>
+<span id="more"></span>
+
+<p><a target="_blank" rel="noopener" href="https://api.slack.com/bot-users">https://api.slack.com/bot-users</a><br><a target="_blank" rel="noopener" href="https://my.slack.com/services/new/bot">https://my.slack.com/services/new/bot</a></p>
+<p><img src="https://ws4.sinaimg.cn/large/8c9b876fjw1f864v443vpj20se0ezq4m.jpg" alt="创建"></p>
+<h2 id="創建后拿到-token"><a href="#創建后拿到-token" class="headerlink" title="創建后拿到 token"></a>創建后拿到 token</h2><p><img src="https://ws4.sinaimg.cn/large/8c9b876fjw1f864vqez0bj20sr0mrdio.jpg" alt="token"></p>
+<h2 id="讓機器人在綫"><a href="#讓機器人在綫" class="headerlink" title="讓機器人在綫"></a>讓機器人在綫</h2><p>安装 <code>botkit</code>， <code>botkit</code> 是一个 node 的库。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install --save botkit</span><br></pre></td></tr></table></figure>
+
+<p>创建 <code>bot.js</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">var Botkit = require(&#x27;botkit&#x27;);</span><br><span class="line">var controller = Botkit.slackbot();</span><br><span class="line">var bot = controller.spawn(&#123;</span><br><span class="line">  token: your_slack_bot_token // 填入申請的 token</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">bot.startRTM(function(err,bot,payload) &#123; //開啓實時聊天</span><br><span class="line">  if (err) &#123;</span><br><span class="line">    throw new Error(&#x27;Could not connect to Slack&#x27;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">//處理來自客戶端發來的請求</span><br><span class="line">controller.hears([&quot;keyword&quot;, &quot;^pattern$&quot;], [&quot;direct_message&quot;, &quot;direct_mention&quot;, &quot;mention&quot;, &quot;ambient&quot;],</span><br><span class="line">    function(bot, message) &#123;</span><br><span class="line">        bot.reply(message, &#x27;You used a keyword!&#x27;);</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">node bot.js</span><br></pre></td></tr></table></figure>
+<p><img src="https://ws4.sinaimg.cn/large/8c9b876fjw1f865asb5w4j20uk0j90ug.jpg" alt="聊天"></p>
+<h2 id="機器人主動推送"><a href="#機器人主動推送" class="headerlink" title="機器人主動推送"></a>機器人主動推送</h2><p>調用 <code>bot.reply(message, &#39;You used a keyword!&#39;);</code></p>
+<p>如</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">  var m = &#123;</span><br><span class="line">    type: &#x27;message&#x27;,</span><br><span class="line">    channel: &#x27;D2FFFEXS7&#x27;,</span><br><span class="line">    user: &#x27;U2CE0K880&#x27;,</span><br><span class="line">    text: &#x27;op&#x27;,</span><br><span class="line">    ts: &#x27;1474725618.000015&#x27;,</span><br><span class="line">    team: &#x27;T2BD7KZH6&#x27;,</span><br><span class="line">    event: &#x27;direct_message&#x27;,</span><br><span class="line">&#125;</span><br><span class="line">bot.reply(m, &#x27;gagagaga&#x27;); //發送消息給 user</span><br></pre></td></tr></table></figure>
+
+<h2 id="自定義消息的樣式"><a href="#自定義消息的樣式" class="headerlink" title="自定義消息的樣式"></a>自定義消息的樣式</h2><p><a target="_blank" rel="noopener" href="https://api.slack.com/docs/messages/builder">https://api.slack.com/docs/messages/builder</a></p>
+<p><img src="https://ws4.sinaimg.cn/large/8c9b876fjw1f865kgcc7dj20tl0o4djn.jpg" alt="自定义消息"></p>
+<blockquote>
+<p>文章来自： <a href="https://hanks.pub/">https://hanks.pub</a></p>
+</blockquote>
+
+      
+    </div>
+</article>
+
+<!-- 上一页 下一页 -->
+
+
+<nav id="article-nav">
+  
+    <a href="/2017/01/09/android-webview-font/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>上一篇</span>
+      <div class="article-nav-title">
+        
+          Android 中 webview 自定义字体
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/09/19/webapp/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>下一篇</span>
+      <div class="article-nav-title">让网页更适配移动设备</div>
+    </a>
+  
+</nav>
+
+
+
+<!-- 相关文章 -->
+
+<!--
+
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+      			<a href="/2016/09/25/slack-bot/">slack bot</a>
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+
+-->
+
+
+</section>
+      </div>
+      <footer id="footer">
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      
+      &copy;2024<a target="_blank" rel="noopener" href="https://github.com/hanks-zyh"> Hanks</a>版权所有
+      <br/>
+      <a href="https://beian.miit.gov.cn/" target="_blank">豫ICP备2021022347号</a>
+	  </div>
+  </div>
+ <div id="share">
+  <a id="totop" title="" style="display: block;">返回顶部</a>
+ </div>
+</footer>
+
+    </div>
+    
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/jquery.scrollLoading.js"></script>
+
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/ads.js"></script>
+
+  </div>
+</body>
+</html>

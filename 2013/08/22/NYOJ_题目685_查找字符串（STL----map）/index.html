@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>NYOJ 题目685 查找字符串（STL----map） | Hanks&#39; Websit</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <script data-ad-client="ca-pub-8165670162444117" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <meta name="referrer" content="never">
+  <meta name="description" content="查找字符串 时间限制：1000 ms &nbsp;|&nbsp; 内存限制：65535 KB  难度：3 描述  小明得到了一张写有奇怪字符串的纸，他想知道一些字符串出现了多少次，但这些字符串太多了，他想找你帮忙，你能帮他吗？输入字符包括所有小写字母、‘@’、‘&#43;’。 输入 第一行包含一个整数T（T&lt;&#x3D;100).表示测试数据组数。 接下来每组数据第一行包含两个整数n，m(n，m&amp;l">
+<meta property="og:type" content="article">
+<meta property="og:title" content="NYOJ 题目685 查找字符串（STL----map）">
+<meta property="og:url" content="https://hanks.pub/2013/08/22/NYOJ_%E9%A2%98%E7%9B%AE685_%E6%9F%A5%E6%89%BE%E5%AD%97%E7%AC%A6%E4%B8%B2%EF%BC%88STL----map%EF%BC%89/index.html">
+<meta property="og:site_name" content="Hanks&#39; Websit">
+<meta property="og:description" content="查找字符串 时间限制：1000 ms &nbsp;|&nbsp; 内存限制：65535 KB  难度：3 描述  小明得到了一张写有奇怪字符串的纸，他想知道一些字符串出现了多少次，但这些字符串太多了，他想找你帮忙，你能帮他吗？输入字符包括所有小写字母、‘@’、‘&#43;’。 输入 第一行包含一个整数T（T&lt;&#x3D;100).表示测试数据组数。 接下来每组数据第一行包含两个整数n，m(n，m&amp;l">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2013-08-22T11:11:00.000Z">
+<meta property="article:modified_time" content="2024-02-08T01:29:02.176Z">
+<meta property="article:author" content="Hanks">
+<meta name="twitter:card" content="summary">
+  
+  
+  <link href="https://fonts.googleapis.com/css?family=Fira+Code|Noto+Serif+SC&display=swap" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8165670162444117"
+     crossorigin="anonymous"></script>
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo"></a>
+    <nav id="main-nav">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      
+        <a class="main-nav-link" href="/archives">Archive</a>
+      
+        <a class="main-nav-link" href="/eye-video">Eye</a>
+      
+        <a class="main-nav-link" href="/atom.xml">Rss</a>
+      
+    </nav>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/archives" class="mobile-nav-link">Archive</a>
+  
+    <a href="/eye-video" class="mobile-nav-link">Eye</a>
+  
+    <a href="/atom.xml" class="mobile-nav-link">Rss</a>
+  
+</nav>
+      <div class="outer">
+        <section id="main"><article id="post-NYOJ_题目685_查找字符串（STL----map）" class="article article-type-post" itemscope
+  itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <header class="article-header">
+      
+      
+  
+    <h1 class="article-title" itemprop="name">
+      NYOJ 题目685 查找字符串（STL----map）
+    </h1>
+  
+
+      
+    </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+<h2 align="center"><span style="color:#3366ff">查找字符串</span></h2>
+<div align="center"><span style="color:#009900">时间限制：<span id="problem[time_limit]">1000</span> ms &nbsp;|&nbsp; 内存限制：<span id="problem[memory_limit]">65535</span> KB
+</span></div>
+<div align="center"><span style="color:#009900">难度：3</span></div>
+<dl><dt>描述 </dt><dd>
+<p align="left">小明得到了一张写有奇怪字符串的纸，他想知道一些字符串出现了多少次，但这些字符串太多了，他想找你帮忙，你能帮他吗？输入字符包括所有小写字母、‘@’、‘&#43;’。</p>
+<dl><dt>输入 </dt><dd>第一行包含一个整数T（T&lt;=100).表示测试数据组数。<br>
+接下来每组数据第一行包含两个整数n，m(n，m&lt;100000),分别表示有n个字符串，小明要问你m次。<br>
+接下来n行，每行包含一个字符串，长度不大于15。<br>
+接下来m行，每行包含一个字符串，表示小明要问该串出现的次数。<br>
+</dd><dt>输出 </dt><dd>输出每组小明询问数串出现的次数。 </dd><dt>样例输入 </dt><dd>
+<pre id="sample_input">1
+5 3
+hello
+<a target="_blank" href="mailto:it@is&#43;so@easy">it@is&#43;so@easy</a>
+hello
+ibelieveicanac
+hello
+hello
+icannotacit
+Giveup</pre>
+</dd><dd>
+<pre>&nbsp;</pre>
+</dd><dd>
+<pre>样例输出 </pre>
+</dd><dd>
+<pre id="sample_output">3</pre>
+</dd><dd>
+<pre>0</pre>
+</dd><dd>
+<pre>0</pre>
+</dd></dl>
+</dd><dd>&nbsp;</dd></dl>
+<p></p>
+<dl></dl>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<pre class="cpp" name="code">/***************************
+# 2013-8-22 18:47:15 
+# Time: 140MS   Memory: 308KB
+# Author: zyh
+# Status: Accepted
+***************************/ 
+
+#include&lt;iostream&gt;
+#include&lt;stdio.h&gt;
+#include&lt;string.h&gt;
+#include&lt;stdlib.h&gt;
+#include&lt;algorithm&gt;
+#include&lt;map&gt;
+
+using namespace std;
+
+map&lt;string,int&gt; M;
+
+int main()
+{
+	int n,m,t;
+	char s[16];
+	string str;
+	scanf(&quot;%d&quot;,&amp;t);
+	while(t--)
+	{
+		scanf(&quot;%d%d&quot;,&amp;n,&amp;m);
+		getchar();
+		while(n--){
+			gets(s);
+			str = s;
+			M[str]++;
+		}
+		while(m--){
+			gets(s);
+			str = s;
+			printf(&quot;%d\n&quot;,M[str]);
+		}
+		M.clear();		
+	}
+	return 0;
+} </pre>
+<p><br>
+&nbsp;</p>
+<p>&nbsp;</p>
+
+      
+    </div>
+</article>
+
+<!-- 上一页 下一页 -->
+
+
+<nav id="article-nav">
+  
+    <a href="/2013/08/22/poj_%E9%A2%98%E7%9B%AE1883_%E6%8E%92%E5%88%97%EF%BC%88STL----next_permutation%EF%BC%89/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>上一篇</span>
+      <div class="article-nav-title">
+        
+          poj 题目1883 排列（STL----next_permutation）
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2013/08/22/NYOJ_%E9%A2%98%E7%9B%AE366_D%E7%9A%84%E5%B0%8FL_%EF%BC%88next_permutation%EF%BC%89/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>下一篇</span>
+      <div class="article-nav-title">NYOJ 题目366 D的小L （next_permutation）</div>
+    </a>
+  
+</nav>
+
+
+
+<!-- 相关文章 -->
+
+<!--
+
+-->
+
+
+</section>
+      </div>
+      <footer id="footer">
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      
+      &copy;2024<a target="_blank" rel="noopener" href="https://github.com/hanks-zyh"> Hanks</a>版权所有
+      <br/>
+      <a href="https://beian.miit.gov.cn/" target="_blank">豫ICP备2021022347号</a>
+	  </div>
+  </div>
+ <div id="share">
+  <a id="totop" title="" style="display: block;">返回顶部</a>
+ </div>
+</footer>
+
+    </div>
+    
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/jquery.scrollLoading.js"></script>
+
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/ads.js"></script>
+
+  </div>
+</body>
+</html>

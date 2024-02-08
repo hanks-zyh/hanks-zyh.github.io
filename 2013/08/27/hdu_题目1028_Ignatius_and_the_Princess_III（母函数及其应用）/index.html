@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>hdu 题目1028 Ignatius and the Princess III（母函数及其应用） | Hanks&#39; Websit</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <script data-ad-client="ca-pub-8165670162444117" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <meta name="referrer" content="never">
+  <meta name="description" content="Ignatius and the Princess III Time Limit: 2000&#x2F;1000 MS (Java&#x2F;Others)&nbsp;&nbsp;&nbsp;&nbsp;Memory Limit: 65536&#x2F;32768 K (Java&#x2F;Others) Total Submission(s): 10219&nbsp;&nbsp;&nbsp;&nbsp;Accepted Subm">
+<meta property="og:type" content="article">
+<meta property="og:title" content="hdu 题目1028 Ignatius and the Princess III（母函数及其应用）">
+<meta property="og:url" content="https://hanks.pub/2013/08/27/hdu_%E9%A2%98%E7%9B%AE1028_Ignatius_and_the_Princess_III%EF%BC%88%E6%AF%8D%E5%87%BD%E6%95%B0%E5%8F%8A%E5%85%B6%E5%BA%94%E7%94%A8%EF%BC%89/index.html">
+<meta property="og:site_name" content="Hanks&#39; Websit">
+<meta property="og:description" content="Ignatius and the Princess III Time Limit: 2000&#x2F;1000 MS (Java&#x2F;Others)&nbsp;&nbsp;&nbsp;&nbsp;Memory Limit: 65536&#x2F;32768 K (Java&#x2F;Others) Total Submission(s): 10219&nbsp;&nbsp;&nbsp;&nbsp;Accepted Subm">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2013-08-27T06:40:00.000Z">
+<meta property="article:modified_time" content="2024-02-08T01:29:02.183Z">
+<meta property="article:author" content="Hanks">
+<meta name="twitter:card" content="summary">
+  
+  
+  <link href="https://fonts.googleapis.com/css?family=Fira+Code|Noto+Serif+SC&display=swap" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8165670162444117"
+     crossorigin="anonymous"></script>
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo"></a>
+    <nav id="main-nav">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      
+        <a class="main-nav-link" href="/archives">Archive</a>
+      
+        <a class="main-nav-link" href="/eye-video">Eye</a>
+      
+        <a class="main-nav-link" href="/atom.xml">Rss</a>
+      
+    </nav>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/archives" class="mobile-nav-link">Archive</a>
+  
+    <a href="/eye-video" class="mobile-nav-link">Eye</a>
+  
+    <a href="/atom.xml" class="mobile-nav-link">Rss</a>
+  
+</nav>
+      <div class="outer">
+        <section id="main"><article id="post-hdu_题目1028_Ignatius_and_the_Princess_III（母函数及其应用）" class="article article-type-post" itemscope
+  itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <header class="article-header">
+      
+      
+  
+    <h1 class="article-title" itemprop="name">
+      hdu 题目1028 Ignatius and the Princess III（母函数及其应用）
+    </h1>
+  
+
+      
+    </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+<p></p>
+<h1 style="color:rgb(26,92,200); text-align:center; font-family:'Times New Roman'">
+Ignatius and the Princess III</h1>
+<span style="font-family:'Times New Roman'; font-size:14px"><strong><span style="font-family:Arial; font-size:12px; color:green">Time Limit: 2000/1000 MS (Java/Others)&nbsp;&nbsp;&nbsp;&nbsp;Memory Limit: 65536/32768 K (Java/Others)<br>
+Total Submission(s): 10219&nbsp;&nbsp;&nbsp;&nbsp;Accepted Submission(s): 7244<br>
+</span></strong></span><br style="font-family:'Times New Roman'; font-size:14px">
+<br style="font-family:'Times New Roman'; font-size:14px">
+<div class="panel_title" align="left" style="height:38px; background-color:transparent; padding:0px 14px; color:rgb(124,169,237); font-size:18px; font-family:Arial; font-weight:bold">
+Problem Description</div>
+<div class="panel_content" style="height:auto; margin:0px; padding:0px 20px; font-size:14px; font-family:'Times New Roman'">
+&quot;Well, it seems the first problem is too easy. I will let you know how foolish you are later.&quot; feng5166 says.<br>
+<br>
+&quot;The second problem is, given an positive integer N, we define an equation like this:<br>
+&nbsp;&nbsp;N=a[1]&#43;a[2]&#43;a[3]&#43;...&#43;a[m];<br>
+&nbsp;&nbsp;a[i]&gt;0,1&lt;=m&lt;=N;<br>
+My question is how many different equations you can find for a given N.<br>
+For example, assume N is 4, we can find:<br>
+&nbsp;&nbsp;4 = 4;<br>
+&nbsp;&nbsp;4 = 3 &#43; 1;<br>
+&nbsp;&nbsp;4 = 2 &#43; 2;<br>
+&nbsp;&nbsp;4 = 2 &#43; 1 &#43; 1;<br>
+&nbsp;&nbsp;4 = 1 &#43; 1 &#43; 1 &#43; 1;<br>
+so the result is 5 when N is 4. Note that &quot;4 = 3 &#43; 1&quot; and &quot;4 = 1 &#43; 3&quot; is the same in this problem. Now, you do it!&quot;<br>
+</div>
+<div class="panel_bottom" style="height:auto; margin:0px; font-family:'Times New Roman'; font-size:14px">
+&nbsp;</div>
+<br style="font-family:'Times New Roman'; font-size:14px">
+<div class="panel_title" align="left" style="height:38px; background-color:transparent; padding:0px 14px; color:rgb(124,169,237); font-size:18px; font-family:Arial; font-weight:bold">
+Input</div>
+<div class="panel_content" style="height:auto; margin:0px; padding:0px 20px; font-size:14px; font-family:'Times New Roman'">
+The input contains several test cases. Each test case contains a positive integer N(1&lt;=N&lt;=120) which is mentioned above. The input is terminated by the end of file.<br>
+</div>
+<div class="panel_bottom" style="height:auto; margin:0px; font-family:'Times New Roman'; font-size:14px">
+&nbsp;</div>
+<br style="font-family:'Times New Roman'; font-size:14px">
+<div class="panel_title" align="left" style="height:38px; background-color:transparent; padding:0px 14px; color:rgb(124,169,237); font-size:18px; font-family:Arial; font-weight:bold">
+Output</div>
+<div class="panel_content" style="height:auto; margin:0px; padding:0px 20px; font-size:14px; font-family:'Times New Roman'">
+For each test case, you have to output a line contains an integer P which indicate the different equations you have found.<br>
+</div>
+<div class="panel_bottom" style="height:auto; margin:0px; font-family:'Times New Roman'; font-size:14px">
+&nbsp;</div>
+<br style="font-family:'Times New Roman'; font-size:14px">
+<div class="panel_title" align="left" style="height:38px; background-color:transparent; padding:0px 14px; color:rgb(124,169,237); font-size:18px; font-family:Arial; font-weight:bold">
+Sample Input</div>
+<div class="panel_content" style="height:auto; margin:0px; padding:0px 20px; font-size:14px; font-family:'Times New Roman'">
+<pre style="margin-top:0px; margin-bottom:0px"><div style="font-family:'Courier New',Courier,monospace">4
+10
+20</div></pre>
+</div>
+<div class="panel_bottom" style="height:auto; margin:0px; font-family:'Times New Roman'; font-size:14px">
+&nbsp;</div>
+<br style="font-family:'Times New Roman'; font-size:14px">
+<div class="panel_title" align="left" style="height:38px; background-color:transparent; padding:0px 14px; color:rgb(124,169,237); font-size:18px; font-family:Arial; font-weight:bold">
+Sample Output</div>
+<div class="panel_content" style="height:auto; margin:0px; padding:0px 20px; font-size:14px; font-family:'Times New Roman'">
+<pre style="margin-top:0px; margin-bottom:0px"><div style="font-family:'Courier New',Courier,monospace">5
+42
+627</div></pre>
+</div>
+<div class="panel_bottom" style="height:auto; margin:0px; font-family:'Times New Roman'; font-size:14px">
+&nbsp;</div>
+<span style="font-size:18px"><br>
+</span>
+<p></p>
+<p><span style="font-size:18px">基本的母函数应用：</span></p>
+<p><span style="font-size:18px">1的个数无限个</span></p>
+<p><span style="font-size:18px">2的个数无限个</span></p>
+<p><span style="font-size:18px">所有元素个数都是无限个</span></p>
+<p><span style="font-size:18px">故母函数 G(x) = (1&#43; x &#43; x^2 &#43; x^3 &#43; ...)(1&#43; x^2 &#43; x^4 &#43;...) (1&#43;x^3 &#43; x^6 &#43; x^9 &#43;...) (1&#43; x^4 &#43;).....( 1&#43; x^n &#43; x^2n &#43;.....)</span></p>
+<p><br>
+</p>
+<p><br>
+</p>
+<p><br>
+</p>
+<p><pre name="code" class="cpp">/***************************
+# 2013-8-26 18:18:57 
+# Time: 15MS   Memory: 228KB
+# Author: zyh
+# Status: Accepted
+***************************/ 
+
+
+#include&lt;stdio.h&gt;
+
+int main()
+{
+    int n,i,j,k,c1[150],c2[150];
+    
+    while(scanf(&quot;%d&quot;,&amp;n)!=EOF)
+    {
+        for(i=0;i&lt;=n;i++){
+            c1[i]=1;
+            c2[i]=0;
+        }
+        for(i=2;i&lt;=n;i++){ //这里的 n 是 （）括起来的表达式的个数
+            for(j=0;j&lt;=n;j++){  //这里的n 是括号里每个表达式的 项的个数
+                for(k=0;k+j&lt;=n;k+=i){ //这里的 n 是所求结果的 最高次幂
+                  c2[j+k] += c1[j];    
+                }
+            }
+            for(j=0;j&lt;=n;j++){
+                c1[j] = c2[j];
+                c2[j] = 0;
+            }
+        }
+        printf(&quot;%d\n&quot;,c1[n]);
+    }
+    return 0;
+} </pre><br>
+<br>
+</p>
+<p><br>
+</p>
+<p><br>
+</p>
+
+      
+    </div>
+</article>
+
+<!-- 上一页 下一页 -->
+
+
+<nav id="article-nav">
+  
+    <a href="/2013/08/27/hdu_%E9%A2%98%E7%9B%AE1398_Square_Coins_%EF%BC%88%E6%AF%8D%E5%87%BD%E6%95%B0%E5%8F%8A%E5%85%B6%E5%BA%94%E7%94%A8%EF%BC%89/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>上一篇</span>
+      <div class="article-nav-title">
+        
+          hdu 题目1398 Square Coins （母函数及其应用）
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2013/08/25/hdu_%E9%A2%98%E7%9B%AE1907_Johu_%EF%BC%88%E5%8F%96%E7%81%AB%E6%9F%B4%E6%B8%B8%E6%88%8F%EF%BC%8C%E5%8F%96%E6%9C%80%E5%90%8E%E4%B8%80%E4%B8%AA%E8%83%9C%EF%BC%89/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>下一篇</span>
+      <div class="article-nav-title">hdu 题目1907 Johu （取火柴游戏，取最后一个胜）</div>
+    </a>
+  
+</nav>
+
+
+
+<!-- 相关文章 -->
+
+<!--
+
+-->
+
+
+</section>
+      </div>
+      <footer id="footer">
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      
+      &copy;2024<a target="_blank" rel="noopener" href="https://github.com/hanks-zyh"> Hanks</a>版权所有
+      <br/>
+      <a href="https://beian.miit.gov.cn/" target="_blank">豫ICP备2021022347号</a>
+	  </div>
+  </div>
+ <div id="share">
+  <a id="totop" title="" style="display: block;">返回顶部</a>
+ </div>
+</footer>
+
+    </div>
+    
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/jquery.scrollLoading.js"></script>
+
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/ads.js"></script>
+
+  </div>
+</body>
+</html>

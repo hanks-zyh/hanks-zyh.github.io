@@ -1,0 +1,1010 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>自定义控件--垂直滑动布局 | Hanks&#39; Websit</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <script data-ad-client="ca-pub-8165670162444117" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <meta name="referrer" content="never">
+  <meta name="description" content="自定义一个垂直的布局  package com.zyh.verticalscrollview;  import android.content.Context; import android.util.AttributeSet; import android.view.GestureDetector; import android.view.GestureDetector.OnGesture">
+<meta property="og:type" content="article">
+<meta property="og:title" content="自定义控件--垂直滑动布局">
+<meta property="og:url" content="https://hanks.pub/2014/09/25/%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8E%A7%E4%BB%B6--%E5%9E%82%E7%9B%B4%E6%BB%91%E5%8A%A8%E5%B8%83%E5%B1%80/index.html">
+<meta property="og:site_name" content="Hanks&#39; Websit">
+<meta property="og:description" content="自定义一个垂直的布局  package com.zyh.verticalscrollview;  import android.content.Context; import android.util.AttributeSet; import android.view.GestureDetector; import android.view.GestureDetector.OnGesture">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img.blog.csdn.net/20140925141607109">
+<meta property="article:published_time" content="2014-09-25T06:05:00.000Z">
+<meta property="article:modified_time" content="2024-02-08T01:29:02.203Z">
+<meta property="article:author" content="Hanks">
+<meta property="article:tag" content="Android">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img.blog.csdn.net/20140925141607109">
+  
+  
+  <link href="https://fonts.googleapis.com/css?family=Fira+Code|Noto+Serif+SC&display=swap" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8165670162444117"
+     crossorigin="anonymous"></script>
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo"></a>
+    <nav id="main-nav">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      
+        <a class="main-nav-link" href="/archives">Archive</a>
+      
+        <a class="main-nav-link" href="/eye-video">Eye</a>
+      
+        <a class="main-nav-link" href="/atom.xml">Rss</a>
+      
+    </nav>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/archives" class="mobile-nav-link">Archive</a>
+  
+    <a href="/eye-video" class="mobile-nav-link">Eye</a>
+  
+    <a href="/atom.xml" class="mobile-nav-link">Rss</a>
+  
+</nav>
+      <div class="outer">
+        <section id="main"><article id="post-自定义控件--垂直滑动布局" class="article article-type-post" itemscope
+  itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <header class="article-header">
+      
+      
+  
+    <h1 class="article-title" itemprop="name">
+      自定义控件--垂直滑动布局
+    </h1>
+  
+
+      
+    </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+<p><img src="https://img.blog.csdn.net/20140925141607109" alt=""><br>
+</p>
+<p>自定义一个垂直的布局</p>
+<p></p>
+<pre code_snippet_id="474951" snippet_file_name="blog_20140925_1_7318963"  code_snippet_id="474951" snippet_file_name="blog_20140925_1_7318963" name="code" class="java">package com.zyh.verticalscrollview;
+
+import android.content.Context;
+import android.util.AttributeSet;
+import android.view.GestureDetector;
+import android.view.GestureDetector.OnGestureListener;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Scroller;
+
+public class VerticalSrcollView extends ViewGroup {
+
+	public VerticalSrcollView(Context context, AttributeSet attrs, int defStyle) {
+		super(context, attrs, defStyle);
+	}
+
+	private Context cx;
+
+	public VerticalSrcollView(Context context) {
+		super(context);
+		this.cx = context;
+		init();
+	}
+
+	public VerticalSrcollView(Context context, AttributeSet attrs) {
+		super(context, attrs);
+		this.cx = context;
+		init();
+	}
+
+	private void init() {
+		scroller = new Scroller(cx);
+		detector = new GestureDetector(cx, new OnGestureListener() {
+			public boolean onSingleTapUp(MotionEvent e) {
+				return false;
+			}
+
+			public void onShowPress(MotionEvent e) {
+			}
+
+			/**
+			 * 当手指正常滑动时回调
+			 */
+			public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
+				if ((distanceY &lt; 0 &amp;&amp; curId == 0) || (distanceY &gt; 0 &amp;&amp; curId == getChildCount() - 1)) {// 首页跟末尾页超出边界
+					return false;
+				}
+				scrollBy(0, (int) distanceY);
+				return false;
+			}
+
+			public void onLongPress(MotionEvent e) {
+			}
+
+			/**
+			 * 当快速滑动式回调
+			 */
+			public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+				System.out.println(&quot;vY：&quot; + velocityY);
+				System.out.println(&quot;cr：&quot; + curId);
+				if (velocityY &gt; 0 &amp;&amp; curId &gt; 0) {
+					moveToDest(curId - 1);
+				} else if (velocityY &lt; 0 &amp;&amp; curId &lt; getChildCount() - 1) {
+					moveToDest(curId + 1);
+				} else {
+					moveToDest(curId);
+				}
+				isFling = true;
+				return false;
+			}
+
+			public boolean onDown(MotionEvent e) {
+				return false;
+			}
+		});
+	}
+
+	/**
+	 * 对子view进行排列布局
+	 */
+	@Override
+	protected void onLayout(boolean changed, int l, int t, int r, int b) {
+
+		for (int i = 0; i &lt; getChildCount(); i++) {
+			View view = this.getChildAt(i);
+			view.layout(0, i * getHeight(), getWidth(), (i + 1) * getHeight());
+		}
+	}
+
+	/**
+	 * 必须对子View进行measure
+	 */
+	@Override
+	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+		super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+
+		for (int i = 0; i &lt; getChildCount(); i++) {
+			View view = getChildAt(i);
+			view.measure(widthMeasureSpec, heightMeasureSpec);
+		}
+	}
+
+	private GestureDetector detector;
+	private Scroller scroller;
+	private int curId;// 当前子View的Id
+	private boolean isFling = false; // 是否发生快速滑动
+
+	@Override
+	public boolean onTouchEvent(MotionEvent event) {
+
+		detector.onTouchEvent(event);// 交给手势识别器
+
+		switch (event.getAction()) {
+			case MotionEvent.ACTION_UP:// 手指抬起
+				if (!isFling) moveToDest();
+				isFling = false;
+				break;
+			default:
+				break;
+		}
+		return true;
+	}
+
+	/**
+	 * ViewGroup的内容移动到合适位置
+	 */
+	private void moveToDest() {
+		// 计算当前子view的id
+		int destId = (getHeight() / 2 + getScrollY()) / getHeight();
+		moveToDest(destId);
+	}
+
+	/**
+	 * 将指定下标destId的控件移到屏幕
+	 * @param destId
+	 */
+	private void moveToDest(int destId) {
+		curId = destId;
+		if (destId &gt; getChildCount() - 1) destId = getChildCount() - 1;
+		int distance = destId * getHeight() - getScrollY();// 需要移动的距离
+		// scrollBy(0, distance);
+		scroller.startScroll(0, getScrollY(), 0, distance);
+		invalidate();// 刷新视图,执行computeScroll()
+	}
+
+	@Override
+	public void computeScroll() {
+		if (scroller.computeScrollOffset()) {
+			scrollTo(0, scroller.getCurrY());
+			invalidate();
+		}
+	}
+
+	public void setOnPageScrollListener(IPageChangeListener changeListener) {
+		this.pageChangeListener = changeListener;
+	}
+
+	private IPageChangeListener pageChangeListener;
+
+	/**
+	 * 页面滑动监听器
+	 * @author zyh
+	 */
+	public interface IPageChangeListener {
+		public void changeTo(int pageId);
+	}
+}
+</pre><br>
+<br>
+<p></p>
+<p><br>
+</p>
+<p><br>
+</p>
+<p><br>
+</p>
+<p><br>
+</p>
+
+      
+    </div>
+</article>
+
+<!-- 上一页 下一页 -->
+
+
+<nav id="article-nav">
+  
+    <a href="/2014/09/26/%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8E%A7%E4%BB%B6_---_DeletableEditText%E5%B8%A6%E5%88%A0%E9%99%A4%E6%8C%89%E9%92%AE%E7%9A%84EditText/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>上一篇</span>
+      <div class="article-nav-title">
+        
+          自定义控件 --- DeletableEditText带删除按钮的EditText
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2014/09/25/%E8%87%AA%E5%AE%9A%E4%B9%89Button_%E7%9B%B4%E6%8E%A5%E8%AE%BE%E7%BD%AEselector/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>下一篇</span>
+      <div class="article-nav-title">自定义Button 直接设置selector</div>
+    </a>
+  
+</nav>
+
+
+
+<!-- 相关文章 -->
+
+<!--
+
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+      			<a href="/2014/09/25/%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8E%A7%E4%BB%B6--%E5%9E%82%E7%9B%B4%E6%BB%91%E5%8A%A8%E5%B8%83%E5%B1%80/">自定义控件--垂直滑动布局</a>
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+
+-->
+
+
+</section>
+      </div>
+      <footer id="footer">
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      
+      &copy;2024<a target="_blank" rel="noopener" href="https://github.com/hanks-zyh"> Hanks</a>版权所有
+      <br/>
+      <a href="https://beian.miit.gov.cn/" target="_blank">豫ICP备2021022347号</a>
+	  </div>
+  </div>
+ <div id="share">
+  <a id="totop" title="" style="display: block;">返回顶部</a>
+ </div>
+</footer>
+
+    </div>
+    
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/jquery.scrollLoading.js"></script>
+
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/ads.js"></script>
+
+  </div>
+</body>
+</html>

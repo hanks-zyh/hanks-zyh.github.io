@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>回溯法 N皇后问题 hud题目2553 | Hanks&#39; Websit</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <script data-ad-client="ca-pub-8165670162444117" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <meta name="referrer" content="never">
+  <meta name="description" content="&nbsp; N皇后问题 Time Limit: 2000&#x2F;1000 MS (Java&#x2F;Others)&nbsp;&nbsp;&nbsp;&nbsp;Memory Limit: 32768&#x2F;32768 K (Java&#x2F;Others) Total Submission(s): 5563&nbsp;&nbsp;&nbsp;&nbsp;Accepted Submission(s): 2518    P">
+<meta property="og:type" content="article">
+<meta property="og:title" content="回溯法 N皇后问题 hud题目2553">
+<meta property="og:url" content="https://hanks.pub/2013/07/31/%E5%9B%9E%E6%BA%AF%E6%B3%95_N%E7%9A%87%E5%90%8E%E9%97%AE%E9%A2%98_hud%E9%A2%98%E7%9B%AE2553/index.html">
+<meta property="og:site_name" content="Hanks&#39; Websit">
+<meta property="og:description" content="&nbsp; N皇后问题 Time Limit: 2000&#x2F;1000 MS (Java&#x2F;Others)&nbsp;&nbsp;&nbsp;&nbsp;Memory Limit: 32768&#x2F;32768 K (Java&#x2F;Others) Total Submission(s): 5563&nbsp;&nbsp;&nbsp;&nbsp;Accepted Submission(s): 2518    P">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2013-07-31T01:05:00.000Z">
+<meta property="article:modified_time" content="2024-02-08T01:29:02.198Z">
+<meta property="article:author" content="Hanks">
+<meta name="twitter:card" content="summary">
+  
+  
+  <link href="https://fonts.googleapis.com/css?family=Fira+Code|Noto+Serif+SC&display=swap" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8165670162444117"
+     crossorigin="anonymous"></script>
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo"></a>
+    <nav id="main-nav">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      
+        <a class="main-nav-link" href="/archives">Archive</a>
+      
+        <a class="main-nav-link" href="/eye-video">Eye</a>
+      
+        <a class="main-nav-link" href="/atom.xml">Rss</a>
+      
+    </nav>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/archives" class="mobile-nav-link">Archive</a>
+  
+    <a href="/eye-video" class="mobile-nav-link">Eye</a>
+  
+    <a href="/atom.xml" class="mobile-nav-link">Rss</a>
+  
+</nav>
+      <div class="outer">
+        <section id="main"><article id="post-回溯法_N皇后问题_hud题目2553" class="article article-type-post" itemscope
+  itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <header class="article-header">
+      
+      
+  
+    <h1 class="article-title" itemprop="name">
+      回溯法 N皇后问题 hud题目2553
+    </h1>
+  
+
+      
+    </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+<p>&nbsp;</p>
+<h1 align="center" style="color:#1a5cc8">N皇后问题</h1>
+<p align="center"><span size="&#43;0"><strong><span style="font-family:Arial; font-size:12px; color:green; font-weight:bold">Time Limit: 2000/1000 MS (Java/Others)&nbsp;&nbsp;&nbsp;&nbsp;Memory Limit: 32768/32768 K (Java/Others)<br>
+Total Submission(s): 5563&nbsp;&nbsp;&nbsp;&nbsp;Accepted Submission(s): 2518<br>
+</span></strong></span><br>
+<br>
+</p>
+<div class="panel_title" align="left">Problem Description</div>
+<div class="panel_content">在N*N的方&#26684;棋盘放置了N个皇后，使得它们不相互攻击（即任意2个皇后不允许处在同一排，同一列，也不允许处在与棋盘边框成45角的斜线上。<br>
+你的任务是，对于给定的N，求出有多少种合法的放置方法。<br>
+<br>
+</div>
+<div class="panel_bottom">&nbsp;</div>
+<p><br>
+&nbsp;</p>
+<div class="panel_title" align="left">Input</div>
+<div class="panel_content">共有若干行，每行一个正整数N≤10，表示棋盘和皇后的数量；如果N=0，表示结束。</div>
+<div class="panel_bottom">&nbsp;</div>
+<p><br>
+&nbsp;</p>
+<div class="panel_title" align="left">Output</div>
+<div class="panel_content">共有若干行，每行一个正整数，表示对应输入行的皇后的不同放置数量。</div>
+<div class="panel_bottom">&nbsp;</div>
+<p><br>
+&nbsp;</p>
+<div class="panel_title" align="left">Sample Input</div>
+<div class="panel_content">
+<pre><div style="font-family:Courier New,Courier,monospace">1
+8
+5
+0</div></pre>
+</div>
+<div class="panel_bottom">&nbsp;</div>
+<p><br>
+&nbsp;</p>
+<div class="panel_title" align="left">Sample Output</div>
+<div class="panel_content">
+<pre><div style="font-family:Courier New,Courier,monospace">1
+92
+10</div></pre>
+</div>
+<p>&nbsp;</p>
+<p><strong><span style="font-size:18px">思路：</span></strong></p>
+<p><strong><span style="font-size:18px">给棋盘的行和列都编上1到N的号码，皇后也给编上1到N的号码。</span></strong></p>
+<p><strong><span style="font-size:18px">由于一个皇后应在不同的行上，为不失一般性，可以假定第i个皇后将放在第i行上的某列。</span></strong></p>
+<p><strong><span style="font-size:18px">因此N皇后问题的解空间可以用一个N元组（X1，X2，.....Xn）来表示，其中Xi是放置皇后i所在的列号。</span></strong></p>
+<p><strong><span style="font-size:18px">这意味着所有的解都是N元组（1，2，3，.......，N）的置换。解空间大小为N！。</span></strong></p>
+<p><strong><span style="font-size:18px">其次我们看<span style="color:#ff6600">约束条件</span>：因为解空间已经给我们排除了不在同一行（因为每个皇后分别已经对应不同的行号）的约束条件。</span></strong></p>
+<p><strong><span style="font-size:18px">我们要判断的是不在同一列和不在同一斜线的约束。因为Xi表示皇后所在的列号，所以如果存在X（k）=X（i）那么肯定存在第k个皇后和第i个皇后同列。所以不同列的判段条件是X（k）！=X（i），1&lt;k&lt;i 。又因为同一斜线的特征是要么行号和列号之和不变（右高左低）要么是行号和列号只差相等（左高右低），所以同斜线的判断条件是 i&#43;X（i）=&nbsp; k&#43;X（k) 或 i-X(i) =k-X(k),两式合并得
+<span style="color:#ff0000">|X(i)-X(k)|=|i-k|</span></span></strong></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>第一次递归代码：超时</p>
+<pre class="cpp" name="code">#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;math.h&gt;
+
+
+int sum,x[11];
+
+bool place(int k)
+{
+    //int i;
+    //printf(&quot;k=%d\n&quot;,k);
+    //for(i=1;i&lt;=n;i++) printf(&quot;%d &quot;,x[i]);
+//    printf(&quot;\n&quot;);
+    int j;
+    for(j=1;j&lt;k;j++)
+    {
+        if(abs(j-k)==abs(x[j]-x[k]) || x[j]==x[k] ) return false; //在同一斜线或同一列    
+    }
+    return true;
+}
+void backtrack(int t,int n)
+{
+    int i;
+//    printf(&quot;t=%d,n=%d\n&quot;,t,n);
+//    for(i=1;i&lt;=n;i++) printf(&quot;%d &quot;,x[i]);
+//    printf(&quot;\n&quot;);
+    if(t&gt;n) {
+        sum++;
+    //    printf(&quot;sum=%d\n&quot;,sum);
+    }
+    else
+    {
+        for(i=1;i&lt;=n;i++)
+        {
+            x[t]=i;    
+        //    printf(&quot;%d\n&quot;,place(t,x));
+            if(place(t)) backtrack(t+1,n);
+        }
+    }
+}
+
+int main()
+{
+    int n,i;    
+    while(scanf(&quot;%d&quot;,&amp;n),n)
+    {    
+        sum = 0;
+        for(i=1;i&lt;=n;i++) x[i]=0;
+        backtrack(1,n);
+        printf(&quot;%d\n&quot;,sum);
+    }
+    return 0;
+}     </pre>
+<p><br>
+第二次AC 简单打表，因为是N《= 10 ，因此用1中代码，将N等于1 to10都计算出来，放在一维数组</p>
+<pre class="cpp" name="code">#include &lt;stdio.h&gt;
+ 
+int main()
+{
+    int a[11]={0,1,0,0,2,10,4,40,92,352,724};
+    int n,i;    
+    while(scanf(&quot;%d&quot;,&amp;n),n)    
+        printf(&quot;%d\n&quot;,a[n]);
+    return 0;
+} 
+</pre>
+<p><br>
+&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>AC代码：15MS&nbsp; 228KB</p>
+<pre class="cpp" name="code">#include &lt;stdio.h&gt;
+#include &lt;math.h&gt;
+#include &lt;iostream&gt;
+
+int x[11],cnt[11],n,sum;
+bool flag; 
+
+void DFS(int k)//放置第k个皇后 
+{
+    int i,j,flag;
+    if(k&gt;n) {//放置的皇后个数大于n时，表示一种解决方案 
+        sum++; 
+        return;    
+    } 
+      for(i=1;i&lt;=n;i++)//将第k个皇后依次放在第1 to n列 
+     {
+        flag = 1;
+          x[k] = i;//列値1 to n
+        for(j=1;j&lt;k;j++) //依次与前1到k-1个皇后比较 
+        {
+            if(x[k]==x[j]||abs(j-k)==abs(x[k]-x[j]))
+            {//在同一列或在同一斜线 
+                flag = 0; 
+                break;    
+            } 
+        } 
+        if(flag) DFS(k+1);//第k个皇后与前k-1个都比交完，互不冲突再放置第k+1个皇后 
+       } 
+}
+ 
+int main()
+{
+    for(n=1;n&lt;11;n++)
+    {
+        sum =0;
+        DFS(1);
+        cnt[n] = sum;    
+    }    
+    while(scanf(&quot;%d&quot;,&amp;n),n)    
+        printf(&quot;%d\n&quot;,cnt[n]);
+    return 0;
+} </pre>
+<p><br>
+&nbsp;</p>
+
+      
+    </div>
+</article>
+
+<!-- 上一页 下一页 -->
+
+
+<nav id="article-nav">
+  
+    <a href="/2013/07/31/%E5%B7%B2%E7%9F%A5%E6%A0%91%E7%9A%84%E5%89%8D%E5%BA%8F%E5%92%8C%E4%B8%AD%E5%BA%8F%E6%B1%82%E5%90%8E%E5%BA%8F_hdu_%E9%A2%98%E7%9B%AE1710_Binary_Tree_Traversals/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>上一篇</span>
+      <div class="article-nav-title">
+        
+          已知树的前序和中序求后序 hdu 题目1710 Binary Tree Traversals
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2013/07/30/NYOJ_%E9%A2%98%E7%9B%AE35_%E8%A1%A8%E8%BE%BE%E5%BC%8F%E6%B1%82%E5%80%BC_%EF%BC%88%E6%A0%88%E7%9A%84%E5%BA%94%E7%94%A8%EF%BC%89%E5%89%8D%E4%B8%AD%E5%90%8E%E7%BC%80%EF%BC%8C/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>下一篇</span>
+      <div class="article-nav-title">NYOJ 题目35 表达式求值 （栈的应用）前中后缀，</div>
+    </a>
+  
+</nav>
+
+
+
+<!-- 相关文章 -->
+
+<!--
+
+-->
+
+
+</section>
+      </div>
+      <footer id="footer">
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      
+      &copy;2024<a target="_blank" rel="noopener" href="https://github.com/hanks-zyh"> Hanks</a>版权所有
+      <br/>
+      <a href="https://beian.miit.gov.cn/" target="_blank">豫ICP备2021022347号</a>
+	  </div>
+  </div>
+ <div id="share">
+  <a id="totop" title="" style="display: block;">返回顶部</a>
+ </div>
+</footer>
+
+    </div>
+    
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/jquery.scrollLoading.js"></script>
+
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/ads.js"></script>
+
+  </div>
+</body>
+</html>

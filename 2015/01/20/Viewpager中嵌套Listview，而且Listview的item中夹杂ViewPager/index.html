@@ -1,0 +1,1072 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Viewpager中嵌套Listview，而且Listview的item中夹杂ViewPager | Hanks&#39; Websit</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <script data-ad-client="ca-pub-8165670162444117" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <meta name="referrer" content="never">
+  <meta name="description" content="&#x2F;&#x2F;现在有一个需求，需要在一个ViewPager的几个页面用listview显示，而且listview的item种类&gt;&#x3D;2，其中还有viewpager那么盖怎么实现呢，废话不多说，先把ViewPager架子搭起来 效果   MainActivity.java  public class MainActivity extends Activity {  	private ViewPage">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Viewpager中嵌套Listview，而且Listview的item中夹杂ViewPager">
+<meta property="og:url" content="https://hanks.pub/2015/01/20/Viewpager%E4%B8%AD%E5%B5%8C%E5%A5%97Listview%EF%BC%8C%E8%80%8C%E4%B8%94Listview%E7%9A%84item%E4%B8%AD%E5%A4%B9%E6%9D%82ViewPager/index.html">
+<meta property="og:site_name" content="Hanks&#39; Websit">
+<meta property="og:description" content="&#x2F;&#x2F;现在有一个需求，需要在一个ViewPager的几个页面用listview显示，而且listview的item种类&gt;&#x3D;2，其中还有viewpager那么盖怎么实现呢，废话不多说，先把ViewPager架子搭起来 效果   MainActivity.java  public class MainActivity extends Activity {  	private ViewPage">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img.blog.csdn.net/20150120221018539">
+<meta property="article:published_time" content="2015-01-20T13:57:00.000Z">
+<meta property="article:modified_time" content="2024-02-08T01:29:02.178Z">
+<meta property="article:author" content="Hanks">
+<meta property="article:tag" content="Android">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img.blog.csdn.net/20150120221018539">
+  
+  
+  <link href="https://fonts.googleapis.com/css?family=Fira+Code|Noto+Serif+SC&display=swap" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8165670162444117"
+     crossorigin="anonymous"></script>
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo"></a>
+    <nav id="main-nav">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      
+        <a class="main-nav-link" href="/archives">Archive</a>
+      
+        <a class="main-nav-link" href="/eye-video">Eye</a>
+      
+        <a class="main-nav-link" href="/atom.xml">Rss</a>
+      
+    </nav>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/archives" class="mobile-nav-link">Archive</a>
+  
+    <a href="/eye-video" class="mobile-nav-link">Eye</a>
+  
+    <a href="/atom.xml" class="mobile-nav-link">Rss</a>
+  
+</nav>
+      <div class="outer">
+        <section id="main"><article id="post-Viewpager中嵌套Listview，而且Listview的item中夹杂ViewPager" class="article article-type-post" itemscope
+  itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <header class="article-header">
+      
+      
+  
+    <h1 class="article-title" itemprop="name">
+      Viewpager中嵌套Listview，而且Listview的item中夹杂ViewPager
+    </h1>
+  
+
+      
+    </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+<p><span style="font-size:18px"><br>
+</span></p>
+<p><span style="font-size:18px">//现在有一个需求，需要在一个ViewPager的几个页面用listview显示，而且listview的item种类&gt;=2，其中还有viewpager那么盖怎么实现呢，废话不多说，先把ViewPager架子搭起来</span></p>
+<p><span style="font-size:18px">效果</span></p>
+<p><span style="font-size:18px"><img src="https://img.blog.csdn.net/20150120221018539" alt=""><br>
+</span></p>
+<p><span style="font-size:18px">MainActivity.java</span></p>
+<p><span style="font-size:18px"></span></p>
+<pre code_snippet_id="584808" snippet_file_name="blog_20150120_1_5016366"  code_snippet_id="584808" snippet_file_name="blog_20150120_1_5016366" name="code" class="java">public class MainActivity extends Activity {
+
+	private ViewPager viewpager;
+	private List&lt;View&gt; list = new ArrayList&lt;View&gt;();
+	private MyPageAdapter adapter;
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_main);
+		viewpager = (ViewPager)findViewById(R.id.viewpager);
+
+		initData();
+		adapter = new MyPageAdapter();
+		viewpager.setAdapter(adapter);
+	}
+	//添加3个listview
+	private void initData() {
+		list.add(new View1(this).listview);
+		list.add(new View1(this).listview);
+		list.add(new View1(this).listview);
+	}
+
+	class MyPageAdapter extends PagerAdapter{
+
+		@Override
+		public int getCount() {
+			return list.size();
+		}
+
+		@Override
+		public boolean isViewFromObject(View arg0, Object arg1) {
+			return arg0==arg1;
+		}
+
+		@Override
+		public Object instantiateItem(ViewGroup container, int position) {
+			((ViewGroup)container).addView((View)list.get(position));
+			return list.get(position);
+
+		}
+
+		@Override
+		public void destroyItem(ViewGroup container, int position, Object object) {
+			container.removeView(list.get(position));
+		}
+
+	}
+
+}</pre><br>
+activity_main.xml
+<p></p>
+<p><span style="font-size:18px"></span></p>
+<pre code_snippet_id="584808" snippet_file_name="blog_20150120_2_7742772"  code_snippet_id="584808" snippet_file_name="blog_20150120_2_7742772" name="code" class="java">&lt;android.support.v4.view.ViewPager xmlns:android=&quot;https://schemas.android.com/apk/res/android&quot;
+    xmlns:tools=&quot;https://schemas.android.com/tools&quot;
+    android:id=&quot;@+id/viewpager&quot;
+    android:layout_width=&quot;match_parent&quot;
+    android:layout_height=&quot;match_parent&quot;
+    android:paddingBottom=&quot;@dimen/activity_vertical_margin&quot;
+    android:paddingLeft=&quot;@dimen/activity_horizontal_margin&quot;
+    android:paddingRight=&quot;@dimen/activity_horizontal_margin&quot;
+    android:paddingTop=&quot;@dimen/activity_vertical_margin&quot;
+    tools:context=&quot;com.zyh.listview_viewpager.MainActivity&quot; &gt;
+
+&lt;/android.support.v4.view.ViewPager&gt;</pre><br>
+<br>
+<p></p>
+<p><span style="font-size:18px"><br>
+</span></p>
+<p><span style="font-size:18px">现在ViewPager有了，再看一下要添加的listview</span></p>
+<p><span style="font-size:18px"><br>
+</span></p>
+<p><span style="font-size:18px"></span></p>
+<pre code_snippet_id="584808" snippet_file_name="blog_20150120_3_3915524"  code_snippet_id="584808" snippet_file_name="blog_20150120_3_3915524" name="code" class="java">public class View1 {
+	public static final int VIEWTYPE_VIEWPAGER = 0;
+	public static final int VIEWTYPE_TEXTVIEW = 1;
+	ListView listview;
+	private Context mContext;
+	private MyListviewAdapter adapter;
+
+	public View1(Context context) {
+		init(context);
+	}
+
+	public void init(Context context) {
+		mContext = context;
+		listview = new ListView(context);
+		adapter = new MyListviewAdapter();
+		listview.setAdapter(adapter);
+	}
+
+	class MyListviewAdapter extends BaseAdapter {
+
+		@Override
+		public int getCount() {
+			return 100;
+		}
+
+		@Override
+		public Object getItem(int position) {
+			return null;
+		}
+
+		@Override
+		public long getItemId(int position) {
+			return 0;
+		}
+
+		@Override
+		public View getView(int position, View convertView, ViewGroup parent) {
+
+			if (position % 3 == 0) {
+				// viewpager
+
+				if (convertView == null) {
+					ChildView child = new ChildView();
+					child.init(mContext);
+					convertView = child.viewPager;
+				}
+
+			} else {
+				// textview
+				if (convertView == null) {
+					convertView = new TextView(mContext);
+
+				}
+				((TextView)convertView).setText(&quot;测试数据：&quot;+position);
+			}
+			System.out.println(convertView.toString());
+			return convertView;
+		}
+		@Override
+		public int getViewTypeCount() {
+			return 2;
+		}
+		@Override
+		public int getItemViewType(int position) {
+
+			if (position % 3 == 0) {
+				// viewpager
+
+				return VIEWTYPE_VIEWPAGER;
+
+			} else {
+				// textview
+				return VIEWTYPE_TEXTVIEW;
+			}
+		}
+
+	}
+}
+</pre><br>
+<br>
+<p></p>
+<p><span style="font-size:18px">然后是listview中的item为 ViewPager的情况</span></p>
+<p><span style="font-size:18px"><br>
+</span></p>
+<p><span style="font-size:18px">ChildVIew.java</span></p>
+<p><span style="font-size:18px"></span></p>
+<pre code_snippet_id="584808" snippet_file_name="blog_20150120_4_4581399"  code_snippet_id="584808" snippet_file_name="blog_20150120_4_4581399" name="code" class="java">public class ChildView {
+
+	ViewPager viewPager;
+	private List&lt;View&gt; list = new ArrayList&lt;View&gt;();
+	private Context mContext;
+
+
+	public void init(Context context) {
+		mContext = context;
+
+		for (int i = 0; i &lt; 5; i++) {
+			Button view = new Button(mContext);
+			view.setText(&quot;ViewPager中的TextView：&quot; + i);
+			view.setTextSize(20);
+			list.add(view);
+		}
+		viewPager = (ViewPager) View.inflate(mContext, R.layout.layout_viewpager, null);
+
+		/**
+		 * 必须设置LayoutParams
+		 */
+
+		AbsListView.LayoutParams lp = new AbsListView.LayoutParams(LayoutParams.MATCH_PARENT, 200);
+		viewPager.setLayoutParams(lp);
+		viewPager.setAdapter(new MyPageAdapter());
+	}
+
+	class MyPageAdapter extends PagerAdapter {
+
+		@Override
+		public int getCount() {
+			return list.size();
+		}
+
+		@Override
+		public boolean isViewFromObject(View arg0, Object arg1) {
+			return arg0 == arg1;
+		}
+
+		@Override
+		public Object instantiateItem(ViewGroup container, int position) {
+			container.addView(list.get(position));
+			return list.get(position);
+
+		}
+
+		@Override
+		public void destroyItem(ViewGroup container, int position, Object object) {
+			container.removeView(list.get(position));
+		}
+
+	}
+
+}
+</pre><br>
+<p></p>
+<p><span style="font-size:18px">layout_viewpager.xml</span></p>
+<p><span style="font-size:18px"></span></p>
+<pre code_snippet_id="584808" snippet_file_name="blog_20150120_5_1659223"  code_snippet_id="584808" snippet_file_name="blog_20150120_5_1659223" name="code" class="html">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;android.support.v4.view.ViewPager xmlns:android=&quot;https://schemas.android.com/apk/res/android&quot;
+    xmlns:tools=&quot;https://schemas.android.com/tools&quot;
+    android:layout_width=&quot;match_parent&quot;
+    android:layout_height=&quot;wrap_content&quot;
+    android:background=&quot;@android:color/holo_blue_bright&quot; &gt;
+
+    &lt;!-- 布局中设置宽高没有生效，必须代码设置layoutParams --&gt;
+
+&lt;/android.support.v4.view.ViewPager&gt;</pre><br>
+<br>
+<p></p>
+<p><span style="font-size:18px"><br>
+</span></p>
+<p><span style="font-size:18px"><br>
+</span></p>
+<p><span style="font-size:18px"><br>
+</span></p>
+<p><span style="font-size:18px"><br>
+</span></p>
+
+      
+    </div>
+</article>
+
+<!-- 上一页 下一页 -->
+
+
+<nav id="article-nav">
+  
+    <a href="/2015/01/21/%E5%85%B3%E4%BA%8EListView%E7%9A%84%E4%BC%98%E5%8C%96%E6%80%BB%E7%BB%93/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>上一篇</span>
+      <div class="article-nav-title">
+        
+          关于ListView的优化总结
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/01/17/Android_%E8%A7%86%E5%9B%BE%E4%BC%98%E5%8C%96merge%E6%A0%87%E7%AD%BE%E5%88%86%E6%9E%90/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>下一篇</span>
+      <div class="article-nav-title">Android 视图优化merge标签分析</div>
+    </a>
+  
+</nav>
+
+
+
+<!-- 相关文章 -->
+
+<!--
+
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+      			<a href="/2015/01/20/Viewpager%E4%B8%AD%E5%B5%8C%E5%A5%97Listview%EF%BC%8C%E8%80%8C%E4%B8%94Listview%E7%9A%84item%E4%B8%AD%E5%A4%B9%E6%9D%82ViewPager/">Viewpager中嵌套Listview，而且Listview的item中夹杂ViewPager</a>
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+
+-->
+
+
+</section>
+      </div>
+      <footer id="footer">
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      
+      &copy;2024<a target="_blank" rel="noopener" href="https://github.com/hanks-zyh"> Hanks</a>版权所有
+      <br/>
+      <a href="https://beian.miit.gov.cn/" target="_blank">豫ICP备2021022347号</a>
+	  </div>
+  </div>
+ <div id="share">
+  <a id="totop" title="" style="display: block;">返回顶部</a>
+ </div>
+</footer>
+
+    </div>
+    
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/jquery.scrollLoading.js"></script>
+
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/ads.js"></script>
+
+  </div>
+</body>
+</html>

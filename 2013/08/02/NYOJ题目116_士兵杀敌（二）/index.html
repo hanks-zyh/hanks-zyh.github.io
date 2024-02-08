@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>NYOJ题目116 士兵杀敌（二） | Hanks&#39; Websit</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <script data-ad-client="ca-pub-8165670162444117" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <meta name="referrer" content="never">
+  <meta name="description" content="&nbsp;  士兵杀敌（二） 时间限制：1000 ms &nbsp;|&nbsp; 内存限制：65535 KB  难度：5  描述   南将军手下有N个士兵，分别编号1到N，这些士兵的杀敌数都是已知的。  小工是南将军手下的军师，南将军经常想知道第m号到第n号士兵的总杀敌数，请你帮助小工来回答南将军吧。  南将军的某次询问之后士兵i可能又杀敌q人，之后南将军再询问的时候，需要考虑到新增的杀敌数">
+<meta property="og:type" content="article">
+<meta property="og:title" content="NYOJ题目116 士兵杀敌（二）">
+<meta property="og:url" content="https://hanks.pub/2013/08/02/NYOJ%E9%A2%98%E7%9B%AE116_%E5%A3%AB%E5%85%B5%E6%9D%80%E6%95%8C%EF%BC%88%E4%BA%8C%EF%BC%89/index.html">
+<meta property="og:site_name" content="Hanks&#39; Websit">
+<meta property="og:description" content="&nbsp;  士兵杀敌（二） 时间限制：1000 ms &nbsp;|&nbsp; 内存限制：65535 KB  难度：5  描述   南将军手下有N个士兵，分别编号1到N，这些士兵的杀敌数都是已知的。  小工是南将军手下的军师，南将军经常想知道第m号到第n号士兵的总杀敌数，请你帮助小工来回答南将军吧。  南将军的某次询问之后士兵i可能又杀敌q人，之后南将军再询问的时候，需要考虑到新增的杀敌数">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2013-08-02T01:00:00.000Z">
+<meta property="article:modified_time" content="2024-02-08T01:29:02.176Z">
+<meta property="article:author" content="Hanks">
+<meta name="twitter:card" content="summary">
+  
+  
+  <link href="https://fonts.googleapis.com/css?family=Fira+Code|Noto+Serif+SC&display=swap" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8165670162444117"
+     crossorigin="anonymous"></script>
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo"></a>
+    <nav id="main-nav">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      
+        <a class="main-nav-link" href="/archives">Archive</a>
+      
+        <a class="main-nav-link" href="/eye-video">Eye</a>
+      
+        <a class="main-nav-link" href="/atom.xml">Rss</a>
+      
+    </nav>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/archives" class="mobile-nav-link">Archive</a>
+  
+    <a href="/eye-video" class="mobile-nav-link">Eye</a>
+  
+    <a href="/atom.xml" class="mobile-nav-link">Rss</a>
+  
+</nav>
+      <div class="outer">
+        <section id="main"><article id="post-NYOJ题目116_士兵杀敌（二）" class="article article-type-post" itemscope
+  itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <header class="article-header">
+      
+      
+  
+    <h1 class="article-title" itemprop="name">
+      NYOJ题目116 士兵杀敌（二）
+    </h1>
+  
+
+      
+    </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+<p>&nbsp;</p>
+<h4 class="problem-display"></h4>
+<h3 class="problem-display" align="center">士兵杀敌（二）</h3>
+<h3 class="problem-ins" align="center">时间限制：<span id="problem[time_limit]" class="editable highlight">1000</span> ms &nbsp;|&nbsp; 内存限制：<span id="problem[memory_limit]" class="editable highlight">65535</span> KB
+</h3>
+<h3 class="problem-ins" align="center">难度：<span class="editable highlight">5</span></h3>
+<div class="clr"></div>
+<dl class="problem-display"><dt>描述 </dt><dd><span style="font-family:Tahoma,Arial,sans-serif,simsun; font-size:14px; color:#464646; line-height:21px"></span>
+<p style="padding-bottom:0px; margin:1em 0px; padding-left:0px; padding-right:0px; padding-top:0px">
+南将军手下有N个士兵，分别编号1到N，这些士兵的杀敌数都是已知的。</p>
+<p style="padding-bottom:0px; margin:1em 0px; padding-left:0px; padding-right:0px; padding-top:0px">
+小工是南将军手下的军师，南将军经常想知道第m号到第n号士兵的总杀敌数，请你帮助小工来回答南将军吧。</p>
+<p style="padding-bottom:0px; margin:1em 0px; padding-left:0px; padding-right:0px; padding-top:0px">
+南将军的某次询问之后士兵i可能又杀敌q人，之后南将军再询问的时候，需要考虑到新增的杀敌数。</p>
+<p style="padding-bottom:0px; margin:1em 0px; padding-left:0px; padding-right:0px; padding-top:0px">
+</p>
+<div class="clr"></div>
+<dl class="others"><dt>输入 </dt><dd>只有一组测试数据<br>
+第一行是两个整数N,M，其中N表示士兵的个数(1&lt;N&lt;1000000)，M表示指令的条数。(1&lt;M&lt;100000)<br>
+随后的一行是N个整数，ai表示第i号士兵杀敌数目。(0&lt;=ai&lt;=100)<br>
+随后的M行每行是一条指令，这条指令包含了一个字符串和两个整数，首先是一个字符串，如果是字符串QUERY则表示南将军进行了查询操作，后面的两个整数m,n，表示查询的起始与终止士兵编号；如果是字符串ADD则后面跟的两个整数I,A(1&lt;=I&lt;=N,1&lt;=A&lt;=100),表示第I个士兵新增杀敌数为A.<br>
+</dd><dt>输出 </dt><dd>对于每次查询，输出一个整数R表示第m号士兵到第n号士兵的总杀敌数，每组输出占一行 </dd><dt>样例输入 </dt><dd>
+<pre id="sample_input">5 6
+1 2 3 4 5
+QUERY 1 3
+ADD 1 2
+QUERY 1 3
+ADD 2 3
+QUERY 1 2
+QUERY 1 5</pre>
+</dd><dt>样例输出 </dt><dd>
+<pre id="sample_output">6
+8
+8
+20</pre>
+</dd></dl>
+</dd></dl>
+<p>利用树状数组来存放士兵杀敌数</p>
+<p>&nbsp;</p>
+<p></p>
+<pre class="cpp" name="code"> 
+
+#include &lt;stdio.h&gt;
+int a[1000000],Tree_a[1000000];//a[]为原始数据组，Tree_a[]树状数组
+int lowbit(int i)
+{  // 返回i因子中含有 2的最大幂,如6的因子中最大2的幂是2^1 = 2 ，8的因子最大2次幂 2^3 = 8；
+	return i&amp;(-i);
+}
+void change(int x, int y,int n)
+{
+	while(x&lt;=n)
+	{
+		Tree_a[x] += y;
+		x += lowbit(x);
+	}
+}
+int f_sum(int x)
+{//返回前x个数的和
+	if(x==0) return 0;
+	int sum = 0;
+	while( x&gt;0 )
+	{
+		sum += Tree_a[x]; //求前x数的和
+		x -= lowbit(x);
+	}
+	return sum;
+}
+int main()
+{
+	int m,n,i,e,j,x,y;
+	char str[6];
+	scanf(&quot;%d%d&quot;,&amp;n,&amp;m);
+	for(i=1;i&lt;=n;i++)
+	{
+		scanf(&quot;%d&quot;,&amp;e);
+		a[i] = e;
+		if(i&amp;1)//奇数,树状数组与原始位置数据一样
+			Tree_a[i] = a[i];
+		else //偶数，树状数组对应位置存的为几项的和
+		{
+			int sum = 0;
+			for(j=i+1-lowbit(i);j&lt;=i;j++)	sum += a[j];
+			Tree_a[i] = sum;
+		}
+	}
+
+	while(m--)
+	{
+		scanf(&quot;%s%d%d&quot;,str,&amp;x,&amp;y);
+		if(str[0]=='Q')	 printf(&quot;%d\n&quot;,f_sum(y) - f_sum(x-1));
+		else 	change(x,y,n);// 第x个位置增加 y，调整x到N之间的和的值
+	}
+}
+        </pre>
+<p><br>
+&nbsp;</p>
+<dl></dl>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+      
+    </div>
+</article>
+
+<!-- 上一页 下一页 -->
+
+
+<nav id="article-nav">
+  
+    <a href="/2013/08/02/hdu_%E9%A2%98%E7%9B%AE1556_Color_the_ball%EF%BC%88%E7%BA%BF%E6%AE%B5%E6%A0%91%EF%BC%89/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>上一篇</span>
+      <div class="article-nav-title">
+        
+          hdu 题目1556 Color the ball（线段树）
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2013/08/02/NYOJ_%E5%A3%AB%E5%85%B5%E6%9D%80%E6%95%8C%EF%BC%88%E4%B8%80%EF%BC%89/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>下一篇</span>
+      <div class="article-nav-title">NYOJ 士兵杀敌（一）</div>
+    </a>
+  
+</nav>
+
+
+
+<!-- 相关文章 -->
+
+<!--
+
+-->
+
+
+</section>
+      </div>
+      <footer id="footer">
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      
+      &copy;2024<a target="_blank" rel="noopener" href="https://github.com/hanks-zyh"> Hanks</a>版权所有
+      <br/>
+      <a href="https://beian.miit.gov.cn/" target="_blank">豫ICP备2021022347号</a>
+	  </div>
+  </div>
+ <div id="share">
+  <a id="totop" title="" style="display: block;">返回顶部</a>
+ </div>
+</footer>
+
+    </div>
+    
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/jquery.scrollLoading.js"></script>
+
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/ads.js"></script>
+
+  </div>
+</body>
+</html>

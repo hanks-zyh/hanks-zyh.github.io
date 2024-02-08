@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Kotlin for Android - 0x01 有趣的扩展 | Hanks&#39; Websit</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <script data-ad-client="ca-pub-8165670162444117" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <meta name="referrer" content="never">
+  <meta name="description" content="在 Kotlin 中， 提供了一个很方便的功能，可以在不继承父类，也不使用类似装饰器这样的设计模式的情况下对指定类进行扩展，扩展新的方法、属性。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Kotlin for Android - 0x01 有趣的扩展">
+<meta property="og:url" content="https://hanks.pub/2016/03/13/kotlin-for-android-extensions/index.html">
+<meta property="og:site_name" content="Hanks&#39; Websit">
+<meta property="og:description" content="在 Kotlin 中， 提供了一个很方便的功能，可以在不继承父类，也不使用类似装饰器这样的设计模式的情况下对指定类进行扩展，扩展新的方法、属性。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2016-03-12T16:28:58.000Z">
+<meta property="article:modified_time" content="2024-02-08T01:29:02.188Z">
+<meta property="article:author" content="Hanks">
+<meta property="article:tag" content="Android">
+<meta property="article:tag" content="Kotlin">
+<meta name="twitter:card" content="summary">
+  
+  
+  <link href="https://fonts.googleapis.com/css?family=Fira+Code|Noto+Serif+SC&display=swap" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8165670162444117"
+     crossorigin="anonymous"></script>
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo"></a>
+    <nav id="main-nav">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      
+        <a class="main-nav-link" href="/archives">Archive</a>
+      
+        <a class="main-nav-link" href="/eye-video">Eye</a>
+      
+        <a class="main-nav-link" href="/atom.xml">Rss</a>
+      
+    </nav>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/archives" class="mobile-nav-link">Archive</a>
+  
+    <a href="/eye-video" class="mobile-nav-link">Eye</a>
+  
+    <a href="/atom.xml" class="mobile-nav-link">Rss</a>
+  
+</nav>
+      <div class="outer">
+        <section id="main"><article id="post-kotlin-for-android-extensions" class="article article-type-post" itemscope
+  itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <header class="article-header">
+      
+      
+  
+    <h1 class="article-title" itemprop="name">
+      Kotlin for Android - 0x01 有趣的扩展
+    </h1>
+  
+
+      
+    </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      <p>在 Kotlin 中， 提供了一个很方便的功能，可以在不继承父类，也不使用类似装饰器这样的设计模式的情况下对指定类进行扩展，扩展新的方法、属性。</p>
+<span id="more"></span>
+
+<h3 id="扩展方法"><a href="#扩展方法" class="headerlink" title="扩展方法"></a>扩展方法</h3><p>用法：<code>类名.方法名</code></p>
+<p>例子</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> Context.<span class="title">toast</span><span class="params">(message: <span class="type">CharSequence</span>, duration: <span class="type">Int</span> = Toast.LENGTH_SHORT)</span></span> &#123;</span><br><span class="line">    Toast.makeText(<span class="keyword">this</span>, message, duration).show()</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>然后 <strong>Context 及其子类</strong> 都可以使用 <code>toast</code> 方法了,<code>duration</code> 是默认参数，不传值的话默认为 <strong>Toast.LENGTH_SHORT</strong></p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">toast(<span class="string">&quot;Hello world!&quot;</span>)</span><br><span class="line">toast(<span class="string">&quot;Hello world!&quot;</span>, Toast.LENGTH_LONG)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<p>给一个类扩展方法并 <strong>不会修改原来的类</strong> ，Kotlin 只不过让类的实例可以通过 <code>.</code> 来调用这个方法<br>这个方法是 <strong>静态添加上的，并不会在运行时改变</strong>。什么意思呢，看下面的例子：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">open</span> <span class="keyword">class</span> <span class="title class_">C</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">D</span>: <span class="type">C</span>()</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fun</span> C.<span class="title">foo</span><span class="params">()</span></span> = <span class="string">&quot;c&quot;</span></span><br><span class="line"><span class="function"><span class="keyword">fun</span> D.<span class="title">foo</span><span class="params">()</span></span> = <span class="string">&quot;d&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">printFoo</span><span class="params">(c: <span class="type">C</span>)</span></span> &#123;</span><br><span class="line">  println(c.foo()) <span class="comment">//这里调用的是C类的foo()</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">printFoo(D()) <span class="comment">// 打印出 c</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>我们声明了参数类型为 <strong>C</strong> ，那么 <code>printFoo</code> 方法内直接调用的就是 <strong>C</strong> 类的 **foo()**。而 <strong>D()</strong> 是具体运行时传入的，扩展函数内调用的还是 <strong>C</strong> 的方法。</p>
+<p>当定义的扩展方法这个类已经存在了同名的扩展方法，这时候是怎么运行的呢？ 看下面的例子：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">C</span> &#123;</span><br><span class="line">  <span class="function"><span class="keyword">fun</span> <span class="title">foo</span><span class="params">()</span></span> &#123; println(<span class="string">&quot;member&quot;</span>) &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fun</span> C.<span class="title">foo</span><span class="params">()</span></span> &#123; println(<span class="string">&quot;extension&quot;</span>) &#125;</span><br></pre></td></tr></table></figure>
+
+<p>当我们调用 <code>c.foo()</code> , 将会输出 <strong>“member”</strong>, 而不是 <strong>“extension”</strong>， 很明显，<strong>类内部定义的方法优先</strong> 。</p>
+<h3 id="扩展属性"><a href="#扩展属性" class="headerlink" title="扩展属性"></a>扩展属性</h3><p>用法：<code>类名.属性名</code></p>
+<p>例如</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> View.ctx: Context</span><br><span class="line">    <span class="keyword">get</span>() = context</span><br></pre></td></tr></table></figure>
+
+<p>这样 <strong>View及其子类</strong> 都拥有了 <code>ctx</code>属性。</p>
+<h2 id="Kotlin-for-Android-常用的扩展"><a href="#Kotlin-for-Android-常用的扩展" class="headerlink" title="Kotlin for Android 常用的扩展"></a>Kotlin for Android 常用的扩展</h2><p>下面总结一些 Android 中比较常用的扩展。注意是对哪些类进行的扩展。</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">// 调用 toast 方法</span></span><br><span class="line"><span class="function"><span class="keyword">fun</span> Context.<span class="title">toast</span><span class="params">(message: <span class="type">String</span>, duration: <span class="type">Int</span> = Toast.LENGTH_SHORT)</span></span> &#123;</span><br><span class="line">    Toast.makeText(<span class="keyword">this</span>, message, duration).show()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 获取颜色</span></span><br><span class="line"><span class="function"><span class="keyword">fun</span> Context.<span class="title">color</span><span class="params">(res: <span class="type">Int</span>)</span></span>: <span class="built_in">Int</span> = ContextCompat.getColor(<span class="keyword">this</span>, res) <span class="comment">// 注意 getResource().getColor 已经不建议使用了</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 获取 LayoutInflater</span></span><br><span class="line"><span class="function"><span class="keyword">fun</span> Context.<span class="title">layoutInflater</span><span class="params">()</span></span> = LayoutInflater.from(<span class="keyword">this</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fun</span> Context.<span class="title">isConnected</span><span class="params">()</span></span>: <span class="built_in">Boolean</span> &#123;</span><br><span class="line">    <span class="keyword">val</span> manager = getSystemService(Context.CONNECTIVITY_SERVICE) <span class="keyword">as</span> ConnectivityManager</span><br><span class="line">    <span class="keyword">return</span> manager.activeNetworkInfo?.isConnectedOrConnecting ?: <span class="literal">true</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 网络错误</span></span><br><span class="line"><span class="function"><span class="keyword">fun</span> Activity.<span class="title">noNetworkSnackBar</span><span class="params">(parentView: <span class="type">View</span>, retryListener: () -&gt; <span class="type">Unit</span>)</span></span> &#123;</span><br><span class="line">    Snackbar.make(parentView, R.string.network_issue, Snackbar.LENGTH_INDEFINITE)</span><br><span class="line">            .setAction(R.string.try_again) &#123;</span><br><span class="line">                retryListener.invoke()</span><br><span class="line">            &#125;.show()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="built_in">Int</span>.<span class="title">dpToPx</span><span class="params">(context: <span class="type">Context</span>)</span></span> = <span class="keyword">this</span> * context.resources.displayMetrics.density</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fun</span> RecyclerView.Adapter<span class="type">&lt;ViewHolder&gt;</span>.<span class="title">createHolder</span><span class="params">(view: <span class="type">ViewGroup</span>)</span></span> = <span class="keyword">object</span> : RecyclerView.ViewHolder(view) &#123;&#125;</span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="type">&lt;T : View&gt;</span> RecyclerView.Adapter<span class="type">&lt;ViewHolder&gt;</span>.<span class="title">getView</span><span class="params">(holder: <span class="type">ViewHolder</span>)</span></span> = holder.itemView <span class="keyword">as</span> T</span><br><span class="line"></span><br><span class="line"><span class="comment">// View 可见性</span></span><br><span class="line"><span class="function"><span class="keyword">fun</span> View.<span class="title">setVisible</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">this</span>.visibility = View.VISIBLE</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fun</span> View.<span class="title">setInvisible</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">this</span>.visibility = View.INVISIBLE</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fun</span> View.<span class="title">setGone</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">this</span>.visibility = View.GONE</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fun</span> View.<span class="title">toggle</span><span class="params">(isVisible: <span class="type">Boolean</span>)</span></span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (isVisible) setVisible() <span class="keyword">else</span> setGone()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fun</span> View.<span class="title">setSize</span><span class="params">(width: <span class="type">Int</span>, height: <span class="type">Int</span>)</span></span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (width &lt;= <span class="number">0</span> &amp;&amp; height &lt;= <span class="number">0</span>) <span class="keyword">return</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">val</span> layoutParams = <span class="keyword">when</span> (<span class="keyword">this</span>.layoutParams) &#123;</span><br><span class="line">        <span class="keyword">is</span> LinearLayout.LayoutParams -&gt; <span class="keyword">this</span>.layoutParams <span class="keyword">as</span> LinearLayout.LayoutParams</span><br><span class="line">        <span class="keyword">is</span> FrameLayout.LayoutParams -&gt; <span class="keyword">this</span>.layoutParams <span class="keyword">as</span> FrameLayout.LayoutParams</span><br><span class="line">        <span class="keyword">is</span> RelativeLayout.LayoutParams -&gt; <span class="keyword">this</span>.layoutParams <span class="keyword">as</span> RelativeLayout.LayoutParams</span><br><span class="line">        <span class="keyword">else</span> -&gt;  <span class="keyword">this</span>.layoutParams</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">val</span> ratio = height / width</span><br><span class="line">    layoutParams.height = layoutParams.width * ratio</span><br><span class="line">    <span class="keyword">this</span>.layoutParams = layoutParams</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 弹出snackbar</span></span><br><span class="line"><span class="function"><span class="keyword">fun</span> View.<span class="title">snackbar</span><span class="params">(message: <span class="type">String</span>, duration: <span class="type">Int</span> = Snackbar.LENGTH_SHORT)</span></span> &#123;</span><br><span class="line">    Snackbar.make(<span class="keyword">this</span>,message,duration).show()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fun</span> View.<span class="title">snackbar</span><span class="params">(messageRes: <span class="type">Int</span>, duration: <span class="type">Int</span> = Snackbar.LENGTH_SHORT)</span></span> &#123;</span><br><span class="line">    Snackbar.make(<span class="keyword">this</span>,messageRes,duration).show()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 任意类打log</span></span><br><span class="line"><span class="function"><span class="keyword">fun</span> Any.<span class="title">log</span><span class="params">(message: <span class="type">String</span>)</span></span> &#123;</span><br><span class="line">    Log.e(<span class="keyword">this</span>.javaClass.simpleName, message)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fun</span> Context.<span class="title">getActivityManager</span><span class="params">()</span></span> = getSystemService(Context.ACTIVITY_SERVICE) <span class="keyword">as</span> ActivityManager</span><br><span class="line"><span class="function"><span class="keyword">fun</span> Context.<span class="title">getAlarmManager</span><span class="params">()</span></span> = getSystemService(Context.ALARM_SERVICE) <span class="keyword">as</span> AlarmManager</span><br><span class="line"><span class="function"><span class="keyword">fun</span> Context.<span class="title">getAudioManager</span><span class="params">()</span></span> = getSystemService(Context.AUDIO_SERVICE) <span class="keyword">as</span> AudioManager</span><br><span class="line"><span class="function"><span class="keyword">fun</span> Context.<span class="title">getClipboardManager</span><span class="params">()</span></span> = getSystemService(Context.CLIPBOARD_SERVICE) <span class="keyword">as</span> ClipboardManager</span><br><span class="line"><span class="function"><span class="keyword">fun</span> Context.<span class="title">getConnectivityManager</span><span class="params">()</span></span> = getSystemService(Context.CONNECTIVITY_SERVICE) <span class="keyword">as</span> ConnectivityManager</span><br><span class="line"><span class="function"><span class="keyword">fun</span> Context.<span class="title">getKeyguardManager</span><span class="params">()</span></span> = getSystemService(Context.KEYGUARD_SERVICE) <span class="keyword">as</span> KeyguardManager</span><br><span class="line"><span class="function"><span class="keyword">fun</span> Context.<span class="title">getLayoutInflater</span><span class="params">()</span></span> = getSystemService(Context.LAYOUT_INFLATER_SERVICE) <span class="keyword">as</span> LayoutInflater</span><br><span class="line"><span class="function"><span class="keyword">fun</span> Context.<span class="title">getLocationManager</span><span class="params">()</span></span> = getSystemService(Context.LOCATION_SERVICE) <span class="keyword">as</span> LocationManager</span><br><span class="line"><span class="function"><span class="keyword">fun</span> Context.<span class="title">getNotificationManager</span><span class="params">()</span></span> = getSystemService(Context.NOTIFICATION_SERVICE) <span class="keyword">as</span> NotificationManager</span><br><span class="line"><span class="function"><span class="keyword">fun</span> Context.<span class="title">getPowerManager</span><span class="params">()</span></span> = getSystemService(Context.POWER_SERVICE) <span class="keyword">as</span> PowerManager</span><br><span class="line"><span class="function"><span class="keyword">fun</span> Context.<span class="title">getSearchManager</span><span class="params">()</span></span> = getSystemService(Context.SEARCH_SERVICE) <span class="keyword">as</span> SearchManager</span><br><span class="line"><span class="function"><span class="keyword">fun</span> Context.<span class="title">getSensorManager</span><span class="params">()</span></span> = getSystemService(Context.SENSOR_SERVICE) <span class="keyword">as</span> SensorManager</span><br><span class="line"><span class="function"><span class="keyword">fun</span> Context.<span class="title">getTelephonyManager</span><span class="params">()</span></span> = getSystemService(Context.TELEPHONY_SERVICE) <span class="keyword">as</span> TelephonyManager</span><br><span class="line"><span class="function"><span class="keyword">fun</span> Context.<span class="title">getVibrator</span><span class="params">()</span></span> = getSystemService(Context.VIBRATOR_SERVICE) <span class="keyword">as</span> Vibrator</span><br><span class="line"><span class="function"><span class="keyword">fun</span> Context.<span class="title">getWallpaperService</span><span class="params">()</span></span> = getSystemService(Context.WALLPAPER_SERVICE) <span class="keyword">as</span> WallpaperService</span><br><span class="line"><span class="function"><span class="keyword">fun</span> Context.<span class="title">getWifiManager</span><span class="params">()</span></span> = getSystemService(Context.WIFI_SERVICE) <span class="keyword">as</span> WifiManager</span><br><span class="line"><span class="function"><span class="keyword">fun</span> Context.<span class="title">getWindowManager</span><span class="params">()</span></span> = getSystemService(Context.WINDOW_SERVICE) <span class="keyword">as</span> WindowManager</span><br><span class="line"><span class="function"><span class="keyword">fun</span> Context.<span class="title">getInputMethodManager</span><span class="params">()</span></span> = getSystemService(Context.INPUT_METHOD_SERVICE) <span class="keyword">as</span> InputMethodManager</span><br><span class="line"><span class="function"><span class="keyword">fun</span> Context.<span class="title">getAccessibilityManager</span><span class="params">()</span></span> = getSystemService(Context.ACCESSIBILITY_SERVICE) <span class="keyword">as</span> AccessibilityManager</span><br><span class="line"><span class="function"><span class="keyword">fun</span> Context.<span class="title">getAccountManager</span><span class="params">()</span></span> = getSystemService(Context.ACCOUNT_SERVICE) <span class="keyword">as</span> AccountManager</span><br><span class="line"><span class="function"><span class="keyword">fun</span> Context.<span class="title">getDevicePolicyManager</span><span class="params">()</span></span> = getSystemService(Context.DEVICE_POLICY_SERVICE) <span class="keyword">as</span> DevicePolicyManager</span><br><span class="line"><span class="function"><span class="keyword">fun</span> Context.<span class="title">getDropBoxManager</span><span class="params">()</span></span> = getSystemService(Context.DROPBOX_SERVICE) <span class="keyword">as</span> DropBoxManager</span><br><span class="line"><span class="function"><span class="keyword">fun</span> Context.<span class="title">getUiModeManager</span><span class="params">()</span></span> = getSystemService(Context.UI_MODE_SERVICE) <span class="keyword">as</span> UiModeManager</span><br><span class="line"><span class="function"><span class="keyword">fun</span> Context.<span class="title">getDownloadManager</span><span class="params">()</span></span> = getSystemService(Context.DOWNLOAD_SERVICE) <span class="keyword">as</span> DownloadManager</span><br><span class="line"><span class="function"><span class="keyword">fun</span> Context.<span class="title">getStorageManager</span><span class="params">()</span></span> = getSystemService(Context.STORAGE_SERVICE) <span class="keyword">as</span> StorageManager</span><br><span class="line"><span class="function"><span class="keyword">fun</span> Context.<span class="title">getNfcManager</span><span class="params">()</span></span> = getSystemService(Context.NFC_SERVICE) <span class="keyword">as</span> NfcManager</span><br><span class="line"><span class="function"><span class="keyword">fun</span> Context.<span class="title">getUsbManager</span><span class="params">()</span></span> = getSystemService(Context.USB_SERVICE) <span class="keyword">as</span> UsbManager</span><br><span class="line"><span class="function"><span class="keyword">fun</span> Context.<span class="title">getTextServicesManager</span><span class="params">()</span></span> = getSystemService(Context.TEXT_SERVICES_MANAGER_SERVICE) <span class="keyword">as</span> TextServicesManager</span><br><span class="line"><span class="function"><span class="keyword">fun</span> Context.<span class="title">getWifiP2pManager</span><span class="params">()</span></span> = getSystemService(Context.WIFI_P2P_SERVICE) <span class="keyword">as</span> WifiP2pManager</span><br><span class="line"><span class="function"><span class="keyword">fun</span> Context.<span class="title">getInputManager</span><span class="params">()</span></span> = getSystemService(Context.INPUT_SERVICE) <span class="keyword">as</span> InputManager</span><br><span class="line"><span class="function"><span class="keyword">fun</span> Context.<span class="title">getMediaRouter</span><span class="params">()</span></span> = getSystemService(Context.MEDIA_ROUTER_SERVICE) <span class="keyword">as</span> MediaRouter</span><br><span class="line"><span class="function"><span class="keyword">fun</span> Context.<span class="title">getNsdManager</span><span class="params">()</span></span> = getSystemService(Context.NSD_SERVICE) <span class="keyword">as</span> NsdManager</span><br><span class="line"><span class="function"><span class="keyword">fun</span> Context.<span class="title">getDisplayManager</span><span class="params">()</span></span> = getSystemService(Context.DISPLAY_SERVICE) <span class="keyword">as</span> DisplayManager</span><br><span class="line"><span class="function"><span class="keyword">fun</span> Context.<span class="title">getUserManager</span><span class="params">()</span></span> = getSystemService(Context.USER_SERVICE) <span class="keyword">as</span> UserManager</span><br><span class="line"><span class="function"><span class="keyword">fun</span> Context.<span class="title">getBluetoothManager</span><span class="params">()</span></span> = getSystemService(Context.BLUETOOTH_SERVICE) <span class="keyword">as</span> BluetoothManager</span><br><span class="line"><span class="function"><span class="keyword">fun</span> Context.<span class="title">getAppOpsManager</span><span class="params">()</span></span> = getSystemService(Context.APP_OPS_SERVICE) <span class="keyword">as</span> AppOpsManager</span><br><span class="line"><span class="function"><span class="keyword">fun</span> Context.<span class="title">getCaptioningManager</span><span class="params">()</span></span> = getSystemService(Context.CAPTIONING_SERVICE) <span class="keyword">as</span> CaptioningManager</span><br><span class="line"><span class="function"><span class="keyword">fun</span> Context.<span class="title">getConsumerIrManager</span><span class="params">()</span></span> = getSystemService(Context.CONSUMER_IR_SERVICE) <span class="keyword">as</span> ConsumerIrManager</span><br><span class="line"><span class="function"><span class="keyword">fun</span> Context.<span class="title">getPrintManager</span><span class="params">()</span></span> = getSystemService(Context.PRINT_SERVICE) <span class="keyword">as</span> PrintManager</span><br><span class="line"><span class="function"><span class="keyword">fun</span> Context.<span class="title">getAppWidgetManager</span><span class="params">()</span></span> = getSystemService(Context.APPWIDGET_SERVICE) <span class="keyword">as</span> AppWidgetManager</span><br><span class="line"><span class="function"><span class="keyword">fun</span> Context.<span class="title">getBatteryManager</span><span class="params">()</span></span> = getSystemService(Context.BATTERY_SERVICE) <span class="keyword">as</span> BatteryManager</span><br><span class="line"><span class="function"><span class="keyword">fun</span> Context.<span class="title">getCameraManager</span><span class="params">()</span></span> = getSystemService(Context.CAMERA_SERVICE) <span class="keyword">as</span> CameraManager</span><br><span class="line"><span class="function"><span class="keyword">fun</span> Context.<span class="title">getJobScheduler</span><span class="params">()</span></span> = getSystemService(Context.JOB_SCHEDULER_SERVICE) <span class="keyword">as</span> JobScheduler</span><br><span class="line"><span class="function"><span class="keyword">fun</span> Context.<span class="title">getLauncherApps</span><span class="params">()</span></span> = getSystemService(Context.LAUNCHER_APPS_SERVICE) <span class="keyword">as</span> LauncherApps</span><br><span class="line"><span class="function"><span class="keyword">fun</span> Context.<span class="title">getMediaProjectionManager</span><span class="params">()</span></span> = getSystemService(Context.MEDIA_PROJECTION_SERVICE) <span class="keyword">as</span> MediaProjectionManager</span><br><span class="line"><span class="function"><span class="keyword">fun</span> Context.<span class="title">getMediaSessionManager</span><span class="params">()</span></span> = getSystemService(Context.MEDIA_SESSION_SERVICE) <span class="keyword">as</span> MediaSessionManager</span><br><span class="line"><span class="function"><span class="keyword">fun</span> Context.<span class="title">getRestrictionsManager</span><span class="params">()</span></span> = getSystemService(Context.RESTRICTIONS_SERVICE) <span class="keyword">as</span> RestrictionsManager</span><br><span class="line"><span class="function"><span class="keyword">fun</span> Context.<span class="title">getTelecomManager</span><span class="params">()</span></span> = getSystemService(Context.TELECOM_SERVICE) <span class="keyword">as</span> TelecomManager</span><br><span class="line"><span class="function"><span class="keyword">fun</span> Context.<span class="title">getTvInputManager</span><span class="params">()</span></span> = getSystemService(Context.TV_INPUT_SERVICE) <span class="keyword">as</span> TvInputManager</span><br><span class="line"><span class="function"><span class="keyword">fun</span> Context.<span class="title">getSubscriptionManager</span><span class="params">()</span></span> = getSystemService(Context.TELEPHONY_SUBSCRIPTION_SERVICE) <span class="keyword">as</span> SubscriptionManager</span><br><span class="line"><span class="function"><span class="keyword">fun</span> Context.<span class="title">getUsageStatsManager</span><span class="params">()</span></span> = getSystemService(Context.USAGE_STATS_SERVICE) <span class="keyword">as</span> UsageStatsManager</span><br><span class="line"><span class="function"><span class="keyword">fun</span> Context.<span class="title">getCarrierConfigManager</span><span class="params">()</span></span> = getSystemService(Context.CARRIER_CONFIG_SERVICE) <span class="keyword">as</span> CarrierConfigManager</span><br><span class="line"><span class="function"><span class="keyword">fun</span> Context.<span class="title">getFingerprintManager</span><span class="params">()</span></span> = getSystemService(Context.FINGERPRINT_SERVICE) <span class="keyword">as</span> FingerprintManager</span><br><span class="line"><span class="function"><span class="keyword">fun</span> Context.<span class="title">getMidiManager</span><span class="params">()</span></span> = getSystemService(Context.MIDI_SERVICE) <span class="keyword">as</span> MidiManager</span><br><span class="line"><span class="function"><span class="keyword">fun</span> Context.<span class="title">getNetworkStatsManager</span><span class="params">()</span></span> = getSystemService(Context.NETWORK_STATS_SERVICE) <span class="keyword">as</span> NetworkStatsManager</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 扩展属性</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">val</span> View.ctx: Context</span><br><span class="line">    <span class="keyword">get</span>() = context</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> TextView.textColor: <span class="built_in">Int</span></span><br><span class="line">    <span class="keyword">get</span>() = currentTextColor</span><br><span class="line">    <span class="keyword">set</span>(v) = setTextColor(v)</span><br><span class="line"></span><br><span class="line"><span class="keyword">inline</span> <span class="function"><span class="keyword">fun</span> Notification.<span class="title">build</span><span class="params">(context: <span class="type">Context</span>, func: <span class="type">NotificationCompat</span>.<span class="type">Builder</span>.() -&gt; <span class="type">Unit</span>)</span></span>: Notification &#123;</span><br><span class="line">      <span class="keyword">val</span> builder = NotificationCompat.Builder(context)</span><br><span class="line">      builder.func()</span><br><span class="line">      <span class="keyword">return</span> builder.build()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="其他资源"><a href="#其他资源" class="headerlink" title="其他资源"></a>其他资源</h2><p>更多详细用法，查看<a target="_blank" rel="noopener" href="https://kotlinlang.org/docs/reference/extensions.html">官网文档</a><br><a target="_blank" rel="noopener" href="https://github.com/mcxiaoke/awesome-kotlin">Kotlin 资源汇总</a></p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/wangjiegulu/kotlin-for-android-developers-zh/blob/master/SUMMARY.md">kotlin-for-android-developers-zh</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.gitbook.com/book/huanglizhuo/kotlin-in-chinese/details">Kotlin-in-Chinese</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/cctanfujun/kotlin-web-site-cn">Kotlin-Website-CN</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.jianshu.com/notebooks/2822252/latest">Kotlin Reference in Chinese</a></li>
+</ul>
+<blockquote>
+<p>文章来自： <a href="https://hanks.pub/">https://hanks.pub</a></p>
+</blockquote>
+
+      
+    </div>
+</article>
+
+<!-- 上一页 下一页 -->
+
+
+<nav id="article-nav">
+  
+    <a href="/2016/03/15/kotlin-companion/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>上一篇</span>
+      <div class="article-nav-title">
+        
+          Kotlin 中创建类似 Java 的静态方法
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/03/08/Fragment-setUserVisibleHint/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>下一篇</span>
+      <div class="article-nav-title">使用 setUserVisibleHint 方法判断 Fragment 是否可见</div>
+    </a>
+  
+</nav>
+
+
+
+<!-- 相关文章 -->
+
+<!--
+
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+      			<a href="/2016/03/13/kotlin-for-android-extensions/">Kotlin for Android - 0x01 有趣的扩展</a>
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+
+-->
+
+
+</section>
+      </div>
+      <footer id="footer">
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      
+      &copy;2024<a target="_blank" rel="noopener" href="https://github.com/hanks-zyh"> Hanks</a>版权所有
+      <br/>
+      <a href="https://beian.miit.gov.cn/" target="_blank">豫ICP备2021022347号</a>
+	  </div>
+  </div>
+ <div id="share">
+  <a id="totop" title="" style="display: block;">返回顶部</a>
+ </div>
+</footer>
+
+    </div>
+    
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/jquery.scrollLoading.js"></script>
+
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/ads.js"></script>
+
+  </div>
+</body>
+</html>

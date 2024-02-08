@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>SwipeRefreshLayout 源码 | Hanks&#39; Websit</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <script data-ad-client="ca-pub-8165670162444117" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <meta name="referrer" content="never">
+  <meta name="description" content="简介官方文档 SwipeRefreshLayout 是一个下拉刷新控件，几乎可以包裹一个任何可以滚动的内容（ListView GridView ScrollView RecyclerView），可以自动识别垂直滚动手势。使用起来非常方便。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SwipeRefreshLayout 源码">
+<meta property="og:url" content="https://hanks.pub/2016/06/18/swiperefreshlayout/index.html">
+<meta property="og:site_name" content="Hanks&#39; Websit">
+<meta property="og:description" content="简介官方文档 SwipeRefreshLayout 是一个下拉刷新控件，几乎可以包裹一个任何可以滚动的内容（ListView GridView ScrollView RecyclerView），可以自动识别垂直滚动手势。使用起来非常方便。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img.blog.csdn.net/20150127120706062">
+<meta property="og:image" content="https://img.blog.csdn.net/20150127121649015">
+<meta property="og:image" content="https://dn-coding-net-production-pp.qbox.me/8e02212d-b364-4df8-bfaa-47f3084f89e7.png">
+<meta property="og:image" content="https://dn-coding-net-production-pp.qbox.me/8df6d458-700b-4ec5-b731-c6b8c34cdddc.png">
+<meta property="article:published_time" content="2016-06-18T11:37:51.000Z">
+<meta property="article:modified_time" content="2024-02-08T01:29:02.194Z">
+<meta property="article:author" content="Hanks">
+<meta property="article:tag" content="Android">
+<meta property="article:tag" content="SwipeRefreshLayout">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img.blog.csdn.net/20150127120706062">
+  
+  
+  <link href="https://fonts.googleapis.com/css?family=Fira+Code|Noto+Serif+SC&display=swap" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8165670162444117"
+     crossorigin="anonymous"></script>
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo"></a>
+    <nav id="main-nav">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      
+        <a class="main-nav-link" href="/archives">Archive</a>
+      
+        <a class="main-nav-link" href="/eye-video">Eye</a>
+      
+        <a class="main-nav-link" href="/atom.xml">Rss</a>
+      
+    </nav>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/archives" class="mobile-nav-link">Archive</a>
+  
+    <a href="/eye-video" class="mobile-nav-link">Eye</a>
+  
+    <a href="/atom.xml" class="mobile-nav-link">Rss</a>
+  
+</nav>
+      <div class="outer">
+        <section id="main"><article id="post-swiperefreshlayout" class="article article-type-post" itemscope
+  itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <header class="article-header">
+      
+      
+  
+    <h1 class="article-title" itemprop="name">
+      SwipeRefreshLayout 源码
+    </h1>
+  
+
+      
+    </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p><a target="_blank" rel="noopener" href="https://developer.android.com/intl/zh-cn/reference/android/support/v4/widget/SwipeRefreshLayout.html">官方文档</a></p>
+<p><code>SwipeRefreshLayout</code> 是一个下拉刷新控件，几乎可以包裹一个任何可以滚动的内容（ListView GridView ScrollView RecyclerView），可以自动识别垂直滚动手势。使用起来非常方便。</p>
+<span id="more"></span>
+<table>
+<thead>
+<tr>
+<th align="center"></th>
+<th align="center"></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><img src="https://img.blog.csdn.net/20150127120706062"></td>
+<td align="center"><img src="https://img.blog.csdn.net/20150127121649015"></td>
+</tr>
+</tbody></table>
+<p> 1.将需要下拉刷新的空间包裹起来</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">android.support.v4.widget.SwipeRefreshLayout</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_width</span>=<span class="string">&quot;match_parent&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_height</span>=<span class="string">&quot;match_parent&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">android.support.v7.widget.RecyclerView</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:id</span>=<span class="string">&quot;@+id/recyclerView&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_width</span>=<span class="string">&quot;match_parent&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_height</span>=<span class="string">&quot;match_parent&quot;</span>/&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">android.support.v4.widget.SwipeRefreshLayout</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+<p> 2.设置刷新动画的触发回调</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//设置下拉出现小圆圈是否是缩放出现，出现的位置，最大的下拉位置</span></span><br><span class="line">mySwipeRefreshLayout.setProgressViewOffset(<span class="literal">true</span>, <span class="number">50</span>, <span class="number">200</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//设置下拉圆圈的大小，两个值 LARGE， DEFAULT</span></span><br><span class="line">mySwipeRefreshLayout.setSize(SwipeRefreshLayout.LARGE);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 设置下拉圆圈上的颜色，蓝色、绿色、橙色、红色</span></span><br><span class="line">mySwipeRefreshLayout.setColorSchemeResources(</span><br><span class="line">    android.R.color.holo_blue_bright,</span><br><span class="line">    android.R.color.holo_green_light,</span><br><span class="line">    android.R.color.holo_orange_light,</span><br><span class="line">    android.R.color.holo_red_light);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 通过 setEnabled(false) 禁用下拉刷新</span></span><br><span class="line">mySwipeRefreshLayout.setEnabled(<span class="literal">false</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 设定下拉圆圈的背景</span></span><br><span class="line">mSwipeLayout.setProgressBackgroundColor(R.color.red);</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * 设置手势下拉刷新的监听</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">mySwipeRefreshLayout.setOnRefreshListener(</span><br><span class="line">    <span class="keyword">new</span> <span class="title class_">SwipeRefreshLayout</span>.OnRefreshListener() &#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">onRefresh</span><span class="params">()</span> &#123;</span><br><span class="line">            <span class="comment">// 刷新动画开始后回调到此方法</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>通过 <code>setRefreshing(false)</code> 和 <code>setRefreshing(true)</code> 来手动调用刷新的动画。</p>
+<blockquote>
+<p><code>onRefresh</code> 的回调只有在手势下拉的情况下才会触发，通过 <code>setRefreshing</code> 只能调用刷新的动画是否显示。<br>SwipeRefreshLayout 也可放在 CoordinatorLayout 内共同处理滑动冲突，有兴趣可以尝试。</p>
+</blockquote>
+<h2 id="SwipeRefreshLayout-源码分析"><a href="#SwipeRefreshLayout-源码分析" class="headerlink" title="SwipeRefreshLayout 源码分析"></a>SwipeRefreshLayout 源码分析</h2><blockquote>
+<p>本文基于 v4 版本 <code>23.2.0</code></p>
+</blockquote>
+<p>extends <code>ViewGroup</code> implements <code>NestedScrollingParent</code> <code>NestedScrollingChild</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">java.lang.Object</span><br><span class="line">   ↳    android.view.View</span><br><span class="line">       ↳    android.view.ViewGroup</span><br><span class="line">           ↳    android.support.v4.widget.SwipeRefreshLayout</span><br></pre></td></tr></table></figure>
+<p>SwipeRefreshLayout 的分析分为两个部分：<strong>自定义 ViewGroup 的部分</strong>，<strong>处理和子视图的嵌套滚动部分</strong>。</p>
+<h3 id="SwipeRefreshLayout-extends-ViewGroup"><a href="#SwipeRefreshLayout-extends-ViewGroup" class="headerlink" title="SwipeRefreshLayout extends ViewGroup"></a>SwipeRefreshLayout extends ViewGroup</h3><p>其实就是一个自定义的 ViewGroup ，结合我们自己平时自定义 ViewGroup 的步骤：</p>
+<ol>
+<li>初始化变量</li>
+<li>onMeasure</li>
+<li>onLayout</li>
+<li>处理交互 （<code>dispatchTouchEvent</code> <code>onInterceptTouchEvent</code> <code>onTouchEvent</code>）</li>
+</ol>
+<p>接下来就按照上面的步骤进行分析。</p>
+<h4 id="1-初始化变量"><a href="#1-初始化变量" class="headerlink" title="1.初始化变量"></a>1.初始化变量</h4><p><code>SwipeRefreshLayout</code> 内部有 2 个 View，一个<code>圆圈（mCircleView）</code>，一个内部可滚动的<code> View（mTarget）</code>。除了 View，还包含一个 <code>OnRefreshListener</code> 接口，当刷新动画被触发时回调。</p>
+<p> <img src="https://dn-coding-net-production-pp.qbox.me/8e02212d-b364-4df8-bfaa-47f3084f89e7.png" alt="图片"></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Constructor that is called when inflating SwipeRefreshLayout from XML.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> context</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> attrs</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="title function_">SwipeRefreshLayout</span><span class="params">(Context context, AttributeSet attrs)</span> &#123;</span><br><span class="line">    <span class="built_in">super</span>(context, attrs);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 系统默认的最小滚动距离</span></span><br><span class="line">    mTouchSlop = ViewConfiguration.get(context).getScaledTouchSlop();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 系统默认的动画时长</span></span><br><span class="line">    mMediumAnimationDuration = getResources().getInteger(</span><br><span class="line">            android.R.integer.config_mediumAnimTime);</span><br><span class="line"></span><br><span class="line">    setWillNotDraw(<span class="literal">false</span>);</span><br><span class="line">    mDecelerateInterpolator = <span class="keyword">new</span> <span class="title class_">DecelerateInterpolator</span>(DECELERATE_INTERPOLATION_FACTOR);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 获取 xml 中定义的属性</span></span><br><span class="line">    <span class="keyword">final</span> <span class="type">TypedArray</span> <span class="variable">a</span> <span class="operator">=</span> context.obtainStyledAttributes(attrs, LAYOUT_ATTRS);</span><br><span class="line">    setEnabled(a.getBoolean(<span class="number">0</span>, <span class="literal">true</span>));</span><br><span class="line">    a.recycle();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 刷新的圆圈的大小，单位转换成 sp</span></span><br><span class="line">    <span class="keyword">final</span> <span class="type">DisplayMetrics</span> <span class="variable">metrics</span> <span class="operator">=</span> getResources().getDisplayMetrics();</span><br><span class="line">    mCircleWidth = (<span class="type">int</span>) (CIRCLE_DIAMETER * metrics.density);</span><br><span class="line">    mCircleHeight = (<span class="type">int</span>) (CIRCLE_DIAMETER * metrics.density);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 创建刷新动画的圆圈</span></span><br><span class="line">    createProgressView();</span><br><span class="line"></span><br><span class="line">    ViewCompat.setChildrenDrawingOrderEnabled(<span class="built_in">this</span>, <span class="literal">true</span>);</span><br><span class="line">    <span class="comment">// the absolute offset has to take into account that the circle starts at an offset</span></span><br><span class="line">    mSpinnerFinalOffset = DEFAULT_CIRCLE_TARGET * metrics.density;</span><br><span class="line">    <span class="comment">// 刷新动画的临界距离值</span></span><br><span class="line">    mTotalDragDistance = mSpinnerFinalOffset;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 通过 NestedScrolling 机制来处理嵌套滚动</span></span><br><span class="line">    mNestedScrollingParentHelper = <span class="keyword">new</span> <span class="title class_">NestedScrollingParentHelper</span>(<span class="built_in">this</span>);</span><br><span class="line">    mNestedScrollingChildHelper = <span class="keyword">new</span> <span class="title class_">NestedScrollingChildHelper</span>(<span class="built_in">this</span>);</span><br><span class="line">    setNestedScrollingEnabled(<span class="literal">true</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&#x2F;&#x2F; 创建刷新动画的圆圈</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">createProgressView</span><span class="params">()</span> &#123;</span><br><span class="line">    mCircleView = <span class="keyword">new</span> <span class="title class_">CircleImageView</span>(getContext(), CIRCLE_BG_LIGHT, CIRCLE_DIAMETER/<span class="number">2</span>);</span><br><span class="line">    mProgress = <span class="keyword">new</span> <span class="title class_">MaterialProgressDrawable</span>(getContext(), <span class="built_in">this</span>);</span><br><span class="line">    mProgress.setBackgroundColor(CIRCLE_BG_LIGHT);</span><br><span class="line">    mCircleView.setImageDrawable(mProgress);</span><br><span class="line">    mCircleView.setVisibility(View.GONE);</span><br><span class="line">    addView(mCircleView);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>初始化的时候创建一个出来一个 View （下拉刷新的圆圈）。可以看出使用背景圆圈是 v4 包里提供的 <code>CircleImageView</code> 控件，中间的是 <code>MaterialProgressDrawable</code> 进度条。<br>另一个 View 是在 xml 中包含的可滚动视图。</p>
+<h4 id="2-onMeasure"><a href="#2-onMeasure" class="headerlink" title="2.onMeasure"></a>2.onMeasure</h4><p>onMeasure 确定子视图的大小。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">onMeasure</span><span class="params">(<span class="type">int</span> widthMeasureSpec, <span class="type">int</span> heightMeasureSpec)</span> &#123;</span><br><span class="line">    <span class="built_in">super</span>.onMeasure(widthMeasureSpec, heightMeasureSpec);</span><br><span class="line">    <span class="keyword">if</span> (mTarget == <span class="literal">null</span>) &#123;</span><br><span class="line">        <span class="comment">// 确定内部要滚动的View，如 RecycleView</span></span><br><span class="line">        ensureTarget();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (mTarget == <span class="literal">null</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 测量子 View （mTarget）</span></span><br><span class="line">    mTarget.measure(MeasureSpec.makeMeasureSpec(</span><br><span class="line">            getMeasuredWidth() - getPaddingLeft() - getPaddingRight(),</span><br><span class="line">            MeasureSpec.EXACTLY), MeasureSpec.makeMeasureSpec(</span><br><span class="line">            getMeasuredHeight() - getPaddingTop() - getPaddingBottom(), MeasureSpec.EXACTLY));</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 测量刷新的圆圈 mCircleView</span></span><br><span class="line">    mCircleView.measure(MeasureSpec.makeMeasureSpec(mCircleWidth, MeasureSpec.EXACTLY),</span><br><span class="line">            MeasureSpec.makeMeasureSpec(mCircleHeight, MeasureSpec.EXACTLY));</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (!mUsingCustomStart &amp;&amp; !mOriginalOffsetCalculated) &#123;</span><br><span class="line">        mOriginalOffsetCalculated = <span class="literal">true</span>;</span><br><span class="line">        mCurrentTargetOffsetTop = mOriginalOffsetTop = -mCircleView.getMeasuredHeight();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 计算 mCircleView 在 ViewGroup 中的索引</span></span><br><span class="line">    mCircleViewIndex = -<span class="number">1</span>;</span><br><span class="line">    <span class="comment">// Get the index of the circleview.</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">index</span> <span class="operator">=</span> <span class="number">0</span>; index &lt; getChildCount(); index++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (getChildAt(index) == mCircleView) &#123;</span><br><span class="line">            mCircleViewIndex = index;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这个步骤确定了 mCircleView 和 SwipeRefreshLayout 的子视图的大小。</p>
+<h4 id="3-onLayout"><a href="#3-onLayout" class="headerlink" title="3.onLayout"></a>3.onLayout</h4><p>onLayout 主要负责确定各个子视图的位置。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">onLayout</span><span class="params">(<span class="type">boolean</span> changed, <span class="type">int</span> left, <span class="type">int</span> top, <span class="type">int</span> right, <span class="type">int</span> bottom)</span> &#123;</span><br><span class="line">   <span class="comment">// 获取 SwipeRefreshLayout 的宽高</span></span><br><span class="line">   <span class="keyword">final</span> <span class="type">int</span> <span class="variable">width</span> <span class="operator">=</span> getMeasuredWidth();</span><br><span class="line">   <span class="keyword">final</span> <span class="type">int</span> <span class="variable">height</span> <span class="operator">=</span> getMeasuredHeight();</span><br><span class="line">   <span class="keyword">if</span> (getChildCount() == <span class="number">0</span>) &#123;</span><br><span class="line">       <span class="keyword">return</span>;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">if</span> (mTarget == <span class="literal">null</span>) &#123;</span><br><span class="line">       ensureTarget();</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">if</span> (mTarget == <span class="literal">null</span>) &#123;</span><br><span class="line">       <span class="keyword">return</span>;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="comment">// 考虑到给控件设置 padding，去除 padding 的距离</span></span><br><span class="line">   <span class="keyword">final</span> <span class="type">View</span> <span class="variable">child</span> <span class="operator">=</span> mTarget;</span><br><span class="line">   <span class="keyword">final</span> <span class="type">int</span> <span class="variable">childLeft</span> <span class="operator">=</span> getPaddingLeft();</span><br><span class="line">   <span class="keyword">final</span> <span class="type">int</span> <span class="variable">childTop</span> <span class="operator">=</span> getPaddingTop();</span><br><span class="line">   <span class="keyword">final</span> <span class="type">int</span> <span class="variable">childWidth</span> <span class="operator">=</span> width - getPaddingLeft() - getPaddingRight();</span><br><span class="line">   <span class="keyword">final</span> <span class="type">int</span> <span class="variable">childHeight</span> <span class="operator">=</span> height - getPaddingTop() - getPaddingBottom();</span><br><span class="line">   <span class="comment">// 设置 mTarget 的位置</span></span><br><span class="line">   child.layout(childLeft, childTop, childLeft + childWidth, childTop + childHeight);</span><br><span class="line">   <span class="type">int</span> <span class="variable">circleWidth</span> <span class="operator">=</span> mCircleView.getMeasuredWidth();</span><br><span class="line">   <span class="type">int</span> <span class="variable">circleHeight</span> <span class="operator">=</span> mCircleView.getMeasuredHeight();</span><br><span class="line">   <span class="comment">// 根据 mCurrentTargetOffsetTop 变量的值来设置 mCircleView 的位置</span></span><br><span class="line">   mCircleView.layout((width / <span class="number">2</span> - circleWidth / <span class="number">2</span>), mCurrentTargetOffsetTop,</span><br><span class="line">           (width / <span class="number">2</span> + circleWidth / <span class="number">2</span>), mCurrentTargetOffsetTop + circleHeight);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p> <img src="https://dn-coding-net-production-pp.qbox.me/8df6d458-700b-4ec5-b731-c6b8c34cdddc.png" alt="图片"></p>
+<p>在 onLayout 中放置了 mCircleView 的位置，注意 顶部位置是 mCurrentTargetOffsetTop ，mCurrentTargetOffsetTop 初始距离是<code>-mCircleView.getMeasuredHeight()</code>，所以是在 SwipeRefreshLayout 外。</p>
+<blockquote>
+<p>经过以上几个步骤，SwipeRefreshLayout 创建了子视图，确定他们的大小、位置，现在所有视图可以显示在界面了。</p>
+</blockquote>
+<h3 id="处理与子视图的滚动交互"><a href="#处理与子视图的滚动交互" class="headerlink" title="处理与子视图的滚动交互"></a>处理与子视图的滚动交互</h3><p>下拉刷新控件的主要功能是当子视图下拉到最顶部时，继续下拉可以出现刷新动画。而子视图可以滚动时需要将所有滚动事件都交给子视图。借助 Android 提供的 NestedScrolling 机制，使得 SwipeRefreshLayout 很轻松的解决了与子视图的滚动冲突问题。<br>SwipeRefreshLayout 通过实现 <code>NestedScrollingParent</code> 和 <code>NestedScrollingChild</code> 接口来处理滚动冲突。SwipeRefreshLayout 作为 Parent 嵌套一个可以滚动的子视图，那么就需要了解一下 NestedScrollingParent 接口</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> 当你希望自己的自定义布局支持嵌套子视图并且处理滚动操作，就可以实现该接口。</span></span><br><span class="line"><span class="comment"> 实现这个接口后可以创建一个 NestedScrollingParentHelper 字段，使用它来帮助你处理大部分的方法。</span></span><br><span class="line"><span class="comment"> 处理嵌套的滚动时应该使用  `ViewCompat`，`ViewGroupCompat`或`ViewParentCompat` 中的方法来处理，这是一些兼容库，</span></span><br><span class="line"><span class="comment"> 他们保证 Android 5.0之前的兼容性垫片的静态方法，这样可以兼容 Android 5.0 之前的版本。</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">NestedScrollingParent</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 当子视图调用 startNestedScroll(View, int) 后调用该方法。返回 true 表示响应子视图的滚动。</span></span><br><span class="line"><span class="comment">     * 实现这个方法来声明支持嵌套滚动，如果返回 true，那么这个视图将要配合子视图嵌套滚动。当嵌套滚动结束时会调用到 onStopNestedScroll(View)。</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> child 可滚动的子视图</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> target NestedScrollingParent 的直接可滚动的视图，一般情况就是 child</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> nestedScrollAxes 包含 ViewCompat#SCROLL_AXIS_HORIZONTAL, ViewCompat#SCROLL_AXIS_VERTICAL 或者两个值都有。</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 返回 true 表示响应子视图的滚动。</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">onStartNestedScroll</span><span class="params">(View child, View target, <span class="type">int</span> nestedScrollAxes)</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 如果 onStartNestedScroll 返回 true ，然后走该方法，这个方法里可以做一些初始化。</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">onNestedScrollAccepted</span><span class="params">(View child, View target, <span class="type">int</span> nestedScrollAxes)</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 子视图开始滚动前会调用这个方法。这时候父布局（也就是当前的 NestedScrollingParent 的实现类）可以通过这个方法来配合子视图同时处理滚动事件。</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> target 滚动的子视图</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> dx 绝对值为手指在x方向滚动的距离，dx&lt;0 表示手指在屏幕向右滚动</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> dy 绝对值为手指在y方向滚动的距离，dy&lt;0 表示手指在屏幕向下滚动</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> consumed 一个数组，值用来表示父布局消耗了多少距离，未消耗前为[0,0], 如果父布局想处理滚动事件，就可以在这个方法的实现中为consumed[0]，consumed[1]赋值。</span></span><br><span class="line"><span class="comment">     *                 分别表示x和y方向消耗的距离。如父布局想在竖直方向（y）完全拦截子视图，那么让 consumed[1] = dy，就把手指产生的触摸事件给拦截了，子视图便响应不到触摸事件了 。</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">onNestedPreScroll</span><span class="params">(View target, <span class="type">int</span> dx, <span class="type">int</span> dy, <span class="type">int</span>[] consumed)</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 这个方法表示子视图正在滚动，并且把滚动距离回调用到该方法，前提是 onStartNestedScroll 返回了 true。</span></span><br><span class="line"><span class="comment">     * &lt;p&gt;Both the consumed and unconsumed portions of the scroll distance are reported to the</span></span><br><span class="line"><span class="comment">     * ViewParent. An implementation may choose to use the consumed portion to match or chase scroll</span></span><br><span class="line"><span class="comment">     * position of multiple child elements, for example. The unconsumed portion may be used to</span></span><br><span class="line"><span class="comment">     * allow continuous dragging of multiple scrolling or draggable elements, such as scrolling</span></span><br><span class="line"><span class="comment">     * a list within a vertical drawer where the drawer begins dragging once the edge of inner</span></span><br><span class="line"><span class="comment">     * scrolling content is reached.&lt;/p&gt;</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> target 滚动的子视图</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> dxConsumed 手指产生的触摸距离中，子视图消耗的x方向的距离</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> dyConsumed 手指产生的触摸距离中，子视图消耗的y方向的距离 ，如果 onNestedPreScroll 中 dy = 20， consumed[0] = 8，那么 dy = 12</span></span><br><span class="line"><span class="comment">      * <span class="doctag">@param</span> dxUnconsumed 手指产生的触摸距离中，未被子视图消耗的x方向的距离</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> dyUnconsumed 手指产生的触摸距离中，未被子视图消耗的y方向的距离</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">onNestedScroll</span><span class="params">(View target, <span class="type">int</span> dxConsumed, <span class="type">int</span> dyConsumed,<span class="type">int</span> dxUnconsumed, <span class="type">int</span> dyUnconsumed)</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 响应嵌套滚动结束</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * 当一个嵌套滚动结束后（如MotionEvent#ACTION_UP， MotionEvent#ACTION_CANCEL）会调用该方法，在这里可有做一些收尾工作，比如变量重置</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">onStopNestedScroll</span><span class="params">(View target)</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 手指在屏幕快速滑触发Fling前回调，如果前面 onNestedPreScroll 中父布局消耗了事件，那么这个也会被触发</span></span><br><span class="line"><span class="comment">     * 返回true表示父布局完全处理 fling 事件</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> target 滚动的子视图</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> velocityX x方向的速度（px/s）</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> velocityY y方向的速度</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> true if this parent consumed the fling ahead of the target view</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">onNestedPreFling</span><span class="params">(View target, <span class="type">float</span> velocityX, <span class="type">float</span> velocityY)</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 子视图fling 时回调，父布局可以选择监听子视图的 fling。</span></span><br><span class="line"><span class="comment">     * true 表示父布局处理 fling，false表示父布局监听子视图的fling</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> target View that initiated the nested scroll</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> velocityX Horizontal velocity in pixels per second</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> velocityY Vertical velocity in pixels per second</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> consumed true 表示子视图处理了fling</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">onNestedFling</span><span class="params">(View target, <span class="type">float</span> velocityX, <span class="type">float</span> velocityY, <span class="type">boolean</span> consumed)</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 返回当前 NestedScrollingParent 的滚动方向，</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     * <span class="doctag">@see</span> ViewCompat#SCROLL_AXIS_HORIZONTAL</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@see</span> ViewCompat#SCROLL_AXIS_VERTICAL</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@see</span> ViewCompat#SCROLL_AXIS_NONE</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">getNestedScrollAxes</span><span class="params">()</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>看一下 SwipeRefreshLayout 实现 NestedScrollingParent 的相关方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// NestedScrollingParent</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 子 View （NestedScrollingChild）开始滚动前回调此方法,返回 true 表示接 Parent 收嵌套滚动，然后调用 onNestedScrollAccepted</span></span><br><span class="line"><span class="comment">// 具体可以看 NestedScrollingChildHelper 的源码</span></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">onStartNestedScroll</span><span class="params">(View child, View target, <span class="type">int</span> nestedScrollAxes)</span> &#123;</span><br><span class="line">    <span class="comment">// 子 View 回调，判断是否开始嵌套滚动 ，</span></span><br><span class="line">    <span class="keyword">return</span> isEnabled() &amp;&amp; !mReturningToStart &amp;&amp; !mRefreshing</span><br><span class="line">            &amp;&amp; (nestedScrollAxes &amp; ViewCompat.SCROLL_AXIS_VERTICAL) != <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"> <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">onNestedScrollAccepted</span><span class="params">(View child, View target, <span class="type">int</span> axes)</span> &#123;</span><br><span class="line">     <span class="comment">// Reset the counter of how much leftover scroll needs to be consumed.</span></span><br><span class="line">     mNestedScrollingParentHelper.onNestedScrollAccepted(child, target, axes);</span><br><span class="line"></span><br><span class="line">     <span class="comment">// ...省略代码</span></span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<p>SwipeRefreshLayout 只接受竖直方向（Y轴）的滚动，并且在刷新动画进行中不接受滚动。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// NestedScrollingChild 在滚动的时候会触发， 看父类消耗了多少距离</span></span><br><span class="line"><span class="comment">//   * @param dx x 轴滚动的距离</span></span><br><span class="line"><span class="comment">//   * @param dy y 轴滚动的距离</span></span><br><span class="line"><span class="comment">//   * @param consumed 代表 父 View 消费的滚动距离</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">onNestedPreScroll</span><span class="params">(View target, <span class="type">int</span> dx, <span class="type">int</span> dy, <span class="type">int</span>[] consumed)</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// dy &gt; 0 表示手指在屏幕向上移动</span></span><br><span class="line">    <span class="comment">//  mTotalUnconsumed 表示子视图Y轴未消费的距离</span></span><br><span class="line">    <span class="comment">// 现在表示</span></span><br><span class="line">    <span class="keyword">if</span> (dy &gt; <span class="number">0</span> &amp;&amp; mTotalUnconsumed &gt; <span class="number">0</span>) &#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (dy &gt; mTotalUnconsumed) &#123;</span><br><span class="line">            consumed[<span class="number">1</span>] = dy - (<span class="type">int</span>) mTotalUnconsumed; <span class="comment">// SwipeRefreshLayout 就吧子视图位消费的距离全部消费了。</span></span><br><span class="line">            mTotalUnconsumed = <span class="number">0</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            mTotalUnconsumed -= dy; <span class="comment">// 消费的 y 轴的距离</span></span><br><span class="line">            consumed[<span class="number">1</span>] = dy;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 出现动画圆圈，并向上移动</span></span><br><span class="line">        moveSpinner(mTotalUnconsumed);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// ... 省略代码</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// onStartNestedScroll 返回 true 才会调用此方法。此方法表示子View将滚动事件分发到父 View（SwipeRefreshLayout）</span></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">onNestedScroll</span><span class="params">(<span class="keyword">final</span> View target, <span class="keyword">final</span> <span class="type">int</span> dxConsumed, <span class="keyword">final</span> <span class="type">int</span> dyConsumed,</span></span><br><span class="line"><span class="params">        <span class="keyword">final</span> <span class="type">int</span> dxUnconsumed, <span class="keyword">final</span> <span class="type">int</span> dyUnconsumed)</span> &#123;</span><br><span class="line">    <span class="comment">// ... 省略代码</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// This is a bit of a hack. Nested scrolling works from the bottom up, and as we are</span></span><br><span class="line">    <span class="comment">// sometimes between two nested scrolling views, we need a way to be able to know when any</span></span><br><span class="line">    <span class="comment">// nested scrolling parent has stopped handling events. We do that by using the</span></span><br><span class="line">    <span class="comment">// &#x27;offset in window &#x27;functionality to see if we have been moved from the event.</span></span><br><span class="line">    <span class="comment">// This is a decent indication of whether we should take over the event stream or not.</span></span><br><span class="line">    <span class="comment">// 手指在屏幕上向下滚动，并且子视图不可以滚动</span></span><br><span class="line">    <span class="keyword">final</span> <span class="type">int</span> <span class="variable">dy</span> <span class="operator">=</span> dyUnconsumed + mParentOffsetInWindow[<span class="number">1</span>];</span><br><span class="line">    <span class="keyword">if</span> (dy &lt; <span class="number">0</span> &amp;&amp; !canChildScrollUp()) &#123;</span><br><span class="line">        mTotalUnconsumed += Math.abs(dy);</span><br><span class="line">        moveSpinner(mTotalUnconsumed);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>SwipeRefreshLayout 通过 NestedScrollingParent 接口完成了处理子视图的滚动的冲突，中间省略了一些 SwipeRefreshLayout作为 child 的相关代码，这种情况是为了兼容将 SwipeRefreshLayout 作为子视图放在知识嵌套滚动的父布局的情况，这里不做深入讨论。但是下拉刷新需要判断手指在屏幕的状态来进行一个刷新的动画，所以我们还需要处理触摸事件，判断手指在屏幕中的状态。</p>
+<p>首先是 onInterceptTouchEvent，返回 true 表示拦截触摸事件。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">onInterceptTouchEvent</span><span class="params">(MotionEvent ev)</span> &#123;</span><br><span class="line">    ensureTarget();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">final</span> <span class="type">int</span> <span class="variable">action</span> <span class="operator">=</span> MotionEventCompat.getActionMasked(ev);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 手指按下时恢复状态</span></span><br><span class="line">    <span class="keyword">if</span> (mReturningToStart &amp;&amp; action == MotionEvent.ACTION_DOWN) &#123;</span><br><span class="line">        mReturningToStart = <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 控件可用 || 刷新事件刚结束正在恢复初始状态时 || 子 View 可滚动 || 正在刷新 || 父 View 正在滚动</span></span><br><span class="line">    <span class="keyword">if</span> (!isEnabled() || mReturningToStart || canChildScrollUp()</span><br><span class="line">            || mRefreshing || mNestedScrollInProgress) &#123;</span><br><span class="line">        <span class="comment">// Fail fast if we&#x27;re not in a state where a swipe is possible</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">switch</span> (action) &#123;</span><br><span class="line">        <span class="keyword">case</span> MotionEvent.ACTION_DOWN:</span><br><span class="line">            setTargetOffsetTopAndBottom(mOriginalOffsetTop - mCircleView.getTop(), <span class="literal">true</span>);</span><br><span class="line">            mActivePointerId = MotionEventCompat.getPointerId(ev, <span class="number">0</span>);</span><br><span class="line">            mIsBeingDragged = <span class="literal">false</span>;</span><br><span class="line">            <span class="comment">// 记录手指按下的位置，为了判断是否开始滚动</span></span><br><span class="line">            <span class="keyword">final</span> <span class="type">float</span> <span class="variable">initialDownY</span> <span class="operator">=</span> getMotionEventY(ev, mActivePointerId);</span><br><span class="line">            <span class="keyword">if</span> (initialDownY == -<span class="number">1</span>) &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            mInitialDownY = initialDownY;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">case</span> MotionEvent.ACTION_MOVE:</span><br><span class="line">            <span class="keyword">if</span> (mActivePointerId == INVALID_POINTER) &#123;</span><br><span class="line">                Log.e(LOG_TAG, <span class="string">&quot;Got ACTION_MOVE event but don&#x27;t have an active pointer id.&quot;</span>);</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">final</span> <span class="type">float</span> <span class="variable">y</span> <span class="operator">=</span> getMotionEventY(ev, mActivePointerId);</span><br><span class="line">            <span class="keyword">if</span> (y == -<span class="number">1</span>) &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// 判断当拖动距离大于最小距离时设置 mIsBeingDragged = true;</span></span><br><span class="line">            <span class="keyword">final</span> <span class="type">float</span> <span class="variable">yDiff</span> <span class="operator">=</span> y - mInitialDownY;</span><br><span class="line">            <span class="keyword">if</span> (yDiff &gt; mTouchSlop &amp;&amp; !mIsBeingDragged) &#123;</span><br><span class="line">                mInitialMotionY = mInitialDownY + mTouchSlop;</span><br><span class="line">                mIsBeingDragged = <span class="literal">true</span>;</span><br><span class="line">                <span class="comment">// 正在拖动状态，更新圆圈的 progressbar 的 alpha 值</span></span><br><span class="line">                mProgress.setAlpha(STARTING_PROGRESS_ALPHA);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">case</span> MotionEventCompat.ACTION_POINTER_UP:</span><br><span class="line">            onSecondaryPointerUp(ev);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">case</span> MotionEvent.ACTION_UP:</span><br><span class="line">        <span class="keyword">case</span> MotionEvent.ACTION_CANCEL:</span><br><span class="line">            mIsBeingDragged = <span class="literal">false</span>;</span><br><span class="line">            mActivePointerId = INVALID_POINTER;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> mIsBeingDragged;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>可以看到源码也就是进行简单处理，DOWN 的时候记录一下位置，MOVE 时判断移动的距离，返回值 mIsBeingDragged 为 true 时， 即 onInterceptTouchEvent 返回true，SwipeRefreshLayout 拦截触摸事件，不分发给 mTarget，然后把 MotionEvent 传给 onTouchEvent 方法。其中有一个判断子View的是否还可以滚动的方法 <code>canChildScrollUp</code>。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span> Whether it is possible for the child view of this layout to</span></span><br><span class="line"><span class="comment"> *         scroll up. Override this if the child view is a custom view.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">canChildScrollUp</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (android.os.Build.VERSION.SDK_INT &lt; <span class="number">14</span>) &#123;</span><br><span class="line">        <span class="comment">// 判断 AbsListView 的子类 ListView 或者 GridView 等</span></span><br><span class="line">        <span class="keyword">if</span> (mTarget <span class="keyword">instanceof</span> AbsListView) &#123;</span><br><span class="line">            <span class="keyword">final</span> <span class="type">AbsListView</span> <span class="variable">absListView</span> <span class="operator">=</span> (AbsListView) mTarget;</span><br><span class="line">            <span class="keyword">return</span> absListView.getChildCount() &gt; <span class="number">0</span></span><br><span class="line">                    &amp;&amp; (absListView.getFirstVisiblePosition() &gt; <span class="number">0</span> || absListView.getChildAt(<span class="number">0</span>)</span><br><span class="line">                            .getTop() &lt; absListView.getPaddingTop());</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> ViewCompat.canScrollVertically(mTarget, -<span class="number">1</span>) || mTarget.getScrollY() &gt; <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> ViewCompat.canScrollVertically(mTarget, -<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>当SwipeRefreshLayout 拦截了触摸事件之后（ mIsBeingDragged 为 true ），将 MotionEvent 交给 onTouchEvent 处理。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">onTouchEvent</span><span class="params">(MotionEvent ev)</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// ... 省略代码</span></span><br><span class="line">    <span class="keyword">switch</span> (action) &#123;</span><br><span class="line">        <span class="keyword">case</span> MotionEvent.ACTION_DOWN:</span><br><span class="line">            <span class="comment">// 获取第一个按下的手指</span></span><br><span class="line">            mActivePointerId = MotionEventCompat.getPointerId(ev, <span class="number">0</span>);</span><br><span class="line">            mIsBeingDragged = <span class="literal">false</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">case</span> MotionEvent.ACTION_MOVE: &#123;</span><br><span class="line">            <span class="comment">// 处理多指触控</span></span><br><span class="line">            pointerIndex = MotionEventCompat.findPointerIndex(ev, mActivePointerId);</span><br><span class="line"></span><br><span class="line">            <span class="comment">// ... 省略代码</span></span><br><span class="line"></span><br><span class="line">            <span class="keyword">final</span> <span class="type">float</span> <span class="variable">y</span> <span class="operator">=</span> MotionEventCompat.getY(ev, pointerIndex);</span><br><span class="line">            <span class="keyword">final</span> <span class="type">float</span> <span class="variable">overscrollTop</span> <span class="operator">=</span> (y - mInitialMotionY) * DRAG_RATE;</span><br><span class="line">            <span class="keyword">if</span> (mIsBeingDragged) &#123;</span><br><span class="line">                <span class="keyword">if</span> (overscrollTop &gt; <span class="number">0</span>) &#123;</span><br><span class="line">                    <span class="comment">// 正在拖动状态，更新圆圈的位置</span></span><br><span class="line">                    moveSpinner(overscrollTop);</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// ... 省略代码</span></span><br><span class="line">        <span class="keyword">case</span> MotionEvent.ACTION_UP: &#123;</span><br><span class="line">            pointerIndex = MotionEventCompat.findPointerIndex(ev, mActivePointerId);</span><br><span class="line">            <span class="keyword">if</span> (pointerIndex &lt; <span class="number">0</span>) &#123;</span><br><span class="line">                Log.e(LOG_TAG, <span class="string">&quot;Got ACTION_UP event but don&#x27;t have an active pointer id.&quot;</span>);</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">final</span> <span class="type">float</span> <span class="variable">y</span> <span class="operator">=</span> MotionEventCompat.getY(ev, pointerIndex);</span><br><span class="line">            <span class="keyword">final</span> <span class="type">float</span> <span class="variable">overscrollTop</span> <span class="operator">=</span> (y - mInitialMotionY) * DRAG_RATE;</span><br><span class="line">            mIsBeingDragged = <span class="literal">false</span>;</span><br><span class="line">            <span class="comment">// 手指松开，将圆圈移动到正确的位置</span></span><br><span class="line">            finishSpinner(overscrollTop);</span><br><span class="line">            mActivePointerId = INVALID_POINTER;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// ... 省略代码</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>在手指滚动过程中通过判断 mIsBeingDragged 来移动刷新的圆圈（对应的是 moveSpinner ），手指松开将圆圈移动到正确位置（初始位置或者刷新动画的位置，对应的是 finishSpinner 方法）。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 手指下拉过程中触发的圆圈的变化过程，透明度变化，渐渐出现箭头，大小的变化</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">moveSpinner</span><span class="params">(<span class="type">float</span> overscrollTop)</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 设置为有箭头的 progress</span></span><br><span class="line">    mProgress.showArrow(<span class="literal">true</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 进度转化成百分比</span></span><br><span class="line">    <span class="type">float</span> <span class="variable">originalDragPercent</span> <span class="operator">=</span> overscrollTop / mTotalDragDistance;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 避免百分比超过 100%</span></span><br><span class="line">    <span class="type">float</span> <span class="variable">dragPercent</span> <span class="operator">=</span> Math.min(<span class="number">1f</span>, Math.abs(originalDragPercent));</span><br><span class="line">    <span class="comment">// 调整拖动百分比，造成视差效果</span></span><br><span class="line">    <span class="type">float</span> <span class="variable">adjustedPercent</span> <span class="operator">=</span> (<span class="type">float</span>) Math.max(dragPercent - <span class="number">.4</span>, <span class="number">0</span>) * <span class="number">5</span> / <span class="number">3</span>;</span><br><span class="line">    <span class="comment">//</span></span><br><span class="line">    <span class="type">float</span> <span class="variable">extraOS</span> <span class="operator">=</span> Math.abs(overscrollTop) - mTotalDragDistance;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 这里mUsingCustomStart 为 true 代表用户自定义了起始出现的坐标</span></span><br><span class="line">    <span class="type">float</span> <span class="variable">slingshotDist</span> <span class="operator">=</span> mUsingCustomStart ? mSpinnerFinalOffset - mOriginalOffsetTop</span><br><span class="line">            : mSpinnerFinalOffset;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 弹性系数</span></span><br><span class="line">    <span class="type">float</span> <span class="variable">tensionSlingshotPercent</span> <span class="operator">=</span> Math.max(<span class="number">0</span>, Math.min(extraOS, slingshotDist * <span class="number">2</span>)</span><br><span class="line">            / slingshotDist);</span><br><span class="line">    <span class="type">float</span> <span class="variable">tensionPercent</span> <span class="operator">=</span> (<span class="type">float</span>) ((tensionSlingshotPercent / <span class="number">4</span>) - Math.pow(</span><br><span class="line">            (tensionSlingshotPercent / <span class="number">4</span>), <span class="number">2</span>)) * <span class="number">2f</span>;</span><br><span class="line">    <span class="type">float</span> <span class="variable">extraMove</span> <span class="operator">=</span> (slingshotDist) * tensionPercent * <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 因为有弹性系数，不同的手指滚动距离不同于view的移动距离</span></span><br><span class="line">    <span class="type">int</span> <span class="variable">targetY</span> <span class="operator">=</span> mOriginalOffsetTop + (<span class="type">int</span>) ((slingshotDist * dragPercent) + extraMove);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// where 1.0f is a full circle</span></span><br><span class="line">    <span class="keyword">if</span> (mCircleView.getVisibility() != View.VISIBLE) &#123;</span><br><span class="line">        mCircleView.setVisibility(View.VISIBLE);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 设置的是否有缩放</span></span><br><span class="line">    <span class="keyword">if</span> (!mScale) &#123;</span><br><span class="line">        ViewCompat.setScaleX(mCircleView, <span class="number">1f</span>);</span><br><span class="line">        ViewCompat.setScaleY(mCircleView, <span class="number">1f</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 设置缩放进度</span></span><br><span class="line">    <span class="keyword">if</span> (mScale) &#123;</span><br><span class="line">        setAnimationProgress(Math.min(<span class="number">1f</span>, overscrollTop / mTotalDragDistance));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 移动距离未达到最大距离</span></span><br><span class="line">    <span class="keyword">if</span> (overscrollTop &lt; mTotalDragDistance) &#123;</span><br><span class="line">        <span class="keyword">if</span> (mProgress.getAlpha() &gt; STARTING_PROGRESS_ALPHA</span><br><span class="line">                &amp;&amp; !isAnimationRunning(mAlphaStartAnimation)) &#123;</span><br><span class="line">            <span class="comment">// Animate the alpha</span></span><br><span class="line">            startProgressAlphaStartAnimation();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (mProgress.getAlpha() &lt; MAX_ALPHA &amp;&amp; !isAnimationRunning(mAlphaMaxAnimation)) &#123;</span><br><span class="line">            <span class="comment">// Animate the alpha</span></span><br><span class="line">            startProgressAlphaMaxAnimation();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 出现的进度，裁剪 mProgress</span></span><br><span class="line">    <span class="type">float</span> <span class="variable">strokeStart</span> <span class="operator">=</span> adjustedPercent * <span class="number">.8f</span>;</span><br><span class="line">    mProgress.setStartEndTrim(<span class="number">0f</span>, Math.min(MAX_PROGRESS_ANGLE, strokeStart));</span><br><span class="line">    mProgress.setArrowScale(Math.min(<span class="number">1f</span>, adjustedPercent));</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 旋转</span></span><br><span class="line">    <span class="type">float</span> <span class="variable">rotation</span> <span class="operator">=</span> (-<span class="number">0.25f</span> + <span class="number">.4f</span> * adjustedPercent + tensionPercent * <span class="number">2</span>) * <span class="number">.5f</span>;</span><br><span class="line">    mProgress.setProgressRotation(rotation);</span><br><span class="line">    setTargetOffsetTopAndBottom(targetY - mCurrentTargetOffsetTop, <span class="literal">true</span> <span class="comment">/* requires update */</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>刷新圆圈的移动过程也是有好几种状态，看上面的注释基本上就比较清楚了。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">finishSpinner</span><span class="params">(<span class="type">float</span> overscrollTop)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (overscrollTop &gt; mTotalDragDistance) &#123;</span><br><span class="line">        <span class="comment">//移动距离超过了刷新的临界值，触发刷新动画</span></span><br><span class="line">        setRefreshing(<span class="literal">true</span>, <span class="literal">true</span> <span class="comment">/* notify */</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">// 取消刷新的圆圈，将圆圈移动到初始位置</span></span><br><span class="line">        mRefreshing = <span class="literal">false</span>;</span><br><span class="line">        mProgress.setStartEndTrim(<span class="number">0f</span>, <span class="number">0f</span>);</span><br><span class="line">        <span class="comment">// ...省略代码</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 移动到初始位置</span></span><br><span class="line">        animateOffsetToStartPosition(mCurrentTargetOffsetTop, listener);</span><br><span class="line">        <span class="comment">// 设置没有箭头</span></span><br><span class="line">        mProgress.showArrow(<span class="literal">false</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>可以看到调用 setRefresh(true,true) 方法触发刷新动画并进行回调，但是这个方法是 private 的。前面提到我们自己调用 setRefresh(true) 只能产生动画，而不能回调刷新函数，那么我们就可以用反射调用 2 个参数的 setRefresh 函数。 或者手动调 setRefreshing(true)+ OnRefreshListener.onRefresh 方法。</p>
+<h3 id="setRefresh"><a href="#setRefresh" class="headerlink" title="setRefresh"></a>setRefresh</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">  * 改变刷新动画的的圆圈刷新状态。Notify the widget that refresh state has changed. Do not call this when</span></span><br><span class="line"><span class="comment">  * refresh is triggered by a swipe gesture.</span></span><br><span class="line"><span class="comment">  *</span></span><br><span class="line"><span class="comment">  * <span class="doctag">@param</span> refreshing 是否显示刷新的圆圈</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"> <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setRefreshing</span><span class="params">(<span class="type">boolean</span> refreshing)</span> &#123;</span><br><span class="line">     <span class="keyword">if</span> (refreshing &amp;&amp; mRefreshing != refreshing) &#123;</span><br><span class="line">         <span class="comment">// scale and show</span></span><br><span class="line">         mRefreshing = refreshing;</span><br><span class="line">         <span class="type">int</span> <span class="variable">endTarget</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">         <span class="keyword">if</span> (!mUsingCustomStart) &#123;</span><br><span class="line">             endTarget = (<span class="type">int</span>) (mSpinnerFinalOffset + mOriginalOffsetTop);</span><br><span class="line">         &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">             endTarget = (<span class="type">int</span>) mSpinnerFinalOffset;</span><br><span class="line">         &#125;</span><br><span class="line">         setTargetOffsetTopAndBottom(endTarget - mCurrentTargetOffsetTop,</span><br><span class="line">                 <span class="literal">true</span> <span class="comment">/* requires update */</span>);</span><br><span class="line">         mNotify = <span class="literal">false</span>;</span><br><span class="line">         startScaleUpAnimation(mRefreshListener);</span><br><span class="line">     &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">         setRefreshing(refreshing, <span class="literal">false</span> <span class="comment">/* notify */</span>);</span><br><span class="line">     &#125;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+
+<p>startScaleUpAnimation 开启一个动画，然后在动画结束后回调 onRefresh 方法。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> Animation.<span class="type">AnimationListener</span> <span class="variable">mRefreshListener</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Animation</span>.AnimationListener() &#123;</span><br><span class="line">   <span class="comment">// .. 省略代码</span></span><br><span class="line">   <span class="meta">@Override</span></span><br><span class="line">   <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">onAnimationEnd</span><span class="params">(Animation animation)</span> &#123;</span><br><span class="line">       <span class="keyword">if</span> (mRefreshing) &#123;</span><br><span class="line">           mProgress.setAlpha(MAX_ALPHA); <span class="comment">//确保刷新圆圈中间的进度条是完全不透明了</span></span><br><span class="line">           mProgress.start();</span><br><span class="line">           <span class="keyword">if</span> (mNotify) &#123; <span class="comment">// 当 mNotify 为 true 时才会回调 onRefresh</span></span><br><span class="line">               <span class="keyword">if</span> (mListener != <span class="literal">null</span>) &#123;</span><br><span class="line">                   <span class="comment">// 回调 listener 的 onRefresh 方法</span></span><br><span class="line">                   mListener.onRefresh();</span><br><span class="line">               &#125;</span><br><span class="line">           &#125;</span><br><span class="line">           mCurrentTargetOffsetTop = mCircleView.getTop();</span><br><span class="line">       &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">           reset();</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>分析 SwipeRefreshLayout 的流程就是按照平时我们自定义 <code>ViewGroup</code> 的流程，但是其中也有好多需要我们借鉴的地方，如何使用 NestedScrolling相关机制 ，多点触控的处理，onMeasure 中减去了 padding，如何判断子 View 是否可滚动，如何确定 ViewGroup 中某一个 View 的索引等。<br>此外，一个好的下拉刷新框架不仅仅要兼容各种滚动的子控件，还要考虑自己要兼容 NestedScrollingChild 的情况，比如放到 CooCoordinatorLayout 的情况，目前大多数开源的下拉刷新好像都没有达到这个要求，一般都是只考虑了内部嵌套滚动子视图的情况，没有考虑自己作为滚动子视图的情况。</p>
+<blockquote>
+<p>文章来自： <a href="https://hanks.pub/">https://hanks.pub</a></p>
+</blockquote>
+
+      
+    </div>
+</article>
+
+<!-- 上一页 下一页 -->
+
+
+<nav id="article-nav">
+  
+    <a href="/2016/06/21/motifyme/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>上一篇</span>
+      <div class="article-nav-title">
+        
+          利用 Android 手机打造来电通知计划
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/06/05/leancloud-website/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>下一篇</span>
+      <div class="article-nav-title">Leancloud 进行网站托管</div>
+    </a>
+  
+</nav>
+
+
+
+<!-- 相关文章 -->
+
+<!--
+
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+      			<a href="/2016/06/18/swiperefreshlayout/">SwipeRefreshLayout 源码</a>
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+
+-->
+
+
+</section>
+      </div>
+      <footer id="footer">
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      
+      &copy;2024<a target="_blank" rel="noopener" href="https://github.com/hanks-zyh"> Hanks</a>版权所有
+      <br/>
+      <a href="https://beian.miit.gov.cn/" target="_blank">豫ICP备2021022347号</a>
+	  </div>
+  </div>
+ <div id="share">
+  <a id="totop" title="" style="display: block;">返回顶部</a>
+ </div>
+</footer>
+
+    </div>
+    
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/jquery.scrollLoading.js"></script>
+
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/ads.js"></script>
+
+  </div>
+</body>
+</html>

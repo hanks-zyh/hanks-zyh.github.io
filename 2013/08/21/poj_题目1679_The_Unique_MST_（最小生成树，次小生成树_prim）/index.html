@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>poj 题目1679 The Unique MST （最小生成树，次小生成树 prim） | Hanks&#39; Websit</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <script data-ad-client="ca-pub-8165670162444117" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <meta name="referrer" content="never">
+  <meta name="description" content="The Unique MST     Time Limit: 1000MS  Memory Limit: 10000K   Total Submissions: 17881  Accepted: 6204     Description Given a connected undirected graph, tell if its minimum spanning tree is unique.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="poj 题目1679 The Unique MST （最小生成树，次小生成树 prim）">
+<meta property="og:url" content="https://hanks.pub/2013/08/21/poj_%E9%A2%98%E7%9B%AE1679_The_Unique_MST_%EF%BC%88%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91%EF%BC%8C%E6%AC%A1%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91_prim%EF%BC%89/index.html">
+<meta property="og:site_name" content="Hanks&#39; Websit">
+<meta property="og:description" content="The Unique MST     Time Limit: 1000MS  Memory Limit: 10000K   Total Submissions: 17881  Accepted: 6204     Description Given a connected undirected graph, tell if its minimum spanning tree is unique.">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2013-08-21T13:57:00.000Z">
+<meta property="article:modified_time" content="2024-02-08T01:29:02.190Z">
+<meta property="article:author" content="Hanks">
+<meta name="twitter:card" content="summary">
+  
+  
+  <link href="https://fonts.googleapis.com/css?family=Fira+Code|Noto+Serif+SC&display=swap" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8165670162444117"
+     crossorigin="anonymous"></script>
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo"></a>
+    <nav id="main-nav">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      
+        <a class="main-nav-link" href="/archives">Archive</a>
+      
+        <a class="main-nav-link" href="/eye-video">Eye</a>
+      
+        <a class="main-nav-link" href="/atom.xml">Rss</a>
+      
+    </nav>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/archives" class="mobile-nav-link">Archive</a>
+  
+    <a href="/eye-video" class="mobile-nav-link">Eye</a>
+  
+    <a href="/atom.xml" class="mobile-nav-link">Rss</a>
+  
+</nav>
+      <div class="outer">
+        <section id="main"><article id="post-poj_题目1679_The_Unique_MST_（最小生成树，次小生成树_prim）" class="article article-type-post" itemscope
+  itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <header class="article-header">
+      
+      
+  
+    <h1 class="article-title" itemprop="name">
+      poj 题目1679 The Unique MST （最小生成树，次小生成树 prim）
+    </h1>
+  
+
+      
+    </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+<div lang="en-US" class="ptt" align="center"><span style="font-size:24px; color:#3366ff">The Unique MST</span></div>
+<div class="plm">
+<table align="center">
+<tbody>
+<tr>
+<td><span style="color:#009900"><strong>Time Limit:</strong> 1000MS</span></td>
+<td width="10"><span style="color:#009900"></span></td>
+<td><span style="color:#009900"><strong>Memory Limit:</strong> 10000K</span></td>
+</tr>
+<tr>
+<td><span style="color:#009900"><strong>Total Submissions:</strong> 17881</span></td>
+<td width="10"><span style="color:#009900"></span></td>
+<td><span style="color:#009900"><strong>Accepted:</strong> 6204</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p class="pst"><span style="font-size:18px; color:#3366ff">Description</span></p>
+<div lang="en-US" class="ptx">Given a connected undirected graph, tell if its minimum spanning tree is unique.<br>
+<br>
+Definition 1 (Spanning Tree): Consider a connected, undirected graph G = (V, E). A spanning tree of G is a subgraph of G, say T = (V', E'), with the following properties:<br>
+1. V' = V. <br>
+2. T is connected and acyclic. <br>
+<br>
+Definition 2 (Minimum Spanning Tree): Consider an edge-weighted, connected, undirected graph G = (V, E). The minimum spanning tree T = (V, E') of G is the spanning tree that has the smallest total cost. The total cost of T means the sum of the weights on all
+ the edges in E'. <br>
+</div>
+<p class="pst"><span style="font-size:18px; color:#3366ff">Input</span></p>
+<div lang="en-US" class="ptx">The first line contains a single integer t (1 &lt;= t &lt;= 20), the number of test cases. Each case represents a graph. It begins with a line containing two integers n and m (1 &lt;= n &lt;= 100), the number of nodes and edges. Each of the
+ following m lines contains a triple (xi, yi, wi), indicating that xi and yi are connected by an edge with weight = wi. For any two nodes, there is at most one edge connecting them.</div>
+<p class="pst"><span style="font-size:18px; color:#3366ff">Output</span></p>
+<div lang="en-US" class="ptx">For each input, if the MST is unique, print the total cost of it, or otherwise print the string 'Not Unique!'.</div>
+<p class="pst">Sample Input</p>
+<pre class="sio">2
+3 3
+1 2 1
+2 3 2
+3 1 3
+4 4
+1 2 2
+2 3 2
+3 4 2
+4 1 2
+</pre>
+<p class="pst">Sample Output</p>
+<pre class="sio">3
+Not Unique!
+</pre>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p><span style="font-size:18px"><strong><span style="color:#3366ff">次小生成树</span></strong>：首先必须存在最小生成树，次小生成树的意思就是，除了最小生成树之外，存在一个生成树，权&#20540;仅大于最小生成树，也就是</span></p>
+<div>&nbsp;<span style="font-size:18px">给出一个带边权的无向图G，设其最小生成树为T，求出图G的与T不完全相同的边权和最小的生成树（即G的次小生成树）。一个无向图的两棵生成树不完全相同，当且仅当这两棵树中至少有一条边不同。（注意，<span style="color:#ff0000">图G可能不连通，可能有平行边</span>）</span></div>
+<p>&nbsp;</p>
+<p><span style="font-size:18px">那么如何来求最小生成树？</span></p>
+<div><span style="font-size:18px">定义生成树T的一个可行变换(-E1, &#43;E2)：将T中的边E1删除后，再加入边E2（满足边E2原来不在T中但在G中），若得到的仍然是图G的一棵生成树，则该变换为可行变换，该可行变换的代价为(E2权&#20540; - E1权&#20540;)。这样，很容易证明，G的次小生成树就是由G的最小生成树经过一个代价最小的可行变换得到。进一步可以发现，这个代价最小的可行变换中加入的边E2的两端点如果为V1和V2，那么E1一定是原来最小生成树中从V1到V2的路径上的权&#20540;最大的边。</span></div>
+<p>&nbsp;</p>
+<div>
+<div><span style="font-size:18px"><span style="color:#8cadae">算法：</span></span></div>
+<div><span style="font-size:24px"><span style="color:#ffffff; background-color:#000000">1.</span><span style="font-family:KaiTi_GB2312">设立数组F，<span style="color:#3366ff">F[x][y]</span>表示<span style="color:#3366ff">T中</span>从x到y路径上的最大边的权&#20540;。F数组可以在用Prim算法求最小生成树的过程中得出。</span></span></div>
+<div><span style="font-family:KaiTi_GB2312; font-size:18px"><span style="font-size:24px"><span style="color:#ffcccc; background-color:#000000">2.</span>每次将<span style="color:#3333ff">边(i,j) G[i][j]</span>加入后（j是新加入的边的新端点），枚举树中原有的每个点k（包括i，但不包括j），则<span style="color:#3366ff; background-color:#ffffff">F[k][j]=max{F[k][i],G[i][j]}，</span>又由于F数组是对称的，可以得到F[j][k]=F[k][j]。</span></span></div>
+<div><span style="font-family:KaiTi_GB2312; font-size:18px"><span style="font-size:24px"><span style="color:#ffffff; background-color:#000000">3.</span>将图G中的边(i, j)删除（就是将邻接矩阵中(i,j)边权&#20540;改为∞）！因为T中的边是不能被加入的。</span></span></div>
+<div><span style="font-family:KaiTi_GB2312; font-size:18px"><span style="font-size:24px"><span style="color:#ffffff; background-color:#000000">4.</span>等T被求出后，所有的F&#20540;也求出了，然后，枚举点i、j，若邻接矩阵中边(i, j)权&#20540;不是无穷大（这说明i、j间存在不在T中的边），则求出{(i, j)边权&#20540; - F[i][j]}的&#20540;，即为加入边(i, j)的代价，求最小的总代价即可</span>。</span></div>
+<div><span style="font-family:楷体_GB2312; font-size:18px"></span>&nbsp;</div>
+<div><span style="font-size:18px">&nbsp;</span></div>
+<div><span style="font-size:18px"><span style="color:#8cadae">!!!&nbsp;&nbsp;&nbsp;&nbsp; </span>另外注意三种特殊情况：</span></div>
+<div><span style="font-size:18px">【1】<span style="color:#ff0000">图G不连通</span>，此时最小生成树和次小生成树均不存在。<span style="color:#ff0000">判定方法</span>：在扩展T的过程中找不到新的可以加入的边；【2】图<span style="color:#ff0000">G本身就是一棵树</span>，此时最小生成树存在（就是G本身）但次小生成树不存在。<span style="color:#ff6666">判定方法</span>：在成功求出T后，发现邻接矩阵中的&#20540;全部是无穷大；</span></div>
+<div><span style="font-size:18px">【3】图<span style="color:#ff0000">G存在平行边</span>。这种情况最麻烦，因为这时代价最小的可行变换(-E1, &#43;E2)中，E1和E2可能是平行边！因此，只有建立两个邻接矩阵，分别存储每两点间权&#20540;最小的边和权&#20540;次小的边的权&#20540;，然后，每当一条新边(i, j)加入时，不是将邻接矩阵中边(i, j)权&#20540;改为无穷大，而是改为连接点i、j的权&#20540;次小的边的权&#20540;</span></div>
+</div>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p><span style="font-size:18px; color:#666600">int G[N][N] //邻接矩阵</span></p>
+<p><span style="font-size:18px; color:#666600">int f[N][N]&nbsp; //最小生成树中每两点间的最大边的权&#20540;</span></p>
+<p><span style="font-size:18px; color:#666600">bool vis[N]&nbsp; // 标记点</span></p>
+<p><span style="font-size:18px; color:#666600">int p[N] //存放最小生成树过程的加入点集合</span></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<pre class="cpp" name="code">/********************** 
+# 2013-8-21 21:28:04 
+# Time: 16MS   Memory: 260K
+# Author: zyh
+# Status: Accepted
+**********************/ 
+#define INF 99999999
+#define N 110
+#define MAX(a,b) (a)&gt;(b)?(a):(b)
+#include&lt;stdio.h&gt;
+#include&lt;string.h&gt;
+
+int n,G[N][N],f[N][N];
+
+void prim()
+{
+	int p[N],vis[N],i,j,v,sum,k;
+			
+	memset(vis,0,sizeof(vis));
+	memset(f,0,sizeof(f));
+	
+	k=0;
+	p[k++] = 1;//存放最小生成树点集合 
+	vis[1] = 1;
+
+	sum = 0;
+	
+	for(int t=1;t&lt;n;t++){ // n个顶点，n-1条边，循环n-1次，每次加入一条新的边 
+										
+		int min = INF;
+		int s,e; 
+		
+		for(j=0;j&lt;k;j++){//枚举书中已有的每个点 
+			v = p[j];	
+			for(i=1;i&lt;=n;i++){ //寻找点v相连的最小边； 
+				if(!vis[i]&amp;&amp; G[v][i]&lt;min){
+					min = G[v][i];
+					s = v; e = i;//记录新加入边的两端点 
+				}
+			}
+		}
+		for(j=0; j&lt;k;j++){ //找到要新加入的边，
+			v = p[j];
+			f[e][v] = f[v][e] = MAX(f[v][s],G[s][e]);
+		}
+	
+		G[s][e] = G[e][s] =  INF; //INF 代表该边已被删除 
+		
+		p[k++] = e;//加入新结点 
+		vis[e] = 1; //标记 
+		
+		sum += min;	//求最小生成树的权值 
+	}	
+
+
+	/********判断是否存在次小生成树，或者最小生成树是否唯一 ********/ 
+	 
+	int flag = 1; //标记是否有次小生成树 
+	int sign = 0; //标记是否所有的边都在最小生成树中 0代表是， 1代表不是 
+	
+	for(i=1;i&lt;=n;i++){ //枚举图中剩余的不在最小生成树的边 
+		for(j=1;j&lt;=n;j++){
+			if(G[i][j]!=INF){  //存在图中不在最小生成树的边
+				sign = 1;  //标记还存在其他边 
+				if(i!=j &amp;&amp; G[i][j]!=f[i][j]) { 
+					flag = 0;						
+				}			
+			}		
+		}
+	}
+	if(flag &amp;&amp; sign) printf(&quot;Not Unique!\n&quot;); // 
+	else printf(&quot;%d\n&quot;,sum);
+}
+
+int main()
+{
+	int t,m,i,j,a,b,c;
+	scanf(&quot;%d&quot;,&amp;t);
+	while(t--)
+	{
+		scanf(&quot;%d%d&quot;,&amp;n,&amp;m);
+		for(i=1;i&lt;=n;i++){
+			for(j=1;j&lt;=n;j++)
+			G[i][j] = INF;
+		}
+		while(m--){
+			scanf(&quot;%d%d%d&quot;,&amp;a,&amp;b,&amp;c);
+			G[a][b] = G[b][a] = c;
+		}
+		prim();
+		
+	}
+	return 0;
+}
+/*
+9
+3 3
+1 2 1
+2 3 2
+3 1 3
+4 4
+1 2 2
+2 3 2
+3 4 2
+4 1 2
+3 3
+1 2 2
+2 3 3
+3 1 3
+3 3
+1 2 3
+2 3 2
+3 1 3
+3 2
+1 2 2
+2 3 2
+*/
+ </pre>
+<p><br>
+&nbsp;</p>
+<p>&nbsp;</p>
+
+      
+    </div>
+</article>
+
+<!-- 上一页 下一页 -->
+
+
+<nav id="article-nav">
+  
+    <a href="/2013/08/22/NYOJ_%E9%A2%98%E7%9B%AE_55_%E6%87%92%E7%9C%81%E4%BA%8B%E7%9A%84%E5%B0%8F%E6%98%8E%EF%BC%88priority_queue%EF%BC%89/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>上一篇</span>
+      <div class="article-nav-title">
+        
+          NYOJ 题目 55 懒省事的小明（priority_queue）
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2013/08/21/hdu_%E9%A2%98%E7%9B%AE_%EF%BC%88%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91_prim%E7%AE%97%E6%B3%95%EF%BC%89/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>下一篇</span>
+      <div class="article-nav-title">hdu 题目 （最小生成树 prim算法）</div>
+    </a>
+  
+</nav>
+
+
+
+<!-- 相关文章 -->
+
+<!--
+
+-->
+
+
+</section>
+      </div>
+      <footer id="footer">
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      
+      &copy;2024<a target="_blank" rel="noopener" href="https://github.com/hanks-zyh"> Hanks</a>版权所有
+      <br/>
+      <a href="https://beian.miit.gov.cn/" target="_blank">豫ICP备2021022347号</a>
+	  </div>
+  </div>
+ <div id="share">
+  <a id="totop" title="" style="display: block;">返回顶部</a>
+ </div>
+</footer>
+
+    </div>
+    
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/jquery.scrollLoading.js"></script>
+
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/ads.js"></script>
+
+  </div>
+</body>
+</html>

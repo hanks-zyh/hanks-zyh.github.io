@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>NYOJ—题目88&amp;nbsp;找球号(一） | Hanks&#39; Websit</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <script data-ad-client="ca-pub-8165670162444117" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <meta name="referrer" content="never">
+  <meta name="description" content="找球号(一） 时间限制：3000 ms &nbsp;| &nbsp;内存限制：65535 KB&nbsp; 难度：3 描述&nbsp;  在某一国度里流行着一种游戏。游戏规则为：在一堆球中，每个球上都有一个整数编号i(0&lt;&#x3D;i&lt;&#x3D;100000000),编号可重复，现在说一个随机整数k(0&lt;&#x3D;k&lt;&#x3D;100000100)，判断编号为k的球是否在这堆球中（存在为&quot;YE">
+<meta property="og:type" content="article">
+<meta property="og:title" content="NYOJ—题目88&nbsp;找球号(一）">
+<meta property="og:url" content="https://hanks.pub/2014/02/19/NYOJ%E2%80%94%E9%A2%98%E7%9B%AE88&nbsp;%E6%89%BE%E7%90%83%E5%8F%B7(%E4%B8%80%EF%BC%89/index.html">
+<meta property="og:site_name" content="Hanks&#39; Websit">
+<meta property="og:description" content="找球号(一） 时间限制：3000 ms &nbsp;| &nbsp;内存限制：65535 KB&nbsp; 难度：3 描述&nbsp;  在某一国度里流行着一种游戏。游戏规则为：在一堆球中，每个球上都有一个整数编号i(0&lt;&#x3D;i&lt;&#x3D;100000000),编号可重复，现在说一个随机整数k(0&lt;&#x3D;k&lt;&#x3D;100000100)，判断编号为k的球是否在这堆球中（存在为&quot;YE">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2014-02-19T11:17:00.000Z">
+<meta property="article:modified_time" content="2024-02-08T01:29:02.176Z">
+<meta property="article:author" content="Hanks">
+<meta name="twitter:card" content="summary">
+  
+  
+  <link href="https://fonts.googleapis.com/css?family=Fira+Code|Noto+Serif+SC&display=swap" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8165670162444117"
+     crossorigin="anonymous"></script>
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo"></a>
+    <nav id="main-nav">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      
+        <a class="main-nav-link" href="/archives">Archive</a>
+      
+        <a class="main-nav-link" href="/eye-video">Eye</a>
+      
+        <a class="main-nav-link" href="/atom.xml">Rss</a>
+      
+    </nav>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/archives" class="mobile-nav-link">Archive</a>
+  
+    <a href="/eye-video" class="mobile-nav-link">Eye</a>
+  
+    <a href="/atom.xml" class="mobile-nav-link">Rss</a>
+  
+</nav>
+      <div class="outer">
+        <section id="main"><article id="post-NYOJ—题目88&amp;nbsp;找球号(一）" class="article article-type-post" itemscope
+  itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <header class="article-header">
+      
+      
+  
+    <h1 class="article-title" itemprop="name">
+      NYOJ—题目88&amp;nbsp;找球号(一）
+    </h1>
+  
+
+      
+    </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+<div id="sina_keyword_ad_area2" class="articalContent  ">
+			<div>
+<div>找球号(一）</DIV>
+<div>时间限制：3000 ms &nbsp;<wbr>| &nbsp;<wbr>内存限制：65535
+KB&nbsp;<wbr></DIV>
+<div>难度：3</DIV>
+<div>描述&nbsp;<wbr></DIV>
+<div>
+在某一国度里流行着一种游戏。游戏规则为：在一堆球中，每个球上都有一个整数编号i(0&lt;=i&lt;=100000000),编号可重复，现在说一个随机整数k(0&lt;=k&lt;=100000100)，判断编号为k的球是否在这堆球中（存在为"YES",否则为"NO"），先答出者为胜。现在有一个人想玩玩这个游戏，但他又很懒。他希望你能帮助他取得胜利。&nbsp;<wbr></DIV>
+<div>输入&nbsp;<wbr></DIV>
+<div>
+第一行有两个整数m，n(0&lt;=n&lt;=100000，0&lt;=m&lt;=1000000)；m表示这堆球里有m个球，n表示这个游戏进行n次。</DIV>
+<div>
+接下来输入m+n个整数，前m个分别表示这m个球的编号i，后n个分别表示每次游戏中的随机整数k&nbsp;<wbr></DIV>
+<div>输出&nbsp;<wbr></DIV>
+<div>输出"YES"或"NO"&nbsp;<wbr></DIV>
+<div>样例输入&nbsp;<wbr></DIV>
+<div>6 4</DIV>
+<div>23 34 46 768 343 343</DIV>
+<div>2 4 23 343</DIV>
+<div>样例输出&nbsp;<wbr></DIV>
+<div>NO</DIV>
+<div>NO</DIV>
+<div>YES</DIV>
+<div>YES</DIV>
+</DIV>
+<div><br /></DIV>
+<div>方法一：一维数组，折半查找（简单，执行速度快）</DIV>
+<div>
+<div>&nbsp;<wbr></DIV>
+<div>#include</DIV>
+<div>#include</DIV>
+<div>#include</DIV>
+<div>using namespace std;</DIV>
+<div><br /></DIV>
+<div>int a[1000000];</DIV>
+<div>int b[100000];</DIV>
+<div><br /></DIV>
+<div>int main()</DIV>
+<div>{</DIV>
+<div>int m,n,i;</DIV>
+<div>scanf("%d%d",&amp;m,&amp;n);</DIV>
+<div>for(i=0;i</DIV>
+<div>scanf("%d",&amp;a[i]);</DIV>
+<div>sort(a,a+m);</DIV>
+<div>for(i=0;i</DIV>
+<div>scanf("%d",&amp;b[i]);</DIV>
+<div>for(i=0;i</DIV>
+<div>{</DIV>
+<div>int low = 0,high = m-1,mid;</DIV>
+<div>int flag=0;</DIV>
+<div>while(low &lt;= high)</DIV>
+<div>{</DIV>
+<div>mid =(low+high)/2;</DIV>
+<div>if(b[i]==a[mid]){ &nbsp;<wbr>flag=1;break; }</DIV>
+<div>else if( b[i]<a></A></DIV>
+<div>else low = mid + 1;</DIV>
+<div>}</DIV>
+<div>if(flag) cout&lt;&lt;"YES\n";</DIV>
+<div>else cout&lt;&lt;"NO\n";</DIV>
+<div>}</DIV>
+<div>return 0;</DIV>
+<div>} &nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr></DIV>
+</DIV>
+<div><br /></DIV>
+<div>方法二： 建立二叉平衡排序树</DIV>
+<div>
+<div>&nbsp;<wbr></DIV>
+<div>#define LH +1</DIV>
+<div>#define EH 0</DIV>
+<div>#define RH -1</DIV>
+<div>#define ElemType int</DIV>
+<div>#define Status int</DIV>
+<div>#define FALSE 0</DIV>
+<div>#define TRUE 1</DIV>
+<div><br /></DIV>
+<div>typedef struct BSTNode</DIV>
+<div>{</DIV>
+<div>ElemType data;</DIV>
+<div>int bf; // 节点的平衡因子</DIV>
+<div>struct BSTNode * lchild, * rchild; //左右孩子指针</DIV>
+<div>}BSTNode, * BSTree;</DIV>
+<div><br /></DIV>
+<div>#include</DIV>
+<div>#include</DIV>
+<div>#include</DIV>
+<div>using namespace std;</DIV>
+<div><br /></DIV>
+<div><br /></DIV>
+<div>void R_Rotate(BSTree &amp; p)</DIV>
+<div>{</DIV>
+<div>//对以*p 为根的二叉排序树做右旋处理，处理之后p指向新的树根结点，即旋转处理之前的左子树的根结点</DIV>
+<div>BSTree lc;</DIV>
+<div>lc = p-&gt;lchild;//lc指向p的左子树</DIV>
+<div>p-&gt;lchild = lc-&gt;rchild;//p左子树lc的有右子树</DIV>
+<div>lc-&gt;rchild = p; //lc右子树指向p</DIV>
+<div>p = lc;//p指向新的根结点</DIV>
+<div>}//R_Rotate</DIV>
+<div>void L_Rotate(BSTree &amp; p)</DIV>
+<div>{</DIV>
+<div>//对以*p 为根的二叉排序树做左旋处理，处理之后p指向新的树根结点，即旋转处理之前的左子树的根结点</DIV>
+<div>BSTree rc;</DIV>
+<div>rc = p-&gt;rchild;//rc指向p的左子树</DIV>
+<div>p-&gt;rchild = rc-&gt;lchild;//p左子树rc的左子树</DIV>
+<div>rc-&gt;lchild = p; //rc左子树指向p</DIV>
+<div>p = rc;//p指向新的根结点</DIV>
+<div>}//R_Rotate</DIV>
+<div>void LeftBalance( BSTree &amp; T)</DIV>
+<div>{</DIV>
+<div>BSTree lc,rd;</DIV>
+<div>lc = T-&gt;lchild;</DIV>
+<div><br /></DIV>
+<div>switch(lc-&gt;bf)</DIV>
+<div>{</DIV>
+<div>case LH:</DIV>
+<div>lc-&gt;bf = T-&gt;bf = EH;</DIV>
+<div>R_Rotate(T); break;</DIV>
+<div>case RH:</DIV>
+<div>rd = lc-&gt;rchild;</DIV>
+<div>T-&gt;lchild = rd-&gt;rchild;</DIV>
+<div>lc-&gt;rchild = rd-&gt;lchild;</DIV>
+<div>rd-&gt;lchild = lc;</DIV>
+<div>rd-&gt;rchild = T;</DIV>
+<div><br /></DIV>
+<div>T = rd;</DIV>
+<div>}//switch(lc-&gt;bf)</DIV>
+<div>}//LeftBalance</DIV>
+<div>void RightBalance( BSTree &amp; T)</DIV>
+<div>{</DIV>
+<div>BSTree rc,rd;</DIV>
+<div>rc = T-&gt;rchild;</DIV>
+<div><br /></DIV>
+<div>switch(rc-&gt;bf)</DIV>
+<div>{</DIV>
+<div>case RH:</DIV>
+<div>rc-&gt;bf = T-&gt;bf = EH;</DIV>
+<div>L_Rotate(T); break;</DIV>
+<div>case LH:</DIV>
+<div>rd = rc-&gt;lchild;</DIV>
+<div>T-&gt;rchild = rd-&gt;lchild;</DIV>
+<div>rc-&gt;lchild = rd-&gt;rchild;</DIV>
+<div>rd-&gt;rchild = rc;</DIV>
+<div>rd-&gt;lchild = T;</DIV>
+<div><br /></DIV>
+<div>T = rd;</DIV>
+<div>}//switch(rc-&gt;bf)</DIV>
+<div>}//RightBalance</DIV>
+<div>Status InsertAVL ( BSTree &amp;T , ElemType e, bool
+&amp;taller )</DIV>
+<div>{//若平衡二叉树中不存在e，则插入新节点e返回1，否则返回0.
+&nbsp;<wbr>若因插入结点使树不平衡，进行旋转，taller代表树是否长高</DIV>
+<div><br /></DIV>
+<div>if(!T){ //空树，直接插入</DIV>
+<div>T = (BSTNode *)malloc(sizeof(BSTNode)); T-&gt;data =
+e;&nbsp;<wbr></DIV>
+<div>T-&gt;lchild = T-&gt;rchild = NULL; T-&gt;bf = EH; taller =
+true;</DIV>
+<div>}</DIV>
+<div><br /></DIV>
+<div>else {</DIV>
+<div>if(e == T-&gt;data) { &nbsp;<wbr> taller= false; return
+0;} &nbsp;<wbr>//已存在e</DIV>
+<div>if(e &lt; T-&gt;data) &nbsp;<wbr>{ //
+e&lt;根结点，向左查找左子树</DIV>
+<div>if(!InsertAVL(T-&gt;lchild,e,taller) ) &nbsp;<wbr>
+&nbsp;<wbr>return 0;///未插入</DIV>
+<div>if( taller ) &nbsp;<wbr>//已插入左子树并使树长高</DIV>
+<div>switch (T-&gt;bf)//检察 T 的平衡度</DIV>
+<div>{</DIV>
+<div>case LH: //原左子树高于右子树，则左平衡处理</DIV>
+<div>LeftBalance(T); taller = false; break;</DIV>
+<div>case EH:</DIV>
+<div>T-&gt;bf = LH; taller = true; break;</DIV>
+<div>case RH:</DIV>
+<div>T-&gt;bf = EH; taller = false; break;</DIV>
+<div>}</DIV>
+<div>}//if</DIV>
+<div>else</DIV>
+<div>{</DIV>
+<div>if(!InsertAVL(T-&gt;rchild,e,taller) ) &nbsp;<wbr>
+&nbsp;<wbr>return 0;</DIV>
+<div>if( taller )</DIV>
+<div>switch (T-&gt;bf)</DIV>
+<div>{</DIV>
+<div>case LH:</DIV>
+<div>T-&gt;bf = EH;taller = false; break;</DIV>
+<div>case EH:</DIV>
+<div>T-&gt;bf = RH; taller = true; break;</DIV>
+<div>case RH:</DIV>
+<div>RightBalance(T); taller = false; break;</DIV>
+<div>}</DIV>
+<div>}//else</DIV>
+<div>}//else</DIV>
+<div>return 1;</DIV>
+<div>}//InsertAVL</DIV>
+<div><br /></DIV>
+<div>Status SearchBST (BSTree T, ElemType key)</DIV>
+<div>{</DIV>
+<div>if (!T) &nbsp;<wbr> &nbsp;<wbr>return FALSE;
+&nbsp;<wbr> // 查找不成功</DIV>
+<div>else &nbsp;<wbr>if ( key == T-&gt;data)
+&nbsp;<wbr>return TRUE; &nbsp;<wbr> // 查找成功</DIV>
+<div>else &nbsp;<wbr>if ( key &lt; T-&gt;data )
+&nbsp;<wbr>SearchBST (T-&gt;lchild, key); &nbsp;<wbr>
+&nbsp;<wbr>// 在左子树中继续查找</DIV>
+<div>else &nbsp;<wbr>SearchBST (T-&gt;rchild, key);
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>//
+在右子树中继续查找</DIV>
+<div>} // SearchBST</DIV>
+<div>int b[100000];</DIV>
+<div>int main()</DIV>
+<div>{</DIV>
+<div>BSTree T,p;</DIV>
+<div>T = NULL;</DIV>
+<div>bool taller;</DIV>
+<div>int m,n,e;</DIV>
+<div>scanf("%d%d",&amp;m,&amp;n);</DIV>
+<div>while(m--)</DIV>
+<div>{</DIV>
+<div>scanf("%d",&amp;e);</DIV>
+<div>InsertAVL(T,e,taller);</DIV>
+<div>}</DIV>
+<div>for(int i=0;i</DIV>
+<div>scanf("%d",&amp;b[i]);</DIV>
+<div>for(int i=0;i</DIV>
+<div>{</DIV>
+<div>if( SearchBST(T,b[i]) ) printf("YES\n");</DIV>
+<div>else printf("NO\n");</DIV>
+<div>}</DIV>
+<div>return 0;</DIV>
+<div>} &nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr></DIV>
+</DIV>							
+		</div>
+
+      
+    </div>
+</article>
+
+<!-- 上一页 下一页 -->
+
+
+<nav id="article-nav">
+  
+    <a href="/2014/02/19/NYOJ-%E9%A2%98%E7%9B%AE221&nbsp;Tree/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>上一篇</span>
+      <div class="article-nav-title">
+        
+          NYOJ-题目221&amp;nbsp;Tree
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2014/02/19/NYOJ%E2%80%9488&nbsp;%E6%B1%89%E8%AF%BA%E5%A1%94%EF%BC%88%E4%B8%80%EF%BC%89/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>下一篇</span>
+      <div class="article-nav-title">NYOJ—88&amp;nbsp;汉诺塔（一）</div>
+    </a>
+  
+</nav>
+
+
+
+<!-- 相关文章 -->
+
+<!--
+
+-->
+
+
+</section>
+      </div>
+      <footer id="footer">
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      
+      &copy;2024<a target="_blank" rel="noopener" href="https://github.com/hanks-zyh"> Hanks</a>版权所有
+      <br/>
+      <a href="https://beian.miit.gov.cn/" target="_blank">豫ICP备2021022347号</a>
+	  </div>
+  </div>
+ <div id="share">
+  <a id="totop" title="" style="display: block;">返回顶部</a>
+ </div>
+</footer>
+
+    </div>
+    
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/jquery.scrollLoading.js"></script>
+
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/ads.js"></script>
+
+  </div>
+</body>
+</html>

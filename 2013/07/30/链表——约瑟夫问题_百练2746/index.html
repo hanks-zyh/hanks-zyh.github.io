@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>链表——约瑟夫问题 百练2746 | Hanks&#39; Websit</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <script data-ad-client="ca-pub-8165670162444117" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <meta name="referrer" content="never">
+  <meta name="description" content="约瑟夫问题   建立循环链表，一次删除符合结点，最后剩下一个即为所求结点 #include &lt;iostream&gt; #include &lt;stdio.h&gt; #include &lt;stdlib.h&gt;  using namespace std;  struct node  { 	int num; 	node * next; };  void initqueen(int">
+<meta property="og:type" content="article">
+<meta property="og:title" content="链表——约瑟夫问题 百练2746">
+<meta property="og:url" content="https://hanks.pub/2013/07/30/%E9%93%BE%E8%A1%A8%E2%80%94%E2%80%94%E7%BA%A6%E7%91%9F%E5%A4%AB%E9%97%AE%E9%A2%98_%E7%99%BE%E7%BB%832746/index.html">
+<meta property="og:site_name" content="Hanks&#39; Websit">
+<meta property="og:description" content="约瑟夫问题   建立循环链表，一次删除符合结点，最后剩下一个即为所求结点 #include &lt;iostream&gt; #include &lt;stdio.h&gt; #include &lt;stdlib.h&gt;  using namespace std;  struct node  { 	int num; 	node * next; };  void initqueen(int">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2013-07-30T06:25:00.000Z">
+<meta property="article:modified_time" content="2024-02-08T01:29:02.205Z">
+<meta property="article:author" content="Hanks">
+<meta name="twitter:card" content="summary">
+  
+  
+  <link href="https://fonts.googleapis.com/css?family=Fira+Code|Noto+Serif+SC&display=swap" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8165670162444117"
+     crossorigin="anonymous"></script>
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo"></a>
+    <nav id="main-nav">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      
+        <a class="main-nav-link" href="/archives">Archive</a>
+      
+        <a class="main-nav-link" href="/eye-video">Eye</a>
+      
+        <a class="main-nav-link" href="/atom.xml">Rss</a>
+      
+    </nav>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/archives" class="mobile-nav-link">Archive</a>
+  
+    <a href="/eye-video" class="mobile-nav-link">Eye</a>
+  
+    <a href="/atom.xml" class="mobile-nav-link">Rss</a>
+  
+</nav>
+      <div class="outer">
+        <section id="main"><article id="post-链表——约瑟夫问题_百练2746" class="article article-type-post" itemscope
+  itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <header class="article-header">
+      
+      
+  
+    <h1 class="article-title" itemprop="name">
+      链表——约瑟夫问题 百练2746
+    </h1>
+  
+
+      
+    </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+<p><a href="https://poj.grids.cn/practice/2746" target="_blank">约瑟夫问题</a></p>
+<p><br>
+</p>
+<p>建立循环链表，一次删除符合结点，最后剩下一个即为所求结点</p>
+<p><pre name="code" class="cpp">#include &lt;iostream&gt;
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+
+using namespace std;
+
+struct node 
+{
+	int num;
+	node * next;
+};
+
+void initqueen(int n,node * queen)
+{
+	int i;
+	node * r,*s;
+	r=s=queen;
+
+	for(i=2;i&lt;=n;i++)//2到n结点
+	{
+		
+		s = (node *)malloc(sizeof(node));
+		s-&gt;num = i;
+		s-&gt;next = NULL;
+		r-&gt;next = s;
+		r = s;
+	}
+//	printf(&quot;r=%d\n&quot;,r-&gt;num);
+	r-&gt;next = queen;//最后一个结点指向头结点，形成循环队列
+}
+int solve(int n,int m,node * queen)
+{
+	int i,j;
+	node * s;
+	node *p = queen;
+//	printf(&quot;q = %d\n&quot;,queen-&gt;num);
+
+	s = p;
+	for(i=1;i&lt;n;i++)
+	{
+		
+	//	printf(&quot;p=%d\n&quot;,p-&gt;num);
+		for(j=1;j&lt;m;j++)
+		{
+			
+			s = p;
+			p=p-&gt;next;
+		//	s = p;
+		}
+	//	printf(&quot;*p=%d\n&quot;,p-&gt;num);
+		s-&gt;next = p-&gt;next;
+		free(p);
+		p = s-&gt;next;
+	}
+	return p-&gt;num;
+}
+int main()
+{
+ 	int m,n;
+	node * queen;
+ 	while(scanf(&quot;%d%d&quot;,&amp;n,&amp;m),m&amp;&amp;n)
+ 	{ 
+	//	printf(&quot;n=%d,m=%d\n&quot;,n,m);
+		
+	 	if(n==1) {
+			printf(&quot;1\n&quot;);	continue;
+	 	}
+		if(m==1){
+			printf(&quot;%d\n&quot;,n); continue;
+		}
+		queen = (node *)malloc(sizeof(node)); //第一个结点
+		queen-&gt;num = 1;
+		queen-&gt;next = NULL;;
+		 initqueen(n,queen);
+		 printf(&quot;%d\n&quot;,solve(n,m,queen));					   								
+	}
+ 	return 0;
+}</pre><br>
+<br>
+</p>
+
+      
+    </div>
+</article>
+
+<!-- 上一页 下一页 -->
+
+
+<nav id="article-nav">
+  
+    <a href="/2013/07/30/POJ_%E9%A2%98%E7%9B%AE1250_Tanning_Salon_%EF%BC%88%E9%93%BE%E8%A1%A8%E5%BA%94%E7%94%A8%EF%BC%89/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>上一篇</span>
+      <div class="article-nav-title">
+        
+          POJ 题目1250 Tanning Salon （链表应用）
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2013/07/29/%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84_Dijksstra%E7%AE%97%E6%B3%95%E6%B1%82%E6%9C%80%E7%9F%AD%E8%B7%AF/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>下一篇</span>
+      <div class="article-nav-title">最短路径 Dijksstra算法求最短路</div>
+    </a>
+  
+</nav>
+
+
+
+<!-- 相关文章 -->
+
+<!--
+
+-->
+
+
+</section>
+      </div>
+      <footer id="footer">
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      
+      &copy;2024<a target="_blank" rel="noopener" href="https://github.com/hanks-zyh"> Hanks</a>版权所有
+      <br/>
+      <a href="https://beian.miit.gov.cn/" target="_blank">豫ICP备2021022347号</a>
+	  </div>
+  </div>
+ <div id="share">
+  <a id="totop" title="" style="display: block;">返回顶部</a>
+ </div>
+</footer>
+
+    </div>
+    
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/jquery.scrollLoading.js"></script>
+
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/ads.js"></script>
+
+  </div>
+</body>
+</html>

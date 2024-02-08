@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Gradle Tansform 的使用 | Hanks&#39; Websit</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <script data-ad-client="ca-pub-8165670162444117" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <meta name="referrer" content="never">
+  <meta name="description" content="简单介绍我们都知道 gradle 打包过程由一系列的 task 组成，我们可以通过自定义Gradle Tansform 在编译期间做一些操作。比如可以在编译期间更改生成的 Apk 内容，如资源检查、dex 插桩。 实现步骤两种方式，一种是要发布到 maven 仓库，这样其他项目也可以使用改插件；另一种本地的一个项目，接下来看看本地的这种实现。需求：实现项目中每个类前面插入一个字符串属性  创建一个">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Gradle Tansform 的使用">
+<meta property="og:url" content="https://hanks.pub/2020/03/29/gradle-transform/index.html">
+<meta property="og:site_name" content="Hanks&#39; Websit">
+<meta property="og:description" content="简单介绍我们都知道 gradle 打包过程由一系列的 task 组成，我们可以通过自定义Gradle Tansform 在编译期间做一些操作。比如可以在编译期间更改生成的 Apk 内容，如资源检查、dex 插桩。 实现步骤两种方式，一种是要发布到 maven 仓库，这样其他项目也可以使用改插件；另一种本地的一个项目，接下来看看本地的这种实现。需求：实现项目中每个类前面插入一个字符串属性  创建一个">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-03-29T06:11:07.000Z">
+<meta property="article:modified_time" content="2024-02-08T01:29:02.182Z">
+<meta property="article:author" content="Hanks">
+<meta property="article:tag" content="Android">
+<meta property="article:tag" content="Gradle">
+<meta name="twitter:card" content="summary">
+  
+  
+  <link href="https://fonts.googleapis.com/css?family=Fira+Code|Noto+Serif+SC&display=swap" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8165670162444117"
+     crossorigin="anonymous"></script>
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo"></a>
+    <nav id="main-nav">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      
+        <a class="main-nav-link" href="/archives">Archive</a>
+      
+        <a class="main-nav-link" href="/eye-video">Eye</a>
+      
+        <a class="main-nav-link" href="/atom.xml">Rss</a>
+      
+    </nav>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/archives" class="mobile-nav-link">Archive</a>
+  
+    <a href="/eye-video" class="mobile-nav-link">Eye</a>
+  
+    <a href="/atom.xml" class="mobile-nav-link">Rss</a>
+  
+</nav>
+      <div class="outer">
+        <section id="main"><article id="post-gradle-transform" class="article article-type-post" itemscope
+  itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <header class="article-header">
+      
+      
+  
+    <h1 class="article-title" itemprop="name">
+      Gradle Tansform 的使用
+    </h1>
+  
+
+      
+    </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      <h2 id="简单介绍"><a href="#简单介绍" class="headerlink" title="简单介绍"></a>简单介绍</h2><p>我们都知道 gradle 打包过程由一系列的 task 组成，我们可以通过自定义Gradle Tansform 在编译期间做一些操作。比如可以在编译期间更改生成的 Apk 内容，如资源检查、dex 插桩。</p>
+<h2 id="实现步骤"><a href="#实现步骤" class="headerlink" title="实现步骤"></a>实现步骤</h2><p>两种方式，一种是要发布到 maven 仓库，这样其他项目也可以使用改插件；另一种本地的一个项目，接下来看看本地的这种实现。<br>需求：<strong>实现项目中每个类前面插入一个字符串属性</strong></p>
+<ol>
+<li>创建一个Groovy模块</li>
+<li>创建一个GatherPlugin</li>
+<li>创建一个GatherTransform</li>
+<li>修改字节码（如：插入字符串）</li>
+</ol>
+<p>创建一个名为 buildSrc 的子项目，在这个子项目中编写插件代码，buildSrc 是 Gradle 插件的默认目录，会把这个目录下的插件自动添加到当前项目中去，我们可以在别的子项目中直接使用。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">├── buildSrc</span><br><span class="line">│   ├── build.gradle</span><br><span class="line">│   └── src</span><br><span class="line">│       └── main</span><br><span class="line">│           └── groovy</span><br><span class="line">│               └── pub.hanks</span><br><span class="line">│                   └── buildsrc</span><br><span class="line">│                       ├── WarningPlugin.groovy</span><br><span class="line">│                       └── WarningTransform.groovy</span><br></pre></td></tr></table></figure>
+
+<p>build.gradle 内容如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">apply plugin: &#x27;groovy&#x27;</span><br><span class="line"></span><br><span class="line">repositories &#123;</span><br><span class="line">    google()</span><br><span class="line">    jcenter()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">dependencies &#123;</span><br><span class="line">    implementation fileTree(dir: &#x27;libs&#x27;, include: [&#x27;*.jar&#x27;])</span><br><span class="line">    implementation gradleApi()</span><br><span class="line">    implementation localGroovy()</span><br><span class="line">    implementation &#x27;org.javassist:javassist:3.20.0-GA&#x27;   // 用来修改字节码</span><br><span class="line">    implementation &#x27;com.android.tools.build:gradle:3.4.2&#x27;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>然后在 src&#x2F;main&#x2F;groovy 目录下创建自定义的 Plugin 并注册 Tansform</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">class WarningPlugin implements Plugin&lt;Project&gt; &#123;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    void apply(Project project) &#123;</span><br><span class="line">        def type = project.extensions.getByType(AppExtension.class)</span><br><span class="line">        type.registerTransform(new WarningTransform(project))</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>看下 Tansform 的实现</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br></pre></td><td class="code"><pre><span class="line">package pub.hanks.buildsrc</span><br><span class="line"></span><br><span class="line">import com.android.build.api.transform.*</span><br><span class="line">import com.android.build.gradle.internal.pipeline.TransformManager</span><br><span class="line">import com.android.utils.FileUtils</span><br><span class="line">import javassist.ClassPool</span><br><span class="line">import javassist.CtClass</span><br><span class="line">import javassist.CtField</span><br><span class="line">import org.apache.commons.codec.digest.DigestUtils</span><br><span class="line">import org.gradle.api.Project</span><br><span class="line"></span><br><span class="line">class WarningTransform extends Transform &#123;</span><br><span class="line"></span><br><span class="line">    final ClassPool sClassPool = ClassPool.getDefault()</span><br><span class="line">    Project mProject</span><br><span class="line"></span><br><span class="line">    WarningTransform(Project mProject) &#123;</span><br><span class="line">        this.mProject = mProject</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 插入一段代码</span><br><span class="line">     */</span><br><span class="line">    void injectToast(String path, Project project) &#123;</span><br><span class="line">        // 加入当前路径</span><br><span class="line">        sClassPool.appendClassPath(path)</span><br><span class="line">        sClassPool.appendClassPath(project.android.bootClasspath[0].toString())</span><br><span class="line"></span><br><span class="line">        File dir = new File(path)</span><br><span class="line">        if (dir.isDirectory()) &#123;</span><br><span class="line">            // 遍历文件夹</span><br><span class="line">            dir.eachFileRecurse &#123; File file -&gt;</span><br><span class="line">                String filePath = file.absolutePath</span><br><span class="line">                println(&quot;filePath: $filePath&quot;)</span><br><span class="line">                if (file.name.endsWith(&quot;.class&quot;)</span><br><span class="line">                        &amp;&amp; file.name != &quot;R.class&quot;</span><br><span class="line">                        &amp;&amp; !file.name.startsWith(&quot;R\$&quot;)</span><br><span class="line">                        &amp;&amp; filePath.contains(&quot;pub/hanks/testgradleplugin/&quot;)) &#123;</span><br><span class="line">                    // 获取Class</span><br><span class="line">                    CtClass ctClass = sClassPool.makeClass(new FileInputStream(file))</span><br><span class="line"></span><br><span class="line">                    // 解冻</span><br><span class="line">                    if (ctClass.isFrozen()) &#123;</span><br><span class="line">                        ctClass.defrost()</span><br><span class="line">                    &#125;</span><br><span class="line"></span><br><span class="line">                    CtField f = CtField.make(&quot;private static final String warning = \&quot;hello hanks\&quot;;&quot;, ctClass)</span><br><span class="line">                    ctClass.addField(f)</span><br><span class="line"></span><br><span class="line">                    //写入</span><br><span class="line">                    ctClass.writeFile(path)</span><br><span class="line"></span><br><span class="line">                    //释放</span><br><span class="line">                    ctClass.detach()</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    static void copyDirectory(DirectoryInput directoryInput, TransformOutputProvider outputProvider) &#123;</span><br><span class="line">        def dest = outputProvider.getContentLocation(directoryInput.name,</span><br><span class="line">                directoryInput.contentTypes, directoryInput.scopes, Format.DIRECTORY)</span><br><span class="line">        FileUtils.copyDirectory(directoryInput.file, dest)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    static void copyJar(JarInput jarInput, TransformOutputProvider outputProvider) &#123;</span><br><span class="line">        def jarName = jarInput.name</span><br><span class="line">        println(&quot;jar = &quot; + jarInput.file.getAbsolutePath())</span><br><span class="line">        def md5Name = DigestUtils.md5Hex(jarInput.file.getAbsolutePath())</span><br><span class="line">        // 避免出现 xxx.jar.jar 这样的名字</span><br><span class="line">        if (jarName.endsWith(&quot;.jar&quot;)) &#123;</span><br><span class="line">            jarName = jarName.substring(0, jarName.length() - 4)</span><br><span class="line">        &#125;</span><br><span class="line">        def dest = outputProvider.getContentLocation(jarName + md5Name, jarInput.contentTypes, jarInput.scopes, Format.JAR)</span><br><span class="line">        FileUtils.copyFile(jarInput.file, dest)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    void transform(TransformInvocation transformInvocation) throws TransformException, InterruptedException, IOException &#123;</span><br><span class="line">        super.transform(transformInvocation)</span><br><span class="line">        transformInvocation.inputs.each &#123;</span><br><span class="line">            input -&gt;</span><br><span class="line">                input.directoryInputs.each &#123;</span><br><span class="line">                    DirectoryInput directoryInput -&gt;</span><br><span class="line">                        injectToast(directoryInput.file.absolutePath, mProject)</span><br><span class="line">                        copyDirectory(directoryInput, transformInvocation.outputProvider)</span><br><span class="line">                &#125;</span><br><span class="line">                // 遍历 jar</span><br><span class="line">                input.jarInputs.each &#123;</span><br><span class="line">                    jarInput -&gt;</span><br><span class="line">                        copyJar(jarInput, transformInvocation.outputProvider)</span><br><span class="line">                &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    String getName() &#123;</span><br><span class="line">        return &quot;warning-plugin&quot;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    Set&lt;QualifiedContent.ContentType&gt; getInputTypes() &#123;</span><br><span class="line">        return TransformManager.CONTENT_CLASS</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    Set&lt;? super QualifiedContent.Scope&gt; getScopes() &#123;</span><br><span class="line">        return TransformManager.SCOPE_FULL_PROJECT</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    boolean isIncremental() &#123;</span><br><span class="line">        return false</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>最后在项目中添加插件的引用</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apply plugin: pub.hanks.buildsrc.WarningPlugin</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h2><p><a target="_blank" rel="noopener" href="http://lyldalek.cn/2019/09/10/blog_bak/Blog/Android-%E9%AB%98%E7%BA%A7/Gradle%20Transform%20API%20%EF%BC%9A%E7%9B%B4%E6%8E%A5%E5%A4%84%E7%90%86%20class%20%E6%96%87%E4%BB%B6/">Gradle Transform API ：直接修改 class 文件</a><br><a target="_blank" rel="noopener" href="https://tech.meituan.com/2019/09/05/java-bytecode-enhancement.html">字节码增强技术探索</a></p>
+<blockquote>
+<p>文章来自： <a href="https://hanks.pub/">https://hanks.pub</a></p>
+</blockquote>
+
+      
+    </div>
+</article>
+
+<!-- 上一页 下一页 -->
+
+
+<nav id="article-nav">
+  
+    <a href="/2021/06/16/jetpack-compose-1/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>上一篇</span>
+      <div class="article-nav-title">
+        
+          学习 Compose 系列（一）环境配置、概念理解、初体验
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/03/18/android-hook-launch-activity/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>下一篇</span>
+      <div class="article-nav-title">Hook 替换启动的 Activity</div>
+    </a>
+  
+</nav>
+
+
+
+<!-- 相关文章 -->
+
+<!--
+
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+      			<a href="/2020/03/29/gradle-transform/">Gradle Tansform 的使用</a>
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+
+-->
+
+
+</section>
+      </div>
+      <footer id="footer">
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      
+      &copy;2024<a target="_blank" rel="noopener" href="https://github.com/hanks-zyh"> Hanks</a>版权所有
+      <br/>
+      <a href="https://beian.miit.gov.cn/" target="_blank">豫ICP备2021022347号</a>
+	  </div>
+  </div>
+ <div id="share">
+  <a id="totop" title="" style="display: block;">返回顶部</a>
+ </div>
+</footer>
+
+    </div>
+    
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/jquery.scrollLoading.js"></script>
+
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/ads.js"></script>
+
+  </div>
+</body>
+</html>

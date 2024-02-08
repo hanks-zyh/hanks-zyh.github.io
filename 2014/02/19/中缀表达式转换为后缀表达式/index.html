@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>中缀表达式转换为后缀表达式 | Hanks&#39; Websit</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <script data-ad-client="ca-pub-8165670162444117" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <meta name="referrer" content="never">
+  <meta name="description" content="&nbsp;  中缀表达式转换为后缀表达式    一、后缀表达式求值  后缀表达式也叫逆波兰表达式，其求值过程可以用到栈来辅助存储。假定待求值的后缀表达式为：6&nbsp; 5&nbsp; 2&nbsp; 3&nbsp; + 8 * + 3&nbsp; +&nbsp; *，则其求值过程如下：  1）遍历表达式，遇到的数字首先放入栈中，此时栈如下所示：    2）接着读到“+”，则弹出3和">
+<meta property="og:type" content="article">
+<meta property="og:title" content="中缀表达式转换为后缀表达式">
+<meta property="og:url" content="https://hanks.pub/2014/02/19/%E4%B8%AD%E7%BC%80%E8%A1%A8%E8%BE%BE%E5%BC%8F%E8%BD%AC%E6%8D%A2%E4%B8%BA%E5%90%8E%E7%BC%80%E8%A1%A8%E8%BE%BE%E5%BC%8F/index.html">
+<meta property="og:site_name" content="Hanks&#39; Websit">
+<meta property="og:description" content="&nbsp;  中缀表达式转换为后缀表达式    一、后缀表达式求值  后缀表达式也叫逆波兰表达式，其求值过程可以用到栈来辅助存储。假定待求值的后缀表达式为：6&nbsp; 5&nbsp; 2&nbsp; 3&nbsp; + 8 * + 3&nbsp; +&nbsp; *，则其求值过程如下：  1）遍历表达式，遇到的数字首先放入栈中，此时栈如下所示：    2）接着读到“+”，则弹出3和">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://simg.sinajs.cn/blog7style/images/common/sg_trans.gif">
+<meta property="og:image" content="https://simg.sinajs.cn/blog7style/images/common/sg_trans.gif">
+<meta property="og:image" content="https://simg.sinajs.cn/blog7style/images/common/sg_trans.gif">
+<meta property="og:image" content="https://simg.sinajs.cn/blog7style/images/common/sg_trans.gif">
+<meta property="og:image" content="https://simg.sinajs.cn/blog7style/images/common/sg_trans.gif">
+<meta property="og:image" content="https://simg.sinajs.cn/blog7style/images/common/sg_trans.gif">
+<meta property="og:image" content="https://simg.sinajs.cn/blog7style/images/common/sg_trans.gif">
+<meta property="og:image" content="https://simg.sinajs.cn/blog7style/images/common/sg_trans.gif">
+<meta property="og:image" content="https://simg.sinajs.cn/blog7style/images/common/sg_trans.gif">
+<meta property="og:image" content="https://simg.sinajs.cn/blog7style/images/common/sg_trans.gif">
+<meta property="og:image" content="https://simg.sinajs.cn/blog7style/images/common/sg_trans.gif">
+<meta property="og:image" content="https://simg.sinajs.cn/blog7style/images/common/sg_trans.gif">
+<meta property="article:published_time" content="2014-02-19T11:17:00.000Z">
+<meta property="article:modified_time" content="2024-02-08T01:29:02.196Z">
+<meta property="article:author" content="Hanks">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://simg.sinajs.cn/blog7style/images/common/sg_trans.gif">
+  
+  
+  <link href="https://fonts.googleapis.com/css?family=Fira+Code|Noto+Serif+SC&display=swap" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8165670162444117"
+     crossorigin="anonymous"></script>
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo"></a>
+    <nav id="main-nav">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      
+        <a class="main-nav-link" href="/archives">Archive</a>
+      
+        <a class="main-nav-link" href="/eye-video">Eye</a>
+      
+        <a class="main-nav-link" href="/atom.xml">Rss</a>
+      
+    </nav>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/archives" class="mobile-nav-link">Archive</a>
+  
+    <a href="/eye-video" class="mobile-nav-link">Eye</a>
+  
+    <a href="/atom.xml" class="mobile-nav-link">Rss</a>
+  
+</nav>
+      <div class="outer">
+        <section id="main"><article id="post-中缀表达式转换为后缀表达式" class="article article-type-post" itemscope
+  itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <header class="article-header">
+      
+      
+  
+    <h1 class="article-title" itemprop="name">
+      中缀表达式转换为后缀表达式
+    </h1>
+  
+
+      
+    </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+<div id="sina_keyword_ad_area2" class="articalContent  ">
+			<div STYLE="TexT-ALiGn: left; WiDoWs: 2; TexT-TrAnsForM: none; BACKGroUnD-CoLor: rgb(255,255,255); TexT-inDenT: 0px; MArGin: 5px 0px; DispLAY: block; FonT: 20px/30px 'Microsoft YaHei'; WHiTe-spACe: normal; orpHAns: 2; LeTTer-spACinG: normal; CoLor: rgb(0,0,0); WorD-spACinG: 0px; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px"><font FACE="微软雅黑"><span>&nbsp;<wbr></SPAN></FONT>
+<h3 STYLE="pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; DispLAY: inline; FonT: 20px/30px 'Microsoft YaHei'; VerTiCAL-ALiGn: middle; pADDinG-Top: 0px">
+<font FACE="微软雅黑"><span><a HREF="https://blog.csdn.net/ssjhust123/article/details/8001651">中缀表达式转换为后缀表达式</A></SPAN></FONT></H3>
+</DIV>
+<div STYLE="TexT-ALiGn: left; WiDoWs: 2; TexT-TrAnsForM: none; BACKGroUnD-CoLor: rgb(255,255,255); TexT-inDenT: 0px; MArGin: 20px 0px 0px; FonT: 14px/26px Arial; WHiTe-spACe: normal; orpHAns: 2; LeTTer-spACinG: normal; CoLor: rgb(0,0,0); WorD-spACinG: 0px; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px">
+<h2 STYLE="pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; pADDinG-Top: 0px">
+一、后缀表达式求值</H2>
+<p STYLE="pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; pADDinG-Top: 0px">
+后缀表达式也叫逆波兰表达式，其求值过程可以用到栈来辅助存储。假定待求值的后缀表达式为：<font FACE="Arial"><strong><span STYLE="FonT-siZe: 14px">6&nbsp;<wbr>
+5&nbsp;<wbr> 2&nbsp;<wbr> 3&nbsp;<wbr> + 8 * +
+3&nbsp;<wbr> +&nbsp;<wbr>
+*，</SPAN></STRONG>则其求值过程如下：</FONT></P>
+<p STYLE="pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; pADDinG-Top: 0px">
+1）遍历表达式，遇到的数字首先放入栈中，此时栈如下所示：</P>
+<p STYLE="pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; pADDinG-Top: 0px">
+<img STYLE="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; MAx-WiDTH: 100%; BorDer-Top: medium none; BorDer-riGHT: medium none" ALT="" src="https://simg.sinajs.cn/blog7style/images/common/sg_trans.gif" real_src ="https://img.my.csdn.net/uploads/201209/20/1348144826_6731.png"  TITLE="中缀表达式转换为后缀表达式" /></P>
+<p STYLE="pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; pADDinG-Top: 0px">
+2）接着读到“+”，则弹出3和2，执行3+2，计算结果等于5，并将5压入到栈中。</P>
+<p STYLE="pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; pADDinG-Top: 0px">
+<img STYLE="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; MAx-WiDTH: 100%; BorDer-Top: medium none; BorDer-riGHT: medium none" ALT="" src="https://simg.sinajs.cn/blog7style/images/common/sg_trans.gif" real_src ="https://img.my.csdn.net/uploads/201209/20/1348144932_4049.png"  TITLE="中缀表达式转换为后缀表达式" /></P>
+<p STYLE="pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; pADDinG-Top: 0px">
+3）读到8，将其直接放入栈中。</P>
+<p STYLE="pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; pADDinG-Top: 0px">
+<img STYLE="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; MAx-WiDTH: 100%; BorDer-Top: medium none; BorDer-riGHT: medium none" ALT="" src="https://simg.sinajs.cn/blog7style/images/common/sg_trans.gif" real_src ="https://img.my.csdn.net/uploads/201209/20/1348144994_1525.png"  TITLE="中缀表达式转换为后缀表达式" /></P>
+<p STYLE="pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; pADDinG-Top: 0px">
+4）读到“*”，弹出8和5，执行8*5，并将结果40压入栈中。而后过程类似，读到“+”，将40和5弹出，将40+5的结果45压入栈...以此类推。最后求的值288。</P>
+<p STYLE="pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; pADDinG-Top: 0px">
+&nbsp;<wbr></P>
+<p STYLE="pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; pADDinG-Top: 0px">
+&nbsp;<wbr></P>
+<h2 STYLE="pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; pADDinG-Top: 0px">
+二、中缀表达式转后缀表达式</H2>
+<h3 STYLE="pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; pADDinG-Top: 0px">
+2.1）规则</H3>
+<p STYLE="pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; pADDinG-Top: 0px">
+中缀表达式<font FACE="Arial"><span STYLE="FonT-siZe: 14px">a + b*c + (d
+* e + f) * g</SPAN>，其转换成后缀表达式则为<span STYLE="FonT-siZe: 14px">a b c
+* + d e * f&nbsp;<wbr> + g * +。</SPAN></FONT></P>
+<p STYLE="pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; pADDinG-Top: 0px">
+转换过程需要用到栈，具体过程如下：</P>
+<p STYLE="pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; pADDinG-Top: 0px">
+1）如果遇到操作数，我们就直接将其输出。</P>
+<p STYLE="pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; pADDinG-Top: 0px">
+2）如果遇到操作符，则我们将其放入到栈中，遇到左括号时我们也将其放入栈中。</P>
+<p STYLE="pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; pADDinG-Top: 0px">
+3）如果遇到一个右括号，则将栈元素弹出，将弹出的操作符输出直到遇到左括号为止。<strong>注意，左括号只弹出并不输出。</STRONG></P>
+<p STYLE="pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; pADDinG-Top: 0px">
+4）如果遇到任何其他的操作符，如（“+”，
+“*”，“（”）等，<strong>从栈中弹出元素直到遇到发现更低优先级的元素(或者栈为空)为止</STRONG>。弹出完这些元素后，才将遇到的操作符压入到栈中。<strong>有一点需要注意，只有在遇到"
+) "的情况下我们才弹出" ( "，其他情况我们都不会弹出" ( "。也就是说这种操作，" + "的优先级最低，" (
+"优先级最高。</STRONG></P>
+<p STYLE="pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; pADDinG-Top: 0px">
+5）如果我们读到了输入的末尾，则将栈中所有元素依次弹出。</P>
+<p STYLE="pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; pADDinG-Top: 0px">
+&nbsp;<wbr></P>
+<h3 STYLE="pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; pADDinG-Top: 0px">
+2.2）实例</H3>
+<p STYLE="pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; pADDinG-Top: 0px">
+规则很多，还是用实例比较容易说清楚整个过程。以上面的转换为例，输入为a + b * c + (d * e +
+f)*g，处理过程如下：</P>
+<p STYLE="pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; pADDinG-Top: 0px">
+1）首先读到a，直接输出。</P>
+<p STYLE="pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; pADDinG-Top: 0px">
+2）读到“+”，将其放入到栈中。</P>
+<p STYLE="pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; pADDinG-Top: 0px">
+3）读到b，直接输出。</P>
+<p STYLE="pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; pADDinG-Top: 0px">
+此时栈和输出的情况如下：</P>
+<p STYLE="pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; pADDinG-Top: 0px">
+<img STYLE="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; MAx-WiDTH: 100%; BorDer-Top: medium none; BorDer-riGHT: medium none" ALT="" src="https://simg.sinajs.cn/blog7style/images/common/sg_trans.gif" real_src ="https://img.my.csdn.net/uploads/201209/20/1348146428_8057.png"  TITLE="中缀表达式转换为后缀表达式" /></P>
+<p STYLE="pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; pADDinG-Top: 0px">
+&nbsp;<wbr></P>
+<p STYLE="pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; pADDinG-Top: 0px">
+4）读到“*”，因为栈顶元素"+"优先级比" * " 低，所以将" * "直接压入栈中。</P>
+<p STYLE="pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; pADDinG-Top: 0px">
+5）读到c，直接输出。</P>
+<p STYLE="pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; pADDinG-Top: 0px">
+此时栈和输出情况如下：</P>
+<p STYLE="pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; pADDinG-Top: 0px">
+<img STYLE="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; MAx-WiDTH: 100%; BorDer-Top: medium none; BorDer-riGHT: medium none" ALT="" src="https://simg.sinajs.cn/blog7style/images/common/sg_trans.gif" real_src ="https://img.my.csdn.net/uploads/201209/20/1348146721_9861.png"  TITLE="中缀表达式转换为后缀表达式" /></P>
+<p STYLE="pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; pADDinG-Top: 0px">
+&nbsp;<wbr></P>
+<p STYLE="pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; pADDinG-Top: 0px">
+6）读到" + "，因为栈顶元素" * "的优先级比它高，所以弹出" * "并输出， 同理，栈中下一个元素" +
+"优先级与读到的操作符" + "一样，所以也要弹出并输出。然后再将读到的" + "压入栈中。</P>
+<p STYLE="pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; pADDinG-Top: 0px">
+此时栈和输出情况如下：</P>
+<p STYLE="pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; pADDinG-Top: 0px">
+<img STYLE="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; MAx-WiDTH: 100%; BorDer-Top: medium none; BorDer-riGHT: medium none" ALT="" src="https://simg.sinajs.cn/blog7style/images/common/sg_trans.gif" real_src ="https://img.my.csdn.net/uploads/201209/20/1348147044_5952.png"  TITLE="中缀表达式转换为后缀表达式" /></P>
+<p STYLE="pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; pADDinG-Top: 0px">
+&nbsp;<wbr></P>
+<p STYLE="pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; pADDinG-Top: 0px">
+7）下一个读到的为"("，它优先级最高，所以直接放入到栈中。</P>
+<p STYLE="pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; pADDinG-Top: 0px">
+8）读到d，将其直接输出。</P>
+<p STYLE="pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; pADDinG-Top: 0px">
+此时栈和输出情况如下：</P>
+<p STYLE="pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; pADDinG-Top: 0px">
+<img STYLE="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; MAx-WiDTH: 100%; BorDer-Top: medium none; BorDer-riGHT: medium none" ALT="" src="https://simg.sinajs.cn/blog7style/images/common/sg_trans.gif" real_src ="https://img.my.csdn.net/uploads/201209/20/1348147265_9645.png"  TITLE="中缀表达式转换为后缀表达式" /></P>
+<p STYLE="pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; pADDinG-Top: 0px">
+&nbsp;<wbr></P>
+<p STYLE="pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; pADDinG-Top: 0px">
+9）读到" * "，由于只有遇到" ) "的时候左括号"("才会弹出，所以" * "直接压入栈中。</P>
+<p STYLE="pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; pADDinG-Top: 0px">
+10）读到e，直接输出。</P>
+<p STYLE="pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; pADDinG-Top: 0px">
+此时栈和输出情况如下：</P>
+<p STYLE="pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; pADDinG-Top: 0px">
+<img STYLE="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; MAx-WiDTH: 100%; BorDer-Top: medium none; BorDer-riGHT: medium none" ALT="" src="https://simg.sinajs.cn/blog7style/images/common/sg_trans.gif" real_src ="https://img.my.csdn.net/uploads/201209/20/1348147424_4303.png"  TITLE="中缀表达式转换为后缀表达式" /></P>
+<p STYLE="pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; pADDinG-Top: 0px">
+&nbsp;<wbr></P>
+<p STYLE="pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; pADDinG-Top: 0px">
+11）读到" + "，弹出" * "并输出，然后将"+"压入栈中。</P>
+<p STYLE="pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; pADDinG-Top: 0px">
+12）读到f，直接输出。</P>
+<p STYLE="pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; pADDinG-Top: 0px">
+此时栈和输出情况：</P>
+<p STYLE="pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; pADDinG-Top: 0px">
+&nbsp;<wbr><img STYLE="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; MAx-WiDTH: 100%; BorDer-Top: medium none; BorDer-riGHT: medium none" ALT="" src="https://simg.sinajs.cn/blog7style/images/common/sg_trans.gif" real_src ="https://img.my.csdn.net/uploads/201209/20/1348147826_1174.png"  TITLE="中缀表达式转换为后缀表达式" /></P>
+<p STYLE="pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; pADDinG-Top: 0px">
+&nbsp;<wbr></P>
+<p STYLE="pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; pADDinG-Top: 0px">
+13）接下来读到“）”，则直接将栈中元素弹出并输出直到遇到"("为止。这里右括号前只有一个操作符"+"被弹出并输出。</P>
+<p STYLE="pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; pADDinG-Top: 0px">
+<img STYLE="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; MAx-WiDTH: 100%; BorDer-Top: medium none; BorDer-riGHT: medium none" ALT="" src="https://simg.sinajs.cn/blog7style/images/common/sg_trans.gif" real_src ="https://img.my.csdn.net/uploads/201209/20/1348147993_7462.png"  TITLE="中缀表达式转换为后缀表达式" /></P>
+<p STYLE="pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; pADDinG-Top: 0px">
+&nbsp;<wbr></P>
+<p STYLE="pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; pADDinG-Top: 0px">
+14）读到" * "，压入栈中。读到g，直接输出。</P>
+<p STYLE="pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; pADDinG-Top: 0px">
+<img STYLE="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; MAx-WiDTH: 100%; BorDer-Top: medium none; BorDer-riGHT: medium none" ALT="" src="https://simg.sinajs.cn/blog7style/images/common/sg_trans.gif" real_src ="https://img.my.csdn.net/uploads/201209/20/1348148087_4361.png"  TITLE="中缀表达式转换为后缀表达式" /></P>
+<p STYLE="pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; pADDinG-Top: 0px">
+&nbsp;<wbr></P>
+<p STYLE="pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; pADDinG-Top: 0px">
+15）此时输入数据已经读到末尾，栈中还有两个操作符“*”和" + "，直接弹出并输出。</P>
+<p STYLE="pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; pADDinG-Top: 0px">
+<img STYLE="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; MAx-WiDTH: 100%; BorDer-Top: medium none; BorDer-riGHT: medium none" ALT="" src="https://simg.sinajs.cn/blog7style/images/common/sg_trans.gif" real_src ="https://img.my.csdn.net/uploads/201209/20/1348148276_3639.png"  TITLE="中缀表达式转换为后缀表达式" /></P>
+<p STYLE="pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; pADDinG-Top: 0px">
+至此整个转换过程完成。程序实现代码后续再补充了。</P>
+<p STYLE="pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; pADDinG-Top: 0px">
+&nbsp;<wbr></P>
+<h3 STYLE="pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; pADDinG-Top: 0px">
+&nbsp;<wbr>2.3）转换的另一种方法</H3>
+<p STYLE="pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; pADDinG-Top: 0px">
+1)先按照运算符的优先级对中缀表达式加括号，变成<span STYLE="FonT-siZe: 14px"><font FACE="Arial">( ( a+(b*c) ) + ( ((d*e)+f) *g ) )</FONT></SPAN></P>
+<p STYLE="pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; pADDinG-Top: 0px">
+2)将运算符移到括号的后面，变成<span STYLE="FonT-siZe: 14px"><font FACE="Arial">((a(bc)*)+(((de)*f)+g)*)+</FONT></SPAN></P>
+<p STYLE="pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; pADDinG-Top: 0px">
+3)去掉括号，得到<span STYLE="FonT-siZe: 14px"><font FACE="Arial">abc*+de*f+g*+</FONT></SPAN></P>
+</DIV>							
+		</div>
+
+      
+    </div>
+</article>
+
+<!-- 上一页 下一页 -->
+
+
+<nav id="article-nav">
+  
+    <a href="/2014/02/19/%E4%B8%A4%E4%B8%AA%E5%8D%81%E5%AD%97%E9%93%BE%E8%A1%A8%E7%9B%B8%E5%8A%A0/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>上一篇</span>
+      <div class="article-nav-title">
+        
+          两个十字链表相加
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2014/02/19/%E4%BA%8C%E5%8F%89%E6%8E%92%E5%BA%8F%E6%A0%91/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>下一篇</span>
+      <div class="article-nav-title">二叉排序树</div>
+    </a>
+  
+</nav>
+
+
+
+<!-- 相关文章 -->
+
+<!--
+
+-->
+
+
+</section>
+      </div>
+      <footer id="footer">
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      
+      &copy;2024<a target="_blank" rel="noopener" href="https://github.com/hanks-zyh"> Hanks</a>版权所有
+      <br/>
+      <a href="https://beian.miit.gov.cn/" target="_blank">豫ICP备2021022347号</a>
+	  </div>
+  </div>
+ <div id="share">
+  <a id="totop" title="" style="display: block;">返回顶部</a>
+ </div>
+</footer>
+
+    </div>
+    
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/jquery.scrollLoading.js"></script>
+
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/ads.js"></script>
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>最长单调子序列（O(n^2) 和 O(nlogn) 算法） | Hanks&#39; Websit</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <script data-ad-client="ca-pub-8165670162444117" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <meta name="referrer" content="never">
+  <meta name="description" content="&nbsp; 经典的O(n^2)的动态规划算法 设A[i]表示序列中的第i个数，F[i]表示从1到i这一段中以i结尾的最长上升子序列的长度，初始时设F[i] &#x3D; 0(i &#x3D; 1, 2, ..., len(A))。则有动态规划方程：F[i] &#x3D; max{1, F[j] &#43; 1} (j &#x3D; 1, 2, ..., i - 1, 且A[j] &lt; A[i])。 &nbsp; O(nlogn)">
+<meta property="og:type" content="article">
+<meta property="og:title" content="最长单调子序列（O(n^2) 和 O(nlogn) 算法）">
+<meta property="og:url" content="https://hanks.pub/2013/10/29/%E6%9C%80%E9%95%BF%E5%8D%95%E8%B0%83%E5%AD%90%E5%BA%8F%E5%88%97%EF%BC%88O(n^2)_%E5%92%8C_O(nlogn)_%E7%AE%97%E6%B3%95%EF%BC%89/index.html">
+<meta property="og:site_name" content="Hanks&#39; Websit">
+<meta property="og:description" content="&nbsp; 经典的O(n^2)的动态规划算法 设A[i]表示序列中的第i个数，F[i]表示从1到i这一段中以i结尾的最长上升子序列的长度，初始时设F[i] &#x3D; 0(i &#x3D; 1, 2, ..., len(A))。则有动态规划方程：F[i] &#x3D; max{1, F[j] &#43; 1} (j &#x3D; 1, 2, ..., i - 1, 且A[j] &lt; A[i])。 &nbsp; O(nlogn)">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2013-10-29T14:04:00.000Z">
+<meta property="article:modified_time" content="2024-02-08T01:29:02.201Z">
+<meta property="article:author" content="Hanks">
+<meta name="twitter:card" content="summary">
+  
+  
+  <link href="https://fonts.googleapis.com/css?family=Fira+Code|Noto+Serif+SC&display=swap" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8165670162444117"
+     crossorigin="anonymous"></script>
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo"></a>
+    <nav id="main-nav">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      
+        <a class="main-nav-link" href="/archives">Archive</a>
+      
+        <a class="main-nav-link" href="/eye-video">Eye</a>
+      
+        <a class="main-nav-link" href="/atom.xml">Rss</a>
+      
+    </nav>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/archives" class="mobile-nav-link">Archive</a>
+  
+    <a href="/eye-video" class="mobile-nav-link">Eye</a>
+  
+    <a href="/atom.xml" class="mobile-nav-link">Rss</a>
+  
+</nav>
+      <div class="outer">
+        <section id="main"><article id="post-最长单调子序列（O(n^2)_和_O(nlogn)_算法）" class="article article-type-post" itemscope
+  itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <header class="article-header">
+      
+      
+  
+    <h1 class="article-title" itemprop="name">
+      最长单调子序列（O(n^2) 和 O(nlogn) 算法）
+    </h1>
+  
+
+      
+    </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+<p>&nbsp;</p>
+<p><span style="font-size:18px"><strong>经典的O(n^2)的动态规划算法</strong></span></p>
+<p><span style="font-family:KaiTi_GB2312; font-size:18px">设A[i]表示序列中的第i个数，F[i]表示从1到i这一段中以i结尾的最长上升子序列的长度，初始时设F[i] = 0(i = 1, 2, ..., len(A))。则有动态规划方程：<span style="color:#ff0000">F[i] = max{1, F[j] &#43; 1} (j = 1, 2, ..., i - 1, 且A[j] &lt; A[i])。</span></span></p>
+<p>&nbsp;</p>
+<p><span style="font-size:18px"><strong>O(nlogn)算法<span style="font-family:KaiTi_GB2312"></span></strong></span></p>
+<p><span style="font-family:KaiTi_GB2312; font-size:18px">现在，我们仔细考虑计算F[i]时的情况。假设有两个元素A[x]和A[y]，满足</span></p>
+<p><span style="font-family:KaiTi_GB2312; font-size:18px">(1)x &lt; y &lt; i </span></p>
+<p><span style="font-family:KaiTi_GB2312; font-size:18px">(2)A[x] &lt; A[y] &lt; A[i] </span>
+</p>
+<p><span style="font-family:KaiTi_GB2312; font-size:18px">(3)F[x] = F[y]</span></p>
+<p><span style="font-family:KaiTi_GB2312; font-size:18px"></span>&nbsp;</p>
+<p><span style="font-family:KaiTi_GB2312; font-size:18px">此时，选择F[x]和选择F[y]都可以得到同样的F[i]&#20540;，那么，在最长上升子序列的这个位置中，应该选择A[x]还是应该选择A[y]呢？</span></p>
+<p><span style="font-family:KaiTi_GB2312; font-size:18px">很明显，选择A[x]比选择A[y]要好。因为由于条件(2)，在A[x&#43;1] ... A[i-1]这一段中，如果存在A[z]，A[x] &lt; A[z] &lt; a[y]，则与选择A[y]相比，将会得到更长的上升子序列。</span></p>
+<p><span style="font-family:KaiTi_GB2312; font-size:18px">再根据条件(3)，我们会得到一个启示：根据F[]的&#20540;进行分类。对于F[]的每一个取&#20540;k，我们只需要保留满足F[i] = k的所有A[i]中的最小&#20540;。设D[k]记录这个&#20540;，即D[k] = min{A[i]} (F[i] = k)。</span></p>
+<p><span style="font-family:KaiTi_GB2312; font-size:18px"></span>&nbsp;</p>
+<p><span style="font-family:KaiTi_GB2312; font-size:18px">注意到D[]的两个特点：</span></p>
+<p><span style="font-family:KaiTi_GB2312; font-size:18px">(1) D[k]的&#20540;是在整个计算过程中是单调不上升的。
+<br>
+(2) D[]的&#20540;是有序的，即D[1] &lt; D[2] &lt; D[3] &lt; ... &lt; D[n]。</span></p>
+<p><span style="font-family:KaiTi_GB2312; font-size:18px"></span>&nbsp;</p>
+<p><span style="font-family:KaiTi_GB2312; font-size:18px">利用D[]，我们可以得到另外一种计算最长上升子序列长度的方法。设当前已经求出的最长上升子序列长度为len。先判断A[i]与D[len]。若A[i] &gt; D[len]，则将A[i]接在D[len]后将得到一个更长的上升子序列，len = len &#43; 1， D[len] = A[i]；否则，在D[1]..D[len]中，找到最大的j，满足D[j] &lt; A[i]。令k = j &#43; 1，则有D[j] &lt;
+ A[i] &lt;= D[k]，将A[i]接在D[j]后将得到一个更长的上升子序列，同时更新D[k] = A[i]。最后，len即为所要求的最长上升子序列的长度。</span></p>
+<p><span style="font-family:KaiTi_GB2312; font-size:18px"></span>&nbsp;</p>
+<p><span style="font-family:KaiTi_GB2312; font-size:18px">在上述算法中，若使用朴素的顺序查找在D[1]..D[len]查找，由于共有O(n)个元素需要计算，每次计算时的复杂度是O(n)，则整个算法的时间复杂度为O(n^2)，与原来的算法相比没有任何进步。但是由于D[]的特点(2)，我们在D[]中查找时，可以使用二分查找高效地完成，则整个算法的时间复杂度下降为O(nlogn)，有了非常显著的提高。需要注意的是，D[]在算法结束后记录的并不是一个符合题意的最长上升子序列！</span></p>
+<p><span style="font-family:KaiTi_GB2312; font-size:18px">这个算法还可以扩展到整个最长子序列系列问题，整个算法的难点在于二分查找的设计，需要非常小心注意。</span></p>
+<p>&nbsp;</p>
+
+      
+    </div>
+</article>
+
+<!-- 上一页 下一页 -->
+
+
+<nav id="article-nav">
+  
+    <a href="/2013/10/29/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%EF%BC%88%E7%BB%83%E4%B9%A0%E9%A2%98%E7%9B%AE%EF%BC%8C%EF%BC%89/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>上一篇</span>
+      <div class="article-nav-title">
+        
+          动态规划（练习题目，）
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2013/10/29/%E4%B8%80%E4%B8%AA%E6%95%B4%E6%95%B0%E5%88%92%E5%88%86%E7%9A%84%E5%A4%9A%E7%A7%8D%E6%83%85%E5%86%B5%EF%BC%88%E4%B8%80%E5%A0%86%E8%8B%B9%E6%9E%9C%E6%94%BE%E5%88%B0n%E4%B8%AA%E7%9B%98%E5%AD%90%EF%BC%89/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>下一篇</span>
+      <div class="article-nav-title">一个整数划分的多种情况（一堆苹果放到n个盘子）</div>
+    </a>
+  
+</nav>
+
+
+
+<!-- 相关文章 -->
+
+<!--
+
+-->
+
+
+</section>
+      </div>
+      <footer id="footer">
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      
+      &copy;2024<a target="_blank" rel="noopener" href="https://github.com/hanks-zyh"> Hanks</a>版权所有
+      <br/>
+      <a href="https://beian.miit.gov.cn/" target="_blank">豫ICP备2021022347号</a>
+	  </div>
+  </div>
+ <div id="share">
+  <a id="totop" title="" style="display: block;">返回顶部</a>
+ </div>
+</footer>
+
+    </div>
+    
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/jquery.scrollLoading.js"></script>
+
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/ads.js"></script>
+
+  </div>
+</body>
+</html>

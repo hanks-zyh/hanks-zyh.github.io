@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>八皇后 | Hanks&#39; Websit</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <script data-ad-client="ca-pub-8165670162444117" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <meta name="referrer" content="never">
+  <meta name="description" content="&#x2F;*************************** # Queen 八皇后问题 ：递归实现   1. 从第一行开始递归 2. 然后枚举当前行中的每一列， 3. 如果可以放置皇后，则递归放置下一行 4. 当放置到第8行时，说明8个皇后全部安全放置，输出   # time：2014-2-9 11:03:20  # Time: MS   Memory: K # Author: zyh **">
+<meta property="og:type" content="article">
+<meta property="og:title" content="八皇后">
+<meta property="og:url" content="https://hanks.pub/2014/02/09/%E5%85%AB%E7%9A%87%E5%90%8E/index.html">
+<meta property="og:site_name" content="Hanks&#39; Websit">
+<meta property="og:description" content="&#x2F;*************************** # Queen 八皇后问题 ：递归实现   1. 从第一行开始递归 2. 然后枚举当前行中的每一列， 3. 如果可以放置皇后，则递归放置下一行 4. 当放置到第8行时，说明8个皇后全部安全放置，输出   # time：2014-2-9 11:03:20  # Time: MS   Memory: K # Author: zyh **">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2014-02-09T04:23:00.000Z">
+<meta property="article:modified_time" content="2024-02-08T01:29:02.197Z">
+<meta property="article:author" content="Hanks">
+<meta name="twitter:card" content="summary">
+  
+  
+  <link href="https://fonts.googleapis.com/css?family=Fira+Code|Noto+Serif+SC&display=swap" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8165670162444117"
+     crossorigin="anonymous"></script>
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo"></a>
+    <nav id="main-nav">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      
+        <a class="main-nav-link" href="/archives">Archive</a>
+      
+        <a class="main-nav-link" href="/eye-video">Eye</a>
+      
+        <a class="main-nav-link" href="/atom.xml">Rss</a>
+      
+    </nav>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/archives" class="mobile-nav-link">Archive</a>
+  
+    <a href="/eye-video" class="mobile-nav-link">Eye</a>
+  
+    <a href="/atom.xml" class="mobile-nav-link">Rss</a>
+  
+</nav>
+      <div class="outer">
+        <section id="main"><article id="post-八皇后" class="article article-type-post" itemscope
+  itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <header class="article-header">
+      
+      
+  
+    <h1 class="article-title" itemprop="name">
+      八皇后
+    </h1>
+  
+
+      
+    </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+<p><br>
+</p>
+<p></p>
+<pre code_snippet_id="181095" snippet_file_name="blog_20140209_1_4014466"  code_snippet_id="181095" snippet_file_name="blog_20140209_1_4014466" name="code" class="cpp">/***************************
+# Queen 八皇后问题 ：递归实现 
+
+1. 从第一行开始递归
+2. 然后枚举当前行中的每一列，
+3. 如果可以放置皇后，则递归放置下一行
+4. 当放置到第8行时，说明8个皇后全部安全放置，输出
+ 
+# time：2014-2-9 11:03:20 
+# Time: MS   Memory: K
+# Author: zyh
+***************************/ 
+
+#include&lt;stdio.h&gt;
+
+int n,cnt; // n: 棋盘的行列数；  cnt: 可以放置的 种数 
+
+/*
+	int row : 当前行
+	int col : 当前列 
+	int (*chess)[8] : 当前棋盘数组 
+*/
+bool place(int row,int col, int (*chess)[8]){
+	
+	// 判断同一列是否已经有皇后 
+	for(int i = 0; i &lt; row; i++)
+		if(chess[i][col]) return 0;
+	
+	// 判断同一斜线对角线是否已经有皇后
+	for(int i = row-1,j = 1; i &gt;= 0; i--,j++)
+		if( (col-j&gt;=0 &amp;&amp; chess[i][col-j]) || (col+j&lt;8 &amp;&amp; chess[i][col+j])) return 0;
+	
+	return 1;
+}
+
+/*
+	int r : 当前行
+	int (*chess)[8] ：棋盘数组 
+*/
+void eightQueen(int r,int (*chess)[8] )
+{		
+	// 放置到第8行时输出	
+	if(r == 8){
+		printf(&quot;\n第%d种：\n&quot;,cnt++);
+		for(int i = 0; i &lt; n; i++){
+			for(int j = 0; j &lt; n; j++)
+				printf(&quot;%d &quot;,chess[i][j]);
+			putchar('\n');
+		}
+		return;
+	}
+	
+	//枚举当前行的每一列 
+	for(int i = 0; i &lt; n; i++){
+		//如果可以放，继续递归下一行 
+		if( place(r,i,chess)) {
+			chess[r][i] = 1;
+			eightQueen(r+1,chess);
+			chess[r][i] = 0; 
+		}
+	}
+} 
+int main()
+{
+	int chess[8][8]={0};
+	n = 8; cnt = 1;
+	eightQueen(0,chess);
+	return 0; 
+}</pre><br>
+<br>
+<p></p>
+<p><br>
+</p>
+<p><br>
+</p>
+<p></p>
+<pre code_snippet_id="181095" snippet_file_name="blog_20140209_2_7041427"  code_snippet_id="181095" snippet_file_name="blog_20140209_2_7041427" name="code" class="cpp">/***************************
+# Queen 八皇后问题 ：回溯
+ 
+用一维数组来表示八个皇后的位置 X[8]; 
+X[i] 代表第i个皇后所在的列（第i个皇后在第i行，不用考虑在同一行的约束） 
+1. 第i个皇后 与 第 j 个皇后 同一列： x[i] == x[j];
+2. 第i个皇后 与 第 j 个皇后 同一斜线： x[i]+i == x[j]+j || x[i]-i == x[j]-j ;  
+	即 abs(i-j) == abs(x[i]-x[j]) 
+# time：2014-02-09 13:25:03 
+# Author: zyh
+***************************/ 
+#include&lt;stdlib.h&gt; 
+#include&lt;stdio.h&gt;
+
+int n,cnt; // n: 棋盘的行列数；  cnt: 可以放置的 种数 
+int x[10];
+
+//cur: 开始放置第cur个皇后 
+void dfs(int cur){
+	
+	//得到一种解法，cnt++ 
+	if(cur==8){
+		cnt ++;
+		return;
+	}
+	
+	//枚举每一列 
+	for(int i=0; i&lt;n; i++){
+		x[cur] = i; 
+		int ok = 1;
+		//与前面放置的 cur-1个皇后比较，看是否可以放置 
+		for(int j=0; j&lt;cur; j++){
+			if(x[cur]==x[j] || abs(cur-j) == abs(x[cur]-x[j])) {ok = 0;break;}
+		} 
+		if(ok) dfs(cur+1);
+	}
+} 
+int main()
+{
+	n = 8;
+	cnt = 0;
+	dfs(0); 
+	printf(&quot;共有 %d 种解法.\n&quot;,cnt); //92种 
+	return 0; 
+}</pre><br>
+<br>
+<p></p>
+
+      
+    </div>
+</article>
+
+<!-- 上一页 下一页 -->
+
+
+<nav id="article-nav">
+  
+    <a href="/2014/02/19/%E9%A1%BA%E5%BA%8F%E8%A1%A8/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>上一篇</span>
+      <div class="article-nav-title">
+        
+          顺序表
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2014/02/07/C_%E5%8E%9F%E5%A7%8B%E7%9A%84%E8%BF%99%E4%BA%9B%E8%AF%AD%E6%B3%95%E8%A7%84%E5%88%99%E6%B5%8B%E8%AF%95/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>下一篇</span>
+      <div class="article-nav-title">C 原始的这些语法规则测试</div>
+    </a>
+  
+</nav>
+
+
+
+<!-- 相关文章 -->
+
+<!--
+
+-->
+
+
+</section>
+      </div>
+      <footer id="footer">
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      
+      &copy;2024<a target="_blank" rel="noopener" href="https://github.com/hanks-zyh"> Hanks</a>版权所有
+      <br/>
+      <a href="https://beian.miit.gov.cn/" target="_blank">豫ICP备2021022347号</a>
+	  </div>
+  </div>
+ <div id="share">
+  <a id="totop" title="" style="display: block;">返回顶部</a>
+ </div>
+</footer>
+
+    </div>
+    
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/jquery.scrollLoading.js"></script>
+
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/ads.js"></script>
+
+  </div>
+</body>
+</html>

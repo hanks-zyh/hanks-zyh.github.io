@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>前方高能--Retrofit | Hanks&#39; Websit</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <script data-ad-client="ca-pub-8165670162444117" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <meta name="referrer" content="never">
+  <meta name="description" content="#Retrofit  A type-safe REST client for Android and Java   Android中非常有名的网络框架官网 ：https:&#x2F;&#x2F;square.github.io&#x2F;retrofit&#x2F;参考项目： https:&#x2F;&#x2F;square.github.io&#x2F;okhttp&#x2F;Android 示例项目：  https:&#x2F;&#x2F;github.com&#x2F;goodev&#x2F;Retrofit">
+<meta property="og:type" content="article">
+<meta property="og:title" content="前方高能--Retrofit">
+<meta property="og:url" content="https://hanks.pub/2015/05/27/%E5%89%8D%E6%96%B9%E9%AB%98%E8%83%BD--Retrofit/index.html">
+<meta property="og:site_name" content="Hanks&#39; Websit">
+<meta property="og:description" content="#Retrofit  A type-safe REST client for Android and Java   Android中非常有名的网络框架官网 ：https:&#x2F;&#x2F;square.github.io&#x2F;retrofit&#x2F;参考项目： https:&#x2F;&#x2F;square.github.io&#x2F;okhttp&#x2F;Android 示例项目：  https:&#x2F;&#x2F;github.com&#x2F;goodev&#x2F;Retrofit">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.imgur.com/tIdZkl3.png">
+<meta property="article:published_time" content="2015-05-26T16:26:00.000Z">
+<meta property="article:modified_time" content="2024-02-08T01:29:02.198Z">
+<meta property="article:author" content="Hanks">
+<meta property="article:tag" content="Android">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.imgur.com/tIdZkl3.png">
+  
+  
+  <link href="https://fonts.googleapis.com/css?family=Fira+Code|Noto+Serif+SC&display=swap" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8165670162444117"
+     crossorigin="anonymous"></script>
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo"></a>
+    <nav id="main-nav">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      
+        <a class="main-nav-link" href="/archives">Archive</a>
+      
+        <a class="main-nav-link" href="/eye-video">Eye</a>
+      
+        <a class="main-nav-link" href="/atom.xml">Rss</a>
+      
+    </nav>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/archives" class="mobile-nav-link">Archive</a>
+  
+    <a href="/eye-video" class="mobile-nav-link">Eye</a>
+  
+    <a href="/atom.xml" class="mobile-nav-link">Rss</a>
+  
+</nav>
+      <div class="outer">
+        <section id="main"><article id="post-前方高能--Retrofit" class="article article-type-post" itemscope
+  itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <header class="article-header">
+      
+      
+  
+    <h1 class="article-title" itemprop="name">
+      前方高能--Retrofit
+    </h1>
+  
+
+      
+    </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      <p>#Retrofit</p>
+<blockquote>
+<p>A type-safe REST client for Android and Java</p>
+</blockquote>
+<hr>
+<p>Android中非常有名的网络框架<br><a target="_blank" rel="noopener" href="https://square.github.io/retrofit/"><strong>官网</strong> ：https://square.github.io/retrofit/</a><br><a target="_blank" rel="noopener" href="https://square.github.io/okhttp/"><strong>参考项目</strong>： https://square.github.io/okhttp/</a><br><a target="_blank" rel="noopener" href="https://github.com/goodev/RetrofitDemo"><strong>Android 示例项目</strong>：  https://github.com/goodev/RetrofitDemo</a></p>
+<hr>
+<p><strong><a href="#">Retrofit</a></strong> vs <strong><a href="#">Volley</a></strong><br><a target="_blank" rel="noopener" href="https://instructure.github.io/blog/2013/12/09/volley-vs-retrofit/">https://instructure.github.io/blog/2013/12/09/volley-vs-retrofit/</a><br>提取一张图片<br><img src="https://i.imgur.com/tIdZkl3.png" alt="这里写图片描述"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">//API</span><br><span class="line">public interface ApiService &#123;</span><br><span class="line">    @GET(&quot;/jobs&quot;)</span><br><span class="line">    public void getJobs(Callback&lt;Data&gt; callback);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">//RestClient</span><br><span class="line">public class RestClient &#123;</span><br><span class="line"></span><br><span class="line">    private static final String BASE_URL = &quot;https://yourapi.host.com&quot;;</span><br><span class="line">    private ApiService apiService;</span><br><span class="line"></span><br><span class="line">    public RestClient() &#123;</span><br><span class="line">        Gson gson = new GsonBuilder()</span><br><span class="line">                .registerTypeAdapterFactory(new ItemTypeAdapterFactory())</span><br><span class="line">                .setDateFormat(&quot;yyyy&#x27;-&#x27;MM&#x27;-&#x27;dd&#x27;T&#x27;HH&#x27;:&#x27;mm&#x27;:&#x27;ss&#x27;.&#x27;SSS&#x27;Z&#x27;&quot;)</span><br><span class="line">                .create();</span><br><span class="line"></span><br><span class="line">        RestAdapter restAdapter = new RestAdapter.Builder()</span><br><span class="line">                .setLogLevel(RestAdapter.LogLevel.FULL)</span><br><span class="line">                .setEndpoint(BASE_URL)</span><br><span class="line">                .setConverter(new GsonConverter(gson))</span><br><span class="line">                .setRequestInterceptor(new SessionRequestInterceptor())</span><br><span class="line">                .setClient(new OkClient(MySSLTrust.getUnsafeOkHttpClient()))</span><br><span class="line">                .build();</span><br><span class="line"></span><br><span class="line">        apiService = restAdapter.create(ApiService.class);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public ApiService getApiService() &#123;</span><br><span class="line">        return apiService;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line">//MySSLTrust 的SSL信任</span><br><span class="line">public class MySSLTrust &#123;</span><br><span class="line">    public static OkHttpClient getUnsafeOkHttpClient() &#123;</span><br><span class="line">        try &#123;</span><br><span class="line">            // Create a trust manager that does not validate certificate chains</span><br><span class="line">            final TrustManager[] trustAllCerts = new TrustManager[] &#123;</span><br><span class="line">                    new X509TrustManager() &#123;</span><br><span class="line">                        @Override</span><br><span class="line">                        public void checkClientTrusted(java.security.cert.X509Certificate[] chain, String authType) throws CertificateException &#123;</span><br><span class="line">                        &#125;</span><br><span class="line"></span><br><span class="line">                        @Override</span><br><span class="line">                        public void checkServerTrusted(java.security.cert.X509Certificate[] chain, String authType) throws CertificateException &#123;</span><br><span class="line">                        &#125;</span><br><span class="line"></span><br><span class="line">                        @Override</span><br><span class="line">                        public java.security.cert.X509Certificate[] getAcceptedIssuers() &#123;</span><br><span class="line">                            return null;</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">            &#125;;</span><br><span class="line"></span><br><span class="line">            // Install the all-trusting trust manager</span><br><span class="line">            final SSLContext sslContext = SSLContext.getInstance(&quot;SSL&quot;);</span><br><span class="line">            sslContext.init(null, trustAllCerts, new java.security.SecureRandom());</span><br><span class="line">            // Create an ssl socket factory with our all-trusting manager</span><br><span class="line">            final SSLSocketFactory sslSocketFactory = sslContext.getSocketFactory();</span><br><span class="line"></span><br><span class="line">            OkHttpClient okHttpClient = new OkHttpClient();</span><br><span class="line">            okHttpClient.setSslSocketFactory(sslSocketFactory);</span><br><span class="line">            okHttpClient.setHostnameVerifier(new HostnameVerifier() &#123;</span><br><span class="line">                @Override</span><br><span class="line">                public boolean verify(String hostname, SSLSession session) &#123;</span><br><span class="line">                    return true;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;);</span><br><span class="line"></span><br><span class="line">            return okHttpClient;</span><br><span class="line">        &#125; catch (Exception e) &#123;</span><br><span class="line">            throw new RuntimeException(e);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * add Headers fro every request</span><br><span class="line"> * Created by Hanks on 2015/5/18.</span><br><span class="line"> */</span><br><span class="line">public class SessionRequestInterceptor implements RequestInterceptor &#123;</span><br><span class="line">    @Override</span><br><span class="line">    public void intercept(RequestFacade request) &#123;</span><br><span class="line">        /*request.addHeader(&quot;Accept&quot;, &quot;application/json;versions=1&quot;);</span><br><span class="line">        if(isUserLoggedIn())&#123;</span><br><span class="line">            request.addHeader(&quot;Authorization&quot;,getToken());</span><br><span class="line">        &#125;*/</span><br><span class="line">            request.addHeader(&quot;Authorization&quot;,&quot;huhu=&quot;)；</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>官网的几个例子：<br>API Declaration</p>
+<p>Annotations on the interface methods and its parameters indicate how a request will be handled.</p>
+<p>REQUEST METHOD</p>
+<p>Every method must have an HTTP annotation that provides the request method and relative URL. There are five built-in annotations: GET, POST, PUT, DELETE, and HEAD. The relative URL of the resource is specified in the annotation.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@GET(&quot;/users/list&quot;)</span><br></pre></td></tr></table></figure>
+<p>You can also specify query parameters in the URL.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@GET(&quot;/users/list?sort=desc&quot;)</span><br></pre></td></tr></table></figure>
+<p>URL MANIPULATION</p>
+<p>A request URL can be updated dynamically using replacement blocks and parameters on the method. A replacement block is an alphanumeric string surrounded by { and }. A corresponding parameter must be annotated with @Path using the same string.</p>
+<p>@GET(“&#x2F;group&#x2F;{id}&#x2F;users”)<br>List<User> groupList(@Path(“id”) int groupId);<br>Query parameters can also be added.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">@GET(&quot;/group/&#123;id&#125;/users&quot;)</span><br><span class="line">List&lt;User&gt; groupList(@Path(&quot;id&quot;) int groupId, @Query(&quot;sort&quot;) String sort);</span><br></pre></td></tr></table></figure>
+<p>For complex query parameter combinations a Map can be used.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@GET(&quot;/group/&#123;id&#125;/users&quot;)</span><br></pre></td></tr></table></figure>
+<p>List<User> groupList(@Path(“id”) int groupId, @QueryMap Map&lt;String, String&gt; options);<br>REQUEST BODY</p>
+<p>An object can be specified for use as an HTTP request body with the @Body annotation.</p>
+<p>@POST(“&#x2F;users&#x2F;new”)<br>void createUser(@Body User user, Callback<User> cb);<br>The object will also be converted using the RestAdapter’s converter.</p>
+<p>FORM ENCODED AND MULTIPART</p>
+<p>Methods can also be declared to send form-encoded and multipart data.</p>
+<p>Form-encoded data is sent when @FormUrlEncoded is present on the method. Each key-value pair is annotated with @Field containing the name and the object providing the value.</p>
+<p>@FormUrlEncoded<br>@POST(“&#x2F;user&#x2F;edit”)<br>User updateUser(@Field(“first_name”) String first, @Field(“last_name”) String last);<br>Multipart requests are used when @Multipart is present on the method. Parts are declared using the @Part annotation.</p>
+<p>@Multipart<br>@PUT(“&#x2F;user&#x2F;photo”)<br>User updateUser(@Part(“photo”) TypedFile photo, @Part(“description”) TypedString description);<br>Multipart parts use the RestAdapter’s converter or they can implement TypedOutput to handle their own serialization.</p>
+<p>HEADER MANIPULATION</p>
+<p>You can set static headers for a method using the @Headers annotation.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">@Headers(&quot;Cache-Control: max-age=640000&quot;)</span><br><span class="line">@GET(&quot;/widget/list&quot;)</span><br><span class="line">List&lt;Widget&gt; widgetList();</span><br><span class="line">@Headers(&#123;</span><br><span class="line">    &quot;Accept: application/vnd.github.v3.full+json&quot;,</span><br><span class="line">    &quot;User-Agent: Retrofit-Sample-App&quot;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@GET(&quot;/users/&#123;username&#125;&quot;)</span><br></pre></td></tr></table></figure>
+<p>User getUser(@Path(“username”) String username);<br>Note that headers do not overwrite each other. All headers with the same name will be included in the request.</p>
+<p>A request Header can be updated dynamically using the @Header annotation. A corresponding parameter must be provided to the @Header. If the value is null, the header will be omitted. Otherwise, toString will be called on the value, and the result used.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">@GET(&quot;/user&quot;)</span><br><span class="line">void getUser(@Header(&quot;Authorization&quot;) String authorization, Callback&lt;User&gt; callback)</span><br></pre></td></tr></table></figure>
+<p>Headers that need to be added to every request can be specified using a RequestInterceptor. The following code creates a RequestInterceptor that will add a User-Agent header to every request.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">RequestInterceptor requestInterceptor = new RequestInterceptor() &#123;</span><br><span class="line">  @Override</span><br><span class="line">  public void intercept(RequestFacade request) &#123;</span><br><span class="line">    request.addHeader(&quot;User-Agent&quot;, &quot;Retrofit-Sample-App&quot;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">RestAdapter restAdapter = new RestAdapter.Builder()</span><br><span class="line">  .setEndpoint(&quot;https://api.github.com&quot;)</span><br><span class="line">  .setRequestInterceptor(requestInterceptor)</span><br><span class="line">  .build();</span><br></pre></td></tr></table></figure>
+<p>SYNCHRONOUS VS. ASYNCHRONOUS VS. OBSERVABLE</p>
+<p>Methods can be declared for either synchronous or asynchronous execution.</p>
+<p>A method with a return type will be executed synchronously.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@GET(&quot;/user/&#123;id&#125;/photo&quot;)</span><br></pre></td></tr></table></figure>
+<p>Photo getUserPhoto(@Path(“id”) int id);<br>Asynchronous execution requires the last parameter of the method be a Callback.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@GET(&quot;/user/&#123;id&#125;/photo&quot;)</span><br></pre></td></tr></table></figure>
+<p>void getUserPhoto(@Path(“id”) int id, Callback<Photo> cb);<br>On Android, callbacks will be executed on the main thread. For desktop applications callbacks will happen on the same thread that executed the HTTP request.</p>
+<p>Retrofit also integrates RxJava to support methods with a return type of rx.Observable</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@GET(&quot;/user/&#123;id&#125;/photo&quot;)</span><br></pre></td></tr></table></figure>
+<p>Observable<Photo> getUserPhoto(@Path(“id”) int id);<br>Observable requests are subscribed asynchronously and observed on the same thread that executed the HTTP request. To observe on a different thread (e.g. Android’s main thread) call observeOn(Scheduler) on the returned Observable.</p>
+<p><strong>RESPONSE OBJECT TYPE</strong></p>
+<p>HTTP responses are automatically converted to a specified type using the RestAdapter’s converter which defaults to JSON. The desired type is declared as the method return type or using the Callback or Observable.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">@GET(&quot;/users/list&quot;)</span><br><span class="line">List&lt;User&gt; userList();</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">@GET(&quot;/users/list&quot;)</span><br><span class="line">void userList(Callback&lt;List&lt;User&gt;&gt; cb);</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">@GET(&quot;/users/list&quot;)</span><br><span class="line">Observable&lt;List&lt;User&gt;&gt; userList();</span><br></pre></td></tr></table></figure>
+<p>For access to the raw HTTP response use the Response type.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">@GET(&quot;/users/list&quot;)</span><br><span class="line">Response userList();</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">@GET(&quot;/users/list&quot;)</span><br><span class="line">void userList(Callback&lt;Response&gt; cb);</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">@GET(&quot;/users/list&quot;)</span><br><span class="line">Observable&lt;Response&gt; userList();</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+</article>
+
+<!-- 上一页 下一页 -->
+
+
+<nav id="article-nav">
+  
+    <a href="/2015/05/27/%E8%87%AA%E5%AE%9A%E4%B9%89View--%E6%93%8D%E4%BD%9C%E5%8A%A8%E7%94%BB/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>上一篇</span>
+      <div class="article-nav-title">
+        
+          自定义View--操作动画
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/05/24/android-AdvancedRecyclerview/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>下一篇</span>
+      <div class="article-nav-title">android-AdvancedRecyclerview</div>
+    </a>
+  
+</nav>
+
+
+
+<!-- 相关文章 -->
+
+<!--
+
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+      			<a href="/2015/05/27/%E5%89%8D%E6%96%B9%E9%AB%98%E8%83%BD--Retrofit/">前方高能--Retrofit</a>
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+
+-->
+
+
+</section>
+      </div>
+      <footer id="footer">
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      
+      &copy;2024<a target="_blank" rel="noopener" href="https://github.com/hanks-zyh"> Hanks</a>版权所有
+      <br/>
+      <a href="https://beian.miit.gov.cn/" target="_blank">豫ICP备2021022347号</a>
+	  </div>
+  </div>
+ <div id="share">
+  <a id="totop" title="" style="display: block;">返回顶部</a>
+ </div>
+</footer>
+
+    </div>
+    
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/jquery.scrollLoading.js"></script>
+
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/ads.js"></script>
+
+  </div>
+</body>
+</html>

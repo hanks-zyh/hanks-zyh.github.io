@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>hdu 1203 （01背包，灵活运用） | Hanks&#39; Websit</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <script data-ad-client="ca-pub-8165670162444117" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <meta name="referrer" content="never">
+  <meta name="description" content="https:&#x2F;&#x2F;acm.hdu.edu.cn&#x2F;showproblem.php?pid&#x3D;1203    &#x2F;***************************  1. 01 背包  2. 求至少一个的概率p，则先求全部没有的q ，最后1-q  3. 要使p最大，则需q最小，（价值最小）   4. q 等于放入背包所有 物品的价值的 乘积    # 2013-11-23 12:29:07   #">
+<meta property="og:type" content="article">
+<meta property="og:title" content="hdu 1203 （01背包，灵活运用）">
+<meta property="og:url" content="https://hanks.pub/2013/11/23/hdu_1203_%EF%BC%8801%E8%83%8C%E5%8C%85%EF%BC%8C%E7%81%B5%E6%B4%BB%E8%BF%90%E7%94%A8%EF%BC%89/index.html">
+<meta property="og:site_name" content="Hanks&#39; Websit">
+<meta property="og:description" content="https:&#x2F;&#x2F;acm.hdu.edu.cn&#x2F;showproblem.php?pid&#x3D;1203    &#x2F;***************************  1. 01 背包  2. 求至少一个的概率p，则先求全部没有的q ，最后1-q  3. 要使p最大，则需q最小，（价值最小）   4. q 等于放入背包所有 物品的价值的 乘积    # 2013-11-23 12:29:07   #">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2013-11-23T05:05:00.000Z">
+<meta property="article:modified_time" content="2024-02-08T01:29:02.182Z">
+<meta property="article:author" content="Hanks">
+<meta name="twitter:card" content="summary">
+  
+  
+  <link href="https://fonts.googleapis.com/css?family=Fira+Code|Noto+Serif+SC&display=swap" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8165670162444117"
+     crossorigin="anonymous"></script>
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo"></a>
+    <nav id="main-nav">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      
+        <a class="main-nav-link" href="/archives">Archive</a>
+      
+        <a class="main-nav-link" href="/eye-video">Eye</a>
+      
+        <a class="main-nav-link" href="/atom.xml">Rss</a>
+      
+    </nav>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/archives" class="mobile-nav-link">Archive</a>
+  
+    <a href="/eye-video" class="mobile-nav-link">Eye</a>
+  
+    <a href="/atom.xml" class="mobile-nav-link">Rss</a>
+  
+</nav>
+      <div class="outer">
+        <section id="main"><article id="post-hdu_1203_（01背包，灵活运用）" class="article article-type-post" itemscope
+  itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <header class="article-header">
+      
+      
+  
+    <h1 class="article-title" itemprop="name">
+      hdu 1203 （01背包，灵活运用）
+    </h1>
+  
+
+      
+    </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+<p>https://acm.hdu.edu.cn/showproblem.php?pid=1203<br>
+</p>
+<p><br>
+</p>
+<p><pre code_snippet_id="78504" snippet_file_name="blog_20131123_1_8932343"  name="code" class="cpp">/***************************
+ 1. 01 背包
+ 2. 求至少一个的概率p，则先求全部没有的q ，最后1-q
+ 3. 要使p最大，则需q最小，（价值最小） 
+ 4. q 等于放入背包所有 物品的价值的 乘积 
+ 
+# 2013-11-23 12:29:07  
+# Time: MS   Memory: K
+# Author: zyh
+***************************/ 
+#define N 10005
+#include&lt;iostream&gt;
+#include&lt;algorithm&gt;
+#include&lt;stdio.h&gt;
+#include&lt;string.h&gt;
+#include&lt;stdlib.h&gt;
+#include&lt;math.h&gt;
+using namespace std;
+
+int c[N];//重量
+double w[N]; //价值
+double f[N];  //N件物品可以放的最大价值 
+bool mark[N]; //标记哪些物品放入背包
+ 
+double zeroonepack(int V,int n)
+{
+	int i,j;	
+	for(i=0;i&lt;=V;i++) f[i]=1.0;
+	for(i=0;i&lt;n;i++)
+		for(j=V;j&gt;=c[i];j--)
+			if(f[j]&gt;f[j-c[i]]*w[i])
+				f[j] = f[j-c[i]]*w[i];
+	return 1-f[V];
+} 
+int main()
+{
+	int t,n,i,m;
+	
+	while(~scanf(&quot;%d%d&quot;,&amp;n,&amp;m),m||n){	
+		for(i=0;i&lt;m;i++){
+			scanf(&quot;%d %lf&quot;,&amp;c[i],&amp;w[i]);
+			w[i] = 1- w[i]; 
+		}
+		printf(&quot;%.1lf%%\n&quot;,zeroonepack(n,m)*100);
+	}
+	return 0; 
+}</pre><br>
+<br>
+</p>
+
+      
+    </div>
+</article>
+
+<!-- 上一页 下一页 -->
+
+
+<nav id="article-nav">
+  
+    <a href="/2013/11/23/hdu_%E9%A2%98%E7%9B%AE1114_Piggy-Bank%EF%BC%88%E5%AE%8C%E5%85%A8%E8%83%8C%E5%8C%85%EF%BC%89/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>上一篇</span>
+      <div class="article-nav-title">
+        
+          hdu 题目1114 Piggy-Bank（完全背包）
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2013/11/21/Hdu1999_%E4%B8%8D%E5%8F%AF%E6%91%B8%E6%95%B0%EF%BC%88%E6%B1%82%E5%A4%9A%E4%B8%AA%E6%95%B0%E7%9A%84%E5%9B%A0%E5%AD%90%E5%92%8C%EF%BC%89/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>下一篇</span>
+      <div class="article-nav-title">Hdu1999 不可摸数（求多个数的因子和）</div>
+    </a>
+  
+</nav>
+
+
+
+<!-- 相关文章 -->
+
+<!--
+
+-->
+
+
+</section>
+      </div>
+      <footer id="footer">
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      
+      &copy;2024<a target="_blank" rel="noopener" href="https://github.com/hanks-zyh"> Hanks</a>版权所有
+      <br/>
+      <a href="https://beian.miit.gov.cn/" target="_blank">豫ICP备2021022347号</a>
+	  </div>
+  </div>
+ <div id="share">
+  <a id="totop" title="" style="display: block;">返回顶部</a>
+ </div>
+</footer>
+
+    </div>
+    
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/jquery.scrollLoading.js"></script>
+
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/ads.js"></script>
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>抓包工具整理 | Hanks&#39; Websit</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <script data-ad-client="ca-pub-8165670162444117" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <meta name="referrer" content="never">
+  <meta name="description" content="github 地址  抓包工具整理  抓包工具 – Charles基于Java 跨平台： Linux , Mac OS X, Windows官网  Charles is an HTTP proxy &#x2F; HTTP monitor &#x2F; Reverse Proxy that enables a developer to view all of the HTTP and SSL &amp;#x">
+<meta property="og:type" content="article">
+<meta property="og:title" content="抓包工具整理">
+<meta property="og:url" content="https://hanks.pub/2015/11/02/capture/index.html">
+<meta property="og:site_name" content="Hanks&#39; Websit">
+<meta property="og:description" content="github 地址  抓包工具整理  抓包工具 – Charles基于Java 跨平台： Linux , Mac OS X, Windows官网  Charles is an HTTP proxy &#x2F; HTTP monitor &#x2F; Reverse Proxy that enables a developer to view all of the HTTP and SSL &amp;#x">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://www.charlesproxy.com/assets/img/sm/23/image/mac_screen_321.png?k=f28bf8eff3">
+<meta property="og:image" content="https://dn-coding-net-production-pp.qbox.me/ad193bbb-4d55-4feb-9e55-0634aa6dbfce.png">
+<meta property="og:image" content="https://dn-coding-net-production-pp.qbox.me/c48ee820-f6ae-4814-b505-ff4870db1f5b.png">
+<meta property="og:image" content="https://dn-coding-net-production-pp.qbox.me/027d34d1-c783-4aca-8db3-e0066bf4ca1b.png">
+<meta property="og:image" content="https://dn-coding-net-production-pp.qbox.me/4b91cf2a-e35b-4b9b-96ac-047eafe607e6.png">
+<meta property="og:image" content="https://dn-coding-net-production-pp.qbox.me/a2d09a30-ea72-42a1-818e-0982f7227784.png">
+<meta property="og:image" content="https://dn-coding-net-production-pp.qbox.me/85e1f4e1-c914-4ac1-9984-4492aad7096f.png">
+<meta property="og:image" content="https://dn-coding-net-production-pp.qbox.me/6992699a-cb21-44b7-9114-38d1b10f0272.png">
+<meta property="og:image" content="https://dn-coding-net-production-pp.qbox.me/c5446754-1d45-4d7d-ba48-44b6e26d3b4f.png">
+<meta property="og:image" content="https://dn-coding-net-production-pp.qbox.me/5cfa3fd1-879b-4db6-8f05-f8885d730964.png">
+<meta property="og:image" content="https://dn-coding-net-production-pp.qbox.me/70e7c4ad-f7c0-4e7a-bea6-2c4cdd36d50b.png">
+<meta property="og:image" content="https://imququ.com/static/uploads/2013/09/Snip20130913_20.png.webp">
+<meta property="article:published_time" content="2015-11-02T08:36:49.000Z">
+<meta property="article:modified_time" content="2024-02-08T01:29:02.181Z">
+<meta property="article:author" content="Hanks">
+<meta property="article:tag" content="必备知识">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.charlesproxy.com/assets/img/sm/23/image/mac_screen_321.png?k=f28bf8eff3">
+  
+  
+  <link href="https://fonts.googleapis.com/css?family=Fira+Code|Noto+Serif+SC&display=swap" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8165670162444117"
+     crossorigin="anonymous"></script>
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo"></a>
+    <nav id="main-nav">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      
+        <a class="main-nav-link" href="/archives">Archive</a>
+      
+        <a class="main-nav-link" href="/eye-video">Eye</a>
+      
+        <a class="main-nav-link" href="/atom.xml">Rss</a>
+      
+    </nav>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/archives" class="mobile-nav-link">Archive</a>
+  
+    <a href="/eye-video" class="mobile-nav-link">Eye</a>
+  
+    <a href="/atom.xml" class="mobile-nav-link">Rss</a>
+  
+</nav>
+      <div class="outer">
+        <section id="main"><article id="post-capture" class="article article-type-post" itemscope
+  itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <header class="article-header">
+      
+      
+  
+    <h1 class="article-title" itemprop="name">
+      抓包工具整理
+    </h1>
+  
+
+      
+    </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      <p><a target="_blank" rel="noopener" href="https://github.com/hanks-zyh/capturedata">github 地址</a></p>
+<blockquote>
+<p>抓包工具整理</p>
+</blockquote>
+<h1 id="抓包工具-–-Charles"><a href="#抓包工具-–-Charles" class="headerlink" title="抓包工具 – Charles"></a>抓包工具 – Charles</h1><p>基于Java 跨平台： Linux , Mac OS X, Windows<br><a target="_blank" rel="noopener" href="https://www.charlesproxy.com/">官网</a></p>
+<blockquote>
+<p>Charles is an HTTP proxy &#x2F; HTTP monitor &#x2F; Reverse Proxy that enables a developer to view all of the HTTP and SSL &#x2F; HTTPS traffic between their machine and the Internet. This includes requests, responses and the HTTP headers (which contain the cookies and caching information).</p>
+</blockquote>
+<p><img src="https://www.charlesproxy.com/assets/img/sm/23/image/mac_screen_321.png?k=f28bf8eff3"></p>
+<hr>
+<span id="more"></span>
+<p><strong>以下为Linux 平台</strong></p>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p><a target="_blank" rel="noopener" href="https://www.charlesproxy.com/latest-release/download.do">下载 charles-proxy-3.11.2.tar.gz</a></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 解压</span><br><span class="line">tar zxvf charles-proxy-3.11.2.tar.gz</span><br><span class="line"></span><br><span class="line"># 启动 charles</span><br><span class="line">./charles/bin/charles</span><br></pre></td></tr></table></figure>
+
+<h2 id="手机抓包"><a href="#手机抓包" class="headerlink" title="手机抓包"></a>手机抓包</h2><p><strong>前提：使手机和电脑在一个局域网内，不一定非要是一个ip段，只要是同一个路由下就可以了，比如电脑连接的有线网ip为192.168.16.12，然后手机链接的wifi ip为192.168.1.103，但是这个有线网和无线网的最终都是来自于一个外部ip，这样的话也是可以的。</strong></p>
+<p>在安卓手机的 <code>设置 -&gt; wlan -&gt; 长按连接的wifi -&gt; 修改网络 -&gt;  高级选项 -&gt; 代理选手动</code> ， 填入电脑的 ip 和 charles 监听的 端口（默认为 8888）</p>
+<blockquote>
+<p>查看电脑端口 ： <code>ifconfig</code><br>查看&#x2F;修改 charles 监听端口： charles的 <code>Proxy -&gt; Proxy Setting</code></p>
+</blockquote>
+<p>设置好之后Charles弹出确认框，点击Allow按钮即可</p>
+<p> <img src="https://dn-coding-net-production-pp.qbox.me/ad193bbb-4d55-4feb-9e55-0634aa6dbfce.png" alt="图片"></p>
+<p> <img src="https://dn-coding-net-production-pp.qbox.me/c48ee820-f6ae-4814-b505-ff4870db1f5b.png" alt="图片"></p>
+<h2 id="抓取-https"><a href="#抓取-https" class="headerlink" title="抓取 https"></a>抓取 https</h2><p> <img src="https://dn-coding-net-production-pp.qbox.me/027d34d1-c783-4aca-8db3-e0066bf4ca1b.png" alt="图片"></p>
+<h3 id="安装证书"><a href="#安装证书" class="headerlink" title="安装证书"></a>安装证书</h3><p>charles的 Help -&gt; SSL Proxy -&gt; Install charles Root</p>
+<h3 id="设置-ssl-enable"><a href="#设置-ssl-enable" class="headerlink" title="设置 ssl enable"></a>设置 ssl enable</h3><p>在需要抓取的 https 链接上 右键 <code>enable ssl proxy</code><br><img src="https://dn-coding-net-production-pp.qbox.me/4b91cf2a-e35b-4b9b-96ac-047eafe607e6.png" alt="图片"></p>
+<p>参考 <a target="_blank" rel="noopener" href="https://drops.wooyun.org/tips/2423">charles使用教程指南</a></p>
+<h1 id="抓包工具-–-mitmproxy"><a href="#抓包工具-–-mitmproxy" class="headerlink" title="抓包工具 – mitmproxy"></a>抓包工具 – mitmproxy</h1><p>基于python 跨平台： linux, windows，	OSX (Mountain Lion and later)<br><a target="_blank" rel="noopener" href="https://mitmproxy.org/">官网</a></p>
+<blockquote>
+<p>Mitmproxy是一个基于python的中间人代理的框架。做过渗透测试的肯定很熟悉工具burpsuite或Fiddler，这些工具能够拦截并修改http或https的数据包，对于分析数据包交互的应用来说是非常有用的。但是这些工具都是整套给我们做好了。比如如果想自己定制一套这样的工具，添加一些自己需要的功能的话，那么我想，mitmproxy将是一个比较好的选择，因为它提供了一个可供用户调用的库libmproxy（注意该库目前只支持linux系统）。</p>
+</blockquote>
+<p><img src="https://dn-coding-net-production-pp.qbox.me/a2d09a30-ea72-42a1-818e-0982f7227784.png" alt="图片"></p>
+<p><img src="https://dn-coding-net-production-pp.qbox.me/85e1f4e1-c914-4ac1-9984-4492aad7096f.png" alt="图片"></p>
+<p><img src="https://dn-coding-net-production-pp.qbox.me/6992699a-cb21-44b7-9114-38d1b10f0272.png" alt="图片"></p>
+<hr>
+<p><strong>以下基于Linux台（Ubuntu14.04）</strong></p>
+<h2 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ sudo pip install mitmproxy</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>如果下载速度慢可以下载<a target="_blank" rel="noopener" href="https://mitmproxy.org/download/mitmproxy-0.14.0.tar.gz">tar包</a></p>
+<h2 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ mitmproxy -b 192.168.1.29 -p 9999</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>输入 <code>？</code> 查看帮助， <code>q</code>返回</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">A      accept all intercepted flows</span><br><span class="line">a      accept this intercepted flow</span><br><span class="line">b      save request/response body</span><br><span class="line">C      clear flow list or eventlog</span><br><span class="line">d      delete flow</span><br><span class="line">D      duplicate flow</span><br><span class="line">e      toggle eventlog</span><br><span class="line">F      toggle follow flow list</span><br><span class="line">l      set limit filter pattern</span><br><span class="line">L      load saved flows</span><br><span class="line">m      toggle flow mark</span><br><span class="line">n      create a new request</span><br><span class="line">P      copy flow to clipboard</span><br><span class="line">r      replay request</span><br><span class="line">U      unmark all marked flows</span><br><span class="line">V      revert changes to request</span><br><span class="line">w      save flows</span><br><span class="line">W      stream flows to file</span><br><span class="line">X      kill and delete flow, even if it&#x27;s mid-intercept</span><br><span class="line">tab    tab between eventlog and flow list</span><br><span class="line">enter  view flow</span><br><span class="line">|      run script on this flow</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>手机设置好代理，界面上就可以看到请求了<br><img src="https://dn-coding-net-production-pp.qbox.me/c5446754-1d45-4d7d-ba48-44b6e26d3b4f.png" alt="图片"></p>
+<h2 id="mitmproxy-查看http请求响应"><a href="#mitmproxy-查看http请求响应" class="headerlink" title="mitmproxy 查看http请求响应"></a>mitmproxy 查看http请求响应</h2><p><code>C (大写)</code> 清除抓包结果</p>
+<p><code>j</code>  <code>k</code> 选择请求， 回车查看详细信息</p>
+<p> <img src="https://dn-coding-net-production-pp.qbox.me/5cfa3fd1-879b-4db6-8f05-f8885d730964.png" alt="图片"></p>
+<p><code>tab</code>   切换 <strong>Request</strong> 和 <strong>Response</strong></p>
+<p><code>m</code> Display Mode 美化信息<br> <img src="https://dn-coding-net-production-pp.qbox.me/70e7c4ad-f7c0-4e7a-bea6-2c4cdd36d50b.png" alt="图片"><br> 上图输入 m，在输入 s，便可以以json形式展示</p>
+<p><code>e</code> 编辑<br>Edit request (cookies,query,path,url,header,form,raw body,method)?<br>Edit response (cookies,code,message,header,raw body)?</p>
+<h3 id="mitmproxy拦截-Intercept"><a href="#mitmproxy拦截-Intercept" class="headerlink" title="mitmproxy拦截 (Intercept)"></a>mitmproxy拦截 (Intercept)</h3><p>相当于在客户端和服务器做中间人，可以修改客户端请求，修改服务器返回</p>
+<p>输入 <code>i</code>（代表Intercept filter）即可，此时界面便会让你输入想要拦截的条件：</p>
+<p>mitmproxy的条件拦截在默认情况下是过滤抓包的URL的。也就是说当你直接输入要拦截的条件（比如输入“weibo”），那么接下来要出现抓包会将匹配的抓包整体变黄：</p>
+<p>mitmproxy条件过滤效果<br>mitmproxy条件拦截效果<br>这些橘黄色的数据包都代表被拦截了，还未发送给服务器，这个时候你就可以对这些数据包进行修改，我们选择一个数据包enter进入：</p>
+<p>mitmproxy 拦截 选择数据包<br>与之前的类似，输入“e”，进行request编辑模式，然后输入“h”代表要编辑request的头部:</p>
+<p>mitmproxy 编辑拦截包的头部<br>输入enter便可对高亮的User-Agent的值进行修改，上图的weibo版本之前是5.0的，被我改成了6.0 。我们还可以对header进行添加属性，输入“a”即可，然后使用tab分别键入key和value。这里我添加了“test－test”键值对：</p>
+<p>mitmproxy 拦截header添加键值对<br>至此，我对拦截的request header已经修改完毕，现在要做的就是我要认可接受这个修改，然后发给服务器。所以我们输入“a”（代表“accept”）即可，等到服务器响应后，注意，mitmproxy便又了拦截服务器发过来的response（注意那个“Response intercepted”）：</p>
+<p>mitmproxy 拦截response<br>现在如果你想修改这个response也可以，方式同上面修改request一样。这个时候我再输入“a”，代表我接受了这个response，然后这个response便可发给客户端了:</p>
+<p>mitmproxy 拦截response之后accept</p>
+<p>更多类型的mitmproxy拦截</p>
+<p>同时mitmproxy还支持不同类型的条件过滤，之前在拦截字符串前面加上特定的参数比如我要拦截所有的POST request怎么办？输入：~m POST 即可（m代表method）：</p>
+<p>mitmproxy 拦截特定的request 方法</p>
+<p>拦截所有的request： ~q</p>
+<p>拦截特定的header： ~h</p>
+<p>拦截特定的domain： ~d</p>
+<p>拦截特定的响应代码（404之类的）： ~c</p>
+<p>mitmproxy官方文档。</p>
+<hr>
+<h1 id="抓包工具-–-Fiddler"><a href="#抓包工具-–-Fiddler" class="headerlink" title="抓包工具 – Fiddler"></a>抓包工具 – Fiddler</h1><p>基于C#  windows, Linux看这里 <a target="_blank" rel="noopener" href="https://fiddler.wikidot.com/mono">Mono Fiddler</a></p>
+<hr>
+<h2 id="下载-1"><a href="#下载-1" class="headerlink" title="下载"></a>下载</h2><p>直接下载，安装即可</p>
+<h2 id="手机抓包-1"><a href="#手机抓包-1" class="headerlink" title="手机抓包"></a>手机抓包</h2><p><img src="https://imququ.com/static/uploads/2013/09/Snip20130913_20.png.webp"></p>
+<hr>
+<h1 id="抓包工具-–-wireshark"><a href="#抓包工具-–-wireshark" class="headerlink" title="抓包工具 – wireshark"></a>抓包工具 – wireshark</h1><p>跨平台：Windows，OS X ，Linux</p>
+<p><a target="_blank" rel="noopener" href="https://www.wireshark.org/">官网</a></p>
+
+      
+    </div>
+</article>
+
+<!-- 上一页 下一页 -->
+
+
+<nav id="article-nav">
+  
+    <a href="/2015/11/17/%E6%A0%A1%E9%AA%8C%E6%95%B0%E5%AD%97%E7%AD%BE%E5%90%8D%E9%98%B2%E6%AD%A2_apk_%E8%A2%AB%E4%BA%8C%E6%AC%A1%E6%89%93%E5%8C%85_-_Java%E5%B1%82%E6%A0%A1%E9%AA%8C%EF%BC%88%E5%A4%A7%E4%BC%97%E7%82%B9%E8%AF%84%E4%B8%BA%E4%BE%8B%EF%BC%89/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>上一篇</span>
+      <div class="article-nav-title">
+        
+          校验数字签名防止 apk 被二次打包 - Java层校验（大众点评为例）
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/11/01/adb-wifi/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>下一篇</span>
+      <div class="article-nav-title">利用ADB 来进行无线调试</div>
+    </a>
+  
+</nav>
+
+
+
+<!-- 相关文章 -->
+
+<!--
+
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+      			<a href="/2015/11/02/capture/">抓包工具整理</a>
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+
+-->
+
+
+</section>
+      </div>
+      <footer id="footer">
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      
+      &copy;2024<a target="_blank" rel="noopener" href="https://github.com/hanks-zyh"> Hanks</a>版权所有
+      <br/>
+      <a href="https://beian.miit.gov.cn/" target="_blank">豫ICP备2021022347号</a>
+	  </div>
+  </div>
+ <div id="share">
+  <a id="totop" title="" style="display: block;">返回顶部</a>
+ </div>
+</footer>
+
+    </div>
+    
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/jquery.scrollLoading.js"></script>
+
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/ads.js"></script>
+
+  </div>
+</body>
+</html>

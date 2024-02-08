@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>NYOJ 517 最小公倍数 （1-n 个数的最小公倍数，大数） | Hanks&#39; Websit</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <script data-ad-client="ca-pub-8165670162444117" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <meta name="referrer" content="never">
+  <meta name="description" content="https:&#x2F;&#x2F;acm.nyist.net&#x2F;JudgeOnline&#x2F;problem.php?pid&#x3D;517 &nbsp; &nbsp; &#x2F;*  为什么1小时有60分钟，而不是100分钟呢？这是历史上的习惯导致。 但也并非纯粹的偶然：60是个优秀的数字，它的因子比较多。 事实上，它是1至6的每个数字的倍数。即1,2,3,4,5,6都是可以除尽60。   我们希望寻找到能除尽1至n的的每个数字的最小">
+<meta property="og:type" content="article">
+<meta property="og:title" content="NYOJ 517 最小公倍数 （1-n 个数的最小公倍数，大数）">
+<meta property="og:url" content="https://hanks.pub/2013/10/23/NYOJ_517_%E6%9C%80%E5%B0%8F%E5%85%AC%E5%80%8D%E6%95%B0_%EF%BC%881-n_%E4%B8%AA%E6%95%B0%E7%9A%84%E6%9C%80%E5%B0%8F%E5%85%AC%E5%80%8D%E6%95%B0%EF%BC%8C%E5%A4%A7%E6%95%B0%EF%BC%89/index.html">
+<meta property="og:site_name" content="Hanks&#39; Websit">
+<meta property="og:description" content="https:&#x2F;&#x2F;acm.nyist.net&#x2F;JudgeOnline&#x2F;problem.php?pid&#x3D;517 &nbsp; &nbsp; &#x2F;*  为什么1小时有60分钟，而不是100分钟呢？这是历史上的习惯导致。 但也并非纯粹的偶然：60是个优秀的数字，它的因子比较多。 事实上，它是1至6的每个数字的倍数。即1,2,3,4,5,6都是可以除尽60。   我们希望寻找到能除尽1至n的的每个数字的最小">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2013-10-23T13:47:00.000Z">
+<meta property="article:modified_time" content="2024-02-08T01:29:02.174Z">
+<meta property="article:author" content="Hanks">
+<meta name="twitter:card" content="summary">
+  
+  
+  <link href="https://fonts.googleapis.com/css?family=Fira+Code|Noto+Serif+SC&display=swap" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8165670162444117"
+     crossorigin="anonymous"></script>
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo"></a>
+    <nav id="main-nav">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      
+        <a class="main-nav-link" href="/archives">Archive</a>
+      
+        <a class="main-nav-link" href="/eye-video">Eye</a>
+      
+        <a class="main-nav-link" href="/atom.xml">Rss</a>
+      
+    </nav>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/archives" class="mobile-nav-link">Archive</a>
+  
+    <a href="/eye-video" class="mobile-nav-link">Eye</a>
+  
+    <a href="/atom.xml" class="mobile-nav-link">Rss</a>
+  
+</nav>
+      <div class="outer">
+        <section id="main"><article id="post-NYOJ_517_最小公倍数_（1-n_个数的最小公倍数，大数）" class="article article-type-post" itemscope
+  itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <header class="article-header">
+      
+      
+  
+    <h1 class="article-title" itemprop="name">
+      NYOJ 517 最小公倍数 （1-n 个数的最小公倍数，大数）
+    </h1>
+  
+
+      
+    </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+<p><a target="_blank" href="https://acm.nyist.net/JudgeOnline/problem.php?pid=517">https://acm.nyist.net/JudgeOnline/problem.php?pid=517</a></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<pre class="java" name="code">/*
+ 为什么1小时有60分钟，而不是100分钟呢？这是历史上的习惯导致。 但也并非纯粹的偶然：60是个优秀的数字，它的因子比较多。 事实上，它是1至6的每个数字的倍数。即1,2,3,4,5,6都是可以除尽60。
+
+ 我们希望寻找到能除尽1至n的的每个数字的最小整数。
+
+ 不要小看这个数字，它可能十分大，比如n=100, 则该数为： 69720375229712477164533808935312303556800
+
+ 请编写程序，实现对用户输入的 n （n&lt;100）求出1~n的最小公倍数。
+
+ 例如： 用户输入： 6 程序输出： 60
+
+ 用户输入： 10 程序输出： 2520
+
+ 要求考生把所有函数写在一个文件中。调试好后，存入与考生文件夹下对应题号的“解答.txt”中即可。 相关的工程文件不要拷入。 对于编程题目，要求选手给出的解答完全符合ANSI C标准，不能使用c&#43;&#43;特性； 不能使用诸如绘图、中断调用等硬件相关或操作系统相关的API。
+
+
+
+ 本题满分：19分
+
+ 共4个用例：
+
+ (2分) 输入： 3 输出： 6
+
+ (3分) 输入： 16 输出： 720720
+
+ (5分) 输入： 25 输出： 26771144400
+
+ (9分) 输入： 77 输出： 410555180440430163438262940577600
+
+
+ 最小公倍数就是所有质数的相应幂的积
+ 比如N=10
+ 小于10的质数有2,3,5,7
+ 对应的最大幂是：3，2，1，1
+ 则最小公倍数是：2^3x3^2x5^1x7^1 = 2520
+
+ * 
+ */
+
+import java.math.BigInteger;
+import java.util.Scanner;
+
+public class Minmugcd {
+	static boolean issushu(int n) {
+		if (n == 2 || n == 1)
+			return true;
+		for (int i = 2; i &lt;= Math.sqrt(n); i&#43;&#43;) {
+			if (n % i == 0)
+				return false;
+		}
+		return true;
+	}
+
+	public static void main(String[] args) {
+		BigInteger ans;
+		int tmp = 0;
+		Scanner cin = new Scanner(System.in);
+		while (cin.hasNext()) {
+
+			ans = BigInteger.ONE;
+			int n = cin.nextInt();
+			// System.out.println(&quot;n=&quot;&#43;n);
+			for (int i = 2; i &lt;= n; i&#43;&#43;) {
+				tmp = 1;
+				if (issushu(i)) {
+					while (tmp * i &lt;= n) {
+						tmp *= i;
+					}
+				}
+				// System.out.println(tmp);
+				ans = ans.multiply(BigInteger.valueOf(tmp));
+			}
+			System.out.println(ans);
+
+		}
+	}
+}
+</pre>
+<br>
+
+      
+    </div>
+</article>
+
+<!-- 上一页 下一页 -->
+
+
+<nav id="article-nav">
+  
+    <a href="/2013/10/26/NYOJ_%E9%A2%98%E7%9B%AE854_%E7%95%99%E6%81%8B/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>上一篇</span>
+      <div class="article-nav-title">
+        
+          NYOJ 题目854 留恋
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2013/10/20/POJ_1220_%EF%BC%88%E4%B8%A4%E7%A7%8D%E4%BB%BB%E6%84%8F%E8%BF%9B%E5%88%B6%E4%B9%8B%E9%97%B4%E7%9A%84%E8%BD%AC%E6%8D%A2%EF%BC%88%E5%A4%A7%E6%95%B0%EF%BC%89%EF%BC%8Cjava%E7%9A%84BigInteger%EF%BC%89/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>下一篇</span>
+      <div class="article-nav-title">POJ 1220 （两种任意进制之间的转换（大数），java的BigInteger）</div>
+    </a>
+  
+</nav>
+
+
+
+<!-- 相关文章 -->
+
+<!--
+
+-->
+
+
+</section>
+      </div>
+      <footer id="footer">
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      
+      &copy;2024<a target="_blank" rel="noopener" href="https://github.com/hanks-zyh"> Hanks</a>版权所有
+      <br/>
+      <a href="https://beian.miit.gov.cn/" target="_blank">豫ICP备2021022347号</a>
+	  </div>
+  </div>
+ <div id="share">
+  <a id="totop" title="" style="display: block;">返回顶部</a>
+ </div>
+</footer>
+
+    </div>
+    
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/jquery.scrollLoading.js"></script>
+
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/ads.js"></script>
+
+  </div>
+</body>
+</html>

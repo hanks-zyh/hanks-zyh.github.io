@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>写一个福利 Telegram 机器人 | Hanks&#39; Websit</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <script data-ad-client="ca-pub-8165670162444117" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <meta name="referrer" content="never">
+  <meta name="description" content="利用 Telegram 提供的 API 写一机器人，通过发送指令来执行一些任务。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="写一个福利 Telegram 机器人">
+<meta property="og:url" content="https://hanks.pub/2016/08/04/telegram-bot/index.html">
+<meta property="og:site_name" content="Hanks&#39; Websit">
+<meta property="og:description" content="利用 Telegram 提供的 API 写一机器人，通过发送指令来执行一些任务。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://ww1.sinaimg.cn/large/8c9b876fjw1f6gyh0y6l8j20k00zktb8.jpg">
+<meta property="og:image" content="https://ww2.sinaimg.cn/large/8c9b876fjw1f6gyodg5q4j20k00zk782.jpg">
+<meta property="article:published_time" content="2016-08-04T01:58:03.000Z">
+<meta property="article:modified_time" content="2024-02-08T01:29:02.194Z">
+<meta property="article:author" content="Hanks">
+<meta property="article:tag" content="Telegram">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://ww1.sinaimg.cn/large/8c9b876fjw1f6gyh0y6l8j20k00zktb8.jpg">
+  
+  
+  <link href="https://fonts.googleapis.com/css?family=Fira+Code|Noto+Serif+SC&display=swap" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8165670162444117"
+     crossorigin="anonymous"></script>
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo"></a>
+    <nav id="main-nav">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      
+        <a class="main-nav-link" href="/archives">Archive</a>
+      
+        <a class="main-nav-link" href="/eye-video">Eye</a>
+      
+        <a class="main-nav-link" href="/atom.xml">Rss</a>
+      
+    </nav>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/archives" class="mobile-nav-link">Archive</a>
+  
+    <a href="/eye-video" class="mobile-nav-link">Eye</a>
+  
+    <a href="/atom.xml" class="mobile-nav-link">Rss</a>
+  
+</nav>
+      <div class="outer">
+        <section id="main"><article id="post-telegram-bot" class="article article-type-post" itemscope
+  itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <header class="article-header">
+      
+      
+  
+    <h1 class="article-title" itemprop="name">
+      写一个福利 Telegram 机器人
+    </h1>
+  
+
+      
+    </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      <p>利用 Telegram 提供的 API 写一机器人，通过发送指令来执行一些任务。</p>
+<span id="more"></span>
+
+<img src="https://ww1.sinaimg.cn/large/8c9b876fjw1f6gyh0y6l8j20k00zktb8.jpg" alt="img" width="240" height="427">
+
+<p><a target="_blank" rel="noopener" href="https://core.telegram.org/bots/api">官网</a></p>
+<h2 id="创建-bot"><a href="#创建-bot" class="headerlink" title="创建 bot"></a>创建 bot</h2><p>根据文档，在 telegram 里面添加 <a target="_blank" rel="noopener" href="https://telegram.me/botfather">@BotFather</a>, 然后跟他聊天来创建机器人</p>
+<p><img src="https://ww2.sinaimg.cn/large/8c9b876fjw1f6gyodg5q4j20k00zk782.jpg"></p>
+<p>拿到 <code>token</code></p>
+<h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><p>在浏览器中（翻墙）输入 <code>https://api.telegram.org/botYOU_TOKEN/getMe</code> 测试：<br>返回如下格式，说明成功。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;ok&quot;: true,</span><br><span class="line">    &quot;result&quot;: &#123;</span><br><span class="line">        &quot;id&quot;: 249208551,</span><br><span class="line">        &quot;first_name&quot;: &quot;LinuxC&quot;,</span><br><span class="line">        &quot;username&quot;: &quot;LinuxC_bot&quot;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="编写-api"><a href="#编写-api" class="headerlink" title="编写 api"></a>编写 api</h2><p>我使用的 node 写的， 参考 <a target="_blank" rel="noopener" href="https://github.com/Naltox/telegram-node-bot">telegram-node-bot</a></p>
+<p>首先安装 <code>telegram-node-bot</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install --save telegram-node-bot</span><br></pre></td></tr></table></figure>
+
+<p>然后创建 app.js</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">&#x27;use strict&#x27;</span><br><span class="line"></span><br><span class="line">var api = require(&#x27;./api&#x27;)</span><br><span class="line"></span><br><span class="line">const Telegram = require(&#x27;telegram-node-bot&#x27;)</span><br><span class="line">const TelegramBaseController = Telegram.TelegramBaseController</span><br><span class="line">const tg = new Telegram.Telegram(&#x27;YOU_TOKEN&#x27;)</span><br><span class="line"></span><br><span class="line">class PingController extends TelegramBaseController&#123;</span><br><span class="line">    pingHandler($)&#123;</span><br><span class="line">        api.getMZ(function(data)&#123;</span><br><span class="line">            $.sendMessage(data)</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">    get routes()&#123;</span><br><span class="line">        return &#123; &#x27;ping&#x27;:&#x27;pingHandler&#x27;&#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">tg.router</span><br><span class="line">  .when([&#x27;ping&#x27;],new PingController())</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>抓取图片的 <code>api.js</code>, 抓取图片可以参考前面的文章 <a target="_blank" rel="noopener" href="https://hanks.xyz/2016/05/26/node-spider/">Node.js 爬微信文章</a></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&#x27;use strict&#x27;</span><br><span class="line">var http = require(&#x27;http&#x27;)</span><br><span class="line">var cheerio = require(&#x27;cheerio&#x27;)</span><br><span class="line"></span><br><span class="line">var url = &#x27;https://www.kmeitu.com/&#x27;;</span><br><span class="line"></span><br><span class="line">function getPicture(html)&#123;</span><br><span class="line">    var array = []</span><br><span class="line">    var $ = cheerio.load(html)</span><br><span class="line">    var items = $(&#x27;.lz-img&#x27;)</span><br><span class="line">    items.each(function (item) &#123;</span><br><span class="line">        var url = $(this).attr(&#x27;data-src&#x27;).replace(/\s+/g, &#x27;&#x27;)</span><br><span class="line">        array.push(url)</span><br><span class="line">    &#125;)</span><br><span class="line">    return array[Math.floor(Math.random()*array.length)]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">exports.getMZ = function(callback)&#123;</span><br><span class="line">    http.get(url, function (res) &#123;</span><br><span class="line">        var html = &#x27;&#x27;</span><br><span class="line">        res.on(&#x27;data&#x27;, function (data) &#123;</span><br><span class="line">            html += data</span><br><span class="line">        &#125;)</span><br><span class="line">        res.on(&#x27;end&#x27;, function () &#123;</span><br><span class="line">            //console.log(html)</span><br><span class="line">            var array = getPicture(html)</span><br><span class="line">            callback(array)</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;).on(&#x27;error&#x27;, function (e) &#123;</span><br><span class="line">        console.log(&#x27;get html error&#x27;)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>然后运行 <code>node app.js</code> 即可<br>注意点： 全程需要 FQ（跟 telegram 连接用）， <code>app.js</code> 方法服务器运行（我使用的 <code>pm2</code> ）。</p>
+<blockquote>
+<p>文章来自： <a href="https://hanks.pub/">https://hanks.pub</a></p>
+</blockquote>
+
+      
+    </div>
+</article>
+
+<!-- 上一页 下一页 -->
+
+
+<nav id="article-nav">
+  
+    <a href="/2016/08/29/nestedchildparent/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>上一篇</span>
+      <div class="article-nav-title">
+        
+          NestedScrollingParent 实现复杂交互效果
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/07/31/write-butterkinfe/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>下一篇</span>
+      <div class="article-nav-title">写一个 ButterKnife</div>
+    </a>
+  
+</nav>
+
+
+
+<!-- 相关文章 -->
+
+<!--
+
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+      			<a href="/2016/08/04/telegram-bot/">写一个福利 Telegram 机器人</a>
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+
+-->
+
+
+</section>
+      </div>
+      <footer id="footer">
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      
+      &copy;2024<a target="_blank" rel="noopener" href="https://github.com/hanks-zyh"> Hanks</a>版权所有
+      <br/>
+      <a href="https://beian.miit.gov.cn/" target="_blank">豫ICP备2021022347号</a>
+	  </div>
+  </div>
+ <div id="share">
+  <a id="totop" title="" style="display: block;">返回顶部</a>
+ </div>
+</footer>
+
+    </div>
+    
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/jquery.scrollLoading.js"></script>
+
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/ads.js"></script>
+
+  </div>
+</body>
+</html>

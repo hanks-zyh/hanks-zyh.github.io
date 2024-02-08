@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>探究 lua 在 Android 中的应用 | Hanks&#39; Websit</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <script data-ad-client="ca-pub-8165670162444117" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <meta name="referrer" content="never">
+  <meta name="description" content="根据前面的文章 Android 与 Lua 可以大概了解 Lua 。在 Android（移动设备）中，可以通过灵活加载 Lua 脚本，使应用更加灵活，轻松面对多变的需求。luajava 在 jni 层主要实现了5个方法，借助这5个方法lua几乎可以使用所有的java类了。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="探究 lua 在 Android 中的应用">
+<meta property="og:url" content="https://hanks.pub/2017/04/28/lua-in-android/index.html">
+<meta property="og:site_name" content="Hanks&#39; Websit">
+<meta property="og:description" content="根据前面的文章 Android 与 Lua 可以大概了解 Lua 。在 Android（移动设备）中，可以通过灵活加载 Lua 脚本，使应用更加灵活，轻松面对多变的需求。luajava 在 jni 层主要实现了5个方法，借助这5个方法lua几乎可以使用所有的java类了。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2017-04-28T14:04:24.000Z">
+<meta property="article:modified_time" content="2024-02-08T01:29:02.188Z">
+<meta property="article:author" content="Hanks">
+<meta property="article:tag" content="Android">
+<meta property="article:tag" content="Lua">
+<meta name="twitter:card" content="summary">
+  
+  
+  <link href="https://fonts.googleapis.com/css?family=Fira+Code|Noto+Serif+SC&display=swap" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8165670162444117"
+     crossorigin="anonymous"></script>
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo"></a>
+    <nav id="main-nav">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      
+        <a class="main-nav-link" href="/archives">Archive</a>
+      
+        <a class="main-nav-link" href="/eye-video">Eye</a>
+      
+        <a class="main-nav-link" href="/atom.xml">Rss</a>
+      
+    </nav>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/archives" class="mobile-nav-link">Archive</a>
+  
+    <a href="/eye-video" class="mobile-nav-link">Eye</a>
+  
+    <a href="/atom.xml" class="mobile-nav-link">Rss</a>
+  
+</nav>
+      <div class="outer">
+        <section id="main"><article id="post-lua-in-android" class="article article-type-post" itemscope
+  itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <header class="article-header">
+      
+      
+  
+    <h1 class="article-title" itemprop="name">
+      探究 lua 在 Android 中的应用
+    </h1>
+  
+
+      
+    </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      <p>根据前面的文章 <a href="https://hanks.pub/2017/01/10/android-lua/">Android 与 Lua</a> 可以大概了解 Lua 。在 Android（移动设备）中，可以通过灵活加载 Lua 脚本，使应用更加灵活，轻松面对多变的需求。luajava 在 jni 层主要实现了5个方法，借助这5个方法lua几乎可以使用所有的java类了。</p>
+<span id="more"></span>
+
+<h2 id="Java-和-lua-交互"><a href="#Java-和-lua-交互" class="headerlink" title="Java 和 lua 交互"></a>Java 和 lua 交互</h2><p>关于 java 和 lua 交互的大概有两个项目。<br>一个是 <a target="_blank" rel="noopener" href="https://github.com/jasonsantos/luajava">luajava</a>，通过 java 的 jni 功能，java 与 c 交互，然后 c 调用 lua ，延伸出来的有 <a target="_blank" rel="noopener" href="https://github.com/mkottman/AndroLua">AndroLua</a>。还有在 Android 平台的 lua 编辑器 <a target="_blank" rel="noopener" href="https://github.com/nirenr/androlua_pro">AndroLua+</a>，用来开发 Android。</p>
+<p>还有一个 <a target="_blank" rel="noopener" href="https://www.luaj.org/luaj/3.0/README.html">luaj</a>，纯 java 实现的 Lua 解释器，基于 Lua 5.2.x。前面介绍的 LuaSdkView 就是基于 luaj 修改的。在 lua 调用任意 java 类方面，LuaSdkView 实现了一些通用的类来创建java对象，调用方法。</p>
+<p>接下来看 luaj 的具体使用。 </p>
+<h3 id="java-调用-lua"><a href="#java-调用-lua" class="headerlink" title="java 调用 lua"></a>java 调用 lua</h3><p>hello.lua 文件</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span> <span class="string">&#x27;----hello.lua---&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">sum</span><span class="params">( num1, num2 )</span></span></span><br><span class="line">    <span class="keyword">return</span> num1 + num2</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getName</span><span class="params">()</span></span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;hanks&#x27;</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>Test.java 文件</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">// 加载 lua 文件</span></span><br><span class="line"><span class="type">Globals</span> <span class="variable">G</span> <span class="operator">=</span> JsePlatform.standardGlobals();</span><br><span class="line"><span class="type">LuaValue</span> <span class="variable">scriptValue</span> <span class="operator">=</span> G.load(<span class="string">&quot;print &#x27;hello, world&#x27;&quot;</span>);</span><br><span class="line">scriptValue.call();<span class="comment">// 打印出 hello, world</span></span><br><span class="line"></span><br><span class="line">G.get(<span class="string">&quot;dofile&quot;</span>).call(LuaValue.valueOf(<span class="string">&quot;hello.lua&quot;</span>)); <span class="comment">// 打印出 ----hello.lua---</span></span><br><span class="line"></span><br><span class="line"><span class="type">LuaValue</span> <span class="variable">sumFuc</span> <span class="operator">=</span> G.get(<span class="string">&quot;sum&quot;</span>);</span><br><span class="line"><span class="type">LuaValue</span> <span class="variable">sum</span> <span class="operator">=</span> sumFuc.call(LuaValue.valueOf(<span class="number">5</span>), LuaValue.valueOf(<span class="number">3</span>));</span><br><span class="line">System.out.println(sum.toint()); <span class="comment">// 打印出 8</span></span><br><span class="line"></span><br><span class="line"><span class="type">LuaValue</span> <span class="variable">getNameFun</span> <span class="operator">=</span> G.get(<span class="string">&quot;getName&quot;</span>);</span><br><span class="line"><span class="type">LuaValue</span> <span class="variable">name</span> <span class="operator">=</span> getNameFun.call();</span><br><span class="line">System.out.println(name.tojstring());  <span class="comment">// 打印出 hanks</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="lua-调用-java"><a href="#lua-调用-java" class="headerlink" title="lua 调用 java"></a>lua 调用 java</h3><p>直接调用</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">local Thread = luajava.bindClass(&#x27;java.lang.Thread&#x27;)</span><br><span class="line">print(Thread) // 打印 class java.lang.Thread</span><br></pre></td></tr></table></figure>
+
+<p>定义 hyperbolic.java</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">hyperbolic</span> <span class="keyword">extends</span> <span class="title class_">TwoArgFunction</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">hyperbolic</span><span class="params">()</span> &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> LuaValue <span class="title function_">call</span><span class="params">(LuaValue modname, LuaValue env)</span> &#123;</span><br><span class="line">        <span class="type">LuaValue</span> <span class="variable">library</span> <span class="operator">=</span> tableOf();</span><br><span class="line">        library.set(<span class="string">&quot;sinh&quot;</span>, <span class="keyword">new</span> <span class="title class_">sinh</span>());</span><br><span class="line">        library.set(<span class="string">&quot;cosh&quot;</span>, <span class="keyword">new</span> <span class="title class_">cosh</span>());</span><br><span class="line">        env.set(<span class="string">&quot;hyperbolic&quot;</span>, library);</span><br><span class="line">        <span class="keyword">return</span> library;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">class</span> <span class="title class_">sinh</span> <span class="keyword">extends</span> <span class="title class_">OneArgFunction</span> &#123;</span><br><span class="line">        <span class="keyword">public</span> LuaValue <span class="title function_">call</span><span class="params">(LuaValue x)</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> LuaValue.valueOf(Math.sinh(x.checkdouble()));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">class</span> <span class="title class_">cosh</span> <span class="keyword">extends</span> <span class="title class_">OneArgFunction</span> &#123;</span><br><span class="line">        <span class="keyword">public</span> LuaValue <span class="title function_">call</span><span class="params">(LuaValue x)</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> LuaValue.valueOf(Math.cosh(x.checkdouble()));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p>testhyperbolic.lua 进行调用</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">require</span> <span class="string">&#x27;hyperbolic&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;hyperbolic&#x27;</span>, hyperbolic)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;hyperbolic.sinh&#x27;</span>, hyperbolic.<span class="built_in">sinh</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;hyperbolic.cosh&#x27;</span>, hyperbolic.<span class="built_in">cosh</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;sinh(0.5)&#x27;</span>, hyperbolic.<span class="built_in">sinh</span>(<span class="number">0.5</span>))</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;cosh(0.5)&#x27;</span>, hyperbolic.<span class="built_in">cosh</span>(<span class="number">0.5</span>))</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Globals globals = JsePlatform.standardGlobals();</span><br><span class="line">globals.loadfile(&quot;testhyperbolic.lua&quot;).call();</span><br><span class="line"></span><br><span class="line">/* 打印</span><br><span class="line">hyperbolic  table: 61e717c2</span><br><span class="line">hyperbolic.sinh function: sinh</span><br><span class="line">hyperbolic.cosh function: cosh</span><br><span class="line">sinh(0.5)   0.5210953</span><br><span class="line">cosh(0.5)   1.127626</span><br><span class="line">*/</span><br></pre></td></tr></table></figure>
+
+
+<blockquote>
+<p>文章来自： <a href="https://hanks.pub/">https://hanks.pub</a></p>
+</blockquote>
+
+      
+    </div>
+</article>
+
+<!-- 上一页 下一页 -->
+
+
+<nav id="article-nav">
+  
+    <a href="/2017/09/28/lua-into-android/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>上一篇</span>
+      <div class="article-nav-title">
+        
+          Lua 嵌入 Android 原理
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/03/26/node-image-recognition/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>下一篇</span>
+      <div class="article-nav-title">Node 识别图片中的文字</div>
+    </a>
+  
+</nav>
+
+
+
+<!-- 相关文章 -->
+
+<!--
+
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+      			<a href="/2017/04/28/lua-in-android/">探究 lua 在 Android 中的应用</a>
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+
+-->
+
+
+</section>
+      </div>
+      <footer id="footer">
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      
+      &copy;2024<a target="_blank" rel="noopener" href="https://github.com/hanks-zyh"> Hanks</a>版权所有
+      <br/>
+      <a href="https://beian.miit.gov.cn/" target="_blank">豫ICP备2021022347号</a>
+	  </div>
+  </div>
+ <div id="share">
+  <a id="totop" title="" style="display: block;">返回顶部</a>
+ </div>
+</footer>
+
+    </div>
+    
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/jquery.scrollLoading.js"></script>
+
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/ads.js"></script>
+
+  </div>
+</body>
+</html>

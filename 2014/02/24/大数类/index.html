@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>大数类 | Hanks&#39; Websit</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <script data-ad-client="ca-pub-8165670162444117" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <meta name="referrer" content="never">
+  <meta name="description" content="大数类 #include &lt;iostream&gt; #include &lt;cstdio&gt; #include &lt;cstring&gt;   using namespace std;  const int maxn &#x3D; 1000;  struct Bign{ 	 	int len;  &#x2F;&#x2F;有效长度  	int s[maxn]; &#x2F;&#x2F;存放大数 	 	&#x2F;&#x2F;构造函数 ，变量初始化">
+<meta property="og:type" content="article">
+<meta property="og:title" content="大数类">
+<meta property="og:url" content="https://hanks.pub/2014/02/24/%E5%A4%A7%E6%95%B0%E7%B1%BB/index.html">
+<meta property="og:site_name" content="Hanks&#39; Websit">
+<meta property="og:description" content="大数类 #include &lt;iostream&gt; #include &lt;cstdio&gt; #include &lt;cstring&gt;   using namespace std;  const int maxn &#x3D; 1000;  struct Bign{ 	 	int len;  &#x2F;&#x2F;有效长度  	int s[maxn]; &#x2F;&#x2F;存放大数 	 	&#x2F;&#x2F;构造函数 ，变量初始化">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2014-02-24T14:55:00.000Z">
+<meta property="article:modified_time" content="2024-02-08T01:29:02.198Z">
+<meta property="article:author" content="Hanks">
+<meta name="twitter:card" content="summary">
+  
+  
+  <link href="https://fonts.googleapis.com/css?family=Fira+Code|Noto+Serif+SC&display=swap" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8165670162444117"
+     crossorigin="anonymous"></script>
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo"></a>
+    <nav id="main-nav">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      
+        <a class="main-nav-link" href="/archives">Archive</a>
+      
+        <a class="main-nav-link" href="/eye-video">Eye</a>
+      
+        <a class="main-nav-link" href="/atom.xml">Rss</a>
+      
+    </nav>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/archives" class="mobile-nav-link">Archive</a>
+  
+    <a href="/eye-video" class="mobile-nav-link">Eye</a>
+  
+    <a href="/atom.xml" class="mobile-nav-link">Rss</a>
+  
+</nav>
+      <div class="outer">
+        <section id="main"><article id="post-大数类" class="article article-type-post" itemscope
+  itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <header class="article-header">
+      
+      
+  
+    <h1 class="article-title" itemprop="name">
+      大数类
+    </h1>
+  
+
+      
+    </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+<p>大数类</p>
+<p><pre code_snippet_id="203052" snippet_file_name="blog_20140224_1_1738053"  name="code" class="cpp">#include &lt;iostream&gt;
+#include &lt;cstdio&gt;
+#include &lt;cstring&gt; 
+
+using namespace std;
+
+const int maxn = 1000;
+
+struct Bign{
+	
+	int len;  //有效长度 
+	int s[maxn]; //存放大数
+	
+	//构造函数 ，变量初始化 
+	Bign(){ memset(s,0,sizeof(s));len = 1;} 
+	
+	//重载赋值操作，可以直接用 x = &quot;123456789034&quot; 的方式来为x赋值  
+	//将字符串逆序存储在 int s[]内 
+	Bign operator = (const char * num){
+		len = strlen(num);
+		for(int i=0;i&lt;len; i++) s[i] = num[len-i-1] - '0';
+		return *this;
+	}
+	
+	Bign operator = (int num){
+		char s[maxn];
+		sprintf(s, &quot;%d&quot;, num);
+		*this = s;
+		return *this;
+	}
+	
+	Bign(int num){ *this = num; }
+	Bign(const char* num){ *this = num; }
+	
+	string toString() const{
+		string str = &quot;&quot;;
+		for(int i=len-1; i&gt;=0; i--) str += (char)(s[i]+'0');
+		return str;
+	}
+	
+	Bign operator + (const Bign &amp;b ) const {
+		Bign c; c.len = 0;
+		int i,carry,maxl = max(len,b.len);
+		for( i =carry =0; i&lt;maxl; i++){
+			int tmp = s[i] + b.s[i] + carry;
+			c.s[c.len++] = tmp % 10;
+			carry = tmp / 10;
+		}
+		while(i&lt;len)  c.s[c.len++] += s[i++];  
+		while(i&lt;b.len)  c.s[c.len++] += b.s[i++]; 
+		return c;
+	} 
+	
+	//去除数组中多余的0 
+	void clear() {
+		while(len&gt;1 &amp;&amp; !s[len-1])len--; 
+	} 
+	
+	Bign operator * (const Bign &amp;b) const {
+		Bign c; c.len = len + b.len;
+		//对于a的每一位 用 b的每一位去成一遍 
+		for(int i=0; i&lt;len; i++) 
+			for(int j=0; j&lt;b.len; j++)
+				c.s[i+j] += s[i] * b.s[j];
+		//处理进位 
+		for(int i=0; i&lt;c.len-1; i++){
+			c.s[i+1] += c.s[i] / 10;
+			c.s[i] %= 10;
+		}
+		//去除多余0，更正c.len 
+		c.clear();
+		return c;		
+	}
+	
+	friend istream &amp;operator &gt;&gt; (istream &amp;in, Bign &amp;n) {
+		string s;
+		in &gt;&gt; s;
+		n = s.c_str();
+		return in;
+	} 
+	
+	friend ostream &amp;operator &lt;&lt; (ostream &amp;out, const Bign &amp;n) {
+		out &lt;&lt; n.toString();
+		return out;
+	}
+		
+};
+
+
+int main ()
+{
+	
+	Bign n1;
+	n1 = &quot;23784589493050034059009342324324&quot;;
+	cout &lt;&lt; &quot; n1 = &quot; &lt;&lt; n1 &lt;&lt; endl; // n1 = 23784589493050034059009342324324
+	
+	Bign n2; 
+	n2 = 1234567890;
+	cout &lt;&lt; &quot; n2 = &quot; &lt;&lt; n2 &lt;&lt; endl; // n2 = 1234567890
+	
+	Bign n3(&quot;9787827383654329&quot;); 
+	cout &lt;&lt; &quot; n3 = &quot; &lt;&lt; n3 &lt;&lt; endl; // n3 = 9787827383654329
+	
+	Bign n4(827383654); 
+	cout &lt;&lt; &quot; n4 = &quot; &lt;&lt; n4 &lt;&lt; endl; // n3 = 827383654
+	
+	Bign n5 = &quot;78398249420049293949589999999&quot;;
+	Bign n6 = &quot;1344234769898495120000001&quot;; 
+	cout &lt;&lt; &quot; n5 + n6 = &quot; &lt;&lt; (n5+n6) &lt;&lt; endl; // n5 + n6 = 78399593654819192444710000000
+
+	Bign n7 = &quot;7293949589999999&quot;;
+	Bign n8 = &quot;14769896431116&quot;; 
+	cout &lt;&lt; &quot; n7 * n8 = &quot; &lt;&lt; (n7*n8) &lt;&lt; endl; // n7 * n8 = 107730880018080996672543568884
+											
+	 
+}</pre><br>
+<br>
+</p>
+<p><br>
+</p>
+<p><br>
+</p>
+
+      
+    </div>
+</article>
+
+<!-- 上一页 下一页 -->
+
+
+<nav id="article-nav">
+  
+    <a href="/2014/02/25/%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E7%9A%84%E8%BF%90%E7%AE%97/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>上一篇</span>
+      <div class="article-nav-title">
+        
+          基本数据类型的运算
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2014/02/19/NYOJ-%E9%A2%98%E7%9B%AE27&nbsp;%E6%B0%B4%E6%B1%A0%E6%95%B0%E7%9B%AE/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>下一篇</span>
+      <div class="article-nav-title">NYOJ-题目27&amp;nbsp;水池数目</div>
+    </a>
+  
+</nav>
+
+
+
+<!-- 相关文章 -->
+
+<!--
+
+-->
+
+
+</section>
+      </div>
+      <footer id="footer">
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      
+      &copy;2024<a target="_blank" rel="noopener" href="https://github.com/hanks-zyh"> Hanks</a>版权所有
+      <br/>
+      <a href="https://beian.miit.gov.cn/" target="_blank">豫ICP备2021022347号</a>
+	  </div>
+  </div>
+ <div id="share">
+  <a id="totop" title="" style="display: block;">返回顶部</a>
+ </div>
+</footer>
+
+    </div>
+    
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/jquery.scrollLoading.js"></script>
+
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/ads.js"></script>
+
+  </div>
+</body>
+</html>

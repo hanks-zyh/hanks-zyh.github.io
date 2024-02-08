@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>贪心——NYOJ 题目14 会场安排问题 | Hanks&#39; Websit</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <script data-ad-client="ca-pub-8165670162444117" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <meta name="referrer" content="never">
+  <meta name="description" content="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&amp;nbsp">
+<meta property="og:type" content="article">
+<meta property="og:title" content="贪心——NYOJ 题目14 会场安排问题">
+<meta property="og:url" content="https://hanks.pub/2013/07/25/%E8%B4%AA%E5%BF%83%E2%80%94%E2%80%94NYOJ_%E9%A2%98%E7%9B%AE14_%E4%BC%9A%E5%9C%BA%E5%AE%89%E6%8E%92%E9%97%AE%E9%A2%98/index.html">
+<meta property="og:site_name" content="Hanks&#39; Websit">
+<meta property="og:description" content="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&amp;nbsp">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2013-07-25T02:20:00.000Z">
+<meta property="article:modified_time" content="2024-02-08T01:29:02.205Z">
+<meta property="article:author" content="Hanks">
+<meta name="twitter:card" content="summary">
+  
+  
+  <link href="https://fonts.googleapis.com/css?family=Fira+Code|Noto+Serif+SC&display=swap" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8165670162444117"
+     crossorigin="anonymous"></script>
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo"></a>
+    <nav id="main-nav">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      
+        <a class="main-nav-link" href="/archives">Archive</a>
+      
+        <a class="main-nav-link" href="/eye-video">Eye</a>
+      
+        <a class="main-nav-link" href="/atom.xml">Rss</a>
+      
+    </nav>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/archives" class="mobile-nav-link">Archive</a>
+  
+    <a href="/eye-video" class="mobile-nav-link">Eye</a>
+  
+    <a href="/atom.xml" class="mobile-nav-link">Rss</a>
+  
+</nav>
+      <div class="outer">
+        <section id="main"><article id="post-贪心——NYOJ_题目14_会场安排问题" class="article article-type-post" itemscope
+  itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <header class="article-header">
+      
+      
+  
+    <h1 class="article-title" itemprop="name">
+      贪心——NYOJ 题目14 会场安排问题
+    </h1>
+  
+
+      
+    </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+<div class="problem-display">
+<h4></h4>
+<h2>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 会场安排问题</h2>
+<div class="problem-ins">时间限制：<span id="problem[time_limit]" class="editable highlight">3000</span> ms &nbsp;|&nbsp; 内存限制：<span id="problem[memory_limit]" class="editable highlight">65535</span> KB</div>
+<div class="problem-ins">难度：<span class="editable highlight">4</span></div>
+</div>
+<div class="clr"></div>
+<dl class="problem-display"><dt>描述 </dt><dd>学校的小&#31036;堂每天都会有许多活动，有时间这些活动的计划时间会发生冲突，需要选择出一些活动进行举办。小刘的工作就是安排学校小&#31036;堂的活动，每个时间最多安排一个活动。现在小刘有一些活动计划的时间表，他想尽可能的安排更多的活动，请问他该如何安排。<br>
+<div class="clr"></div>
+<dl class="others"><dt>输入 </dt><dd>第一行是一个整型数m(m&lt;100)表示共有m组测试数据。<br>
+每组测试数据的第一行是一个整数n(1&lt;n&lt;10000)表示该测试数据共有n个活动。<br>
+随后的n行，每行有两个正整数Bi,Ei(0&lt;=Bi,Ei&lt;10000),分别表示第i个活动的起始与结束时间（Bi&lt;=Ei)<br>
+</dd><dt>输出 </dt><dd>对于每一组输入，输出最多能够安排的活动数量。<br>
+每组的输出占一行 </dd><dt>样例输入 </dt><dd>
+<pre id="sample_input">2
+2
+1 10
+10 11
+3
+1 10
+10 11
+11 20
+</pre>
+</dd><dt>样例输出 </dt><dd>
+<pre id="sample_output">1
+2</pre>
+</dd><dt>提示 </dt><dd>注意：如果上一个活动在t时间结束，下一个活动最早应该在t&#43;1时</dd></dl>
+</dd></dl>
+<p><strong><span style="font-size:24px; color:#ff0000">分析：</span>&nbsp; <span style="font-size:18px">
+做这道题目的时候，我们先来想一下下面的情况：如果有两个活动让你选择一个，它们的结束时间一前一后，那么，我们应该选择哪一个才能有利于之后选取更多的活动呢？&nbsp; 很明显，我们应该选择的是结束时间较早的那个活动。&nbsp; 同样，在有一大堆活动时，我们最先应该选择结束时间最早的那个，以利于之后能安排更多的活动，然后，再在剩下的可选的会场中选择最可能结束时间最早的那个，依次类推，直到无法安排任何活动为止。&nbsp; 也就是说，每次选择时，都应该贪婪的选择结束时间最短的那个活动。 现在我们来证明刚才的贪心方法是正确的：假设有哪一次选择的不是结束时间最早的那个活动，那么，此次选择之后，剩下的可选活动一定没有选择结束时间最早的活动时多，用这种方法之后可再选择的活动数目一定不会比上面思路中的方法更多。</span></strong></p>
+<p><strong><span style="font-size:18px"></span></strong>&nbsp;</p>
+<p><strong><span style="font-size:18px">代码：</span></strong></p>
+<pre class="cpp" name="code"> 
+#include &lt;iostream&gt;
+#include &lt;algorithm&gt;
+#include &lt;cstdio&gt;
+#include &lt;cstdlib&gt;
+
+using namespace std;
+
+typedef struct Party
+{
+     int start,end;        
+}Party;
+
+Party PARTY[10001];
+
+
+int  cmp(const void * a,const void * b)
+{
+    return (*(Party *)a).end &gt; (*(Party*)b).end ? 1:-1;
+}
+int main()
+{
+    int m,n,i,j;
+    scanf(&quot;%d&quot;,&amp;m);
+    while(m--)
+    {
+           scanf(&quot;%d&quot;,&amp;n);
+           for(i=0;i&lt;n;i++)  scanf(&quot;%d%d&quot;,&amp;PARTY[i].start,&amp;PARTY[i].end);  
+           qsort(PARTY,n,sizeof(Party),cmp);
+           //for(i=0;i&lt;n;i++)  printf(&quot;%d %d\n&quot;,PARTY[i].start,PARTY[i].end);
+           int cnt = 1;
+           i = 0;//设置i为上一个已安排活动
+           for(j=1;j&lt;n;j++)
+           {
+                 if(PARTY[i].end&lt;PARTY[j].start) 
+                 {
+                    cnt++;
+                    i = j;//安排一个活动之后 i 的值变化为已安排的活动                        
+                 }
+           }
+           printf(&quot;%d\n&quot;,cnt);
+    }
+   // system(&quot;PAUSE&quot;);
+    return 0;    
+}        </pre>
+<p><br>
+时间：88 内存：388</p>
+<dl class="problem-display">
+<dl class="others"></dl>
+</dl>
+
+      
+    </div>
+</article>
+
+<!-- 上一页 下一页 -->
+
+
+<nav id="article-nav">
+  
+    <a href="/2013/07/25/%E8%B4%AA%E5%BF%83%E2%80%94%E2%80%94NYOJ_%E9%A2%98%E7%9B%AE6_%E5%96%B7%E6%B0%B4%E8%A3%85%E7%BD%AE%EF%BC%88%E4%B8%80%EF%BC%89/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>上一篇</span>
+      <div class="article-nav-title">
+        
+          贪心——NYOJ 题目6 喷水装置（一）
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2013/07/20/ACM%E2%80%94NYOJ%E5%B0%8F%E5%B0%8F%E7%BB%93/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>下一篇</span>
+      <div class="article-nav-title">ACM—NYOJ小小结</div>
+    </a>
+  
+</nav>
+
+
+
+<!-- 相关文章 -->
+
+<!--
+
+-->
+
+
+</section>
+      </div>
+      <footer id="footer">
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      
+      &copy;2024<a target="_blank" rel="noopener" href="https://github.com/hanks-zyh"> Hanks</a>版权所有
+      <br/>
+      <a href="https://beian.miit.gov.cn/" target="_blank">豫ICP备2021022347号</a>
+	  </div>
+  </div>
+ <div id="share">
+  <a id="totop" title="" style="display: block;">返回顶部</a>
+ </div>
+</footer>
+
+    </div>
+    
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/jquery.scrollLoading.js"></script>
+
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/ads.js"></script>
+
+  </div>
+</body>
+</html>

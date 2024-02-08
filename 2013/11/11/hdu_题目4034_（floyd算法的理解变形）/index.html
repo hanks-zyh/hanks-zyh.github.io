@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>hdu 题目4034 （floyd算法的理解变形） | Hanks&#39; Websit</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <script data-ad-client="ca-pub-8165670162444117" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <meta name="referrer" content="never">
+  <meta name="description" content="https:&#x2F;&#x2F;acm.hdu.edu.cn&#x2F;showproblem.php?pid&#x3D;4034       &#x2F;*************************** # 2013-11-11 21:24:17  # Time: 46MS   Memory: 280K # Author: zyh ***************************&#x2F;  #define N 105 #includ">
+<meta property="og:type" content="article">
+<meta property="og:title" content="hdu 题目4034 （floyd算法的理解变形）">
+<meta property="og:url" content="https://hanks.pub/2013/11/11/hdu_%E9%A2%98%E7%9B%AE4034_%EF%BC%88floyd%E7%AE%97%E6%B3%95%E7%9A%84%E7%90%86%E8%A7%A3%E5%8F%98%E5%BD%A2%EF%BC%89/index.html">
+<meta property="og:site_name" content="Hanks&#39; Websit">
+<meta property="og:description" content="https:&#x2F;&#x2F;acm.hdu.edu.cn&#x2F;showproblem.php?pid&#x3D;4034       &#x2F;*************************** # 2013-11-11 21:24:17  # Time: 46MS   Memory: 280K # Author: zyh ***************************&#x2F;  #define N 105 #includ">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2013-11-11T14:20:00.000Z">
+<meta property="article:modified_time" content="2024-02-08T01:29:02.186Z">
+<meta property="article:author" content="Hanks">
+<meta name="twitter:card" content="summary">
+  
+  
+  <link href="https://fonts.googleapis.com/css?family=Fira+Code|Noto+Serif+SC&display=swap" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8165670162444117"
+     crossorigin="anonymous"></script>
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo"></a>
+    <nav id="main-nav">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      
+        <a class="main-nav-link" href="/archives">Archive</a>
+      
+        <a class="main-nav-link" href="/eye-video">Eye</a>
+      
+        <a class="main-nav-link" href="/atom.xml">Rss</a>
+      
+    </nav>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/archives" class="mobile-nav-link">Archive</a>
+  
+    <a href="/eye-video" class="mobile-nav-link">Eye</a>
+  
+    <a href="/atom.xml" class="mobile-nav-link">Rss</a>
+  
+</nav>
+      <div class="outer">
+        <section id="main"><article id="post-hdu_题目4034_（floyd算法的理解变形）" class="article article-type-post" itemscope
+  itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <header class="article-header">
+      
+      
+  
+    <h1 class="article-title" itemprop="name">
+      hdu 题目4034 （floyd算法的理解变形）
+    </h1>
+  
+
+      
+    </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+<p><a target="_blank" target="_blank" href="https://acm.hdu.edu.cn/showproblem.php?pid=4034">https://acm.hdu.edu.cn/showproblem.php?pid=4034</a><br>
+</p>
+<p><br>
+</p>
+<p><br>
+</p>
+<p></p>
+<pre code_snippet_id="90832" snippet_file_name="blog_20131201_1_3539127"  name="code" class="cpp">/***************************
+# 2013-11-11 21:24:17 
+# Time: 46MS   Memory: 280K
+# Author: zyh
+***************************/ 
+#define N 105
+#include&lt;stdio.h&gt;
+
+int a[N][N];
+ 
+int main()
+{
+	int tt,t,n,i,j,k,m;
+	scanf(&quot;%d&quot;,&amp;t);
+	for(tt=1;tt&lt;=t;tt++){
+		m=0;
+		scanf(&quot;%d&quot;,&amp;n);
+		for(i=1;i&lt;=n;i++){
+			for(j=1;j&lt;=n;j++){
+				scanf(&quot;%d&quot;,&amp;a[i][j]);
+				if(a[i][j]) m++;
+			}
+		}
+		//floyd算法 
+		int flag=1,count=0;  
+	    for(i=1;i&lt;=n;i++)  
+	        for(j=1;j&lt;=n;j++)  
+	        {  
+	            if( i==j )continue;  
+	            for(k=1;k&lt;=n;k++)  
+	            {  
+	                if(i==k||j==k || !a[i][k] || !a[k][j])continue;  
+	                if(a[i][j]&gt;a[i][k]+a[k][j]) //如果给出的不是i，j之间的最短路径 ，直接退出 
+	                { flag = 0;  goto ans; }  //利用goto跳出多重循环 
+	                else  if(a[i][j]==a[i][k]+a[k][j])  //有其他路径可以到达，则去掉当前路径 
+	                {  
+	                    m--;  
+	                    break;  
+	                }  
+	            }  
+	        }  
+		ans:
+			printf(&quot;Case %d: &quot;,tt);
+			if(!flag) puts(&quot;impossible&quot;);
+			else	printf(&quot;%d\n&quot;,m);
+	}
+	return 0; 
+}</pre><br>
+<br>
+<p></p>
+<p><br>
+</p>
+<p><br>
+</p>
+
+      
+    </div>
+</article>
+
+<!-- 上一页 下一页 -->
+
+
+<nav id="article-nav">
+  
+    <a href="/2013/11/12/hdu_4740_%EF%BC%88%E4%B8%80%E6%AD%A5%E4%B8%80%E6%AD%A5%E6%A8%A1%E6%8B%9F%E5%B0%B1%E5%A5%BD%E4%BA%86%EF%BC%89%E8%80%83%E6%9F%A5%E8%80%90%E5%BF%83%E4%B8%8E%E7%BB%86%E5%BF%83/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>上一篇</span>
+      <div class="article-nav-title">
+        
+          hdu 4740 （一步一步模拟就好了）考查耐心与细心
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2013/11/11/hdu%E9%A2%98%E7%9B%AE2209_%EF%BC%88BFS,%E5%AD%98%E5%82%A8%E7%8A%B6%E6%80%81%E9%BA%BB%E7%83%A6%E7%82%B9%EF%BC%89/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>下一篇</span>
+      <div class="article-nav-title">hdu题目2209 （BFS,存储状态麻烦点）</div>
+    </a>
+  
+</nav>
+
+
+
+<!-- 相关文章 -->
+
+<!--
+
+-->
+
+
+</section>
+      </div>
+      <footer id="footer">
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      
+      &copy;2024<a target="_blank" rel="noopener" href="https://github.com/hanks-zyh"> Hanks</a>版权所有
+      <br/>
+      <a href="https://beian.miit.gov.cn/" target="_blank">豫ICP备2021022347号</a>
+	  </div>
+  </div>
+ <div id="share">
+  <a id="totop" title="" style="display: block;">返回顶部</a>
+ </div>
+</footer>
+
+    </div>
+    
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/jquery.scrollLoading.js"></script>
+
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/ads.js"></script>
+
+  </div>
+</body>
+</html>

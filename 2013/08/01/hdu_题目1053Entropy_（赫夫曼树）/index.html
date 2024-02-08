@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>hdu 题目1053Entropy （赫夫曼树） | Hanks&#39; Websit</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <script data-ad-client="ca-pub-8165670162444117" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <meta name="referrer" content="never">
+  <meta name="description" content="&nbsp; Entropy Time Limit: 2000&#x2F;1000 MS (Java&#x2F;Others)&nbsp;&nbsp;&nbsp;&nbsp;Memory Limit: 65536&#x2F;32768 K (Java&#x2F;Others) Total Submission(s): 3152&nbsp;&nbsp;&nbsp;&nbsp;Accepted Submission(s): 1209">
+<meta property="og:type" content="article">
+<meta property="og:title" content="hdu 题目1053Entropy （赫夫曼树）">
+<meta property="og:url" content="https://hanks.pub/2013/08/01/hdu_%E9%A2%98%E7%9B%AE1053Entropy_%EF%BC%88%E8%B5%AB%E5%A4%AB%E6%9B%BC%E6%A0%91%EF%BC%89/index.html">
+<meta property="og:site_name" content="Hanks&#39; Websit">
+<meta property="og:description" content="&nbsp; Entropy Time Limit: 2000&#x2F;1000 MS (Java&#x2F;Others)&nbsp;&nbsp;&nbsp;&nbsp;Memory Limit: 65536&#x2F;32768 K (Java&#x2F;Others) Total Submission(s): 3152&nbsp;&nbsp;&nbsp;&nbsp;Accepted Submission(s): 1209">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2013-08-01T11:44:00.000Z">
+<meta property="article:modified_time" content="2024-02-08T01:29:02.183Z">
+<meta property="article:author" content="Hanks">
+<meta name="twitter:card" content="summary">
+  
+  
+  <link href="https://fonts.googleapis.com/css?family=Fira+Code|Noto+Serif+SC&display=swap" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8165670162444117"
+     crossorigin="anonymous"></script>
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo"></a>
+    <nav id="main-nav">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      
+        <a class="main-nav-link" href="/archives">Archive</a>
+      
+        <a class="main-nav-link" href="/eye-video">Eye</a>
+      
+        <a class="main-nav-link" href="/atom.xml">Rss</a>
+      
+    </nav>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/archives" class="mobile-nav-link">Archive</a>
+  
+    <a href="/eye-video" class="mobile-nav-link">Eye</a>
+  
+    <a href="/atom.xml" class="mobile-nav-link">Rss</a>
+  
+</nav>
+      <div class="outer">
+        <section id="main"><article id="post-hdu_题目1053Entropy_（赫夫曼树）" class="article article-type-post" itemscope
+  itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <header class="article-header">
+      
+      
+  
+    <h1 class="article-title" itemprop="name">
+      hdu 题目1053Entropy （赫夫曼树）
+    </h1>
+  
+
+      
+    </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+<p>&nbsp;</p>
+<h1 align="center" style="color:#1a5cc8">Entropy</h1>
+<p align="center"><span size="&#43;0"><strong><span style="font-family:Arial; font-size:12px; color:green; font-weight:bold">Time Limit: 2000/1000 MS (Java/Others)&nbsp;&nbsp;&nbsp;&nbsp;Memory Limit: 65536/32768 K (Java/Others)<br>
+Total Submission(s): 3152&nbsp;&nbsp;&nbsp;&nbsp;Accepted Submission(s): 1209<br>
+</span></strong></span><br>
+<br>
+</p>
+<div class="panel_title" align="left">Problem Description</div>
+<div class="panel_content">An entropy encoder is a data encoding method that achieves lossless data compression by encoding a message with “wasted” or “extra” information removed. In other words, entropy encoding removes information that was not necessary in
+ the first place to accurately encode the message. A high degree of entropy implies a message with a great deal of wasted information; english text encoded in ASCII is an example of a message type that has very high entropy. Already compressed messages, such
+ as JPEG graphics or ZIP archives, have very little entropy and do not benefit from further attempts at entropy encoding.<br>
+<br>
+English text encoded in ASCII has a high degree of entropy because all characters are encoded using the same number of bits, eight. It is a known fact that the letters E, L, N, R, S and T occur at a considerably higher frequency than do most other letters in
+ english text. If a way could be found to encode just these letters with four bits, then the new encoding would be smaller, would contain all the original information, and would have less entropy. ASCII uses a fixed number of bits for a reason, however: it’s
+ easy, since one is always dealing with a fixed number of bits to represent each possible glyph or character. How would an encoding scheme that used four bits for the above letters be able to distinguish between the four-bit codes and eight-bit codes? This
+ seemingly difficult problem is solved using what is known as a “prefix-free variable-length” encoding.<br>
+<br>
+In such an encoding, any number of bits can be used to represent any glyph, and glyphs not present in the message are simply not encoded. However, in order to be able to recover the information, no bit pattern that encodes a glyph is allowed to be the prefix
+ of any other encoding bit pattern. This allows the encoded bitstream to be read bit by bit, and whenever a set of bits is encountered that represents a glyph, that glyph can be decoded. If the prefix-free constraint was not enforced, then such a decoding would
+ be impossible.<br>
+<br>
+Consider the text “AAAAABCD”. Using ASCII, encoding this would require 64 bits. If, instead, we encode “A” with the bit pattern “00”, “B” with “01”, “C” with “10”, and “D” with “11” then we can encode this text in only 16 bits; the resulting bit pattern would
+ be “0000000000011011”. This is still a fixed-length encoding, however; we’re using two bits per glyph instead of eight. Since the glyph “A” occurs with greater frequency, could we do better by encoding it with fewer bits? In fact we can, but in order to maintain
+ a prefix-free encoding, some of the other bit patterns will become longer than two bits. An optimal encoding is to encode “A” with “0”, “B” with “10”, “C” with “110”, and “D” with “111”. (This is clearly not the only optimal encoding, as it is obvious that
+ the encodings for B, C and D could be interchanged freely for any given encoding without increasing the size of the final encoded message.) Using this encoding, the message encodes in only 13 bits to “0000010110111”, a compression ratio of 4.9 to 1 (that is,
+ each bit in the final encoded message represents as much information as did 4.9 bits in the original encoding). Read through this bit pattern from left to right and you’ll see that the prefix-free encoding makes it simple to decode this into the original text
+ even though the codes have varying bit lengths.<br>
+<br>
+As a second example, consider the text “THE CAT IN THE HAT”. In this text, the letter “T” and the space character both occur with the highest frequency, so they will clearly have the shortest encoding bit patterns in an optimal encoding. The letters “C”, “I’
+ and “N” only occur once, however, so they will have the longest codes.<br>
+<br>
+There are many possible sets of prefix-free variable-length bit patterns that would yield the optimal encoding, that is, that would allow the text to be encoded in the fewest number of bits. One such optimal encoding is to encode spaces with “00”, “A” with
+ “100”, “C” with “1110”, “E” with “1111”, “H” with “110”, “I” with “1010”, “N” with “1011” and “T” with “01”. The optimal encoding therefore requires only 51 bits compared to the 144 that would be necessary to encode the message with 8-bit ASCII encoding, a
+ compression ratio of 2.8 to 1.<br>
+</div>
+<div class="panel_bottom">&nbsp;</div>
+<p><br>
+&nbsp;</p>
+<div class="panel_title" align="left">Input</div>
+<div class="panel_content">The input file will contain a list of text strings, one per line. The text strings will consist only of uppercase alphanumeric characters and underscores (which are used in place of spaces). The end of the input will be signalled
+ by a line containing only the word “END” as the text string. This line should not be processed.<br>
+</div>
+<div class="panel_bottom">&nbsp;</div>
+<p><br>
+&nbsp;</p>
+<div class="panel_title" align="left">Output</div>
+<div class="panel_content">For each text string in the input, output the length in bits of the 8-bit ASCII encoding, the length in bits of an optimal prefix-free variable-length encoding, and the compression ratio accurate to one decimal point.<br>
+</div>
+<div class="panel_bottom">&nbsp;</div>
+<p><br>
+&nbsp;</p>
+<div class="panel_title" align="left">Sample Input</div>
+<div class="panel_content">
+<pre><div style="font-family:Courier New,Courier,monospace">AAAAABCD
+THE_CAT_IN_THE_HAT
+END</div></pre>
+</div>
+<div class="panel_bottom">&nbsp;</div>
+<p><br>
+&nbsp;</p>
+<div class="panel_title" align="left">Sample Output</div>
+<div class="panel_content">
+<pre><div style="font-family:Courier New,Courier,monospace">64 13 4.9
+144 51 2.8</div></pre>
+</div>
+<p>&nbsp;</p>
+<p><strong><span style="font-size:18px">数组tree下标0代表‘_’,1---26代表A---Z，weigth代表出现的次数，deep代表结点所在赫夫曼树的深度，</span></strong></p>
+<p><strong><span style="font-size:18px">建立的新节点放在下标27开始，</span></strong></p>
+<p><strong><span style="font-size:18px">最后将0---26中元素的权&#20540; (出现次数) weigth * deep 累加起来；</span></strong></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>代码： 请无视注释，</p>
+<pre class="cpp" name="code">#include &lt;string.h&gt;
+#include &lt;stdio.h&gt;
+#include &lt;iostream&gt;
+#include &lt;stdlib.h&gt;
+
+using namespace std;
+
+typedef struct TREE
+{
+	int weigth,parent,lchild,rchild,deep;
+}TREE;
+
+TREE tree[55];
+bool visit[55];
+
+
+int len_huff(int n)
+{
+	int j,i,k;
+	memset(visit,0,sizeof(visit));
+	int min1,min2,index1,index2;
+	
+	int num = 0;
+	for(i=0;i&lt;27;i++)
+	{
+		if(tree[i].weigth != 0)
+		{
+			k=i;
+			num++;
+		} 	
+	
+	}
+		
+	if(num==1) return tree[k].weigth;
+//	printf(&quot;num=%d\n&quot;,num);
+	
+	for(i=27;i&lt;26+num;i++)
+	{
+		
+		
+		min1 = min2 = 999999;
+		for(j=0;j&lt;i;j++)//寻找最小的两个元素
+		{
+			if(!visit[j])
+			{
+				if( tree[j].weigth!=0 &amp;&amp; tree[j].weigth&lt;min1)
+				{
+					min2 = min1;
+					index2 = index1;
+					min1 = tree[j].weigth;
+					index1 = j;		
+				}
+				else if( tree[j].weigth!=0 &amp;&amp; tree[j].weigth&lt;min2)
+				{
+					index2 = j;
+					min2 = tree[j].weigth;
+				}										
+			}//if 							
+		}	
+		visit[index1] = visit[index2] = 1;
+//		printf(&quot;index1=%d,min1=%d,index2=%d,min2=%d\n&quot;,index1,min1,index2,min2);//找到最小的两个 
+			
+	//	tree[index1].deep++;
+	//	tree[index2].deep++;
+		
+		tree[i].weigth = min1 + min2;  //新结点
+		tree[i].lchild = index1; 
+		tree[i].rchild = index2;
+		tree[index1].parent = tree[index2].parent = i;
+	}
+	
+//	for(i=27;i&lt;55;i++)
+//	{
+//		int child = tree[i].lchild;
+//		int parent,dp=1;
+////				printf(&quot;lchild=%d\n&quot;,child);
+//		while(child!=-1)
+//		{
+//			dp++;
+//			parent = child;
+//			child = tree[child].lchild;
+//		}	
+//		tree[parent].deep = dp;
+////		
+//		printf(&quot;pa=%d,de=%d\n&quot;,parent,dp);
+//		child = tree[i].rchild;
+//		dp=1;
+//		while(child!=-1)
+//		{
+//			dp++;
+//			parent = child;
+//			child = tree[child].rchild;
+//		}	
+//		tree[parent].deep = dp;
+//	//	printf(&quot;rchild=%d,de=%d\n&quot;,child,dp);
+//	}
+
+
+
+	int len = 0;
+	for(i=0;i&lt;27;i++)//计算每个节点的深度
+	{
+		int parent = tree[i].parent;
+		int child ,dp=0;
+//				printf(&quot;lchild=%d\n&quot;,child);
+		while(parent !=-1)//不是 根节点 
+		{
+			dp++;
+			child= parent ;
+			parent  = tree[parent].parent;
+		}	
+		tree[i].deep = dp;
+		len += tree[i].deep*tree[i].weigth;	
+//		
+	}
+//	printf(&quot;%d &quot;,len);
+	return len;
+					
+}
+/*
+AA
+AAAAABCD
+THE_CAT_IN_THE_HAT
+END
+*/
+int main()
+{
+	char s[10001];
+	int i;
+	while(gets(s))
+	{
+		if(strcmp(s,&quot;END&quot;)==0) break;
+	//	printf(&quot;%d &quot;,);
+		
+		memset(tree,-1,sizeof(tree));
+		for(i=0;i&lt;55;i++) tree[i].weigth=tree[i].deep=0;
+		
+		for(i=0;i&lt;strlen(s);i++)
+		{
+			if(s[i]=='_') tree[0].weigth++;
+			else tree[s[i]-'A'+1].weigth++;	
+		}
+		
+		int len2 = len_huff(strlen(s));
+		
+		int len1 = strlen(s)*8; 
+		
+		
+		double radio = 1.0*len1/len2;
+//	printf(&quot;len1=%d,len2=%lld,radio=%lf\n&quot;,len1,len2,radio);
+		printf(&quot;%d %d %.1lf\n&quot;,strlen(s)*8,len2,radio);
+//		printf(&quot;    i    weigth   parent    lchild    rchild    deep\n&quot;);
+//		for(i=0;i&lt;55;i++)
+//			printf(&quot; %4d:   %5d    %5d    %5d    %5d    %5d\n&quot;,i,tree[i].weigth,tree[i].parent,tree[i].lchild,tree[i].rchild,tree[i].deep);	
+		
+		
+	//	printf(&quot;%d &quot;,length_Haffuman(s));
+	//	printf(&quot;.1lf\n&quot;,1.0*strlen(s)/length_Haffuman(s));			
+	}
+	return 0;	
+}
+</pre>
+<p><br>
+&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+      
+    </div>
+</article>
+
+<!-- 上一页 下一页 -->
+
+
+<nav id="article-nav">
+  
+    <a href="/2013/08/01/C___%E4%B9%8B_STL/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>上一篇</span>
+      <div class="article-nav-title">
+        
+          C++ 之 STL
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2013/08/01/POJ_%E9%A2%98%E7%9B%AE3253_Fence_Repair_%EF%BC%88%E8%B5%AB%E5%A4%AB%E6%9B%BC%E6%A0%91%E5%BA%94%E7%94%A8%EF%BC%89/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>下一篇</span>
+      <div class="article-nav-title">POJ 题目3253 Fence Repair （赫夫曼树应用）</div>
+    </a>
+  
+</nav>
+
+
+
+<!-- 相关文章 -->
+
+<!--
+
+-->
+
+
+</section>
+      </div>
+      <footer id="footer">
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      
+      &copy;2024<a target="_blank" rel="noopener" href="https://github.com/hanks-zyh"> Hanks</a>版权所有
+      <br/>
+      <a href="https://beian.miit.gov.cn/" target="_blank">豫ICP备2021022347号</a>
+	  </div>
+  </div>
+ <div id="share">
+  <a id="totop" title="" style="display: block;">返回顶部</a>
+ </div>
+</footer>
+
+    </div>
+    
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/jquery.scrollLoading.js"></script>
+
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/ads.js"></script>
+
+  </div>
+</body>
+</html>

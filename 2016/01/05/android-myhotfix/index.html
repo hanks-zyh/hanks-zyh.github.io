@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Android 动手实现热修复 | Hanks&#39; Websit</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <script data-ad-client="ca-pub-8165670162444117" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <meta name="referrer" content="never">
+  <meta name="description" content="有了前面文章的理论支持,下面动手自己写一下热修复.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android 动手实现热修复">
+<meta property="og:url" content="https://hanks.pub/2016/01/05/android-myhotfix/index.html">
+<meta property="og:site_name" content="Hanks&#39; Websit">
+<meta property="og:description" content="有了前面文章的理论支持,下面动手自己写一下热修复.">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2016-01-04T17:46:39.000Z">
+<meta property="article:modified_time" content="2024-02-08T01:29:02.180Z">
+<meta property="article:author" content="Hanks">
+<meta property="article:tag" content="Android">
+<meta property="article:tag" content="热修复">
+<meta name="twitter:card" content="summary">
+  
+  
+  <link href="https://fonts.googleapis.com/css?family=Fira+Code|Noto+Serif+SC&display=swap" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8165670162444117"
+     crossorigin="anonymous"></script>
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo"></a>
+    <nav id="main-nav">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      
+        <a class="main-nav-link" href="/archives">Archive</a>
+      
+        <a class="main-nav-link" href="/eye-video">Eye</a>
+      
+        <a class="main-nav-link" href="/atom.xml">Rss</a>
+      
+    </nav>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/archives" class="mobile-nav-link">Archive</a>
+  
+    <a href="/eye-video" class="mobile-nav-link">Eye</a>
+  
+    <a href="/atom.xml" class="mobile-nav-link">Rss</a>
+  
+</nav>
+      <div class="outer">
+        <section id="main"><article id="post-android-myhotfix" class="article article-type-post" itemscope
+  itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <header class="article-header">
+      
+      
+  
+    <h1 class="article-title" itemprop="name">
+      Android 动手实现热修复
+    </h1>
+  
+
+      
+    </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      <p>有了前面文章的理论支持,下面动手自己写一下热修复.</p>
+<span id="more"></span>
+<h2 id="创建工程"><a href="#创建工程" class="headerlink" title="创建工程"></a>创建工程</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">├── main                                                                                      </span><br><span class="line">│   ├── AndroidManifest.xml                                                                   </span><br><span class="line">│   ├── java                                                                                  </span><br><span class="line">│   │   └── xyz                                                                               </span><br><span class="line">│   │       └── hanks                                                                         </span><br><span class="line">│   │           └── fix                                                                       </span><br><span class="line">│   │               ├── BugClass.java                                                         </span><br><span class="line">│   │               ├── FixApplication.java                                                   </span><br><span class="line">│   │               └── MainActivity.java    </span><br></pre></td></tr></table></figure>
+
+<p>通过Android Studio创建一个工程. <code>BugClass</code> 类是需要修复的类, <code>MainActivity</code>是主Activity, <code>FixApplication</code>是自定义的Application. 初始的MainActivity如下</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MainActivity</span> <span class="keyword">extends</span> <span class="title class_">AppCompatActivity</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span> <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">onCreate</span><span class="params">(Bundle savedInstanceState)</span> &#123;</span><br><span class="line">        <span class="built_in">super</span>.onCreate(savedInstanceState);</span><br><span class="line">        setContentView(R.layout.activity_main);</span><br><span class="line">        <span class="type">TextView</span> <span class="variable">textView</span> <span class="operator">=</span> (TextView) findViewById(R.id.text);</span><br><span class="line">        textView.setText(<span class="keyword">new</span> <span class="title class_">BugClass</span>().showToast(<span class="string">&quot;Happy new year&quot;</span>));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Created by hanks on 16-1-2.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">BugClass</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">showToast</span><span class="params">(String content)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> content;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>现在运行程序,界面的文本显示成文字 <strong>Happy new year</strong>,<code>MainActivity</code>类会被加上 <strong>CLASS_ISPREVERIFIED</strong> 标志,因为BugClass 和 MainActivity 都属于同一个dex. 如果现在直接加载补丁包中的 <strong>BugClass</strong> 类,那么就会出现 <code>Class ref in pre-verified class resolved to unexpected implementation</code> 错误.</p>
+<h2 id="引用hack-dex-防止类加上CLASS-ISPREVERIFIED"><a href="#引用hack-dex-防止类加上CLASS-ISPREVERIFIED" class="headerlink" title="引用hack.dex,防止类加上CLASS_ISPREVERIFIED"></a>引用hack.dex,防止类加上CLASS_ISPREVERIFIED</h2><p>因为我们要修复<code>BugClass</code>类,而调用是在<code>MainActivity</code>中,也就是说,当打上补丁包之后,<code>MainActivity</code>调用的<code>BugClass</code>将会是补丁包中的<code>BugClass</code>(也就是来自于其他的dex),那么我就就需要防止<code>MainActivity</code>被加上 <strong>CLASS_ISPREVERIFIED</strong> 标志. 那么怎么防止呢? 需要在<code>MainActivity</code>中引用别的dex(hack.dex)中的一个类.那么代码如下:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MainActivity</span> <span class="keyword">extends</span> <span class="title class_">AppCompatActivity</span> &#123;</span><br><span class="line">    <span class="meta">@Override</span> <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">onCreate</span><span class="params">(Bundle savedInstanceState)</span> &#123;</span><br><span class="line">        <span class="built_in">super</span>.onCreate(savedInstanceState);</span><br><span class="line">        setContentView(R.layout.activity_main);</span><br><span class="line">        <span class="type">TextView</span> <span class="variable">textView</span> <span class="operator">=</span> (TextView) findViewById(R.id.text);</span><br><span class="line">        System.out.print(Hack.class); <span class="comment">// 引用 hack.dex中的Hack类</span></span><br><span class="line">        textView.setText(<span class="keyword">new</span> <span class="title class_">BugClass</span>().showToast(<span class="string">&quot;Happy new year&quot;</span>));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面代码只是简单的引用了一下 <code>Hack.class</code>, 这样程序运行起来就不会把<code>MainActivity</code>加上 <strong>CLASS_ISPREVERIFIED</strong>. 注意现在的代码是编译不过的. 引用我们的程序中没有<code>Hack.class</code>, 要想编译通过,那么我们就得有 <code>Hack.class</code>, 于是新建一个library, 然后app这个依赖与这个library, 但是注意不要使用 <strong>compile</strong>, 使用 <strong>provided</strong> 关键字,这样标示这个library这是提供引用,并不被编译到apk中(不在MainActivity的dex中).这样就解决了编译问题.<br>现在运行起来程序还是有错误, 因为<code>MainActivity</code>引用了<code>Hack.class</code>,虽然编译通过了,但是实际上是没有这个类的,所以这个时候就需要在调用Hack这个类之前,先动态加载进来.</p>
+<h2 id="先加载Hack-dex-保证引用不会出错"><a href="#先加载Hack-dex-保证引用不会出错" class="headerlink" title="先加载Hack.dex,保证引用不会出错"></a>先加载Hack.dex,保证引用不会出错</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 加载</span></span><br><span class="line"><span class="comment"> * Created by hanks on 16-1-3.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">FixApplication</span> <span class="keyword">extends</span> <span class="title class_">Application</span> &#123;</span><br><span class="line">    <span class="meta">@Override</span> <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">onCreate</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="built_in">super</span>.onCreate();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">             <span class="type">PathClassLoader</span> <span class="variable">pathClassLoader</span> <span class="operator">=</span> (PathClassLoader) getClassLoader();</span><br><span class="line">             <span class="type">String</span> <span class="variable">hackFilePath</span> <span class="operator">=</span> Environment.getExternalStorageDirectory().getAbsolutePath() +<span class="string">&quot;/hack.dex&quot;</span>; <span class="comment">// hack.dex的路径</span></span><br><span class="line">             <span class="type">Object</span> <span class="variable">a</span> <span class="operator">=</span> combineArray(getDexElements(getPathList(pathClassLoader)), <span class="comment">// 原有的 dex</span></span><br><span class="line">                     getDexElements(getPathList(<span class="keyword">new</span> <span class="title class_">DexClassLoader</span>(hackFilePath, getDir(<span class="string">&quot;dex&quot;</span>, <span class="number">0</span>).getAbsolutePath(), hackFilePath, getClassLoader()))));  <span class="comment">// 将新的dex插入到dexElements数组的前面</span></span><br><span class="line">             <span class="type">Object</span> <span class="variable">a2</span> <span class="operator">=</span> getPathList(pathClassLoader);</span><br><span class="line">             setField(a2, a2.getClass(), <span class="string">&quot;dexElements&quot;</span>, a); <span class="comment">// 通过反射修改dexElements数组</span></span><br><span class="line">             pathClassLoader.loadClass(<span class="string">&quot;xyz.hanks.Hack&quot;</span>);</span><br><span class="line">         &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">             e.printStackTrace();</span><br><span class="line">         &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这样程序就正常运行起来了.</p>
+<h2 id="生成补丁包"><a href="#生成补丁包" class="headerlink" title="生成补丁包"></a>生成补丁包</h2><p>现在<code>BugClass</code>出现bug了. 修改一下, 然后将修改后的<code>BugClass</code>导出jar包,然后通过<code>dx</code>工具转换成dex,就叫做 <strong>patch.dex</strong> 吧.然后放入到sdcard目录下.</p>
+<p>现在可以加载补丁包了.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 加载</span></span><br><span class="line"><span class="comment"> * Created by hanks on 16-1-3.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">FixApplication</span> <span class="keyword">extends</span> <span class="title class_">Application</span> &#123;</span><br><span class="line">    <span class="meta">@Override</span> <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">onCreate</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="built_in">super</span>.onCreate();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">             <span class="type">PathClassLoader</span> <span class="variable">pathClassLoader</span> <span class="operator">=</span> (PathClassLoader) getClassLoader();</span><br><span class="line">             <span class="type">String</span> <span class="variable">hackFilePath</span> <span class="operator">=</span> Environment.getExternalStorageDirectory().getAbsolutePath() +<span class="string">&quot;/hack.dex&quot;</span>; <span class="comment">// hack.dex的路径</span></span><br><span class="line">             <span class="type">Object</span> <span class="variable">a</span> <span class="operator">=</span> combineArray(getDexElements(getPathList(pathClassLoader)), <span class="comment">// 原有的 dex</span></span><br><span class="line">                     getDexElements(getPathList(<span class="keyword">new</span> <span class="title class_">DexClassLoader</span>(hackFilePath, getDir(<span class="string">&quot;dex&quot;</span>, <span class="number">0</span>).getAbsolutePath(), hackFilePath, getClassLoader()))));  <span class="comment">// 将新的dex插入到dexElements数组的前面</span></span><br><span class="line">             <span class="type">Object</span> <span class="variable">a2</span> <span class="operator">=</span> getPathList(pathClassLoader);</span><br><span class="line">             setField(a2, a2.getClass(), <span class="string">&quot;dexElements&quot;</span>, a); <span class="comment">// 通过反射修改dexElements数组</span></span><br><span class="line">             pathClassLoader.loadClass(<span class="string">&quot;xyz.hanks.Hack&quot;</span>);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">             <span class="comment">// 加载补丁包</span></span><br><span class="line">             <span class="type">String</span> <span class="variable">patchFilePath</span> <span class="operator">=</span> Environment.getExternalStorageDirectory()</span><br><span class="line">                     .getAbsolutePath() + <span class="string">&quot;/patch.dex&quot;</span>;</span><br><span class="line">             <span class="type">Object</span> <span class="variable">a3</span> <span class="operator">=</span> combineArray(getDexElements(getPathList(pathClassLoader)), <span class="comment">// 原有的 dex</span></span><br><span class="line">                     getDexElements(getPathList(<span class="keyword">new</span> <span class="title class_">DexClassLoader</span>(patchFilePath, getDir(<span class="string">&quot;dex&quot;</span>, <span class="number">0</span>).getAbsolutePath(), patchFilePath, getClassLoader()))));</span><br><span class="line">             <span class="type">Object</span> <span class="variable">a4</span> <span class="operator">=</span> getPathList(pathClassLoader);</span><br><span class="line">             setField(a4, a4.getClass(), <span class="string">&quot;dexElements&quot;</span>, a3);</span><br><span class="line">             pathClassLoader.loadClass(<span class="string">&quot;xyz.hanks.fix.BugClass&quot;</span>);</span><br><span class="line"></span><br><span class="line">         &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">             e.printStackTrace();</span><br><span class="line">         &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>每次修改BugClass类之后,生产补丁,放到sdcard,重启程序即可成效(不一定重启程序,目的是要在bugclass被第一次加载之前,加载补丁中的bugclass)</p>
+
+      
+    </div>
+</article>
+
+<!-- 上一页 下一页 -->
+
+
+<nav id="article-nav">
+  
+    <a href="/2016/01/11/react-native-23333/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>上一篇</span>
+      <div class="article-nav-title">
+        
+          React-Native 鬼畜表情包app
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/01/03/android-hotfix/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>下一篇</span>
+      <div class="article-nav-title">Android 热修复总结</div>
+    </a>
+  
+</nav>
+
+
+
+<!-- 相关文章 -->
+
+<!--
+
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+      			<a href="/2016/01/05/android-myhotfix/">Android 动手实现热修复</a>
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+
+-->
+
+
+</section>
+      </div>
+      <footer id="footer">
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      
+      &copy;2024<a target="_blank" rel="noopener" href="https://github.com/hanks-zyh"> Hanks</a>版权所有
+      <br/>
+      <a href="https://beian.miit.gov.cn/" target="_blank">豫ICP备2021022347号</a>
+	  </div>
+  </div>
+ <div id="share">
+  <a id="totop" title="" style="display: block;">返回顶部</a>
+ </div>
+</footer>
+
+    </div>
+    
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/jquery.scrollLoading.js"></script>
+
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/ads.js"></script>
+
+  </div>
+</body>
+</html>

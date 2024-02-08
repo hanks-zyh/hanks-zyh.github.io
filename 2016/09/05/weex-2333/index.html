@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>体验 weex —— 写一个表情包应用 | Hanks&#39; Websit</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <script data-ad-client="ca-pub-8165670162444117" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <meta name="referrer" content="never">
+  <meta name="description" content="前些时间体验 ReactNative 的时候写了一个 2333 表情包 app，这次使用 weex 写一下。 weex 通过自己的一套 sdk 可以将一个 js 文件渲染成一个 native （android 或 iOS ）的 view 对象。 weex 语法参照 vue ，看过一点 vue 的文档所以写起来可以很快上手。有一点感受 weex 的文档感觉没有 RN 的清晰，还有尺寸单位还没搞清楚，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="体验 weex —— 写一个表情包应用">
+<meta property="og:url" content="https://hanks.pub/2016/09/05/weex-2333/index.html">
+<meta property="og:site_name" content="Hanks&#39; Websit">
+<meta property="og:description" content="前些时间体验 ReactNative 的时候写了一个 2333 表情包 app，这次使用 weex 写一下。 weex 通过自己的一套 sdk 可以将一个 js 文件渲染成一个 native （android 或 iOS ）的 view 对象。 weex 语法参照 vue ，看过一点 vue 的文档所以写起来可以很快上手。有一点感受 weex 的文档感觉没有 RN 的清晰，还有尺寸单位还没搞清楚，">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://ww2.sinaimg.cn/large/8c9b876fjw1f7j4ktor7hj20z40hqn2y.jpg">
+<meta property="og:image" content="https://o6epsoek1.bkt.clouddn.com/12.gif">
+<meta property="og:image" content="https://o6epsoek1.bkt.clouddn.com/13.gif">
+<meta property="article:published_time" content="2016-09-05T14:45:18.000Z">
+<meta property="article:modified_time" content="2024-02-08T01:29:02.195Z">
+<meta property="article:author" content="Hanks">
+<meta property="article:tag" content="weex">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://ww2.sinaimg.cn/large/8c9b876fjw1f7j4ktor7hj20z40hqn2y.jpg">
+  
+  
+  <link href="https://fonts.googleapis.com/css?family=Fira+Code|Noto+Serif+SC&display=swap" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8165670162444117"
+     crossorigin="anonymous"></script>
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo"></a>
+    <nav id="main-nav">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      
+        <a class="main-nav-link" href="/archives">Archive</a>
+      
+        <a class="main-nav-link" href="/eye-video">Eye</a>
+      
+        <a class="main-nav-link" href="/atom.xml">Rss</a>
+      
+    </nav>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/archives" class="mobile-nav-link">Archive</a>
+  
+    <a href="/eye-video" class="mobile-nav-link">Eye</a>
+  
+    <a href="/atom.xml" class="mobile-nav-link">Rss</a>
+  
+</nav>
+      <div class="outer">
+        <section id="main"><article id="post-weex-2333" class="article article-type-post" itemscope
+  itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <header class="article-header">
+      
+      
+  
+    <h1 class="article-title" itemprop="name">
+      体验 weex —— 写一个表情包应用
+    </h1>
+  
+
+      
+    </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      <p>前些时间体验 ReactNative 的时候写了一个 2333 表情包 app，这次使用 <code>weex</code> 写一下。 weex 通过自己的一套 sdk 可以将一个 js 文件渲染成一个 native （android 或 iOS ）的 view 对象。 weex 语法参照 vue ，看过一点 vue 的文档所以写起来可以很快上手。有一点感受 <code>weex</code> 的文档感觉没有 RN 的清晰，还有尺寸单位还没搞清楚，浏览器预览的和生成的 android 版还是有差距，和 iOS 也尺寸不太对。</p>
+<span id="more"></span>
+<p><img src="https://ww2.sinaimg.cn/large/8c9b876fjw1f7j4ktor7hj20z40hqn2y.jpg" alt="weex"></p>
+<p><img src="https://o6epsoek1.bkt.clouddn.com/12.gif" alt="brower"></p>
+<p><img src="https://o6epsoek1.bkt.clouddn.com/13.gif" alt="android"></p>
+<h2 id="安装-weex"><a href="#安装-weex" class="headerlink" title="安装 weex"></a>安装 weex</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g weex-toolkit</span><br></pre></td></tr></table></figure>
+
+<h2 id="创建-index-we-文件"><a href="#创建-index-we-文件" class="headerlink" title="创建 index.we 文件"></a>创建 index.we 文件</h2><p>和 vue 类似 <code>template</code> 中放布局，<code>style</code> 放css，<code>script</code> 操作数据。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">   &lt;div class=&quot;main&quot;&gt;</span><br><span class="line">       &lt;list class=&quot;main-list&quot;&gt;</span><br><span class="line">         &lt;cell  class=&quot;&#123;&#123; isSelected ? &#x27;row-select&#x27; :&#x27;row&#x27; &#125;&#125;&quot; repeat=&quot;&#123;&#123;rows&#125;&#125;&quot; index=&quot;&#123;&#123;$index&#125;&#125;&quot; onclick=&quot;changeTid&quot; tid=&#123;&#123;tid&#125;&#125;&gt;</span><br><span class="line">           &lt;div class=&quot;item&quot;&gt;</span><br><span class="line">             &lt;text class=&quot;item-title&quot;&gt;&#123;&#123;  title &#125;&#125;&lt;/text&gt;</span><br><span class="line">           &lt;/div&gt;</span><br><span class="line">         &lt;/cell&gt;</span><br><span class="line">       &lt;/list&gt;</span><br><span class="line">       &lt;list class=&quot;main-detail&quot;&gt;</span><br><span class="line">         &lt;cell  class=&quot;image-row&quot; repeat=&quot;&#123;&#123; imageList &#125;&#125;&quot; &gt;</span><br><span class="line">           &lt;div class=&quot;image-item&quot;&gt;</span><br><span class="line">             &lt;div repeat=&quot;&#123;&#123;data&#125;&#125;&quot;&gt;</span><br><span class="line">               &lt;image style=&quot;width:198;height:198;&quot; src=&quot;&#123;&#123; link &#125;&#125;&quot;&gt;&lt;/image&gt;</span><br><span class="line">             &lt;/div&gt;</span><br><span class="line">           &lt;/div&gt;</span><br><span class="line">         &lt;/cell&gt;</span><br><span class="line">       &lt;/list&gt;</span><br><span class="line">   &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;style&gt;</span><br><span class="line">.main&#123;</span><br><span class="line">  flex-direction: row;</span><br><span class="line">  background-color: #eceff1;</span><br><span class="line">  color: #333333;</span><br><span class="line">&#125;</span><br><span class="line">.main-list&#123;</span><br><span class="line">  flex: 1;</span><br><span class="line">  align-items: stretch;</span><br><span class="line">&#125;</span><br><span class="line">.main-detail&#123;</span><br><span class="line">  flex: 4;</span><br><span class="line">&#125;</span><br><span class="line">.row &#123;</span><br><span class="line">  background-color: white;</span><br><span class="line">&#125;</span><br><span class="line">.row-select &#123;</span><br><span class="line">  background-color: #e1e1e1;</span><br><span class="line">&#125;</span><br><span class="line">.item &#123;</span><br><span class="line">  justify-content: center;</span><br><span class="line">  border-bottom-width: 2;</span><br><span class="line">  border-right-width: 2;</span><br><span class="line">  border-bottom-color: #eceff1;</span><br><span class="line">  border-right-color: #eceff1;</span><br><span class="line">  height: 68;</span><br><span class="line">  padding-left: 10;</span><br><span class="line">  padding-right: 10;</span><br><span class="line">&#125;</span><br><span class="line">.image-item&#123;</span><br><span class="line">  justify-content: space-between;</span><br><span class="line">  flex-direction: row;</span><br><span class="line">  height: 202;</span><br><span class="line">&#125;</span><br><span class="line">.item-title &#123;</span><br><span class="line">  font-size: 24;</span><br><span class="line">  text-overflow: ellipsis;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&lt;/style&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line"></span><br><span class="line">// 使用的组件</span><br><span class="line">require(&#x27;weex-components&#x27;);</span><br><span class="line">module.exports = &#123;</span><br><span class="line">    data: &#123;</span><br><span class="line">      rows: [],</span><br><span class="line">      imageList: [],</span><br><span class="line">      currentTid: 128</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    created: function () &#123;</span><br><span class="line">        this.getCategory()</span><br><span class="line">        this.getImage(this.currentTid)</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    methods: &#123;</span><br><span class="line">      getCategory: function(tid) &#123;</span><br><span class="line">        var that = this</span><br><span class="line">        var stream = require(&#x27;@weex-module/stream&#x27;);</span><br><span class="line">        // 直接使用 fetch 以及 =&gt; 在预览中没问题，生成的 js 文件在 Android 版本渲染不出来，好像是不能直接支持 ES6 语法</span><br><span class="line">        stream.fetch(&#123;</span><br><span class="line">          method: &#x27;GET&#x27;,</span><br><span class="line">          url: &#x27;https://api.leancloud.cn/1.1/classes/Category&#x27;,</span><br><span class="line">          headers: &#123;</span><br><span class="line">            &#x27;X-LC-Id&#x27;: &#x27;ffTooBOPa3NxxjEo91dVYEel-gzGzoHsz&#x27;,</span><br><span class="line">            &#x27;X-LC-Key&#x27;: &#x27;aysIBDNEvw1n063qpf7Jx9jb&#x27;,</span><br><span class="line">            &#x27;Content-Type&#x27;: &#x27;application/json&#x27;</span><br><span class="line">          &#125;,</span><br><span class="line">        &#125;, function(ret) &#123;</span><br><span class="line">          if(!ret.ok)&#123;</span><br><span class="line">            console.log( &quot;request failed&quot;)</span><br><span class="line">          &#125;else&#123;</span><br><span class="line">            var json = JSON.parse(ret.data)</span><br><span class="line">            var list = json.results</span><br><span class="line">            for(var i=0;i &lt; list.length; i++)&#123;</span><br><span class="line">                var item = list[i]</span><br><span class="line">                item.isSelected = false</span><br><span class="line">                that.rows.push(item)</span><br><span class="line">              &#125;</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;,function(response)&#123;</span><br><span class="line">          console.log(response);</span><br><span class="line">        &#125;);</span><br><span class="line">      &#125;,</span><br><span class="line"></span><br><span class="line">      getImage: function(tid) &#123;</span><br><span class="line">        var that = this</span><br><span class="line">        var stream = require(&#x27;@weex-module/stream&#x27;);</span><br><span class="line">        stream.fetch(&#123;</span><br><span class="line">          method: &#x27;GET&#x27;,</span><br><span class="line">          url: &#x27;https://api.leancloud.cn/1.1/classes/Image?where=&#123;&quot;tid&quot;:&#x27;+tid+&#x27;&#125;&#125;&amp;order=-update_time&#x27;,</span><br><span class="line">          headers: &#123;</span><br><span class="line">            &#x27;X-LC-Id&#x27;: &#x27;ffTooBOPa3NxxjEo91dVYEel-gzGzoHsz&#x27;,</span><br><span class="line">            &#x27;X-LC-Key&#x27;: &#x27;aysIBDNEvw1n063qpf7Jx9jb&#x27;,</span><br><span class="line">            &#x27;Content-Type&#x27;: &#x27;application/json&#x27;</span><br><span class="line">          &#125;,</span><br><span class="line">        &#125;, function(ret) &#123;</span><br><span class="line">          if(!ret.ok)&#123;</span><br><span class="line">            console.log( &quot;request failed&quot;)</span><br><span class="line">          &#125;else&#123;</span><br><span class="line">            var json = JSON.parse(ret.data)</span><br><span class="line">            var list = json.results</span><br><span class="line">            that.imageList.length = 0</span><br><span class="line">            for(var i = 0; i &lt; list.length; i++)&#123;</span><br><span class="line">              var imageRow;</span><br><span class="line">              if (i % 3 == 0) &#123;</span><br><span class="line">                  imageRow = [];</span><br><span class="line">                  that.imageList.push(&#123;&#x27;data&#x27;:imageRow&#125;);</span><br><span class="line">              &#125;</span><br><span class="line">              imageRow[i%3] = list[i];</span><br><span class="line">            &#125;</span><br><span class="line">            console.log(that.imageList);</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;,function(response)&#123;</span><br><span class="line">          console.log(response);</span><br><span class="line">        &#125;);</span><br><span class="line">      &#125;,</span><br><span class="line"></span><br><span class="line">      changeTid: function (e) &#123;</span><br><span class="line">        console.log(e);</span><br><span class="line">        this.currentTid = e.target.attr.tid</span><br><span class="line">        this.getImage(this.currentTid)</span><br><span class="line">        for (var i = 0; i &lt; this.rows.length; i++) &#123;</span><br><span class="line">          var row = this.rows[i]</span><br><span class="line">          row.isSelected = row.tid  ==   this.currentTid</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="运行起来"><a href="#运行起来" class="headerlink" title="运行起来"></a>运行起来</h2><p>浏览器中预览</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">weex index.we</span><br></pre></td></tr></table></figure>
+
+<p>生成 js 文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">weex index -o build.js</span><br></pre></td></tr></table></figure>
+
+<h2 id="跑在-Android-项目中"><a href="#跑在-Android-项目中" class="headerlink" title="跑在 Android 项目中"></a>跑在 Android 项目中</h2><p>新建 Android 项目， 在项目中添加 <code>weex</code> sdk 的依赖库。<br><code>app/build.gradle</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">dependencies &#123;</span><br><span class="line">    compile fileTree(dir: &#x27;libs&#x27;, include: [&#x27;*.jar&#x27;])</span><br><span class="line">    testCompile &#x27;junit:junit:4.12&#x27;</span><br><span class="line">    compile &#x27;com.android.support:appcompat-v7:24.0.0&#x27;</span><br><span class="line">    compile &#x27;com.android.support:recyclerview-v7:24.0.0&#x27;</span><br><span class="line">    compile &#x27;com.github.bumptech.glide:glide:3.7.0&#x27;</span><br><span class="line">    compile &#x27;com.alibaba:fastjson:1.1.46.android&#x27;</span><br><span class="line">    compile &#x27;com.taobao.android:weex_sdk:0.7.0&#x27; // weex sdk</span><br><span class="line">    compile &#x27;com.taobao.android:weex_inspector:0.0.2.7&#x27; // weex 调试 sdk ，这个必须得加</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>创建自己的 Application 类，然后 onCreated 中初始化 weex</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Created by hanks on 16/9/5.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MyApp</span> <span class="keyword">extends</span> <span class="title class_">Application</span> &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">onCreate</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="built_in">super</span>.onCreate();</span><br><span class="line">        WXEnvironment.addCustomOptions(<span class="string">&quot;appName&quot;</span>, <span class="string">&quot;TBSample&quot;</span>);</span><br><span class="line">        <span class="type">InitConfig</span> <span class="variable">config</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">InitConfig</span>.Builder()</span><br><span class="line">                .setImgAdapter(<span class="keyword">new</span> <span class="title class_">ImageAdapter</span>())</span><br><span class="line">                .build();</span><br><span class="line">        WXSDKEngine.initialize(<span class="built_in">this</span>, config);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>初始化完成之后就是加载 js 了，将上一步生成的 js 复制到 assets 目录</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">public class MainActivity extends AppCompatActivity &#123;</span><br><span class="line"></span><br><span class="line">    private FrameLayout mContainer;</span><br><span class="line">    private WXSDKInstance mWeexInstance;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    protected void onCreate(Bundle savedInstanceState) &#123;</span><br><span class="line">        super.onCreate(savedInstanceState);</span><br><span class="line">        setContentView(R.layout.activity_main);</span><br><span class="line"></span><br><span class="line">        mContainer = (FrameLayout) findViewById(R.id.container);</span><br><span class="line">        // sdk 实例</span><br><span class="line">        mWeexInstance = new WXSDKInstance(this);</span><br><span class="line">        mWeexInstance.registerRenderListener(new IWXRenderListener() &#123;</span><br><span class="line"></span><br><span class="line">            // sdk 将 js 文件渲染成 view 对象回调</span><br><span class="line">            @Override</span><br><span class="line">            public void onViewCreated(WXSDKInstance wxsdkInstance, View view) &#123;</span><br><span class="line">                if (mContainer != null) &#123;</span><br><span class="line">                    mContainer.addView(view); // 添加到界面</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            @Override</span><br><span class="line">            public void onRenderSuccess(WXSDKInstance wxsdkInstance, int i, int i1) &#123;</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            @Override</span><br><span class="line">            public void onRefreshSuccess(WXSDKInstance wxsdkInstance, int i, int i1) &#123;</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            @Override</span><br><span class="line">            public void onException(WXSDKInstance wxsdkInstance, String s, String s1) &#123;</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">        // 加载 js 文件</span><br><span class="line">        mWeexInstance.render(&quot;Weex2333&quot;,</span><br><span class="line">                WXFileUtils.loadAsset(&quot;build.js&quot;, this),</span><br><span class="line">                null, null, -1, -1,</span><br><span class="line">                WXRenderStrategy.APPEND_ASYNC);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后运行 Android 项目。</p>
+<p>iOS 工程暂时没有跑起来 &gt;.&lt;</p>
+<blockquote>
+<p>文章来自： <a href="https://hanks.pub/">https://hanks.pub</a></p>
+</blockquote>
+
+      
+    </div>
+</article>
+
+<!-- 上一页 下一页 -->
+
+
+<nav id="article-nav">
+  
+    <a href="/2016/09/19/webapp/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>上一篇</span>
+      <div class="article-nav-title">
+        
+          让网页更适配移动设备
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/08/31/nestedscrollchild/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>下一篇</span>
+      <div class="article-nav-title">WebView 实现 NestedScrollingChild</div>
+    </a>
+  
+</nav>
+
+
+
+<!-- 相关文章 -->
+
+<!--
+
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+      			<a href="/2016/09/05/weex-2333/">体验 weex —— 写一个表情包应用</a>
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+
+-->
+
+
+</section>
+      </div>
+      <footer id="footer">
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      
+      &copy;2024<a target="_blank" rel="noopener" href="https://github.com/hanks-zyh"> Hanks</a>版权所有
+      <br/>
+      <a href="https://beian.miit.gov.cn/" target="_blank">豫ICP备2021022347号</a>
+	  </div>
+  </div>
+ <div id="share">
+  <a id="totop" title="" style="display: block;">返回顶部</a>
+ </div>
+</footer>
+
+    </div>
+    
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/jquery.scrollLoading.js"></script>
+
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/ads.js"></script>
+
+  </div>
+</body>
+</html>

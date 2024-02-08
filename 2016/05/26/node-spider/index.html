@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Node.js 爬微信文章 | Hanks&#39; Websit</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <script data-ad-client="ca-pub-8165670162444117" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <meta name="referrer" content="never">
+  <meta name="description" content="利用 Node 来抓取网页中需要的信息。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Node.js 爬微信文章">
+<meta property="og:url" content="https://hanks.pub/2016/05/26/node-spider/index.html">
+<meta property="og:site_name" content="Hanks&#39; Websit">
+<meta property="og:description" content="利用 Node 来抓取网页中需要的信息。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://dn-coding-net-production-pp.qbox.me/14a7d0ce-a360-4756-97f7-2ce80ba4570c.png">
+<meta property="og:image" content="https://ww3.sinaimg.cn/large/8c9b876fjw1f4ck33bcj8j20qd0c9t9a.jpg">
+<meta property="article:published_time" content="2016-05-26T14:45:43.000Z">
+<meta property="article:modified_time" content="2024-02-08T01:29:02.189Z">
+<meta property="article:author" content="Hanks">
+<meta property="article:tag" content="Node.js">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://dn-coding-net-production-pp.qbox.me/14a7d0ce-a360-4756-97f7-2ce80ba4570c.png">
+  
+  
+  <link href="https://fonts.googleapis.com/css?family=Fira+Code|Noto+Serif+SC&display=swap" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8165670162444117"
+     crossorigin="anonymous"></script>
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo"></a>
+    <nav id="main-nav">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      
+        <a class="main-nav-link" href="/archives">Archive</a>
+      
+        <a class="main-nav-link" href="/eye-video">Eye</a>
+      
+        <a class="main-nav-link" href="/atom.xml">Rss</a>
+      
+    </nav>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/archives" class="mobile-nav-link">Archive</a>
+  
+    <a href="/eye-video" class="mobile-nav-link">Eye</a>
+  
+    <a href="/atom.xml" class="mobile-nav-link">Rss</a>
+  
+</nav>
+      <div class="outer">
+        <section id="main"><article id="post-node-spider" class="article article-type-post" itemscope
+  itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <header class="article-header">
+      
+      
+  
+    <h1 class="article-title" itemprop="name">
+      Node.js 爬微信文章
+    </h1>
+  
+
+      
+    </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      <p>利用 Node 来抓取网页中需要的信息。</p>
+<span id="more"></span>
+
+<h3 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h3><ol>
+<li>基本环境： node &amp;&amp; npm</li>
+<li>cheerio 模块：解析 HTML</li>
+</ol>
+<p>安装 cheerio 通过 <code>npm install cheerio</code></p>
+<h3 id="获取网页源码"><a href="#获取网页源码" class="headerlink" title="获取网页源码"></a>获取网页源码</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">var http = require(&#x27;http&#x27;)</span><br><span class="line"></span><br><span class="line">// 微信文章 : Android</span><br><span class="line">var start_url = &quot;https://weixin.sogou.com/weixin?query=android&amp;type=2&amp;page=2&amp;ie=utf8&quot;</span><br><span class="line">http.get(start_url, function (res) &#123;</span><br><span class="line">    var html = &#x27;&#x27;</span><br><span class="line">    res.on(&#x27;data&#x27;, function (data) &#123;</span><br><span class="line">        html += data</span><br><span class="line">    &#125;)</span><br><span class="line">    res.on(&#x27;end&#x27;, function () &#123;</span><br><span class="line">        console.log(html) // 打印网页源码</span><br><span class="line">        filterWeixinArticle(html)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;).on(&#x27;error&#x27;, function (e) &#123;</span><br><span class="line">    console.log(&#x27;获取信息失败&#x27;)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>通过 <code>http</code> 模块打印出来网页的源码：<br><img src="https://dn-coding-net-production-pp.qbox.me/14a7d0ce-a360-4756-97f7-2ce80ba4570c.png" alt="图片"><br>然后使用 cheerio 解析 HTML 字符串。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">var cheerio = require(&#x27;cheerio&#x27;)</span><br><span class="line"></span><br><span class="line">function filterWeixinArticle(html) &#123;</span><br><span class="line">    var $ = cheerio.load(html)</span><br><span class="line">    var items = $(&#x27;.wx-rb&#x27;)</span><br><span class="line">    items.each(function (item) &#123;</span><br><span class="line">        var article = $(this)</span><br><span class="line">        // 文章标题</span><br><span class="line">        var title = article.find(&#x27;h4&#x27;).text().replace(/\s+/g, &#x27;&#x27;)</span><br><span class="line">        // 副标题</span><br><span class="line">        var subtitle = article.find(&#x27;p&#x27;).text().replace(/\s+/g, &#x27;&#x27;)</span><br><span class="line">        // 文章完整的url</span><br><span class="line">        var url = article.find(&#x27;h4 a&#x27;).attr(&#x27;href&#x27;).replace(/\s+/g, &#x27;&#x27;)</span><br><span class="line">        // 文章 id</span><br><span class="line">        var id = article.attr(&#x27;d&#x27;).replace(/\s+/g, &#x27;&#x27;)</span><br><span class="line">        // 作者名字</span><br><span class="line">        var authorName = article.find(&#x27;.s-p a&#x27;).attr(&#x27;title&#x27;)</span><br><span class="line">        // 作者主页</span><br><span class="line">        var authorUrl = article.find(&#x27;.s-p a&#x27;).attr(&#x27;href&#x27;)</span><br><span class="line">        var articleFrom = &quot;weixin&quot;</span><br><span class="line">        var articleItem = &#123;</span><br><span class="line">            title: title,</span><br><span class="line">            subtitle: subtitle,</span><br><span class="line">            url: url,</span><br><span class="line">            article_id: id,</span><br><span class="line">            article_from: articleFrom,</span><br><span class="line">            author_name: authorName,</span><br><span class="line">            author_url: authorUrl</span><br><span class="line">        &#125;</span><br><span class="line">        console.log(&#x27;title:&#x27; + articleItem.title</span><br><span class="line">            + &#x27;\nsubtitle:&#x27; + articleItem.subtitle</span><br><span class="line">            + &#x27;\nurl:&#x27; + articleItem.url</span><br><span class="line">            + &#x27;\nid:&#x27; + articleItem.article_id</span><br><span class="line">            + &#x27;\nname:&#x27; + articleItem.author_name</span><br><span class="line">            + &#x27;\naaurl:&#x27; + articleItem.author_url</span><br><span class="line">            + &#x27;\n.................................\n\n&#x27;)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p>运行结果：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">title:Android日常开发总结的技术经验60条</span><br><span class="line">subtitle:通过设置的控件transcriptMode属性可以将Android平台的控件(支持ScrollBar)自动滑动到最底部.Longa;判断a有没有赋值,if(a==0)在a没有赋值情况下会报错.应该if(a==null),Integer、Floag等也一样,原因你懂,只是提醒你要小心喔.编码遇到读写、出入等逻辑要双向考虑,文件导...</span><br><span class="line">url:https://mp.weixin.qq.com/s?src=3&amp;timestamp=1464274994&amp;ver=1&amp;signature=NXYpqtVv4fKUBsqFpmpIR5CCHHrGvqE6kXYMOsigc3oyj3OyPsTNX5bpgdQsFXmjmZEwNPQGIzTo7n*xz*ZEtoEL99CHcWPqZfPhwEIOgJbDZpQ3QI*Lmi-WNogIDeU2Vsx0M*OBbeUFxZSNt6KBS8HK8*qEMmcCW1XembHPhnM=</span><br><span class="line">id:ab735a258a90e8e1-6bee54fcbd896b2a-fd14b35016ff8b667ee4beb6300264b9</span><br><span class="line">name:IT大牛人</span><br><span class="line">aaurl:https://mp.weixin.qq.com/profile?src=3&amp;timestamp=1464274994&amp;ver=1&amp;signature=9gqKRZeyNAYOmC8LKClHnlInQNVhvVkRjZfPgtYSSsR9SXHOfO*4q1rMqKpqgjHOC5Fd2iIltr*sI2NHUJo9Pg==</span><br><span class="line">.................................</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">title:Android开发和Java开发有什么区别</span><br><span class="line">subtitle:经常听说学Android开发首先要学Java语言,后来又听说还有Java开发这个行业,很是好奇,Android开发和Java开发有什么区别?之前了解到Android系统是基于Linux内核和驱动都是使用C/C++语言做开发,为什么又要选择Java作为开发语言呢?经过最近研究发现,原来是这么回事,废话不多...</span><br><span class="line">url:https://mp.weixin.qq.com/s?src=3&amp;timestamp=1464274994&amp;ver=1&amp;signature=W*P4mHe*NUJ99i3nNo7TOIjf6YTu1QpurBdRu9pJulqkSCAR0B-jiAexfATJbmqpxz6o0zqF7*f0BBzqiHM6i1WomQG4RbwETSl0x8NNwpBoPkMqzP9IIPe5a9p8pZgX3QjnD2l6WUUfiIdSpo3clCsxV0RoSQuPrkLhKZNrzkg=</span><br><span class="line">id:ab735a258a90e8e1-6bee54fcbd896b2a-8b3ccfa735dd903a26015cd2336fafd0</span><br><span class="line">name:电商世纪</span><br><span class="line">aaurl:https://mp.weixin.qq.com/profile?src=3&amp;timestamp=1464274994&amp;ver=1&amp;signature=yowmZpBKe613d90SuSXx*k8MZMDBs7yWQuWuWsT0fNufkwitAQElDmdalVWm1QYqGEr1yCPd6GsJxsCOOWE*UA==</span><br><span class="line">.................................</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">title:谷歌I/O大会之后,AndroidN将会带来哪些功能?</span><br><span class="line">subtitle:随着谷歌I/O大会的召开,Android7.0(AndroidN)系统正式版也将于今年夏季到来,相信此时你一定在想:“AndroidN发布与我们有什么关系?天朝又用不到”,但是别忘了无论你用的是三星、是小米、是LG、还是索尼,他们所搭载的系统都是基于原始Android修改而来,所以我们经常看到手...</span><br><span class="line">url:https://mp.weixin.qq.com/s?src=3&amp;timestamp=1464274994&amp;ver=1&amp;signature=*TNdFacgb6-0dZOYt*ZMwzGjLv2BcDfsNmkMRRf*1M*N5F7qk3tnqeN*KAVDyBMwuVibuaEot9FOgiderqfvbE-ISQ0KHl-b6Iwd1thzE21KEPJFdHxFxz2C9rn1C*BfmQdmrUZxjGvtvF0u5HARLiSRnfy1zHtVVPnA1xpEFgo=</span><br><span class="line">id:ab735a258a90e8e1-6bee54fcbd896b2a-0c606a211b4a27b3e1d0dbe071cb59b0</span><br><span class="line">name:DevStore</span><br><span class="line">aaurl:https://mp.weixin.qq.com/profile?src=3&amp;timestamp=1464274994&amp;ver=1&amp;signature=cUBy7lubgzeEL99mK6O**jPbPFzVKZmfoBd*5EplLLGRDmAJ-LTUaUKlt-LtBBfBCwAWkdeux*WsppGwTNsmBA==</span><br><span class="line">.................................</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">title:Android7.0应用运行速度飙升600%!效率史上最高</span><br><span class="line">subtitle:谷歌今天早些时候正式在I/O大会现场详细介绍了有关Android7.0的大量信息.目前,我们已经知道,新一代Android操作系统将支持无缝升级,能够通过VulkanAPI来在中低硬件配置设备上实现流畅游戏体验以及更多的Emoji表情.不过,Android7.0最大也是最引人关注的还是来自运行效率上...</span><br><span class="line">url:https://mp.weixin.qq.com/s?src=3&amp;timestamp=1464274994&amp;ver=1&amp;signature=z8fbjM3PfPjV7wUxNIQvd*srD7vkuemnG4s*YZG2Whb1ce-P44PP8H0cQ0RMOOw9j*rpA6QtijNcKotzLmsypJUV-liwUneDu8akmo0dNte5ENFWSrk8kYKAWavHw94AcxFG0N*8LkCKegfOhk04rdwMQoQYxqtQyhD1sRuvYr0=</span><br><span class="line">id:ab735a258a90e8e1-6bee54fcbd896b2a-1fc444d0ea3d2895668c9cf4c156c5bf</span><br><span class="line">name:广东快通信息科技有限公司</span><br><span class="line">aaurl:https://mp.weixin.qq.com/profile?src=3&amp;timestamp=1464274994&amp;ver=1&amp;signature=owCQiyQBxuJO4aTnrvcXUxiIwILaPnZoMHp4yjtBvZO9tzaqceqWDmLy9wEXZbsR2VgFbr98Hzk3sMSZ6hZBOQ==</span><br><span class="line">.................................</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">title:7年经验的Android开发工程师</span><br><span class="line">subtitle:▌候选人编号TP16052601男32岁7年工作经验本科西南大学生物科学【求职状态】5月26日正在找工作【求职意向】Android开发工程师【到岗时间】即时到岗【目标地点】北京【期望行业】计算机软件、互联网/电子商务【期望薪资】面议【自我评价】熟练掌握OkHttp、Volley、butterknife、...</span><br><span class="line">url:https://mp.weixin.qq.com/s?src=3&amp;timestamp=1464274994&amp;ver=1&amp;signature=mH4vmswEAJEmBWt3K6dU2bhxweD8BYIQ0lE7jmrzKiPzVMWWaEX3mLi16nl0U*PNdoZb0r6pVF92ZguAtBXWTJV3n*TmIibW6NUoWj5lJduMY9CvPsptuu6*ZeBDiKg*YteUDeIfnCyu1tgnUHi4qClecJS30mwraD2xhcplI28=</span><br><span class="line">id:ab735a258a90e8e1-6bee54fcbd896b2a-bfa3bc3c88c4d53073cffbcd55097ef7</span><br><span class="line">name:合拍人力资源中心</span><br><span class="line">aaurl:https://mp.weixin.qq.com/profile?src=3&amp;timestamp=1464274994&amp;ver=1&amp;signature=qvNLNL15GF4cLv09Q0GhqFU5Sf1KSlHjdcmYyZWVOy5gxLft0hjjGuwtfL1G7tcATrQX-T2efIVPab3-armSHw==</span><br><span class="line">.................................</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">title:Android升级太慢!谷歌使出拉黑大招</span><br><span class="line">subtitle:北京时间5月26日消息,彭博社报道,谷歌正采取新措施,以推动Android手机更快地升级至最新版本.由于Android系统碎片化的问题,因此谷歌可能将采取非传统的手段.谷歌正在考虑的方式之一是,根据手机厂商升级系统的“熟练度”发布排名.发布这样的数据将鼓励手机厂商在系统升...</span><br><span class="line">url:https://mp.weixin.qq.com/s?src=3&amp;timestamp=1464274994&amp;ver=1&amp;signature=hoQI56*wxOWyeymtTwC3HGjclKnR*Y0e0GsQWtPzTsXo8ejqYPAcH71j86vF-ZxyrpOfmCVsbW012uxaFUUCQ1PLv1UKCD9TPaLCOxII6PrDNu*Q9g0RU0cSgo7h4GV4ObtQiHNBajNrZr37cTvVAFo4O*mR*CadJJ6rOuhSzKI=</span><br><span class="line">id:ab735a258a90e8e1-6bee54fcbd896b2a-05c724eabcac6ed92c3f7bf78e279af6</span><br><span class="line">name:周路1312</span><br><span class="line">aaurl:https://mp.weixin.qq.com/profile?src=3&amp;timestamp=1464274994&amp;ver=1&amp;signature=lj0aq-0nHLY-dHzY*ZRwOQV*-Zam610x2gwYtmqbszLKUhUN7uRhMYw4Qa43BpSIRWyh53vKjPJ0rKSqHusSEg==</span><br><span class="line">.................................</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">title:苹果iOS10新增这5项AndroidN功能,酷炫!</span><br><span class="line">subtitle:如果没有意外的话,苹果下一代iPhone以及iOS10操作系统将会在今年夏天跟谷歌AndroidN系统展开激烈的竞争.我们在AndroidN系统上看到了一些非常大的进步,不少特性都让人眼前一亮.外媒CultOfMac认为,如果AndroidN系统的这5个特性能够出现在未来的iOS版本上...</span><br><span class="line">url:https://mp.weixin.qq.com/s?src=3&amp;timestamp=1464274994&amp;ver=1&amp;signature=d9OAuBtb97E09c2c1cgbaGp8Td3rZrAzUR0JITEZWQzOZgQDMRe3Yn8nvTaUjhCsazngzOha5VzOk2ccXoi*9vJzF-GuDEGMBl68yeG197ixJIRdvTkaDpRaIQLK3KVSYQQSZQcjaOrp1bN6L4KghEKryWLz0-ousX3vVoJYpQQ=</span><br><span class="line">id:ab735a258a90e8e1-6bee54fcbd896b2a-c651e8da99849f6fee9f8303bffed181</span><br><span class="line">name:达内iOS培训</span><br><span class="line">aaurl:https://mp.weixin.qq.com/profile?src=3&amp;timestamp=1464274994&amp;ver=1&amp;signature=*jQgyhjKt2Yzq67KwgipuPukbM-crBBf9livbnyABwBSVYpqBQS93DT4ltZTm1smAZ*v6HWsvBi7SYSJEQgC*Q==</span><br><span class="line">.................................</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">title:AndroidQQ6.3.7.2795正式发布~</span><br><span class="line">subtitle:QQforAndroid6.3.7版本功能介绍:1.视频对讲自动保存,生成专属表情包2.好友推荐推荐可能认识的人,发现更多新朋友3.热聊语音秀新增点赞功能,支持你喜欢的房间4.口令红包消息超过十二条时,可自动折叠5.多条消息被合并转发后,可再次转发6.手势密码升级,保障信息安全,支持单独...</span><br><span class="line">url:https://mp.weixin.qq.com/s?src=3&amp;timestamp=1464274994&amp;ver=1&amp;signature=qPCFsTnwZTSKVlCa5NwhwccVqLfR*RxUyB3mazE61dXs5pGr*ZHm-WsRs0bkfYtJEpcTLl2VS2tGFcH8dG5HZspcLUt2ARlSY7MUROcO9iYhJmG-P1z3QQyDwF9qWqD7OwgbtDCebQz3-DY5UvrWeNy1HCIduoFG0cEjnCdRJ2g=</span><br><span class="line">id:ab735a258a90e8e1-6bee54fcbd896b2a-e6f34473f892fb24433535c37e86dc18</span><br><span class="line">name:畩靠</span><br><span class="line">aaurl:https://mp.weixin.qq.com/profile?src=3&amp;timestamp=1464274994&amp;ver=1&amp;signature=lh-qBwZqBa16oom5v-7BcGfyLIBPJNsvlNRhWeaKcjPkXlRg7foJ-MqSXBFPfSz9nGwaH0gb7A8LlvnxV2CNog==</span><br><span class="line">.................................</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">title:我的Android面试经验总结</span><br><span class="line">subtitle:关注我,你的眼睛会怀孕MVC,MVP和MVVMMVC通信方式,环形方式:1、View传送指令到Controller2、Controller起到不同层面间的组织作用,用于控制应用程序的流程.它处理事件并作出响应.“事件”包括用户的行为和数据Model上的改变.3、Model将新的数据发送到View,用户...</span><br><span class="line">url:https://mp.weixin.qq.com/s?src=3&amp;timestamp=1464274994&amp;ver=1&amp;signature=NXYpqtVv4fKUBsqFpmpIR5CCHHrGvqE6kXYMOsigc3oyj3OyPsTNX5bpgdQsFXmjT2RKoo-EwS9*27ArD00CXQw1NM*Jm9fMzQyPoNLE1TpNx1lsF560TO5iqliDvj3Of8qFs**ac6OPR*7m053c7WaClXm7kf7hgHQtddNABEo=</span><br><span class="line">id:ab735a258a90e8e1-6bee54fcbd896b2a-ad022736030ea3ac87cae32ae8668f46</span><br><span class="line">name:IT大牛人</span><br><span class="line">aaurl:https://mp.weixin.qq.com/profile?src=3&amp;timestamp=1464274994&amp;ver=1&amp;signature=9gqKRZeyNAYOmC8LKClHnlInQNVhvVkRjZfPgtYSSsR9SXHOfO*4q1rMqKpqgjHOC5Fd2iIltr*sI2NHUJo9Pg==</span><br><span class="line">.................................</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">title:【Android开发】微信支付不成功的几个原因</span><br><span class="line">subtitle:微信支付一定要理解的几个概念:1导出应用签名区别于应用签名,使用debug.keystore密钥库,导出应用时进行签名2项目包名比如:com.shangmai.recovery3应用签名签名使用官网提供的工具——Gen_Signature_Android.apk,输入包名生成,比如:a04b960af8bf3b8bde86a25ecb791f844...</span><br><span class="line">url:https://mp.weixin.qq.com/s?src=3&amp;timestamp=1464274994&amp;ver=1&amp;signature=mBYIjZdjrG1qmlOCoKcg0dgGLXJwWtQHKn6lpkWYQv4H0-dKk9Nh7pnD*MEGrhec717brvxQizJp8hiCqkNJkrkuKFkXgpKl0ML1ghfBAreVRbHzVrEouiD06GPRqcmhJRtIe*24J0geYSCMhlJnG-2JuyfiQiBu7HUQaCEng88=</span><br><span class="line">id:ab735a258a90e8e1-6bee54fcbd896b2a-9278f0323ae3e65971e0fcb37f275423</span><br><span class="line">name:黑马程序员</span><br><span class="line">aaurl:https://mp.weixin.qq.com/profile?src=3&amp;timestamp=1464274994&amp;ver=1&amp;signature=oE87kQzfDF2iKcoD*anPFvLaTy5fRgzE1t2nu8NNMpVhXEAJ2G5qcI-UGK5mjUxxFBF2bFe50eD54Gdr9W7TqA==</span><br><span class="line">.................................</span><br></pre></td></tr></table></figure>
+
+<p>后来发现上面抓到的文章链接有过期时间，如下图。</p>
+<p><img src="https://ww3.sinaimg.cn/large/8c9b876fjw1f4ck33bcj8j20qd0c9t9a.jpg"></p>
+<blockquote>
+<p>文章来自： <a href="https://hanks.pub/">https://hanks.pub</a></p>
+</blockquote>
+
+      
+    </div>
+</article>
+
+<!-- 上一页 下一页 -->
+
+
+<nav id="article-nav">
+  
+    <a href="/2016/06/02/get-activity/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>上一篇</span>
+      <div class="article-nav-title">
+        
+          Android 中获取当前的 Activity
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/05/21/mongoDB/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>下一篇</span>
+      <div class="article-nav-title">MongoDB 入门</div>
+    </a>
+  
+</nav>
+
+
+
+<!-- 相关文章 -->
+
+<!--
+
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+      			<a href="/2016/05/26/node-spider/">Node.js 爬微信文章</a>
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+
+-->
+
+
+</section>
+      </div>
+      <footer id="footer">
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      
+      &copy;2024<a target="_blank" rel="noopener" href="https://github.com/hanks-zyh"> Hanks</a>版权所有
+      <br/>
+      <a href="https://beian.miit.gov.cn/" target="_blank">豫ICP备2021022347号</a>
+	  </div>
+  </div>
+ <div id="share">
+  <a id="totop" title="" style="display: block;">返回顶部</a>
+ </div>
+</footer>
+
+    </div>
+    
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/jquery.scrollLoading.js"></script>
+
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/ads.js"></script>
+
+  </div>
+</body>
+</html>

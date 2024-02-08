@@ -1,0 +1,10 @@
+{
+    "version": 146,
+    "min_version": 105,
+    "version_name":"3.0.1",
+    "update_tips":"更新内容：\n1. 优化云同步流程，修复不稳定问题\n2. 减小安装包体积\n3. 优化背景图沉浸显示效果\n4. 提升流畅度",
+    "force_update":false,
+    "show_cancel": true,
+    "apk_url": "",
+    "market_url":"https://www.coolapk.com/apk/120237"
+}

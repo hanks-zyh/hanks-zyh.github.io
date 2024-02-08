@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Android 下雪动画 | Hanks&#39; Websit</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <script data-ad-client="ca-pub-8165670162444117" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <meta name="referrer" content="never">
+  <meta name="description" content="原文链接 :  Snowfall    原文作者 : Styling Android 译文出自 : hanks.xyz 译者 : hanks-zyh 校对者: desmond1121 状态 : 完成  这本是一个愉快的季节，但是，呵呵，胡扯！ 因为这篇文章的发表时间是2015年的圣诞节，所以我们需要给Style Android用制造出一些节日气氛。感谢读者们，因为有的读者可能没有在庆祝圣诞，有">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android 下雪动画">
+<meta property="og:url" content="https://hanks.pub/2015/12/30/snowfall/index.html">
+<meta property="og:site_name" content="Hanks&#39; Websit">
+<meta property="og:description" content="原文链接 :  Snowfall    原文作者 : Styling Android 译文出自 : hanks.xyz 译者 : hanks-zyh 校对者: desmond1121 状态 : 完成  这本是一个愉快的季节，但是，呵呵，胡扯！ 因为这篇文章的发表时间是2015年的圣诞节，所以我们需要给Style Android用制造出一些节日气氛。感谢读者们，因为有的读者可能没有在庆祝圣诞，有">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://dn-coding-net-production-pp.qbox.me/6c6bdb8b-fcd8-4869-80d0-1b3f849810d8.png">
+<meta property="article:published_time" content="2015-12-30T09:58:41.000Z">
+<meta property="article:modified_time" content="2024-02-08T01:29:02.193Z">
+<meta property="article:author" content="Hanks">
+<meta property="article:tag" content="Android">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://dn-coding-net-production-pp.qbox.me/6c6bdb8b-fcd8-4869-80d0-1b3f849810d8.png">
+  
+  
+  <link href="https://fonts.googleapis.com/css?family=Fira+Code|Noto+Serif+SC&display=swap" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8165670162444117"
+     crossorigin="anonymous"></script>
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo"></a>
+    <nav id="main-nav">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      
+        <a class="main-nav-link" href="/archives">Archive</a>
+      
+        <a class="main-nav-link" href="/eye-video">Eye</a>
+      
+        <a class="main-nav-link" href="/atom.xml">Rss</a>
+      
+    </nav>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/archives" class="mobile-nav-link">Archive</a>
+  
+    <a href="/eye-video" class="mobile-nav-link">Eye</a>
+  
+    <a href="/atom.xml" class="mobile-nav-link">Rss</a>
+  
+</nav>
+      <div class="outer">
+        <section id="main"><article id="post-snowfall" class="article article-type-post" itemscope
+  itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <header class="article-header">
+      
+      
+  
+    <h1 class="article-title" itemprop="name">
+      Android 下雪动画
+    </h1>
+  
+
+      
+    </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      <blockquote>
+<ul>
+<li>原文链接 :  <a target="_blank" rel="noopener" href="https://blog.stylingandroid.com/snowfall/">Snowfall</a></li>
+</ul>
+</blockquote>
+<ul>
+<li>原文作者 : <a target="_blank" rel="noopener" href="https://blog.stylingandroid.com/">Styling Android</a></li>
+<li>译文出自 : <a target="_blank" rel="noopener" href="https://hanks.xyz/">hanks.xyz</a></li>
+<li>译者 : <a target="_blank" rel="noopener" href="https://github.com/hanks-zyh">hanks-zyh</a></li>
+<li>校对者: <a target="_blank" rel="noopener" href="https://github.com/desmond1121">desmond1121</a></li>
+<li>状态 : 完成</li>
+</ul>
+<p>这本是一个愉快的季节，但是，呵呵，胡扯！ 因为这篇文章的发表时间是2015年的圣诞节，所以我们需要给Style Android用制造出一些节日气氛。感谢读者们，因为有的读者可能没有在庆祝圣诞，有些读者可能还是6月份。<br>那么问题来了，我们应该做些什么来让这个节日像是真正的节日呢？ 最简单的方法：带上圣诞帽，拍个照。</p>
+<p><img src="https://dn-coding-net-production-pp.qbox.me/6c6bdb8b-fcd8-4869-80d0-1b3f849810d8.png" alt="tree"></p>
+<span id="more"></span>
+
+<p>看我多么欢乐！<br>但是我感觉这个图片有些单调，所以来弄点雪花，让雪花飘下来。<br>我们可以添加一个包含这个图片的自定义View</p>
+<p><strong>res&#x2F;layout&#x2F;activity_main.xml</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span><br><span class="line">&lt;RelativeLayout xmlns:android=&quot;https://schemas.android.com/apk/res/android&quot;</span><br><span class="line">  xmlns:tools=&quot;https://schemas.android.com/tools&quot;</span><br><span class="line">  android:layout_width=&quot;match_parent&quot;</span><br><span class="line">  android:layout_height=&quot;match_parent&quot;</span><br><span class="line">  tools:context=&quot;com.stylingandroid.snowfall.MainActivity&quot;&gt;</span><br><span class="line"></span><br><span class="line">  &lt;ImageView</span><br><span class="line">    android:id=&quot;@+id/image&quot;</span><br><span class="line">    android:layout_width=&quot;match_parent&quot;</span><br><span class="line">    android:layout_height=&quot;match_parent&quot;</span><br><span class="line">    android:layout_centerInParent=&quot;true&quot;</span><br><span class="line">    android:contentDescription=&quot;@null&quot;</span><br><span class="line">    android:scaleType=&quot;fitCenter&quot;</span><br><span class="line">    android:src=&quot;@drawable/tree&quot; /&gt;</span><br><span class="line"></span><br><span class="line">  &lt;com.stylingandroid.snowfall.SnowView</span><br><span class="line">    android:layout_width=&quot;match_parent&quot;</span><br><span class="line">    android:layout_height=&quot;match_parent&quot;</span><br><span class="line">    android:layout_alignBottom=&quot;@id/image&quot;</span><br><span class="line">    android:layout_alignEnd=&quot;@id/image&quot;</span><br><span class="line">    android:layout_alignLeft=&quot;@id/image&quot;</span><br><span class="line">    android:layout_alignRight=&quot;@id/image&quot;</span><br><span class="line">    android:layout_alignStart=&quot;@id/image&quot;</span><br><span class="line">    android:layout_alignTop=&quot;@id/image&quot; /&gt;</span><br><span class="line">&lt;/RelativeLayout&gt;</span><br></pre></td></tr></table></figure>
+
+<p>尽管可以通过继承ImageView来实现自定义View，但我决定将 <code>SnowView</code> 和图片分开，这样每次刷新动画的时候不用重新渲染图片，只刷新 <code>SnowView</code> 就行了</p>
+<p><code>SnowView.java</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line">public class SnowView extends View &#123;</span><br><span class="line">    private static final int NUM_SNOWFLAKES = 150;</span><br><span class="line">    private static final int DELAY = 5;</span><br><span class="line"></span><br><span class="line">    private SnowFlake[] snowflakes;</span><br><span class="line"></span><br><span class="line">    public SnowView(Context context) &#123;</span><br><span class="line">        super(context);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public SnowView(Context context, AttributeSet attrs) &#123;</span><br><span class="line">        super(context, attrs);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public SnowView(Context context, AttributeSet attrs, int defStyleAttr) &#123;</span><br><span class="line">        super(context, attrs, defStyleAttr);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    protected void resize(int width, int height) &#123;</span><br><span class="line">        Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);</span><br><span class="line">        paint.setColor(Color.WHITE);</span><br><span class="line">        paint.setStyle(Paint.Style.FILL);</span><br><span class="line">        snowflakes = new SnowFlake[NUM_SNOWFLAKES];</span><br><span class="line">        for (int i = 0; i &lt; NUM_SNOWFLAKES; i++) &#123;</span><br><span class="line">            snowflakes[i] = SnowFlake.create(width, height, paint);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    protected void onSizeChanged(int w, int h, int oldw, int oldh) &#123;</span><br><span class="line">        super.onSizeChanged(w, h, oldw, oldh);</span><br><span class="line">        if (w != oldw || h != oldh) &#123;</span><br><span class="line">            resize(w, h);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    protected void onDraw(Canvas canvas) &#123;</span><br><span class="line">        super.onDraw(canvas);</span><br><span class="line">        for (SnowFlake snowFlake : snowflakes) &#123;</span><br><span class="line">            snowFlake.draw(canvas);</span><br><span class="line">        &#125;</span><br><span class="line">        getHandler().postDelayed(runnable, DELAY);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private Runnable runnable = new Runnable() &#123;</span><br><span class="line">        @Override</span><br><span class="line">        public void run() &#123;</span><br><span class="line">            invalidate();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>代码很简单。 在View 的 <code>onSizeChanged</code> 方法中初始化 150 个随机位置的雪花对象。 在<code>onDraw</code>方法中画出雪花，然后每隔一段时间就刷新一下位置，需要注意的是<code>onDraw</code>没有立即去执行，而是通过创建一个runnable，这样不会阻塞UI线程<br>雪花下落是基于Samuel Arbesman的<a target="_blank" rel="noopener" href="https://www.openprocessing.org/sketch/84771">雪花下落的算法</a>。</p>
+<p><strong>SnowFlake.java</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line">class SnowFlake &#123;</span><br><span class="line">    private static final float ANGE_RANGE = 0.1f;</span><br><span class="line">    private static final float HALF_ANGLE_RANGE = ANGE_RANGE / 2f;</span><br><span class="line">    private static final float HALF_PI = (float) Math.PI / 2f;</span><br><span class="line">    private static final float ANGLE_SEED = 25f;</span><br><span class="line">    private static final float ANGLE_DIVISOR = 10000f;</span><br><span class="line">    private static final float INCREMENT_LOWER = 2f;</span><br><span class="line">    private static final float INCREMENT_UPPER = 4f;</span><br><span class="line">    private static final float FLAKE_SIZE_LOWER = 7f;</span><br><span class="line">    private static final float FLAKE_SIZE_UPPER = 20f;</span><br><span class="line"></span><br><span class="line">    private final Random random;</span><br><span class="line">    private final Point position;</span><br><span class="line">    private float angle;</span><br><span class="line">    private final float increment;</span><br><span class="line">    private final float flakeSize;</span><br><span class="line">    private final Paint paint;</span><br><span class="line"></span><br><span class="line">    public static SnowFlake create(int width, int height, Paint paint) &#123;</span><br><span class="line">        Random random = new Random();</span><br><span class="line">        int x = random.getRandom(width);</span><br><span class="line">        int y = random.getRandom(height);</span><br><span class="line">        Point position = new Point(x, y);</span><br><span class="line">        float angle = random.getRandom(ANGLE_SEED) / ANGLE_SEED * ANGE_RANGE + HALF_PI - HALF_ANGLE_RANGE;</span><br><span class="line">        float increment = random.getRandom(INCREMENT_LOWER, INCREMENT_UPPER);</span><br><span class="line">        float flakeSize = random.getRandom(FLAKE_SIZE_LOWER, FLAKE_SIZE_UPPER);</span><br><span class="line">        return new SnowFlake(random, position, angle, increment, flakeSize, paint);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    SnowFlake(Random random, Point position, float angle, float increment, float flakeSize, Paint paint) &#123;</span><br><span class="line">        this.random = random;</span><br><span class="line">        this.position = position;</span><br><span class="line">        this.angle = angle;</span><br><span class="line">        this.increment = increment;</span><br><span class="line">        this.flakeSize = flakeSize;</span><br><span class="line">        this.paint = paint;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private void move(int width, int height) &#123;</span><br><span class="line">        double x = position.x + (increment * Math.cos(angle));</span><br><span class="line">        double y = position.y + (increment * Math.sin(angle));</span><br><span class="line"></span><br><span class="line">        angle += random.getRandom(-ANGLE_SEED, ANGLE_SEED) / ANGLE_DIVISOR;</span><br><span class="line"></span><br><span class="line">        position.set((int) x, (int) y);</span><br><span class="line"></span><br><span class="line">        if (!isInside(width, height)) &#123;</span><br><span class="line">            reset(width);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private boolean isInside(int width, int height) &#123;</span><br><span class="line">        int x = position.x;</span><br><span class="line">        int y = position.y;</span><br><span class="line">        return x &gt;= -flakeSize - 1 &amp;&amp; x + flakeSize &lt;= width &amp;&amp; y &gt;= -flakeSize - 1 &amp;&amp; y - flakeSize &lt; height;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private void reset(int width) &#123;</span><br><span class="line">        position.x = random.getRandom(width);</span><br><span class="line">        position.y = (int) (-flakeSize - 1);</span><br><span class="line">        angle = random.getRandom(ANGLE_SEED) / ANGLE_SEED * ANGE_RANGE + HALF_PI - HALF_ANGLE_RANGE;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void draw(Canvas canvas) &#123;</span><br><span class="line">        int width = canvas.getWidth();</span><br><span class="line">        int height = canvas.getHeight();</span><br><span class="line">        move(width, height);</span><br><span class="line">        canvas.drawCircle(position.x, position.y, flakeSize, paint);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>初始化的时候，雪花的随机位置就已经确定了。这是为了确保雪花不会每次画的时候都在开始的位置。当一个雪花的位置超出Canvas的边界之后，它就会被重新放到顶部的一个随机位置，这样就可以循环利用了，避免了重复创建。<br>当画雪花下落的每一帧的时候，我们首先给<code>SnowFlake</code>添加一个随机数来改变位置，这样可以模仿有小风吹雪花。<br>在把雪花画到canvas上之前，我们会进行边界检查(如果需要的话，超出边界的就重新放到顶部)</p>
+<p>我一直在不断的调整里面的常量来改变下雪的效果直到我感觉满意为止。</p>
+<p>最终效果如下：</p>
+<iframe width="880" height="660" src="https://www.youtube.com/embed/pk66ZziTfOw" frameborder="0" allowfullscreen></iframe>
+
+<p>当然了，在canvas里面塞这么多东西不是一个好的方法（有其他更好的 比如OpenGL），但是，我现在要去吃火鸡了，所以可能要等下一次了。</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/StylingAndroid/Snowfall">源文件地址</a></p>
+<p>版权声明：<br>Part of this code is based upon “Snowfall” by Sam Arbesman, licensed under Creative Commons Attribution-Share Alike 3.0 and GNU GPL license.<br>Work: <a target="_blank" rel="noopener" href="https://openprocessing.org/visuals/?visualID=">https://openprocessing.org/visuals/?visualID=</a> 84771<br>License:<br><a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-sa/3.0/">https://creativecommons.org/licenses/by-sa/3.0/</a><br><a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/GPL/2.0/">https://creativecommons.org/licenses/GPL/2.0/</a></p>
+<p>© 2015, Mark Allison. All rights reserved. This article originally appeared on Styling Android.</p>
+<p>Portions of this page are modifications based on work created and shared by Google and used according to terms described in the Creative Commons 3.0 Attribution License</p>
+
+      
+    </div>
+</article>
+
+<!-- 上一页 下一页 -->
+
+
+<nav id="article-nav">
+  
+    <a href="/2015/12/31/2015/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>上一篇</span>
+      <div class="article-nav-title">
+        
+          2015回顾@hanks
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/12/30/react-zhihu/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>下一篇</span>
+      <div class="article-nav-title">React-Native 知乎日报首页</div>
+    </a>
+  
+</nav>
+
+
+
+<!-- 相关文章 -->
+
+<!--
+
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+      			<a href="/2015/12/30/snowfall/">Android 下雪动画</a>
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+
+-->
+
+
+</section>
+      </div>
+      <footer id="footer">
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      
+      &copy;2024<a target="_blank" rel="noopener" href="https://github.com/hanks-zyh"> Hanks</a>版权所有
+      <br/>
+      <a href="https://beian.miit.gov.cn/" target="_blank">豫ICP备2021022347号</a>
+	  </div>
+  </div>
+ <div id="share">
+  <a id="totop" title="" style="display: block;">返回顶部</a>
+ </div>
+</footer>
+
+    </div>
+    
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/jquery.scrollLoading.js"></script>
+
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/ads.js"></script>
+
+  </div>
+</body>
+</html>

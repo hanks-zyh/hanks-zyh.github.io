@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Android中的Interpolator | Hanks&#39; Websit</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <script data-ad-client="ca-pub-8165670162444117" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <meta name="referrer" content="never">
+  <meta name="description" content="首先介绍一个网站 https:&#x2F;&#x2F;www.desmos.com，这是一个通过函数来生成函数图像的网站，使用起来很灵活，可以 同时添加多个函数图像，分别指定他们的定义域。感谢道哥分享！   系统提供的InterpolatorLinearInterpolator 线性插值器 123456789101112131415161718public class LinearInterpolator exte">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android中的Interpolator">
+<meta property="og:url" content="https://hanks.pub/2015/07/22/Android%E4%B8%AD%E7%9A%84Interpolator/index.html">
+<meta property="og:site_name" content="Hanks&#39; Websit">
+<meta property="og:description" content="首先介绍一个网站 https:&#x2F;&#x2F;www.desmos.com，这是一个通过函数来生成函数图像的网站，使用起来很灵活，可以 同时添加多个函数图像，分别指定他们的定义域。感谢道哥分享！   系统提供的InterpolatorLinearInterpolator 线性插值器 123456789101112131415161718public class LinearInterpolator exte">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img.blog.csdn.net/20150722001839478">
+<meta property="og:image" content="https://cogitolearning.co.uk/wp-content/uploads/2013/10/linear_settings.png">
+<meta property="og:image" content="https://img.blog.csdn.net/20150722000557925">
+<meta property="og:image" content="https://cogitolearning.co.uk/wp-content/uploads/2013/10/accelerate_settings.png">
+<meta property="og:image" content="https://img.blog.csdn.net/20150722001105691">
+<meta property="og:image" content="https://cogitolearning.co.uk/wp-content/uploads/2013/10/decelerate_settings.png">
+<meta property="og:image" content="https://img.blog.csdn.net/20150722001638975">
+<meta property="og:image" content="https://cogitolearning.co.uk/wp-content/uploads/2013/10/accelerate_decelerate_settings.png">
+<meta property="og:image" content="https://img.blog.csdn.net/20150722004214712">
+<meta property="og:image" content="https://cogitolearning.co.uk/wp-content/uploads/2013/10/bounce_settings.png">
+<meta property="og:image" content="https://img.blog.csdn.net/20150722002030894">
+<meta property="og:image" content="https://cogitolearning.co.uk/wp-content/uploads/2013/10/anticipate_settings.png">
+<meta property="og:image" content="https://img.blog.csdn.net/20150722004047492">
+<meta property="og:image" content="https://cogitolearning.co.uk/wp-content/uploads/2013/10/anticipate_overshoot_settings.png">
+<meta property="og:image" content="https://img.blog.csdn.net/20150722004311238">
+<meta property="og:image" content="https://cogitolearning.co.uk/wp-content/uploads/2013/10/cycle_settings.png">
+<meta property="og:image" content="https://img.blog.csdn.net/20150722002152522">
+<meta property="og:image" content="https://cogitolearning.co.uk/wp-content/uploads/2013/10/overshoot_settings.png">
+<meta property="og:image" content="https://img.blog.csdn.net/20150722003201447">
+<meta property="og:image" content="https://img.blog.csdn.net/20150722003043764">
+<meta property="article:published_time" content="2015-07-21T16:38:00.000Z">
+<meta property="article:modified_time" content="2024-02-08T01:29:02.169Z">
+<meta property="article:author" content="Hanks">
+<meta property="article:tag" content="Android">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img.blog.csdn.net/20150722001839478">
+  
+  
+  <link href="https://fonts.googleapis.com/css?family=Fira+Code|Noto+Serif+SC&display=swap" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8165670162444117"
+     crossorigin="anonymous"></script>
+  <div id="header-outer" class="outer">
+    <a href="/" class="logo"></a>
+    <nav id="main-nav">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      
+        <a class="main-nav-link" href="/archives">Archive</a>
+      
+        <a class="main-nav-link" href="/eye-video">Eye</a>
+      
+        <a class="main-nav-link" href="/atom.xml">Rss</a>
+      
+    </nav>
+  </div>
+</header>
+      <nav id="mobile-nav" class="off">
+  
+    <a href="/archives" class="mobile-nav-link">Archive</a>
+  
+    <a href="/eye-video" class="mobile-nav-link">Eye</a>
+  
+    <a href="/atom.xml" class="mobile-nav-link">Rss</a>
+  
+</nav>
+      <div class="outer">
+        <section id="main"><article id="post-Android中的Interpolator" class="article article-type-post" itemscope
+  itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <header class="article-header">
+      
+      
+  
+    <h1 class="article-title" itemprop="name">
+      Android中的Interpolator
+    </h1>
+  
+
+      
+    </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      <blockquote>
+<p>首先介绍一个网站 <a target="_blank" rel="noopener" href="https://www.desmos.com/">https://www.desmos.com</a>，这是一个通过函数来生成函数图像的网站，使用起来很灵活，可以 同时添加多个函数图像，分别指定他们的定义域。感谢道哥分享！</p>
+</blockquote>
+<hr>
+<h1 id="系统提供的Interpolator"><a href="#系统提供的Interpolator" class="headerlink" title="系统提供的Interpolator"></a>系统提供的Interpolator</h1><h2 id="LinearInterpolator-线性插值器"><a href="#LinearInterpolator-线性插值器" class="headerlink" title="LinearInterpolator 线性插值器"></a>LinearInterpolator 线性插值器</h2><p><img src="https://img.blog.csdn.net/20150722001839478" alt="这里写图片描述"><br><img src="https://cogitolearning.co.uk/wp-content/uploads/2013/10/linear_settings.png" alt="这里写图片描述"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">public class LinearInterpolator extends BaseInterpolator implements NativeInterpolatorFactory &#123;</span><br><span class="line"></span><br><span class="line">    public LinearInterpolator() &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public LinearInterpolator(Context context, AttributeSet attrs) &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public float getInterpolation(float input) &#123;</span><br><span class="line">        return input;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /** @hide */</span><br><span class="line">    @Override</span><br><span class="line">    public long createNativeInterpolator() &#123;</span><br><span class="line">        return NativeInterpolatorFactoryHelper.createLinearInterpolator();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="AccelerateInterpolator-加速插值器"><a href="#AccelerateInterpolator-加速插值器" class="headerlink" title="AccelerateInterpolator  加速插值器"></a>AccelerateInterpolator  加速插值器</h2><h2 id="源代码：-减速DecelerateInterpolator源码：-AccelerateDecelerateInterpolator-加速减速插值器源码："><a href="#源代码：-减速DecelerateInterpolator源码：-AccelerateDecelerateInterpolator-加速减速插值器源码：" class="headerlink" title="  源代码：## 减速DecelerateInterpolator源码：##AccelerateDecelerateInterpolator  加速减速插值器源码："></a> <img src="https://img.blog.csdn.net/20150722000557925" alt="这里写图片描述"><br> <img src="https://cogitolearning.co.uk/wp-content/uploads/2013/10/accelerate_settings.png" alt="这里写图片描述"><br>源代码：<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">public class AccelerateDecelerateInterpolator extends BaseInterpolator</span><br><span class="line">        implements NativeInterpolatorFactory &#123;</span><br><span class="line">    public AccelerateDecelerateInterpolator() &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @SuppressWarnings(&#123;&quot;UnusedDeclaration&quot;&#125;)</span><br><span class="line">    public AccelerateDecelerateInterpolator(Context context, AttributeSet attrs) &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public float getInterpolation(float input) &#123; //这里定义的函数</span><br><span class="line">        return (float)(Math.cos((input + 1) * Math.PI) / 2.0f) + 0.5f;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /** @hide */</span><br><span class="line">    @Override</span><br><span class="line">    public long createNativeInterpolator() &#123;</span><br><span class="line">        return NativeInterpolatorFactoryHelper.createAccelerateDecelerateInterpolator();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>## 减速DecelerateInterpolator<br><img src="https://img.blog.csdn.net/20150722001105691" alt="这里写图片描述"><br><img src="https://cogitolearning.co.uk/wp-content/uploads/2013/10/decelerate_settings.png" alt="这里写图片描述"><br>源码：<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * An interpolator where the rate of change starts out quickly and</span><br><span class="line"> * and then decelerates.</span><br><span class="line"> *</span><br><span class="line"> */</span><br><span class="line">@HasNativeInterpolator</span><br><span class="line">public class DecelerateInterpolator extends BaseInterpolator implements NativeInterpolatorFactory &#123;</span><br><span class="line">    public DecelerateInterpolator() &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * Constructor</span><br><span class="line">     *</span><br><span class="line">     * @param factor Degree to which the animation should be eased. Setting factor to 1.0f produces</span><br><span class="line">     *        an upside-down y=x^2 parabola. Increasing factor above 1.0f makes exaggerates the</span><br><span class="line">     *        ease-out effect (i.e., it starts even faster and ends evens slower)</span><br><span class="line">     */</span><br><span class="line">    public DecelerateInterpolator(float factor) &#123;</span><br><span class="line">        mFactor = factor;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public DecelerateInterpolator(Context context, AttributeSet attrs) &#123;</span><br><span class="line">        this(context.getResources(), context.getTheme(), attrs);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /** @hide */</span><br><span class="line">    public DecelerateInterpolator(Resources res, Theme theme, AttributeSet attrs) &#123;</span><br><span class="line">        TypedArray a;</span><br><span class="line">        if (theme != null) &#123;</span><br><span class="line">            a = theme.obtainStyledAttributes(attrs, R.styleable.DecelerateInterpolator, 0, 0);</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            a = res.obtainAttributes(attrs, R.styleable.DecelerateInterpolator);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        mFactor = a.getFloat(R.styleable.DecelerateInterpolator_factor, 1.0f);</span><br><span class="line">        setChangingConfiguration(a.getChangingConfigurations());</span><br><span class="line">        a.recycle();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public float getInterpolation(float input) &#123;</span><br><span class="line">        float result;</span><br><span class="line">        if (mFactor == 1.0f) &#123;</span><br><span class="line">            result = (float)(1.0f - (1.0f - input) * (1.0f - input));</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            result = (float)(1.0f - Math.pow((1.0f - input), 2 * mFactor));</span><br><span class="line">        &#125;</span><br><span class="line">        return result;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private float mFactor = 1.0f;</span><br><span class="line"></span><br><span class="line">    /** @hide */</span><br><span class="line">    @Override</span><br><span class="line">    public long createNativeInterpolator() &#123;</span><br><span class="line">        return NativeInterpolatorFactoryHelper.createDecelerateInterpolator(mFactor);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>##AccelerateDecelerateInterpolator  加速减速插值器<br><img src="https://img.blog.csdn.net/20150722001638975" alt="这里写图片描述"><br><img src="https://cogitolearning.co.uk/wp-content/uploads/2013/10/accelerate_decelerate_settings.png" alt="这里写图片描述"><br>源码：<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">@HasNativeInterpolator</span><br><span class="line">public class AccelerateDecelerateInterpolator extends BaseInterpolator</span><br><span class="line">        implements NativeInterpolatorFactory &#123;</span><br><span class="line">    public AccelerateDecelerateInterpolator() &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @SuppressWarnings(&#123;&quot;UnusedDeclaration&quot;&#125;)</span><br><span class="line">    public AccelerateDecelerateInterpolator(Context context, AttributeSet attrs) &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public float getInterpolation(float input) &#123; //这里定义函数</span><br><span class="line">        return (float)(Math.cos((input + 1) * Math.PI) / 2.0f) + 0.5f;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /** @hide */</span><br><span class="line">    @Override</span><br><span class="line">    public long createNativeInterpolator() &#123;</span><br><span class="line">        return NativeInterpolatorFactoryHelper.createAccelerateDecelerateInterpolator();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></h2><h2 id="BounceInterpolator-弹跳插值器"><a href="#BounceInterpolator-弹跳插值器" class="headerlink" title="BounceInterpolator 弹跳插值器"></a>BounceInterpolator 弹跳插值器</h2><h2 id=""><a href="#" class="headerlink" title=""></a><img src="https://img.blog.csdn.net/20150722004214712" alt="这里写图片描述"><br><img src="https://cogitolearning.co.uk/wp-content/uploads/2013/10/bounce_settings.png" alt="这里写图片描述"><br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">package android.view.animation;</span><br><span class="line"></span><br><span class="line">import android.content.Context;</span><br><span class="line">import android.util.AttributeSet;</span><br><span class="line"></span><br><span class="line">import com.android.internal.view.animation.HasNativeInterpolator;</span><br><span class="line">import com.android.internal.view.animation.NativeInterpolatorFactory;</span><br><span class="line">import com.android.internal.view.animation.NativeInterpolatorFactoryHelper;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * An interpolator where the change bounces at the end.</span><br><span class="line"> */</span><br><span class="line">@HasNativeInterpolator</span><br><span class="line">public class BounceInterpolator extends BaseInterpolator implements NativeInterpolatorFactory &#123;</span><br><span class="line">    public BounceInterpolator() &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @SuppressWarnings(&#123;&quot;UnusedDeclaration&quot;&#125;)</span><br><span class="line">    public BounceInterpolator(Context context, AttributeSet attrs) &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private static float bounce(float t) &#123;</span><br><span class="line">        return t * t * 8.0f;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public float getInterpolation(float t) &#123;</span><br><span class="line">        // _b(t) = t * t * 8</span><br><span class="line">        // bs(t) = _b(t) for t &lt; 0.3535</span><br><span class="line">        // bs(t) = _b(t - 0.54719) + 0.7 for t &lt; 0.7408</span><br><span class="line">        // bs(t) = _b(t - 0.8526) + 0.9 for t &lt; 0.9644</span><br><span class="line">        // bs(t) = _b(t - 1.0435) + 0.95 for t &lt;= 1.0</span><br><span class="line">        // b(t) = bs(t * 1.1226)</span><br><span class="line">        t *= 1.1226f;</span><br><span class="line">        if (t &lt; 0.3535f) return bounce(t);</span><br><span class="line">        else if (t &lt; 0.7408f) return bounce(t - 0.54719f) + 0.7f;</span><br><span class="line">        else if (t &lt; 0.9644f) return bounce(t - 0.8526f) + 0.9f;</span><br><span class="line">        else return bounce(t - 1.0435f) + 0.95f;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /** @hide */</span><br><span class="line">    @Override</span><br><span class="line">    public long createNativeInterpolator() &#123;</span><br><span class="line">        return NativeInterpolatorFactoryHelper.createBounceInterpolator();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></h2><h2 id="AnticipateInterpolator-回荡秋千插值器"><a href="#AnticipateInterpolator-回荡秋千插值器" class="headerlink" title="##AnticipateInterpolator 回荡秋千插值器"></a>##AnticipateInterpolator 回荡秋千插值器<br><img src="https://img.blog.csdn.net/20150722002030894" alt="这里写图片描述"><br><img src="https://cogitolearning.co.uk/wp-content/uploads/2013/10/anticipate_settings.png" alt="这里写图片描述"><br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">public class AnticipateInterpolator extends BaseInterpolator implements NativeInterpolatorFactory &#123;</span><br><span class="line">    private final float mTension;</span><br><span class="line"></span><br><span class="line">    public AnticipateInterpolator() &#123;</span><br><span class="line">        mTension = 2.0f;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * @param tension Amount of anticipation. When tension equals 0.0f, there is</span><br><span class="line">     *                no anticipation and the interpolator becomes a simple</span><br><span class="line">     *                acceleration interpolator.</span><br><span class="line">     */</span><br><span class="line">    public AnticipateInterpolator(float tension) &#123;</span><br><span class="line">        mTension = tension;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public AnticipateInterpolator(Context context, AttributeSet attrs) &#123;</span><br><span class="line">        this(context.getResources(), context.getTheme(), attrs);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /** @hide */</span><br><span class="line">    public AnticipateInterpolator(Resources res, Theme theme, AttributeSet attrs) &#123;</span><br><span class="line">        TypedArray a;</span><br><span class="line">        if (theme != null) &#123;</span><br><span class="line">            a = theme.obtainStyledAttributes(attrs, R.styleable.AnticipateInterpolator, 0, 0);</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            a = res.obtainAttributes(attrs, R.styleable.AnticipateInterpolator);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        mTension = a.getFloat(R.styleable.AnticipateInterpolator_tension, 2.0f);</span><br><span class="line">        setChangingConfiguration(a.getChangingConfigurations());</span><br><span class="line">        a.recycle();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public float getInterpolation(float t) &#123;</span><br><span class="line">        // a(t) = t * t * ((tension + 1) * t - tension)</span><br><span class="line">        return t * t * ((mTension + 1) * t - mTension);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /** @hide */</span><br><span class="line">    @Override</span><br><span class="line">    public long createNativeInterpolator() &#123;</span><br><span class="line">        return NativeInterpolatorFactoryHelper.createAnticipateInterpolator(mTension);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></h2><h2 id="AnticipateOvershootInterpolator"><a href="#AnticipateOvershootInterpolator" class="headerlink" title="AnticipateOvershootInterpolator"></a>AnticipateOvershootInterpolator</h2><h2 id="-1"><a href="#-1" class="headerlink" title=""></a><img src="https://img.blog.csdn.net/20150722004047492" alt="这里写图片描述"><br><img src="https://cogitolearning.co.uk/wp-content/uploads/2013/10/anticipate_overshoot_settings.png"><br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * An interpolator where the change starts backward then flings forward and overshoots</span><br><span class="line"> * the target value and finally goes back to the final value.</span><br><span class="line"> */</span><br><span class="line">@HasNativeInterpolator</span><br><span class="line">public class AnticipateOvershootInterpolator extends BaseInterpolator</span><br><span class="line">        implements NativeInterpolatorFactory &#123;</span><br><span class="line">    private final float mTension;</span><br><span class="line"></span><br><span class="line">    public AnticipateOvershootInterpolator() &#123;</span><br><span class="line">        mTension = 2.0f * 1.5f;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * @param tension Amount of anticipation/overshoot. When tension equals 0.0f,</span><br><span class="line">     *                there is no anticipation/overshoot and the interpolator becomes</span><br><span class="line">     *                a simple acceleration/deceleration interpolator.</span><br><span class="line">     */</span><br><span class="line">    public AnticipateOvershootInterpolator(float tension) &#123;</span><br><span class="line">        mTension = tension * 1.5f;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * @param tension Amount of anticipation/overshoot. When tension equals 0.0f,</span><br><span class="line">     *                there is no anticipation/overshoot and the interpolator becomes</span><br><span class="line">     *                a simple acceleration/deceleration interpolator.</span><br><span class="line">     * @param extraTension Amount by which to multiply the tension. For instance,</span><br><span class="line">     *                     to get the same overshoot as an OvershootInterpolator with</span><br><span class="line">     *                     a tension of 2.0f, you would use an extraTension of 1.5f.</span><br><span class="line">     */</span><br><span class="line">    public AnticipateOvershootInterpolator(float tension, float extraTension) &#123;</span><br><span class="line">        mTension = tension * extraTension;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public AnticipateOvershootInterpolator(Context context, AttributeSet attrs) &#123;</span><br><span class="line">        this(context.getResources(), context.getTheme(), attrs);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /** @hide */</span><br><span class="line">    public AnticipateOvershootInterpolator(Resources res, Theme theme, AttributeSet attrs) &#123;</span><br><span class="line">        TypedArray a;</span><br><span class="line">        if (theme != null) &#123;</span><br><span class="line">            a = theme.obtainStyledAttributes(attrs, AnticipateOvershootInterpolator, 0, 0);</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            a = res.obtainAttributes(attrs, AnticipateOvershootInterpolator);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        mTension = a.getFloat(AnticipateOvershootInterpolator_tension, 2.0f) *</span><br><span class="line">                a.getFloat(AnticipateOvershootInterpolator_extraTension, 1.5f);</span><br><span class="line">        setChangingConfiguration(a.getChangingConfigurations());</span><br><span class="line">        a.recycle();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private static float a(float t, float s) &#123;</span><br><span class="line">        return t * t * ((s + 1) * t - s);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private static float o(float t, float s) &#123;</span><br><span class="line">        return t * t * ((s + 1) * t + s);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public float getInterpolation(float t) &#123;</span><br><span class="line">        // a(t, s) = t * t * ((s + 1) * t - s)</span><br><span class="line">        // o(t, s) = t * t * ((s + 1) * t + s)</span><br><span class="line">        // f(t) = 0.5 * a(t * 2, tension * extraTension), when t &lt; 0.5</span><br><span class="line">        // f(t) = 0.5 * (o(t * 2 - 2, tension * extraTension) + 2), when t &lt;= 1.0</span><br><span class="line">        if (t &lt; 0.5f) return 0.5f * a(t * 2.0f, mTension);</span><br><span class="line">        else return 0.5f * (o(t * 2.0f - 2.0f, mTension) + 2.0f);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /** @hide */</span><br><span class="line">    @Override</span><br><span class="line">    public long createNativeInterpolator() &#123;</span><br><span class="line">        return NativeInterpolatorFactoryHelper.createAnticipateOvershootInterpolator(mTension);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></h2><h2 id="CycleInterpolator-正弦周期变化插值器"><a href="#CycleInterpolator-正弦周期变化插值器" class="headerlink" title="CycleInterpolator 正弦周期变化插值器"></a>CycleInterpolator 正弦周期变化插值器</h2><h2 id="-2"><a href="#-2" class="headerlink" title=""></a><img src="https://img.blog.csdn.net/20150722004311238" alt="这里写图片描述"><br><img src="https://cogitolearning.co.uk/wp-content/uploads/2013/10/cycle_settings.png"><br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"> @HasNativeInterpolator</span><br><span class="line">public class CycleInterpolator extends BaseInterpolator implements NativeInterpolatorFactory &#123;</span><br><span class="line">    public CycleInterpolator(float cycles) &#123;</span><br><span class="line">        mCycles = cycles;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public CycleInterpolator(Context context, AttributeSet attrs) &#123;</span><br><span class="line">        this(context.getResources(), context.getTheme(), attrs);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /** @hide */</span><br><span class="line">    public CycleInterpolator(Resources resources, Theme theme, AttributeSet attrs) &#123;</span><br><span class="line">        TypedArray a;</span><br><span class="line">        if (theme != null) &#123;</span><br><span class="line">            a = theme.obtainStyledAttributes(attrs, R.styleable.CycleInterpolator, 0, 0);</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            a = resources.obtainAttributes(attrs, R.styleable.CycleInterpolator);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        mCycles = a.getFloat(R.styleable.CycleInterpolator_cycles, 1.0f);</span><br><span class="line">        setChangingConfiguration(a.getChangingConfigurations());</span><br><span class="line">        a.recycle();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public float getInterpolation(float input) &#123;</span><br><span class="line">        return (float)(Math.sin(2 * mCycles * Math.PI * input));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private float mCycles;</span><br><span class="line"></span><br><span class="line">    /** @hide */</span><br><span class="line">    @Override</span><br><span class="line">    public long createNativeInterpolator() &#123;</span><br><span class="line">        return NativeInterpolatorFactoryHelper.createCycleInterpolator(mCycles);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></h2><p>##OvershootInterpolator<br><img src="https://img.blog.csdn.net/20150722002152522" alt="这里写图片描述"><br><img src="https://cogitolearning.co.uk/wp-content/uploads/2013/10/overshoot_settings.png" alt="这里写图片描述"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * An interpolator where the change flings forward and overshoots the last value</span><br><span class="line"> * then comes back.</span><br><span class="line"> */</span><br><span class="line">@HasNativeInterpolator</span><br><span class="line">public class OvershootInterpolator extends BaseInterpolator implements NativeInterpolatorFactory &#123;</span><br><span class="line">    private final float mTension;</span><br><span class="line"></span><br><span class="line">    public OvershootInterpolator() &#123;</span><br><span class="line">        mTension = 2.0f;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * @param tension Amount of overshoot. When tension equals 0.0f, there is</span><br><span class="line">     *                no overshoot and the interpolator becomes a simple</span><br><span class="line">     *                deceleration interpolator.</span><br><span class="line">     */</span><br><span class="line">    public OvershootInterpolator(float tension) &#123;</span><br><span class="line">        mTension = tension;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public OvershootInterpolator(Context context, AttributeSet attrs) &#123;</span><br><span class="line">        this(context.getResources(), context.getTheme(), attrs);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /** @hide */</span><br><span class="line">    public OvershootInterpolator(Resources res, Theme theme, AttributeSet attrs) &#123;</span><br><span class="line">        TypedArray a;</span><br><span class="line">        if (theme != null) &#123;</span><br><span class="line">            a = theme.obtainStyledAttributes(attrs, R.styleable.OvershootInterpolator, 0, 0);</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            a = res.obtainAttributes(attrs, R.styleable.OvershootInterpolator);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        mTension = a.getFloat(R.styleable.OvershootInterpolator_tension, 2.0f);</span><br><span class="line">        setChangingConfiguration(a.getChangingConfigurations());</span><br><span class="line">        a.recycle();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public float getInterpolation(float t) &#123;</span><br><span class="line">        // _o(t) = t * t * ((tension + 1) * t + tension)</span><br><span class="line">        // o(t) = _o(t - 1) + 1</span><br><span class="line">        t -= 1.0f;</span><br><span class="line">        return t * t * ((mTension + 1) * t + mTension) + 1.0f;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /** @hide */</span><br><span class="line">    @Override</span><br><span class="line">    public long createNativeInterpolator() &#123;</span><br><span class="line">        return NativeInterpolatorFactoryHelper.createOvershootInterpolator(mTension);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p>#自定义Interpolator</p>
+<p>Interpolator源码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">package android.view.animation;</span><br><span class="line"></span><br><span class="line">import android.animation.TimeInterpolator;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * An interpolator defines the rate of change of an animation. This allows</span><br><span class="line"> * the basic animation effects (alpha, scale, translate, rotate) to be</span><br><span class="line"> * accelerated, decelerated, repeated, etc.</span><br><span class="line"> */</span><br><span class="line">public interface Interpolator extends TimeInterpolator &#123;</span><br><span class="line">    // A new interface, TimeInterpolator, was introduced for the new android.animation</span><br><span class="line">    // package. This older Interpolator interface extends TimeInterpolator so that users of</span><br><span class="line">    // the new Animator-based animations can use either the old Interpolator implementations or</span><br><span class="line">    // new classes that implement TimeInterpolator directly.</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们来写自己的类来实现该接口</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">import android.view.animation.Interpolator;</span><br><span class="line">public class MyInterpolator implements Interpolator &#123;</span><br><span class="line">	private float mFactor;</span><br><span class="line">	private int i;</span><br><span class="line">	public MyInterpolator(int i)&#123;</span><br><span class="line">		this.i = i;</span><br><span class="line">	&#125;</span><br><span class="line">	@Override</span><br><span class="line">	public float getInterpolation(float input) &#123; //定义我们的函数，input: 0 ~ 1</span><br><span class="line">		switch(i)&#123;</span><br><span class="line">			case 1:mFactor = input;</span><br><span class="line">				break;</span><br><span class="line">			case 2:mFactor = input*input*input;</span><br><span class="line">				break;</span><br><span class="line">		&#125;</span><br><span class="line">		return mFactor;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>来个复杂的：</p>
+<p>用desmos画一个：<br><img src="https://img.blog.csdn.net/20150722003201447" alt="这里写图片描述"></p>
+<p><img src="https://img.blog.csdn.net/20150722003043764" alt="这里写图片描述"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">@Override</span><br><span class="line">public float getInterpolation(float t) &#123; //定义我们的函数，t: 0 ~ 1</span><br><span class="line">	if(t&lt;0.2094) return (float)(-34*(t-0.18)*(t-0.18)+1.08);</span><br><span class="line">	else if(t &lt;0.404) return (float)(5.9*(t-0.34)*(t-0.34)+0.95);</span><br><span class="line">	else if(t &lt; 0.6045) return (float)(-3*(t-0.53)*(t-0.53)+1.02);</span><br><span class="line">	else if(t &lt; 0.8064) return (float)((t-0.72)*(t-0.72)+0.99);</span><br><span class="line">	else return (float)(-0.3*(t-0.915)*(t-0.915)+1.001);</span><br><span class="line">	return mFactor;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+</article>
+
+<!-- 上一页 下一页 -->
+
+
+<nav id="article-nav">
+  
+    <a href="/2015/08/11/%E6%9D%A5%E8%87%AAGradle%E7%9A%84hello_world/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>上一篇</span>
+      <div class="article-nav-title">
+        
+          来自Gradle的hello world
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/07/06/%E4%BD%BF%E7%94%A8Kotlin%E5%BC%80%E5%8F%91Android%E5%BA%94%E7%94%A8%EF%BC%88II%EF%BC%89%EF%BC%9A%E5%88%9B%E5%BB%BA%E6%96%B0%E5%B7%A5%E7%A8%8B/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left"></i><span>下一篇</span>
+      <div class="article-nav-title">使用Kotlin开发Android应用（II）：创建新工程</div>
+    </a>
+  
+</nav>
+
+
+
+<!-- 相关文章 -->
+
+<!--
+
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+      			<a href="/2015/07/22/Android%E4%B8%AD%E7%9A%84Interpolator/">Android中的Interpolator</a>
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+      		
+    
+
+-->
+
+
+</section>
+      </div>
+      <footer id="footer">
+  <div class="outer footer_center">
+    <div id="footer-info" class="inner">
+      
+      &copy;2024<a target="_blank" rel="noopener" href="https://github.com/hanks-zyh"> Hanks</a>版权所有
+      <br/>
+      <a href="https://beian.miit.gov.cn/" target="_blank">豫ICP备2021022347号</a>
+	  </div>
+  </div>
+ <div id="share">
+  <a id="totop" title="" style="display: block;">返回顶部</a>
+ </div>
+</footer>
+
+    </div>
+    
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+<script src="/js/jquery.scrollLoading.js"></script>
+
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/ads.js"></script>
+
+  </div>
+</body>
+</html>
